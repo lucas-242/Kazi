@@ -1,0 +1,1 @@
+enum ServiceType { home, salon }
