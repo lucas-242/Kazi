@@ -29,7 +29,7 @@ class _SplashPageState extends State<SplashPage> {
     userStream = auth.userChanges().listen((user) {
       if (user != null) {
         auth.user = user;
-        Navigator.pushReplacementNamed(context, AppRoutes.app);
+        Navigator.pushReplacementNamed(context, AppRoutes.home);
         userStream.cancel();
       } else {
         Navigator.pushReplacementNamed(context, AppRoutes.login);

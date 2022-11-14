@@ -1,5 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:my_services/views/home/home.dart';
 
 import 'core/routes/app_routes.dart';
 import 'views/login/login.dart';
@@ -33,7 +34,10 @@ class _AppWidgetState extends State<AppWidget> {
                 darkTheme: appTheme.dark(defaultThemeSettings.sourceColor),
                 themeMode: defaultThemeSettings.themeMode,
                 home: const SplashPage(),
-                routes: {AppRoutes.login: (context) => const LoginPage()},
+                routes: {
+                  AppRoutes.login: (context) => const LoginPage(),
+                  AppRoutes.home: (context) => const HomePage(),
+                },
               );
             }),
           ),
