@@ -72,6 +72,40 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
+  Future<void> updateServiceType() async {
+    try {
+      //TODO: Create useCase
+      if (state.serviceType.name == '' &&
+          state.serviceTypeList
+              .map((e) => e.name)
+              .contains(state.serviceType.name)) {
+        return;
+      }
+
+      emit(state.copyWith(status: BaseStateStatus.loading));
+
+      await serviceTypeRepository.update(state.serviceType);
+      final index = state.serviceTypeList
+          .indexWhere((element) => element.id == state.serviceType.id);
+      final newList = state.serviceTypeList..[index] = state.serviceType;
+
+      emit(state.copyWith(
+          status: BaseStateStatus.success,
+          serviceTypeList: newList,
+          serviceType: ServiceType(userId: authService.user!.uid)));
+    } on AppError catch (exception) {
+      emit(state.copyWith(
+        callbackMessage: exception.message,
+        status: BaseStateStatus.error,
+      ));
+    } catch (exception) {
+      emit(state.copyWith(
+        callbackMessage: 'Erro inesperado',
+        status: BaseStateStatus.error,
+      ));
+    }
+  }
+
   Future<void> deleteServiceType(ServiceType serviceType) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
@@ -95,20 +129,28 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
+  void eraseServiceType() {
+    emit(state.copyWith(
+        serviceType: ServiceType(userId: authService.user!.uid)));
+  }
+
+  void changeServiceType(ServiceType serviceType) {
+    emit(state.copyWith(serviceType: serviceType));
+  }
+
   void changeServiceTypeName(String value) {
-    state.serviceType = state.serviceType.copyWith(name: value);
-    emit(state);
+    emit(state.copyWith(serviceType: state.serviceType.copyWith(name: value)));
   }
 
   void changeServiceTypeDefaultValue(String value) {
     final finalValue = double.tryParse(value);
-    state.serviceType = state.serviceType.copyWith(defaultValue: finalValue);
-    emit(state);
+    emit(state.copyWith(
+        serviceType: state.serviceType.copyWith(defaultValue: finalValue)));
   }
 
   void changeServiceTypeDiscountPercent(String value) {
     final finalValue = double.tryParse(value);
-    state.serviceType = state.serviceType.copyWith(discountPercent: finalValue);
-    emit(state);
+    emit(state.copyWith(
+        serviceType: state.serviceType.copyWith(discountPercent: finalValue)));
   }
 }

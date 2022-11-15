@@ -6,7 +6,10 @@ import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.da
 import '../../../shared/widgets/custom_text_form_field/custom_text_form_field_widget.dart';
 
 class AddServiceTypeForm extends StatefulWidget {
-  const AddServiceTypeForm({super.key});
+  final String labelButton;
+  final Function() onConfirm;
+  const AddServiceTypeForm(
+      {super.key, required this.labelButton, required this.onConfirm});
 
   @override
   State<AddServiceTypeForm> createState() => _AddServiceTypeFormState();
@@ -34,8 +37,8 @@ class _AddServiceTypeFormState extends State<AddServiceTypeForm> {
             _DiscountPercentField(fieldKey: _discountPercentKey),
             const SizedBox(height: 15),
             CustomElevatedButton(
-              onTap: () => context.read<SettingsCubit>().addServiceType(),
-              text: 'Adicionar',
+              onTap: () => widget.onConfirm(),
+              text: widget.labelButton,
             ),
           ],
         ),

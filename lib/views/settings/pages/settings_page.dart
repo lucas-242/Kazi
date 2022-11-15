@@ -73,20 +73,19 @@ class _Build extends StatelessWidget {
             itemCount: state.serviceTypeList.length,
             itemBuilder: (context, index) => ServiceTypeCard(
               serviceType: state.serviceTypeList[index],
+              onTapEdit: (serviceType) {
+                context.read<SettingsCubit>().changeServiceType(serviceType);
+                Navigator.pushNamed(context, AppRoutes.addServiceType);
+              },
               onTapDelete: (serviceType) =>
                   context.read<SettingsCubit>().deleteServiceType(serviceType),
             ),
           );
         }),
-        TextButton(
-          onPressed: () =>
-              Navigator.pushNamed(context, AppRoutes.addServiceType),
-          child: Row(
-            children: const [
-              Icon(Icons.add),
-              Text('Adicionar Serviço'),
-            ],
-          ),
+        const SizedBox(height: 25),
+        CustomElevatedButton(
+          onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
+          text: 'Adicionar Serviço',
         ),
         const SizedBox(height: 15),
       ],

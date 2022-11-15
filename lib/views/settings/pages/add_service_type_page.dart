@@ -16,29 +16,56 @@ class AddServiceTypePage extends StatefulWidget {
 class _AddServiceTypePageState extends State<AddServiceTypePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocListener<SettingsCubit, SettingsState>(
-          listenWhen: (previous, current) => previous.status != current.status,
-          listener: (context, state) {
-            if (state.status == BaseStateStatus.success) {
-              Navigator.of(context).pop();
-            } else if (state.status == BaseStateStatus.error) {
-              getCustomSnackBar(
-                context,
-                message: state.callbackMessage,
-                type: SnackBarType.error,
-              );
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: Column(
-              children: [
-                Text('Adicionar tipo de serviço', style: context.headlineSmall),
-                const SizedBox(height: 25),
-                const AddServiceTypeForm(),
-              ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.read<SettingsCubit>().eraseServiceType();
+        return true;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: BlocListener<SettingsCubit, SettingsState>(
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
+            listener: (context, state) {
+              if (state.status == BaseStateStatus.success) {
+                Navigator.of(context).pop();
+              } else if (state.status == BaseStateStatus.error) {
+                getCustomSnackBar(
+                  context,
+                  message: state.callbackMessage,
+                  type: SnackBarType.error,
+                );
+              }
+            },
+            child: BlocBuilder<SettingsCubit, SettingsState>(
+              builder: (context, state) {
+                final label =
+                    state.serviceType.id != '' ? 'Editar' : 'Adicionar';
+                return Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Column(
+                    children: [
+                      Visibility(
+                        visible: state.serviceType.id != '',
+                        child: Text('$label tipo de serviço',
+                            style: context.headlineSmall),
+                      ),
+                      Visibility(
+                        visible: state.serviceType.id == '',
+                        child: Text('$label tipo de serviço',
+                            style: context.headlineSmall),
+                      ),
+                      const SizedBox(height: 25),
+                      AddServiceTypeForm(
+                        labelButton: label,
+                        onConfirm: () => state.serviceType.id == ''
+                            ? context.read<SettingsCubit>().addServiceType()
+                            : context.read<SettingsCubit>().updateServiceType(),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ),
