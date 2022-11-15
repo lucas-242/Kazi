@@ -9,8 +9,8 @@ import '../../../core/errors/app_error.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  ServiceProvidedRepository serviceProvidedRepository;
-  AuthService authService;
+  final ServiceProvidedRepository serviceProvidedRepository;
+  final AuthService authService;
 
   HomeCubit(this.serviceProvidedRepository, this.authService)
       : super(HomeState(

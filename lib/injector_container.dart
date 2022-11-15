@@ -13,7 +13,8 @@ final locator = GetIt.instance;
 Future<void> init() async {
   locator.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
 
-  locator.registerLazySingleton<AuthService>(() => AuthServiceFirebaseImpl());
+  locator.registerSingleton<AuthService>(AuthServiceFirebaseImpl());
+
   locator.registerFactory<ServiceProvidedRepository>(
     () =>
         ServiceProvidedRepositoryFirebaseImpl(locator.get<FirebaseFirestore>()),

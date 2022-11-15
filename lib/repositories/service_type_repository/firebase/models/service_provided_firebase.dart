@@ -44,6 +44,7 @@ class ServiceProvidedFirebase extends ServiceProvided {
   factory ServiceProvidedFirebase.fromJson(String source) =>
       ServiceProvidedFirebase.fromMap(json.decode(source));
 
+  @override
   ServiceProvidedFirebase copyWith({
     String? id,
     String? description,

@@ -9,8 +9,8 @@ import '../../../shared/widgets/base_state/base_state.dart';
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
-  ServiceTypeRepository serviceTypeRepository;
-  AuthService authService;
+  final ServiceTypeRepository serviceTypeRepository;
+  final AuthService authService;
 
   SettingsCubit(this.serviceTypeRepository, this.authService)
       : super(
