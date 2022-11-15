@@ -39,7 +39,7 @@ class _AddServiceProvidedFormState extends State<AddServiceProvidedForm> {
           children: [
             //TODO: Dropdown
             _ServiceTypeField(fieldKey: _dropdownKey),
-            const SizedBox(height: 10),
+            const SizedBox(height: 25),
             _ValueField(fieldKey: _valueKey),
             const SizedBox(height: 10),
             //TODO: Date picker
@@ -68,7 +68,7 @@ class _DescriptionField extends StatelessWidget {
 
     return CustomTextFormField(
       textFormKey: fieldKey,
-      labelText: 'Nome',
+      labelText: 'Descrição',
       initialValue: cubit.state.serviceProvided.description,
       onChanged: (value) => cubit.changeServiceDescription(value),
     );
@@ -141,7 +141,6 @@ class _DateField extends StatelessWidget {
 
     return CustomTextFormField(
         labelText: 'Data',
-        icon: Icons.calendar_today,
         keyboardType: TextInputType.datetime,
         controller: dateController,
         readOnly: true,

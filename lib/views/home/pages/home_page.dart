@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     final cubit = context.read<HomeCubit>();
-    cubit.getServices();
+    cubit.onInit();
     super.initState();
   }
 
@@ -33,9 +33,10 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.addServiceType),
+                Navigator.pushNamed(context, AppRoutes.addServiceProvided),
             icon: const Icon(Icons.add),
-          )
+          ),
+          const SizedBox(width: 20),
         ],
       ),
       body: SafeArea(
@@ -129,9 +130,17 @@ class _NoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Não há serviços cadastrados', style: context.headlineSmall),
+        Text(
+          'Não há serviços prestados no mês atual',
+          style: context.headlineSmall,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 25),
-        Text('Você ainda não cadastrou serviços', style: context.bodyLarge),
+        Text(
+          'Você ainda não cadastrou nenhum serviço nesse mês',
+          style: context.bodyLarge,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 25),
         CustomElevatedButton(
           onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),

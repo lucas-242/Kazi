@@ -59,12 +59,11 @@ class DropdownInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Text(
         item == null || item!.text == '' ? hint : item!.text,
-        style: textTheme.caption,
+        style: context.bodyMedium,
       ),
     );
   }
@@ -75,15 +74,13 @@ class DropdownInputDecorator extends DropDownDecoratorProps {
   const DropdownInputDecorator({required this.labelText});
 
   DropDownDecoratorProps build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return DropDownDecoratorProps(
       dropdownSearchDecoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
-        hintStyle: textTheme.caption,
-        labelStyle:
-            textTheme.caption!.copyWith(color: textTheme.bodyMedium!.color),
-        contentPadding: EdgeInsets.zero,
+        hintStyle: context.bodyMedium,
+        labelStyle: context.bodyMedium,
+        contentPadding: const EdgeInsets.only(left: 15),
         border: const OutlineInputBorder(),
       ),
     );
@@ -107,13 +104,11 @@ class DropdownEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       child: Text(
         'Sem resultados',
-        style: textTheme.bodyText2!.copyWith(fontSize: 18),
+        style: context.titleSmall,
       ),
     );
   }
@@ -125,15 +120,13 @@ class SearchFieldProps extends TextFieldProps {
   const SearchFieldProps(this.searchHint);
 
   TextFieldProps build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return TextFieldProps(
-      style: textTheme.caption,
+      style: context.bodyMedium,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: 'Busca',
         hintText: searchHint,
-        hintStyle: textTheme.caption,
+        hintStyle: context.bodyMedium,
         contentPadding: EdgeInsets.zero,
         border: const OutlineInputBorder(),
         prefixIcon: const Padding(
