@@ -126,7 +126,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void _checkServiceValidity() {
-    if (state.serviceType.name == '' &&
+    if (state.serviceType.name == '' ||
         state.serviceTypeList
             .map((e) => e.name)
             .contains(state.serviceType.name)) {
