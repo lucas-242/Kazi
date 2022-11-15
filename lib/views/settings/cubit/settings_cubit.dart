@@ -72,6 +72,29 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
+  Future<void> deleteServiceType(ServiceType serviceType) async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      await serviceTypeRepository.delete(serviceType.id);
+      final newList = state.serviceTypeList
+        ..removeWhere((element) => element.id == serviceType.id);
+      emit(state.copyWith(
+        status: BaseStateStatus.success,
+        serviceTypeList: newList,
+      ));
+    } on AppError catch (exception) {
+      emit(state.copyWith(
+        callbackMessage: exception.message,
+        status: BaseStateStatus.error,
+      ));
+    } catch (exception) {
+      emit(state.copyWith(
+        callbackMessage: 'Erro inesperado',
+        status: BaseStateStatus.error,
+      ));
+    }
+  }
+
   void changeServiceTypeName(String value) {
     state.serviceType = state.serviceType.copyWith(name: value);
     emit(state);

@@ -25,33 +25,30 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocListener<SettingsCubit, SettingsState>(
-          listenWhen: (previous, current) => previous.status != current.status,
-          listener: (context, state) {
-            if (state.status == BaseStateStatus.error) {
-              getCustomSnackBar(
-                context,
-                message: state.callbackMessage,
-                type: SnackBarType.error,
+    return SingleChildScrollView(
+      child: BlocListener<SettingsCubit, SettingsState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          if (state.status == BaseStateStatus.error) {
+            getCustomSnackBar(
+              context,
+              message: state.callbackMessage,
+              type: SnackBarType.error,
+            );
+          }
+        },
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+            buildWhen: (previous, current) => previous.status != current.status,
+            builder: (context, state) {
+              return state.when(
+                onState: (_) => const _Build(),
+                onLoading: () => SizedBox(
+                  height: context.height,
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+                onNoData: () => const _NoData(),
               );
-            }
-          },
-          child: BlocBuilder<SettingsCubit, SettingsState>(
-              buildWhen: (previous, current) =>
-                  previous.status != current.status,
-              builder: (context, state) {
-                return state.when(
-                  onState: (_) => const _Build(),
-                  onLoading: () => SizedBox(
-                    height: context.height,
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
-                  onNoData: () => const _NoData(),
-                );
-              }),
-        ),
+            }),
       ),
     );
   }
@@ -65,16 +62,20 @@ class _Build extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Seus tipos de serviços',
+          'Tipos de serviços',
           style: context.headlineSmall,
         ),
+        const SizedBox(height: 25),
         BlocBuilder<SettingsCubit, SettingsState>(builder: (context, state) {
           return ListView.builder(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: state.serviceTypeList.length,
-            itemBuilder: (context, index) {
-              return Text(state.serviceTypeList[index].name);
-            },
+            itemBuilder: (context, index) => ServiceTypeCard(
+              serviceType: state.serviceTypeList[index],
+              onTapDelete: (serviceType) =>
+                  context.read<SettingsCubit>().deleteServiceType(serviceType),
+            ),
           );
         }),
         TextButton(

@@ -18,15 +18,17 @@ class _AppScaffoldState extends State<AppScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-        child: BlocBuilder<AppCubit, int>(builder: (context, state) {
-          return [
-            const HomePage(),
-            Container(color: Colors.amber),
-            const SettingsPage(),
-          ][state];
-        }),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+          child: BlocBuilder<AppCubit, int>(builder: (context, state) {
+            return [
+              const HomePage(),
+              Container(color: Colors.amber),
+              const SettingsPage(),
+            ][state];
+          }),
+        ),
       ),
       bottomNavigationBar: AppBottomNavigationBar(
         key: widget.globalKey,
