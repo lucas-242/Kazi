@@ -4,23 +4,22 @@ class ServiceType {
   final String id;
   final String name;
   final double? defaultValue;
-  final double? descountPercent;
+  final double? discountPercent;
   final String userId;
 
   ServiceType({
-    required this.id,
-    required this.name,
+    this.id = '',
+    this.name = '',
     this.defaultValue,
-    this.descountPercent,
+    this.discountPercent,
     required this.userId,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'defaultValue': defaultValue,
-      'descountPercent': descountPercent,
+      'discountPercent': discountPercent,
       'userId': userId,
     };
   }
@@ -30,7 +29,7 @@ class ServiceType {
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       defaultValue: map['defaultValue']?.toDouble(),
-      descountPercent: map['descountPercent']?.toDouble(),
+      discountPercent: map['discountPercent']?.toDouble(),
       userId: map['userId'] ?? '',
     );
   }
@@ -44,14 +43,14 @@ class ServiceType {
     String? id,
     String? name,
     double? defaultValue,
-    double? descountPercent,
+    double? discountPercent,
     String? userId,
   }) {
     return ServiceType(
       id: id ?? this.id,
       name: name ?? this.name,
       defaultValue: defaultValue ?? this.defaultValue,
-      descountPercent: descountPercent ?? this.descountPercent,
+      discountPercent: discountPercent ?? this.discountPercent,
       userId: userId ?? this.userId,
     );
   }

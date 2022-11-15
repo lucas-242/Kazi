@@ -8,12 +8,13 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction textInputAction;
   final String labelText;
   final String hintText;
-  final IconData icon;
+  final IconData? icon;
   final String? initialValue;
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  final Key? textFormKey;
   final void Function(String value)? onChanged;
   final void Function()? onTap;
 
@@ -22,7 +23,7 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     required this.labelText,
-    required this.icon,
+    this.icon,
     this.hintText = '',
     this.initialValue,
     this.validator,
@@ -31,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
     this.inputFormatters,
     this.onTap,
     this.readOnly = false,
+    this.textFormKey,
   }) : super(key: key);
 
   @override
@@ -40,6 +42,7 @@ class CustomTextFormField extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            key: textFormKey,
             controller: controller,
             initialValue: initialValue,
             validator: validator,
@@ -55,12 +58,16 @@ class CustomTextFormField extends StatelessWidget {
               labelText: labelText,
               hintText: hintText,
               hintStyle: context.bodyMedium,
-              contentPadding: EdgeInsets.zero,
+              contentPadding: icon == null
+                  ? const EdgeInsets.only(left: 15)
+                  : EdgeInsets.zero,
               border: const OutlineInputBorder(),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Icon(icon),
-              ),
+              prefixIcon: icon != null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      child: Icon(icon),
+                    )
+                  : null,
             ),
           ),
         ],

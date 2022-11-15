@@ -11,10 +11,12 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
       : _firestore = firestore;
 
   @override
-  Future<void> add(ServiceType service) async {
+  Future<ServiceType> add(ServiceType service) async {
     try {
       final data = service.toMap();
-      await _firestore.collection(_path).add(data);
+      final document = await _firestore.collection(_path).add(data);
+      final result = service.copyWith(id: document.id);
+      return result;
     } catch (exception) {
       throw ExternalError(
           'Erro ao efetuar a adição do tipo de serviço', exception.toString());
@@ -47,7 +49,7 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
     try {
       final query = await _firestore
           .collection(_path)
-          .where('user', isEqualTo: userId)
+          .where('userId', isEqualTo: userId)
           .get();
 
       final result = query.docs.map((DocumentSnapshot snapshot) {

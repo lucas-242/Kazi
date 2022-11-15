@@ -1,7 +1,8 @@
 abstract class AppError implements Exception {
+  String message;
   String trace;
 
-  AppError(String message, this.trace);
+  AppError(this.message, this.trace);
 }
 
 class ExternalError extends AppError {

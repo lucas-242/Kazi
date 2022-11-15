@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/views/app/app.dart';
 
 import '../../home/pages/home_page.dart';
-import '../view_model/app_view_model.dart';
 import '/views/settings/settings.dart';
 import 'app_bottom_navigation.dart';
 
@@ -17,17 +17,22 @@ class AppScaffold extends StatefulWidget {
 class _AppScaffoldState extends State<AppScaffold> {
   @override
   Widget build(BuildContext context) {
-    var appBloc = context.watch<AppViewModel>();
     return Scaffold(
-      body: [
-        const HomePage(),
-        Container(color: Colors.amber),
-        const SettingsPage(),
-      ][appBloc.currentPageIndex],
+      body: Padding(
+        padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+        child: BlocBuilder<AppCubit, int>(builder: (context, state) {
+          return [
+            const HomePage(),
+            Container(color: Colors.amber),
+            const SettingsPage(),
+          ][state];
+        }),
+      ),
       bottomNavigationBar: AppBottomNavigationBar(
-          key: widget.globalKey,
-          currentPage: appBloc.currentPageIndex,
-          onTap: (index) => appBloc.changePage(index)),
+        key: widget.globalKey,
+        currentPage: context.watch<AppCubit>().state,
+        onTap: (index) => context.read<AppCubit>().changePage(index),
+      ),
     );
   }
 }

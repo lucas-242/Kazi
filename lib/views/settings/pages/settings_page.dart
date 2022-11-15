@@ -1,12 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/core/routes/app_routes.dart';
+import 'package:my_services/shared/themes/themes.dart';
+import 'package:my_services/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/views/settings/settings.dart';
 
-class SettingsPage extends StatelessWidget {
+import '../../../shared/widgets/base_state/base_state.dart';
+import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  @override
+  void initState() {
+    final cubit = context.read<SettingsCubit>();
+    cubit.getServiceTypes();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Settings'),
+    return Scaffold(
+      body: SafeArea(
+        child: BlocListener<SettingsCubit, SettingsState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            if (state.status == BaseStateStatus.error) {
+              getCustomSnackBar(
+                context,
+                message: state.callbackMessage,
+                type: SnackBarType.error,
+              );
+            }
+          },
+          child: BlocBuilder<SettingsCubit, SettingsState>(
+              buildWhen: (previous, current) =>
+                  previous.status != current.status,
+              builder: (context, state) {
+                return state.when(
+                  onState: (_) => const _Build(),
+                  onLoading: () => SizedBox(
+                    height: context.height,
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                  onNoData: () => const _NoData(),
+                );
+              }),
+        ),
+      ),
+    );
+  }
+}
+
+class _Build extends StatelessWidget {
+  const _Build();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Seus tipos de serviços',
+          style: context.headlineSmall,
+        ),
+        BlocBuilder<SettingsCubit, SettingsState>(builder: (context, state) {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: state.serviceTypeList.length,
+            itemBuilder: (context, index) {
+              return Text(state.serviceTypeList[index].name);
+            },
+          );
+        }),
+        TextButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, AppRoutes.addServiceType),
+          child: Row(
+            children: const [
+              Icon(Icons.add),
+              Text('Adicionar Serviço'),
+            ],
+          ),
+        ),
+        const SizedBox(height: 15),
+      ],
+    );
+  }
+}
+
+class _NoData extends StatelessWidget {
+  const _NoData();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Não há serviços cadastrados', style: context.headlineSmall),
+        const SizedBox(height: 25),
+        Text('Você ainda não cadastrou serviços', style: context.bodyLarge),
+        const SizedBox(height: 25),
+        CustomElevatedButton(
+          onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
+          text: 'Adicionar novo serviço',
+        ),
+      ],
     );
   }
 }

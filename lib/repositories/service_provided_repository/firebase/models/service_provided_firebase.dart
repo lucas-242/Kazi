@@ -18,7 +18,6 @@ class ServiceProvidedFirebase extends ServiceProvided {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'description': description,
       'value': value,
       'typeId': typeId,

@@ -1,6 +1,10 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/injector_container.dart';
+import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
+import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/views/settings/settings.dart';
 
 import '../../../core/routes/app_routes.dart';
 import '../../../shared/themes/themes.dart';
@@ -20,9 +24,15 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
-        return MultiProvider(
+        return MultiBlocProvider(
           providers: [
-            ChangeNotifierProvider<AppViewModel>(create: (_) => AppViewModel()),
+            BlocProvider<AppCubit>(create: (_) => AppCubit()),
+            BlocProvider<SettingsCubit>(
+              create: (_) => SettingsCubit(
+                locator.get<ServiceTypeRepository>(),
+                locator.get<AuthService>(),
+              ),
+            ),
           ],
           child: ThemeProvider(
             lightDynamic: lightDynamic,
@@ -42,6 +52,8 @@ class _AppState extends State<App> {
                     AppRoutes.splash: (context) => const SplashPage(),
                     AppRoutes.app: (context) => AppScaffold(),
                     AppRoutes.login: (context) => const LoginPage(),
+                    AppRoutes.addServiceType: (context) =>
+                        const AddServiceTypePage(),
                   },
                 );
               }),
