@@ -25,33 +25,17 @@ class SettingsCubit extends Cubit<SettingsState> {
       final newStatus =
           result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-      emit(state.copyWith(
-        status: newStatus,
-        serviceTypeList: result,
-      ));
+      emit(state.copyWith(status: newStatus, serviceTypeList: result));
     } on AppError catch (exception) {
-      emit(state.copyWith(
-        callbackMessage: exception.message,
-        status: BaseStateStatus.error,
-      ));
+      _onAppError(exception);
     } catch (exception) {
-      emit.call(state.copyWith(
-        callbackMessage: 'Erro inesperado',
-        status: BaseStateStatus.error,
-      ));
+      _unexpectedError();
     }
   }
 
   Future<void> addServiceType() async {
     try {
-      //TODO: Create useCase
-      if (state.serviceType.name == '' &&
-          state.serviceTypeList
-              .map((e) => e.name)
-              .contains(state.serviceType.name)) {
-        return;
-      }
-
+      _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await serviceTypeRepository.add(state.serviceType);
       final newList = state.serviceTypeList..add(result);
@@ -60,73 +44,60 @@ class SettingsCubit extends Cubit<SettingsState> {
           serviceTypeList: newList,
           serviceType: ServiceType(userId: authService.user!.uid)));
     } on AppError catch (exception) {
-      emit(state.copyWith(
-        callbackMessage: exception.message,
-        status: BaseStateStatus.error,
-      ));
+      _onAppError(exception);
     } catch (exception) {
-      emit(state.copyWith(
-        callbackMessage: 'Erro inesperado',
-        status: BaseStateStatus.error,
-      ));
+      _unexpectedError();
     }
   }
 
   Future<void> updateServiceType() async {
     try {
-      //TODO: Create useCase
-      if (state.serviceType.name == '' &&
-          state.serviceTypeList
-              .map((e) => e.name)
-              .contains(state.serviceType.name)) {
-        return;
-      }
-
+      _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-
       await serviceTypeRepository.update(state.serviceType);
-      final index = state.serviceTypeList
-          .indexWhere((element) => element.id == state.serviceType.id);
-      final newList = state.serviceTypeList..[index] = state.serviceType;
+      final newList = _generateNewListWithModifiedServiceType();
 
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypeList: newList,
           serviceType: ServiceType(userId: authService.user!.uid)));
     } on AppError catch (exception) {
-      emit(state.copyWith(
-        callbackMessage: exception.message,
-        status: BaseStateStatus.error,
-      ));
+      _onAppError(exception);
     } catch (exception) {
-      emit(state.copyWith(
-        callbackMessage: 'Erro inesperado',
-        status: BaseStateStatus.error,
-      ));
+      _unexpectedError();
     }
+  }
+
+  List<ServiceType> _generateNewListWithModifiedServiceType() {
+    final index = state.serviceTypeList
+        .indexWhere((element) => element.id == state.serviceType.id);
+    final newList = state.serviceTypeList..[index] = state.serviceType;
+    return newList;
   }
 
   Future<void> deleteServiceType(ServiceType serviceType) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await serviceTypeRepository.delete(serviceType.id);
-      final newList = state.serviceTypeList
-        ..removeWhere((element) => element.id == serviceType.id);
+      final newList = _generateNewListWithoutRemovedServiceType(serviceType);
+
       emit(state.copyWith(
         status: BaseStateStatus.success,
         serviceTypeList: newList,
       ));
     } on AppError catch (exception) {
-      emit(state.copyWith(
-        callbackMessage: exception.message,
-        status: BaseStateStatus.error,
-      ));
+      _onAppError(exception);
     } catch (exception) {
-      emit(state.copyWith(
-        callbackMessage: 'Erro inesperado',
-        status: BaseStateStatus.error,
-      ));
+      _unexpectedError();
     }
+  }
+
+  List<ServiceType> _generateNewListWithoutRemovedServiceType(
+      ServiceType serviceType) {
+    final newList = state.serviceTypeList
+      ..removeWhere((element) => element.id == serviceType.id);
+
+    return newList;
   }
 
   void eraseServiceType() {
@@ -152,5 +123,28 @@ class SettingsCubit extends Cubit<SettingsState> {
     final finalValue = double.tryParse(value);
     emit(state.copyWith(
         serviceType: state.serviceType.copyWith(discountPercent: finalValue)));
+  }
+
+  void _checkServiceValidity() {
+    if (state.serviceType.name == '' &&
+        state.serviceTypeList
+            .map((e) => e.name)
+            .contains(state.serviceType.name)) {
+      return;
+    }
+  }
+
+  void _onAppError(AppError error) {
+    emit(state.copyWith(
+      callbackMessage: error.message,
+      status: BaseStateStatus.error,
+    ));
+  }
+
+  void _unexpectedError() {
+    emit.call(state.copyWith(
+      callbackMessage: 'Erro inesperado',
+      status: BaseStateStatus.error,
+    ));
   }
 }
