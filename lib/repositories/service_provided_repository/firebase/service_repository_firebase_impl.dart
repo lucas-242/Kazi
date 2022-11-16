@@ -6,7 +6,7 @@ import 'package:my_services/repositories/service_provided_repository/service_pro
 
 class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
   final FirebaseFirestore _firestore;
-  static const _path = 'service_provided';
+  static const _path = 'services';
 
   ServiceProvidedRepositoryFirebaseImpl(FirebaseFirestore firestore)
       : _firestore = firestore;
@@ -51,8 +51,8 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
       dateTime ??= DateTime.now();
       final query = await _firestore
           .collection(_path)
-          .where('user', isEqualTo: userId)
-          .where('date', isGreaterThan: dateTime)
+          .where('userId', isEqualTo: userId)
+          .where('date', isGreaterThanOrEqualTo: dateTime)
           .get();
 
       final result = query.docs.map((DocumentSnapshot snapshot) {

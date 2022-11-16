@@ -4,6 +4,7 @@ class ServiceProvided {
   String id;
   String? description;
   double value;
+  double discountPercent;
   ServiceType? type;
   String typeId;
   DateTime date;
@@ -13,6 +14,7 @@ class ServiceProvided {
     this.id = '',
     this.description,
     this.value = 0,
+    this.discountPercent = 0,
     this.type,
     this.typeId = '',
     DateTime? date,
@@ -23,6 +25,7 @@ class ServiceProvided {
     String? id,
     String? description,
     double? value,
+    double? discountPercent,
     ServiceType? type,
     String? typeId,
     DateTime? date,
@@ -32,6 +35,7 @@ class ServiceProvided {
       id: id ?? this.id,
       description: description ?? this.description,
       value: value ?? this.value,
+      discountPercent: discountPercent ?? this.discountPercent,
       type: type ?? this.type,
       typeId: typeId ?? this.typeId,
       date: date ?? this.date,

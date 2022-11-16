@@ -25,6 +25,11 @@ class _AddServiceProvidedFormState extends State<AddServiceProvidedForm> {
   final _dateKey = GlobalKey<FormFieldState>();
   final _dropdownKey = GlobalKey<FormFieldState>();
   final _valueKey = GlobalKey<FormFieldState>();
+  final _discountKey = GlobalKey<FormFieldState>();
+
+  final valueController = TextEditingController();
+  final discountController = TextEditingController();
+
   final dateController =
       MaskedTextController(text: 'dd/MM/yyyy', mask: '00/00/0000');
 
@@ -37,13 +42,18 @@ class _AddServiceProvidedFormState extends State<AddServiceProvidedForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //TODO: Dropdown
-            _ServiceTypeField(fieldKey: _dropdownKey),
+            _ServiceTypeField(
+              fieldKey: _dropdownKey,
+              valueController: valueController,
+              discountController: discountController,
+            ),
             const SizedBox(height: 25),
-            _ValueField(fieldKey: _valueKey),
+            _ValueField(fieldKey: _valueKey, controller: valueController),
             const SizedBox(height: 10),
-            //TODO: Date picker
-            _DateField(fieldKey: _dateKey, dateController: dateController),
+            _DiscountField(
+                fieldKey: _discountKey, controller: discountController),
+            const SizedBox(height: 10),
+            _DateField(fieldKey: _dateKey, controller: dateController),
             const SizedBox(height: 10),
             _DescriptionField(fieldKey: _descriptionKey),
             const SizedBox(height: 15),
@@ -55,6 +65,128 @@ class _AddServiceProvidedFormState extends State<AddServiceProvidedForm> {
         ),
       ),
     );
+  }
+}
+
+class _ServiceTypeField extends StatelessWidget {
+  final TextEditingController valueController;
+  final TextEditingController discountController;
+  final GlobalKey<FormFieldState> fieldKey;
+  const _ServiceTypeField({
+    Key? key,
+    required this.fieldKey,
+    required this.valueController,
+    required this.discountController,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<HomeCubit>();
+
+    return CustomDropdown(
+      key: fieldKey,
+      label: 'Tipo de serviço',
+      hint: 'Selecione o tipo do serviço',
+      items: cubit.dropdownItems,
+      selectedItem: cubit.selectedDropdownItem,
+      onChanged: (DropdownItem? data) {
+        if (data != null) {
+          cubit.changeServiceType(data);
+          valueController.text = cubit.state.serviceProvided.value.toString();
+          discountController.text =
+              cubit.state.serviceProvided.discountPercent.toString();
+        }
+      },
+      showSeach: true,
+    );
+  }
+}
+
+class _ValueField extends StatelessWidget {
+  final TextEditingController controller;
+  final GlobalKey<FormFieldState> fieldKey;
+  const _ValueField(
+      {Key? key, required this.fieldKey, required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.watch<HomeCubit>();
+
+    return SizedBox(
+      child: CustomTextFormField(
+        textFormKey: fieldKey,
+        controller: controller,
+        labelText: 'Valor total',
+        keyboardType: TextInputType.number,
+        onChanged: (value) => cubit.changeServiceValue(value),
+      ),
+    );
+  }
+}
+
+class _DiscountField extends StatelessWidget {
+  final TextEditingController controller;
+  final GlobalKey<FormFieldState> fieldKey;
+  const _DiscountField(
+      {Key? key, required this.fieldKey, required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.watch<HomeCubit>();
+
+    return SizedBox(
+      child: CustomTextFormField(
+        textFormKey: fieldKey,
+        controller: controller,
+        labelText: 'Porcentagem do desconto',
+        keyboardType: TextInputType.number,
+        onChanged: (value) => cubit.changeServiceValue(value),
+      ),
+    );
+  }
+}
+
+class _DateField extends StatelessWidget {
+  final GlobalKey<FormFieldState> fieldKey;
+  final MaskedTextController controller;
+  const _DateField({
+    Key? key,
+    required this.fieldKey,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<HomeCubit>();
+
+    void onChangeDatePicker(DateTime? date) {
+      cubit.changeServiceDate(date);
+      if (date != null) {
+        final day = date.day < 10 ? '0${date.day}' : date.day.toString();
+        final month =
+            date.month < 10 ? '0${date.month}' : date.month.toString();
+        final formattedDate = '$day$month${date.year}';
+        controller.text = formattedDate;
+      }
+    }
+
+    return CustomTextFormField(
+        labelText: 'Data',
+        keyboardType: TextInputType.datetime,
+        controller: controller,
+        readOnly: true,
+        onTap: () {
+          showDatePicker(
+            context: context,
+            initialDate: controller.text != ''
+                ? cubit.state.serviceProvided.date
+                : DateTime.now(),
+            firstDate: DateTime(2022),
+            lastDate: DateTime.now(),
+          ).then((value) => onChangeDatePicker(value));
+        });
   }
 }
 
@@ -72,87 +204,5 @@ class _DescriptionField extends StatelessWidget {
       initialValue: cubit.state.serviceProvided.description,
       onChanged: (value) => cubit.changeServiceDescription(value),
     );
-  }
-}
-
-class _ValueField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  const _ValueField({Key? key, required this.fieldKey}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cubit = context.read<HomeCubit>();
-
-    return CustomTextFormField(
-      textFormKey: fieldKey,
-      labelText: 'Valor padrão',
-      keyboardType: TextInputType.number,
-      initialValue: cubit.state.serviceProvided.value.toString(),
-      onChanged: (value) => cubit.changeServiceValue(value),
-    );
-  }
-}
-
-class _ServiceTypeField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  const _ServiceTypeField({Key? key, required this.fieldKey}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cubit = context.read<HomeCubit>();
-
-    return CustomDropdown(
-      key: fieldKey,
-      label: 'Tipo de serviço',
-      hint: 'Selecione o tipo do serviço',
-      items: [],
-      selectedItem: null,
-      onChanged: (DropdownItem? data) {
-        if (data != null) {}
-      },
-      showSeach: true,
-    );
-  }
-}
-
-class _DateField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  final MaskedTextController dateController;
-  const _DateField({
-    Key? key,
-    required this.fieldKey,
-    required this.dateController,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cubit = context.read<HomeCubit>();
-
-    void onChangeDatePicker(DateTime? date) {
-      cubit.changeServiceDate(date);
-      if (date != null) {
-        final day = date.day < 10 ? '0${date.day}' : date.day.toString();
-        final month =
-            date.month < 10 ? '0${date.month}' : date.month.toString();
-        final formattedDate = '$day$month${date.year}';
-        dateController.text = formattedDate;
-      }
-    }
-
-    return CustomTextFormField(
-        labelText: 'Data',
-        keyboardType: TextInputType.datetime,
-        controller: dateController,
-        readOnly: true,
-        onTap: () {
-          showDatePicker(
-            context: context,
-            initialDate: dateController.text != ''
-                ? cubit.state.serviceProvided.date
-                : DateTime.now(),
-            firstDate: DateTime(2022),
-            lastDate: DateTime.now(),
-          ).then((value) => onChangeDatePicker(value));
-        });
   }
 }

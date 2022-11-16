@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/repositories/service_provided_repository/service_provided_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/shared/models/dropdown_item.dart';
 import 'package:my_services/shared/widgets/base_state/base_state.dart';
 
 import '../../../core/errors/app_error.dart';
@@ -26,7 +27,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onInit() async {
     await Future.wait([getServiceTypes(), getServices()]);
-    _fillServicesWithServiceTypes();
+    if (state.serviceProvidedList.isNotEmpty) {
+      emit(state.copyWith(
+          serviceProvidedList: _generateServiceWithServiceTypes()));
+    }
   }
 
   Future<void> getServiceTypes() async {
@@ -60,20 +64,26 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void _fillServicesWithServiceTypes() {
-    for (var sp in state.serviceProvidedList) {
-      sp.copyWith(
-          type: _cacheService.serviceTypeList
-              .firstWhere((st) => st.id == sp.typeId));
+  List<ServiceProvided> _generateServiceWithServiceTypes() {
+    final result = <ServiceProvided>[];
+    for (var service in state.serviceProvidedList) {
+      result.add(_fillServiceWithServiceType(service));
     }
+    return result;
+  }
+
+  ServiceProvided _fillServiceWithServiceType(ServiceProvided serviceProvided) {
+    return serviceProvided.copyWith(
+        type: _cacheService.serviceTypeList
+            .firstWhere((st) => st.id == serviceProvided.typeId));
   }
 
   Future<void> addServiceProvided() async {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result =
-          await _serviceProvidedRepository.add(state.serviceProvided);
+      var result = await _serviceProvidedRepository.add(state.serviceProvided);
+      result = _fillServiceWithServiceType(result);
       final newList = state.serviceProvidedList..add(result);
       emit(state.copyWith(
           status: BaseStateStatus.success,
@@ -151,9 +161,30 @@ class HomeCubit extends Cubit<HomeState> {
         serviceProvided: state.serviceProvided.copyWith(description: value)));
   }
 
-  void changeServiceTypeId(String value) {
-    emit(state.copyWith(
-        serviceProvided: state.serviceProvided.copyWith(typeId: value)));
+  void changeServiceType(DropdownItem dropdownItem) {
+    final defaultValue = _getDefaultValueToService(dropdownItem.value);
+    final discountValue = _getDefaultDiscountToService(dropdownItem.value);
+    emit(
+      state.copyWith(
+        serviceProvided: state.serviceProvided.copyWith(
+          typeId: dropdownItem.value,
+          value: defaultValue,
+          discountPercent: discountValue,
+        ),
+      ),
+    );
+  }
+
+  double? _getDefaultValueToService(String serviceTypeId) {
+    final serviceType = _cacheService.serviceTypeList
+        .firstWhere((st) => st.id == serviceTypeId);
+    return serviceType.defaultValue;
+  }
+
+  double? _getDefaultDiscountToService(String serviceTypeId) {
+    final serviceType = _cacheService.serviceTypeList
+        .firstWhere((st) => st.id == serviceTypeId);
+    return serviceType.discountPercent;
   }
 
   void changeServiceValue(String value) {
@@ -162,9 +193,34 @@ class HomeCubit extends Cubit<HomeState> {
         serviceProvided: state.serviceProvided.copyWith(value: finalValue)));
   }
 
+  void changeServiceDiscount(String value) {
+    final finalValue = double.tryParse(value);
+    emit(state.copyWith(
+        serviceProvided:
+            state.serviceProvided.copyWith(discountPercent: finalValue)));
+  }
+
   void changeServiceDate(DateTime? value) {
     emit(state.copyWith(
         serviceProvided: state.serviceProvided.copyWith(date: value)));
+  }
+
+  List<DropdownItem> get dropdownItems {
+    final result = _cacheService.serviceTypeList
+        .map((e) => DropdownItem(value: e.id, text: e.name))
+        .toList();
+
+    return result;
+  }
+
+  DropdownItem? get selectedDropdownItem {
+    if (state.serviceProvided.type == null) return null;
+
+    final result = DropdownItem(
+        value: state.serviceProvided.type!.id,
+        text: state.serviceProvided.type!.name);
+
+    return result;
   }
 
   void _checkServiceValidity() {

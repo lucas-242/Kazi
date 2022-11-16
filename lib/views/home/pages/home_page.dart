@@ -89,7 +89,7 @@ class _Build extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Tipos de serviços',
+          'Mês atual',
           style: context.titleMedium,
         ),
         const SizedBox(height: 25),
@@ -143,7 +143,8 @@ class _NoData extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         CustomElevatedButton(
-          onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
+          onTap: () =>
+              Navigator.pushNamed(context, AppRoutes.addServiceProvided),
           text: 'Adicionar novo serviço',
         ),
       ],

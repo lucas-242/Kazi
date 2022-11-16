@@ -30,6 +30,7 @@ class ServiceProvidedCard extends StatelessWidget {
             Text('${serviceType.value}'),
           ],
         ),
+        subtitle: Text(serviceType.description ?? ''),
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'package:my_services/repositories/service_type_repository/service_type_re
 
 class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
   final FirebaseFirestore _firestore;
-  static const _path = 'service_type';
+  static const _path = 'serviceTypes';
 
   ServiceTypeRepositoryFirebaseImpl(FirebaseFirestore firestore)
       : _firestore = firestore;
