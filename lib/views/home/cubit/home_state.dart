@@ -5,6 +5,19 @@ class HomeState extends BaseState {
   ServiceProvided serviceProvided;
   String userId;
 
+  double get totalValue {
+    return serviceProvidedList.fold<double>(0, (a, b) => a + b.value);
+  }
+
+  double get totalWithDiscount {
+    return serviceProvidedList.fold<double>(
+        0, (a, b) => a + b.valueWithDiscount);
+  }
+
+  double get totalDiscounted {
+    return serviceProvidedList.fold<double>(0, (a, b) => a + b.valueDiscounted);
+  }
+
   HomeState({
     required super.status,
     List<ServiceProvided>? serviceProvidedList,

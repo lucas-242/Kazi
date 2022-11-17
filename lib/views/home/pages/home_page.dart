@@ -87,16 +87,25 @@ class _Build extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Dia ${DateFormat.MMMMd().format(DateTime.now())}',
-          style: context.titleMedium,
-        ),
-        const SizedBox(height: 25),
-        BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-          return ListView.builder(
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                DateFormat.MMMMd().format(DateTime.now()),
+                style: context.titleMedium,
+              ),
+              Text(
+                '${state.serviceProvidedList.length.toString()} Serviços',
+                style: context.titleMedium,
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: state.serviceProvidedList.length,
@@ -109,11 +118,22 @@ class _Build extends StatelessWidget {
               onTapDelete: (service) =>
                   context.read<HomeCubit>().deleteServiceProvided(service),
             ),
-          );
-        }),
-        const SizedBox(height: 15),
-      ],
-    );
+          ),
+          const SizedBox(height: 25),
+          Text(
+              'Valor total: ${NumberFormat.currency(symbol: 'R\$').format(state.totalValue)}',
+              style: context.bodyMedium),
+          const SizedBox(height: 15),
+          Text(
+              'Valor recebido: ${NumberFormat.currency(symbol: 'R\$').format(state.totalWithDiscount)}',
+              style: context.bodyMedium),
+          const SizedBox(height: 15),
+          Text(
+              'Valor descontado: ${NumberFormat.currency(symbol: 'R\$').format(state.totalDiscounted)}',
+              style: context.bodyMedium)
+        ],
+      );
+    });
   }
 }
 
@@ -125,14 +145,8 @@ class _NoData extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Não há serviços prestados no mês atual',
-          style: context.headlineSmall,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 25),
-        Text(
-          'Você ainda não cadastrou nenhum serviço nesse mês',
-          style: context.bodyLarge,
+          'Não há serviços prestados no dia ${DateFormat.MMMMd().format(DateTime.now())} ',
+          style: context.titleMedium,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 25),

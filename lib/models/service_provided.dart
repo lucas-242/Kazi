@@ -21,6 +21,10 @@ class ServiceProvided {
     required this.userId,
   }) : date = date ?? DateTime.now();
 
+  double get valueDiscounted => value * discountPercent / 100;
+
+  double get valueWithDiscount => value - valueDiscounted;
+
   ServiceProvided copyWith({
     String? id,
     String? description,
