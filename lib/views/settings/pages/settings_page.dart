@@ -19,6 +19,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    //TODO: RefreshIndicator not working
     return Scaffold(
       appBar: const CustomAppBar(title: 'Configurações'),
       body: SafeArea(
@@ -95,7 +96,7 @@ class _Build extends StatelessWidget {
         Center(
           child: CustomElevatedButton(
             onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
-            text: 'Adicionar Serviço',
+            text: 'Adicionar tipo de serviço',
           ),
         ),
         const SizedBox(height: 15),

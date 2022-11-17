@@ -26,14 +26,23 @@ class HomeCubit extends Cubit<HomeState> {
             status: BaseStateStatus.loading, userId: _authService.user!.uid));
 
   void onInit() async {
-    await Future.wait([getServiceTypes(), getServices()]);
-    if (state.serviceProvidedList.isNotEmpty) {
+    if (_cacheService.serviceProvidedList.isEmpty ||
+        _cacheService.serviceTypeList.isEmpty) {
+      final result =
+          await Future.wait<dynamic>([_fetchServiceTypes(), _fetchServices()]);
+
+      state.serviceProvidedList = result[1];
+      final newStatus =
+          result[1].isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+
       emit(state.copyWith(
-          serviceProvidedList: _generateServiceWithServiceTypes()));
+        status: newStatus,
+        serviceProvidedList: _generateServiceWithServiceTypes(),
+      ));
     }
   }
 
-  Future<void> getServiceTypes() async {
+  Future<void> _fetchServiceTypes() async {
     try {
       final result = await _serviceTypeRepository.get(_authService.user!.uid);
       _cacheService.serviceTypeList = result;
@@ -44,15 +53,29 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> getServices() async {
+  Future<List<ServiceProvided>> _fetchServices() async {
     try {
-      emit(state.copyWith(status: BaseStateStatus.loading));
       final today = DateTime.now();
-      final date = DateTime(today.year, today.month);
+      final date = DateTime(today.year, today.month, today.day);
       final result = await _serviceProvidedRepository.get(
         _authService.user!.uid,
         dateTime: date,
       );
+      _cacheService.serviceProvidedList = result;
+      return result;
+    } on AppError catch (exception) {
+      _onAppError(exception);
+      rethrow;
+    } catch (exception) {
+      _unexpectedError();
+      rethrow;
+    }
+  }
+
+  Future<void> getServices() async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      final result = await _fetchServices();
       final newStatus =
           result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
@@ -85,6 +108,7 @@ class HomeCubit extends Cubit<HomeState> {
       var result = await _serviceProvidedRepository.add(state.serviceProvided);
       result = _fillServiceWithServiceType(result);
       final newList = state.serviceProvidedList..add(result);
+      _cacheService.serviceProvidedList = newList;
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceProvidedList: newList,
@@ -101,7 +125,8 @@ class HomeCubit extends Cubit<HomeState> {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.update(state.serviceProvided);
-      final newList = _generateNewListWithModifiedServiceProvided();
+      final newList = _generateNewListWithUpdatedService();
+      _cacheService.serviceProvidedList = newList;
 
       emit(state.copyWith(
           status: BaseStateStatus.success,
@@ -114,7 +139,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  List<ServiceProvided> _generateNewListWithModifiedServiceProvided() {
+  List<ServiceProvided> _generateNewListWithUpdatedService() {
     final index = state.serviceProvidedList
         .indexWhere((element) => element.id == state.serviceProvided.id);
     final newList = state.serviceProvidedList..[index] = state.serviceProvided;
@@ -125,8 +150,8 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(serviceType.id);
-      final newList =
-          _generateNewListWithoutRemovedServiceProvided(serviceType);
+      final newList = _generateNewListWithoutDeletedService(serviceType);
+      _cacheService.serviceProvidedList = newList;
 
       emit(state.copyWith(
         status: BaseStateStatus.success,
@@ -139,7 +164,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  List<ServiceProvided> _generateNewListWithoutRemovedServiceProvided(
+  List<ServiceProvided> _generateNewListWithoutDeletedService(
       ServiceProvided serviceType) {
     final newList = state.serviceProvidedList
       ..removeWhere((element) => element.id == serviceType.id);

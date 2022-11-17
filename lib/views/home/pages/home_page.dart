@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/views/home/cubit/home_cubit.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: RefreshIndicator not working
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Home',
@@ -40,9 +42,9 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: RefreshIndicator(
-            onRefresh: () => Future.delayed(const Duration(seconds: 2)),
+        child: RefreshIndicator(
+          onRefresh: () => context.read<HomeCubit>().getServices(),
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
               child: BlocListener<HomeCubit, HomeState>(
@@ -89,7 +91,7 @@ class _Build extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Mês atual',
+          'Dia ${DateFormat.MMMMd().format(DateTime.now())}',
           style: context.titleMedium,
         ),
         const SizedBox(height: 25),
@@ -109,14 +111,6 @@ class _Build extends StatelessWidget {
             ),
           );
         }),
-        const SizedBox(height: 25),
-        Center(
-          child: CustomElevatedButton(
-            onTap: () =>
-                Navigator.pushNamed(context, AppRoutes.addServiceProvided),
-            text: 'Adicionar Serviço',
-          ),
-        ),
         const SizedBox(height: 15),
       ],
     );
