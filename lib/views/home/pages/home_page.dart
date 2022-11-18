@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/shared/themes/themes.dart';
+import 'package:my_services/views/add_services/add_services.dart';
 import 'package:my_services/views/home/cubit/home_cubit.dart';
 import 'package:my_services/views/home/widgets/service_provided_card.dart';
 
 import '../../../core/routes/app_routes.dart';
-import '../../../shared/widgets/base_state/base_state.dart';
+import '../../../shared/models/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
@@ -112,7 +113,7 @@ class _Build extends StatelessWidget {
             itemBuilder: (context, index) => ServiceProvidedCard(
               serviceType: state.serviceProvidedList[index],
               onTapEdit: (service) {
-                context.read<HomeCubit>().changeServiceProvided(service);
+                context.read<AddServicesCubit>().changeServiceProvided(service);
                 Navigator.pushNamed(context, AppRoutes.addServiceProvided);
               },
               onTapDelete: (service) =>

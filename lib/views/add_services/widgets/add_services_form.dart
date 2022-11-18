@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
-import 'package:my_services/views/home/home.dart';
-
 import '../../../shared/models/dropdown_item.dart';
 import '../../../shared/widgets/custom_dropdown/custom_dropdown_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_text_form_field/custom_text_form_field_widget.dart';
+import '../cubit/add_services_cubit.dart';
 
-class AddServiceProvidedForm extends StatefulWidget {
+class AddServicesForm extends StatefulWidget {
   final String labelButton;
   final Function() onConfirm;
-  const AddServiceProvidedForm(
+  const AddServicesForm(
       {super.key, required this.labelButton, required this.onConfirm});
 
   @override
-  State<AddServiceProvidedForm> createState() => _AddServiceProvidedFormState();
+  State<AddServicesForm> createState() => _AddServicesFormState();
 }
 
-class _AddServiceProvidedFormState extends State<AddServiceProvidedForm> {
+class _AddServicesFormState extends State<AddServicesForm> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionKey = GlobalKey<FormFieldState>();
   final _dateKey = GlobalKey<FormFieldState>();
@@ -32,6 +31,17 @@ class _AddServiceProvidedFormState extends State<AddServiceProvidedForm> {
 
   final dateController =
       MaskedTextController(text: 'dd/MM/yyyy', mask: '00/00/0000');
+
+  @override
+  void initState() {
+    final cubit = context.read<AddServicesCubit>();
+    dateController.text = cubit.state.serviceProvided.date.toString();
+    valueController.text = cubit.state.serviceProvided.value.toString();
+    discountController.text =
+        cubit.state.serviceProvided.discountPercent.toString();
+    dateController.text = cubit.datePickerFormmatedDate;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +91,7 @@ class _ServiceTypeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<HomeCubit>();
+    final cubit = context.read<AddServicesCubit>();
 
     return CustomDropdown(
       key: fieldKey,
@@ -111,7 +121,7 @@ class _ValueField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<HomeCubit>();
+    final cubit = context.read<AddServicesCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
@@ -134,7 +144,7 @@ class _DiscountField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<HomeCubit>();
+    final cubit = context.watch<AddServicesCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
@@ -159,7 +169,7 @@ class _DateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<HomeCubit>();
+    final cubit = context.read<AddServicesCubit>();
 
     void onChangeDatePicker(DateTime? date) {
       cubit.changeServiceDate(date);
@@ -180,7 +190,7 @@ class _DateField extends StatelessWidget {
         onTap: () {
           showDatePicker(
             context: context,
-            initialDate: controller.text != ''
+            initialDate: controller.text.isNotEmpty
                 ? cubit.state.serviceProvided.date
                 : DateTime.now(),
             firstDate: DateTime(2022),
@@ -196,7 +206,7 @@ class _DescriptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<HomeCubit>();
+    final cubit = context.read<AddServicesCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,

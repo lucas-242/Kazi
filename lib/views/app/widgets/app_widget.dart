@@ -11,7 +11,8 @@ import 'package:my_services/views/settings/settings.dart';
 import '../../../core/routes/app_routes.dart';
 import '../../../repositories/service_provided_repository/service_provided_repository.dart';
 import '../../../shared/themes/themes.dart';
-import '../../home/pages/add_service_provided_page.dart';
+import '../../add_services/cubit/add_services_cubit.dart';
+import '../../add_services/pages/add_services_page.dart';
 import '../../login/login.dart';
 import '../../splash/splash.dart';
 import '../app.dart';
@@ -47,6 +48,14 @@ class _AppState extends State<App> {
               ),
               lazy: true,
             ),
+            BlocProvider<AddServicesCubit>(
+              create: (_) => AddServicesCubit(
+                locator.get<ServiceProvidedRepository>(),
+                locator.get<AuthService>(),
+                locator.get<CacheService>(),
+              ),
+              lazy: true,
+            ),
           ],
           child: ThemeProvider(
             lightDynamic: lightDynamic,
@@ -69,7 +78,7 @@ class _AppState extends State<App> {
                     AppRoutes.addServiceType: (context) =>
                         const AddServiceTypePage(),
                     AppRoutes.addServiceProvided: (context) =>
-                        const AddServiceProvidedPage(),
+                        const AddServicesPage(),
                   },
                 );
               }),

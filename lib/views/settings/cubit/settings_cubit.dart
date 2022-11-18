@@ -1,15 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_services/services/cache_service/cache_service.dart';
+import 'package:my_services/shared/models/base_cubit.dart';
 
 import '../../../core/errors/app_error.dart';
 import '../../../models/service_type.dart';
 import '../../../repositories/service_type_repository/service_type_repository.dart';
 import '../../../services/auth_service/auth_service.dart';
-import '../../../shared/widgets/base_state/base_state.dart';
+import '../../../shared/models/base_state.dart';
 
 part 'settings_state.dart';
 
-class SettingsCubit extends Cubit<SettingsState> {
+class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
   final CacheService _cacheService;
@@ -34,9 +35,9 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(status: newStatus, serviceTypeList: result));
       _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -52,9 +53,9 @@ class SettingsCubit extends Cubit<SettingsState> {
           serviceType: ServiceType(userId: _authService.user!.uid)));
       _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -71,9 +72,9 @@ class SettingsCubit extends Cubit<SettingsState> {
           serviceType: ServiceType(userId: _authService.user!.uid)));
       _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -98,9 +99,9 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -148,19 +149,5 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void _saveOnCache() {
     _cacheService.serviceTypeList = state.serviceTypeList;
-  }
-
-  void _onAppError(AppError error) {
-    emit(state.copyWith(
-      callbackMessage: error.message,
-      status: BaseStateStatus.error,
-    ));
-  }
-
-  void _unexpectedError() {
-    emit.call(state.copyWith(
-      callbackMessage: 'Erro inesperado',
-      status: BaseStateStatus.error,
-    ));
   }
 }
