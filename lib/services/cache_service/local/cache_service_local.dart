@@ -3,22 +3,30 @@ import 'package:my_services/models/service_type.dart';
 import 'package:my_services/services/cache_service/cache_service.dart';
 
 class CacheServiceLocal extends CacheService {
-  List<ServiceType> _serviceTypeList = [];
-  List<ServiceProvided> _serviceProvidedList = [];
+  List<ServiceType> _serviceTypes = [];
+  List<ServiceProvided> _services = [];
 
   @override
-  List<ServiceType> get serviceTypeList => _serviceTypeList;
+  List<ServiceType> get serviceTypes => _serviceTypes;
 
   @override
-  set serviceTypeList(List<ServiceType> serviceTypeList) {
-    _serviceTypeList = serviceTypeList;
+  set serviceTypes(List<ServiceType> serviceTypeList) {
+    _serviceTypes = serviceTypeList;
   }
 
   @override
-  List<ServiceProvided> get serviceProvidedList => _serviceProvidedList;
+  List<ServiceProvided> get services => _services;
 
   @override
-  set serviceProvidedList(List<ServiceProvided> serviceProvidedList) {
-    _serviceProvidedList = serviceProvidedList;
+  set services(List<ServiceProvided> newServices) {
+    _services = newServices;
+  }
+
+  @override
+  List<ServiceProvided> getServicesByMonth(DateTime dateTime) {
+    return _services
+        .where((s) =>
+            s.date.year == dateTime.year && s.date.month == dateTime.month)
+        .toList();
   }
 }

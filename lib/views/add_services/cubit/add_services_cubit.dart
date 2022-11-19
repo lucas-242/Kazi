@@ -29,8 +29,8 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
       emit(state.copyWith(status: BaseStateStatus.loading));
       var result = await _serviceProvidedRepository.add(state.serviceProvided);
       result = _fillServiceWithServiceType(result);
-      final newList = _cacheService.serviceProvidedList..add(result);
-      _cacheService.serviceProvidedList = newList;
+      final newList = _cacheService.services..add(result);
+      _cacheService.services = newList;
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceProvidedListUpdated: newList,
@@ -44,7 +44,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
 
   ServiceProvided _fillServiceWithServiceType(ServiceProvided serviceProvided) {
     return serviceProvided.copyWith(
-        type: _cacheService.serviceTypeList
+        type: _cacheService.serviceTypes
             .firstWhere((st) => st.id == serviceProvided.typeId));
   }
 
@@ -54,7 +54,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.update(state.serviceProvided);
       final newList = _generateNewListWithUpdatedService();
-      _cacheService.serviceProvidedList = newList;
+      _cacheService.services = newList;
 
       emit(state.copyWith(
           status: BaseStateStatus.success,
@@ -68,23 +68,22 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   }
 
   List<ServiceProvided> _generateNewListWithUpdatedService() {
-    final index = _cacheService.serviceProvidedList
+    final index = _cacheService.services
         .indexWhere((element) => element.id == state.serviceProvided.id);
-    final newList = _cacheService.serviceProvidedList
-      ..[index] = state.serviceProvided;
+    final newList = _cacheService.services..[index] = state.serviceProvided;
     return newList;
   }
 
-  void changeServiceProvided(ServiceProvided serviceType) {
+  void onChangeServiceProvided(ServiceProvided serviceType) {
     emit(state.copyWith(serviceProvided: serviceType));
   }
 
-  void changeServiceDescription(String value) {
+  void onChangeServiceDescription(String value) {
     emit(state.copyWith(
         serviceProvided: state.serviceProvided.copyWith(description: value)));
   }
 
-  void changeServiceType(DropdownItem dropdownItem) {
+  void onChangeServiceType(DropdownItem dropdownItem) {
     final defaultValue = _getDefaultValueToService(dropdownItem.value);
     final discountValue = _getDefaultDiscountToService(dropdownItem.value);
     emit(
@@ -99,37 +98,37 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   }
 
   double? _getDefaultValueToService(String serviceTypeId) {
-    final serviceType = _cacheService.serviceTypeList
-        .firstWhere((st) => st.id == serviceTypeId);
+    final serviceType =
+        _cacheService.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
     return serviceType.defaultValue;
   }
 
   double? _getDefaultDiscountToService(String serviceTypeId) {
-    final serviceType = _cacheService.serviceTypeList
-        .firstWhere((st) => st.id == serviceTypeId);
+    final serviceType =
+        _cacheService.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
     return serviceType.discountPercent;
   }
 
-  void changeServiceValue(String value) {
+  void onChangeServiceValue(String value) {
     final finalValue = double.tryParse(value);
     emit(state.copyWith(
         serviceProvided: state.serviceProvided.copyWith(value: finalValue)));
   }
 
-  void changeServiceDiscount(String value) {
+  void onChangeServiceDiscount(String value) {
     final finalValue = double.tryParse(value);
     emit(state.copyWith(
         serviceProvided:
             state.serviceProvided.copyWith(discountPercent: finalValue)));
   }
 
-  void changeServiceDate(DateTime? value) {
+  void onChangeServiceDate(DateTime? value) {
     emit(state.copyWith(
         serviceProvided: state.serviceProvided.copyWith(date: value)));
   }
 
   List<DropdownItem> get dropdownItems {
-    final result = _cacheService.serviceTypeList
+    final result = _cacheService.serviceTypes
         .map((e) => DropdownItem(value: e.id, text: e.name))
         .toList();
 
@@ -146,17 +145,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     return result;
   }
 
-  String get datePickerFormmatedDate {
-    final date = state.serviceProvided.date;
-    final day = date.day < 10 ? '0${date.day}' : date.day.toString();
-    final month = date.month < 10 ? '0${date.month}' : date.month.toString();
-    final formattedDate = '$day$month${date.year}';
-
-    return formattedDate;
-  }
-
-  List<ServiceProvided> get serviceProvidedList =>
-      _cacheService.serviceProvidedList;
+  List<ServiceProvided> get serviceProvidedList => _cacheService.services;
 
   void _checkServiceValidity() {
     if (state.serviceProvided.typeId == '') {

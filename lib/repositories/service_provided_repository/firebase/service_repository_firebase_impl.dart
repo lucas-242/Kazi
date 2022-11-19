@@ -46,16 +46,25 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
   }
 
   @override
-  Future<List<ServiceProvided>> get(String userId, {DateTime? dateTime}) async {
+  Future<List<ServiceProvided>> get(
+    String userId, [
+    DateTime? startDate,
+    DateTime? endDate,
+  ]) async {
     try {
-      dateTime ??= DateTime.now();
-      final query = await _firestore
+      startDate ??= DateTime.now();
+      var query = _firestore
           .collection(_path)
           .where('userId', isEqualTo: userId)
-          .where('date', isGreaterThanOrEqualTo: dateTime)
-          .get();
+          .where('date', isGreaterThanOrEqualTo: startDate);
 
-      final result = query.docs.map((DocumentSnapshot snapshot) {
+      if (endDate != null) {
+        query = query.where('date', isLessThan: endDate);
+      }
+
+      final finalQuery = await query.get();
+
+      final result = finalQuery.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;
         return ServiceProvidedFirebase.fromMap(data).copyWith(id: snapshot.id);
       }).toList();

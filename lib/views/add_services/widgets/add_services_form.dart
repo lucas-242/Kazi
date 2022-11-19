@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:intl/intl.dart';
 
 import '../../../shared/models/dropdown_item.dart';
+import '../../../shared/widgets/custom_date_picker/custom_date_picker.dart';
 import '../../../shared/widgets/custom_dropdown/custom_dropdown_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_text_form_field/custom_text_form_field.dart';
@@ -35,11 +37,11 @@ class _AddServicesFormState extends State<AddServicesForm> {
   @override
   void initState() {
     final cubit = context.read<AddServicesCubit>();
-    dateController.text = cubit.state.serviceProvided.date.toString();
     valueController.text = cubit.state.serviceProvided.value.toString();
     discountController.text =
         cubit.state.serviceProvided.discountPercent.toString();
-    dateController.text = cubit.datePickerFormmatedDate;
+    dateController.text =
+        DateFormat.yMd().format(cubit.state.serviceProvided.date);
     super.initState();
   }
 
@@ -101,7 +103,7 @@ class _ServiceTypeField extends StatelessWidget {
       selectedItem: cubit.selectedDropdownItem,
       onChanged: (DropdownItem? data) {
         if (data != null) {
-          cubit.changeServiceType(data);
+          cubit.onChangeServiceType(data);
           valueController.text = cubit.state.serviceProvided.value.toString();
           discountController.text =
               cubit.state.serviceProvided.discountPercent.toString();
@@ -129,7 +131,7 @@ class _ValueField extends StatelessWidget {
         controller: controller,
         labelText: 'Valor total',
         keyboardType: TextInputType.number,
-        onChanged: (value) => cubit.changeServiceValue(value),
+        onChanged: (value) => cubit.onChangeServiceValue(value),
       ),
     );
   }
@@ -152,7 +154,7 @@ class _DiscountField extends StatelessWidget {
         controller: controller,
         labelText: 'Porcentagem do desconto',
         keyboardType: TextInputType.number,
-        onChanged: (value) => cubit.changeServiceValue(value),
+        onChanged: (value) => cubit.onChangeServiceValue(value),
       ),
     );
   }
@@ -171,32 +173,15 @@ class _DateField extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AddServicesCubit>();
 
-    void onChangeDatePicker(DateTime? date) {
-      cubit.changeServiceDate(date);
-      if (date != null) {
-        final day = date.day < 10 ? '0${date.day}' : date.day.toString();
-        final month =
-            date.month < 10 ? '0${date.month}' : date.month.toString();
-        final formattedDate = '$day$month${date.year}';
-        controller.text = formattedDate;
-      }
-    }
-
-    return CustomTextFormField(
-        labelText: 'Data',
-        keyboardType: TextInputType.datetime,
-        controller: controller,
-        readOnly: true,
-        onTap: () {
-          showDatePicker(
-            context: context,
-            initialDate: controller.text.isNotEmpty
-                ? cubit.state.serviceProvided.date
-                : DateTime.now(),
-            firstDate: DateTime(2022),
-            lastDate: DateTime.now(),
-          ).then((value) => onChangeDatePicker(value));
-        });
+    return CustomDatePicker(
+      fieldKey: fieldKey,
+      controller: controller,
+      initialDate: cubit.state.serviceProvided.date,
+      onChange: (date) {
+        cubit.onChangeServiceDate(date);
+        controller.text = DateFormat.yMd().format(date);
+      },
+    );
   }
 }
 
@@ -212,7 +197,7 @@ class _DescriptionField extends StatelessWidget {
       textFormKey: fieldKey,
       labelText: 'Descrição',
       initialValue: cubit.state.serviceProvided.description,
-      onChanged: (value) => cubit.changeServiceDescription(value),
+      onChanged: (value) => cubit.onChangeServiceDescription(value),
     );
   }
 }

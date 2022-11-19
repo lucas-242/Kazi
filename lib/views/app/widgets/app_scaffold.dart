@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/views/app/app.dart';
+import 'package:my_services/views/calendar/calendar.dart';
 
 import '../../home/pages/home_page.dart';
 import '/views/settings/settings.dart';
@@ -21,7 +22,7 @@ class _AppScaffoldState extends State<AppScaffold> {
         return Scaffold(
           body: [
             const HomePage(),
-            Container(color: Colors.amber),
+            const CalendarPage(),
             const SettingsPage(),
           ][state],
           bottomNavigationBar: AppBottomNavigationBar(

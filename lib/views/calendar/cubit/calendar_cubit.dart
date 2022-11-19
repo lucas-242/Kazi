@@ -23,28 +23,24 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   ) : super(CalendarState(status: BaseStateStatus.loading));
 
   void onInit() async {
-    if (_cacheService.serviceProvidedList.isEmpty ||
-        _cacheService.serviceTypeList.isEmpty) {
+    if (state.services.isEmpty) {
       final result = await _fetchServices();
-
-      final newStatus =
-          result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-      emit(state.copyWith(
-        status: newStatus,
-        services: ServiceHelper.addServiceTypeToServices(
-            result, _cacheService.serviceTypeList),
-      ));
+      _handleFetchServices(result);
     }
   }
 
   Future<List<ServiceProvided>> _fetchServices() async {
     try {
+      final endDate = DateTime(
+        state.selectedDate.year,
+        state.selectedDate.month + 1,
+        0,
+      );
       final result = await _serviceProvidedRepository.get(
         _authService.user!.uid,
-        dateTime: state.selectedDate,
+        state.selectedDate,
+        endDate,
       );
-      _cacheService.serviceProvidedList = result;
       return result;
     } on AppError catch (exception) {
       onAppError(exception);
@@ -55,14 +51,11 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     }
   }
 
-  Future<void> getServices() async {
+  Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _fetchServices();
-      final newStatus =
-          result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-      emit(state.copyWith(status: newStatus, services: result));
+      _handleFetchServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -70,12 +63,25 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     }
   }
 
+  void _handleFetchServices(List<ServiceProvided> fetchResult) {
+    final newStatus =
+        fetchResult.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+
+    final servicesWithTypes = ServiceHelper.addServiceTypeToServices(
+        fetchResult, _cacheService.serviceTypes);
+
+    final mergedServices = _cacheService.services =
+        ServiceHelper.mergeServices(_cacheService.services, servicesWithTypes);
+
+    emit(state.copyWith(status: newStatus, services: mergedServices));
+  }
+
   Future<List<ServiceProvided>> deleteService(ServiceProvided service) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(service.id);
       final newList = _removeDeletedService(service);
-      _cacheService.serviceProvidedList = newList;
+      _cacheService.services = newList;
 
       emit(state.copyWith(status: BaseStateStatus.success, services: newList));
       return newList;
@@ -95,10 +101,26 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     return newList;
   }
 
-  void changeServiceProvidedList(List<ServiceProvided> serviceProvidedList) {
+  Future<void> onChangeSelectedDate(DateTime? dateTime) async {
+    if (dateTime == null) return;
+    dateTime = DateTime(dateTime.year, dateTime.month);
+
+    emit(state.copyWith(selectedDate: dateTime));
+    final cachedServices = _cacheService.getServicesByMonth(dateTime);
+
+    if (cachedServices.isEmpty) {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      final fetchResult = await _fetchServices();
+      _handleFetchServices(fetchResult);
+    } else {
+      emit(state.copyWith(services: cachedServices));
+    }
+  }
+
+  void changeServices(List<ServiceProvided> services) {
     emit(state.copyWith(
       services: ServiceHelper.addServiceTypeToServices(
-          serviceProvidedList, _cacheService.serviceTypeList),
+          services, _cacheService.serviceTypes),
     ));
   }
 }

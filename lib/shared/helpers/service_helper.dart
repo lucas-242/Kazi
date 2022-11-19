@@ -2,6 +2,16 @@ import '../../models/service_provided.dart';
 import '../../models/service_type.dart';
 
 abstract class ServiceHelper {
+  static List<ServiceProvided> mergeServices(
+    List<ServiceProvided> cachedServices,
+    List<ServiceProvided> newServices,
+  ) {
+    final setCachedServices = <ServiceProvided>{}..addAll(cachedServices);
+    final mergedServices =
+        newServices.where((str) => setCachedServices.add(str)).toList();
+    return mergedServices;
+  }
+
   static List<ServiceProvided> addServiceTypeToServices(
       List<ServiceProvided> services, List<ServiceType> serviceTypes) {
     final result = <ServiceProvided>[];

@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () => context.read<HomeCubit>().getServices(),
+          onRefresh: () => context.read<HomeCubit>().onRefresh(),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -112,7 +112,7 @@ class _Build extends StatelessWidget {
             totalDiscounted: state.totalDiscounted,
             totalWithDiscount: state.totalWithDiscount,
             onTapEdit: (service) {
-              context.read<AddServicesCubit>().changeServiceProvided(service);
+              context.read<AddServicesCubit>().onChangeServiceProvided(service);
               Navigator.pushNamed(context, AppRoutes.addServiceProvided);
             },
             onTapDelete: (service) =>

@@ -19,7 +19,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
       this._serviceTypeRepository, this._authService, this._cacheService)
       : super(
           SettingsState(
-            serviceTypeList: _cacheService.serviceTypeList,
+            serviceTypeList: _cacheService.serviceTypes,
             userId: _authService.user!.uid,
             status: BaseStateStatus.success,
           ),
@@ -148,6 +148,6 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
   }
 
   void _saveOnCache() {
-    _cacheService.serviceTypeList = state.serviceTypeList;
+    _cacheService.serviceTypes = state.serviceTypeList;
   }
 }

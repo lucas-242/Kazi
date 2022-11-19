@@ -19,10 +19,10 @@ class CalendarState extends BaseState {
   CalendarState({
     required super.status,
     List<ServiceProvided>? services,
-    ServiceProvided? serviceProvided,
     super.callbackMessage,
     DateTime? selectedDate,
-  })  : selectedDate = selectedDate ?? DateTime.now(),
+  })  : selectedDate =
+            selectedDate ?? DateTime(DateTime.now().year, DateTime.now().month),
         services = services ?? [];
 
   @override
@@ -30,11 +30,13 @@ class CalendarState extends BaseState {
     BaseStateStatus? status,
     String? callbackMessage,
     List<ServiceProvided>? services,
+    DateTime? selectedDate,
   }) {
     return CalendarState(
       status: status ?? this.status,
       callbackMessage: callbackMessage ?? this.callbackMessage,
       services: services ?? this.services,
+      selectedDate: selectedDate ?? this.selectedDate,
     );
   }
 }

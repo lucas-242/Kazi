@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/shared/themes/themes.dart';
+import 'package:my_services/shared/widgets/custom_date_picker/custom_date_picker.dart';
 import 'package:my_services/shared/widgets/service_list/service_list.dart';
 
 import '../../../core/routes/app_routes.dart';
@@ -20,9 +22,14 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  final dateKey = GlobalKey<FormFieldState>();
+  final dateController =
+      MaskedTextController(text: 'dd/MM/yyyy', mask: '00/00/0000');
+
   @override
   void initState() {
     final cubit = context.read<CalendarCubit>();
+    dateController.text = DateFormat.yMd().format(cubit.state.selectedDate);
     cubit.onInit();
     super.initState();
   }
@@ -44,7 +51,7 @@ class _CalendarPageState extends State<CalendarPage> {
       ),
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () => context.read<CalendarCubit>().getServices(),
+          onRefresh: () => context.read<CalendarCubit>().onRefresh(),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -65,12 +72,17 @@ class _CalendarPageState extends State<CalendarPage> {
                       previous.status != current.status,
                   builder: (context, state) {
                     return state.when(
-                      onState: (_) => const _Build(),
+                      onState: (_) => _Build(
+                          dateController: dateController, dateKey: dateKey),
                       onLoading: () => SizedBox(
                         height: context.height,
                         child: const Center(child: CircularProgressIndicator()),
                       ),
-                      onNoData: () => const _NoData(),
+                      onNoData: () => _NoData(
+                        date: state.selectedDate,
+                        dateController: dateController,
+                        dateKey: dateKey,
+                      ),
                     );
                   },
                 ),
@@ -84,55 +96,88 @@ class _CalendarPageState extends State<CalendarPage> {
 }
 
 class _Build extends StatelessWidget {
-  const _Build();
+  final GlobalKey<FormFieldState> dateKey;
+  final MaskedTextController dateController;
+
+  const _Build({required this.dateKey, required this.dateController});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CalendarCubit, CalendarState>(builder: (context, state) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                DateFormat.MMMMd().format(DateTime.now()),
-                style: context.titleMedium,
-              ),
-              Text(
-                '${state.services.length.toString()} Serviços',
-                style: context.titleMedium,
-              ),
-            ],
-          ),
-          const SizedBox(height: 25),
-          ServiceList(
-            services: state.services,
-            totalValue: state.totalValue,
-            totalWithDiscount: state.totalWithDiscount,
-            totalDiscounted: state.totalDiscounted,
-            onTapEdit: (service) {
-              context.read<AddServicesCubit>().changeServiceProvided(service);
-              Navigator.pushNamed(context, AppRoutes.addServiceProvided);
-            },
-            onTapDelete: (service) =>
-                context.read<CalendarCubit>().deleteService(service),
-          ),
-        ],
-      );
-    });
+    return BlocBuilder<CalendarCubit, CalendarState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //TODO: Use a date picker to change only year and month
+            CustomDatePicker(
+              fieldKey: dateKey,
+              controller: dateController,
+              initialDate: state.selectedDate,
+              onChange: (date) {
+                context.read<CalendarCubit>().onChangeSelectedDate(date);
+                dateController.text = DateFormat.yMd().format(date);
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat.MMMM().format(state.selectedDate),
+                  style: context.titleMedium,
+                ),
+                Text(
+                  '${state.services.length.toString()} Serviços',
+                  style: context.titleMedium,
+                ),
+              ],
+            ),
+            const SizedBox(height: 25),
+            ServiceList(
+              services: state.services,
+              totalValue: state.totalValue,
+              totalWithDiscount: state.totalWithDiscount,
+              totalDiscounted: state.totalDiscounted,
+              onTapEdit: (service) {
+                context
+                    .read<AddServicesCubit>()
+                    .onChangeServiceProvided(service);
+                Navigator.pushNamed(context, AppRoutes.addServiceProvided);
+              },
+              onTapDelete: (service) =>
+                  context.read<CalendarCubit>().deleteService(service),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
 class _NoData extends StatelessWidget {
-  const _NoData();
+  final DateTime date;
+  final GlobalKey<FormFieldState> dateKey;
+  final MaskedTextController dateController;
+
+  const _NoData(
+      {required this.date,
+      required this.dateKey,
+      required this.dateController});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        CustomDatePicker(
+          fieldKey: dateKey,
+          controller: dateController,
+          initialDate: date,
+          onChange: (date) {
+            context.read<CalendarCubit>().onChangeSelectedDate(date);
+            dateController.text = DateFormat.yMd().format(date);
+          },
+        ),
         Text(
-          'Não há serviços prestados no dia ${DateFormat.MMMMd().format(DateTime.now())} ',
+          'Não há serviços prestados no mês de ${DateFormat.MMMM().format(date)} ',
           style: context.titleMedium,
           textAlign: TextAlign.center,
         ),

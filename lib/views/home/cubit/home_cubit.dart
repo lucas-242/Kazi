@@ -26,26 +26,18 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   ) : super(HomeState(status: BaseStateStatus.loading));
 
   void onInit() async {
-    if (_cacheService.serviceProvidedList.isEmpty ||
-        _cacheService.serviceTypeList.isEmpty) {
+    if (_cacheService.services.isEmpty || _cacheService.serviceTypes.isEmpty) {
       final result =
           await Future.wait<dynamic>([_fetchServiceTypes(), _fetchServices()]);
 
-      final newStatus =
-          result[1].isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-      emit(state.copyWith(
-        status: newStatus,
-        services: ServiceHelper.addServiceTypeToServices(
-            result[1], _cacheService.serviceTypeList),
-      ));
+      _handleFetchServices(result[1]);
     }
   }
 
   Future<void> _fetchServiceTypes() async {
     try {
       final result = await _serviceTypeRepository.get(_authService.user!.uid);
-      _cacheService.serviceTypeList = result;
+      _cacheService.serviceTypes = result;
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -59,9 +51,8 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
       final date = DateTime(today.year, today.month, today.day);
       final result = await _serviceProvidedRepository.get(
         _authService.user!.uid,
-        dateTime: date,
+        date,
       );
-      _cacheService.serviceProvidedList = result;
       return result;
     } on AppError catch (exception) {
       onAppError(exception);
@@ -72,14 +63,11 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  Future<void> getServices() async {
+  Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _fetchServices();
-      final newStatus =
-          result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-      emit(state.copyWith(status: newStatus, services: result));
+      _handleFetchServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -87,12 +75,25 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
+  void _handleFetchServices(List<ServiceProvided> fetchResult) {
+    final newStatus =
+        fetchResult.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+
+    final servicesWithTypes = ServiceHelper.addServiceTypeToServices(
+        fetchResult, _cacheService.serviceTypes);
+
+    final mergedServices = _cacheService.services =
+        ServiceHelper.mergeServices(_cacheService.services, servicesWithTypes);
+
+    emit(state.copyWith(status: newStatus, services: mergedServices));
+  }
+
   Future<List<ServiceProvided>> deleteService(ServiceProvided service) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(service.id);
       final newList = _removeDeletedService(service);
-      _cacheService.serviceProvidedList = newList;
+      _cacheService.services = newList;
 
       emit(state.copyWith(status: BaseStateStatus.success, services: newList));
       return newList;
@@ -115,6 +116,6 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   void changeServices(List<ServiceProvided> services) {
     emit(state.copyWith(
         services: ServiceHelper.addServiceTypeToServices(
-            services, _cacheService.serviceTypeList)));
+            services, _cacheService.serviceTypes)));
   }
 }
