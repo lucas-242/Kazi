@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/shared/themes/themes.dart';
-import 'package:my_services/shared/widgets/base_state/base_state.dart';
+import 'package:my_services/shared/models/base_state.dart';
 import 'package:my_services/views/settings/settings.dart';
 
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';

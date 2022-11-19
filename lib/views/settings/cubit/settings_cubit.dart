@@ -1,35 +1,43 @@
 import 'package:bloc/bloc.dart';
+import 'package:my_services/services/cache_service/cache_service.dart';
+import 'package:my_services/shared/models/base_cubit.dart';
 
 import '../../../core/errors/app_error.dart';
 import '../../../models/service_type.dart';
 import '../../../repositories/service_type_repository/service_type_repository.dart';
 import '../../../services/auth_service/auth_service.dart';
-import '../../../shared/widgets/base_state/base_state.dart';
+import '../../../shared/models/base_state.dart';
 
 part 'settings_state.dart';
 
-class SettingsCubit extends Cubit<SettingsState> {
-  ServiceTypeRepository serviceTypeRepository;
-  AuthService authService;
+class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
+  final ServiceTypeRepository _serviceTypeRepository;
+  final AuthService _authService;
+  final CacheService _cacheService;
 
-  SettingsCubit(this.serviceTypeRepository, this.authService)
+  SettingsCubit(
+      this._serviceTypeRepository, this._authService, this._cacheService)
       : super(
           SettingsState(
-              userId: authService.user!.uid, status: BaseStateStatus.loading),
+            serviceTypeList: _cacheService.serviceTypes,
+            userId: _authService.user!.uid,
+            status: BaseStateStatus.success,
+          ),
         );
 
   Future<void> getServiceTypes() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result = await serviceTypeRepository.get(authService.user!.uid);
+      final result = await _serviceTypeRepository.get(_authService.user!.uid);
       final newStatus =
           result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
       emit(state.copyWith(status: newStatus, serviceTypeList: result));
+      _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -37,16 +45,17 @@ class SettingsCubit extends Cubit<SettingsState> {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result = await serviceTypeRepository.add(state.serviceType);
+      final result = await _serviceTypeRepository.add(state.serviceType);
       final newList = state.serviceTypeList..add(result);
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypeList: newList,
-          serviceType: ServiceType(userId: authService.user!.uid)));
+          serviceType: ServiceType(userId: _authService.user!.uid)));
+      _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -54,17 +63,18 @@ class SettingsCubit extends Cubit<SettingsState> {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await serviceTypeRepository.update(state.serviceType);
+      await _serviceTypeRepository.update(state.serviceType);
       final newList = _generateNewListWithModifiedServiceType();
 
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypeList: newList,
-          serviceType: ServiceType(userId: authService.user!.uid)));
+          serviceType: ServiceType(userId: _authService.user!.uid)));
+      _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -76,19 +86,22 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> deleteServiceType(ServiceType serviceType) async {
+    //TODO: Verificar se está em uso antes da deleção
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await serviceTypeRepository.delete(serviceType.id);
+      await _serviceTypeRepository.delete(serviceType.id);
       final newList = _generateNewListWithoutRemovedServiceType(serviceType);
 
       emit(state.copyWith(
         status: BaseStateStatus.success,
         serviceTypeList: newList,
       ));
+
+      _saveOnCache();
     } on AppError catch (exception) {
-      _onAppError(exception);
+      onAppError(exception);
     } catch (exception) {
-      _unexpectedError();
+      unexpectedError();
     }
   }
 
@@ -102,7 +115,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void eraseServiceType() {
     emit(state.copyWith(
-        serviceType: ServiceType(userId: authService.user!.uid)));
+        serviceType: ServiceType(userId: _authService.user!.uid)));
   }
 
   void changeServiceType(ServiceType serviceType) {
@@ -126,7 +139,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void _checkServiceValidity() {
-    if (state.serviceType.name == '' &&
+    if (state.serviceType.name == '' ||
         state.serviceTypeList
             .map((e) => e.name)
             .contains(state.serviceType.name)) {
@@ -134,17 +147,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  void _onAppError(AppError error) {
-    emit(state.copyWith(
-      callbackMessage: error.message,
-      status: BaseStateStatus.error,
-    ));
-  }
-
-  void _unexpectedError() {
-    emit.call(state.copyWith(
-      callbackMessage: 'Erro inesperado',
-      status: BaseStateStatus.error,
-    ));
+  void _saveOnCache() {
+    _cacheService.serviceTypes = state.serviceTypeList;
   }
 }

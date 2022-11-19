@@ -6,16 +6,18 @@ import 'package:my_services/repositories/service_provided_repository/service_pro
 
 class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
   final FirebaseFirestore _firestore;
-  static const _path = 'service_provided';
+  static const _path = 'services';
 
   ServiceProvidedRepositoryFirebaseImpl(FirebaseFirestore firestore)
       : _firestore = firestore;
 
   @override
-  Future<void> add(ServiceProvided service) async {
+  Future<ServiceProvided> add(ServiceProvided service) async {
     try {
       final data = ServiceProvidedFirebase.fromServiceProvided(service).toMap();
-      await _firestore.collection(_path).add(data);
+      final document = await _firestore.collection(_path).add(data);
+      final result = service.copyWith(id: document.id);
+      return result;
     } catch (exception) {
       throw ExternalError('Erro ao efetuar a adição do serviço realizado',
           exception.toString());
@@ -44,16 +46,25 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
   }
 
   @override
-  Future<List<ServiceProvided>> get(String userId, {DateTime? dateTime}) async {
+  Future<List<ServiceProvided>> get(
+    String userId, [
+    DateTime? startDate,
+    DateTime? endDate,
+  ]) async {
     try {
-      dateTime ??= DateTime.now();
-      final query = await _firestore
+      startDate ??= DateTime.now();
+      var query = _firestore
           .collection(_path)
-          .where('user', isEqualTo: userId)
-          .where('date', isGreaterThan: dateTime)
-          .get();
+          .where('userId', isEqualTo: userId)
+          .where('date', isGreaterThanOrEqualTo: startDate);
 
-      final result = query.docs.map((DocumentSnapshot snapshot) {
+      if (endDate != null) {
+        query = query.where('date', isLessThan: endDate);
+      }
+
+      final finalQuery = await query.get();
+
+      final result = finalQuery.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;
         return ServiceProvidedFirebase.fromMap(data).copyWith(id: snapshot.id);
       }).toList();

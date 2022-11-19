@@ -4,10 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/injector_container.dart';
 import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/services/cache_service/cache_service.dart';
+import 'package:my_services/views/calendar/calendar.dart';
+import 'package:my_services/views/home/cubit/home_cubit.dart';
 import 'package:my_services/views/settings/settings.dart';
 
 import '../../../core/routes/app_routes.dart';
+import '../../../repositories/service_provided_repository/service_provided_repository.dart';
 import '../../../shared/themes/themes.dart';
+import '../../add_services/cubit/add_services_cubit.dart';
+import '../../add_services/pages/add_services_page.dart';
 import '../../login/login.dart';
 import '../../splash/splash.dart';
 import '../app.dart';
@@ -31,7 +37,33 @@ class _AppState extends State<App> {
               create: (_) => SettingsCubit(
                 locator.get<ServiceTypeRepository>(),
                 locator.get<AuthService>(),
+                locator.get<CacheService>(),
               ),
+            ),
+            BlocProvider<HomeCubit>(
+              create: (_) => HomeCubit(
+                locator.get<ServiceProvidedRepository>(),
+                locator.get<ServiceTypeRepository>(),
+                locator.get<AuthService>(),
+                locator.get<CacheService>(),
+              ),
+              lazy: true,
+            ),
+            BlocProvider<AddServicesCubit>(
+              create: (_) => AddServicesCubit(
+                locator.get<ServiceProvidedRepository>(),
+                locator.get<AuthService>(),
+                locator.get<CacheService>(),
+              ),
+              lazy: true,
+            ),
+            BlocProvider<CalendarCubit>(
+              create: (_) => CalendarCubit(
+                locator.get<ServiceProvidedRepository>(),
+                locator.get<AuthService>(),
+                locator.get<CacheService>(),
+              ),
+              lazy: true,
             ),
           ],
           child: ThemeProvider(
@@ -50,10 +82,12 @@ class _AppState extends State<App> {
                   initialRoute: AppRoutes.splash,
                   routes: {
                     AppRoutes.splash: (context) => const SplashPage(),
-                    AppRoutes.app: (context) => AppScaffold(),
+                    AppRoutes.app: (context) => const AppScaffold(),
                     AppRoutes.login: (context) => const LoginPage(),
                     AppRoutes.addServiceType: (context) =>
                         const AddServiceTypePage(),
+                    AppRoutes.addServiceProvided: (context) =>
+                        const AddServicesPage(),
                   },
                 );
               }),

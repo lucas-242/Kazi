@@ -44,26 +44,6 @@ class ServiceProvidedFirebase extends ServiceProvided {
   factory ServiceProvidedFirebase.fromJson(String source) =>
       ServiceProvidedFirebase.fromMap(json.decode(source));
 
-  ServiceProvidedFirebase copyWith({
-    String? id,
-    String? description,
-    double? value,
-    ServiceType? type,
-    String? typeId,
-    DateTime? date,
-    String? userId,
-  }) {
-    return ServiceProvidedFirebase(
-      id: id ?? this.id,
-      description: description ?? this.description,
-      value: value ?? this.value,
-      type: type ?? this.type,
-      typeId: typeId ?? this.typeId,
-      date: date ?? this.date,
-      userId: userId ?? this.userId,
-    );
-  }
-
   factory ServiceProvidedFirebase.fromServiceProvided(ServiceProvided source) =>
       source as ServiceProvidedFirebase;
 }

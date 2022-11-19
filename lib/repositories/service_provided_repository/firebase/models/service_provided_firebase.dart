@@ -10,6 +10,7 @@ class ServiceProvidedFirebase extends ServiceProvided {
     required super.id,
     required super.description,
     required super.value,
+    required super.discountPercent,
     super.type,
     required super.typeId,
     required super.date,
@@ -21,6 +22,7 @@ class ServiceProvidedFirebase extends ServiceProvided {
       'description': description,
       'value': value,
       'typeId': typeId,
+      'discountPercent': discountPercent,
       'date': Timestamp.fromDate(date),
       'userId': userId,
     };
@@ -31,9 +33,11 @@ class ServiceProvidedFirebase extends ServiceProvided {
       id: map['id'] ?? '',
       description: map['description'] ?? '',
       value: map['value']?.toDouble() ?? 0.0,
+      discountPercent: map['discountPercent']?.toDouble() ?? 0.0,
       type: map['type'] != null ? ServiceType.fromMap(map['type']) : null,
       typeId: map['typeId'] ?? '',
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
+      date: DateTime.fromMillisecondsSinceEpoch(
+          map['date'].millisecondsSinceEpoch),
       userId: map['userId'] ?? '',
     );
   }
@@ -43,26 +47,14 @@ class ServiceProvidedFirebase extends ServiceProvided {
   factory ServiceProvidedFirebase.fromJson(String source) =>
       ServiceProvidedFirebase.fromMap(json.decode(source));
 
-  ServiceProvidedFirebase copyWith({
-    String? id,
-    String? description,
-    double? value,
-    ServiceType? type,
-    String? typeId,
-    DateTime? date,
-    String? userId,
-  }) {
-    return ServiceProvidedFirebase(
-      id: id ?? this.id,
-      description: description ?? this.description,
-      value: value ?? this.value,
-      type: type ?? this.type,
-      typeId: typeId ?? this.typeId,
-      date: date ?? this.date,
-      userId: userId ?? this.userId,
-    );
-  }
-
   factory ServiceProvidedFirebase.fromServiceProvided(ServiceProvided source) =>
-      source as ServiceProvidedFirebase;
+      ServiceProvidedFirebase(
+        id: source.id,
+        description: source.description,
+        value: source.value,
+        discountPercent: source.discountPercent,
+        typeId: source.typeId,
+        date: source.date,
+        userId: source.userId,
+      );
 }
