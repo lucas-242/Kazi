@@ -1,14 +1,14 @@
 import 'service_type.dart';
 
 class ServiceProvided {
-  String id;
-  String? description;
-  double value;
-  double discountPercent;
-  ServiceType? type;
-  String typeId;
-  DateTime date;
-  String userId;
+  final String id;
+  final String? description;
+  final double value;
+  final double discountPercent;
+  final ServiceType? type;
+  final String typeId;
+  final DateTime date;
+  final String userId;
 
   ServiceProvided({
     this.id = '',

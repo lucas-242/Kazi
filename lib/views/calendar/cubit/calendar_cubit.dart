@@ -7,59 +7,42 @@ import 'package:my_services/shared/models/base_cubit.dart';
 import 'package:my_services/shared/models/base_state.dart';
 
 import '../../../core/errors/app_error.dart';
-import '../../../repositories/service_type_repository/service_type_repository.dart';
 import '../../../services/cache_service/cache_service.dart';
 
-part 'home_state.dart';
+part 'calendar_state.dart';
 
-class HomeCubit extends Cubit<HomeState> with BaseCubit {
+class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   final ServiceProvidedRepository _serviceProvidedRepository;
-  final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
   final CacheService _cacheService;
 
-  HomeCubit(
+  CalendarCubit(
     this._serviceProvidedRepository,
-    this._serviceTypeRepository,
     this._authService,
     this._cacheService,
-  ) : super(HomeState(status: BaseStateStatus.loading));
+  ) : super(CalendarState(status: BaseStateStatus.loading));
 
   void onInit() async {
     if (_cacheService.serviceProvidedList.isEmpty ||
         _cacheService.serviceTypeList.isEmpty) {
-      final result =
-          await Future.wait<dynamic>([_fetchServiceTypes(), _fetchServices()]);
+      final result = await _fetchServices();
 
       final newStatus =
-          result[1].isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+          result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
       emit(state.copyWith(
         status: newStatus,
         services: ServiceHelper.addServiceTypeToServices(
-            result[1], _cacheService.serviceTypeList),
+            result, _cacheService.serviceTypeList),
       ));
-    }
-  }
-
-  Future<void> _fetchServiceTypes() async {
-    try {
-      final result = await _serviceTypeRepository.get(_authService.user!.uid);
-      _cacheService.serviceTypeList = result;
-    } on AppError catch (exception) {
-      onAppError(exception);
-    } catch (exception) {
-      unexpectedError();
     }
   }
 
   Future<List<ServiceProvided>> _fetchServices() async {
     try {
-      final today = DateTime.now();
-      final date = DateTime(today.year, today.month, today.day);
       final result = await _serviceProvidedRepository.get(
         _authService.user!.uid,
-        dateTime: date,
+        dateTime: state.selectedDate,
       );
       _cacheService.serviceProvidedList = result;
       return result;
@@ -87,9 +70,10 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  void changeServices(List<ServiceProvided> services) {
+  void changeServiceProvidedList(List<ServiceProvided> serviceProvidedList) {
     emit(state.copyWith(
-        services: ServiceHelper.addServiceTypeToServices(
-            services, _cacheService.serviceTypeList)));
+      services: ServiceHelper.addServiceTypeToServices(
+          serviceProvidedList, _cacheService.serviceTypeList),
+    ));
   }
 }

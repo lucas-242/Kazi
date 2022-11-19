@@ -1,41 +1,25 @@
 part of 'home_cubit.dart';
 
 class HomeState extends BaseState {
-  List<ServiceProvided> serviceProvidedList;
-  String userId;
-
-  double get totalValue {
-    return serviceProvidedList.fold<double>(0, (a, b) => a + b.value);
-  }
-
-  double get totalWithDiscount {
-    return serviceProvidedList.fold<double>(
-        0, (a, b) => a + b.valueWithDiscount);
-  }
-
-  double get totalDiscounted {
-    return serviceProvidedList.fold<double>(0, (a, b) => a + b.valueDiscounted);
-  }
+  List<ServiceProvided> services;
 
   HomeState({
     required super.status,
-    List<ServiceProvided>? serviceProvidedList,
+    List<ServiceProvided>? services,
     ServiceProvided? serviceProvided,
-    required this.userId,
     super.callbackMessage,
-  }) : serviceProvidedList = serviceProvidedList ?? [];
+  }) : services = services ?? [];
 
   @override
   HomeState copyWith({
     BaseStateStatus? status,
     String? callbackMessage,
-    List<ServiceProvided>? serviceProvidedList,
+    List<ServiceProvided>? services,
   }) {
     return HomeState(
       status: status ?? this.status,
       callbackMessage: callbackMessage ?? this.callbackMessage,
-      serviceProvidedList: serviceProvidedList ?? this.serviceProvidedList,
-      userId: userId,
+      services: services ?? this.services,
     );
   }
 }

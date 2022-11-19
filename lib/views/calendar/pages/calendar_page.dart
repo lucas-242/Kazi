@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/shared/themes/themes.dart';
-import 'package:my_services/views/home/cubit/home_cubit.dart';
+import 'package:my_services/shared/widgets/service_list/widgets/service_list.dart';
 
 import '../../../core/routes/app_routes.dart';
 import '../../../shared/models/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
-import '../../../shared/widgets/service_list/widgets/service_list.dart';
+import '../cubit/calendar_cubit.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CalendarPage extends StatefulWidget {
+  const CalendarPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CalendarPage> createState() => _CalendarPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
-    final cubit = context.read<HomeCubit>();
+    final cubit = context.read<CalendarCubit>();
     cubit.onInit();
     super.initState();
   }
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     //TODO: RefreshIndicator not working
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Home',
+        title: 'Calendário',
         actions: [
           IconButton(
             onPressed: () =>
@@ -43,11 +43,11 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () => context.read<HomeCubit>().getServices(),
+          onRefresh: () => context.read<CalendarCubit>().getServices(),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-              child: BlocListener<HomeCubit, HomeState>(
+              child: BlocListener<CalendarCubit, CalendarState>(
                 listenWhen: (previous, current) =>
                     previous.status != current.status,
                 listener: (context, state) {
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
                 },
-                child: BlocBuilder<HomeCubit, HomeState>(
+                child: BlocBuilder<CalendarCubit, CalendarState>(
                   buildWhen: (previous, current) =>
                       previous.status != current.status,
                   builder: (context, state) {
@@ -87,7 +87,7 @@ class _Build extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+    return BlocBuilder<CalendarCubit, CalendarState>(builder: (context, state) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

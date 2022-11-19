@@ -29,9 +29,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
               if (state.status == BaseStateStatus.success) {
                 final serviceList =
                     context.read<AddServicesCubit>().serviceProvidedList;
-                context
-                    .read<HomeCubit>()
-                    .changeServiceProvidedList(serviceList);
+                context.read<HomeCubit>().changeServices(serviceList);
                 Navigator.of(context).pop();
               }
               if (state.status == BaseStateStatus.error) {

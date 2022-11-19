@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_services/models/service_provided.dart';
 
-import '../../../shared/widgets/custom_slidable/custom_slidable.dart';
+import '../../../models/service_provided.dart';
+import '../custom_slidable/custom_slidable.dart';
 
-class ServiceProvidedCard extends StatelessWidget {
+class ServiceCard extends StatelessWidget {
   final Function(ServiceProvided) onTapDelete;
   final Function(ServiceProvided) onTapEdit;
   final ServiceProvided serviceType;
 
-  const ServiceProvidedCard(
+  const ServiceCard(
       {super.key,
       required this.onTapDelete,
       required this.onTapEdit,
