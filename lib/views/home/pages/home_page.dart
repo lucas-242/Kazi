@@ -9,7 +9,8 @@ import '../../../shared/models/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
-import '../../../shared/widgets/service_list/widgets/service_list.dart';
+import '../../../shared/widgets/service_list/service_list.dart';
+import '../../add_services/cubit/add_services_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -105,7 +106,18 @@ class _Build extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 25),
-          ServiceList(services: state.services),
+          ServiceList(
+            services: state.services,
+            totalValue: state.totalValue,
+            totalDiscounted: state.totalDiscounted,
+            totalWithDiscount: state.totalWithDiscount,
+            onTapEdit: (service) {
+              context.read<AddServicesCubit>().changeServiceProvided(service);
+              Navigator.pushNamed(context, AppRoutes.addServiceProvided);
+            },
+            onTapDelete: (service) =>
+                context.read<HomeCubit>().deleteService(service),
+          ),
         ],
       );
     });

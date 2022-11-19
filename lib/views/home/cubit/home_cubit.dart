@@ -87,6 +87,31 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
+  Future<List<ServiceProvided>> deleteService(ServiceProvided service) async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      await _serviceProvidedRepository.delete(service.id);
+      final newList = _removeDeletedService(service);
+      _cacheService.serviceProvidedList = newList;
+
+      emit(state.copyWith(status: BaseStateStatus.success, services: newList));
+      return newList;
+    } on AppError catch (exception) {
+      onAppError(exception);
+      rethrow;
+    } catch (exception) {
+      unexpectedError();
+      rethrow;
+    }
+  }
+
+  List<ServiceProvided> _removeDeletedService(ServiceProvided service) {
+    final newList = state.services
+      ..removeWhere((element) => element.id == service.id);
+
+    return newList;
+  }
+
   void changeServices(List<ServiceProvided> services) {
     emit(state.copyWith(
         services: ServiceHelper.addServiceTypeToServices(

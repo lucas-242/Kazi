@@ -12,7 +12,6 @@ import 'package:my_services/views/settings/settings.dart';
 import '../../../core/routes/app_routes.dart';
 import '../../../repositories/service_provided_repository/service_provided_repository.dart';
 import '../../../shared/themes/themes.dart';
-import '../../../shared/widgets/service_list/cubit/service_list_cubit.dart';
 import '../../add_services/cubit/add_services_cubit.dart';
 import '../../add_services/pages/add_services_page.dart';
 import '../../login/login.dart';
@@ -46,13 +45,6 @@ class _AppState extends State<App> {
                 locator.get<ServiceProvidedRepository>(),
                 locator.get<ServiceTypeRepository>(),
                 locator.get<AuthService>(),
-                locator.get<CacheService>(),
-              ),
-              lazy: true,
-            ),
-            BlocProvider<ServiceListCubit>(
-              create: (_) => ServiceListCubit(
-                locator.get<ServiceProvidedRepository>(),
                 locator.get<CacheService>(),
               ),
               lazy: true,

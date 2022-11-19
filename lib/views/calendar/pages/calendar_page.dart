@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/shared/themes/themes.dart';
-import 'package:my_services/shared/widgets/service_list/widgets/service_list.dart';
+import 'package:my_services/shared/widgets/service_list/service_list.dart';
 
 import '../../../core/routes/app_routes.dart';
 import '../../../shared/models/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+import '../../add_services/cubit/add_services_cubit.dart';
 import '../cubit/calendar_cubit.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -105,7 +106,18 @@ class _Build extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 25),
-          ServiceList(services: state.services),
+          ServiceList(
+            services: state.services,
+            totalValue: state.totalValue,
+            totalWithDiscount: state.totalWithDiscount,
+            totalDiscounted: state.totalDiscounted,
+            onTapEdit: (service) {
+              context.read<AddServicesCubit>().changeServiceProvided(service);
+              Navigator.pushNamed(context, AppRoutes.addServiceProvided);
+            },
+            onTapDelete: (service) =>
+                context.read<CalendarCubit>().deleteService(service),
+          ),
         ],
       );
     });
