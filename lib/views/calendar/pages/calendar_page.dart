@@ -36,7 +36,6 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: RefreshIndicator not working
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Calendário',
@@ -53,6 +52,7 @@ class _CalendarPageState extends State<CalendarPage> {
         child: RefreshIndicator(
           onRefresh: () => context.read<CalendarCubit>().onRefresh(),
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
               child: BlocListener<CalendarCubit, CalendarState>(

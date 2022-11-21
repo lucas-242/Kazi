@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: RefreshIndicator not working
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Home',
@@ -46,6 +45,7 @@ class _HomePageState extends State<HomePage> {
         child: RefreshIndicator(
           onRefresh: () => context.read<HomeCubit>().onRefresh(),
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
               child: BlocListener<HomeCubit, HomeState>(

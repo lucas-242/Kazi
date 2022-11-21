@@ -19,13 +19,13 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    //TODO: RefreshIndicator not working
     return Scaffold(
       appBar: const CustomAppBar(title: 'Configurações'),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<SettingsCubit>().getServiceTypes(),
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
               child: BlocListener<SettingsCubit, SettingsState>(
