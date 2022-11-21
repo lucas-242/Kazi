@@ -4,6 +4,7 @@ import 'package:my_services/shared/models/base_cubit.dart';
 
 import '../../../core/errors/app_error.dart';
 import '../../../models/service_type.dart';
+import '../../../repositories/service_provided_repository/service_provided_repository.dart';
 import '../../../repositories/service_type_repository/service_type_repository.dart';
 import '../../../services/auth_service/auth_service.dart';
 import '../../../shared/models/base_state.dart';
@@ -12,11 +13,12 @@ part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
   final ServiceTypeRepository _serviceTypeRepository;
+  final ServiceProvidedRepository _serviceRepository;
   final AuthService _authService;
   final CacheService _cacheService;
 
-  SettingsCubit(
-      this._serviceTypeRepository, this._authService, this._cacheService)
+  SettingsCubit(this._serviceTypeRepository, this._serviceRepository,
+      this._authService, this._cacheService)
       : super(
           SettingsState(
             serviceTypeList: _cacheService.serviceTypes,
@@ -86,9 +88,9 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
   }
 
   Future<void> deleteServiceType(ServiceType serviceType) async {
-    //TODO: Verificar se está em uso antes da deleção
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
+      await _checkServiceTypeIsInUse(serviceType.id);
       await _serviceTypeRepository.delete(serviceType.id);
       final newList = _generateNewListWithoutRemovedServiceType(serviceType);
 
@@ -144,6 +146,18 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
             .map((e) => e.name)
             .contains(state.serviceType.name)) {
       return;
+    }
+  }
+
+  Future<void> _checkServiceTypeIsInUse(String typeId) async {
+    final userId = _authService.user!.uid;
+    final count = await _serviceRepository.count(userId, typeId);
+
+    if (count > 0) {
+      throw ClientError(
+        'O tipo de serviço não pode ser deletado pois está em uso',
+        'Triggered by _checkServiceTypeIsInUse on SettingsCubit.',
+      );
     }
   }
 

@@ -75,4 +75,22 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
           'Erro ao buscar serviços realizados', exception.toString());
     }
   }
+
+  @override
+  Future<int> count(String userId, [String? typeId]) async {
+    try {
+      final query =
+          _firestore.collection(_path).where('userId', isEqualTo: userId);
+
+      if (typeId != null) {
+        query.where('typeId', isEqualTo: typeId);
+      }
+
+      final result = await query.count().get();
+      return result.count;
+    } catch (exception) {
+      throw ExternalError(
+          'Erro ao buscar quantidade de serviços', exception.toString());
+    }
+  }
 }

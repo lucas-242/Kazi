@@ -36,6 +36,7 @@ class _AppState extends State<App> {
             BlocProvider<SettingsCubit>(
               create: (_) => SettingsCubit(
                 locator.get<ServiceTypeRepository>(),
+                locator.get<ServiceProvidedRepository>(),
                 locator.get<AuthService>(),
                 locator.get<CacheService>(),
               ),

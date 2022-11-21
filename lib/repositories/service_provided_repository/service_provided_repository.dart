@@ -9,4 +9,5 @@ abstract class ServiceProvidedRepository {
     DateTime? endDate,
   ]);
   Future<void> update(ServiceProvided service);
+  Future<int> count(String userId, [String? typeId]);
 }
