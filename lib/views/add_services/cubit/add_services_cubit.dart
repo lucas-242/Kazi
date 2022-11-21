@@ -23,6 +23,14 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   ) : super(AddServicesState(
             status: BaseStateStatus.success, userId: _authService.user!.uid));
 
+  void onInit() {
+    final status = dropdownItems.isEmpty
+        ? BaseStateStatus.noData
+        : BaseStateStatus.success;
+
+    emit(state.copyWith(status: status));
+  }
+
   Future<void> addServiceProvided() async {
     try {
       _checkServiceValidity();

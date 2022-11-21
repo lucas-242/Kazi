@@ -18,6 +18,12 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   @override
+  void initState() {
+    context.read<SettingsCubit>().onInit();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Configurações'),
@@ -112,13 +118,12 @@ class _NoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Não há serviços cadastrados', style: context.headlineSmall),
-        const SizedBox(height: 25),
-        Text('Você ainda não cadastrou serviços', style: context.bodyLarge),
+        Text('Não há tipos de serviço cadastrados',
+            style: context.headlineSmall),
         const SizedBox(height: 25),
         CustomElevatedButton(
           onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
-          text: 'Adicionar novo serviço',
+          text: 'Adicionar novo tipo de serviço',
         ),
       ],
     );

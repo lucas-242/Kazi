@@ -27,6 +27,14 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
           ),
         );
 
+  void onInit() {
+    final status = state.serviceTypeList.isEmpty
+        ? BaseStateStatus.noData
+        : BaseStateStatus.success;
+
+    emit(state.copyWith(status: status));
+  }
+
   Future<void> getServiceTypes() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
