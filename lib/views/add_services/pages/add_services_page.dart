@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/models/base_state.dart';
+import 'package:my_services/views/calendar/calendar.dart';
 import 'package:my_services/views/home/cubit/home_cubit.dart';
 
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
@@ -27,12 +28,10 @@ class _AddServicesPageState extends State<AddServicesPage> {
                 previous.status != current.status,
             listener: (context, state) {
               if (state.status == BaseStateStatus.success) {
-                final serviceList =
-                    context.read<AddServicesCubit>().serviceProvidedList;
-                context.read<HomeCubit>().changeServices(serviceList);
+                context.read<HomeCubit>().changeServices();
+                context.read<CalendarCubit>().changeServices();
                 Navigator.of(context).pop();
-              }
-              if (state.status == BaseStateStatus.error) {
+              } else if (state.status == BaseStateStatus.error) {
                 getCustomSnackBar(
                   context,
                   message: state.callbackMessage,

@@ -149,7 +149,10 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
 
   void _checkServiceValidity() {
     if (state.serviceProvided.typeId == '') {
-      return;
+      throw ClientError(
+        'O tipo de serviço precisa ser preenchido',
+        'Triggered by _checkServiceValidity on AddServicesCubit.',
+      );
     }
   }
 }

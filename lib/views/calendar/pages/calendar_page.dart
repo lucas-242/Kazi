@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/widgets/custom_date_picker/custom_date_picker.dart';
 import 'package:my_services/shared/widgets/service_list/service_list.dart';
@@ -12,6 +13,7 @@ import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import '../../add_services/cubit/add_services_cubit.dart';
+import '../../home/home.dart';
 import '../cubit/calendar_cubit.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -68,12 +70,13 @@ class _CalendarPageState extends State<CalendarPage> {
                   }
                 },
                 child: BlocBuilder<CalendarCubit, CalendarState>(
-                  buildWhen: (previous, current) =>
-                      previous.status != current.status,
                   builder: (context, state) {
                     return state.when(
                       onState: (_) => _Build(
-                          dateController: dateController, dateKey: dateKey),
+                        state: state,
+                        dateController: dateController,
+                        dateKey: dateKey,
+                      ),
                       onLoading: () => SizedBox(
                         height: context.height,
                         child: const Center(child: CircularProgressIndicator()),
@@ -96,59 +99,64 @@ class _CalendarPageState extends State<CalendarPage> {
 }
 
 class _Build extends StatelessWidget {
+  final CalendarState state;
   final GlobalKey<FormFieldState> dateKey;
   final MaskedTextController dateController;
 
-  const _Build({required this.dateKey, required this.dateController});
+  const _Build(
+      {required this.dateKey,
+      required this.dateController,
+      required this.state});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CalendarCubit, CalendarState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    void onDelete(ServiceProvided service) async {
+      final homeCubit = context.read<HomeCubit>();
+      await context.read<CalendarCubit>().deleteService(service);
+      homeCubit.changeServices();
+    }
+
+    void onEdit(ServiceProvided service) async {
+      context.read<AddServicesCubit>().onChangeServiceProvided(service);
+      Navigator.pushNamed(context, AppRoutes.addServiceProvided);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        //TODO: Use a date picker to change only year and month
+        CustomDatePicker(
+          fieldKey: dateKey,
+          controller: dateController,
+          initialDate: state.selectedDate,
+          onChange: (date) {
+            context.read<CalendarCubit>().onChangeSelectedDate(date);
+            dateController.text = DateFormat.yMd().format(date);
+          },
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            //TODO: Use a date picker to change only year and month
-            CustomDatePicker(
-              fieldKey: dateKey,
-              controller: dateController,
-              initialDate: state.selectedDate,
-              onChange: (date) {
-                context.read<CalendarCubit>().onChangeSelectedDate(date);
-                dateController.text = DateFormat.yMd().format(date);
-              },
+            Text(
+              DateFormat.MMMM().format(state.selectedDate),
+              style: context.titleMedium,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  DateFormat.MMMM().format(state.selectedDate),
-                  style: context.titleMedium,
-                ),
-                Text(
-                  '${state.services.length.toString()} Serviços',
-                  style: context.titleMedium,
-                ),
-              ],
-            ),
-            const SizedBox(height: 25),
-            ServiceList(
-              services: state.services,
-              totalValue: state.totalValue,
-              totalWithDiscount: state.totalWithDiscount,
-              totalDiscounted: state.totalDiscounted,
-              onTapEdit: (service) {
-                context
-                    .read<AddServicesCubit>()
-                    .onChangeServiceProvided(service);
-                Navigator.pushNamed(context, AppRoutes.addServiceProvided);
-              },
-              onTapDelete: (service) =>
-                  context.read<CalendarCubit>().deleteService(service),
+            Text(
+              '${state.services.length.toString()} Serviços',
+              style: context.titleMedium,
             ),
           ],
-        );
-      },
+        ),
+        const SizedBox(height: 25),
+        ServiceList(
+          services: state.services,
+          totalValue: state.totalValue,
+          totalWithDiscount: state.totalWithDiscount,
+          totalDiscounted: state.totalDiscounted,
+          onTapEdit: onEdit,
+          onTapDelete: onDelete,
+        ),
+      ],
     );
   }
 }

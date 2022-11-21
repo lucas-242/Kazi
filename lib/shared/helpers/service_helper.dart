@@ -26,4 +26,13 @@ abstract class ServiceHelper {
     return service.copyWith(
         type: serviceTypes.firstWhere((st) => st.id == service.typeId));
   }
+
+  static List<ServiceProvided> filterServicesByDate(
+      List<ServiceProvided> services, int year, int month,
+      [int? day = 1]) {
+    return services
+        .where((s) =>
+            s.date.year == year && s.date.month == month && s.date.day == day)
+        .toList();
+  }
 }

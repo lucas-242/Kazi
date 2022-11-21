@@ -94,8 +94,10 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
       await _serviceProvidedRepository.delete(service.id);
       final newList = _removeDeletedService(service);
       _cacheService.services = newList;
+      final newStatus =
+          newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-      emit(state.copyWith(status: BaseStateStatus.success, services: newList));
+      emit(state.copyWith(status: newStatus, services: newList));
       return newList;
     } on AppError catch (exception) {
       onAppError(exception);
@@ -113,9 +115,14 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     return newList;
   }
 
-  void changeServices(List<ServiceProvided> services) {
+  void changeServices() {
+    final today = DateTime.now();
+
+    final cachedServices = ServiceHelper.filterServicesByDate(
+        _cacheService.services, today.year, today.month, today.day);
+
     emit(state.copyWith(
         services: ServiceHelper.addServiceTypeToServices(
-            services, _cacheService.serviceTypes)));
+            cachedServices, _cacheService.serviceTypes)));
   }
 }

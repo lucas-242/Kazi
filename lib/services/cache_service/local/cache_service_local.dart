@@ -21,12 +21,4 @@ class CacheServiceLocal extends CacheService {
   set services(List<ServiceProvided> newServices) {
     _services = newServices;
   }
-
-  @override
-  List<ServiceProvided> getServicesByMonth(DateTime dateTime) {
-    return _services
-        .where((s) =>
-            s.date.year == dateTime.year && s.date.month == dateTime.month)
-        .toList();
-  }
 }

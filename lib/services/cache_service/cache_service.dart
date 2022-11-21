@@ -8,6 +8,4 @@ abstract class CacheService {
 
   List<ServiceProvided> get services;
   set services(List<ServiceProvided> serviceProvidedList);
-
-  List<ServiceProvided> getServicesByMonth(DateTime dateTime);
 }

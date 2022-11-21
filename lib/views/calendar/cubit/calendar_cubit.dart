@@ -82,8 +82,10 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
       await _serviceProvidedRepository.delete(service.id);
       final newList = _removeDeletedService(service);
       _cacheService.services = newList;
+      final newStatus =
+          newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-      emit(state.copyWith(status: BaseStateStatus.success, services: newList));
+      emit(state.copyWith(status: newStatus, services: newList));
       return newList;
     } on AppError catch (exception) {
       onAppError(exception);
@@ -106,7 +108,11 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     dateTime = DateTime(dateTime.year, dateTime.month);
 
     emit(state.copyWith(selectedDate: dateTime));
-    final cachedServices = _cacheService.getServicesByMonth(dateTime);
+    final cachedServices = ServiceHelper.filterServicesByDate(
+      _cacheService.services,
+      dateTime.year,
+      dateTime.month,
+    );
 
     if (cachedServices.isEmpty) {
       emit(state.copyWith(status: BaseStateStatus.loading));
@@ -117,10 +123,16 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     }
   }
 
-  void changeServices(List<ServiceProvided> services) {
+  void changeServices() {
+    final cachedServices = ServiceHelper.filterServicesByDate(
+      _cacheService.services,
+      state.selectedDate.year,
+      state.selectedDate.month,
+    );
+
     emit(state.copyWith(
       services: ServiceHelper.addServiceTypeToServices(
-          services, _cacheService.serviceTypes),
+          cachedServices, _cacheService.serviceTypes),
     ));
   }
 }
