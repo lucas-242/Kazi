@@ -46,4 +46,29 @@ class ServiceProvided {
       userId: userId ?? this.userId,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ServiceProvided &&
+        other.id == id &&
+        other.description == description &&
+        other.value == value &&
+        other.discountPercent == discountPercent &&
+        other.typeId == typeId &&
+        other.date == date &&
+        other.userId == userId;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        description.hashCode ^
+        value.hashCode ^
+        discountPercent.hashCode ^
+        typeId.hashCode ^
+        date.hashCode ^
+        userId.hashCode;
+  }
 }

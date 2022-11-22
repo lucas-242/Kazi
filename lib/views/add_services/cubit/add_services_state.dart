@@ -1,27 +1,32 @@
 part of 'add_services_cubit.dart';
 
 class AddServicesState extends BaseState {
-  ServiceProvided serviceProvided;
+  ServiceProvided service;
+  int quantity;
   String userId;
 
   AddServicesState({
     required super.status,
-    ServiceProvided? serviceProvided,
+    ServiceProvided? service,
     required this.userId,
     super.callbackMessage,
-  }) : serviceProvided = serviceProvided ?? ServiceProvided(userId: userId);
+    int? quantity,
+  })  : service = service ?? ServiceProvided(userId: userId),
+        quantity = quantity ?? 1;
 
   @override
   AddServicesState copyWith({
     BaseStateStatus? status,
     String? callbackMessage,
-    ServiceProvided? serviceProvided,
+    ServiceProvided? service,
     List<ServiceProvided>? serviceProvidedListUpdated,
+    int? quantity,
   }) {
     return AddServicesState(
       status: status ?? this.status,
       callbackMessage: callbackMessage ?? this.callbackMessage,
-      serviceProvided: serviceProvided ?? this.serviceProvided,
+      service: service ?? this.service,
+      quantity: quantity ?? this.quantity,
       userId: userId,
     );
   }

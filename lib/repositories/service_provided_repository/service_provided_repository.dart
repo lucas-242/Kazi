@@ -1,7 +1,8 @@
 import 'package:my_services/models/service_provided.dart';
 
 abstract class ServiceProvidedRepository {
-  Future<ServiceProvided> add(ServiceProvided service);
+  Future<List<ServiceProvided>> add(ServiceProvided service,
+      [int quantity = 1]);
   Future<void> delete(String id);
   Future<List<ServiceProvided>> get(
     String userId, [

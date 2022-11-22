@@ -29,10 +29,9 @@ class _AddServicesPageState extends State<AddServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final label =
-        context.read<AddServicesCubit>().state.serviceProvided.id != ''
-            ? 'Editar'
-            : 'Adicionar';
+    final label = context.read<AddServicesCubit>().state.service.id != ''
+        ? 'Editar'
+        : 'Adicionar';
     return Scaffold(
       appBar: CustomAppBar(
         title: '$label tipo de serviço',
@@ -61,8 +60,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
                   previous.status != current.status,
               builder: (context, state) {
                 return state.when(
-                  onState: (_) =>
-                      _Build(serviceProvided: state.serviceProvided),
+                  onState: (_) => _Build(serviceProvided: state.service),
                   onLoading: () => SizedBox(
                     height: context.height,
                     child: const Center(child: CircularProgressIndicator()),

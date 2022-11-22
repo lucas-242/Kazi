@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:my_services/shared/helpers/service_helper.dart';
 import 'package:my_services/shared/models/base_cubit.dart';
 
 import '../../../core/errors/app_error.dart';
@@ -35,19 +36,31 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      var result = await _serviceProvidedRepository.add(state.serviceProvided);
-      result = _fillServiceWithServiceType(result);
-      final newList = _cacheService.services..add(result);
+      var result =
+          await _serviceProvidedRepository.add(state.service, state.quantity);
+      result = _fillServiceListWithServiceType(result);
+      final newList =
+          ServiceHelper.mergeServices(_cacheService.services, result);
       _cacheService.services = newList;
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceProvidedListUpdated: newList,
-          serviceProvided: ServiceProvided(userId: _authService.user!.uid)));
+          quantity: 1,
+          service: ServiceProvided(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
       unexpectedError();
     }
+  }
+
+  List<ServiceProvided> _fillServiceListWithServiceType(
+      List<ServiceProvided> services) {
+    final result = <ServiceProvided>[];
+    for (var service in services) {
+      result.add(_fillServiceWithServiceType(service));
+    }
+    return result;
   }
 
   ServiceProvided _fillServiceWithServiceType(ServiceProvided serviceProvided) {
@@ -60,14 +73,15 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await _serviceProvidedRepository.update(state.serviceProvided);
+      await _serviceProvidedRepository.update(state.service);
       final newList = _generateNewListWithUpdatedService();
       _cacheService.services = newList;
 
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceProvidedListUpdated: newList,
-          serviceProvided: ServiceProvided(userId: _authService.user!.uid)));
+          quantity: 1,
+          service: ServiceProvided(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -77,18 +91,17 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
 
   List<ServiceProvided> _generateNewListWithUpdatedService() {
     final index = _cacheService.services
-        .indexWhere((element) => element.id == state.serviceProvided.id);
-    final newList = _cacheService.services..[index] = state.serviceProvided;
+        .indexWhere((element) => element.id == state.service.id);
+    final newList = _cacheService.services..[index] = state.service;
     return newList;
   }
 
   void onChangeServiceProvided(ServiceProvided serviceType) {
-    emit(state.copyWith(serviceProvided: serviceType));
+    emit(state.copyWith(service: serviceType));
   }
 
   void onChangeServiceDescription(String value) {
-    emit(state.copyWith(
-        serviceProvided: state.serviceProvided.copyWith(description: value)));
+    emit(state.copyWith(service: state.service.copyWith(description: value)));
   }
 
   void onChangeServiceType(DropdownItem dropdownItem) {
@@ -96,7 +109,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     final discountValue = _getDefaultDiscountToService(dropdownItem.value);
     emit(
       state.copyWith(
-        serviceProvided: state.serviceProvided.copyWith(
+        service: state.service.copyWith(
           typeId: dropdownItem.value,
           value: defaultValue,
           discountPercent: discountValue,
@@ -119,20 +132,22 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
 
   void onChangeServiceValue(String value) {
     final finalValue = double.tryParse(value);
-    emit(state.copyWith(
-        serviceProvided: state.serviceProvided.copyWith(value: finalValue)));
+    emit(state.copyWith(service: state.service.copyWith(value: finalValue)));
+  }
+
+  void onChangeServicesQuantity(String value) {
+    final finalValue = int.tryParse(value);
+    emit(state.copyWith(quantity: finalValue));
   }
 
   void onChangeServiceDiscount(String value) {
     final finalValue = double.tryParse(value);
     emit(state.copyWith(
-        serviceProvided:
-            state.serviceProvided.copyWith(discountPercent: finalValue)));
+        service: state.service.copyWith(discountPercent: finalValue)));
   }
 
   void onChangeServiceDate(DateTime? value) {
-    emit(state.copyWith(
-        serviceProvided: state.serviceProvided.copyWith(date: value)));
+    emit(state.copyWith(service: state.service.copyWith(date: value)));
   }
 
   List<DropdownItem> get dropdownItems {
@@ -144,11 +159,10 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   }
 
   DropdownItem? get selectedDropdownItem {
-    if (state.serviceProvided.type == null) return null;
+    if (state.service.type == null) return null;
 
     final result = DropdownItem(
-        value: state.serviceProvided.type!.id,
-        text: state.serviceProvided.type!.name);
+        value: state.service.type!.id, text: state.service.type!.name);
 
     return result;
   }
@@ -156,7 +170,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   List<ServiceProvided> get serviceProvidedList => _cacheService.services;
 
   void _checkServiceValidity() {
-    if (state.serviceProvided.typeId == '') {
+    if (state.service.typeId == '') {
       throw ClientError(
         'O tipo de serviço precisa ser preenchido',
         'Triggered by _checkServiceValidity on AddServicesCubit.',

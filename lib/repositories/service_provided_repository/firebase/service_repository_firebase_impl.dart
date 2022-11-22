@@ -12,11 +12,20 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
       : _firestore = firestore;
 
   @override
-  Future<ServiceProvided> add(ServiceProvided service) async {
+  Future<List<ServiceProvided>> add(ServiceProvided service,
+      [int quantity = 1]) async {
     try {
-      final data = ServiceProvidedFirebase.fromServiceProvided(service).toMap();
-      final document = await _firestore.collection(_path).add(data);
-      final result = service.copyWith(id: document.id);
+      final batch = _firestore.batch();
+      final data = ServiceProvidedFirebase.fromServiceProvided(service);
+      final result = <ServiceProvided>[];
+
+      for (var i = 0; i < quantity; i++) {
+        final collection = _firestore.collection(_path).doc();
+        batch.set(collection, data.toMap());
+        result.add(data.copyWith(id: collection.id));
+      }
+
+      await batch.commit();
       return result;
     } catch (exception) {
       throw ExternalError('Erro ao efetuar a adição do serviço realizado',
