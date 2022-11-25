@@ -1,1 +1,1 @@
-enum FastSearch { day, week, fortnight, month }
+enum FastSearch { today, week, fortnight, month, custom }

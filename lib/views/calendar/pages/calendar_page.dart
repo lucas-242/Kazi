@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/models/fast_search.dart';
 import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/shared/themes/themes.dart';
-import 'package:my_services/shared/widgets/custom_date_picker/custom_date_picker.dart';
 import 'package:my_services/shared/widgets/service_list/service_list.dart';
 
 import '../../../core/routes/app_routes.dart';
 import '../../../shared/models/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
+import '../../../shared/widgets/custom_date_range_picker/custom_date_range_picker.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import '../../../shared/widgets/selectable_tag/selectable_tag.dart';
@@ -27,13 +27,14 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   final dateKey = GlobalKey<FormFieldState>();
-  final dateController =
-      MaskedTextController(text: 'dd/MM/yyyy', mask: '00/00/0000');
+  final dateController = MaskedTextController(
+      text: 'dd/MM/yyyy - dd/MM/yyyy', mask: '00/00/0000 - 00/00/0000');
 
   @override
   void initState() {
     final cubit = context.read<CalendarCubit>();
-    dateController.text = DateFormat.yMd().format(cubit.state.selectedDate);
+    dateController.text =
+        '${DateFormat.yMd().format(cubit.state.startDate)} - ${DateFormat.yMd().format(cubit.state.endDate)}';
     cubit.onInit();
     super.initState();
   }
@@ -130,7 +131,7 @@ class _Build extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              DateFormat.MMMM().format(state.selectedDate),
+              DateFormat.MMMM().format(state.startDate),
               style: context.titleMedium,
             ),
             Text(
@@ -193,48 +194,52 @@ class _TopSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<CalendarCubit>();
 
+    void onChangeFastSearch(FastSearch fastSearch) {
+      cubit.onChageSelectedFastSearch(fastSearch);
+      dateController.text =
+          '${DateFormat.yMd().format(cubit.state.startDate)} - ${DateFormat.yMd().format(cubit.state.endDate)}';
+    }
+
     return Column(
       children: [
+        CustomDateRangePicker(
+          fieldKey: dateKey,
+          controller: dateController,
+          startDate: cubit.state.startDate,
+          endDate: cubit.state.endDate,
+          onChange: (date) {
+            cubit.onChangeDate(date);
+            dateController.text =
+                '${DateFormat.yMd().format(date.start)} - ${DateFormat.yMd().format(date.end)}';
+          },
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SelectableTag(
-              onTap: () => cubit.onChageSelectedFastSearch(FastSearch.day),
-              text: 'Dia',
-              isSelected: cubit.state.selectedFastSearch == FastSearch.day,
+              onTap: () => onChangeFastSearch(FastSearch.today),
+              text: 'Hoje',
+              isSelected: cubit.state.selectedFastSearch == FastSearch.today,
             ),
             SelectableTag(
-              onTap: () => cubit.onChageSelectedFastSearch(FastSearch.week),
+              onTap: () => onChangeFastSearch(FastSearch.week),
               text: 'Semana',
               isSelected: cubit.state.selectedFastSearch == FastSearch.week,
             ),
             SelectableTag(
-              onTap: () =>
-                  cubit.onChageSelectedFastSearch(FastSearch.fortnight),
+              onTap: () => onChangeFastSearch(FastSearch.fortnight),
               text: 'Quinzena',
               isSelected:
                   cubit.state.selectedFastSearch == FastSearch.fortnight,
             ),
             SelectableTag(
-              onTap: () => cubit.onChageSelectedFastSearch(FastSearch.month),
+              onTap: () => onChangeFastSearch(FastSearch.month),
               text: 'Mês',
               isSelected: cubit.state.selectedFastSearch == FastSearch.month,
             ),
           ],
         ),
         const SizedBox(height: 25),
-        Visibility(
-          visible: cubit.state.selectedFastSearch == FastSearch.day,
-          child: CustomDatePicker(
-            fieldKey: dateKey,
-            controller: dateController,
-            initialDate: cubit.state.selectedDate,
-            onChange: (date) {
-              cubit.onChangeSelectedDate(date);
-              dateController.text = DateFormat.yMd().format(date);
-            },
-          ),
-        ),
       ],
     );
   }

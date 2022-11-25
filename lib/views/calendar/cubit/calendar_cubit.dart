@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/repositories/service_provided_repository/service_provided_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
@@ -36,18 +37,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   Future<List<ServiceProvided>> _fetchServices(
       DateTime startDate, DateTime endDate) async {
     try {
-      // final endDate = DateTime(
-      //   state.selectedDate.year,
-      //   state.selectedDate.month + 1,
-      //   0,
-      // );
       final result = await _serviceProvidedRepository.get(
-        _authService.user!.uid,
-        // state.selectedDate,
-        // endDate,
-        startDate,
-        endDate,
-      );
+          _authService.user!.uid, startDate, endDate);
       return result;
     } on AppError catch (exception) {
       onAppError(exception);
@@ -112,27 +103,37 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     return newList;
   }
 
-  Future<void> onChangeSelectedDate(DateTime? dateTime) async {
-    if (dateTime == null) return;
-    dateTime = DateTime(dateTime.year, dateTime.month);
+  Future<void> onChangeDate(DateTimeRange range) async {
+    emit(state.copyWith(
+      status: BaseStateStatus.loading,
+      startDate: range.start,
+      endDate: range.end,
+      selectedFastSearch: FastSearch.custom,
+    ));
+    final fetchResult = await _fetchServices(range.start, range.end);
+    _handleFetchServices(fetchResult);
+    // final cachedServices = ServiceHelper.filterServicesByRange(
+    //     _cacheService.services, range.start, range.end);
 
-    final cachedServices = ServiceHelper.filterServicesByDate(
-      _cacheService.services,
-      dateTime.year,
-      dateTime.month,
-    );
-
-    if (cachedServices.isEmpty) {
-      emit(state.copyWith(
-          status: BaseStateStatus.loading, selectedDate: dateTime));
-      final range = _getRangeDateByFastSearch(state.selectedFastSearch);
-      final fetchResult =
-          await _fetchServices(range['startDate']!, range['endDate']!);
-      _handleFetchServices(fetchResult);
-    } else {
-      emit(state.copyWith(
-          services: cachedServices, status: BaseStateStatus.success));
-    }
+    //TODO: Make a stategy to cache the services
+    // if (cachedServices.isEmpty) {
+    //   emit(state.copyWith(
+    //     status: BaseStateStatus.loading,
+    //     startDate: range.start,
+    //     endDate: range.end,
+    //     selectedFastSearch: FastSearch.custom,
+    //   ));
+    //   final fetchResult = await _fetchServices(range.start, range.end);
+    //   _handleFetchServices(fetchResult);
+    // } else {
+    //   emit(state.copyWith(
+    //     services: cachedServices,
+    //     status: BaseStateStatus.success,
+    //     startDate: range.start,
+    //     endDate: range.end,
+    //     selectedFastSearch: FastSearch.custom,
+    //   ));
+    // }
   }
 
   //TODO: Add option to search by range limited to 3 months
@@ -140,21 +141,39 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     if (fastSearch == state.selectedFastSearch) return;
 
     final range = _getRangeDateByFastSearch(fastSearch);
-    final cachedServices = ServiceHelper.filterServicesByRange(
-        _cacheService.services, range['startDate']!, range['endDate']!);
 
-    if (cachedServices.isEmpty) {
-      emit(state.copyWith(
-          status: BaseStateStatus.loading, selectedFastSearch: fastSearch));
-      final fetchResult =
-          await _fetchServices(range['startDate']!, range['endDate']!);
-      _handleFetchServices(fetchResult);
-    } else {
-      emit(state.copyWith(
-          services: cachedServices,
-          selectedFastSearch: fastSearch,
-          status: BaseStateStatus.success));
-    }
+    emit(state.copyWith(
+      status: BaseStateStatus.loading,
+      selectedFastSearch: fastSearch,
+      startDate: range['startDate']!,
+      endDate: range['endDate']!,
+    ));
+    final fetchResult =
+        await _fetchServices(range['startDate']!, range['endDate']!);
+    _handleFetchServices(fetchResult);
+
+    //TODO: Make a stategy to cache the services
+    // final cachedServices = ServiceHelper.filterServicesByRange(
+    //     _cacheService.services, range['startDate']!, range['endDate']!);
+
+    // if (cachedServices.isEmpty) {
+    //   emit(state.copyWith(
+    //     status: BaseStateStatus.loading,
+    //     selectedFastSearch: fastSearch,
+    //     startDate: range['startDate']!,
+    //     endDate: range['endDate']!,
+    //   ));
+    //   final fetchResult =
+    //       await _fetchServices(range['startDate']!, range['endDate']!);
+    //   _handleFetchServices(fetchResult);
+    // } else {
+    //   emit(state.copyWith(
+    //       services: cachedServices,
+    //       selectedFastSearch: fastSearch,
+    //       startDate: range['startDate']!,
+    //       endDate: range['endDate']!,
+    //       status: BaseStateStatus.success));
+    // }
   }
 
   Map<String, DateTime> _getRangeDateByFastSearch(FastSearch fastSearch) {
@@ -162,10 +181,6 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     DateTime startDate;
     DateTime endDate;
     switch (fastSearch) {
-      case FastSearch.day:
-        startDate = today;
-        endDate = today;
-        break;
       case FastSearch.week:
         startDate = today.mostRecentWeekday(DateTime.sunday);
         endDate = today.next(DateTime.saturday);
@@ -183,16 +198,17 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
         startDate = DateTime(today.year, today.month, 1);
         endDate = DateTime(today.year, today.month + 1, 0);
         break;
+      default:
+        startDate = today;
+        endDate = today;
+        break;
     }
     return {'startDate': startDate, 'endDate': endDate};
   }
 
   void changeServices() {
-    final cachedServices = ServiceHelper.filterServicesByDate(
-      _cacheService.services,
-      state.selectedDate.year,
-      state.selectedDate.month,
-    );
+    final cachedServices = ServiceHelper.filterServicesByRange(
+        _cacheService.services, state.startDate, state.endDate);
 
     emit(state.copyWith(
       services: ServiceHelper.addServiceTypeToServices(
