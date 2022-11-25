@@ -47,34 +47,31 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<HomeCubit>().onRefresh(),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-              child: BlocListener<HomeCubit, HomeState>(
-                listenWhen: (previous, current) =>
-                    previous.status != current.status,
-                listener: (context, state) {
-                  if (state.status == BaseStateStatus.error) {
-                    getCustomSnackBar(
-                      context,
-                      message: state.callbackMessage,
-                      type: SnackBarType.error,
-                    );
-                  }
+          child: Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+            child: BlocListener<HomeCubit, HomeState>(
+              listenWhen: (previous, current) =>
+                  previous.status != current.status,
+              listener: (context, state) {
+                if (state.status == BaseStateStatus.error) {
+                  getCustomSnackBar(
+                    context,
+                    message: state.callbackMessage,
+                    type: SnackBarType.error,
+                  );
+                }
+              },
+              child: BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  return state.when(
+                    onState: (_) => _Build(state: state),
+                    onLoading: () => SizedBox(
+                      height: context.height,
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    onNoData: () => const _NoData(),
+                  );
                 },
-                child: BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    return state.when(
-                      onState: (_) => _Build(state: state),
-                      onLoading: () => SizedBox(
-                        height: context.height,
-                        child: const Center(child: CircularProgressIndicator()),
-                      ),
-                      onNoData: () => const _NoData(),
-                    );
-                  },
-                ),
               ),
             ),
           ),
@@ -107,21 +104,8 @@ class _Build extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              DateFormat.MMMMd().format(DateTime.now()),
-              style: context.titleMedium,
-            ),
-            Text(
-              '${state.services.length.toString()} Serviços',
-              style: context.titleMedium,
-            ),
-          ],
-        ),
-        const SizedBox(height: 25),
         ServiceList(
+          title: DateFormat.MMMMd().format(DateTime.now()),
           services: state.services,
           totalValue: state.totalValue,
           totalDiscounted: state.totalDiscounted,

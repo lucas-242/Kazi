@@ -56,41 +56,38 @@ class _CalendarPageState extends State<CalendarPage> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<CalendarCubit>().onRefresh(),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-              child: BlocListener<CalendarCubit, CalendarState>(
-                listenWhen: (previous, current) =>
-                    previous.status != current.status,
-                listener: (context, state) {
-                  if (state.status == BaseStateStatus.error) {
-                    getCustomSnackBar(
-                      context,
-                      message: state.callbackMessage,
-                      type: SnackBarType.error,
-                    );
-                  }
+          child: Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+            child: BlocListener<CalendarCubit, CalendarState>(
+              listenWhen: (previous, current) =>
+                  previous.status != current.status,
+              listener: (context, state) {
+                if (state.status == BaseStateStatus.error) {
+                  getCustomSnackBar(
+                    context,
+                    message: state.callbackMessage,
+                    type: SnackBarType.error,
+                  );
+                }
+              },
+              child: BlocBuilder<CalendarCubit, CalendarState>(
+                builder: (context, state) {
+                  return state.when(
+                    onState: (_) => _Build(
+                      state: state,
+                      dateController: dateController,
+                      dateKey: dateKey,
+                    ),
+                    onLoading: () => SizedBox(
+                      height: context.height,
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    onNoData: () => _NoData(
+                      dateController: dateController,
+                      dateKey: dateKey,
+                    ),
+                  );
                 },
-                child: BlocBuilder<CalendarCubit, CalendarState>(
-                  builder: (context, state) {
-                    return state.when(
-                      onState: (_) => _Build(
-                        state: state,
-                        dateController: dateController,
-                        dateKey: dateKey,
-                      ),
-                      onLoading: () => SizedBox(
-                        height: context.height,
-                        child: const Center(child: CircularProgressIndicator()),
-                      ),
-                      onNoData: () => _NoData(
-                        dateController: dateController,
-                        dateKey: dateKey,
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
           ),
@@ -127,21 +124,9 @@ class _Build extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _TopSearch(dateKey: dateKey, dateController: dateController),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              DateFormat.MMMM().format(state.startDate),
-              style: context.titleMedium,
-            ),
-            Text(
-              '${state.services.length.toString()} Serviços',
-              style: context.titleMedium,
-            ),
-          ],
-        ),
-        const SizedBox(height: 25),
         ServiceList(
+          title:
+              '${DateFormat.yMd().format(state.startDate)} - ${DateFormat.yMd().format(state.endDate)}',
           services: state.services,
           totalValue: state.totalValue,
           totalWithDiscount: state.totalWithDiscount,

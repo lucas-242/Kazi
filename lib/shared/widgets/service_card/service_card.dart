@@ -7,32 +7,34 @@ import '../custom_slidable/custom_slidable.dart';
 class ServiceCard extends StatelessWidget {
   final Function(ServiceProvided) onTapDelete;
   final Function(ServiceProvided) onTapEdit;
-  final ServiceProvided serviceType;
+  final ServiceProvided service;
 
   const ServiceCard(
       {super.key,
       required this.onTapDelete,
       required this.onTapEdit,
-      required this.serviceType});
+      required this.service});
 
   @override
   Widget build(BuildContext context) {
     return CustomSlidable(
       leftPanel: true,
       rightPanel: true,
-      onLeftSlide: () => onTapEdit(serviceType),
-      onRightSlide: () => onTapDelete(serviceType),
+      onLeftSlide: () => onTapEdit(service),
+      onRightSlide: () => onTapDelete(service),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${serviceType.type?.name}'),
+            Text('${service.type?.name}'),
             Text(NumberFormat.currency(symbol: 'R\$')
-                .format(serviceType.valueWithDiscount)),
+                .format(service.valueWithDiscount)),
           ],
         ),
-        subtitle: Text(serviceType.description ?? ''),
+        subtitle: service.description != null && service.description != ''
+            ? Text(service.description!)
+            : null,
       ),
     );
   }
