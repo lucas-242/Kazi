@@ -47,4 +47,17 @@ abstract class ServiceHelper {
 
     return filtered.toList();
   }
+
+  static List<ServiceProvided> filterServicesByRange(
+      List<ServiceProvided> services, DateTime startDate, DateTime endDate) {
+    var filtered = services.where((s) {
+      final serviceDate = DateTime(s.date.year, s.date.month, s.date.day);
+      return (serviceDate.isAtSameMomentAs(startDate) ||
+              serviceDate.isAfter(startDate)) &&
+          (serviceDate.isAtSameMomentAs(endDate) ||
+              serviceDate.isBefore(endDate));
+    });
+
+    return filtered.toList();
+  }
 }

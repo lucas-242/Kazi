@@ -2,6 +2,7 @@ part of 'calendar_cubit.dart';
 
 class CalendarState extends BaseState {
   DateTime selectedDate;
+  FastSearch selectedFastSearch;
   List<ServiceProvided> services;
 
   double get totalValue {
@@ -21,9 +22,11 @@ class CalendarState extends BaseState {
     List<ServiceProvided>? services,
     super.callbackMessage,
     DateTime? selectedDate,
+    FastSearch? selectedFastSearch,
   })  : selectedDate =
             selectedDate ?? DateTime(DateTime.now().year, DateTime.now().month),
-        services = services ?? [];
+        services = services ?? [],
+        selectedFastSearch = selectedFastSearch ?? FastSearch.day;
 
   @override
   CalendarState copyWith({
@@ -31,12 +34,14 @@ class CalendarState extends BaseState {
     String? callbackMessage,
     List<ServiceProvided>? services,
     DateTime? selectedDate,
+    FastSearch? selectedFastSearch,
   }) {
     return CalendarState(
       status: status ?? this.status,
       callbackMessage: callbackMessage ?? this.callbackMessage,
       services: services ?? this.services,
       selectedDate: selectedDate ?? this.selectedDate,
+      selectedFastSearch: selectedFastSearch ?? this.selectedFastSearch,
     );
   }
 }

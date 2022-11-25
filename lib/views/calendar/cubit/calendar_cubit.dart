@@ -7,6 +7,8 @@ import 'package:my_services/shared/models/base_cubit.dart';
 import 'package:my_services/shared/models/base_state.dart';
 
 import '../../../core/errors/app_error.dart';
+import '../../../shared/extensions/extensions.dart';
+import '../../../models/fast_search.dart';
 import '../../../services/cache_service/cache_service.dart';
 
 part 'calendar_state.dart';
@@ -24,21 +26,26 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
 
   void onInit() async {
     if (state.services.isEmpty) {
-      final result = await _fetchServices();
-      _handleFetchServices(result);
+      final range = _getRangeDateByFastSearch(state.selectedFastSearch);
+      final fetchResult =
+          await _fetchServices(range['startDate']!, range['endDate']!);
+      _handleFetchServices(fetchResult);
     }
   }
 
-  Future<List<ServiceProvided>> _fetchServices() async {
+  Future<List<ServiceProvided>> _fetchServices(
+      DateTime startDate, DateTime endDate) async {
     try {
-      final endDate = DateTime(
-        state.selectedDate.year,
-        state.selectedDate.month + 1,
-        0,
-      );
+      // final endDate = DateTime(
+      //   state.selectedDate.year,
+      //   state.selectedDate.month + 1,
+      //   0,
+      // );
       final result = await _serviceProvidedRepository.get(
         _authService.user!.uid,
-        state.selectedDate,
+        // state.selectedDate,
+        // endDate,
+        startDate,
         endDate,
       );
       return result;
@@ -54,8 +61,10 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result = await _fetchServices();
-      _handleFetchServices(result);
+      final range = _getRangeDateByFastSearch(state.selectedFastSearch);
+      final fetchResult =
+          await _fetchServices(range['startDate']!, range['endDate']!);
+      _handleFetchServices(fetchResult);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -107,7 +116,6 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     if (dateTime == null) return;
     dateTime = DateTime(dateTime.year, dateTime.month);
 
-    emit(state.copyWith(selectedDate: dateTime));
     final cachedServices = ServiceHelper.filterServicesByDate(
       _cacheService.services,
       dateTime.year,
@@ -115,12 +123,68 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     );
 
     if (cachedServices.isEmpty) {
-      emit(state.copyWith(status: BaseStateStatus.loading));
-      final fetchResult = await _fetchServices();
+      emit(state.copyWith(
+          status: BaseStateStatus.loading, selectedDate: dateTime));
+      final range = _getRangeDateByFastSearch(state.selectedFastSearch);
+      final fetchResult =
+          await _fetchServices(range['startDate']!, range['endDate']!);
       _handleFetchServices(fetchResult);
     } else {
-      emit(state.copyWith(services: cachedServices));
+      emit(state.copyWith(
+          services: cachedServices, status: BaseStateStatus.success));
     }
+  }
+
+  //TODO: Add option to search by range limited to 3 months
+  Future<void> onChageSelectedFastSearch(FastSearch fastSearch) async {
+    if (fastSearch == state.selectedFastSearch) return;
+
+    final range = _getRangeDateByFastSearch(fastSearch);
+    final cachedServices = ServiceHelper.filterServicesByRange(
+        _cacheService.services, range['startDate']!, range['endDate']!);
+
+    if (cachedServices.isEmpty) {
+      emit(state.copyWith(
+          status: BaseStateStatus.loading, selectedFastSearch: fastSearch));
+      final fetchResult =
+          await _fetchServices(range['startDate']!, range['endDate']!);
+      _handleFetchServices(fetchResult);
+    } else {
+      emit(state.copyWith(
+          services: cachedServices,
+          selectedFastSearch: fastSearch,
+          status: BaseStateStatus.success));
+    }
+  }
+
+  Map<String, DateTime> _getRangeDateByFastSearch(FastSearch fastSearch) {
+    final today = DateTime.now();
+    DateTime startDate;
+    DateTime endDate;
+    switch (fastSearch) {
+      case FastSearch.day:
+        startDate = today;
+        endDate = today;
+        break;
+      case FastSearch.week:
+        startDate = today.mostRecentWeekday(DateTime.sunday);
+        endDate = today.next(DateTime.saturday);
+        break;
+      case FastSearch.fortnight:
+        if (today.day <= 15) {
+          startDate = DateTime(today.year, today.month, 1);
+          endDate = DateTime(today.year, today.month, 15);
+        } else {
+          startDate = DateTime(today.year, today.month, 16);
+          endDate = DateTime(today.year, today.month + 1, 0);
+        }
+        break;
+      case FastSearch.month:
+        startDate = DateTime(today.year, today.month, 1);
+        endDate = DateTime(today.year, today.month + 1, 0);
+        break;
+    }
+    return {'startDate': startDate, 'endDate': endDate};
   }
 
   void changeServices() {

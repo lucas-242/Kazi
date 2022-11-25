@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/models/fast_search.dart';
 import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/widgets/custom_date_picker/custom_date_picker.dart';
@@ -12,6 +13,7 @@ import '../../../shared/models/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+import '../../../shared/widgets/selectable_tag/selectable_tag.dart';
 import '../../add_services/cubit/add_services_cubit.dart';
 import '../../home/home.dart';
 import '../cubit/calendar_cubit.dart';
@@ -82,7 +84,6 @@ class _CalendarPageState extends State<CalendarPage> {
                         child: const Center(child: CircularProgressIndicator()),
                       ),
                       onNoData: () => _NoData(
-                        date: state.selectedDate,
                         dateController: dateController,
                         dateKey: dateKey,
                       ),
@@ -124,16 +125,7 @@ class _Build extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //TODO: Use a date picker to change only year and month
-        CustomDatePicker(
-          fieldKey: dateKey,
-          controller: dateController,
-          initialDate: state.selectedDate,
-          onChange: (date) {
-            context.read<CalendarCubit>().onChangeSelectedDate(date);
-            dateController.text = DateFormat.yMd().format(date);
-          },
-        ),
+        _TopSearch(dateKey: dateKey, dateController: dateController),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -162,30 +154,18 @@ class _Build extends StatelessWidget {
 }
 
 class _NoData extends StatelessWidget {
-  final DateTime date;
   final GlobalKey<FormFieldState> dateKey;
   final MaskedTextController dateController;
 
-  const _NoData(
-      {required this.date,
-      required this.dateKey,
-      required this.dateController});
+  const _NoData({required this.dateKey, required this.dateController});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomDatePicker(
-          fieldKey: dateKey,
-          controller: dateController,
-          initialDate: date,
-          onChange: (date) {
-            context.read<CalendarCubit>().onChangeSelectedDate(date);
-            dateController.text = DateFormat.yMd().format(date);
-          },
-        ),
+        _TopSearch(dateKey: dateKey, dateController: dateController),
         Text(
-          'Não há serviços prestados no mês de ${DateFormat.MMMM().format(date)} ',
+          'Não há serviços prestados no período selecionado.',
           style: context.titleMedium,
           textAlign: TextAlign.center,
         ),
@@ -194,6 +174,66 @@ class _NoData extends StatelessWidget {
           onTap: () =>
               Navigator.pushNamed(context, AppRoutes.addServiceProvided),
           text: 'Adicionar novo serviço',
+        ),
+      ],
+    );
+  }
+}
+
+class _TopSearch extends StatelessWidget {
+  final GlobalKey<FormFieldState> dateKey;
+  final MaskedTextController dateController;
+  const _TopSearch({
+    Key? key,
+    required this.dateKey,
+    required this.dateController,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<CalendarCubit>();
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SelectableTag(
+              onTap: () => cubit.onChageSelectedFastSearch(FastSearch.day),
+              text: 'Dia',
+              isSelected: cubit.state.selectedFastSearch == FastSearch.day,
+            ),
+            SelectableTag(
+              onTap: () => cubit.onChageSelectedFastSearch(FastSearch.week),
+              text: 'Semana',
+              isSelected: cubit.state.selectedFastSearch == FastSearch.week,
+            ),
+            SelectableTag(
+              onTap: () =>
+                  cubit.onChageSelectedFastSearch(FastSearch.fortnight),
+              text: 'Quinzena',
+              isSelected:
+                  cubit.state.selectedFastSearch == FastSearch.fortnight,
+            ),
+            SelectableTag(
+              onTap: () => cubit.onChageSelectedFastSearch(FastSearch.month),
+              text: 'Mês',
+              isSelected: cubit.state.selectedFastSearch == FastSearch.month,
+            ),
+          ],
+        ),
+        const SizedBox(height: 25),
+        Visibility(
+          visible: cubit.state.selectedFastSearch == FastSearch.day,
+          child: CustomDatePicker(
+            fieldKey: dateKey,
+            controller: dateController,
+            initialDate: cubit.state.selectedDate,
+            onChange: (date) {
+              cubit.onChangeSelectedDate(date);
+              dateController.text = DateFormat.yMd().format(date);
+            },
+          ),
         ),
       ],
     );
