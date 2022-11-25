@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
-import 'package:my_services/shared/helpers/service_helper.dart';
 import 'package:my_services/shared/models/base_cubit.dart';
 
 import '../../../core/errors/app_error.dart';
 import '../../../models/service_provided.dart';
+import '../../../models/service_type.dart';
 import '../../../repositories/service_provided_repository/service_provided_repository.dart';
+import '../../../repositories/service_type_repository/service_type_repository.dart';
 import '../../../services/auth_service/auth_service.dart';
-import '../../../services/cache_service/cache_service.dart';
 import '../../../shared/models/dropdown_item.dart';
 import '../../../shared/models/base_state.dart';
 
@@ -14,37 +14,45 @@ part 'add_services_state.dart';
 
 class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   final ServiceProvidedRepository _serviceProvidedRepository;
+  final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
-  final CacheService _cacheService;
 
   AddServicesCubit(
     this._serviceProvidedRepository,
+    this._serviceTypeRepository,
     this._authService,
-    this._cacheService,
   ) : super(AddServicesState(
             status: BaseStateStatus.success, userId: _authService.user!.uid));
 
-  void onInit() {
-    final status = dropdownItems.isEmpty
-        ? BaseStateStatus.noData
-        : BaseStateStatus.success;
+  Future<void> onInit() async {
+    final types = await _fetchServiceTypes();
 
-    emit(state.copyWith(status: status));
+    final status =
+        types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+
+    emit(state.copyWith(status: status, serviceTypes: types));
+  }
+
+  Future<List<ServiceType>> _fetchServiceTypes() async {
+    try {
+      final result = await _serviceTypeRepository.get(_authService.user!.uid);
+      return result;
+    } on AppError catch (exception) {
+      onAppError(exception);
+      rethrow;
+    } catch (exception) {
+      unexpectedError();
+      rethrow;
+    }
   }
 
   Future<void> addServiceProvided() async {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      var result =
-          await _serviceProvidedRepository.add(state.service, state.quantity);
-      result = _fillServiceListWithServiceType(result);
-      final newList =
-          ServiceHelper.mergeServices(_cacheService.services, result);
-      _cacheService.services = newList;
+      await _serviceProvidedRepository.add(state.service, state.quantity);
       emit(state.copyWith(
           status: BaseStateStatus.success,
-          serviceProvidedListUpdated: newList,
           quantity: 1,
           service: ServiceProvided(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
@@ -52,21 +60,6 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     } catch (exception) {
       unexpectedError();
     }
-  }
-
-  List<ServiceProvided> _fillServiceListWithServiceType(
-      List<ServiceProvided> services) {
-    final result = <ServiceProvided>[];
-    for (var service in services) {
-      result.add(_fillServiceWithServiceType(service));
-    }
-    return result;
-  }
-
-  ServiceProvided _fillServiceWithServiceType(ServiceProvided serviceProvided) {
-    return serviceProvided.copyWith(
-        type: _cacheService.serviceTypes
-            .firstWhere((st) => st.id == serviceProvided.typeId));
   }
 
   Future<void> updateServiceProvided() async {
@@ -74,12 +67,8 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.update(state.service);
-      final newList = _generateNewListWithUpdatedService();
-      _cacheService.services = newList;
-
       emit(state.copyWith(
           status: BaseStateStatus.success,
-          serviceProvidedListUpdated: newList,
           quantity: 1,
           service: ServiceProvided(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
@@ -87,13 +76,6 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     } catch (exception) {
       unexpectedError();
     }
-  }
-
-  List<ServiceProvided> _generateNewListWithUpdatedService() {
-    final index = _cacheService.services
-        .indexWhere((element) => element.id == state.service.id);
-    final newList = _cacheService.services..[index] = state.service;
-    return newList;
   }
 
   void onChangeServiceProvided(ServiceProvided serviceType) {
@@ -120,13 +102,13 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
 
   double? _getDefaultValueToService(String serviceTypeId) {
     final serviceType =
-        _cacheService.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
+        state.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
     return serviceType.defaultValue;
   }
 
   double? _getDefaultDiscountToService(String serviceTypeId) {
     final serviceType =
-        _cacheService.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
+        state.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
     return serviceType.discountPercent;
   }
 
@@ -151,7 +133,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   }
 
   List<DropdownItem> get dropdownItems {
-    final result = _cacheService.serviceTypes
+    final result = state.serviceTypes
         .map((e) => DropdownItem(value: e.id, text: e.name))
         .toList();
 
@@ -166,8 +148,6 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
 
     return result;
   }
-
-  List<ServiceProvided> get serviceProvidedList => _cacheService.services;
 
   void _checkServiceValidity() {
     if (state.service.typeId == '') {

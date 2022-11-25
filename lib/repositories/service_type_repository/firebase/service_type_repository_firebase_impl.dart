@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_services/core/errors/app_error.dart';
 import 'package:my_services/models/service_type.dart';
 import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
+import 'package:my_services/shared/extensions/extensions.dart';
 
 class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
   final FirebaseFirestore _firestore;
@@ -50,7 +51,8 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
       final query = await _firestore
           .collection(_path)
           .where('userId', isEqualTo: userId)
-          .get();
+          .getCacheFirst();
+      print('Came from cache: ${query.metadata.isFromCache}');
 
       final result = query.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;

@@ -3,6 +3,7 @@ import 'package:my_services/core/errors/app_error.dart';
 import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/repositories/service_provided_repository/firebase/models/service_provided_firebase.dart';
 import 'package:my_services/repositories/service_provided_repository/service_provided_repository.dart';
+import 'package:my_services/shared/extensions/extensions.dart';
 
 class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
   final FirebaseFirestore _firestore;
@@ -71,7 +72,8 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
         query = query.where('date', isLessThan: endDate);
       }
 
-      final finalQuery = await query.get();
+      final finalQuery = await query.getCacheFirst();
+      print('Came from cache: ${finalQuery.metadata.isFromCache}');
 
       final result = finalQuery.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;
