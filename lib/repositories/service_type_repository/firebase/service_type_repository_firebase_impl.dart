@@ -52,7 +52,6 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
           .collection(_path)
           .where('userId', isEqualTo: userId)
           .getCacheFirst();
-      print('Came from cache: ${query.metadata.isFromCache}');
 
       final result = query.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;

@@ -13,6 +13,8 @@ class ServiceList extends StatelessWidget {
   final double totalDiscounted;
   final Function(ServiceProvided) onTapEdit;
   final Function(ServiceProvided) onTapDelete;
+  final bool showDate;
+
   const ServiceList({
     super.key,
     required this.services,
@@ -22,57 +24,63 @@ class ServiceList extends StatelessWidget {
     required this.onTapEdit,
     required this.onTapDelete,
     required this.title,
+    this.showDate = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ServiceListTotalCard(
-              title: 'Total',
-              value: totalValue,
-              icon: Icons.attach_money,
-            ),
-            ServiceListTotalCard(
-              title: 'Recebido',
-              value: totalWithDiscount,
-              icon: Icons.savings,
-            ),
-            ServiceListTotalCard(
-              title: 'Desconto',
-              value: totalDiscounted,
-              icon: Icons.money_off,
-            ),
-          ],
-        ),
-        const SizedBox(height: 25),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title, style: context.titleMedium),
-            Text(
-              '${services.length.toString()} Serviço${services.length > 1 ? "s" : ""}',
-              style: context.titleMedium,
-            ),
-          ],
-        ),
-        const Divider(),
-        const SizedBox(height: 10),
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: services.length,
-          itemBuilder: (context, index) => ServiceCard(
-            service: services[index],
-            onTapEdit: onTapEdit,
-            onTapDelete: onTapDelete,
+    return Expanded(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ServiceListTotalCard(
+                title: 'Total',
+                value: totalValue,
+                icon: Icons.attach_money,
+              ),
+              ServiceListTotalCard(
+                title: 'Recebido',
+                value: totalWithDiscount,
+                icon: Icons.savings,
+              ),
+              ServiceListTotalCard(
+                title: 'Desconto',
+                value: totalDiscounted,
+                icon: Icons.money_off,
+              ),
+            ],
           ),
-          separatorBuilder: (context, index) => const Divider(),
-        ),
-      ],
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title, style: context.titleMedium),
+              Text(
+                '${services.length.toString()} Serviço${services.length > 1 ? "s" : ""}',
+                style: context.titleMedium,
+              ),
+            ],
+          ),
+          const Divider(),
+          const SizedBox(height: 10),
+          Expanded(
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: services.length,
+              itemBuilder: (context, index) => ServiceCard(
+                service: services[index],
+                onTapEdit: onTapEdit,
+                onTapDelete: onTapDelete,
+                showDate: showDate,
+              ),
+              separatorBuilder: (context, index) => const Divider(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

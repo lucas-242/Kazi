@@ -133,6 +133,7 @@ class _Build extends StatelessWidget {
           totalDiscounted: state.totalDiscounted,
           onTapEdit: onEdit,
           onTapDelete: onDelete,
+          showDate: state.selectedFastSearch != FastSearch.today,
         ),
       ],
     );
@@ -179,8 +180,8 @@ class _TopSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<CalendarCubit>();
 
-    void onChangeFastSearch(FastSearch fastSearch) {
-      cubit.onChageSelectedFastSearch(fastSearch);
+    Future<void> onChangeFastSearch(FastSearch fastSearch) async {
+      await cubit.onChageSelectedFastSearch(fastSearch);
       dateController.text =
           '${DateFormat.yMd().format(cubit.state.startDate)} - ${DateFormat.yMd().format(cubit.state.endDate)}';
     }

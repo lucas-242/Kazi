@@ -69,11 +69,10 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
           .where('date', isGreaterThanOrEqualTo: startDate);
 
       if (endDate != null) {
-        query = query.where('date', isLessThan: endDate);
+        query = query.where('date', isLessThanOrEqualTo: endDate);
       }
 
       final finalQuery = await query.getCacheFirst();
-      print('Came from cache: ${finalQuery.metadata.isFromCache}');
 
       final result = finalQuery.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;

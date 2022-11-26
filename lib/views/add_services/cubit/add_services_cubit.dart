@@ -22,7 +22,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     this._serviceTypeRepository,
     this._authService,
   ) : super(AddServicesState(
-            status: BaseStateStatus.success, userId: _authService.user!.uid));
+            status: BaseStateStatus.loading, userId: _authService.user!.uid));
 
   Future<void> onInit() async {
     final types = await _fetchServiceTypes();

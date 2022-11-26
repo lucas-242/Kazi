@@ -15,11 +15,6 @@ abstract class ServiceHelper {
     return setCachedServices.toList();
   }
 
-  static List<ServiceProvided> _orderByType(List<ServiceProvided> services) {
-    services.sort((a, b) => a.type!.name.compareTo(a.type!.name));
-    return services;
-  }
-
   static List<ServiceProvided> addServiceTypeToServices(
       List<ServiceProvided> services, List<ServiceType> serviceTypes) {
     final result = <ServiceProvided>[];
@@ -33,19 +28,6 @@ abstract class ServiceHelper {
       ServiceProvided service, List<ServiceType> serviceTypes) {
     return service.copyWith(
         type: serviceTypes.firstWhere((st) => st.id == service.typeId));
-  }
-
-  static List<ServiceProvided> filterServicesByDate(
-      List<ServiceProvided> services, int year, int month,
-      [int? day]) {
-    var filtered =
-        services.where((s) => s.date.year == year && s.date.month == month);
-
-    if (day != null) {
-      filtered = filtered.where((s) => s.date.day == day);
-    }
-
-    return filtered.toList();
   }
 
   static List<ServiceProvided> filterServicesByRange(

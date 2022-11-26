@@ -8,12 +8,14 @@ class ServiceCard extends StatelessWidget {
   final Function(ServiceProvided) onTapDelete;
   final Function(ServiceProvided) onTapEdit;
   final ServiceProvided service;
+  final bool showDate;
 
   const ServiceCard(
       {super.key,
       required this.onTapDelete,
       required this.onTapEdit,
-      required this.service});
+      required this.service,
+      required this.showDate});
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +25,26 @@ class ServiceCard extends StatelessWidget {
       onLeftSlide: () => onTapEdit(service),
       onRightSlide: () => onTapDelete(service),
       child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('${service.type?.name}'),
-            Text(NumberFormat.currency(symbol: 'R\$')
-                .format(service.valueWithDiscount)),
-          ],
-        ),
-        subtitle: service.description != null && service.description != ''
-            ? Text(service.description!)
-            : null,
-      ),
+          contentPadding: EdgeInsets.zero,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('${service.type?.name}'),
+              Text(NumberFormat.currency(symbol: 'R\$')
+                  .format(service.valueWithDiscount)),
+            ],
+          ),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              service.description != null && service.description != ''
+                  ? Text(service.description!)
+                  : Container(),
+              showDate
+                  ? Text(DateFormat.yMd().format(service.date))
+                  : Container(),
+            ],
+          )),
     );
   }
 }
