@@ -37,40 +37,32 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        children: [
-          TextFormField(
-            key: textFormKey,
-            controller: controller,
-            initialValue: initialValue,
-            validator: validator,
-            keyboardType: keyboardType,
-            textInputAction: textInputAction,
-            readOnly: readOnly,
-            onChanged: onChanged,
-            onTap: onTap,
-            style: context.bodyMedium,
-            inputFormatters: inputFormatters,
-            decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: labelText,
-              hintText: hintText,
-              hintStyle: context.bodyMedium,
-              contentPadding: icon == null
-                  ? const EdgeInsets.only(left: 15)
-                  : EdgeInsets.zero,
-              border: const OutlineInputBorder(),
-              prefixIcon: icon != null
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      child: Icon(icon),
-                    )
-                  : null,
-            ),
-          ),
-        ],
+    return TextFormField(
+      key: textFormKey,
+      controller: controller,
+      initialValue: initialValue,
+      validator: validator,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      readOnly: readOnly,
+      onChanged: onChanged,
+      onTap: onTap,
+      style: context.bodyMedium,
+      inputFormatters: inputFormatters,
+      decoration: InputDecoration(
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        labelText: labelText,
+        hintText: hintText,
+        hintStyle: context.bodyMedium,
+        contentPadding:
+            icon == null ? const EdgeInsets.only(left: 15) : EdgeInsets.zero,
+        border: const OutlineInputBorder(),
+        prefixIcon: icon != null
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Icon(icon),
+              )
+            : null,
       ),
     );
   }

@@ -60,19 +60,19 @@ class _AddServicesFormState extends State<AddServicesForm> {
               valueController: valueController,
               discountController: discountController,
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 30),
             _ValueField(fieldKey: _valueKey, controller: valueController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _DiscountField(
                 fieldKey: _discountKey, controller: discountController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _DateField(fieldKey: _dateKey, controller: dateController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _QuantityField(
                 fieldKey: _quantityKey, controller: quantityController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _DescriptionField(fieldKey: _descriptionKey),
-            const SizedBox(height: 15),
+            const SizedBox(height: 35),
             CustomElevatedButton(
               onTap: () => widget.onConfirm(),
               text: widget.labelButton,
@@ -103,8 +103,8 @@ class _ServiceTypeField extends StatelessWidget {
       key: fieldKey,
       label: 'Tipo de serviço',
       hint: 'Selecione o tipo do serviço',
-      items: cubit.dropdownItems,
-      selectedItem: cubit.selectedDropdownItem,
+      items: cubit.state.dropdownItems,
+      selectedItem: cubit.state.selectedDropdownItem,
       onChanged: (DropdownItem? data) {
         if (data != null) {
           cubit.onChangeServiceType(data);

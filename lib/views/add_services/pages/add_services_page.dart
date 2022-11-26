@@ -56,8 +56,6 @@ class _AddServicesPageState extends State<AddServicesPage> {
               }
             },
             child: BlocBuilder<AddServicesCubit, AddServicesState>(
-              buildWhen: (previous, current) =>
-                  previous.status != current.status,
               builder: (context, state) {
                 return state.when(
                   onState: (_) => _Build(serviceProvided: state.service),

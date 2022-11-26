@@ -4,6 +4,7 @@ class CalendarState extends BaseState {
   DateTime startDate;
   DateTime endDate;
   FastSearch selectedFastSearch;
+  OrderBy selectedOrderBy;
   List<ServiceProvided> services;
 
   double get totalValue {
@@ -25,11 +26,13 @@ class CalendarState extends BaseState {
     DateTime? startDate,
     DateTime? endDate,
     FastSearch? selectedFastSearch,
+    OrderBy? selectedOrderBy,
   })  : startDate =
             startDate ?? DateTime(DateTime.now().year, DateTime.now().month),
         endDate =
             endDate ?? DateTime(DateTime.now().year, DateTime.now().month),
         services = services ?? [],
+        selectedOrderBy = selectedOrderBy ?? OrderBy.typeAsc,
         selectedFastSearch = selectedFastSearch ?? FastSearch.today;
 
   @override
@@ -40,6 +43,7 @@ class CalendarState extends BaseState {
     DateTime? startDate,
     DateTime? endDate,
     FastSearch? selectedFastSearch,
+    OrderBy? selectedOrderBy,
   }) {
     return CalendarState(
       status: status ?? this.status,
@@ -48,6 +52,7 @@ class CalendarState extends BaseState {
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       selectedFastSearch: selectedFastSearch ?? this.selectedFastSearch,
+      selectedOrderBy: selectedOrderBy ?? this.selectedOrderBy,
     );
   }
 }

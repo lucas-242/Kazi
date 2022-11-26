@@ -12,6 +12,7 @@ import '../../../shared/models/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+import '../../../shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
 import '../../../shared/widgets/service_list/service_list.dart';
 import '../../add_services/cubit/add_services_cubit.dart';
 
@@ -36,6 +37,18 @@ class _HomePageState extends State<HomePage> {
       appBar: CustomAppBar(
         title: 'Home',
         actions: [
+          IconButton(
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              builder: (context) => OrderByBottomSheet(
+                onPressed: (orderBy) {
+                  Navigator.of(context).pop();
+                  context.read<HomeCubit>().onChangeOrderBy(orderBy);
+                },
+              ),
+            ),
+            icon: const Icon(Icons.filter_list),
+          ),
           IconButton(
             onPressed: () =>
                 Navigator.pushNamed(context, AppRoutes.addServiceProvided),

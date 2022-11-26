@@ -87,20 +87,22 @@ class _Build extends StatelessWidget {
         ),
         const Divider(),
         const SizedBox(height: 10),
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: state.serviceTypeList.length,
-          itemBuilder: (context, index) => ServiceTypeCard(
-            serviceType: state.serviceTypeList[index],
-            onTapEdit: (serviceType) {
-              context.read<SettingsCubit>().changeServiceType(serviceType);
-              Navigator.pushNamed(context, AppRoutes.addServiceType);
-            },
-            onTapDelete: (serviceType) =>
-                context.read<SettingsCubit>().deleteServiceType(serviceType),
+        Expanded(
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: state.serviceTypeList.length,
+            itemBuilder: (context, index) => ServiceTypeCard(
+              serviceType: state.serviceTypeList[index],
+              onTapEdit: (serviceType) {
+                context.read<SettingsCubit>().changeServiceType(serviceType);
+                Navigator.pushNamed(context, AppRoutes.addServiceType);
+              },
+              onTapDelete: (serviceType) =>
+                  context.read<SettingsCubit>().deleteServiceType(serviceType),
+            ),
+            separatorBuilder: (context, index) => const Divider(),
           ),
-          separatorBuilder: (context, index) => const Divider(),
         ),
         const SizedBox(height: 25),
         Center(

@@ -11,7 +11,8 @@ import 'package:my_services/shared/models/base_state.dart';
 
 import '../../../core/errors/app_error.dart';
 import '../../../shared/extensions/extensions.dart';
-import '../../../models/fast_search.dart';
+import '../../../shared/models/fast_search.dart';
+import '../../../shared/models/order_by.dart';
 
 part 'calendar_state.dart';
 
@@ -79,7 +80,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
         fetchResult.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
     final types = await _fetchServiceTypes();
-    final services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
+    var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
+    services = _orderServices(services, state.selectedOrderBy);
 
     emit(state.copyWith(status: newStatus, services: services));
   }
@@ -163,6 +165,36 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
       'startDate': startDate.copyWith(hour: 0, minute: 0, second: 0),
       'endDate': endDate.copyWith(hour: 23, minute: 59, second: 59),
     };
+  }
+
+  void onChangeOrderBy(OrderBy orderBy) {
+    final services = _orderServices(state.services, orderBy);
+    emit(state.copyWith(services: services, selectedOrderBy: orderBy));
+  }
+
+  List<ServiceProvided> _orderServices(
+      List<ServiceProvided> services, OrderBy orderBy) {
+    switch (orderBy) {
+      case OrderBy.dateAsc:
+        services.sort((a, b) => a.date.compareTo(b.date));
+        break;
+      case OrderBy.dateDesc:
+        services.sort((a, b) => b.date.compareTo(a.date));
+        break;
+      case OrderBy.typeAsc:
+        services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
+        break;
+      case OrderBy.typeDesc:
+        services.sort((a, b) => b.type!.name.compareTo(a.type!.name));
+        break;
+      case OrderBy.valueAsc:
+        services.sort((a, b) => a.value.compareTo(b.value));
+        break;
+      case OrderBy.valueDesc:
+        services.sort((a, b) => b.value.compareTo(a.value));
+        break;
+    }
+    return services;
   }
 
   Future<void> changeServices() async {

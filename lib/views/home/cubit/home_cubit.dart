@@ -9,6 +9,7 @@ import 'package:my_services/shared/models/base_state.dart';
 import '../../../core/errors/app_error.dart';
 import '../../../models/service_type.dart';
 import '../../../repositories/service_type_repository/service_type_repository.dart';
+import '../../../shared/models/order_by.dart';
 
 part 'home_state.dart';
 
@@ -78,7 +79,8 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
         fetchResult.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
     final types = await _fetchServiceTypes();
-    final services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
+    var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
+    services = _orderServices(services, state.selectedOrderBy);
 
     emit(state.copyWith(status: newStatus, services: services));
   }
@@ -87,7 +89,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(service.id);
-      final newList = await _fetchServices(); //_removeDeletedService(service);
+      final newList = await _fetchServices();
       final newStatus =
           newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
@@ -100,6 +102,36 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
       unexpectedError();
       rethrow;
     }
+  }
+
+  void onChangeOrderBy(OrderBy orderBy) {
+    final services = _orderServices(state.services, orderBy);
+    emit(state.copyWith(services: services, selectedOrderBy: orderBy));
+  }
+
+  List<ServiceProvided> _orderServices(
+      List<ServiceProvided> services, OrderBy orderBy) {
+    switch (orderBy) {
+      case OrderBy.dateAsc:
+        services.sort((a, b) => a.date.compareTo(b.date));
+        break;
+      case OrderBy.dateDesc:
+        services.sort((a, b) => b.date.compareTo(a.date));
+        break;
+      case OrderBy.typeAsc:
+        services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
+        break;
+      case OrderBy.typeDesc:
+        services.sort((a, b) => b.type!.name.compareTo(a.type!.name));
+        break;
+      case OrderBy.valueAsc:
+        services.sort((a, b) => a.value.compareTo(b.value));
+        break;
+      case OrderBy.valueDesc:
+        services.sort((a, b) => b.value.compareTo(a.value));
+        break;
+    }
+    return services;
   }
 
   Future<void> changeServices() async {

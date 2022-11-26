@@ -6,6 +6,24 @@ class AddServicesState extends BaseState {
   int quantity;
   String userId;
 
+  List<DropdownItem> get dropdownItems {
+    final result = serviceTypes
+        .map((e) => DropdownItem(value: e.id, text: e.name))
+        .toList()
+      ..sort(((a, b) => a.text.compareTo(b.text)));
+
+    return result;
+  }
+
+  DropdownItem? get selectedDropdownItem {
+    if (service.type == null) return null;
+
+    final result =
+        DropdownItem(value: service.type!.id, text: service.type!.name);
+
+    return result;
+  }
+
   AddServicesState({
     required super.status,
     ServiceProvided? service,

@@ -132,23 +132,6 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     emit(state.copyWith(service: state.service.copyWith(date: value)));
   }
 
-  List<DropdownItem> get dropdownItems {
-    final result = state.serviceTypes
-        .map((e) => DropdownItem(value: e.id, text: e.name))
-        .toList();
-
-    return result;
-  }
-
-  DropdownItem? get selectedDropdownItem {
-    if (state.service.type == null) return null;
-
-    final result = DropdownItem(
-        value: state.service.type!.id, text: state.service.type!.name);
-
-    return result;
-  }
-
   void _checkServiceValidity() {
     if (state.service.typeId == '') {
       throw ClientError(

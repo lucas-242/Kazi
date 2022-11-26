@@ -25,26 +25,30 @@ class ServiceCard extends StatelessWidget {
       onLeftSlide: () => onTapEdit(service),
       onRightSlide: () => onTapDelete(service),
       child: ListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('${service.type?.name}'),
-              Text(NumberFormat.currency(symbol: 'R\$')
-                  .format(service.valueWithDiscount)),
-            ],
-          ),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              service.description != null && service.description != ''
-                  ? Text(service.description!)
-                  : Container(),
-              showDate
-                  ? Text(DateFormat.yMd().format(service.date))
-                  : Container(),
-            ],
-          )),
+        contentPadding: EdgeInsets.zero,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('${service.type?.name}'),
+            Text(NumberFormat.currency(symbol: 'R\$')
+                .format(service.valueWithDiscount)),
+          ],
+        ),
+        subtitle: (service.description != null && service.description != '') ||
+                showDate
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  service.description != null && service.description != ''
+                      ? Text(service.description!)
+                      : Container(),
+                  showDate
+                      ? Text(DateFormat.yMd().format(service.date))
+                      : Container(),
+                ],
+              )
+            : null,
+      ),
     );
   }
 }

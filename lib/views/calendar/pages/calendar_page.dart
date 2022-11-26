@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_services/models/fast_search.dart';
+import 'package:my_services/shared/models/fast_search.dart';
 import 'package:my_services/models/service_provided.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/widgets/service_list/service_list.dart';
@@ -13,6 +13,7 @@ import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_date_range_picker/custom_date_range_picker.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+import '../../../shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
 import '../../../shared/widgets/selectable_tag/selectable_tag.dart';
 import '../../add_services/cubit/add_services_cubit.dart';
 import '../../home/home.dart';
@@ -188,17 +189,37 @@ class _TopSearch extends StatelessWidget {
 
     return Column(
       children: [
-        CustomDateRangePicker(
-          fieldKey: dateKey,
-          controller: dateController,
-          startDate: cubit.state.startDate,
-          endDate: cubit.state.endDate,
-          onChange: (date) {
-            cubit.onChangeDate(date);
-            dateController.text =
-                '${DateFormat.yMd().format(date.start)} - ${DateFormat.yMd().format(date.end)}';
-          },
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: CustomDateRangePicker(
+                fieldKey: dateKey,
+                controller: dateController,
+                startDate: cubit.state.startDate,
+                endDate: cubit.state.endDate,
+                onChange: (date) {
+                  cubit.onChangeDate(date);
+                  dateController.text =
+                      '${DateFormat.yMd().format(date.start)} - ${DateFormat.yMd().format(date.end)}';
+                },
+              ),
+            ),
+            IconButton(
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                builder: (context) => OrderByBottomSheet(
+                  onPressed: (orderBy) {
+                    Navigator.of(context).pop();
+                    cubit.onChangeOrderBy(orderBy);
+                  },
+                ),
+              ),
+              icon: const Icon(Icons.filter_list),
+            ),
+          ],
         ),
+        const SizedBox(height: 15),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
