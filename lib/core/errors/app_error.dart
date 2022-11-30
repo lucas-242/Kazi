@@ -9,6 +9,6 @@ class ExternalError extends AppError {
   ExternalError(super.message, super.trace);
 }
 
-class InternalError extends AppError {
-  InternalError(super.message, super.trace);
+class ClientError extends AppError {
+  ClientError(super.message, super.trace);
 }

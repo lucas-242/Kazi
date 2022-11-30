@@ -45,15 +45,9 @@ class _AddServiceTypePageState extends State<AddServiceTypePage> {
                   padding: const EdgeInsets.only(top: 25),
                   child: Column(
                     children: [
-                      Visibility(
-                        visible: state.serviceType.id != '',
-                        child: Text('$label tipo de serviço',
-                            style: context.headlineSmall),
-                      ),
-                      Visibility(
-                        visible: state.serviceType.id == '',
-                        child: Text('$label tipo de serviço',
-                            style: context.headlineSmall),
+                      Text(
+                        '$label tipo de serviço',
+                        style: context.headlineSmall,
                       ),
                       const SizedBox(height: 25),
                       AddServiceTypeForm(

@@ -18,42 +18,45 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   @override
+  void initState() {
+    context.read<SettingsCubit>().onInit();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //TODO: RefreshIndicator not working
     return Scaffold(
       appBar: const CustomAppBar(title: 'Configurações'),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<SettingsCubit>().getServiceTypes(),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-              child: BlocListener<SettingsCubit, SettingsState>(
-                listenWhen: (previous, current) =>
+          child: Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+            child: BlocListener<SettingsCubit, SettingsState>(
+              listenWhen: (previous, current) =>
+                  previous.status != current.status,
+              listener: (context, state) {
+                if (state.status == BaseStateStatus.error) {
+                  getCustomSnackBar(
+                    context,
+                    message: state.callbackMessage,
+                    type: SnackBarType.error,
+                  );
+                }
+              },
+              child: BlocBuilder<SettingsCubit, SettingsState>(
+                buildWhen: (previous, current) =>
                     previous.status != current.status,
-                listener: (context, state) {
-                  if (state.status == BaseStateStatus.error) {
-                    getCustomSnackBar(
-                      context,
-                      message: state.callbackMessage,
-                      type: SnackBarType.error,
-                    );
-                  }
+                builder: (context, state) {
+                  return state.when(
+                    onState: (_) => _Build(state: state),
+                    onLoading: () => SizedBox(
+                      height: context.height,
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    onNoData: () => const _NoData(),
+                  );
                 },
-                child: BlocBuilder<SettingsCubit, SettingsState>(
-                  buildWhen: (previous, current) =>
-                      previous.status != current.status,
-                  builder: (context, state) {
-                    return state.when(
-                      onState: (_) => const _Build(),
-                      onLoading: () => SizedBox(
-                        height: context.height,
-                        child: const Center(child: CircularProgressIndicator()),
-                      ),
-                      onNoData: () => const _NoData(),
-                    );
-                  },
-                ),
               ),
             ),
           ),
@@ -64,22 +67,30 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 class _Build extends StatelessWidget {
-  const _Build();
+  final SettingsState state;
+  const _Build({required this.state});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Tipos de serviços',
-          style: context.titleMedium,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Tipos de serviços', style: context.titleMedium),
+            Text(
+              '${state.serviceTypeList.length.toString()} Serviço${state.serviceTypeList.length > 1 ? "s" : ""}',
+              style: context.titleMedium,
+            ),
+          ],
         ),
-        const SizedBox(height: 25),
-        BlocBuilder<SettingsCubit, SettingsState>(builder: (context, state) {
-          return ListView.builder(
+        const Divider(),
+        const SizedBox(height: 10),
+        Expanded(
+          child: ListView.separated(
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             itemCount: state.serviceTypeList.length,
             itemBuilder: (context, index) => ServiceTypeCard(
               serviceType: state.serviceTypeList[index],
@@ -90,8 +101,9 @@ class _Build extends StatelessWidget {
               onTapDelete: (serviceType) =>
                   context.read<SettingsCubit>().deleteServiceType(serviceType),
             ),
-          );
-        }),
+            separatorBuilder: (context, index) => const Divider(),
+          ),
+        ),
         const SizedBox(height: 25),
         Center(
           child: CustomElevatedButton(
@@ -112,13 +124,12 @@ class _NoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Não há serviços cadastrados', style: context.headlineSmall),
-        const SizedBox(height: 25),
-        Text('Você ainda não cadastrou serviços', style: context.bodyLarge),
+        Text('Não há tipos de serviço cadastrados',
+            style: context.headlineSmall),
         const SizedBox(height: 25),
         CustomElevatedButton(
           onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
-          text: 'Adicionar novo serviço',
+          text: 'Adicionar novo tipo de serviço',
         ),
       ],
     );

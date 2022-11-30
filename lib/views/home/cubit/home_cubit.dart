@@ -7,8 +7,9 @@ import 'package:my_services/shared/models/base_cubit.dart';
 import 'package:my_services/shared/models/base_state.dart';
 
 import '../../../core/errors/app_error.dart';
+import '../../../models/service_type.dart';
 import '../../../repositories/service_type_repository/service_type_repository.dart';
-import '../../../services/cache_service/cache_service.dart';
+import '../../../shared/models/order_by.dart';
 
 part 'home_state.dart';
 
@@ -16,32 +17,30 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   final ServiceProvidedRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
-  final CacheService _cacheService;
 
   HomeCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
     this._authService,
-    this._cacheService,
   ) : super(HomeState(status: BaseStateStatus.loading));
 
   void onInit() async {
-    if (_cacheService.services.isEmpty || _cacheService.serviceTypes.isEmpty) {
-      final result =
-          await Future.wait<dynamic>([_fetchServiceTypes(), _fetchServices()]);
+    final result =
+        await Future.wait<dynamic>([_fetchServiceTypes(), _fetchServices()]);
 
-      _handleFetchServices(result[1]);
-    }
+    _handleFetchServices(result[1]);
   }
 
-  Future<void> _fetchServiceTypes() async {
+  Future<List<ServiceType>> _fetchServiceTypes() async {
     try {
       final result = await _serviceTypeRepository.get(_authService.user!.uid);
-      _cacheService.serviceTypes = result;
+      return result;
     } on AppError catch (exception) {
       onAppError(exception);
+      rethrow;
     } catch (exception) {
       unexpectedError();
+      rethrow;
     }
   }
 
@@ -75,27 +74,26 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  void _handleFetchServices(List<ServiceProvided> fetchResult) {
+  Future<void> _handleFetchServices(List<ServiceProvided> fetchResult) async {
     final newStatus =
         fetchResult.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-    final servicesWithTypes = ServiceHelper.addServiceTypeToServices(
-        fetchResult, _cacheService.serviceTypes);
+    final types = await _fetchServiceTypes();
+    var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
+    services = _orderServices(services, state.selectedOrderBy);
 
-    final mergedServices = _cacheService.services =
-        ServiceHelper.mergeServices(_cacheService.services, servicesWithTypes);
-
-    emit(state.copyWith(status: newStatus, services: mergedServices));
+    emit(state.copyWith(status: newStatus, services: services));
   }
 
   Future<List<ServiceProvided>> deleteService(ServiceProvided service) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(service.id);
-      final newList = _removeDeletedService(service);
-      _cacheService.services = newList;
+      final newList = await _fetchServices();
+      final newStatus =
+          newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-      emit(state.copyWith(status: BaseStateStatus.success, services: newList));
+      emit(state.copyWith(status: newStatus, services: newList));
       return newList;
     } on AppError catch (exception) {
       onAppError(exception);
@@ -106,16 +104,39 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  List<ServiceProvided> _removeDeletedService(ServiceProvided service) {
-    final newList = state.services
-      ..removeWhere((element) => element.id == service.id);
-
-    return newList;
+  void onChangeOrderBy(OrderBy orderBy) {
+    final services = _orderServices(state.services, orderBy);
+    emit(state.copyWith(services: services, selectedOrderBy: orderBy));
   }
 
-  void changeServices(List<ServiceProvided> services) {
-    emit(state.copyWith(
-        services: ServiceHelper.addServiceTypeToServices(
-            services, _cacheService.serviceTypes)));
+  List<ServiceProvided> _orderServices(
+      List<ServiceProvided> services, OrderBy orderBy) {
+    switch (orderBy) {
+      case OrderBy.dateAsc:
+        services.sort((a, b) => a.date.compareTo(b.date));
+        break;
+      case OrderBy.dateDesc:
+        services.sort((a, b) => b.date.compareTo(a.date));
+        break;
+      case OrderBy.typeAsc:
+        services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
+        break;
+      case OrderBy.typeDesc:
+        services.sort((a, b) => b.type!.name.compareTo(a.type!.name));
+        break;
+      case OrderBy.valueAsc:
+        services.sort((a, b) => a.value.compareTo(b.value));
+        break;
+      case OrderBy.valueDesc:
+        services.sort((a, b) => b.value.compareTo(a.value));
+        break;
+    }
+    return services;
+  }
+
+  Future<void> changeServices() async {
+    emit(state.copyWith(status: BaseStateStatus.loading));
+    final result = await _fetchServices();
+    _handleFetchServices(result);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_services/models/service_type.dart';
 
 import '../../../shared/widgets/custom_slidable/custom_slidable.dart';
@@ -28,7 +29,8 @@ class ServiceTypeCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(serviceType.name),
-            Text('${serviceType.defaultValue}'),
+            Text(NumberFormat.currency(symbol: 'R\$')
+                .format(serviceType.defaultValue)),
           ],
         ),
         subtitle: Text('${serviceType.discountPercent ?? 0}%'),

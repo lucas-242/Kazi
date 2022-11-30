@@ -26,10 +26,12 @@ class _AddServicesFormState extends State<AddServicesForm> {
   final _dateKey = GlobalKey<FormFieldState>();
   final _dropdownKey = GlobalKey<FormFieldState>();
   final _valueKey = GlobalKey<FormFieldState>();
+  final _quantityKey = GlobalKey<FormFieldState>();
   final _discountKey = GlobalKey<FormFieldState>();
 
   final valueController = TextEditingController();
   final discountController = TextEditingController();
+  final quantityController = TextEditingController();
 
   final dateController =
       MaskedTextController(text: 'dd/MM/yyyy', mask: '00/00/0000');
@@ -37,11 +39,10 @@ class _AddServicesFormState extends State<AddServicesForm> {
   @override
   void initState() {
     final cubit = context.read<AddServicesCubit>();
-    valueController.text = cubit.state.serviceProvided.value.toString();
-    discountController.text =
-        cubit.state.serviceProvided.discountPercent.toString();
-    dateController.text =
-        DateFormat.yMd().format(cubit.state.serviceProvided.date);
+    valueController.text = cubit.state.service.value.toString();
+    discountController.text = cubit.state.service.discountPercent.toString();
+    quantityController.text = cubit.state.quantity.toString();
+    dateController.text = DateFormat.yMd().format(cubit.state.service.date);
     super.initState();
   }
 
@@ -59,16 +60,19 @@ class _AddServicesFormState extends State<AddServicesForm> {
               valueController: valueController,
               discountController: discountController,
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 30),
             _ValueField(fieldKey: _valueKey, controller: valueController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _DiscountField(
                 fieldKey: _discountKey, controller: discountController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _DateField(fieldKey: _dateKey, controller: dateController),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
+            _QuantityField(
+                fieldKey: _quantityKey, controller: quantityController),
+            const SizedBox(height: 30),
             _DescriptionField(fieldKey: _descriptionKey),
-            const SizedBox(height: 15),
+            const SizedBox(height: 35),
             CustomElevatedButton(
               onTap: () => widget.onConfirm(),
               text: widget.labelButton,
@@ -99,14 +103,14 @@ class _ServiceTypeField extends StatelessWidget {
       key: fieldKey,
       label: 'Tipo de serviço',
       hint: 'Selecione o tipo do serviço',
-      items: cubit.dropdownItems,
-      selectedItem: cubit.selectedDropdownItem,
+      items: cubit.state.dropdownItems,
+      selectedItem: cubit.state.selectedDropdownItem,
       onChanged: (DropdownItem? data) {
         if (data != null) {
           cubit.onChangeServiceType(data);
-          valueController.text = cubit.state.serviceProvided.value.toString();
+          valueController.text = cubit.state.service.value.toString();
           discountController.text =
-              cubit.state.serviceProvided.discountPercent.toString();
+              cubit.state.service.discountPercent.toString();
         }
       },
       showSeach: true,
@@ -176,11 +180,34 @@ class _DateField extends StatelessWidget {
     return CustomDatePicker(
       fieldKey: fieldKey,
       controller: controller,
-      initialDate: cubit.state.serviceProvided.date,
+      initialDate: cubit.state.service.date,
       onChange: (date) {
         cubit.onChangeServiceDate(date);
         controller.text = DateFormat.yMd().format(date);
       },
+    );
+  }
+}
+
+class _QuantityField extends StatelessWidget {
+  final TextEditingController controller;
+  final GlobalKey<FormFieldState> fieldKey;
+  const _QuantityField(
+      {Key? key, required this.fieldKey, required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<AddServicesCubit>();
+
+    return SizedBox(
+      child: CustomTextFormField(
+        textFormKey: fieldKey,
+        controller: controller,
+        labelText: 'Quantidade',
+        keyboardType: TextInputType.number,
+        onChanged: (value) => cubit.onChangeServicesQuantity(value),
+      ),
     );
   }
 }
@@ -196,7 +223,7 @@ class _DescriptionField extends StatelessWidget {
     return CustomTextFormField(
       textFormKey: fieldKey,
       labelText: 'Descrição',
-      initialValue: cubit.state.serviceProvided.description,
+      initialValue: cubit.state.service.description,
       onChanged: (value) => cubit.onChangeServiceDescription(value),
     );
   }
