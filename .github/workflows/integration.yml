@@ -80,11 +80,11 @@ jobs:
 
       - name: Create google-services.json
         run: |
-          echo ${{ secrets.GOOGLE_SERVICES }} > android/app/google-services.json
+          echo "${{ secrets.GOOGLE_SERVICES }}" > android/app/google-services.json
 
       - name: Create firebase_options.dart
         run: |
-          echo ${{ secrets.FIREBASE_OPTIONS_CLASS }} > lib/firebase_options.dart
+          echo "${{ secrets.FIREBASE_OPTIONS_CLASS }}" > lib/firebase_options.dart
 
       - uses: actions/setup-java@v3
         with:
