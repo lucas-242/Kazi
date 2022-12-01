@@ -2,13 +2,11 @@ name: Android Build
 
 on:
   push:
-    branches: [master]
+    branches: [ "master" ]
     paths-ignore:
       - '**/README.md'
   pull_request:
-    branches: [master]
-  
-  workflow_dispatch:
+    branches: [ "master" ]
 
 jobs:
 
@@ -21,7 +19,7 @@ jobs:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          versionSpec: "5.x"
+          versionSpec: "5.3.x"
 
       - name: Use GitVersion
         id: gitversion
@@ -41,10 +39,6 @@ jobs:
     needs: version
     runs-on: ubuntu-latest
     steps:
-      - name: Create firebase_options.dart
-        run: |
-          echo "${{ secrets.FIREBASE_OPTIONS_CLASS }}" > lib/firebase_options.dart
-
       - uses: actions/checkout@v3
       - name: Get version.txt
         uses: actions/download-artifact@v2
@@ -79,7 +73,11 @@ jobs:
 
       - name: Create google-services.json
         run: |
-          echo "${{ secrets.GOOGLE_SERVICES }}" > android/app/google-services.json
+          echo ${{ secrets.GOOGLE_SERVICES }} > android/app/google-services.json
+
+      - name: Create firebase_options.dart
+        run: |
+          echo ${{ secrets.FIREBASE_OPTIONS_CLASS }} > lib/firebase_options.dart
 
       - uses: actions/setup-java@v3
         with:
