@@ -16,22 +16,29 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: "5.11.x"
+      # - name: Install GitVersion
+      #   uses: gittools/actions/gitversion/setup@v0.9.7
+      #   with:
+      #     versionSpec: "5.11.x"
 
-      - name: Use GitVersion
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
+      # - name: Use GitVersion
+      #   id: gitversion
+      #   uses: gittools/actions/gitversion/execute@v0.9.7
 
-      - name: Create version.txt with nuGetVersion
-        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+      # - name: Create version.txt with nuGetVersion
+      #   run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+
+      - name: Use Git Version
+        id: version
+        uses: codacy/git-version@2.7.1
+
+      - name: Create version.txt with version
+        run: echo ${{ steps.version.outputs.version  }} > version.txt
 
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
-          name: gitversion
+          name: version
           path: version.txt
 
   build:
@@ -43,7 +50,7 @@ jobs:
       - name: Get version.txt
         uses: actions/download-artifact@v2
         with:
-          name: gitversion
+          name: version
           
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
