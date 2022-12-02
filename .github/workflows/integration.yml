@@ -2,13 +2,11 @@ name: Android Build
 
 on:
   push:
-    branches: [master]
+    branches: [ "master", "ci_cd" ]
     paths-ignore:
       - '**/README.md'
   pull_request:
-    branches: [master]
-  
-  workflow_dispatch:
+    branches: [ "master" ]
 
 jobs:
 
@@ -18,22 +16,29 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: "5.x"
+      # - name: Install GitVersion
+      #   uses: gittools/actions/gitversion/setup@v0.9.7
+      #   with:
+      #     versionSpec: "5.11.x"
 
-      - name: Use GitVersion
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
+      # - name: Use GitVersion
+      #   id: gitversion
+      #   uses: gittools/actions/gitversion/execute@v0.9.7
 
-      - name: Create version.txt with nuGetVersion
-        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+      # - name: Create version.txt with nuGetVersion
+      #   run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+
+      - name: Use Git Version
+        id: version
+        uses: codacy/git-version@2.7.1
+
+      - name: Create version.txt with version
+        run: echo ${{ steps.version.outputs.version  }} > version.txt
 
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
-          name: gitversion
+          name: version
           path: version.txt
 
   build:
@@ -41,15 +46,11 @@ jobs:
     needs: version
     runs-on: ubuntu-latest
     steps:
-      - name: Create firebase_options.dart
-        run: |
-          echo "${{ secrets.FIREBASE_OPTIONS_CLASS }}" > lib/firebase_options.dart
-
       - uses: actions/checkout@v3
       - name: Get version.txt
         uses: actions/download-artifact@v2
         with:
-          name: gitversion
+          name: version
           
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
@@ -68,7 +69,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.0.3
         with:
           fileName: upload-keystore.jks
-          encodedString: ${{ secrets.KEYSTORE_BASE64 }}
+          encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       
       - name: Create key.properties
         run: |
@@ -81,6 +82,10 @@ jobs:
         run: |
           echo "${{ secrets.GOOGLE_SERVICES }}" > android/app/google-services.json
 
+      - name: Create firebase_options.dart
+        run: |
+          echo "${{ secrets.FIREBASE_OPTIONS_CLASS }}" > lib/firebase_options.dart
+
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
@@ -89,8 +94,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.0.0"
-          channel: 'stable'
+          flutter-version: '3.3.9'
           cache: true
      
       - name: Get dependencies

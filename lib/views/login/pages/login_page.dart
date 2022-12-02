@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/routes/app_routes.dart';
-import '../../../injector_container.dart ';
+import '../../../injector_container.dart';
 import '../../../services/auth_service/auth_service.dart';
 import '../../../shared/themes/themes.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';

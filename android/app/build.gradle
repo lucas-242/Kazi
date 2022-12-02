@@ -75,7 +75,7 @@ android {
            storePassword keystoreProperties['storePassword']
        }
     }
-    
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -91,7 +91,7 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:31.0.2')
     implementation 'com.google.firebase:firebase-analytics'
 }
