@@ -117,7 +117,6 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     _handleFetchServices(fetchResult);
   }
 
-  //TODO: Add option to search by range limited to 3 months
   Future<void> onChageSelectedFastSearch(FastSearch fastSearch) async {
     if (fastSearch == state.selectedFastSearch) return;
 

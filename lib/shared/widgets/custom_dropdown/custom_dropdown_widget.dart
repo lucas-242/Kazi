@@ -33,6 +33,7 @@ class CustomDropdown extends StatelessWidget {
       itemAsString: (DropdownItem? u) => u!.text,
       onChanged: onChanged,
       validator: validator,
+      autoValidateMode: AutovalidateMode.onUserInteraction,
       popupProps: PopupProps.bottomSheet(
         showSearchBox: showSeach,
         fit: FlexFit.loose,

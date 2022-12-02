@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_services/shared/models/base_cubit.dart';
+import 'package:my_services/shared/models/form_validator.dart';
 
 import '../../../core/errors/app_error.dart';
 import '../../../models/service_type.dart';
@@ -10,7 +11,7 @@ import '../../../shared/models/base_state.dart';
 
 part 'settings_state.dart';
 
-class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
+class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
   final ServiceTypeRepository _serviceTypeRepository;
   final ServiceProvidedRepository _serviceRepository;
   final AuthService _authService;
@@ -141,11 +142,15 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit {
   }
 
   void _checkServiceValidity() {
-    if (state.serviceType.name == '' ||
-        state.serviceTypeList
-            .map((e) => e.name)
-            .contains(state.serviceType.name)) {
-      return;
+    if (state.serviceType.name.isEmpty) {
+      throw ClientError('O tipo de serviço não pode ser vazio',
+          'Triggered by _checkServiceValidity on SettingsCubit.');
+    }
+    if (state.serviceTypeList
+        .map((e) => e.name)
+        .contains(state.serviceType.name)) {
+      throw ClientError('O tipo de serviço já existe',
+          'Triggered by _checkServiceValidity on SettingsCubit.');
     }
   }
 
