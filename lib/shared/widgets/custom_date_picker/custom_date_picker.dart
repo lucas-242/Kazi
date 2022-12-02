@@ -7,6 +7,8 @@ class CustomDatePicker extends StatelessWidget {
   final GlobalKey<FormFieldState> fieldKey;
   final MaskedTextController controller;
   final void Function(DateTime) onChange;
+  final String label;
+  final String? Function(String?)? validator;
   final DateTime initialDate;
 
   CustomDatePicker({
@@ -15,6 +17,8 @@ class CustomDatePicker extends StatelessWidget {
     required this.controller,
     required this.onChange,
     DateTime? initialDate,
+    required this.label,
+    this.validator,
   })  : initialDate = initialDate ?? DateTime.now(),
         super(key: key);
 
@@ -27,18 +31,20 @@ class CustomDatePicker extends StatelessWidget {
     }
 
     return CustomTextFormField(
-        labelText: 'Data',
-        keyboardType: TextInputType.datetime,
-        controller: controller,
-        readOnly: true,
-        onTap: () {
-          showDatePicker(
-            context: context,
-            initialDate:
-                controller.text.isNotEmpty ? initialDate : DateTime.now(),
-            firstDate: DateTime(2022),
-            lastDate: DateTime.now(),
-          ).then((value) => onChangeDatePicker(value));
-        });
+      labelText: label,
+      keyboardType: TextInputType.datetime,
+      controller: controller,
+      readOnly: true,
+      onTap: () {
+        showDatePicker(
+          context: context,
+          initialDate:
+              controller.text.isNotEmpty ? initialDate : DateTime.now(),
+          firstDate: DateTime(2022),
+          lastDate: DateTime.now(),
+        ).then((value) => onChangeDatePicker(value));
+      },
+      validator: validator,
+    );
   }
 }

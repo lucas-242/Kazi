@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:my_services/shared/models/base_cubit.dart';
+import 'package:my_services/shared/models/form_validator.dart';
 
 import '../../../core/errors/app_error.dart';
 import '../../../models/service_provided.dart';
@@ -12,7 +13,8 @@ import '../../../shared/models/base_state.dart';
 
 part 'add_services_state.dart';
 
-class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
+class AddServicesCubit extends Cubit<AddServicesState>
+    with BaseCubit, FormValidator {
   final ServiceProvidedRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
@@ -46,7 +48,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     }
   }
 
-  Future<void> addServiceProvided() async {
+  Future<void> addService() async {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
@@ -62,7 +64,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
     }
   }
 
-  Future<void> updateServiceProvided() async {
+  Future<void> updateService() async {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
@@ -133,7 +135,7 @@ class AddServicesCubit extends Cubit<AddServicesState> with BaseCubit {
   }
 
   void _checkServiceValidity() {
-    if (state.service.typeId == '') {
+    if (state.service.typeId.isEmpty) {
       throw ClientError(
         'O tipo de serviço precisa ser preenchido',
         'Triggered by _checkServiceValidity on AddServicesCubit.',

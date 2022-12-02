@@ -46,6 +46,12 @@ class _AddServicesFormState extends State<AddServicesForm> {
     super.initState();
   }
 
+  void onConfirm() {
+    if (_formKey.currentState!.validate()) {
+      widget.onConfirm();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -74,7 +80,7 @@ class _AddServicesFormState extends State<AddServicesForm> {
             _DescriptionField(fieldKey: _descriptionKey),
             const SizedBox(height: 35),
             CustomElevatedButton(
-              onTap: () => widget.onConfirm(),
+              onTap: onConfirm,
               text: widget.labelButton,
             ),
           ],
@@ -97,11 +103,12 @@ class _ServiceTypeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = 'Tipo de serviço';
     final cubit = context.read<AddServicesCubit>();
 
     return CustomDropdown(
       key: fieldKey,
-      label: 'Tipo de serviço',
+      label: label,
       hint: 'Selecione o tipo do serviço',
       items: cubit.state.dropdownItems,
       selectedItem: cubit.state.selectedDropdownItem,
@@ -113,6 +120,7 @@ class _ServiceTypeField extends StatelessWidget {
               cubit.state.service.discountPercent.toString();
         }
       },
+      validator: (value) => cubit.validateDropdownField(value, label),
       showSeach: true,
     );
   }
@@ -127,15 +135,17 @@ class _ValueField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = 'Valor total';
     final cubit = context.read<AddServicesCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
         textFormKey: fieldKey,
         controller: controller,
-        labelText: 'Valor total',
+        labelText: label,
         keyboardType: TextInputType.number,
         onChanged: (value) => cubit.onChangeServiceValue(value),
+        validator: (value) => cubit.validateNumberField(value, label),
       ),
     );
   }
@@ -150,15 +160,17 @@ class _DiscountField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = 'Porcentagem do desconto';
     final cubit = context.watch<AddServicesCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
         textFormKey: fieldKey,
         controller: controller,
-        labelText: 'Porcentagem do desconto',
+        labelText: label,
         keyboardType: TextInputType.number,
         onChanged: (value) => cubit.onChangeServiceValue(value),
+        validator: (value) => cubit.validateNumberField(value, label),
       ),
     );
   }
@@ -175,9 +187,11 @@ class _DateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = "Data";
     final cubit = context.read<AddServicesCubit>();
 
     return CustomDatePicker(
+      label: label,
       fieldKey: fieldKey,
       controller: controller,
       initialDate: cubit.state.service.date,
@@ -185,6 +199,7 @@ class _DateField extends StatelessWidget {
         cubit.onChangeServiceDate(date);
         controller.text = DateFormat.yMd().format(date);
       },
+      validator: (value) => cubit.validateTextField(value, label),
     );
   }
 }
@@ -198,15 +213,17 @@ class _QuantityField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = 'Quantidade';
     final cubit = context.read<AddServicesCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
         textFormKey: fieldKey,
         controller: controller,
-        labelText: 'Quantidade',
+        labelText: label,
         keyboardType: TextInputType.number,
         onChanged: (value) => cubit.onChangeServicesQuantity(value),
+        validator: (value) => cubit.validateNumberField(value, label),
       ),
     );
   }

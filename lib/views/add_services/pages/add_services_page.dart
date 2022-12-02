@@ -58,7 +58,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
             child: BlocBuilder<AddServicesCubit, AddServicesState>(
               builder: (context, state) {
                 return state.when(
-                  onState: (_) => _Build(serviceProvided: state.service),
+                  onState: (_) => _Build(service: state.service),
                   onLoading: () => SizedBox(
                     height: context.height,
                     child: const Center(child: CircularProgressIndicator()),
@@ -75,21 +75,28 @@ class _AddServicesPageState extends State<AddServicesPage> {
 }
 
 class _Build extends StatelessWidget {
-  final ServiceProvided serviceProvided;
-  const _Build({required this.serviceProvided});
+  final ServiceProvided service;
+  const _Build({required this.service});
 
   @override
   Widget build(BuildContext context) {
-    final label = serviceProvided.id != '' ? 'Editar' : 'Adicionar';
+    final label = service.id != '' ? 'Editar' : 'Adicionar';
+
+    void onConfirm() {
+      if (service.id.isEmpty) {
+        context.read<AddServicesCubit>().addService();
+      } else {
+        context.read<AddServicesCubit>().updateService();
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 25),
         AddServicesForm(
           labelButton: label,
-          onConfirm: () => serviceProvided.id == ''
-              ? context.read<AddServicesCubit>().addServiceProvided()
-              : context.read<AddServicesCubit>().updateServiceProvided(),
+          onConfirm: () => onConfirm(),
         ),
       ],
     );

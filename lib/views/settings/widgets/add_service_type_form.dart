@@ -21,6 +21,12 @@ class _AddServiceTypeFormState extends State<AddServiceTypeForm> {
   final _defaultKey = GlobalKey<FormFieldState>();
   final _discountPercentKey = GlobalKey<FormFieldState>();
 
+  void onConfirm() {
+    if (_formKey.currentState!.validate()) {
+      widget.onConfirm();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -31,13 +37,13 @@ class _AddServiceTypeFormState extends State<AddServiceTypeForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _NameField(fieldKey: _nameKey),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _DefaultValueField(fieldKey: _defaultKey),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             _DiscountPercentField(fieldKey: _discountPercentKey),
-            const SizedBox(height: 15),
+            const SizedBox(height: 35),
             CustomElevatedButton(
-              onTap: () => widget.onConfirm(),
+              onTap: onConfirm,
               text: widget.labelButton,
             ),
           ],
@@ -53,13 +59,15 @@ class _NameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = 'Nome';
     final cubit = context.read<SettingsCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
-      labelText: 'Nome',
+      labelText: label,
       initialValue: cubit.state.serviceType.name,
       onChanged: (value) => cubit.changeServiceTypeName(value),
+      validator: (value) => cubit.validateTextField(value, label),
     );
   }
 }
@@ -71,14 +79,16 @@ class _DefaultValueField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = 'Valor padrão';
     final cubit = context.read<SettingsCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
-      labelText: 'Valor padrão',
+      labelText: label,
       keyboardType: TextInputType.number,
       initialValue: cubit.state.serviceType.defaultValue?.toString(),
       onChanged: (value) => cubit.changeServiceTypeDefaultValue(value),
+      validator: (value) => cubit.validateNumberField(value, label),
     );
   }
 }
@@ -90,14 +100,16 @@ class _DiscountPercentField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const label = 'Porcentagem do desconto';
     final cubit = context.read<SettingsCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
-      labelText: 'Porcentagem do desconto',
+      labelText: label,
       keyboardType: TextInputType.number,
       initialValue: cubit.state.serviceType.discountPercent?.toString(),
       onChanged: (value) => cubit.changeServiceTypeDiscountPercent(value),
+      validator: (value) => cubit.validateNumberField(value, label),
     );
   }
 }
