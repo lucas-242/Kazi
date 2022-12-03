@@ -30,12 +30,12 @@ jobs:
       - name: Use the version
         id: version
         run: |
-          echo ${{ steps.git-version.outputs.version }} >> $GITHUB_OUTPUT
+          echo "version=${{ steps.git-version.outputs.version }}" >> $GITHUB_OUTPUT
 
       - name: Use the previous version
         id: previous-version
         run: |
-          echo ${{ steps.git-version.outputs.previous-version }} >> $GITHUB_OUTPUT  
+          echo "previous-version=${{ steps.git-version.outputs.previous-version }}" >> $GITHUB_OUTPUT  
 
   build:
     name: Create Android Build
