@@ -24,16 +24,18 @@ jobs:
           fetch-depth: 0  
 
       - name: Git Version
-        id: version
+        id: git-version
         uses: codacy/git-version@2.7.1
 
       - name: Use the version
+        id: version
         run: |
-          echo ${{ steps.version.outputs.version }} >> $GITHUB_OUTPUT
+          echo ${{ steps.git-version.outputs.version }} >> $GITHUB_OUTPUT
 
       - name: Use the previous version
+        id: previous-version
         run: |
-          echo ${{ steps.version.outputs.previous-version }} >> $GITHUB_OUTPUT  
+          echo ${{ steps.git-version.outputs.previous-version }} >> $GITHUB_OUTPUT  
 
   build:
     name: Create Android Build
