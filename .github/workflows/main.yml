@@ -2,7 +2,7 @@ name: Android Build
 
 on:
   push:
-    branches: [ "master", "ci_cd" ]
+    branches: [ "ci_cd" ]
     paths-ignore:
       - '**/README.md'
   pull_request:
@@ -13,56 +13,40 @@ jobs:
   version:
     name: Create version number
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      previous-version: ${{ steps.version.outputs.previous-version }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0  
 
-      # - name: Install GitVersion
-      #   uses: gittools/actions/gitversion/setup@v0.9.7
-      #   with:
-      #     versionSpec: "5.11.x"
-
-      # - name: Use GitVersion
-      #   id: gitversion
-      #   uses: gittools/actions/gitversion/execute@v0.9.7
-
-      # - name: Create version.txt with nuGetVersion
-      #   run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
-
-      - name: Use Git Version
-        id: version
+      - name: Git Version
+        id: git-version
         uses: codacy/git-version@2.7.1
 
-      - name: Create version.txt with version
-        run: echo ${{ steps.version.outputs.version  }} > version.txt
+      - name: Use the version
+        id: version
+        run: |
+          echo "version=${{ steps.git-version.outputs.version }}" >> $GITHUB_OUTPUT
 
-      - name: Upload version.txt
-        uses: actions/upload-artifact@v2
-        with:
-          name: version
-          path: version.txt
+      - name: Use the previous version
+        id: previous-version
+        run: |
+          echo "previous-version=${{ steps.git-version.outputs.previous-version }}" >> $GITHUB_OUTPUT  
 
   build:
     name: Create Android Build
     needs: version
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Get version.txt
-        uses: actions/download-artifact@v2
-        with:
-          name: version
-          
-      - name: Create new file without newline char from version.txt
-        run: tr -d '\n' < version.txt > version1.txt
-      
-      - name: Read version
-        id: version
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: version1.txt
+      - name: Checkout Code
+        uses: actions/checkout@v3
       
       - name: Update version in YAML
-        run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
+        run: sed -i -E 's/(([0-9]\.){2}[0-9])((\-\w+\.\w+\.\w+)?|(\-\w+\.\w+))?(\+[0-9])/${{ needs.version.outputs.version }}+${{ github.run_number }}/g' pubspec.yaml
       
       - name: Download Android keystore
         id: android_keystore
@@ -105,8 +89,8 @@ jobs:
         run: flutter build apk
       
       - name: Upload Android Release
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: android-release
+          name: my_services_${{ needs.version.outputs.version }}+${{ github.run_number }}
           # path: build/app/outputs/bundle/release/app-release.aab
           path: build/app/outputs/apk/release/app-release.apk
