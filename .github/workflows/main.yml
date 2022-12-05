@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Update version in YAML
-        run: sed -i -e 's/(([0-9]\.){2}[0-9])((\-\w+\.\w+\.\w+)?|(\-\w+\.\w+))?(\+[0-9])/${{ needs.version.outputs.version }}+${{ github.run_number }}/g' pubspec.yaml
+        run: sed -i -E 's/(([0-9]\.){2}[0-9])((\-\w+\.\w+\.\w+)?|(\-\w+\.\w+))?(\+[0-9])/${{ needs.version.outputs.version }}+${{ github.run_number }}/g' pubspec.yaml
       
       - name: Download Android keystore
         id: android_keystore
