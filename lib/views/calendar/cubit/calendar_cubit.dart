@@ -139,8 +139,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     DateTime endDate;
     switch (fastSearch) {
       case FastSearch.week:
-        startDate = today.mostRecentWeekday(DateTime.sunday);
-        endDate = today.next(DateTime.saturday);
+        startDate = today.lastWeekday(DateTime.sunday);
+        endDate = today.nextWeekday(DateTime.saturday);
         break;
       case FastSearch.fortnight:
         if (today.day <= 15) {

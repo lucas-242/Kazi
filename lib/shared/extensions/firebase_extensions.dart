@@ -4,7 +4,7 @@ import 'package:my_services/models/app_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 extension FirestoreDocumentExtension on DocumentReference {
-  Future<DocumentSnapshot> getCachedOrServer() async {
+  Future<DocumentSnapshot> getCacheFirst() async {
     try {
       DocumentSnapshot ds = await get(const GetOptions(source: Source.cache));
       if (ds.data() == null) {
