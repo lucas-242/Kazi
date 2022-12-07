@@ -144,13 +144,13 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
   void _checkServiceValidity() {
     if (state.serviceType.name.isEmpty) {
       throw ClientError('O tipo de serviço não pode ser vazio',
-          'Triggered by _checkServiceValidity on SettingsCubit.');
+          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
     }
     if (state.serviceTypeList
         .map((e) => e.name)
         .contains(state.serviceType.name)) {
       throw ClientError('O tipo de serviço já existe',
-          'Triggered by _checkServiceValidity on SettingsCubit.');
+          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
     }
   }
 
@@ -161,7 +161,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     if (count > 0) {
       throw ClientError(
         'O tipo de serviço não pode ser deletado pois está em uso',
-        'Triggered by _checkServiceTypeIsInUse on SettingsCubit.',
+        trace: 'Triggered by _checkServiceTypeIsInUse on SettingsCubit.',
       );
     }
   }

@@ -20,7 +20,8 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
       return result;
     } catch (exception) {
       throw ExternalError(
-          'Erro ao efetuar a adição do tipo de serviço', exception.toString());
+          trace: 'Erro ao efetuar a adição do tipo de serviço',
+          exception.toString());
     }
   }
 
@@ -30,7 +31,8 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
       await _firestore.collection(_path).doc(id).delete();
     } catch (exception) {
       throw ExternalError(
-          'Erro ao efetuar a deleção do tipo de serviço', exception.toString());
+          trace: 'Erro ao efetuar a deleção do tipo de serviço',
+          exception.toString());
     }
   }
 
@@ -41,7 +43,8 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
       await _firestore.collection(_path).doc(service.id).update(data);
     } catch (exception) {
       throw ExternalError(
-          'Erro ao efetuar a edição do tipo de serviço', exception.toString());
+          trace: 'Erro ao efetuar a edição do tipo de serviço',
+          exception.toString());
     }
   }
 
@@ -61,7 +64,7 @@ class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
       return result;
     } catch (exception) {
       throw ExternalError(
-          'Erro ao buscar serviços realizados', exception.toString());
+          trace: 'Erro ao buscar serviços realizados', exception.toString());
     }
   }
 }

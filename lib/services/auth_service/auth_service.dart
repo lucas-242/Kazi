@@ -5,7 +5,7 @@ abstract class AuthService {
 
   Future<bool> signInWithGoogle();
 
-  Future<bool> signOut();
+  Future<void> signOut();
 
   Stream<AppUser?> userChanges();
 }

@@ -30,7 +30,7 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
       return result;
     } catch (exception) {
       throw ExternalError('Erro ao efetuar a adição do serviço realizado',
-          exception.toString());
+          trace: exception.toString());
     }
   }
 
@@ -40,7 +40,7 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
       await _firestore.collection(_path).doc(id).delete();
     } catch (exception) {
       throw ExternalError('Erro ao efetuar a deleção do serviço realizado',
-          exception.toString());
+          trace: exception.toString());
     }
   }
 
@@ -51,7 +51,7 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
       await _firestore.collection(_path).doc(service.id).update(data);
     } catch (exception) {
       throw ExternalError('Erro ao efetuar a edição do serviço realizado',
-          exception.toString());
+          trace: exception.toString());
     }
   }
 
@@ -82,7 +82,7 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
       return result;
     } catch (exception) {
       throw ExternalError(
-          'Erro ao buscar serviços realizados', exception.toString());
+          trace: 'Erro ao buscar serviços realizados', exception.toString());
     }
   }
 
@@ -100,7 +100,7 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
       return result.count;
     } catch (exception) {
       throw ExternalError(
-          'Erro ao buscar quantidade de serviços', exception.toString());
+          trace: 'Erro ao buscar quantidade de serviços', exception.toString());
     }
   }
 }

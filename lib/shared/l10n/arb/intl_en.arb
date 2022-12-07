@@ -1,0 +1,49 @@
+{
+  "all": "All",
+  "add": "Add",
+  "cancel": "Cancel",
+  "create": "Create",  
+  "date": "Date",
+  "darkMode": "Dark Mode",
+  "delete": "Delete",
+  "lightMode": "Light Mode",
+  "logout": "Logout",
+  "logoutConfirmation": "Do you really want to logout?",
+  "save": "Save",
+  "search": "Search",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "signUpSuccess": "Account created successfully",
+  "success": "Action done successfully",
+  "update": "Update",
+  "wouldYouLikeDelete": "Would you like to delete",
+
+  "name": "Name",
+  "type": "Type",
+  "quantity": "Quantity",
+
+
+  "invalidName": "Name is invalid",
+  "invalidProperty": "{property} is invalid",
+  "@invalidProperty": {
+    "placeholders": {
+        "property": {
+          "type": "String"
+        }
+    }
+  },
+
+  "unknowError": "An unknown exception occurred",
+  "linkHasExpired": "The link has expired",
+  "linkHasBeenUsed": "The link has already been used",
+  "passwordIsWeak": "Password is too weak. Please, try a different one",
+  "emailIsInvalid": "Email is invalid or badly formatted",
+  "userHasBeenDisabled": "This user has been disabled. Please contact support for help",
+  "emailWasNotFound": "Email was not found, please create an account",
+  "thereIsAnotherAccount": "There is already an account with this credential",
+  "credentialIsInvalid": "The credential is invalid",
+  "verificationCodeIsInvalid": "The verification code entered is invalid",
+  "verificationIdIsInvalid": "The verification ID entered is invalid",
+  "cantCreateAccountWithMethod": "You can not create an account with this method. Please try another account or contact support for help",
+  "incorrectEmailOrPassword": "Incorrect email or password"
+}

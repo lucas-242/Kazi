@@ -138,7 +138,7 @@ class AddServicesCubit extends Cubit<AddServicesState>
     if (state.service.typeId.isEmpty) {
       throw ClientError(
         'O tipo de serviço precisa ser preenchido',
-        'Triggered by _checkServiceValidity on AddServicesCubit.',
+        trace: 'Triggered by _checkServiceValidity on AddServicesCubit.',
       );
     }
   }

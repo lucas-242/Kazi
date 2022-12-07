@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
     locator<AuthService>().signInWithGoogle().then((value) {
       if (value) Navigator.of(context).pushReplacementNamed(AppRoutes.app);
     }).catchError((error) {
-      getCustomSnackBar(context, message: 'Erro ao efetuar Login');
+      getCustomSnackBar(context, message: error.message);
     });
   }
 
