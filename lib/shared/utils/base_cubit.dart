@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import '../../core/errors/app_error.dart';
+import '../errors/errors.dart';
 import 'base_state.dart';
 
 mixin BaseCubit<T extends BaseState> on Cubit<T> {

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_services/models/service_provided.dart';
+import 'package:my_services/models/service.dart';
 
 import '../../../../models/service_type.dart';
 
-class ServiceProvidedFirebase extends ServiceProvided {
-  ServiceProvidedFirebase({
+class FirebaseServiceModel extends Service {
+  FirebaseServiceModel({
     required super.id,
     required super.description,
     required super.value,
@@ -28,8 +28,8 @@ class ServiceProvidedFirebase extends ServiceProvided {
     };
   }
 
-  factory ServiceProvidedFirebase.fromMap(Map<String, dynamic> map) {
-    return ServiceProvidedFirebase(
+  factory FirebaseServiceModel.fromMap(Map<String, dynamic> map) {
+    return FirebaseServiceModel(
       id: map['id'] ?? '',
       description: map['description'] ?? '',
       value: map['value']?.toDouble() ?? 0.0,
@@ -44,11 +44,11 @@ class ServiceProvidedFirebase extends ServiceProvided {
 
   String toJson() => json.encode(toMap());
 
-  factory ServiceProvidedFirebase.fromJson(String source) =>
-      ServiceProvidedFirebase.fromMap(json.decode(source));
+  factory FirebaseServiceModel.fromJson(String source) =>
+      FirebaseServiceModel.fromMap(json.decode(source));
 
-  factory ServiceProvidedFirebase.fromServiceProvided(ServiceProvided source) =>
-      ServiceProvidedFirebase(
+  factory FirebaseServiceModel.fromServiceProvided(Service source) =>
+      FirebaseServiceModel(
         id: source.id,
         description: source.description,
         value: source.value,

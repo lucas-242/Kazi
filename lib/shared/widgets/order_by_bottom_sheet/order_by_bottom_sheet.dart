@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_services/shared/themes/themes.dart';
 
-import '../../models/order_by.dart';
+import '../../../models/enums.dart';
 
 class OrderByBottomSheet extends StatelessWidget {
   Map<OrderBy, String> get orderOptions => {

@@ -6,13 +6,15 @@ import '../../auth_service/auth_service.dart';
 import '../../../shared/extensions/extensions.dart';
 import 'errors/firebase_sign_in_error.dart';
 
-class AuthServiceFirebaseImpl extends AuthService {
+class FirebaseAuthService extends AuthService {
   final GoogleSignIn googleSignIn;
   final FirebaseAuth firebaseAuth;
 
-  AuthServiceFirebaseImpl(
-      {GoogleSignIn? googleSignIn, FirebaseAuth? firebaseAuth, AppUser? user})
-      : googleSignIn = googleSignIn ?? GoogleSignIn(),
+  FirebaseAuthService({
+    GoogleSignIn? googleSignIn,
+    FirebaseAuth? firebaseAuth,
+    AppUser? user,
+  })  : googleSignIn = googleSignIn ?? GoogleSignIn(),
         firebaseAuth = firebaseAuth ?? FirebaseAuth.instance {
     this.user = user;
   }

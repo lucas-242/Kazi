@@ -2,7 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:my_services/shared/themes/themes.dart';
 
-import '../../models/dropdown_item.dart';
+import '../../../models/dropdown_item.dart';
 
 class CustomDropdown extends StatelessWidget {
   final String label;
@@ -30,7 +30,7 @@ class CustomDropdown extends StatelessWidget {
     return DropdownSearch<DropdownItem>(
       selectedItem: selectedItem,
       items: items,
-      itemAsString: (DropdownItem? u) => u!.text,
+      itemAsString: (DropdownItem? u) => u!.label,
       onChanged: onChanged,
       validator: validator,
       autoValidateMode: AutovalidateMode.onUserInteraction,
@@ -63,7 +63,7 @@ class DropdownInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Text(
-        item == null || item!.text == '' ? hint : item!.text,
+        item == null || item!.label == '' ? hint : item!.label,
         style: context.bodyMedium,
       ),
     );
@@ -95,7 +95,7 @@ class PopupItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(item.text, style: context.bodyMedium),
+      title: Text(item.label, style: context.bodyMedium),
     );
   }
 }

@@ -1,24 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_services/core/errors/app_error.dart';
-import 'package:my_services/models/service_provided.dart';
-import 'package:my_services/repositories/service_provided_repository/firebase/models/service_provided_firebase.dart';
-import 'package:my_services/repositories/service_provided_repository/service_provided_repository.dart';
+import 'package:my_services/shared/errors/errors.dart';
+import 'package:my_services/models/service.dart';
+import 'package:my_services/repositories/services_repository/firebase/models/firebase_service_model.dart';
+import 'package:my_services/repositories/services_repository/services_repository.dart';
 import 'package:my_services/shared/extensions/extensions.dart';
 
-class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
+class FirebaseServicesRepository extends ServicesRepository {
   final FirebaseFirestore _firestore;
   static const _path = 'services';
 
-  ServiceProvidedRepositoryFirebaseImpl(FirebaseFirestore firestore)
+  FirebaseServicesRepository(FirebaseFirestore firestore)
       : _firestore = firestore;
 
   @override
-  Future<List<ServiceProvided>> add(ServiceProvided service,
-      [int quantity = 1]) async {
+  Future<List<Service>> add(Service service, [int quantity = 1]) async {
     try {
       final batch = _firestore.batch();
-      final data = ServiceProvidedFirebase.fromServiceProvided(service);
-      final result = <ServiceProvided>[];
+      final data = FirebaseServiceModel.fromServiceProvided(service);
+      final result = <Service>[];
 
       for (var i = 0; i < quantity; i++) {
         final collection = _firestore.collection(_path).doc();
@@ -45,9 +44,9 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
   }
 
   @override
-  Future<void> update(ServiceProvided service) async {
+  Future<void> update(Service service) async {
     try {
-      final data = ServiceProvidedFirebase.fromServiceProvided(service).toMap();
+      final data = FirebaseServiceModel.fromServiceProvided(service).toMap();
       await _firestore.collection(_path).doc(service.id).update(data);
     } catch (exception) {
       throw ExternalError('Erro ao efetuar a edição do serviço realizado',
@@ -56,7 +55,7 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
   }
 
   @override
-  Future<List<ServiceProvided>> get(
+  Future<List<Service>> get(
     String userId, [
     DateTime? startDate,
     DateTime? endDate,
@@ -76,7 +75,7 @@ class ServiceProvidedRepositoryFirebaseImpl extends ServiceProvidedRepository {
 
       final result = finalQuery.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;
-        return ServiceProvidedFirebase.fromMap(data).copyWith(id: snapshot.id);
+        return FirebaseServiceModel.fromMap(data).copyWith(id: snapshot.id);
       }).toList();
 
       return result;

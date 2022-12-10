@@ -1,6 +1,6 @@
 import 'service_type.dart';
 
-class ServiceProvided {
+class Service {
   final String id;
   final String? description;
   final double value;
@@ -10,7 +10,7 @@ class ServiceProvided {
   final DateTime date;
   final String userId;
 
-  ServiceProvided({
+  Service({
     this.id = '',
     this.description,
     this.value = 0,
@@ -25,7 +25,7 @@ class ServiceProvided {
 
   double get valueWithDiscount => value - valueDiscounted;
 
-  ServiceProvided copyWith({
+  Service copyWith({
     String? id,
     String? description,
     double? value,
@@ -35,7 +35,7 @@ class ServiceProvided {
     DateTime? date,
     String? userId,
   }) {
-    return ServiceProvided(
+    return Service(
       id: id ?? this.id,
       description: description ?? this.description,
       value: value ?? this.value,
@@ -51,7 +51,7 @@ class ServiceProvided {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ServiceProvided &&
+    return other is Service &&
         other.id == id &&
         other.description == description &&
         other.value == value &&

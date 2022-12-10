@@ -1,4 +1,4 @@
-import 'package:my_services/core/errors/app_error.dart';
+import 'package:my_services/shared/errors/errors.dart';
 
 import '../../../../shared/l10n/generated/l10n.dart';
 

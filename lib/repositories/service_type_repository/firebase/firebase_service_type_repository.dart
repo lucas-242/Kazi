@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_services/core/errors/app_error.dart';
+import 'package:my_services/shared/errors/errors.dart';
 import 'package:my_services/models/service_type.dart';
 import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/shared/extensions/extensions.dart';
 
-class ServiceTypeRepositoryFirebaseImpl extends ServiceTypeRepository {
+class FirebaseServiceTypeRepository extends ServiceTypeRepository {
   final FirebaseFirestore _firestore;
   static const _path = 'serviceTypes';
 
-  ServiceTypeRepositoryFirebaseImpl(FirebaseFirestore firestore)
+  FirebaseServiceTypeRepository(FirebaseFirestore firestore)
       : _firestore = firestore;
 
   @override

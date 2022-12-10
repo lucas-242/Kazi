@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:my_services/services/auth_service/firebase/auth_service_firebase_impl.dart';
+import 'package:my_services/services/auth_service/firebase/firebase_auth_service.dart';
 import 'package:my_services/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 
@@ -63,7 +63,7 @@ void main() {
   late MockGoogleSignIn googleSignIn;
   late MockGoogleSignInAccount googleSignInAccount;
   late MockGoogleSignInAuthentication googleSignInAuthentication;
-  late AuthServiceFirebaseImpl authService;
+  late FirebaseAuthService authService;
   late MockFirebaseAuth firebaseAuth;
 
   setUpAll(() {
@@ -75,7 +75,7 @@ void main() {
     googleSignInAccount = MockGoogleSignInAccount();
     googleSignInAuthentication = MockGoogleSignInAuthentication();
     firebaseAuth = MockFirebaseAuth();
-    authService = AuthServiceFirebaseImpl(
+    authService = FirebaseAuthService(
       googleSignIn: googleSignIn,
       firebaseAuth: firebaseAuth,
     );
@@ -118,7 +118,7 @@ void main() {
   group('Sign out', () {
     test('Should sign out with google', (() async {
       firebaseAuth = MockFirebaseAuth(isSignedIn: true);
-      authService = AuthServiceFirebaseImpl(
+      authService = FirebaseAuthService(
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
         user: appUser,
@@ -155,7 +155,7 @@ void main() {
 
     test('Should return user', () {
       firebaseAuth = MockFirebaseAuth(isSignedIn: true);
-      authService = AuthServiceFirebaseImpl(
+      authService = FirebaseAuthService(
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
         user: appUser,

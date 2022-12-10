@@ -1,7 +1,7 @@
 part of 'home_cubit.dart';
 
 class HomeState extends BaseState {
-  List<ServiceProvided> services;
+  List<Service> services;
   OrderBy selectedOrderBy;
 
   double get totalValue {
@@ -18,8 +18,8 @@ class HomeState extends BaseState {
 
   HomeState({
     required super.status,
-    List<ServiceProvided>? services,
-    ServiceProvided? serviceProvided,
+    List<Service>? services,
+    Service? serviceProvided,
     super.callbackMessage,
     OrderBy? selectedOrderBy,
   })  : selectedOrderBy = selectedOrderBy ?? OrderBy.typeAsc,
@@ -29,7 +29,7 @@ class HomeState extends BaseState {
   HomeState copyWith({
     BaseStateStatus? status,
     String? callbackMessage,
-    List<ServiceProvided>? services,
+    List<Service>? services,
     OrderBy? selectedOrderBy,
   }) {
     return HomeState(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_services/models/service_provided.dart';
+import 'package:my_services/models/service.dart';
 import 'package:my_services/shared/themes/themes.dart';
-import 'package:my_services/shared/models/base_state.dart';
+import 'package:my_services/shared/utils/base_state.dart';
 import 'package:my_services/shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import 'package:my_services/views/app/app.dart';
 import 'package:my_services/views/calendar/calendar.dart';
@@ -75,7 +75,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
 }
 
 class _Build extends StatelessWidget {
-  final ServiceProvided service;
+  final Service service;
   const _Build({required this.service});
 
   @override

@@ -1,19 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:my_services/shared/models/base_cubit.dart';
-import 'package:my_services/shared/models/form_validator.dart';
+import 'package:my_services/shared/utils/base_cubit.dart';
+import 'package:my_services/shared/utils/form_validator.dart';
 
-import '../../../core/errors/app_error.dart';
+import '../../../shared/errors/errors.dart';
 import '../../../models/service_type.dart';
-import '../../../repositories/service_provided_repository/service_provided_repository.dart';
+import '../../../repositories/services_repository/services_repository.dart';
 import '../../../repositories/service_type_repository/service_type_repository.dart';
 import '../../../services/auth_service/auth_service.dart';
-import '../../../shared/models/base_state.dart';
+import '../../../shared/utils/base_state.dart';
 
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
   final ServiceTypeRepository _serviceTypeRepository;
-  final ServiceProvidedRepository _serviceRepository;
+  final ServicesRepository _serviceRepository;
   final AuthService _authService;
 
   SettingsCubit(

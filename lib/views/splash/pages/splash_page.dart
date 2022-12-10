@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../core/routes/app_routes.dart';
+import '../../../shared/routes/app_routes.dart';
 import '../../../injector_container.dart';
 import '../../../models/app_user.dart';
 import '../../../services/auth_service/auth_service.dart';

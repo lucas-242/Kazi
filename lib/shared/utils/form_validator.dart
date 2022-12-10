@@ -1,4 +1,4 @@
-import 'package:my_services/shared/models/dropdown_item.dart';
+import 'package:my_services/models/dropdown_item.dart';
 
 mixin FormValidator {
   String? validateTextField(String? fieldValue, String fieldName) {
@@ -31,7 +31,7 @@ mixin FormValidator {
 
   String? validateDropdownField(DropdownItem? fieldValue, String fieldName) {
     return _validateIsNullOrEmpty(
-      fieldValue: fieldValue?.text,
+      fieldValue: fieldValue?.label,
       fieldName: fieldName,
     );
   }

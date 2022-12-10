@@ -6,9 +6,9 @@ import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/views/calendar/calendar.dart';
 import 'package:my_services/views/home/cubit/home_cubit.dart';
 
-import '../../../core/routes/app_routes.dart';
-import '../../../models/service_provided.dart';
-import '../../../shared/models/base_state.dart';
+import '../../../shared/routes/app_routes.dart';
+import '../../../models/service.dart';
+import '../../../shared/utils/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.addServiceProvided),
+                Navigator.pushNamed(context, AppRoutes.addServices),
             icon: const Icon(Icons.add),
           ),
           const SizedBox(width: 20),
@@ -103,15 +103,15 @@ class _Build extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onDelete(ServiceProvided service) async {
+    void onDelete(Service service) async {
       final calendarCubit = context.read<CalendarCubit>();
       await context.read<HomeCubit>().deleteService(service);
       calendarCubit.changeServices();
     }
 
-    void onEdit(ServiceProvided service) async {
+    void onEdit(Service service) async {
       context.read<AddServicesCubit>().onChangeServiceProvided(service);
-      Navigator.pushNamed(context, AppRoutes.addServiceProvided);
+      Navigator.pushNamed(context, AppRoutes.addServices);
     }
 
     return Column(
@@ -145,8 +145,7 @@ class _NoData extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         CustomElevatedButton(
-          onTap: () =>
-              Navigator.pushNamed(context, AppRoutes.addServiceProvided),
+          onTap: () => Navigator.pushNamed(context, AppRoutes.addServices),
           text: 'Adicionar novo serviço',
         ),
       ],
