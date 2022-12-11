@@ -1,0 +1,157 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:my_services/models/service_type.dart';
+import 'package:my_services/repositories/service_type_repository/firebase/firebase_service_type_repository.dart';
+import 'package:my_services/shared/errors/errors.dart';
+import 'package:my_services/shared/l10n/generated/l10n.dart';
+
+import '../../../mocks/mocks.dart';
+import '../../../utils/test_helper.dart';
+import '../../../utils/test_matchers.dart';
+import 'firebase_service_type_repository_test.mocks.dart';
+
+@GenerateMocks([FirebaseFirestore])
+void main() {
+  late FirebaseFirestore database;
+  late FirebaseServiceTypeRepository repository;
+
+  TestHelper.loadAppLocalizations();
+
+  Future<ServiceType> createMock(ServiceType mock) async {
+    final listReference =
+        await database.collection(repository.path).add(mock.toMap());
+    final result = mock.copyWith(id: listReference.id);
+    return result;
+  }
+
+  setUp(() async {
+    database = FakeFirebaseFirestore();
+    repository = FirebaseServiceTypeRepository(database);
+  });
+
+  group('Add Service Type', () {
+    test('Should add service type', () async {
+      final response = await repository.add(serviceTypeMock);
+      expect(response, IsTheSameServiceType(serviceTypeMock));
+    });
+
+    test('Should throw ExternalError with errorToAddServiceType message', () {
+      database = MockFirebaseFirestore();
+      repository = FirebaseServiceTypeRepository(database);
+      when(database.collection(repository.path)).thenThrow(Exception());
+
+      expectLater(
+          repository.add(serviceTypeMock),
+          ErrorWithMessage<ExternalError>(
+              AppLocalizations.current.errorToAddServiceType));
+    });
+  });
+
+  group('Delete Service Type', () {
+    late String serviceTypeId;
+
+    setUp(() async {
+      final response = await createMock(serviceTypeMock);
+      serviceTypeId = response.id;
+    });
+
+    Future<bool> checkDeleteWasSuccessful() async {
+      final response =
+          await database.collection(repository.path).doc(serviceTypeId).get();
+      if (response.data() == null) {
+        return true;
+      }
+      return false;
+    }
+
+    test('Should add service type', () {
+      expect(repository.delete(serviceTypeId), completion(null));
+      expect(checkDeleteWasSuccessful(), completion(true));
+    });
+
+    test('Should throw ExternalError with message errorToDeleteServiceType',
+        () async {
+      database = MockFirebaseFirestore();
+      repository = FirebaseServiceTypeRepository(database);
+      when(database.collection(repository.path)).thenThrow(Exception());
+
+      expect(
+          repository.delete(serviceTypeId),
+          ErrorWithMessage<ExternalError>(
+              AppLocalizations.current.errorToDeleteServiceType));
+    });
+  });
+
+  group('Get Service Types', () {
+    const userNumberOfServiceTypes = 5;
+
+    setUp(() async {
+      for (var i = 0; i < userNumberOfServiceTypes; i++) {
+        await createMock(serviceTypeMock);
+      }
+      await createMock(serviceTypeMock.copyWith(userId: 'aaaa9999'));
+    });
+
+    test('Should get service types', () async {
+      final response = await repository.get(serviceTypeMock.userId);
+      expect(response, hasLength(userNumberOfServiceTypes));
+      expect(
+        response,
+        everyElement(predicate(
+            (e) => e is ServiceType && e.userId == serviceTypeMock.userId)),
+      );
+    });
+
+    test('Should throw ExternalError with message errorToGetServiceTypes',
+        () async {
+      database = MockFirebaseFirestore();
+      repository = FirebaseServiceTypeRepository(database);
+      when(database.collection(repository.path)).thenThrow(Exception());
+
+      expect(
+          repository.get(serviceTypeMock.userId),
+          ErrorWithMessage<ExternalError>(
+              AppLocalizations.current.errorToGetServiceTypes));
+    });
+  });
+
+  group('Update Service Type', () {
+    late String serviceTypeId;
+
+    setUp(() async {
+      final response = await createMock(serviceTypeMock);
+      serviceTypeId = response.id;
+    });
+
+    Future<ServiceType> getServiceTypeUpdated(ServiceType toCheck) async {
+      final snapshot =
+          await database.collection(repository.path).doc(serviceTypeId).get();
+
+      final data = snapshot.data() as Map<String, dynamic>;
+      return ServiceType.fromMap(data).copyWith(id: snapshot.id);
+    }
+
+    test('Should update service type', () async {
+      final toUpdate =
+          serviceTypeMock.copyWith(id: serviceTypeId, name: 'Update test');
+      await repository.update(toUpdate);
+      final response = await getServiceTypeUpdated(toUpdate);
+      expect(response, IsTheSameServiceType(toUpdate, checkEqualsId: true));
+    });
+
+    test('Should throw ExternalError with message errorToGetServiceTypes',
+        () async {
+      database = MockFirebaseFirestore();
+      repository = FirebaseServiceTypeRepository(database);
+      when(database.collection(repository.path)).thenThrow(Exception());
+
+      expect(
+          repository.update(serviceTypeMock),
+          ErrorWithMessage<ExternalError>(
+              AppLocalizations.current.errorToUpdateServiceType));
+    });
+  });
+}

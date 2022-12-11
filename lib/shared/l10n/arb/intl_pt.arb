@@ -42,5 +42,10 @@
   "verificationCodeIsinvalid": "O código de verificação inserido é inválido",
   "verificationIdIsInvalid": "O Id de verificação inserido é inválido",
   "cantCreateAccountWithMethod": "Você não pode criar uma conta com este método. Tente outra conta ou entre em contato com o suporte para obter ajuda",
-  "incorrectEmailOrPassword": "Senha ou email incorretos"
+  "incorrectEmailOrPassword": "Senha ou email incorretos",
+
+  "errorToAddServiceType": "Erro ao efetuar a adição do tipo de serviço",
+  "errorToDeleteServiceType": "Erro ao efetuar a deleção do tipo de serviço",
+  "errorToGetServiceTypes": "Erro ao buscar os tipos de serviços",
+  "errorToUpdateServiceType": "Erro ao efetuar a edição do tipo de serviço"
 }

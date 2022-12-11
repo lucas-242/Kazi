@@ -1,50 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:my_services/shared/errors/errors.dart';
 import 'package:my_services/models/service_type.dart';
 import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/shared/extensions/extensions.dart';
+import 'package:my_services/shared/l10n/generated/l10n.dart';
 
 class FirebaseServiceTypeRepository extends ServiceTypeRepository {
   final FirebaseFirestore _firestore;
-  static const _path = 'serviceTypes';
+
+  @visibleForTesting
+  String get path => 'serviceTypes';
 
   FirebaseServiceTypeRepository(FirebaseFirestore firestore)
       : _firestore = firestore;
 
   @override
-  Future<ServiceType> add(ServiceType service) async {
+  Future<ServiceType> add(ServiceType serviceType) async {
     try {
-      final data = service.toMap();
-      final document = await _firestore.collection(_path).add(data);
-      final result = service.copyWith(id: document.id);
+      final data = serviceType.toMap();
+      final document = await _firestore.collection(path).add(data);
+      final result = serviceType.copyWith(id: document.id);
       return result;
     } catch (exception) {
-      throw ExternalError(
-          trace: 'Erro ao efetuar a adição do tipo de serviço',
-          exception.toString());
+      throw ExternalError(AppLocalizations.current.errorToAddServiceType,
+          trace: exception.toString());
     }
   }
 
   @override
   Future<void> delete(String id) async {
     try {
-      await _firestore.collection(_path).doc(id).delete();
+      await _firestore.collection(path).doc(id).delete();
     } catch (exception) {
-      throw ExternalError(
-          trace: 'Erro ao efetuar a deleção do tipo de serviço',
-          exception.toString());
-    }
-  }
-
-  @override
-  Future<void> update(ServiceType service) async {
-    try {
-      final data = service.toMap();
-      await _firestore.collection(_path).doc(service.id).update(data);
-    } catch (exception) {
-      throw ExternalError(
-          trace: 'Erro ao efetuar a edição do tipo de serviço',
-          exception.toString());
+      throw ExternalError(AppLocalizations.current.errorToDeleteServiceType,
+          trace: exception.toString());
     }
   }
 
@@ -52,7 +42,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
   Future<List<ServiceType>> get(String userId) async {
     try {
       final query = await _firestore
-          .collection(_path)
+          .collection(path)
           .where('userId', isEqualTo: userId)
           .getCacheFirst();
 
@@ -63,8 +53,19 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
 
       return result;
     } catch (exception) {
-      throw ExternalError(
-          trace: 'Erro ao buscar serviços realizados', exception.toString());
+      throw ExternalError(AppLocalizations.current.errorToGetServiceTypes,
+          trace: exception.toString());
+    }
+  }
+
+  @override
+  Future<void> update(ServiceType serviceType) async {
+    try {
+      final data = serviceType.toMap();
+      await _firestore.collection(path).doc(serviceType.id).update(data);
+    } catch (exception) {
+      throw ExternalError(AppLocalizations.current.errorToUpdateServiceType,
+          trace: exception.toString());
     }
   }
 }

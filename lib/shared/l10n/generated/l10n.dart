@@ -409,6 +409,46 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Error to add service type`
+  String get errorToAddServiceType {
+    return Intl.message(
+      'Error to add service type',
+      name: 'errorToAddServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to delete service type`
+  String get errorToDeleteServiceType {
+    return Intl.message(
+      'Error to delete service type',
+      name: 'errorToDeleteServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to get service types`
+  String get errorToGetServiceTypes {
+    return Intl.message(
+      'Error to get service types',
+      name: 'errorToGetServiceTypes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to update service type`
+  String get errorToUpdateServiceType {
+    return Intl.message(
+      'Error to update service type',
+      name: 'errorToUpdateServiceType',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

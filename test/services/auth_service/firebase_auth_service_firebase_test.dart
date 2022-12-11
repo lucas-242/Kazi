@@ -8,8 +8,9 @@ import 'package:my_services/services/auth_service/firebase/errors/firebase_sign_
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 
 import '../../mocks/mocks.dart';
-import '../../test_helper.dart';
-import 'auth_service_firebase_impl_test.mocks.dart';
+import '../../utils/test_helper.dart';
+import '../../utils/test_matchers.dart';
+import 'firebase_auth_service_firebase_test.mocks.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
   final bool isSignedIn;
@@ -18,13 +19,13 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {
 
   @override
   Future<UserCredential> signInWithCredential(AuthCredential? credential) =>
-      Future.value(userCredential);
+      Future.value(_userCredential);
 
   @override
-  Future<UserCredential> signOut() => Future.value(userCredential);
+  Future<UserCredential> signOut() => Future.value(_userCredential);
 
   @override
-  User? get currentUser => isSignedIn ? user : null;
+  User? get currentUser => isSignedIn ? _user : null;
 
   @override
   Stream<User?> userChanges() {
@@ -37,13 +38,13 @@ class MockUser extends Mock implements User {
   bool get isAnonymous => false;
 
   @override
-  String get uid => appUser.uid;
+  String get uid => userMock.uid;
 
   @override
-  String? get email => appUser.email;
+  String? get email => userMock.email;
 
   @override
-  String? get displayName => appUser.name;
+  String? get displayName => userMock.name;
 }
 
 class MockGoogleSignInAuthentication extends Mock
@@ -55,8 +56,8 @@ class MockGoogleSignInAuthentication extends Mock
   String? get idToken => 'abc123';
 }
 
-final userCredential = MockUserCredential();
-final user = MockUser();
+final _userCredential = MockUserCredential();
+final _user = MockUser();
 
 @GenerateMocks([GoogleSignIn, GoogleSignInAccount, UserCredential])
 void main() {
@@ -88,7 +89,7 @@ void main() {
       when(googleSignInAccount.authentication)
           .thenAnswer((_) async => googleSignInAuthentication);
 
-      when(userCredential.user).thenReturn(user);
+      when(_userCredential.user).thenReturn(_user);
 
       final isSignedIn = await authService.signInWithGoogle();
       expect(isSignedIn, isTrue);
@@ -108,10 +109,10 @@ void main() {
       when(googleSignIn.signIn())
           .thenThrow(FirebaseAuthException(code: 'invalid-credential'));
 
-      expect(authService.signInWithGoogle, throwsException);
-      throwsA(predicate((e) =>
-          e is FirebaseSignInError &&
-          e.message == AppLocalizations.current.credentialIsInvalid));
+      expect(
+          authService.signInWithGoogle(),
+          ErrorWithMessage<FirebaseSignInError>(
+              AppLocalizations.current.credentialIsInvalid));
     }));
   });
 
@@ -121,7 +122,7 @@ void main() {
       authService = FirebaseAuthService(
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
-        user: appUser,
+        user: userMock,
       );
 
       expect(authService.user, isNotNull);
@@ -137,10 +138,10 @@ void main() {
         (() async {
       when(googleSignIn.signOut()).thenThrow(FirebaseAuthException(code: ''));
 
-      expect(authService.signInWithGoogle, throwsException);
-      throwsA(predicate((e) =>
-          e is FirebaseSignInError &&
-          e.message == AppLocalizations.current.unknowError));
+      expect(
+          authService.signInWithGoogle(),
+          ErrorWithMessage<FirebaseSignInError>(
+              AppLocalizations.current.unknowError));
     }));
   });
 
@@ -158,13 +159,13 @@ void main() {
       authService = FirebaseAuthService(
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
-        user: appUser,
+        user: userMock,
       );
       final result = authService.userChanges();
 
       result.listen((event) {
         expect(event, isNotNull);
-        expect(event!.uid, user.uid);
+        expect(event!.uid, _user.uid);
       });
     });
   });

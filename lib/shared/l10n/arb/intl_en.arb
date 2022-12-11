@@ -45,5 +45,10 @@
   "verificationCodeIsInvalid": "The verification code entered is invalid",
   "verificationIdIsInvalid": "The verification ID entered is invalid",
   "cantCreateAccountWithMethod": "You can not create an account with this method. Please try another account or contact support for help",
-  "incorrectEmailOrPassword": "Incorrect email or password"
+  "incorrectEmailOrPassword": "Incorrect email or password",
+
+  "errorToAddServiceType": "Error to add service type",
+  "errorToDeleteServiceType": "Error to delete service type",
+  "errorToGetServiceTypes": "Error to get service types",
+  "errorToUpdateServiceType": "Error to update service type"
 }

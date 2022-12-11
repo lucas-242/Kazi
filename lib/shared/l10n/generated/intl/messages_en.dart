@@ -39,6 +39,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Email is invalid or badly formatted"),
         "emailWasNotFound": MessageLookupByLibrary.simpleMessage(
             "Email was not found, please create an account"),
+        "errorToAddServiceType":
+            MessageLookupByLibrary.simpleMessage("Error to add service type"),
+        "errorToDeleteServiceType": MessageLookupByLibrary.simpleMessage(
+            "Error to delete service type"),
+        "errorToGetServiceTypes":
+            MessageLookupByLibrary.simpleMessage("Error to get service types"),
+        "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
+            "Error to update service type"),
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
         "invalidName": MessageLookupByLibrary.simpleMessage("Name is invalid"),
