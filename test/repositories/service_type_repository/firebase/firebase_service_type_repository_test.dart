@@ -9,6 +9,7 @@ import 'package:my_services/shared/errors/errors.dart';
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 
 import '../../../mocks/mocks.dart';
+import '../../../utils/firebase_test_helper.dart';
 import '../../../utils/test_helper.dart';
 import '../../../utils/test_matchers.dart';
 import 'firebase_service_type_repository_test.mocks.dart';
@@ -17,6 +18,7 @@ import 'firebase_service_type_repository_test.mocks.dart';
 void main() {
   late FirebaseFirestore database;
   late FirebaseServiceTypeRepository repository;
+  late FirebaseTestHelper firebaseHelper;
 
   TestHelper.loadAppLocalizations();
 
@@ -30,12 +32,23 @@ void main() {
   setUp(() async {
     database = FakeFirebaseFirestore();
     repository = FirebaseServiceTypeRepository(database);
+    firebaseHelper = FirebaseTestHelper(database, repository.path);
   });
 
   group('Add Service Type', () {
     test('Should add service type', () async {
       final response = await repository.add(serviceTypeMock);
       expect(response, IsTheSameServiceType(serviceTypeMock));
+
+      final serviceTypeCount = await firebaseHelper.count();
+      expect(serviceTypeCount, 1);
+
+      final serviceTypeAdded = await firebaseHelper.get(
+        response.id,
+        (snapshot, data) => ServiceType.fromMap(data).copyWith(id: snapshot.id),
+      );
+      expect(serviceTypeAdded,
+          IsTheSameServiceType(response, checkEqualsId: true));
     });
 
     test('Should throw ExternalError with errorToAddServiceType message', () {
@@ -126,19 +139,15 @@ void main() {
       serviceTypeId = response.id;
     });
 
-    Future<ServiceType> getServiceTypeUpdated(ServiceType toCheck) async {
-      final snapshot =
-          await database.collection(repository.path).doc(serviceTypeId).get();
-
-      final data = snapshot.data() as Map<String, dynamic>;
-      return ServiceType.fromMap(data).copyWith(id: snapshot.id);
-    }
-
     test('Should update service type', () async {
       final toUpdate =
           serviceTypeMock.copyWith(id: serviceTypeId, name: 'Update test');
       await repository.update(toUpdate);
-      final response = await getServiceTypeUpdated(toUpdate);
+
+      final response = await firebaseHelper.get(
+        toUpdate.id,
+        (snapshot, data) => ServiceType.fromMap(data).copyWith(id: snapshot.id),
+      );
       expect(response, IsTheSameServiceType(toUpdate, checkEqualsId: true));
     });
 

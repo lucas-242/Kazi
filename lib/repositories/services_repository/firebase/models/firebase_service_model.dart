@@ -31,14 +31,14 @@ class FirebaseServiceModel extends Service {
   factory FirebaseServiceModel.fromMap(Map<String, dynamic> map) {
     return FirebaseServiceModel(
       id: map['id'] ?? '',
-      description: map['description'] ?? '',
-      value: map['value']?.toDouble() ?? 0.0,
-      discountPercent: map['discountPercent']?.toDouble() ?? 0.0,
+      description: map['description'],
+      value: map['value']?.toDouble(),
+      discountPercent: map['discountPercent']?.toDouble(),
       type: map['type'] != null ? ServiceType.fromMap(map['type']) : null,
-      typeId: map['typeId'] ?? '',
+      typeId: map['typeId'],
       date: DateTime.fromMillisecondsSinceEpoch(
           map['date'].millisecondsSinceEpoch),
-      userId: map['userId'] ?? '',
+      userId: map['userId'],
     );
   }
 
@@ -47,7 +47,7 @@ class FirebaseServiceModel extends Service {
   factory FirebaseServiceModel.fromJson(String source) =>
       FirebaseServiceModel.fromMap(json.decode(source));
 
-  factory FirebaseServiceModel.fromServiceProvided(Service source) =>
+  factory FirebaseServiceModel.fromService(Service source) =>
       FirebaseServiceModel(
         id: source.id,
         description: source.description,

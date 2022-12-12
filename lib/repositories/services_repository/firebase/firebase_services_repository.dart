@@ -4,10 +4,11 @@ import 'package:my_services/models/service.dart';
 import 'package:my_services/repositories/services_repository/firebase/models/firebase_service_model.dart';
 import 'package:my_services/repositories/services_repository/services_repository.dart';
 import 'package:my_services/shared/extensions/extensions.dart';
+import 'package:my_services/shared/l10n/generated/l10n.dart';
 
 class FirebaseServicesRepository extends ServicesRepository {
   final FirebaseFirestore _firestore;
-  static const _path = 'services';
+  String get path => 'services';
 
   FirebaseServicesRepository(FirebaseFirestore firestore)
       : _firestore = firestore;
@@ -16,11 +17,11 @@ class FirebaseServicesRepository extends ServicesRepository {
   Future<List<Service>> add(Service service, [int quantity = 1]) async {
     try {
       final batch = _firestore.batch();
-      final data = FirebaseServiceModel.fromServiceProvided(service);
+      final data = FirebaseServiceModel.fromService(service);
       final result = <Service>[];
 
       for (var i = 0; i < quantity; i++) {
-        final collection = _firestore.collection(_path).doc();
+        final collection = _firestore.collection(path).doc();
         batch.set(collection, data.toMap());
         result.add(data.copyWith(id: collection.id));
       }
@@ -28,29 +29,35 @@ class FirebaseServicesRepository extends ServicesRepository {
       await batch.commit();
       return result;
     } catch (exception) {
-      throw ExternalError('Erro ao efetuar a adição do serviço realizado',
-          trace: exception.toString());
+      throw ExternalError(
+        AppLocalizations.current.errorToAddService,
+        trace: exception.toString(),
+      );
     }
   }
 
   @override
   Future<void> delete(String id) async {
     try {
-      await _firestore.collection(_path).doc(id).delete();
+      await _firestore.collection(path).doc(id).delete();
     } catch (exception) {
-      throw ExternalError('Erro ao efetuar a deleção do serviço realizado',
-          trace: exception.toString());
+      throw ExternalError(
+        AppLocalizations.current.errorToDeleteService,
+        trace: exception.toString(),
+      );
     }
   }
 
   @override
   Future<void> update(Service service) async {
     try {
-      final data = FirebaseServiceModel.fromServiceProvided(service).toMap();
-      await _firestore.collection(_path).doc(service.id).update(data);
+      final data = FirebaseServiceModel.fromService(service).toMap();
+      await _firestore.collection(path).doc(service.id).update(data);
     } catch (exception) {
-      throw ExternalError('Erro ao efetuar a edição do serviço realizado',
-          trace: exception.toString());
+      throw ExternalError(
+        AppLocalizations.current.errorToUpdateService,
+        trace: exception.toString(),
+      );
     }
   }
 
@@ -63,7 +70,7 @@ class FirebaseServicesRepository extends ServicesRepository {
     try {
       startDate ??= DateTime.now();
       var query = _firestore
-          .collection(_path)
+          .collection(path)
           .where('userId', isEqualTo: userId)
           .where('date', isGreaterThanOrEqualTo: startDate);
 
@@ -81,7 +88,9 @@ class FirebaseServicesRepository extends ServicesRepository {
       return result;
     } catch (exception) {
       throw ExternalError(
-          trace: 'Erro ao buscar serviços realizados', exception.toString());
+        AppLocalizations.current.errorToGetServices,
+        trace: exception.toString(),
+      );
     }
   }
 
@@ -89,7 +98,7 @@ class FirebaseServicesRepository extends ServicesRepository {
   Future<int> count(String userId, [String? typeId]) async {
     try {
       final query =
-          _firestore.collection(_path).where('userId', isEqualTo: userId);
+          _firestore.collection(path).where('userId', isEqualTo: userId);
 
       if (typeId != null) {
         query.where('typeId', isEqualTo: typeId);
@@ -99,7 +108,9 @@ class FirebaseServicesRepository extends ServicesRepository {
       return result.count;
     } catch (exception) {
       throw ExternalError(
-          trace: 'Erro ao buscar quantidade de serviços', exception.toString());
+        AppLocalizations.current.errorToCountServices,
+        trace: exception.toString(),
+      );
     }
   }
 }

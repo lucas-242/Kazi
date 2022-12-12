@@ -50,5 +50,11 @@
   "errorToAddServiceType": "Error to add service type",
   "errorToDeleteServiceType": "Error to delete service type",
   "errorToGetServiceTypes": "Error to get service types",
-  "errorToUpdateServiceType": "Error to update service type"
+  "errorToUpdateServiceType": "Error to update service type",
+
+  "errorToAddService": "Error to add service",
+  "errorToCountServices": "Error to count services",
+  "errorToDeleteService": "Error to delete service",
+  "errorToGetServices": "Error to get service",
+  "errorToUpdateService": "Error to update service"
 }

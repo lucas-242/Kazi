@@ -449,6 +449,56 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Error to add service`
+  String get errorToAddService {
+    return Intl.message(
+      'Error to add service',
+      name: 'errorToAddService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to count services`
+  String get errorToCountServices {
+    return Intl.message(
+      'Error to count services',
+      name: 'errorToCountServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to delete service`
+  String get errorToDeleteService {
+    return Intl.message(
+      'Error to delete service',
+      name: 'errorToDeleteService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to get service`
+  String get errorToGetServices {
+    return Intl.message(
+      'Error to get service',
+      name: 'errorToGetServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to update service`
+  String get errorToUpdateService {
+    return Intl.message(
+      'Error to update service',
+      name: 'errorToUpdateService',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
