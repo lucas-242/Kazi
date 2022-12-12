@@ -1,6 +1,6 @@
 part of 'settings_cubit.dart';
 
-class SettingsState extends BaseState {
+class SettingsState extends BaseState with EquatableMixin {
   List<ServiceType> serviceTypeList;
   ServiceType serviceType;
   String userId;
@@ -29,4 +29,8 @@ class SettingsState extends BaseState {
       userId: userId,
     );
   }
+
+  @override
+  List<Object?> get props =>
+      [serviceTypeList, serviceType, userId, status, callbackMessage];
 }

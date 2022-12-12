@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:my_services/shared/utils/base_cubit.dart';
 import 'package:my_services/shared/utils/form_validator.dart';
 
@@ -20,7 +21,6 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       this._serviceTypeRepository, this._serviceRepository, this._authService)
       : super(
           SettingsState(
-            serviceTypeList: [],
             userId: _authService.user!.uid,
             status: BaseStateStatus.loading,
           ),
@@ -68,7 +68,8 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _serviceTypeRepository.add(state.serviceType);
-      final newList = state.serviceTypeList..add(result);
+      final newList = List<ServiceType>.from(state.serviceTypeList)
+        ..add(result);
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypeList: newList,

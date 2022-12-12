@@ -49,3 +49,6 @@ app.*.map.json
 
 # Act secrets
 /.secrets
+
+# Coverage
+/coverage

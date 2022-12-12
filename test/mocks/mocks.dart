@@ -16,6 +16,15 @@ final serviceTypeMock = ServiceType(
   defaultValue: 35,
 );
 
+final serviceTypesMock = [
+  serviceTypeMock.copyWith(name: 'test1'),
+  serviceTypeMock.copyWith(name: 'test2'),
+  serviceTypeMock.copyWith(name: 'test3'),
+  serviceTypeMock.copyWith(name: 'test4'),
+  serviceTypeMock.copyWith(name: 'test5'),
+  serviceTypeMock.copyWith(name: 'test6'),
+];
+
 final serviceMock = FirebaseServiceModel(
   date: DateTime(2022),
   type: serviceTypeMock,
