@@ -1,6 +1,6 @@
 import 'package:my_services/models/app_user.dart';
-import 'package:my_services/models/service.dart';
 import 'package:my_services/models/service_type.dart';
+import 'package:my_services/repositories/services_repository/firebase/models/firebase_service_model.dart';
 
 final userMock = AppUser(
   uid: 'abc123',
@@ -16,7 +16,7 @@ final serviceTypeMock = ServiceType(
   defaultValue: 35,
 );
 
-final serviceMock = Service(
+final serviceMock = FirebaseServiceModel(
   date: DateTime(2022),
   type: serviceTypeMock,
   userId: userMock.uid,
@@ -24,3 +24,12 @@ final serviceMock = Service(
   value: serviceTypeMock.defaultValue!,
   typeId: 'aaa1',
 );
+
+final servicesMock = [
+  serviceMock.copyWith(date: DateTime(2022, 12)),
+  serviceMock.copyWith(date: DateTime(2022, 12, 2)),
+  serviceMock.copyWith(date: DateTime(2022, 12, 3)),
+  serviceMock.copyWith(date: DateTime(2022, 12, 4)),
+  serviceMock.copyWith(date: DateTime(2022, 12, 5)),
+  serviceMock.copyWith(date: DateTime(2022, 12, 6)),
+];

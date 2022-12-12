@@ -6,13 +6,31 @@ class FirebaseTestHelper {
 
   FirebaseTestHelper(this.database, this.path);
 
-  Future<T> get<T>(
+  Future<T> add<T>(
+    Map<String, dynamic> data,
+    T Function(DocumentReference<Map<String, dynamic>>) copyWith,
+  ) async {
+    final snapshot = await database.collection(path).add(data);
+    final result = copyWith(snapshot);
+    return result;
+  }
+
+  Future<int> count() async {
+    final query = await database.collection(path).count().get();
+    return query.count;
+  }
+
+  Future<T?> get<T>(
       String id,
       T Function(DocumentSnapshot<Object?>, Map<String, dynamic>)
           converter) async {
     final snapshot = await database.collection(path).doc(id).get();
-    final data = snapshot.data() as Map<String, dynamic>;
-    return converter(snapshot, data);
+    final data = snapshot.data();
+    if (data != null) {
+      return converter(snapshot, data);
+    }
+
+    return null;
   }
 
   Future<List<T>> getAll<T>(
@@ -25,10 +43,5 @@ class FirebaseTestHelper {
     }).toList();
 
     return result;
-  }
-
-  Future<int> count() async {
-    final query = await database.collection(path).count().get();
-    return query.count;
   }
 }

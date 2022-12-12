@@ -7,8 +7,8 @@ import '../../../../models/service_type.dart';
 
 class FirebaseServiceModel extends Service {
   FirebaseServiceModel({
-    required super.id,
-    required super.description,
+    super.id,
+    super.description,
     required super.value,
     required super.discountPercent,
     super.type,
@@ -57,4 +57,27 @@ class FirebaseServiceModel extends Service {
         date: source.date,
         userId: source.userId,
       );
+
+  @override
+  FirebaseServiceModel copyWith({
+    String? id,
+    String? description,
+    double? value,
+    double? discountPercent,
+    ServiceType? type,
+    String? typeId,
+    DateTime? date,
+    String? userId,
+  }) {
+    return FirebaseServiceModel(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      value: value ?? this.value,
+      discountPercent: discountPercent ?? this.discountPercent,
+      type: type ?? this.type,
+      typeId: typeId ?? this.typeId,
+      date: date ?? this.date,
+      userId: userId ?? this.userId,
+    );
+  }
 }

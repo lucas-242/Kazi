@@ -62,13 +62,9 @@ class FirebaseServicesRepository extends ServicesRepository {
   }
 
   @override
-  Future<List<Service>> get(
-    String userId, [
-    DateTime? startDate,
-    DateTime? endDate,
-  ]) async {
+  Future<List<Service>> get(String userId, DateTime startDate,
+      [DateTime? endDate]) async {
     try {
-      startDate ??= DateTime.now();
       var query = _firestore
           .collection(path)
           .where('userId', isEqualTo: userId)
