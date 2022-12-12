@@ -7,9 +7,9 @@ import 'package:my_services/services/auth_service/firebase/firebase_auth_service
 import 'package:my_services/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 
-import '../../mocks/mocks.dart';
-import '../../utils/test_helper.dart';
-import '../../utils/test_matchers.dart';
+import '../../../mocks/mocks.dart';
+import '../../../utils/test_helper.dart';
+import '../../../utils/test_matchers.dart';
 import 'firebase_auth_service_firebase_test.mocks.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {

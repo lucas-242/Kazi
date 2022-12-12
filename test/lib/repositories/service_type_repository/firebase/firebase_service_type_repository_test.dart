@@ -8,10 +8,10 @@ import 'package:my_services/repositories/service_type_repository/firebase/fireba
 import 'package:my_services/shared/errors/errors.dart';
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 
-import '../../../mocks/mocks.dart';
-import '../../../utils/firebase_test_helper.dart';
-import '../../../utils/test_helper.dart';
-import '../../../utils/test_matchers.dart';
+import '../../../../mocks/mocks.dart';
+import '../../../../utils/firebase_test_helper.dart';
+import '../../../../utils/test_helper.dart';
+import '../../../../utils/test_matchers.dart';
 import 'firebase_service_type_repository_test.mocks.dart';
 
 @GenerateMocks([FirebaseFirestore])
