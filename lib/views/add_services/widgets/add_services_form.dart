@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 
-import '../../../shared/models/dropdown_item.dart';
+import '../../../models/dropdown_item.dart';
 import '../../../shared/widgets/custom_date_picker/custom_date_picker.dart';
 import '../../../shared/widgets/custom_dropdown/custom_dropdown_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';

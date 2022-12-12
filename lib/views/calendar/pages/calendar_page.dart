@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_services/shared/models/fast_search.dart';
-import 'package:my_services/models/service_provided.dart';
+import 'package:my_services/models/enums.dart';
+import 'package:my_services/models/service.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/widgets/service_list/service_list.dart';
 
-import '../../../core/routes/app_routes.dart';
-import '../../../shared/models/base_state.dart';
+import '../../../shared/routes/app_routes.dart';
+import '../../../shared/utils/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_date_range_picker/custom_date_range_picker.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
@@ -48,7 +48,7 @@ class _CalendarPageState extends State<CalendarPage> {
         actions: [
           IconButton(
             onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.addServiceProvided),
+                Navigator.pushNamed(context, AppRoutes.addServices),
             icon: const Icon(Icons.add),
           ),
           const SizedBox(width: 20),
@@ -110,15 +110,15 @@ class _Build extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onDelete(ServiceProvided service) async {
+    void onDelete(Service service) async {
       final homeCubit = context.read<HomeCubit>();
       await context.read<CalendarCubit>().deleteService(service);
       homeCubit.changeServices();
     }
 
-    void onEdit(ServiceProvided service) async {
+    void onEdit(Service service) async {
       context.read<AddServicesCubit>().onChangeServiceProvided(service);
-      Navigator.pushNamed(context, AppRoutes.addServiceProvided);
+      Navigator.pushNamed(context, AppRoutes.addServices);
     }
 
     return Column(
@@ -159,8 +159,7 @@ class _NoData extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         CustomElevatedButton(
-          onTap: () =>
-              Navigator.pushNamed(context, AppRoutes.addServiceProvided),
+          onTap: () => Navigator.pushNamed(context, AppRoutes.addServices),
           text: 'Adicionar novo serviço',
         ),
       ],

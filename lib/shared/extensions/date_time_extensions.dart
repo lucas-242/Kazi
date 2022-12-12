@@ -21,13 +21,15 @@ extension DateTimeExtension on DateTime {
     );
   }
 
-  DateTime next(int day) {
-    final result = add(Duration(days: (day - weekday) % DateTime.daysPerWeek));
+  /// Find the next [weekday]. [weekday] can 0 for Sunday, 1 for Monday, etc. up to 7 for Sunday.
+  DateTime nextWeekday(int weekday) {
+    final result =
+        add(Duration(days: (weekday - this.weekday) % DateTime.daysPerWeek));
 
     return result;
   }
 
-  /// The [weekday] may be 0 for Sunday, 1 for Monday, etc. up to 7 for Sunday.
-  DateTime mostRecentWeekday(int weekday) =>
+  /// Find the last [weekday]. [weekday] can be 0 for Sunday, 1 for Monday, etc. up to 7 for Sunday.
+  DateTime lastWeekday(int weekday) =>
       DateTime(year, month, day - (this.weekday - weekday) % 7);
 }

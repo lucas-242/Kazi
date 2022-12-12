@@ -1,20 +1,20 @@
 import 'package:bloc/bloc.dart';
-import 'package:my_services/models/service_provided.dart';
-import 'package:my_services/repositories/service_provided_repository/service_provided_repository.dart';
+import 'package:my_services/models/service.dart';
+import 'package:my_services/repositories/services_repository/services_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
-import 'package:my_services/shared/helpers/service_helper.dart';
-import 'package:my_services/shared/models/base_cubit.dart';
-import 'package:my_services/shared/models/base_state.dart';
+import 'package:my_services/shared/utils/service_helper.dart';
+import 'package:my_services/shared/utils/base_cubit.dart';
+import 'package:my_services/shared/utils/base_state.dart';
 
-import '../../../core/errors/app_error.dart';
+import '../../../shared/errors/errors.dart';
 import '../../../models/service_type.dart';
 import '../../../repositories/service_type_repository/service_type_repository.dart';
-import '../../../shared/models/order_by.dart';
+import '../../../models/enums.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> with BaseCubit {
-  final ServiceProvidedRepository _serviceProvidedRepository;
+  final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
 
@@ -44,7 +44,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  Future<List<ServiceProvided>> _fetchServices() async {
+  Future<List<Service>> _fetchServices() async {
     try {
       final today = DateTime.now();
       final date = DateTime(today.year, today.month, today.day);
@@ -74,7 +74,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  Future<void> _handleFetchServices(List<ServiceProvided> fetchResult) async {
+  Future<void> _handleFetchServices(List<Service> fetchResult) async {
     final newStatus =
         fetchResult.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
@@ -85,7 +85,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     emit(state.copyWith(status: newStatus, services: services));
   }
 
-  Future<List<ServiceProvided>> deleteService(ServiceProvided service) async {
+  Future<List<Service>> deleteService(Service service) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(service.id);
@@ -109,8 +109,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     emit(state.copyWith(services: services, selectedOrderBy: orderBy));
   }
 
-  List<ServiceProvided> _orderServices(
-      List<ServiceProvided> services, OrderBy orderBy) {
+  List<Service> _orderServices(List<Service> services, OrderBy orderBy) {
     switch (orderBy) {
       case OrderBy.dateAsc:
         services.sort((a, b) => a.date.compareTo(b.date));

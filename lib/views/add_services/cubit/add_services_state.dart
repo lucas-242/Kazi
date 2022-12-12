@@ -1,7 +1,7 @@
 part of 'add_services_cubit.dart';
 
 class AddServicesState extends BaseState {
-  ServiceProvided service;
+  Service service;
   List<ServiceType> serviceTypes;
   int quantity;
   String userId;
@@ -10,7 +10,7 @@ class AddServicesState extends BaseState {
     final result = serviceTypes
         .map((e) => DropdownItem(value: e.id, text: e.name))
         .toList()
-      ..sort(((a, b) => a.text.compareTo(b.text)));
+      ..sort(((a, b) => a.label.compareTo(b.label)));
 
     return result;
   }
@@ -26,12 +26,12 @@ class AddServicesState extends BaseState {
 
   AddServicesState({
     required super.status,
-    ServiceProvided? service,
+    Service? service,
     required this.userId,
     super.callbackMessage,
     List<ServiceType>? serviceTypes,
     int? quantity,
-  })  : service = service ?? ServiceProvided(userId: userId),
+  })  : service = service ?? Service(userId: userId),
         serviceTypes = serviceTypes ?? [],
         quantity = quantity ?? 1;
 
@@ -39,7 +39,7 @@ class AddServicesState extends BaseState {
   AddServicesState copyWith({
     BaseStateStatus? status,
     String? callbackMessage,
-    ServiceProvided? service,
+    Service? service,
     List<ServiceType>? serviceTypes,
     int? quantity,
   }) {

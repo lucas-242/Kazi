@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/routes/app_routes.dart';
+import '../../../shared/routes/app_routes.dart';
 import '../../../injector_container.dart';
 import '../../../services/auth_service/auth_service.dart';
 import '../../../shared/themes/themes.dart';
@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
     locator<AuthService>().signInWithGoogle().then((value) {
       if (value) Navigator.of(context).pushReplacementNamed(AppRoutes.app);
     }).catchError((error) {
-      getCustomSnackBar(context, message: 'Erro ao efetuar Login');
+      getCustomSnackBar(context, message: error.message);
     });
   }
 

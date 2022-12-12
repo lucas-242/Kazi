@@ -5,7 +5,7 @@ class CalendarState extends BaseState {
   DateTime endDate;
   FastSearch selectedFastSearch;
   OrderBy selectedOrderBy;
-  List<ServiceProvided> services;
+  List<Service> services;
 
   double get totalValue {
     return services.fold<double>(0, (a, b) => a + b.value);
@@ -21,7 +21,7 @@ class CalendarState extends BaseState {
 
   CalendarState({
     required super.status,
-    List<ServiceProvided>? services,
+    List<Service>? services,
     super.callbackMessage,
     DateTime? startDate,
     DateTime? endDate,
@@ -41,7 +41,7 @@ class CalendarState extends BaseState {
   CalendarState copyWith({
     BaseStateStatus? status,
     String? callbackMessage,
-    List<ServiceProvided>? services,
+    List<Service>? services,
     DateTime? startDate,
     DateTime? endDate,
     FastSearch? selectedFastSearch,

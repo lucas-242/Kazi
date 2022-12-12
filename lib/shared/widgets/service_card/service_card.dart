@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../models/service_provided.dart';
+import '../../../models/service.dart';
 import '../custom_slidable/custom_slidable.dart';
 
 class ServiceCard extends StatelessWidget {
-  final Function(ServiceProvided) onTapDelete;
-  final Function(ServiceProvided) onTapEdit;
-  final ServiceProvided service;
+  final Function(Service) onTapDelete;
+  final Function(Service) onTapEdit;
+  final Service service;
   final bool showDate;
 
   const ServiceCard(

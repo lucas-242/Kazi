@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/shared/themes/themes.dart';
-import 'package:my_services/shared/models/base_state.dart';
+import 'package:my_services/shared/utils/base_state.dart';
 import 'package:my_services/views/settings/settings.dart';
 
 class AddServiceTypePage extends StatefulWidget {

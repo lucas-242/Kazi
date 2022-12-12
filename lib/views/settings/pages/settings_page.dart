@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_services/core/routes/app_routes.dart';
+import 'package:my_services/shared/routes/app_routes.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import 'package:my_services/views/settings/settings.dart';
 
-import '../../../shared/models/base_state.dart';
+import '../../../shared/utils/base_state.dart';
 import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 

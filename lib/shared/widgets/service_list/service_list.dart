@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/widgets/service_list_total_card/service_list_total_card.dart';
 
-import '../../../models/service_provided.dart';
+import '../../../models/service.dart';
 import '../service_card/service_card.dart';
 
 class ServiceList extends StatelessWidget {
-  final List<ServiceProvided> services;
+  final List<Service> services;
   final String title;
   final double totalValue;
   final double totalWithDiscount;
   final double totalDiscounted;
-  final Function(ServiceProvided) onTapEdit;
-  final Function(ServiceProvided) onTapDelete;
+  final Function(Service) onTapEdit;
+  final Function(Service) onTapDelete;
   final bool showDate;
 
   const ServiceList({
