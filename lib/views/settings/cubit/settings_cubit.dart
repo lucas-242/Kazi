@@ -27,18 +27,13 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
         );
 
   Future<void> onInit() async {
-    final types = await _fetchServiceTypes();
-
-    final status =
-        types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-    emit(state.copyWith(status: status, serviceTypeList: types));
-  }
-
-  Future<List<ServiceType>> _fetchServiceTypes() async {
     try {
-      final result = await _serviceTypeRepository.get(_authService.user!.uid);
-      return result;
+      final types = await _fetchServiceTypes();
+
+      final status =
+          types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+
+      emit(state.copyWith(status: status, serviceTypeList: types));
     } on AppError catch (exception) {
       onAppError(exception);
       rethrow;
@@ -46,6 +41,11 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       unexpectedError();
       rethrow;
     }
+  }
+
+  Future<List<ServiceType>> _fetchServiceTypes() async {
+    final result = await _serviceTypeRepository.get(_authService.user!.uid);
+    return result;
   }
 
   Future<void> getServiceTypes() async {

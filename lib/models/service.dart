@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'service_type.dart';
 
-class Service {
+class Service extends Equatable {
   final String id;
   final String? description;
   final double value;
@@ -19,7 +21,9 @@ class Service {
     this.typeId = '',
     DateTime? date,
     required this.userId,
-  }) : date = date ?? DateTime.now();
+  }) : date = date ??
+            DateTime(
+                DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   double get valueDiscounted => value * discountPercent / 100;
 
@@ -48,27 +52,6 @@ class Service {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Service &&
-        other.id == id &&
-        other.description == description &&
-        other.value == value &&
-        other.discountPercent == discountPercent &&
-        other.typeId == typeId &&
-        other.date == date &&
-        other.userId == userId;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        description.hashCode ^
-        value.hashCode ^
-        discountPercent.hashCode ^
-        typeId.hashCode ^
-        date.hashCode ^
-        userId.hashCode;
-  }
+  List<Object?> get props =>
+      [id, description, value, discountPercent, type, typeId, date, userId];
 }

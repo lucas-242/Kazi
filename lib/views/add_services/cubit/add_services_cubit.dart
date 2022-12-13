@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:my_services/shared/utils/base_cubit.dart';
 import 'package:my_services/shared/utils/form_validator.dart';
 
@@ -15,44 +16,42 @@ part 'add_services_state.dart';
 
 class AddServicesCubit extends Cubit<AddServicesState>
     with BaseCubit, FormValidator {
-  final ServicesRepository _serviceProvidedRepository;
+  final ServicesRepository _servicesRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
 
   AddServicesCubit(
-    this._serviceProvidedRepository,
+    this._servicesRepository,
     this._serviceTypeRepository,
     this._authService,
   ) : super(AddServicesState(
             status: BaseStateStatus.loading, userId: _authService.user!.uid));
 
   Future<void> onInit() async {
-    final types = await _fetchServiceTypes();
+    try {
+      final types = await _fetchServiceTypes();
 
-    final status =
-        types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+      final status =
+          types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-    emit(state.copyWith(status: status, serviceTypes: types));
+      emit(state.copyWith(status: status, serviceTypes: types));
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
+    }
   }
 
   Future<List<ServiceType>> _fetchServiceTypes() async {
-    try {
-      final result = await _serviceTypeRepository.get(_authService.user!.uid);
-      return result;
-    } on AppError catch (exception) {
-      onAppError(exception);
-      rethrow;
-    } catch (exception) {
-      unexpectedError();
-      rethrow;
-    }
+    final result = await _serviceTypeRepository.get(_authService.user!.uid);
+    return result;
   }
 
   Future<void> addService() async {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await _serviceProvidedRepository.add(state.service, state.quantity);
+      await _servicesRepository.add(state.service, state.quantity);
       emit(state.copyWith(
           status: BaseStateStatus.success,
           quantity: 1,
@@ -68,7 +67,7 @@ class AddServicesCubit extends Cubit<AddServicesState>
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await _serviceProvidedRepository.update(state.service);
+      await _servicesRepository.update(state.service);
       emit(state.copyWith(
           status: BaseStateStatus.success,
           quantity: 1,
@@ -80,8 +79,8 @@ class AddServicesCubit extends Cubit<AddServicesState>
     }
   }
 
-  void onChangeServiceProvided(Service serviceType) {
-    emit(state.copyWith(service: serviceType));
+  void onChangeService(Service service) {
+    emit(state.copyWith(service: service));
   }
 
   void onChangeServiceDescription(String value) {

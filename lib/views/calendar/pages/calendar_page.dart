@@ -117,7 +117,7 @@ class _Build extends StatelessWidget {
     }
 
     void onEdit(Service service) async {
-      context.read<AddServicesCubit>().onChangeServiceProvided(service);
+      context.read<AddServicesCubit>().onChangeService(service);
       Navigator.pushNamed(context, AppRoutes.addServices);
     }
 
