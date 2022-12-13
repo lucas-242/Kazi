@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:my_services/shared/l10n/generated/l10n.dart';
 
 import '../errors/errors.dart';
 import 'base_state.dart';
@@ -13,7 +14,7 @@ mixin BaseCubit<T extends BaseState> on Cubit<T> {
 
   void unexpectedError() {
     emit(state.copyWith(
-      callbackMessage: 'Erro inesperado',
+      callbackMessage: AppLocalizations.current.unknowError,
       status: BaseStateStatus.error,
     ) as T);
   }

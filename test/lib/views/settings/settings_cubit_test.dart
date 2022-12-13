@@ -2,13 +2,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:my_services/models/service_type.dart';
 import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/repositories/services_repository/services_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/shared/errors/errors.dart';
+import 'package:my_services/shared/l10n/generated/l10n.dart';
 import 'package:my_services/shared/utils/base_state.dart';
 import 'package:my_services/views/settings/settings.dart';
 
 import '../../../mocks/mocks.dart';
+import '../../../utils/test_helper.dart';
 import 'settings_cubit_test.mocks.dart';
 
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
@@ -18,12 +22,15 @@ void main() {
   late MockAuthService authService;
   late SettingsCubit cubit;
 
+  TestHelper.loadAppLocalizations();
+
   setUp(() {
     serviceTypeRepository = MockServiceTypeRepository();
     serviceRepository = MockServicesRepository();
     authService = MockAuthService();
 
     when(authService.user).thenReturn(userMock);
+
     when(serviceTypeRepository.get(any))
         .thenAnswer((_) async => serviceTypesMock);
     when(serviceTypeRepository.add(any))
@@ -78,6 +85,47 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
           status: BaseStateStatus.success,
+        )
+      ],
+    );
+
+    blocTest<SettingsCubit, SettingsState>(
+      'emits SettingsState with status error and callbackMessage = errorToGetServiceTypes when call getServicesType',
+      build: () => cubit,
+      setUp: () {
+        when(serviceTypeRepository.get(any)).thenThrow(
+            ExternalError(AppLocalizations.current.errorToGetServiceTypes));
+      },
+      act: (cubit) => cubit.getServiceTypes(),
+      expect: () => [
+        SettingsState(
+          userId: authService.user!.uid,
+          status: BaseStateStatus.loading,
+        ),
+        SettingsState(
+          userId: authService.user!.uid,
+          callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
+          status: BaseStateStatus.error,
+        )
+      ],
+    );
+
+    blocTest<SettingsCubit, SettingsState>(
+      'emits SettingsState with status error and callbackMessage = unknowError when call getServicesType',
+      build: () => cubit,
+      setUp: () {
+        when(serviceTypeRepository.get(any)).thenThrow(Exception());
+      },
+      act: (cubit) => cubit.getServiceTypes(),
+      expect: () => [
+        SettingsState(
+          userId: authService.user!.uid,
+          status: BaseStateStatus.loading,
+        ),
+        SettingsState(
+          userId: authService.user!.uid,
+          callbackMessage: AppLocalizations.current.unknowError,
+          status: BaseStateStatus.error,
         )
       ],
     );
@@ -138,6 +186,121 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
           status: BaseStateStatus.success,
+        )
+      ],
+    );
+  });
+
+  group('Delete Service Type', () {
+    late ServiceType serviceTypeToDelete;
+    late List<ServiceType> serviceTypeList;
+
+    setUp(() {
+      serviceTypeToDelete = serviceTypeMock.copyWith(id: '123456');
+      serviceTypeList = serviceTypesMock..add(serviceTypeToDelete);
+      when(serviceRepository.count(any, any)).thenAnswer((_) async => 0);
+    });
+
+    blocTest<SettingsCubit, SettingsState>(
+      'emits SettingsState with loaded serviceTypeList and status success when call deleteServiceType',
+      build: () => cubit,
+      seed: () => SettingsState(
+        userId: authService.user!.uid,
+        serviceTypeList: serviceTypeList,
+        status: BaseStateStatus.success,
+      ),
+      act: (cubit) => [cubit.deleteServiceType(serviceTypeToDelete)],
+      expect: () => [
+        SettingsState(
+          userId: authService.user!.uid,
+          serviceTypeList: serviceTypeList,
+          status: BaseStateStatus.loading,
+        ),
+        SettingsState(
+          userId: authService.user!.uid,
+          serviceTypeList: serviceTypesMock,
+          status: BaseStateStatus.success,
+        )
+      ],
+    );
+  });
+
+  group('Change properties', () {
+    const newName = 'new name';
+    const newDefaultValue = 9999.0;
+    const newDiscountPercent = 1.0;
+
+    blocTest<SettingsCubit, SettingsState>(
+      'emits SettingsState with new serviceType when call eraseServiceType',
+      build: () => cubit,
+      seed: () => SettingsState(
+        userId: authService.user!.uid,
+        serviceType: serviceTypeMock,
+        status: BaseStateStatus.noData,
+      ),
+      act: (cubit) => [cubit.eraseServiceType()],
+      expect: () => [
+        SettingsState(
+          userId: authService.user!.uid,
+          status: BaseStateStatus.noData,
+        )
+      ],
+    );
+
+    blocTest<SettingsCubit, SettingsState>(
+      'emits SettingsState with new serviceType with different name when call changeServiceTypeName',
+      build: () => cubit,
+      seed: () => SettingsState(
+        userId: authService.user!.uid,
+        serviceType: serviceTypeMock,
+        status: BaseStateStatus.noData,
+      ),
+      act: (cubit) => [cubit.changeServiceTypeName(newName)],
+      expect: () => [
+        SettingsState(
+          userId: authService.user!.uid,
+          serviceType: serviceTypeMock.copyWith(name: newName),
+          status: BaseStateStatus.noData,
+        )
+      ],
+    );
+
+    blocTest<SettingsCubit, SettingsState>(
+      'emits SettingsState with new serviceType with different defaultValue when call changeServiceTypeDefaultValue',
+      build: () => cubit,
+      seed: () => SettingsState(
+        userId: authService.user!.uid,
+        serviceType: serviceTypeMock,
+        status: BaseStateStatus.noData,
+      ),
+      act: (cubit) =>
+          [cubit.changeServiceTypeDefaultValue(newDefaultValue.toString())],
+      expect: () => [
+        SettingsState(
+          userId: authService.user!.uid,
+          serviceType: serviceTypeMock.copyWith(defaultValue: newDefaultValue),
+          status: BaseStateStatus.noData,
+        )
+      ],
+    );
+
+    blocTest<SettingsCubit, SettingsState>(
+      'emits SettingsState with new serviceType with different discountPercent when call changeServiceTypeDiscountPercent',
+      build: () => cubit,
+      seed: () => SettingsState(
+        userId: authService.user!.uid,
+        serviceType: serviceTypeMock,
+        status: BaseStateStatus.noData,
+      ),
+      act: (cubit) => [
+        cubit.changeServiceTypeDiscountPercent(newDiscountPercent.toString())
+      ],
+      expect: () => [
+        SettingsState(
+          userId: authService.user!.uid,
+          serviceType:
+              serviceTypeMock.copyWith(discountPercent: newDiscountPercent),
+          status: BaseStateStatus.noData,
         )
       ],
     );

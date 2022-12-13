@@ -158,7 +158,6 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
   Future<void> _checkServiceTypeIsInUse(String typeId) async {
     final userId = _authService.user!.uid;
     final count = await _serviceRepository.count(userId, typeId);
-
     if (count > 0) {
       throw ClientError(
         'O tipo de serviço não pode ser deletado pois está em uso',
