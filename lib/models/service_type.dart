@@ -1,13 +1,15 @@
 import 'dart:convert';
 
-class ServiceType {
+import 'package:equatable/equatable.dart';
+
+class ServiceType extends Equatable {
   final String id;
   final String name;
   final double? defaultValue;
   final double? discountPercent;
   final String userId;
 
-  ServiceType({
+  const ServiceType({
     this.id = '',
     this.name = '',
     this.defaultValue,
@@ -54,4 +56,7 @@ class ServiceType {
       userId: userId ?? this.userId,
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, defaultValue, discountPercent, userId];
 }

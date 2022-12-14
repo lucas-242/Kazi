@@ -49,3 +49,7 @@ app.*.map.json
 
 # Act secrets
 /.secrets
+
+# Coverage
+/coverage/*
+!/coverage/lcov.info

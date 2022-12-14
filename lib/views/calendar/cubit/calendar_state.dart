@@ -1,6 +1,6 @@
 part of 'calendar_cubit.dart';
 
-class CalendarState extends BaseState {
+class CalendarState extends BaseState with EquatableMixin {
   DateTime startDate;
   DateTime endDate;
   FastSearch selectedFastSearch;
@@ -57,4 +57,15 @@ class CalendarState extends BaseState {
       selectedOrderBy: selectedOrderBy ?? this.selectedOrderBy,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        startDate,
+        endDate,
+        selectedFastSearch,
+        selectedOrderBy,
+        services,
+        status,
+        callbackMessage
+      ];
 }

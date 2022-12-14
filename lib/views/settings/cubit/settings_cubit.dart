@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:my_services/shared/utils/base_cubit.dart';
 import 'package:my_services/shared/utils/form_validator.dart';
 
@@ -20,32 +21,29 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       this._serviceTypeRepository, this._serviceRepository, this._authService)
       : super(
           SettingsState(
-            serviceTypeList: [],
             userId: _authService.user!.uid,
             status: BaseStateStatus.loading,
           ),
         );
 
   Future<void> onInit() async {
-    final types = await _fetchServiceTypes();
+    try {
+      final types = await _fetchServiceTypes();
 
-    final status =
-        types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+      final status =
+          types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-    emit(state.copyWith(status: status, serviceTypeList: types));
+      emit(state.copyWith(status: status, serviceTypeList: types));
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
+    }
   }
 
   Future<List<ServiceType>> _fetchServiceTypes() async {
-    try {
-      final result = await _serviceTypeRepository.get(_authService.user!.uid);
-      return result;
-    } on AppError catch (exception) {
-      onAppError(exception);
-      rethrow;
-    } catch (exception) {
-      unexpectedError();
-      rethrow;
-    }
+    final result = await _serviceTypeRepository.get(_authService.user!.uid);
+    return result;
   }
 
   Future<void> getServiceTypes() async {
@@ -68,7 +66,8 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _serviceTypeRepository.add(state.serviceType);
-      final newList = state.serviceTypeList..add(result);
+      final newList = List<ServiceType>.from(state.serviceTypeList)
+        ..add(result);
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypeList: newList,
@@ -157,7 +156,6 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
   Future<void> _checkServiceTypeIsInUse(String typeId) async {
     final userId = _authService.user!.uid;
     final count = await _serviceRepository.count(userId, typeId);
-
     if (count > 0) {
       throw ClientError(
         'O tipo de serviço não pode ser deletado pois está em uso',

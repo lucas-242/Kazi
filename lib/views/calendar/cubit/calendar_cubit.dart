@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
 import 'package:my_services/models/service.dart';
 import 'package:my_services/models/service_type.dart';
 import 'package:my_services/repositories/services_repository/services_repository.dart';
@@ -27,109 +27,16 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   ) : super(CalendarState(status: BaseStateStatus.loading));
 
   void onInit() async {
-    final range = _getRangeDateByFastSearch(state.selectedFastSearch);
-    final result = await _fetchServices(range['startDate']!, range['endDate']!);
-    _handleFetchServices(result);
-  }
-
-  Future<List<Service>> _fetchServices(
-      DateTime startDate, DateTime endDate) async {
     try {
-      final result = await _serviceProvidedRepository.get(
-          _authService.user!.uid, startDate, endDate);
-      return result;
-    } on AppError catch (exception) {
-      onAppError(exception);
-      rethrow;
-    } catch (exception) {
-      unexpectedError();
-      rethrow;
-    }
-  }
-
-  Future<List<ServiceType>> _fetchServiceTypes() async {
-    try {
-      final result = await _serviceTypeRepository.get(_authService.user!.uid);
-      return result;
-    } on AppError catch (exception) {
-      onAppError(exception);
-      rethrow;
-    } catch (exception) {
-      unexpectedError();
-      rethrow;
-    }
-  }
-
-  Future<void> onRefresh() async {
-    try {
-      emit(state.copyWith(status: BaseStateStatus.loading));
       final range = _getRangeDateByFastSearch(state.selectedFastSearch);
-      final fetchResult =
+      final result =
           await _fetchServices(range['startDate']!, range['endDate']!);
-      _handleFetchServices(fetchResult);
+      _handleFetchServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
       unexpectedError();
     }
-  }
-
-  Future<void> _handleFetchServices(List<Service> fetchResult) async {
-    final newStatus =
-        fetchResult.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-    final types = await _fetchServiceTypes();
-    var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
-    services = _orderServices(services, state.selectedOrderBy);
-
-    emit(state.copyWith(status: newStatus, services: services));
-  }
-
-  Future<List<Service>> deleteService(Service service) async {
-    try {
-      emit(state.copyWith(status: BaseStateStatus.loading));
-      await _serviceProvidedRepository.delete(service.id);
-      final newList = await _fetchServices(
-          state.startDate, state.endDate); // _removeDeletedService(service);
-      final newStatus =
-          newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-      emit(state.copyWith(status: newStatus, services: newList));
-      return newList;
-    } on AppError catch (exception) {
-      onAppError(exception);
-      rethrow;
-    } catch (exception) {
-      unexpectedError();
-      rethrow;
-    }
-  }
-
-  Future<void> onChangeDate(DateTimeRange range) async {
-    emit(state.copyWith(
-      status: BaseStateStatus.loading,
-      startDate: range.start,
-      endDate: range.end,
-      selectedFastSearch: FastSearch.custom,
-    ));
-    final fetchResult = await _fetchServices(range.start, range.end);
-    _handleFetchServices(fetchResult);
-  }
-
-  Future<void> onChageSelectedFastSearch(FastSearch fastSearch) async {
-    if (fastSearch == state.selectedFastSearch) return;
-
-    final range = _getRangeDateByFastSearch(fastSearch);
-
-    emit(state.copyWith(
-      status: BaseStateStatus.loading,
-      selectedFastSearch: fastSearch,
-      startDate: range['startDate']!,
-      endDate: range['endDate']!,
-    ));
-    final fetchResult =
-        await _fetchServices(range['startDate']!, range['endDate']!);
-    _handleFetchServices(fetchResult);
   }
 
   Map<String, DateTime> _getRangeDateByFastSearch(FastSearch fastSearch) {
@@ -165,38 +72,118 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     };
   }
 
+  Future<List<Service>> _fetchServices(
+      DateTime startDate, DateTime endDate) async {
+    final result = await _serviceProvidedRepository.get(
+        _authService.user!.uid, startDate, endDate);
+    return result;
+  }
+
+  Future<void> _handleFetchServices(List<Service> fetchResult) async {
+    try {
+      final types = await _fetchServiceTypes();
+      var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
+      services = ServiceHelper.orderServices(services, state.selectedOrderBy);
+
+      final newStatus = fetchResult.isEmpty
+          ? BaseStateStatus.noData
+          : BaseStateStatus.success;
+      emit(state.copyWith(status: newStatus, services: services));
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
+    }
+  }
+
+  Future<List<ServiceType>> _fetchServiceTypes() async {
+    final result = await _serviceTypeRepository.get(_authService.user!.uid);
+    return result;
+  }
+
+  Future<void> onRefresh() async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      final range = _getRangeDateByFastSearch(state.selectedFastSearch);
+      final fetchResult =
+          await _fetchServices(range['startDate']!, range['endDate']!);
+      _handleFetchServices(fetchResult);
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
+    }
+  }
+
+  Future<void> deleteService(Service service) async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      await _serviceProvidedRepository.delete(service.id);
+      final newList = await _fetchServices(state.startDate, state.endDate);
+      final newStatus =
+          newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+
+      emit(state.copyWith(status: newStatus, services: newList));
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
+    }
+  }
+
+  Future<void> onChangeDate(DateTime startDate, DateTime endDate) async {
+    try {
+      emit(state.copyWith(
+        status: BaseStateStatus.loading,
+        startDate: startDate,
+        endDate: endDate,
+        selectedFastSearch: FastSearch.custom,
+      ));
+      final fetchResult = await _fetchServices(startDate, endDate);
+      _handleFetchServices(fetchResult);
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
+    }
+  }
+
+  Future<void> onChageSelectedFastSearch(FastSearch fastSearch) async {
+    try {
+      if (fastSearch == state.selectedFastSearch) return;
+
+      final range = _getRangeDateByFastSearch(fastSearch);
+
+      emit(state.copyWith(
+        status: BaseStateStatus.loading,
+        selectedFastSearch: fastSearch,
+        startDate: range['startDate']!,
+        endDate: range['endDate']!,
+      ));
+      final fetchResult =
+          await _fetchServices(range['startDate']!, range['endDate']!);
+      _handleFetchServices(fetchResult);
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
+    }
+  }
+
   void onChangeOrderBy(OrderBy orderBy) {
-    final services = _orderServices(state.services, orderBy);
+    final services = ServiceHelper.orderServices(state.services, orderBy);
     emit(state.copyWith(services: services, selectedOrderBy: orderBy));
   }
 
-  List<Service> _orderServices(List<Service> services, OrderBy orderBy) {
-    switch (orderBy) {
-      case OrderBy.dateAsc:
-        services.sort((a, b) => a.date.compareTo(b.date));
-        break;
-      case OrderBy.dateDesc:
-        services.sort((a, b) => b.date.compareTo(a.date));
-        break;
-      case OrderBy.typeAsc:
-        services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
-        break;
-      case OrderBy.typeDesc:
-        services.sort((a, b) => b.type!.name.compareTo(a.type!.name));
-        break;
-      case OrderBy.valueAsc:
-        services.sort((a, b) => a.value.compareTo(b.value));
-        break;
-      case OrderBy.valueDesc:
-        services.sort((a, b) => b.value.compareTo(a.value));
-        break;
+  Future<void> onChangeServices() async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      final result = await _fetchServices(state.startDate, state.endDate);
+      _handleFetchServices(result);
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError();
     }
-    return services;
-  }
-
-  Future<void> changeServices() async {
-    emit(state.copyWith(status: BaseStateStatus.loading));
-    final result = await _fetchServices(state.startDate, state.endDate);
-    _handleFetchServices(result);
   }
 }

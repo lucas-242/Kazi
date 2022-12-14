@@ -1,6 +1,6 @@
 part of 'add_services_cubit.dart';
 
-class AddServicesState extends BaseState {
+class AddServicesState extends BaseState with EquatableMixin {
   Service service;
   List<ServiceType> serviceTypes;
   int quantity;
@@ -8,7 +8,7 @@ class AddServicesState extends BaseState {
 
   List<DropdownItem> get dropdownItems {
     final result = serviceTypes
-        .map((e) => DropdownItem(value: e.id, text: e.name))
+        .map((e) => DropdownItem(value: e.id, label: e.name))
         .toList()
       ..sort(((a, b) => a.label.compareTo(b.label)));
 
@@ -19,7 +19,7 @@ class AddServicesState extends BaseState {
     if (service.type == null) return null;
 
     final result =
-        DropdownItem(value: service.type!.id, text: service.type!.name);
+        DropdownItem(value: service.type!.id, label: service.type!.name);
 
     return result;
   }
@@ -52,4 +52,8 @@ class AddServicesState extends BaseState {
       userId: userId,
     );
   }
+
+  @override
+  List<Object?> get props =>
+      [service, serviceTypes, quantity, userId, status, callbackMessage];
 }

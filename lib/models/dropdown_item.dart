@@ -1,22 +1,14 @@
-class DropdownItem {
-  late String label;
-  late String value;
+import 'package:equatable/equatable.dart';
 
-  late String? auxValue;
+class DropdownItem extends Equatable {
+  final String label;
+  final String value;
 
-  DropdownItem({String? text, this.auxValue, required this.value})
-      : label = text ?? value;
+  final String? auxValue;
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is DropdownItem &&
-        other.label == label &&
-        other.value == value &&
-        other.auxValue == auxValue;
-  }
+  const DropdownItem({String? label, this.auxValue, required this.value})
+      : label = label ?? value;
 
   @override
-  int get hashCode => label.hashCode ^ value.hashCode ^ auxValue.hashCode;
+  List<Object?> get props => [label, value, auxValue];
 }
