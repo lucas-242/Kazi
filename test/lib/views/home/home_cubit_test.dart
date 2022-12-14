@@ -11,18 +11,18 @@ import 'package:my_services/services/auth_service/auth_service.dart';
 import 'package:my_services/shared/errors/errors.dart';
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 import 'package:my_services/shared/utils/base_state.dart';
-import 'package:my_services/views/calendar/calendar.dart';
+import 'package:my_services/views/home/home.dart';
 
 import '../../../mocks/mocks.dart';
 import '../../../utils/test_helper.dart';
-import 'calendar_cubit_test.mocks.dart';
+import 'home_cubit_test.mocks.dart';
 
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
 void main() {
   late MockServiceTypeRepository serviceTypeRepository;
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
-  late CalendarCubit cubit;
+  late HomeCubit cubit;
 
   TestHelper.loadAppLocalizations();
 
@@ -39,17 +39,16 @@ void main() {
     when(servicesRepository.get(any, any, any))
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
-    cubit =
-        CalendarCubit(servicesRepository, serviceTypeRepository, authService);
+    cubit = HomeCubit(servicesRepository, serviceTypeRepository, authService);
   });
 
   group('Call onInit function', () {
     blocTest(
-      'emits CalendarState with loaded services and status success when call onInit',
+      'emits HomeState with loaded services and status success when call onInit',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        CalendarState(
+        HomeState(
           status: BaseStateStatus.success,
           services: servicesWithTypesMock,
         )
@@ -57,30 +56,30 @@ void main() {
     );
 
     blocTest(
-      'emits CalendarState with empty services and status noData when call onInit',
+      'emits HomeState with empty services and status noData when call onInit',
       setUp: () {
         when(servicesRepository.get(any, any, any)).thenAnswer((_) async => []);
       },
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        CalendarState(
+        HomeState(
           status: BaseStateStatus.noData,
         )
       ],
     );
 
     blocTest(
-      'emits CalendarState with status error and callbackMessage = errorToGetServices when call onInit',
+      'emits HomeState with status error and callbackMessage = errorToGetServices when call onInit',
       build: () => cubit,
-      seed: () => CalendarState(status: BaseStateStatus.noData),
+      seed: () => HomeState(status: BaseStateStatus.noData),
       setUp: () {
         when(servicesRepository.get(any, any, any)).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServices));
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        CalendarState(
+        HomeState(
           callbackMessage: AppLocalizations.current.errorToGetServices,
           status: BaseStateStatus.error,
         )
@@ -88,16 +87,16 @@ void main() {
     );
 
     blocTest(
-      'emits CalendarState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
+      'emits HomeState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
       build: () => cubit,
-      seed: () => CalendarState(status: BaseStateStatus.noData),
+      seed: () => HomeState(status: BaseStateStatus.noData),
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServiceTypes));
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        CalendarState(
+        HomeState(
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
         )
@@ -105,14 +104,14 @@ void main() {
     );
 
     blocTest(
-      'emits CalendarState with status error and callbackMessage = unknowError when call onInit',
+      'emits HomeState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(Exception());
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        CalendarState(
+        HomeState(
           callbackMessage: AppLocalizations.current.unknowError,
           status: BaseStateStatus.error,
         )
@@ -130,19 +129,19 @@ void main() {
     });
 
     blocTest(
-      'emits CalendarState with loaded services and status success when call deleteService',
+      'emits HomeState with loaded services and status success when call deleteService',
       build: () => cubit,
-      seed: () => CalendarState(
+      seed: () => HomeState(
         services: serviceList,
         status: BaseStateStatus.success,
       ),
       act: (cubit) => [cubit.deleteService(serviceToDelete)],
       expect: () => [
-        CalendarState(
+        HomeState(
           services: serviceList,
           status: BaseStateStatus.loading,
         ),
-        CalendarState(
+        HomeState(
           services: servicesWithTypeIdMock,
           status: BaseStateStatus.success,
         )
@@ -152,12 +151,12 @@ void main() {
 
   group('Call onRefresh function', () {
     blocTest(
-      'emits CalendarState with loaded services and status success when call onRefresh',
+      'emits HomeState with loaded services and status success when call onRefresh',
       build: () => cubit,
       act: (cubit) => cubit.onRefresh(),
       expect: () => [
-        CalendarState(status: BaseStateStatus.loading),
-        CalendarState(
+        HomeState(status: BaseStateStatus.loading),
+        HomeState(
           status: BaseStateStatus.success,
           services: servicesWithTypesMock,
         )
@@ -165,68 +164,14 @@ void main() {
     );
   });
 
-  group('Call Change properties', () {
-    late DateTime newStartDateTime;
-    late DateTime newEndDateTime;
-
-    setUp(() {
-      newStartDateTime = DateTime(2022, 1, 1);
-      newEndDateTime = DateTime(2022, 1, 12);
-    });
-
+  group('Call onChangeServices', () {
     blocTest(
-      'emits CalendarState with new services with different dates when call onChangeDate',
-      build: () => cubit,
-      act: (cubit) => [cubit.onChangeDate(newStartDateTime, newEndDateTime)],
-      expect: () => [
-        CalendarState(
-          status: BaseStateStatus.loading,
-          startDate: newStartDateTime,
-          endDate: newEndDateTime,
-          selectedFastSearch: FastSearch.custom,
-        ),
-        CalendarState(
-          startDate: newStartDateTime,
-          endDate: newEndDateTime,
-          services: servicesWithTypesMock,
-          status: BaseStateStatus.success,
-          selectedFastSearch: FastSearch.custom,
-        )
-      ],
-    );
-
-    blocTest(
-      'emits CalendarState with new services with different selectedFastSearch when call onChageSelectedFastSearch',
-      build: () => cubit,
-      setUp: () {
-        newStartDateTime = DateTime(2022, 12, 1);
-        newEndDateTime = DateTime(2022, 12, 15, 23, 59, 59);
-      },
-      act: (cubit) => [cubit.onChageSelectedFastSearch(FastSearch.fortnight)],
-      expect: () => [
-        CalendarState(
-          status: BaseStateStatus.loading,
-          startDate: newStartDateTime,
-          endDate: newEndDateTime,
-          selectedFastSearch: FastSearch.fortnight,
-        ),
-        CalendarState(
-          startDate: newStartDateTime,
-          endDate: newEndDateTime,
-          services: servicesWithTypesMock,
-          status: BaseStateStatus.success,
-          selectedFastSearch: FastSearch.fortnight,
-        )
-      ],
-    );
-
-    blocTest(
-      'emits CalendarState with new services and status success when call onChangeServices',
+      'emits HomeState with new services and status success when call onChangeServices',
       build: () => cubit,
       act: (cubit) => [cubit.onChangeServices()],
       expect: () => [
-        CalendarState(status: BaseStateStatus.loading),
-        CalendarState(
+        HomeState(status: BaseStateStatus.loading),
+        HomeState(
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
         )
@@ -236,15 +181,15 @@ void main() {
 
   group('Call onChangeOrderBy', () {
     blocTest(
-      'emits CalendarState with services ordered dateDesc and status success when call onChangeOrderBy',
+      'emits HomeState with services ordered dateDesc and status success when call onChangeOrderBy',
       build: () => cubit,
       act: (cubit) => [cubit.onChangeOrderBy(OrderBy.dateDesc)],
-      seed: () => CalendarState(
+      seed: () => HomeState(
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
       ),
       expect: () => [
-        CalendarState(
+        HomeState(
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
           selectedOrderBy: OrderBy.dateDesc,
@@ -255,7 +200,7 @@ void main() {
 
   group('State properties', () {
     test('totalValue should be 210', () {
-      final state = CalendarState(
+      final state = HomeState(
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
@@ -265,7 +210,7 @@ void main() {
     });
 
     test('totalWithDiscount should be 105', () {
-      final state = CalendarState(
+      final state = HomeState(
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
@@ -275,7 +220,7 @@ void main() {
     });
 
     test('totalDiscounted should be 105', () {
-      final state = CalendarState(
+      final state = HomeState(
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,

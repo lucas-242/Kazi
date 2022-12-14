@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:my_services/models/service.dart';
 import 'package:my_services/models/service_type.dart';
 import 'package:my_services/repositories/services_repository/services_repository.dart';
@@ -84,7 +83,7 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     try {
       final types = await _fetchServiceTypes();
       var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
-      services = orderServices(services, state.selectedOrderBy);
+      services = ServiceHelper.orderServices(services, state.selectedOrderBy);
 
       final newStatus = fetchResult.isEmpty
           ? BaseStateStatus.noData
@@ -172,33 +171,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   }
 
   void onChangeOrderBy(OrderBy orderBy) {
-    final services = orderServices(state.services, orderBy);
+    final services = ServiceHelper.orderServices(state.services, orderBy);
     emit(state.copyWith(services: services, selectedOrderBy: orderBy));
-  }
-
-  @visibleForTesting
-  List<Service> orderServices(List<Service> services, OrderBy orderBy) {
-    switch (orderBy) {
-      case OrderBy.dateAsc:
-        services.sort((a, b) => a.date.compareTo(b.date));
-        break;
-      case OrderBy.dateDesc:
-        services.sort((a, b) => b.date.compareTo(a.date));
-        break;
-      case OrderBy.typeAsc:
-        services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
-        break;
-      case OrderBy.typeDesc:
-        services.sort((a, b) => b.type!.name.compareTo(a.type!.name));
-        break;
-      case OrderBy.valueAsc:
-        services.sort((a, b) => a.value.compareTo(b.value));
-        break;
-      case OrderBy.valueDesc:
-        services.sort((a, b) => b.value.compareTo(a.value));
-        break;
-    }
-    return services;
   }
 
   Future<void> onChangeServices() async {

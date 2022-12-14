@@ -44,7 +44,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
                 previous.status != current.status,
             listener: (context, state) {
               if (state.status == BaseStateStatus.success) {
-                context.read<HomeCubit>().changeServices();
+                context.read<HomeCubit>().onChangeServices();
                 context.read<CalendarCubit>().onChangeServices();
                 Navigator.of(context).pop();
               } else if (state.status == BaseStateStatus.error) {

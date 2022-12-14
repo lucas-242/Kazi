@@ -1,6 +1,6 @@
 part of 'home_cubit.dart';
 
-class HomeState extends BaseState {
+class HomeState extends BaseState with EquatableMixin {
   List<Service> services;
   OrderBy selectedOrderBy;
 
@@ -39,4 +39,8 @@ class HomeState extends BaseState {
       selectedOrderBy: selectedOrderBy ?? this.selectedOrderBy,
     );
   }
+
+  @override
+  List<Object?> get props =>
+      [services, selectedOrderBy, status, callbackMessage];
 }

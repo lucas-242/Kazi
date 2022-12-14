@@ -1,3 +1,4 @@
+import '../../models/enums.dart';
 import '../../models/service.dart';
 import '../../models/service_type.dart';
 
@@ -41,5 +42,29 @@ abstract class ServiceHelper {
     });
 
     return filtered.toList();
+  }
+
+  static List<Service> orderServices(List<Service> services, OrderBy orderBy) {
+    switch (orderBy) {
+      case OrderBy.dateAsc:
+        services.sort((a, b) => a.date.compareTo(b.date));
+        break;
+      case OrderBy.dateDesc:
+        services.sort((a, b) => b.date.compareTo(a.date));
+        break;
+      case OrderBy.typeAsc:
+        services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
+        break;
+      case OrderBy.typeDesc:
+        services.sort((a, b) => b.type!.name.compareTo(a.type!.name));
+        break;
+      case OrderBy.valueAsc:
+        services.sort((a, b) => a.value.compareTo(b.value));
+        break;
+      case OrderBy.valueDesc:
+        services.sort((a, b) => b.value.compareTo(a.value));
+        break;
+    }
+    return services;
   }
 }
