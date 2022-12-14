@@ -111,10 +111,8 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
       _handleFetchServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
-      rethrow;
     } catch (exception) {
       unexpectedError();
-      rethrow;
     }
   }
 }
