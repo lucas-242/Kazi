@@ -90,7 +90,7 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with status error and callbackMessage = unknowError when call getServicesType',
+      'emits AddServicesState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(Exception());

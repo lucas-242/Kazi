@@ -197,10 +197,10 @@ class _TopSearch extends StatelessWidget {
                 controller: dateController,
                 startDate: cubit.state.startDate,
                 endDate: cubit.state.endDate,
-                onChange: (date) {
-                  cubit.onChangeDate(date);
+                onChange: (range) {
+                  cubit.onChangeDate(range.start, range.end);
                   dateController.text =
-                      '${DateFormat.yMd().format(date.start)} - ${DateFormat.yMd().format(date.end)}';
+                      '${DateFormat.yMd().format(range.start)} - ${DateFormat.yMd().format(range.end)}';
                 },
               ),
             ),

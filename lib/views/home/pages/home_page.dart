@@ -106,7 +106,7 @@ class _Build extends StatelessWidget {
     void onDelete(Service service) async {
       final calendarCubit = context.read<CalendarCubit>();
       await context.read<HomeCubit>().deleteService(service);
-      calendarCubit.changeServices();
+      calendarCubit.onChangeServices();
     }
 
     void onEdit(Service service) async {

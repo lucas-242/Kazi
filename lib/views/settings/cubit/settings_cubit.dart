@@ -36,10 +36,8 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       emit(state.copyWith(status: status, serviceTypeList: types));
     } on AppError catch (exception) {
       onAppError(exception);
-      rethrow;
     } catch (exception) {
       unexpectedError();
-      rethrow;
     }
   }
 

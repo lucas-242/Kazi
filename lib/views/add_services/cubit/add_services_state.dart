@@ -54,14 +54,6 @@ class AddServicesState extends BaseState with EquatableMixin {
   }
 
   @override
-  List<Object?> get props => [
-        service,
-        serviceTypes,
-        quantity,
-        userId,
-        status,
-        callbackMessage,
-        dropdownItems,
-        selectedDropdownItem
-      ];
+  List<Object?> get props =>
+      [service, serviceTypes, quantity, userId, status, callbackMessage];
 }
