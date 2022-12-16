@@ -104,7 +104,7 @@ void main() {
     }));
 
     test(
-        'Should throws FirebaseSignInError with invalid credential message to sign in with google',
+        'Should throws FirebaseSignInError with invalid credential message when throw FirebaseAuthException',
         (() async {
       when(googleSignIn.signIn())
           .thenThrow(FirebaseAuthException(code: 'invalid-credential'));
@@ -113,6 +113,16 @@ void main() {
           authService.signInWithGoogle(),
           ErrorWithMessage<FirebaseSignInError>(
               AppLocalizations.current.credentialIsInvalid));
+    }));
+    test(
+        'Should throws FirebaseSignInError with unknow message when throw Exception',
+        (() async {
+      when(googleSignIn.signIn()).thenThrow(Exception());
+
+      expect(
+          authService.signInWithGoogle(),
+          ErrorWithMessage<FirebaseSignInError>(
+              AppLocalizations.current.unknowError));
     }));
   });
 
@@ -134,12 +144,24 @@ void main() {
     }));
 
     test(
-        'Should throws FirebaseSignInError with unknow error message to sign out with google',
+        'Should throws FirebaseSignInError with emailIsInvalid error message when throw FirebaseAuthException',
         (() async {
-      when(googleSignIn.signOut()).thenThrow(FirebaseAuthException(code: ''));
+      when(googleSignIn.signOut())
+          .thenThrow(FirebaseAuthException(code: 'invalid-email'));
 
       expect(
-          authService.signInWithGoogle(),
+          authService.signOut(),
+          ErrorWithMessage<FirebaseSignInError>(
+              AppLocalizations.current.emailIsInvalid));
+    }));
+
+    test(
+        'Should throws FirebaseSignInError with unknowError error message when throw Exception',
+        (() async {
+      when(googleSignIn.signOut()).thenThrow(Exception());
+
+      expect(
+          authService.signOut(),
           ErrorWithMessage<FirebaseSignInError>(
               AppLocalizations.current.unknowError));
     }));

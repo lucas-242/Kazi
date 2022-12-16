@@ -30,7 +30,7 @@ class ServiceTypeCard extends StatelessWidget {
           children: [
             Text(serviceType.name),
             Text(NumberFormat.currency(symbol: 'R\$')
-                .format(serviceType.defaultValue)),
+                .format(serviceType.defaultValue ?? 0)),
           ],
         ),
         subtitle: Text('${serviceType.discountPercent ?? 0}%'),
