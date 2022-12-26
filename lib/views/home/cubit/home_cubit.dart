@@ -34,7 +34,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -61,7 +61,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -79,7 +79,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -95,7 +95,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -112,7 +112,18 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      await _authService.signOut();
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError(exception);
     }
   }
 }

@@ -38,7 +38,7 @@ class AddServicesCubit extends Cubit<AddServicesState>
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -59,7 +59,7 @@ class AddServicesCubit extends Cubit<AddServicesState>
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -75,7 +75,7 @@ class AddServicesCubit extends Cubit<AddServicesState>
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 

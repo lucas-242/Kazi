@@ -33,7 +33,8 @@ class _AppState extends State<App> {
       builder: (lightDynamic, darkDynamic) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider<AppCubit>(create: (_) => AppCubit()),
+            BlocProvider<AppCubit>(
+                create: (_) => AppCubit(locator.get<AuthService>())),
             BlocProvider<SettingsCubit>(
               create: (_) => SettingsCubit(
                 locator.get<ServiceTypeRepository>(),

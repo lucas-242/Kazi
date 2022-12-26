@@ -390,11 +390,11 @@ class AppLocalizations {
     );
   }
 
-  /// `You can not create an account with this method. Please try another account or contact support for help`
-  String get cantCreateAccountWithMethod {
+  /// `Method not allowed. Please try another account or contact support for help`
+  String get methodNotAllowed {
     return Intl.message(
-      'You can not create an account with this method. Please try another account or contact support for help',
-      name: 'cantCreateAccountWithMethod',
+      'Method not allowed. Please try another account or contact support for help',
+      name: 'methodNotAllowed',
       desc: '',
       args: [],
     );

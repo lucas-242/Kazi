@@ -8,6 +8,7 @@ import 'package:my_services/repositories/service_type_repository/service_type_re
 import 'package:my_services/repositories/services_repository/firebase/models/firebase_service_model.dart';
 import 'package:my_services/repositories/services_repository/services_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
 import 'package:my_services/shared/errors/errors.dart';
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 import 'package:my_services/shared/utils/base_state.dart';
@@ -258,5 +259,45 @@ void main() {
 
       expect(state.totalDiscounted, 105);
     });
+  });
+
+  group('Sign out', () {
+    blocTest(
+      'emits HomeState with status loading when call signOut',
+      build: () => cubit,
+      act: (cubit) => [cubit.signOut()],
+      expect: () => [
+        HomeState(
+          status: BaseStateStatus.loading,
+        )
+      ],
+    );
+
+    blocTest(
+      'emits HomeState with status error and methodNotAllowed message when call signOut',
+      build: () => cubit,
+      setUp: () => when(authService.signOut()).thenThrow(
+          FirebaseSignInError.fromCode('operation-not-allowed', null)),
+      act: (cubit) => [cubit.signOut()],
+      expect: () => [
+        HomeState(status: BaseStateStatus.loading),
+        HomeState(
+            status: BaseStateStatus.error,
+            callbackMessage: AppLocalizations.current.methodNotAllowed)
+      ],
+    );
+
+    blocTest(
+      'emits HomeState with status error and unknowError message when call signOut',
+      build: () => cubit,
+      setUp: () => when(authService.signOut()).thenThrow(Exception()),
+      act: (cubit) => [cubit.signOut()],
+      expect: () => [
+        HomeState(status: BaseStateStatus.loading),
+        HomeState(
+            status: BaseStateStatus.error,
+            callbackMessage: AppLocalizations.current.unknowError)
+      ],
+    );
   });
 }

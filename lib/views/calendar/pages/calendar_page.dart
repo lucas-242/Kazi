@@ -9,7 +9,6 @@ import 'package:my_services/shared/widgets/service_list/service_list.dart';
 
 import '../../../shared/routes/app_routes.dart';
 import '../../../shared/utils/base_state.dart';
-import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_date_range_picker/custom_date_range_picker.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
@@ -43,8 +42,16 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Calendário',
+      appBar: AppBar(
+        title: Text('Calendário', style: context.titleLarge),
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+            onPressed: () => context.read<CalendarCubit>().signOut(),
+            icon: const Icon(Icons.logout),
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () =>
