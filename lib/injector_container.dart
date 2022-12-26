@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
+import 'package:my_services/services/time_service/time_service.dart';
 
 import '/services/auth_service/auth_service.dart';
 import 'services/auth_service/firebase/firebase_auth_service.dart';
@@ -14,6 +15,7 @@ Future<void> init() async {
   locator.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
 
   locator.registerSingleton<AuthService>(FirebaseAuthService());
+  locator.registerSingleton<TimeService>(LocalTimeService());
 
   locator.registerFactory<ServicesRepository>(
     () => FirebaseServicesRepository(locator.get<FirebaseFirestore>()),

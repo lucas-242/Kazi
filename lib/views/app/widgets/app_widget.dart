@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_services/injector_container.dart';
 import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/services/time_service/time_service.dart';
 import 'package:my_services/views/calendar/calendar.dart';
 import 'package:my_services/views/home/cubit/home_cubit.dart';
 import 'package:my_services/views/settings/settings.dart';
@@ -63,6 +64,7 @@ class _AppState extends State<App> {
                 locator.get<ServicesRepository>(),
                 locator.get<ServiceTypeRepository>(),
                 locator.get<AuthService>(),
+                locator.get<TimeService>(),
               ),
               lazy: true,
             ),

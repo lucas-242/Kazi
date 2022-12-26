@@ -5,6 +5,7 @@ import 'package:my_services/models/service_type.dart';
 import 'package:my_services/repositories/services_repository/services_repository.dart';
 import 'package:my_services/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/services/time_service/time_service.dart';
 import 'package:my_services/shared/utils/service_helper.dart';
 import 'package:my_services/shared/utils/base_cubit.dart';
 import 'package:my_services/shared/utils/base_state.dart';
@@ -19,12 +20,18 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
+  final TimeService _timeService;
 
   CalendarCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
     this._authService,
-  ) : super(CalendarState(status: BaseStateStatus.loading));
+    this._timeService,
+  ) : super(CalendarState(
+          status: BaseStateStatus.loading,
+          startDate: _timeService.nowWithoutTime,
+          endDate: _timeService.nowWithoutTime,
+        ));
 
   void onInit() async {
     try {
@@ -40,7 +47,7 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   }
 
   Map<String, DateTime> _getRangeDateByFastSearch(FastSearch fastSearch) {
-    final today = DateTime.now();
+    final today = _timeService.now;
     DateTime startDate;
     DateTime endDate;
     switch (fastSearch) {
