@@ -27,8 +27,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "cantCreateAccountWithMethod": MessageLookupByLibrary.simpleMessage(
-            "You can not create an account with this method. Please try another account or contact support for help"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "credentialIsInvalid":
             MessageLookupByLibrary.simpleMessage("The credential is invalid"),
@@ -69,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logoutConfirmation": MessageLookupByLibrary.simpleMessage(
             "Do you really want to logout?"),
+        "methodNotAllowed": MessageLookupByLibrary.simpleMessage(
+            "Method not allowed. Please try another account or contact support for help"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "Password is too weak. Please, try a different one"),

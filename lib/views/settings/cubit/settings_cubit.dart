@@ -37,7 +37,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -57,7 +57,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -75,7 +75,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -93,7 +93,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -111,7 +111,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
-      unexpectedError();
+      unexpectedError(exception);
     }
   }
 
@@ -161,6 +161,17 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
         'O tipo de serviço não pode ser deletado pois está em uso',
         trace: 'Triggered by _checkServiceTypeIsInUse on SettingsCubit.',
       );
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      await _authService.signOut();
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError(exception);
     }
   }
 }

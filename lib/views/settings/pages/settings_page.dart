@@ -6,7 +6,6 @@ import 'package:my_services/shared/widgets/custom_elevated_button/custom_elevate
 import 'package:my_services/views/settings/settings.dart';
 
 import '../../../shared/utils/base_state.dart';
-import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -26,7 +25,14 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Configurações'),
+      appBar: AppBar(
+        title: Text('Configurações', style: context.titleLarge),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () => context.read<SettingsCubit>().signOut(),
+          icon: const Icon(Icons.logout),
+        ),
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<SettingsCubit>().getServiceTypes(),

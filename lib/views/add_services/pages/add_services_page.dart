@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/models/service.dart';
 import 'package:my_services/shared/themes/themes.dart';
 import 'package:my_services/shared/utils/base_state.dart';
-import 'package:my_services/shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import 'package:my_services/views/app/app.dart';
 import 'package:my_services/views/calendar/calendar.dart';
 import 'package:my_services/views/home/cubit/home_cubit.dart';
@@ -33,8 +32,9 @@ class _AddServicesPageState extends State<AddServicesPage> {
         ? 'Editar'
         : 'Adicionar';
     return Scaffold(
-      appBar: CustomAppBar(
-        title: '$label tipo de serviço',
+      appBar: AppBar(
+        title: Text('$label tipo de serviço', style: context.titleLarge),
+        centerTitle: true,
         leading: const BackButton(),
       ),
       body: SafeArea(

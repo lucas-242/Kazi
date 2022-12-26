@@ -27,8 +27,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Adicionar"),
         "all": MessageLookupByLibrary.simpleMessage("Todos"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
-        "cantCreateAccountWithMethod": MessageLookupByLibrary.simpleMessage(
-            "Você não pode criar uma conta com este método. Tente outra conta ou entre em contato com o suporte para obter ajuda"),
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
         "credentialIsInvalid":
             MessageLookupByLibrary.simpleMessage("A credencial é inválida"),
@@ -69,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Sair"),
         "logoutConfirmation": MessageLookupByLibrary.simpleMessage(
             "Você realmente gostaria de sair?"),
+        "methodNotAllowed": MessageLookupByLibrary.simpleMessage(
+            "Método não permitido. Tente outra conta ou entre em contato com o suporte para obter ajuda."),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "A senha é muito fraca, por favor, tente outra senha"),

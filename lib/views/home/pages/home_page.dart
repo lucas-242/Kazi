@@ -9,7 +9,6 @@ import 'package:my_services/views/home/cubit/home_cubit.dart';
 import '../../../shared/routes/app_routes.dart';
 import '../../../models/service.dart';
 import '../../../shared/utils/base_state.dart';
-import '../../../shared/widgets/custom_app_bar/custom_app_bar_widget.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
 import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import '../../../shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
@@ -34,8 +33,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Home',
+      appBar: AppBar(
+        title: Text('Home', style: context.titleLarge),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () => context.read<HomeCubit>().signOut(),
+          icon: const Icon(Icons.logout),
+        ),
         actions: [
           IconButton(
             onPressed: () => showModalBottomSheet(

@@ -40,7 +40,7 @@ class ServiceCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   service.description != null && service.description != ''
-                      ? Text(service.description!)
+                      ? Text('${service.description}')
                       : Container(),
                   showDate
                       ? Text(DateFormat.yMd().format(service.date))

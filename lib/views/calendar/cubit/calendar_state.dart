@@ -23,17 +23,11 @@ class CalendarState extends BaseState with EquatableMixin {
     required super.status,
     List<Service>? services,
     super.callbackMessage,
-    DateTime? startDate,
-    DateTime? endDate,
+    required this.startDate,
+    required this.endDate,
     FastSearch? selectedFastSearch,
     OrderBy? selectedOrderBy,
-  })  : startDate = startDate ??
-            DateTime(
-                DateTime.now().year, DateTime.now().month, DateTime.now().day),
-        endDate = endDate ??
-            DateTime(
-                DateTime.now().year, DateTime.now().month, DateTime.now().day),
-        services = services ?? [],
+  })  : services = services ?? [],
         selectedOrderBy = selectedOrderBy ?? OrderBy.typeAsc,
         selectedFastSearch = selectedFastSearch ?? FastSearch.today;
 

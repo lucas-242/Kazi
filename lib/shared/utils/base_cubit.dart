@@ -12,7 +12,7 @@ mixin BaseCubit<T extends BaseState> on Cubit<T> {
     ) as T);
   }
 
-  void unexpectedError() {
+  void unexpectedError(Object exception) {
     emit(state.copyWith(
       callbackMessage: AppLocalizations.current.unknowError,
       status: BaseStateStatus.error,

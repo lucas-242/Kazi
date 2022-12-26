@@ -8,6 +8,8 @@ import 'package:my_services/repositories/service_type_repository/service_type_re
 import 'package:my_services/repositories/services_repository/firebase/models/firebase_service_model.dart';
 import 'package:my_services/repositories/services_repository/services_repository.dart';
 import 'package:my_services/services/auth_service/auth_service.dart';
+import 'package:my_services/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
+import 'package:my_services/services/time_service/time_service.dart';
 import 'package:my_services/shared/errors/errors.dart';
 import 'package:my_services/shared/l10n/generated/l10n.dart';
 import 'package:my_services/shared/utils/base_state.dart';
@@ -22,6 +24,7 @@ void main() {
   late MockServiceTypeRepository serviceTypeRepository;
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
+  late LocalTimeService timeService;
   late CalendarCubit cubit;
 
   TestHelper.loadAppLocalizations();
@@ -29,6 +32,7 @@ void main() {
   setUp(() {
     serviceTypeRepository = MockServiceTypeRepository();
     servicesRepository = MockServicesRepository();
+    timeService = LocalTimeService();
     authService = MockAuthService();
 
     when(authService.user).thenReturn(userMock);
@@ -39,8 +43,8 @@ void main() {
     when(servicesRepository.get(any, any, any))
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
-    cubit =
-        CalendarCubit(servicesRepository, serviceTypeRepository, authService);
+    cubit = CalendarCubit(
+        servicesRepository, serviceTypeRepository, authService, timeService);
   });
 
   group('Call onInit function', () {
@@ -52,6 +56,8 @@ void main() {
         CalendarState(
           status: BaseStateStatus.success,
           services: servicesWithTypesMock,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -66,6 +72,8 @@ void main() {
       expect: () => [
         CalendarState(
           status: BaseStateStatus.noData,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -73,7 +81,11 @@ void main() {
     blocTest(
       'emits CalendarState with status error and callbackMessage = errorToGetServices when call onInit',
       build: () => cubit,
-      seed: () => CalendarState(status: BaseStateStatus.noData),
+      seed: () => CalendarState(
+        status: BaseStateStatus.noData,
+        startDate: timeService.nowWithoutTime,
+        endDate: timeService.nowWithoutTime,
+      ),
       setUp: () {
         when(servicesRepository.get(any, any, any)).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServices));
@@ -83,6 +95,8 @@ void main() {
         CalendarState(
           callbackMessage: AppLocalizations.current.errorToGetServices,
           status: BaseStateStatus.error,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -90,7 +104,11 @@ void main() {
     blocTest(
       'emits CalendarState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
       build: () => cubit,
-      seed: () => CalendarState(status: BaseStateStatus.noData),
+      seed: () => CalendarState(
+        status: BaseStateStatus.noData,
+        startDate: timeService.nowWithoutTime,
+        endDate: timeService.nowWithoutTime,
+      ),
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServiceTypes));
@@ -100,6 +118,8 @@ void main() {
         CalendarState(
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -115,6 +135,8 @@ void main() {
         CalendarState(
           callbackMessage: AppLocalizations.current.unknowError,
           status: BaseStateStatus.error,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -135,16 +157,22 @@ void main() {
       seed: () => CalendarState(
         services: serviceList,
         status: BaseStateStatus.success,
+        startDate: timeService.nowWithoutTime,
+        endDate: timeService.nowWithoutTime,
       ),
       act: (cubit) => [cubit.deleteService(serviceToDelete)],
       expect: () => [
         CalendarState(
           services: serviceList,
           status: BaseStateStatus.loading,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         ),
         CalendarState(
           services: servicesWithTypeIdMock,
           status: BaseStateStatus.success,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -156,10 +184,16 @@ void main() {
       build: () => cubit,
       act: (cubit) => cubit.onRefresh(),
       expect: () => [
-        CalendarState(status: BaseStateStatus.loading),
+        CalendarState(
+          status: BaseStateStatus.loading,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
+        ),
         CalendarState(
           status: BaseStateStatus.success,
           services: servicesWithTypesMock,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -168,8 +202,10 @@ void main() {
   group('Call Change properties', () {
     late DateTime newStartDateTime;
     late DateTime newEndDateTime;
+    late DateTime today;
 
     setUp(() {
+      today = DateTime(2022, 12, 12);
       newStartDateTime = DateTime(2022, 1, 1);
       newEndDateTime = DateTime(2022, 1, 12);
     });
@@ -197,7 +233,12 @@ void main() {
 
     blocTest(
       'emits CalendarState with new services with different selectedFastSearch when call onChageSelectedFastSearch',
-      build: () => cubit,
+      build: () => CalendarCubit(
+        servicesRepository,
+        serviceTypeRepository,
+        authService,
+        LocalTimeService(today),
+      ),
       setUp: () {
         newStartDateTime = DateTime(2022, 12, 1);
         newEndDateTime = DateTime(2022, 12, 15, 23, 59, 59);
@@ -225,10 +266,16 @@ void main() {
       build: () => cubit,
       act: (cubit) => [cubit.onChangeServices()],
       expect: () => [
-        CalendarState(status: BaseStateStatus.loading),
+        CalendarState(
+          status: BaseStateStatus.loading,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
+        ),
         CalendarState(
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -242,12 +289,16 @@ void main() {
       seed: () => CalendarState(
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
+        startDate: timeService.nowWithoutTime,
+        endDate: timeService.nowWithoutTime,
       ),
       expect: () => [
         CalendarState(
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
           selectedOrderBy: OrderBy.dateDesc,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
         )
       ],
     );
@@ -259,6 +310,8 @@ void main() {
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
+        startDate: timeService.nowWithoutTime,
+        endDate: timeService.nowWithoutTime,
       );
 
       expect(state.totalValue, 210);
@@ -269,6 +322,8 @@ void main() {
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
+        startDate: timeService.nowWithoutTime,
+        endDate: timeService.nowWithoutTime,
       );
 
       expect(state.totalWithDiscount, 105);
@@ -279,9 +334,67 @@ void main() {
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
+        startDate: timeService.nowWithoutTime,
+        endDate: timeService.nowWithoutTime,
       );
 
       expect(state.totalDiscounted, 105);
     });
+  });
+
+  group('Sign out', () {
+    blocTest(
+      'emits CalendarState with status loading when call signOut',
+      build: () => cubit,
+      act: (cubit) => [cubit.signOut()],
+      expect: () => [
+        CalendarState(
+          status: BaseStateStatus.loading,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
+        )
+      ],
+    );
+
+    blocTest(
+      'emits CalendarState with status error and methodNotAllowed message when call signOut',
+      build: () => cubit,
+      setUp: () => when(authService.signOut()).thenThrow(
+          FirebaseSignInError.fromCode('operation-not-allowed', null)),
+      act: (cubit) => [cubit.signOut()],
+      expect: () => [
+        CalendarState(
+          status: BaseStateStatus.loading,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
+        ),
+        CalendarState(
+          status: BaseStateStatus.error,
+          callbackMessage: AppLocalizations.current.methodNotAllowed,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
+        )
+      ],
+    );
+
+    blocTest(
+      'emits CalendarState with status error and unknowError message when call signOut',
+      build: () => cubit,
+      setUp: () => when(authService.signOut()).thenThrow(Exception()),
+      act: (cubit) => [cubit.signOut()],
+      expect: () => [
+        CalendarState(
+          status: BaseStateStatus.loading,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
+        ),
+        CalendarState(
+          status: BaseStateStatus.error,
+          callbackMessage: AppLocalizations.current.unknowError,
+          startDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime,
+        )
+      ],
+    );
   });
 }
