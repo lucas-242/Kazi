@@ -11,7 +11,6 @@ dependencies:
   cloud_firestore: ^4.0.5
   cupertino_icons: ^1.0.2
   dropdown_search: ^5.0.3
-  dynamic_color: ^1.5.4
   equatable: ^2.0.5
   flutter:
     sdk: flutter

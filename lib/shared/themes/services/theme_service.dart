@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
-import 'theme_settings.dart';
 // ignore: depend_on_referenced_packages
 import 'package:material_color_utilities/material_color_utilities.dart';
 
-import 'custom_color.dart';
 import '../animations/no_animation_page_transition.dart';
+import '../models/custom_color.dart';
+import '../models/theme_settings.dart';
+import '../settings/themes_definitions.dart';
 
-class ThemeProvider extends InheritedWidget {
-  const ThemeProvider({
+class ThemeService extends InheritedWidget {
+  const ThemeService({
     Key? key,
     required this.settings,
-    required this.lightDynamic,
-    required this.darkDynamic,
     required Widget child,
   }) : super(key: key, child: child);
 
   final ThemeSettings settings;
-  final ColorScheme? lightDynamic;
-  final ColorScheme? darkDynamic;
 
   final pageTransitionsTheme = const PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.fuchsia: NoAnimationPageTransitionsBuilder(),
       TargetPlatform.linux: NoAnimationPageTransitionsBuilder(),
       TargetPlatform.macOS: NoAnimationPageTransitionsBuilder(),
       TargetPlatform.windows: NoAnimationPageTransitionsBuilder(),
@@ -75,10 +73,11 @@ class ThemeProvider extends InheritedWidget {
 
   ColorScheme colors(Brightness brightness, Color? targetColor) {
     final dynamicPrimary = brightness == Brightness.light
-        ? lightDynamic?.primary
-        : darkDynamic?.primary;
+        ? lightThemeSettings.sourceColor
+        : darkThemeSettings.sourceColor;
     return ColorScheme.fromSeed(
-      seedColor: dynamicPrimary ?? source(targetColor),
+      seedColor: dynamicPrimary,
+      // seedColor: dynamicPrimary ?? source(targetColor),
       brightness: brightness,
     );
   }
@@ -190,12 +189,12 @@ class ThemeProvider extends InheritedWidget {
         : dark(targetColor);
   }
 
-  static ThemeProvider of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ThemeProvider>()!;
+  static ThemeService of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<ThemeService>()!;
   }
 
   @override
-  bool updateShouldNotify(covariant ThemeProvider oldWidget) {
+  bool updateShouldNotify(covariant ThemeService oldWidget) {
     return oldWidget.settings != settings;
   }
 }

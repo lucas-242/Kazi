@@ -1,4 +1,3 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -30,79 +29,73 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider<AppCubit>(
-                create: (_) => AppCubit(locator.get<AuthService>())),
-            BlocProvider<SettingsCubit>(
-              create: (_) => SettingsCubit(
-                locator.get<ServiceTypeRepository>(),
-                locator.get<ServicesRepository>(),
-                locator.get<AuthService>(),
-              ),
-            ),
-            BlocProvider<HomeCubit>(
-              create: (_) => HomeCubit(
-                locator.get<ServicesRepository>(),
-                locator.get<ServiceTypeRepository>(),
-                locator.get<AuthService>(),
-              ),
-              lazy: true,
-            ),
-            BlocProvider<AddServicesCubit>(
-              create: (_) => AddServicesCubit(
-                locator.get<ServicesRepository>(),
-                locator.get<ServiceTypeRepository>(),
-                locator.get<AuthService>(),
-              ),
-              lazy: true,
-            ),
-            BlocProvider<CalendarCubit>(
-              create: (_) => CalendarCubit(
-                locator.get<ServicesRepository>(),
-                locator.get<ServiceTypeRepository>(),
-                locator.get<AuthService>(),
-                locator.get<TimeService>(),
-              ),
-              lazy: true,
-            ),
-          ],
-          child: ThemeProvider(
-            lightDynamic: lightDynamic,
-            darkDynamic: darkDynamic,
-            settings: defaultThemeSettings,
-            child: Builder(
-              builder: ((context) {
-                var appTheme = ThemeProvider.of(context);
-                return MaterialApp(
-                  title: 'My Services',
-                  debugShowCheckedModeBanner: false,
-                  theme: appTheme.light(defaultThemeSettings.sourceColor),
-                  darkTheme: appTheme.dark(defaultThemeSettings.sourceColor),
-                  themeMode: defaultThemeSettings.themeMode,
-                  initialRoute: AppRoutes.splash,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  supportedLocales: AppLocalizations.delegate.supportedLocales,
-                  routes: {
-                    AppRoutes.splash: (context) => const SplashPage(),
-                    AppRoutes.app: (context) => const AppScaffold(),
-                    AppRoutes.login: (context) => const LoginPage(),
-                    AppRoutes.addServiceType: (context) =>
-                        const AddServiceTypePage(),
-                    AppRoutes.addServices: (context) => const AddServicesPage(),
-                  },
-                );
-              }),
-            ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AppCubit>(
+            create: (_) => AppCubit(locator.get<AuthService>())),
+        BlocProvider<SettingsCubit>(
+          create: (_) => SettingsCubit(
+            locator.get<ServiceTypeRepository>(),
+            locator.get<ServicesRepository>(),
+            locator.get<AuthService>(),
           ),
-        );
-      },
+        ),
+        BlocProvider<HomeCubit>(
+          create: (_) => HomeCubit(
+            locator.get<ServicesRepository>(),
+            locator.get<ServiceTypeRepository>(),
+            locator.get<AuthService>(),
+          ),
+          lazy: true,
+        ),
+        BlocProvider<AddServicesCubit>(
+          create: (_) => AddServicesCubit(
+            locator.get<ServicesRepository>(),
+            locator.get<ServiceTypeRepository>(),
+            locator.get<AuthService>(),
+          ),
+          lazy: true,
+        ),
+        BlocProvider<CalendarCubit>(
+          create: (_) => CalendarCubit(
+            locator.get<ServicesRepository>(),
+            locator.get<ServiceTypeRepository>(),
+            locator.get<AuthService>(),
+            locator.get<TimeService>(),
+          ),
+          lazy: true,
+        ),
+      ],
+      child: ThemeService(
+        settings: lightThemeSettings,
+        child: Builder(
+          builder: ((context) {
+            var appTheme = ThemeService.of(context);
+            return MaterialApp(
+              title: 'My Services',
+              debugShowCheckedModeBanner: false,
+              theme: appTheme.light(lightThemeSettings.sourceColor),
+              darkTheme: appTheme.dark(darkThemeSettings.sourceColor),
+              themeMode: lightThemeSettings.themeMode,
+              initialRoute: AppRoutes.splash,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.delegate.supportedLocales,
+              routes: {
+                AppRoutes.splash: (context) => const SplashPage(),
+                AppRoutes.app: (context) => const AppScaffold(),
+                AppRoutes.login: (context) => const LoginPage(),
+                AppRoutes.addServiceType: (context) =>
+                    const AddServiceTypePage(),
+                AppRoutes.addServices: (context) => const AddServicesPage(),
+              },
+            );
+          }),
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'theme_provider.dart';
+import '../services/theme_service.dart';
 
 class CustomColor {
   const CustomColor({
@@ -13,7 +13,7 @@ class CustomColor {
   final Color color;
   final bool blend;
 
-  Color value(ThemeProvider theme) {
+  Color value(ThemeService theme) {
     return theme.customizeColor(this);
   }
 }
