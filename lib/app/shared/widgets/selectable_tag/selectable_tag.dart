@@ -23,12 +23,9 @@ class SelectableTag extends StatelessWidget {
         backgroundColor: isSelected
             ? MaterialStateProperty.all<Color>(
                 context.colorsScheme.secondaryContainer)
-            : MaterialStateProperty.all<Color>(Colors.transparent),
-        foregroundColor: isSelected
-            ? MaterialStateProperty.all<Color>(
-                context.colorsScheme.onSecondaryContainer)
-            : MaterialStateProperty.all<Color>(
-                context.colorsScheme.onBackground),
+            : null,
+        foregroundColor:
+            MaterialStateProperty.all<Color>(context.colorsScheme.surfaceTint),
       ),
       child: Text(text),
     );

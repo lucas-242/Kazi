@@ -151,8 +151,8 @@ class ThemeService extends InheritedWidget {
   BottomNavigationBarThemeData bottomNavigationBarTheme(ColorScheme colors) {
     return BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: colors.surfaceVariant,
-      selectedItemColor: colors.onSurface,
+      backgroundColor: colors.primaryContainer,
+      selectedItemColor: colors.onPrimaryContainer,
       unselectedItemColor: colors.onSurfaceVariant,
       elevation: 0,
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
