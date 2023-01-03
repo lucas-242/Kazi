@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../shared/l10n/generated/l10n.dart';
 import '../../../shared/themes/themes.dart';
 import '../../calendar/calendar.dart';
 import '../cubit/home_cubit.dart';
@@ -143,14 +144,14 @@ class _NoData extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Não há serviços prestados no dia ${DateFormat.MMMMd().format(DateTime.now())} ',
+          '${AppLocalizations.current.noServicesOnDay} ${DateFormat.MMMMd().format(DateTime.now())} ',
           style: context.titleMedium,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 25),
         CustomElevatedButton(
           onTap: () => Navigator.pushNamed(context, AppRoutes.addServices),
-          text: 'Adicionar novo serviço',
+          text: AppLocalizations.current.addNewService,
         ),
       ],
     );

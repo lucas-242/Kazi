@@ -18,15 +18,24 @@
   "update": "Atualizar",
   "wouldYouLikeDelete": "Gostaria de deletar",
 
+  "today": "Hoje",
+  "week": "Semana",
+  "fortnight": "Quinzena",
+  "month": "Mês",
+
+  "selectServiceType": "Selecione o tipo de serviço",
+  "addNewService": "Adicionar novo serviço",
+  "noServicesInPeriod": "Não há serviços prestados no período selecionado.",
+  "noServicesOnDay": "No services on ",
+  
   "name": "Nome",
-  "type": "Tipo",
+  "serviceType": "Tipo de serviço",
   "quantity": "Quantidade",
+  "discountPercentage": "Porcentagem do desconto",
+  "description": "Descrição",
+  "total": "Valor total",
 
-
-  "collaborators": "Colaboradores",
-  "addCollaborator": "Adicionar colaborador",
-  "collaboratorEmail": "Email do colaborador",
-
+  
   "invalidName": "Nome inválido",
   "invalidProperty": "{property} inválido",
 

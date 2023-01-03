@@ -18,9 +18,22 @@
   "update": "Update",
   "wouldYouLikeDelete": "Would you like to delete",
 
+  "today": "Today",
+  "week": "Week",
+  "fortnight": "Fortnight",
+  "month": "Month",
+
+  "selectServiceType": "Select the service type",
+  "addNewService": "Add new service",
+  "noServicesInPeriod": "No services in the selected period.",
+  "noServicesOnDay": "No services on",
+
   "name": "Name",
-  "type": "Type",
+  "serviceType": "Service type",
   "quantity": "Quantity",
+  "discountPercentage": "Discount percentage",
+  "description": "Description",
+  "total": "Total value",
 
 
   "invalidName": "Name is invalid",

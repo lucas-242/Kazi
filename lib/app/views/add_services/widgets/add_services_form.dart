@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 
 import '../../../models/dropdown_item.dart';
 import '../../../shared/widgets/custom_date_picker/custom_date_picker.dart';
@@ -103,13 +105,13 @@ class _ServiceTypeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Tipo de serviço';
+    final label = AppLocalizations.current.serviceType;
     final cubit = context.read<AddServicesCubit>();
 
     return CustomDropdown(
       key: fieldKey,
       label: label,
-      hint: 'Selecione o tipo do serviço',
+      hint: AppLocalizations.current.selectServiceType,
       items: cubit.state.dropdownItems,
       selectedItem: cubit.state.selectedDropdownItem,
       onChanged: (DropdownItem? data) {
@@ -135,7 +137,7 @@ class _ValueField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Valor total';
+    final label = AppLocalizations.current.total;
     final cubit = context.read<AddServicesCubit>();
 
     return SizedBox(
@@ -160,7 +162,7 @@ class _DiscountField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Porcentagem do desconto';
+    final label = AppLocalizations.current.discountPercentage;
     final cubit = context.watch<AddServicesCubit>();
 
     return SizedBox(
@@ -187,7 +189,7 @@ class _DateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = "Data";
+    final label = AppLocalizations.current.date;
     final cubit = context.read<AddServicesCubit>();
 
     return CustomDatePicker(
@@ -197,7 +199,7 @@ class _DateField extends StatelessWidget {
       initialDate: cubit.state.service.date,
       onChange: (date) {
         cubit.onChangeServiceDate(date);
-        controller.text = DateFormat.yMd().format(date);
+        controller.text = DateFormat.yMd().format(date).normalizeDate();
       },
       validator: (value) => cubit.validateTextField(value, label),
     );
@@ -213,7 +215,7 @@ class _QuantityField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Quantidade';
+    final label = AppLocalizations.current.quantity;
     final cubit = context.read<AddServicesCubit>();
 
     return SizedBox(
@@ -239,7 +241,7 @@ class _DescriptionField extends StatelessWidget {
 
     return CustomTextFormField(
       textFormKey: fieldKey,
-      labelText: 'Descrição',
+      labelText: AppLocalizations.current.description,
       initialValue: cubit.state.service.description,
       onChanged: (value) => cubit.onChangeServiceDescription(value),
     );

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../../../models/enums.dart';
 import '../../../models/service.dart';
 import '../../../shared/themes/themes.dart';
@@ -34,7 +36,7 @@ class _CalendarPageState extends State<CalendarPage> {
   void initState() {
     final cubit = context.read<CalendarCubit>();
     dateController.text =
-        '${DateFormat.yMd().format(cubit.state.startDate)} - ${DateFormat.yMd().format(cubit.state.endDate)}';
+        '${DateFormat.yMd().format(cubit.state.startDate).normalizeDate()} - ${DateFormat.yMd().format(cubit.state.endDate).normalizeDate()}';
     cubit.onInit();
     super.initState();
   }
@@ -134,7 +136,7 @@ class _Build extends StatelessWidget {
         _TopSearch(dateKey: dateKey, dateController: dateController),
         ServiceList(
           title:
-              '${DateFormat.yMd().format(state.startDate)} - ${DateFormat.yMd().format(state.endDate)}',
+              '${DateFormat.yMd().format(state.startDate).normalizeDate()} - ${DateFormat.yMd().format(state.endDate).normalizeDate()}',
           services: state.services,
           totalValue: state.totalValue,
           totalWithDiscount: state.totalWithDiscount,
@@ -160,14 +162,14 @@ class _NoData extends StatelessWidget {
       children: [
         _TopSearch(dateKey: dateKey, dateController: dateController),
         Text(
-          'Não há serviços prestados no período selecionado.',
+          AppLocalizations.current.noServicesInPeriod,
           style: context.titleMedium,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 25),
         CustomElevatedButton(
           onTap: () => Navigator.pushNamed(context, AppRoutes.addServices),
-          text: 'Adicionar novo serviço',
+          text: AppLocalizations.current.addNewService,
         ),
       ],
     );
@@ -190,7 +192,7 @@ class _TopSearch extends StatelessWidget {
     Future<void> onChangeFastSearch(FastSearch fastSearch) async {
       await cubit.onChageSelectedFastSearch(fastSearch);
       dateController.text =
-          '${DateFormat.yMd().format(cubit.state.startDate)} - ${DateFormat.yMd().format(cubit.state.endDate)}';
+          '${DateFormat.yMd().format(cubit.state.startDate).normalizeDate()} - ${DateFormat.yMd().format(cubit.state.endDate).normalizeDate()}';
     }
 
     return Column(
@@ -207,7 +209,7 @@ class _TopSearch extends StatelessWidget {
                 onChange: (range) {
                   cubit.onChangeDate(range.start, range.end);
                   dateController.text =
-                      '${DateFormat.yMd().format(range.start)} - ${DateFormat.yMd().format(range.end)}';
+                      '${DateFormat.yMd().format(range.start).normalizeDate()} - ${DateFormat.yMd().format(range.end).normalizeDate()}';
                 },
               ),
             ),
@@ -231,23 +233,23 @@ class _TopSearch extends StatelessWidget {
           children: [
             SelectableTag(
               onTap: () => onChangeFastSearch(FastSearch.today),
-              text: 'Hoje',
+              text: AppLocalizations.current.today,
               isSelected: cubit.state.selectedFastSearch == FastSearch.today,
             ),
             SelectableTag(
               onTap: () => onChangeFastSearch(FastSearch.week),
-              text: 'Semana',
+              text: AppLocalizations.current.week,
               isSelected: cubit.state.selectedFastSearch == FastSearch.week,
             ),
             SelectableTag(
               onTap: () => onChangeFastSearch(FastSearch.fortnight),
-              text: 'Quinzena',
+              text: AppLocalizations.current.fortnight,
               isSelected:
                   cubit.state.selectedFastSearch == FastSearch.fortnight,
             ),
             SelectableTag(
               onTap: () => onChangeFastSearch(FastSearch.month),
-              text: 'Mês',
+              text: AppLocalizations.current.month,
               isSelected: cubit.state.selectedFastSearch == FastSearch.month,
             ),
           ],

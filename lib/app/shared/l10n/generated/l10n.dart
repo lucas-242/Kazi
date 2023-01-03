@@ -230,6 +230,86 @@ class AppLocalizations {
     );
   }
 
+  /// `Today`
+  String get today {
+    return Intl.message(
+      'Today',
+      name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Week`
+  String get week {
+    return Intl.message(
+      'Week',
+      name: 'week',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fortnight`
+  String get fortnight {
+    return Intl.message(
+      'Fortnight',
+      name: 'fortnight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month`
+  String get month {
+    return Intl.message(
+      'Month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select the service type`
+  String get selectServiceType {
+    return Intl.message(
+      'Select the service type',
+      name: 'selectServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new service`
+  String get addNewService {
+    return Intl.message(
+      'Add new service',
+      name: 'addNewService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No services in the selected period.`
+  String get noServicesInPeriod {
+    return Intl.message(
+      'No services in the selected period.',
+      name: 'noServicesInPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No services on`
+  String get noServicesOnDay {
+    return Intl.message(
+      'No services on',
+      name: 'noServicesOnDay',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Name`
   String get name {
     return Intl.message(
@@ -240,11 +320,11 @@ class AppLocalizations {
     );
   }
 
-  /// `Type`
-  String get type {
+  /// `Service type`
+  String get serviceType {
     return Intl.message(
-      'Type',
-      name: 'type',
+      'Service type',
+      name: 'serviceType',
       desc: '',
       args: [],
     );
@@ -255,6 +335,36 @@ class AppLocalizations {
     return Intl.message(
       'Quantity',
       name: 'quantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discount percentage`
+  String get discountPercentage {
+    return Intl.message(
+      'Discount percentage',
+      name: 'discountPercentage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total value`
+  String get total {
+    return Intl.message(
+      'Total value',
+      name: 'total',
       desc: '',
       args: [],
     );

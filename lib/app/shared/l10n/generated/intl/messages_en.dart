@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add": MessageLookupByLibrary.simpleMessage("Add"),
+        "addNewService":
+            MessageLookupByLibrary.simpleMessage("Add new service"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
@@ -33,6 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "discountPercentage":
+            MessageLookupByLibrary.simpleMessage("Discount percentage"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "Email is invalid or badly formatted"),
         "emailWasNotFound": MessageLookupByLibrary.simpleMessage(
@@ -55,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to update service"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Error to update service type"),
+        "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
         "invalidName": MessageLookupByLibrary.simpleMessage("Name is invalid"),
@@ -69,12 +75,20 @@ class MessageLookup extends MessageLookupByLibrary {
             "Do you really want to logout?"),
         "methodNotAllowed": MessageLookupByLibrary.simpleMessage(
             "Method not allowed. Please try another account or contact support for help"),
+        "month": MessageLookupByLibrary.simpleMessage("Month"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
+            "No services in the selected period."),
+        "noServicesOnDay":
+            MessageLookupByLibrary.simpleMessage("No services on"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "Password is too weak. Please, try a different one"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "selectServiceType":
+            MessageLookupByLibrary.simpleMessage("Select the service type"),
+        "serviceType": MessageLookupByLibrary.simpleMessage("Service type"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(
@@ -83,7 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Action done successfully"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
             "There is already an account with this credential"),
-        "type": MessageLookupByLibrary.simpleMessage("Type"),
+        "today": MessageLookupByLibrary.simpleMessage("Today"),
+        "total": MessageLookupByLibrary.simpleMessage("Total value"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "An unknown exception occurred"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
@@ -93,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The verification code entered is invalid"),
         "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
             "The verification ID entered is invalid"),
+        "week": MessageLookupByLibrary.simpleMessage("Week"),
         "wouldYouLikeDelete":
             MessageLookupByLibrary.simpleMessage("Would you like to delete")
       };

@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add": MessageLookupByLibrary.simpleMessage("Adicionar"),
+        "addNewService":
+            MessageLookupByLibrary.simpleMessage("Adicionar novo serviço"),
         "all": MessageLookupByLibrary.simpleMessage("Todos"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
@@ -33,6 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "darkMode": MessageLookupByLibrary.simpleMessage("Modo escuro"),
         "date": MessageLookupByLibrary.simpleMessage("Data"),
         "delete": MessageLookupByLibrary.simpleMessage("Deletar"),
+        "description": MessageLookupByLibrary.simpleMessage("Descrição"),
+        "discountPercentage":
+            MessageLookupByLibrary.simpleMessage("Porcentagem do desconto"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "O email é inválido ou mal formatado"),
         "emailWasNotFound": MessageLookupByLibrary.simpleMessage(
@@ -55,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Erro ao efetuar a edição do serviço"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Erro ao efetuar a edição do tipo de serviço"),
+        "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Senha ou email incorretos"),
         "invalidName": MessageLookupByLibrary.simpleMessage("Nome inválido"),
@@ -69,19 +75,28 @@ class MessageLookup extends MessageLookupByLibrary {
             "Você realmente gostaria de sair?"),
         "methodNotAllowed": MessageLookupByLibrary.simpleMessage(
             "Método não permitido. Tente outra conta ou entre em contato com o suporte para obter ajuda."),
+        "month": MessageLookupByLibrary.simpleMessage("Mês"),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
+        "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
+            "Não há serviços prestados no período selecionado."),
+        "noServicesOnDay":
+            MessageLookupByLibrary.simpleMessage("No services on "),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "A senha é muito fraca, por favor, tente outra senha"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
+        "selectServiceType":
+            MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
+        "serviceType": MessageLookupByLibrary.simpleMessage("Tipo de serviço"),
         "signIn": MessageLookupByLibrary.simpleMessage("Entrar"),
         "signUp": MessageLookupByLibrary.simpleMessage("Cadastrar"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(
             "Cadastro efetuado com sucesso"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
             "Já existe uma conta com estas credenciais"),
-        "type": MessageLookupByLibrary.simpleMessage("Tipo"),
+        "today": MessageLookupByLibrary.simpleMessage("Hoje"),
+        "total": MessageLookupByLibrary.simpleMessage("Valor total"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro desconhecido"),
         "update": MessageLookupByLibrary.simpleMessage("Atualizar"),
@@ -89,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Este usuário foi desabilitado. Entre em contato com o suporte para obter ajuda"),
         "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
             "O Id de verificação inserido é inválido"),
+        "week": MessageLookupByLibrary.simpleMessage("Semana"),
         "wouldYouLikeDelete":
             MessageLookupByLibrary.simpleMessage("Gostaria de deletar")
       };
