@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/service.dart';
+import '../../utils/number_format_helper.dart';
 import '../custom_slidable/custom_slidable.dart';
 
 class ServiceCard extends StatelessWidget {
@@ -30,8 +31,8 @@ class ServiceCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('${service.type?.name}'),
-            Text(NumberFormat.currency(symbol: 'R\$')
-                .format(service.valueWithDiscount)),
+            Text(NumberFormatHelper.formatCurrency(
+                context, service.valueWithDiscount)),
           ],
         ),
         subtitle: (service.description != null && service.description != '') ||

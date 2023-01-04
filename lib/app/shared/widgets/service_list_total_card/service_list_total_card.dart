@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../themes/themes.dart';
+import '../../utils/number_format_helper.dart';
 
 class ServiceListTotalCard extends StatelessWidget {
   final IconData icon;
@@ -16,8 +16,10 @@ class ServiceListTotalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(NumberFormat.currency(symbol: 'R\$').format(value),
-            style: context.bodyLarge),
+        Text(
+          NumberFormatHelper.formatCurrency(context, value),
+          style: context.bodyLarge,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

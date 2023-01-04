@@ -27,13 +27,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Adicionar"),
         "addNewService":
             MessageLookupByLibrary.simpleMessage("Adicionar novo serviço"),
+        "addNewServiceType": MessageLookupByLibrary.simpleMessage(
+            "Adicionar novo tipo de serviço"),
         "all": MessageLookupByLibrary.simpleMessage("Todos"),
+        "appSubtitle":
+            MessageLookupByLibrary.simpleMessage("Organize seus serviços"),
+        "calendar": MessageLookupByLibrary.simpleMessage("Calendário"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
         "credentialIsInvalid":
             MessageLookupByLibrary.simpleMessage("A credencial é inválida"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Modo escuro"),
         "date": MessageLookupByLibrary.simpleMessage("Data"),
+        "defaultValue": MessageLookupByLibrary.simpleMessage("Valor padrão"),
         "delete": MessageLookupByLibrary.simpleMessage("Deletar"),
         "description": MessageLookupByLibrary.simpleMessage("Descrição"),
         "discountPercentage":
@@ -61,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Erro ao efetuar a edição do tipo de serviço"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Senha ou email incorretos"),
         "invalidName": MessageLookupByLibrary.simpleMessage("Nome inválido"),
@@ -77,10 +84,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Método não permitido. Tente outra conta ou entre em contato com o suporte para obter ajuda."),
         "month": MessageLookupByLibrary.simpleMessage("Mês"),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
+        "noServiceTypes": MessageLookupByLibrary.simpleMessage(
+            "Não há tipos de serviço cadastrado"),
         "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
             "Não há serviços prestados no período selecionado."),
         "noServicesOnDay":
-            MessageLookupByLibrary.simpleMessage("No services on "),
+            MessageLookupByLibrary.simpleMessage("Não há serviços no dia"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "A senha é muito fraca, por favor, tente outra senha"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
@@ -88,7 +97,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
+        "service": MessageLookupByLibrary.simpleMessage("serviço"),
         "serviceType": MessageLookupByLibrary.simpleMessage("Tipo de serviço"),
+        "serviceTypes":
+            MessageLookupByLibrary.simpleMessage("Tipos de serviço"),
+        "services": MessageLookupByLibrary.simpleMessage("serviços"),
+        "settings": MessageLookupByLibrary.simpleMessage("Configurações"),
         "signIn": MessageLookupByLibrary.simpleMessage("Entrar"),
         "signUp": MessageLookupByLibrary.simpleMessage("Cadastrar"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(

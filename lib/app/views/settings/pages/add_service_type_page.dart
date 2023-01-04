@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../../../shared/themes/themes.dart';
 import '../../../shared/utils/base_state.dart';
 import '../settings.dart';
@@ -40,14 +41,15 @@ class _AddServiceTypePageState extends State<AddServiceTypePage> {
               },
               child: BlocBuilder<SettingsCubit, SettingsState>(
                 builder: (context, state) {
-                  final label =
-                      state.serviceType.id != '' ? 'Editar' : 'Adicionar';
+                  final label = state.serviceType.id != ''
+                      ? AppLocalizations.current.update
+                      : AppLocalizations.current.add;
                   return Padding(
                     padding: const EdgeInsets.only(top: 25),
                     child: Column(
                       children: [
                         Text(
-                          '$label tipo de serviço',
+                          '$label ${AppLocalizations.current.serviceType.toLowerCase()}',
                           style: context.headlineSmall,
                         ),
                         const SizedBox(height: 25),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../../../app_cubit.dart';
 import '../../../models/service.dart';
 import '../../../shared/themes/themes.dart';
@@ -29,11 +30,14 @@ class _AddServicesPageState extends State<AddServicesPage> {
   @override
   Widget build(BuildContext context) {
     final label = context.read<AddServicesCubit>().state.service.id != ''
-        ? 'Editar'
-        : 'Adicionar';
+        ? AppLocalizations.current.update
+        : AppLocalizations.current.add;
     return Scaffold(
       appBar: AppBar(
-        title: Text('$label tipo de serviço', style: context.titleLarge),
+        title: Text(
+          '$label ${AppLocalizations.current.service.toLowerCase()}',
+          style: context.titleLarge,
+        ),
         centerTitle: true,
         leading: const BackButton(),
       ),
@@ -80,7 +84,9 @@ class _Build extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final label = service.id != '' ? 'Editar' : 'Adicionar';
+    final label = service.id != ''
+        ? AppLocalizations.current.update
+        : AppLocalizations.current.add;
 
     void onConfirm() {
       if (service.id.isEmpty) {
@@ -112,7 +118,7 @@ class _NoData extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Não há tipos de serviço cadastrado',
+          AppLocalizations.current.noServiceTypes,
           style: context.titleMedium,
           textAlign: TextAlign.center,
         ),
@@ -122,7 +128,7 @@ class _NoData extends StatelessWidget {
             Navigator.of(context).pop();
             context.read<AppCubit>().changePage(2);
           },
-          text: 'Adicionar novo tipo de serviço',
+          text: AppLocalizations.current.addNewServiceType,
         ),
       ],
     );

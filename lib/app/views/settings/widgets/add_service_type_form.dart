@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../settings.dart';
 
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
@@ -59,7 +60,7 @@ class _NameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Nome';
+    final label = AppLocalizations.current.name;
     final cubit = context.read<SettingsCubit>();
 
     return CustomTextFormField(
@@ -79,7 +80,7 @@ class _DefaultValueField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Valor padrão';
+    final label = AppLocalizations.current.defaultValue;
     final cubit = context.read<SettingsCubit>();
 
     return CustomTextFormField(
@@ -100,7 +101,7 @@ class _DiscountPercentField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Porcentagem do desconto';
+    final label = AppLocalizations.current.discountPercentage;
     final cubit = context.read<SettingsCubit>();
 
     return CustomTextFormField(

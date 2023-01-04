@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 
 import '../../../../injector_container.dart';
 import '../../../services/auth_service/auth_service.dart';
@@ -51,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: context.height * 0.07),
                   Text(
-                    'Organize seus serviços',
+                    AppLocalizations.current.appSubtitle,
                     textAlign: TextAlign.center,
                     style: context.headlineSmall,
                   ),

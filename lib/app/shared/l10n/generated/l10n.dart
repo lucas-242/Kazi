@@ -70,6 +70,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Organize your services`
+  String get appSubtitle {
+    return Intl.message(
+      'Organize your services',
+      name: 'appSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calendar`
+  String get calendar {
+    return Intl.message(
+      'Calendar',
+      name: 'calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Cancel`
   String get cancel {
     return Intl.message(
@@ -110,11 +130,41 @@ class AppLocalizations {
     );
   }
 
+  /// `Default Value`
+  String get defaultValue {
+    return Intl.message(
+      'Default Value',
+      name: 'defaultValue',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Delete`
   String get delete {
     return Intl.message(
       'Delete',
       name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
       desc: '',
       args: [],
     );
@@ -150,6 +200,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save`
   String get save {
     return Intl.message(
@@ -165,6 +225,16 @@ class AppLocalizations {
     return Intl.message(
       'Search',
       name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
       desc: '',
       args: [],
     );
@@ -270,21 +340,31 @@ class AppLocalizations {
     );
   }
 
-  /// `Select the service type`
-  String get selectServiceType {
-    return Intl.message(
-      'Select the service type',
-      name: 'selectServiceType',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Add new service`
   String get addNewService {
     return Intl.message(
       'Add new service',
       name: 'addNewService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new service type`
+  String get addNewServiceType {
+    return Intl.message(
+      'Add new service type',
+      name: 'addNewServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discount percentage`
+  String get discountPercentage {
+    return Intl.message(
+      'Discount percentage',
+      name: 'discountPercentage',
       desc: '',
       args: [],
     );
@@ -310,21 +390,21 @@ class AppLocalizations {
     );
   }
 
-  /// `Name`
-  String get name {
+  /// `No services types registered`
+  String get noServiceTypes {
     return Intl.message(
-      'Name',
-      name: 'name',
+      'No services types registered',
+      name: 'noServiceTypes',
       desc: '',
       args: [],
     );
   }
 
-  /// `Service type`
-  String get serviceType {
+  /// `Select the service type`
+  String get selectServiceType {
     return Intl.message(
-      'Service type',
-      name: 'serviceType',
+      'Select the service type',
+      name: 'selectServiceType',
       desc: '',
       args: [],
     );
@@ -340,21 +420,41 @@ class AppLocalizations {
     );
   }
 
-  /// `Discount percentage`
-  String get discountPercentage {
+  /// `service`
+  String get service {
     return Intl.message(
-      'Discount percentage',
-      name: 'discountPercentage',
+      'service',
+      name: 'service',
       desc: '',
       args: [],
     );
   }
 
-  /// `Description`
-  String get description {
+  /// `services`
+  String get services {
     return Intl.message(
-      'Description',
-      name: 'description',
+      'services',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service type`
+  String get serviceType {
+    return Intl.message(
+      'Service type',
+      name: 'serviceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service types`
+  String get serviceTypes {
+    return Intl.message(
+      'Service types',
+      name: 'serviceTypes',
       desc: '',
       args: [],
     );

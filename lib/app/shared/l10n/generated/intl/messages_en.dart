@@ -27,13 +27,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "addNewService":
             MessageLookupByLibrary.simpleMessage("Add new service"),
+        "addNewServiceType":
+            MessageLookupByLibrary.simpleMessage("Add new service type"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
+        "appSubtitle":
+            MessageLookupByLibrary.simpleMessage("Organize your services"),
+        "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "credentialIsInvalid":
             MessageLookupByLibrary.simpleMessage("The credential is invalid"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "defaultValue": MessageLookupByLibrary.simpleMessage("Default Value"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "discountPercentage":
@@ -61,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Error to update service type"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
         "invalidName": MessageLookupByLibrary.simpleMessage("Name is invalid"),
@@ -77,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Method not allowed. Please try another account or contact support for help"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "noServiceTypes": MessageLookupByLibrary.simpleMessage(
+            "No services types registered"),
         "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
             "No services in the selected period."),
         "noServicesOnDay":
@@ -88,7 +97,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Select the service type"),
+        "service": MessageLookupByLibrary.simpleMessage("service"),
         "serviceType": MessageLookupByLibrary.simpleMessage("Service type"),
+        "serviceTypes": MessageLookupByLibrary.simpleMessage("Service types"),
+        "services": MessageLookupByLibrary.simpleMessage("services"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(

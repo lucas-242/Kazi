@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../../../shared/routes/app_routes.dart';
 import '../../../shared/themes/themes.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
@@ -26,7 +27,8 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Configurações', style: context.titleLarge),
+        title:
+            Text(AppLocalizations.current.settings, style: context.titleLarge),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => context.read<SettingsCubit>().signOut(),
@@ -84,9 +86,12 @@ class _Build extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Tipos de serviços', style: context.titleMedium),
             Text(
-              '${state.serviceTypeList.length.toString()} Serviço${state.serviceTypeList.length > 1 ? "s" : ""}',
+              AppLocalizations.current.serviceTypes,
+              style: context.titleMedium,
+            ),
+            Text(
+              '${state.serviceTypeList.length.toString()} ${state.serviceTypeList.length > 1 ? AppLocalizations.current.services : AppLocalizations.current.service}',
               style: context.titleMedium,
             ),
           ],
@@ -114,7 +119,7 @@ class _Build extends StatelessWidget {
         Center(
           child: CustomElevatedButton(
             onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
-            text: 'Adicionar tipo de serviço',
+            text: AppLocalizations.current.addNewServiceType,
           ),
         ),
         const SizedBox(height: 15),
@@ -130,12 +135,12 @@ class _NoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Não há tipos de serviço cadastrados',
+        Text(AppLocalizations.current.noServiceTypes,
             style: context.headlineSmall),
         const SizedBox(height: 25),
         CustomElevatedButton(
           onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
-          text: 'Adicionar novo tipo de serviço',
+          text: AppLocalizations.current.addNewServiceType,
         ),
       ],
     );

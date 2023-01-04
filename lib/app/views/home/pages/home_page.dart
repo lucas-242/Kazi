@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home', style: context.titleLarge),
+        title: Text(AppLocalizations.current.home, style: context.titleLarge),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => context.read<HomeCubit>().signOut(),
@@ -141,19 +141,21 @@ class _NoData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          '${AppLocalizations.current.noServicesOnDay} ${DateFormat.MMMMd().format(DateTime.now())} ',
-          style: context.titleMedium,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 25),
-        CustomElevatedButton(
-          onTap: () => Navigator.pushNamed(context, AppRoutes.addServices),
-          text: AppLocalizations.current.addNewService,
-        ),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Text(
+            '${AppLocalizations.current.noServicesOnDay} ${DateFormat.MMMMd().format(DateTime.now())} ',
+            style: context.titleMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 25),
+          CustomElevatedButton(
+            onTap: () => Navigator.pushNamed(context, AppRoutes.addServices),
+            text: AppLocalizations.current.addNewService,
+          ),
+        ],
+      ),
     );
   }
 }
