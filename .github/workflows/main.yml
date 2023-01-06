@@ -94,7 +94,7 @@ jobs:
 
       - name: Start Android Release Build
         # run: flutter build appbundle
-        run: flutter build apk
+        run: flutter build apk --dart-define="APP_ENV=prod"
       
       - name: Upload Android Release
         uses: actions/upload-artifact@v3
