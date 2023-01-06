@@ -57,8 +57,9 @@ void main() {
   });
 
   group('Count Services', () {
-    final userNumberOfServices = servicesMock.length + 1;
+    final totalServicesToUser = servicesMock.length + 1;
     const typeId = 'abcde';
+    final totalServicesToUserWithTargetTypeId = 1;
 
     setUp(() async {
       for (var service in servicesMock) {
@@ -78,12 +79,12 @@ void main() {
 
     test('Should count all user services', () async {
       final response = await repository.count(serviceMock.userId);
-      expect(response, userNumberOfServices);
+      expect(response, totalServicesToUser);
     });
 
     test('Should count user services by type', () async {
       final response = await repository.count(serviceMock.userId, typeId);
-      expect(response, userNumberOfServices);
+      expect(response, totalServicesToUserWithTargetTypeId);
     });
 
     test('Should throw ExternalError with message errorToCountServices',
