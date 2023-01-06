@@ -31,36 +31,36 @@ class _AppState extends State<App> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AppCubit>(
-            create: (_) => AppCubit(locator.get<AuthService>())),
+            create: (_) => AppCubit(injector.get<AuthService>())),
         BlocProvider<SettingsCubit>(
           create: (_) => SettingsCubit(
-            locator.get<ServiceTypeRepository>(),
-            locator.get<ServicesRepository>(),
-            locator.get<AuthService>(),
+            injector.get<ServiceTypeRepository>(),
+            injector.get<ServicesRepository>(),
+            injector.get<AuthService>(),
           ),
         ),
         BlocProvider<HomeCubit>(
           create: (_) => HomeCubit(
-            locator.get<ServicesRepository>(),
-            locator.get<ServiceTypeRepository>(),
-            locator.get<AuthService>(),
+            injector.get<ServicesRepository>(),
+            injector.get<ServiceTypeRepository>(),
+            injector.get<AuthService>(),
           ),
           lazy: true,
         ),
         BlocProvider<AddServicesCubit>(
           create: (_) => AddServicesCubit(
-            locator.get<ServicesRepository>(),
-            locator.get<ServiceTypeRepository>(),
-            locator.get<AuthService>(),
+            injector.get<ServicesRepository>(),
+            injector.get<ServiceTypeRepository>(),
+            injector.get<AuthService>(),
           ),
           lazy: true,
         ),
         BlocProvider<CalendarCubit>(
           create: (_) => CalendarCubit(
-            locator.get<ServicesRepository>(),
-            locator.get<ServiceTypeRepository>(),
-            locator.get<AuthService>(),
-            locator.get<TimeService>(),
+            injector.get<ServicesRepository>(),
+            injector.get<ServiceTypeRepository>(),
+            injector.get<AuthService>(),
+            injector.get<TimeService>(),
           ),
           lazy: true,
         ),

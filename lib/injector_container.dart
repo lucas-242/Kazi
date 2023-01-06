@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
+import 'app/services/log_service/log_service.dart';
 import 'app/services/time_service/time_service.dart';
 
 import 'app/services/auth_service/auth_service.dart';
@@ -9,18 +10,19 @@ import 'app/repositories/services_repository/firebase/firebase_services_reposito
 import 'app/repositories/service_type_repository/firebase/firebase_service_type_repository.dart';
 import 'app/repositories/service_type_repository/service_type_repository.dart';
 
-final locator = GetIt.instance;
+final injector = GetIt.instance;
 
-Future<void> init() async {
-  locator.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+Future<void> initInjectorContainer() async {
+  injector.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
 
-  locator.registerSingleton<AuthService>(FirebaseAuthService());
-  locator.registerSingleton<TimeService>(LocalTimeService());
+  injector.registerSingleton<AuthService>(FirebaseAuthService());
+  injector.registerSingleton<TimeService>(LocalTimeService());
+  injector.registerSingleton<LogService>(LocalLogService());
 
-  locator.registerFactory<ServicesRepository>(
-    () => FirebaseServicesRepository(locator.get<FirebaseFirestore>()),
+  injector.registerFactory<ServicesRepository>(
+    () => FirebaseServicesRepository(injector.get<FirebaseFirestore>()),
   );
-  locator.registerFactory<ServiceTypeRepository>(
-    () => FirebaseServiceTypeRepository(locator.get<FirebaseFirestore>()),
+  injector.registerFactory<ServiceTypeRepository>(
+    () => FirebaseServiceTypeRepository(injector.get<FirebaseFirestore>()),
   );
 }
