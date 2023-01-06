@@ -93,11 +93,11 @@ class FirebaseServicesRepository extends ServicesRepository {
   @override
   Future<int> count(String userId, [String? typeId]) async {
     try {
-      final query =
+      var query =
           _firestore.collection(path).where('userId', isEqualTo: userId);
 
       if (typeId != null) {
-        query.where('typeId', isEqualTo: typeId);
+        query = query.where('typeId', isEqualTo: typeId);
       }
 
       final result = await query.count().get();
