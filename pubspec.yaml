@@ -11,7 +11,6 @@ dependencies:
   cloud_firestore: ^4.0.5
   cupertino_icons: ^1.0.2
   dropdown_search: ^5.0.3
-  dynamic_color: ^1.5.4
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -43,6 +42,6 @@ flutter_intl:
   enabled: true
   class_name: AppLocalizations
   main_locale: en
-  arb_dir: lib/shared/l10n/arb
-  output_dir: lib/shared/l10n/generated
+  arb_dir: lib/app/shared/l10n/arb
+  output_dir: lib/app/shared/l10n/generated
   use_deferred_loading: false

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_services/models/service.dart';
-import 'package:my_services/models/service_type.dart';
-import 'package:my_services/shared/errors/errors.dart';
+import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
 
 class ErrorWithMessage<T extends AppError> extends CustomMatcher {
   final String message;
