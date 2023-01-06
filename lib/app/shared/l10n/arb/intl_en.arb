@@ -44,7 +44,22 @@
   "serviceTypes": "Service types",
   "total": "Total value",
 
-  "invalidName": "Name is invalid",
+  "alreadyExists": "{property} already exists",
+  "@alreadyExists": {
+    "placeholders": {
+        "property": {
+          "type": "String"
+        }
+    }
+  },
+  "inUse": "{property} is being used",
+  "@inUse": {
+    "placeholders": {
+        "property": {
+          "type": "String"
+        }
+    }
+  },
   "invalidProperty": "{property} is invalid",
   "@invalidProperty": {
     "placeholders": {
@@ -53,7 +68,18 @@
         }
     }
   },
+  "requiredProperty": "{property} is required",
+  "@requiredProperty": {
+    "placeholders": {
+        "property": {
+          "type": "String"
+        }
+    }
+  },
 
+
+  "cantDeleteServiceType": "The service type can't be deleted because it is being used",
+  
   "unknowError": "An unknown exception occurred",
   "linkHasExpired": "The link has expired",
   "linkHasBeenUsed": "The link has already been used",

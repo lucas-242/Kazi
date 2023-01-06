@@ -470,13 +470,23 @@ class AppLocalizations {
     );
   }
 
-  /// `Name is invalid`
-  String get invalidName {
+  /// `{property} already exists`
+  String alreadyExists(String property) {
     return Intl.message(
-      'Name is invalid',
-      name: 'invalidName',
+      '$property already exists',
+      name: 'alreadyExists',
       desc: '',
-      args: [],
+      args: [property],
+    );
+  }
+
+  /// `{property} is being used`
+  String inUse(String property) {
+    return Intl.message(
+      '$property is being used',
+      name: 'inUse',
+      desc: '',
+      args: [property],
     );
   }
 
@@ -487,6 +497,26 @@ class AppLocalizations {
       name: 'invalidProperty',
       desc: '',
       args: [property],
+    );
+  }
+
+  /// `{property} is required`
+  String requiredProperty(String property) {
+    return Intl.message(
+      '$property is required',
+      name: 'requiredProperty',
+      desc: '',
+      args: [property],
+    );
+  }
+
+  /// `The service type can't be deleted because it is being used`
+  String get cantDeleteServiceType {
+    return Intl.message(
+      'The service type can\'t be deleted because it is being used',
+      name: 'cantDeleteServiceType',
+      desc: '',
+      args: [],
     );
   }
 

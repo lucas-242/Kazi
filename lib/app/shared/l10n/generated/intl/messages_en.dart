@@ -20,7 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(property) => "${property} is invalid";
+  static String m0(property) => "${property} already exists";
+
+  static String m1(property) => "${property} is being used";
+
+  static String m2(property) => "${property} is invalid";
+
+  static String m3(property) => "${property} is required";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -30,10 +36,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "addNewServiceType":
             MessageLookupByLibrary.simpleMessage("Add new service type"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
+        "alreadyExists": m0,
         "appSubtitle":
             MessageLookupByLibrary.simpleMessage("Organize your services"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
+            "The service type can\'t be deleted because it is being used"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "credentialIsInvalid":
             MessageLookupByLibrary.simpleMessage("The credential is invalid"),
@@ -68,10 +77,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error to update service type"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "inUse": m1,
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
-        "invalidName": MessageLookupByLibrary.simpleMessage("Name is invalid"),
-        "invalidProperty": m0,
+        "invalidProperty": m2,
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "linkHasBeenUsed": MessageLookupByLibrary.simpleMessage(
             "The link has already been used"),
@@ -93,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "Password is too weak. Please, try a different one"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
+        "requiredProperty": m3,
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "selectServiceType":

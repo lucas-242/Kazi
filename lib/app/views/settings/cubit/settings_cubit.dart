@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../../../shared/l10n/generated/l10n.dart';
 import '../../../shared/utils/base_cubit.dart';
 import '../../../shared/utils/form_validator.dart';
 
@@ -142,13 +143,17 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
 
   void _checkServiceValidity() {
     if (state.serviceType.name.isEmpty) {
-      throw ClientError('O tipo de serviço não pode ser vazio',
+      throw ClientError(
+          AppLocalizations.current
+              .requiredProperty(AppLocalizations.current.serviceType),
           trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
     }
     if (state.serviceTypeList
         .map((e) => e.name)
         .contains(state.serviceType.name)) {
-      throw ClientError('O tipo de serviço já existe',
+      throw ClientError(
+          AppLocalizations.current
+              .alreadyExists(AppLocalizations.current.serviceType),
           trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
     }
   }
@@ -158,7 +163,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     final count = await _serviceRepository.count(userId, typeId);
     if (count > 0) {
       throw ClientError(
-        'O tipo de serviço não pode ser deletado pois está em uso',
+        AppLocalizations.current.cantDeleteServiceType,
         trace: 'Triggered by _checkServiceTypeIsInUse on SettingsCubit.',
       );
     }

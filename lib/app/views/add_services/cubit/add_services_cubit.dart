@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../../../shared/utils/base_cubit.dart';
 import '../../../shared/utils/form_validator.dart';
 
@@ -136,7 +137,8 @@ class AddServicesCubit extends Cubit<AddServicesState>
   void _checkServiceValidity() {
     if (state.service.typeId.isEmpty) {
       throw ClientError(
-        'O tipo de serviço precisa ser preenchido',
+        AppLocalizations.current
+            .requiredProperty(AppLocalizations.current.serviceType),
         trace: 'Triggered by _checkServiceValidity on AddServicesCubit.',
       );
     }

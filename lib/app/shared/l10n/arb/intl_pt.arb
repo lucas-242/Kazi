@@ -44,8 +44,12 @@
   "quantity": "Quantidade",
   "total": "Valor total",
   
-  "invalidName": "Nome inválido",
+  "alreadyExists": "{property} já existe",
+  "inUse": "{property} está em uso",
   "invalidProperty": "{property} inválido",
+  "requiredProperty": "{property} precisa ser preenchido",
+  
+  "cantDeleteServiceType": "O tipo de serviço não pode ser deletado pois está em uso",
 
   "unknowError": "Ocorreu um erro desconhecido",
   "linkHasExpired": "O link expirou",
