@@ -36,9 +36,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   void onInit() async {
     try {
       final range = _getRangeDateByFastSearch(state.selectedFastSearch);
-      final result =
-          await _fetchServices(range['startDate']!, range['endDate']!);
-      _handleFetchServices(result);
+      final result = await _getServices(range['startDate']!, range['endDate']!);
+      _handleGetServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -74,21 +73,21 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
         break;
     }
     return {
-      'startDate': startDate.copyWith(hour: 0, minute: 0, second: 0),
-      'endDate': endDate.copyWith(hour: 23, minute: 59, second: 59),
+      'startDate': startDate.firstHourOfDay,
+      'endDate': endDate.lastHourOfDay,
     };
   }
 
-  Future<List<Service>> _fetchServices(
+  Future<List<Service>> _getServices(
       DateTime startDate, DateTime endDate) async {
     final result = await _serviceProvidedRepository.get(
         _authService.user!.uid, startDate, endDate);
     return result;
   }
 
-  Future<void> _handleFetchServices(List<Service> fetchResult) async {
+  Future<void> _handleGetServices(List<Service> fetchResult) async {
     try {
-      final types = await _fetchServiceTypes();
+      final types = await _getServiceTypes();
       var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
       services = ServiceHelper.orderServices(services, state.selectedOrderBy);
 
@@ -103,7 +102,7 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     }
   }
 
-  Future<List<ServiceType>> _fetchServiceTypes() async {
+  Future<List<ServiceType>> _getServiceTypes() async {
     final result = await _serviceTypeRepository.get(_authService.user!.uid);
     return result;
   }
@@ -113,8 +112,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
       emit(state.copyWith(status: BaseStateStatus.loading));
       final range = _getRangeDateByFastSearch(state.selectedFastSearch);
       final fetchResult =
-          await _fetchServices(range['startDate']!, range['endDate']!);
-      _handleFetchServices(fetchResult);
+          await _getServices(range['startDate']!, range['endDate']!);
+      _handleGetServices(fetchResult);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -126,7 +125,7 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(service.id);
-      final newList = await _fetchServices(state.startDate, state.endDate);
+      final newList = await _getServices(state.startDate, state.endDate);
       final newStatus =
           newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
@@ -146,8 +145,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
         endDate: endDate,
         selectedFastSearch: FastSearch.custom,
       ));
-      final fetchResult = await _fetchServices(startDate, endDate);
-      _handleFetchServices(fetchResult);
+      final fetchResult = await _getServices(startDate, endDate);
+      _handleGetServices(fetchResult);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -168,8 +167,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
         endDate: range['endDate']!,
       ));
       final fetchResult =
-          await _fetchServices(range['startDate']!, range['endDate']!);
-      _handleFetchServices(fetchResult);
+          await _getServices(range['startDate']!, range['endDate']!);
+      _handleGetServices(fetchResult);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -185,8 +184,8 @@ class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
   Future<void> onChangeServices() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result = await _fetchServices(state.startDate, state.endDate);
-      _handleFetchServices(result);
+      final result = await _getServices(state.startDate, state.endDate);
+      _handleGetServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
