@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 
 import '../../../models/service.dart';
 import '../../utils/number_format_helper.dart';
@@ -44,7 +45,8 @@ class ServiceCard extends StatelessWidget {
                       ? Text('${service.description}')
                       : Container(),
                   showDate
-                      ? Text(DateFormat.yMd().format(service.date))
+                      ? Text(
+                          DateFormat.yMd().format(service.date).normalizeDate())
                       : Container(),
                 ],
               )
