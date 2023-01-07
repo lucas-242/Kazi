@@ -44,7 +44,8 @@ class _AddServicesFormState extends State<AddServicesForm> {
     valueController.text = cubit.state.service.value.toString();
     discountController.text = cubit.state.service.discountPercent.toString();
     quantityController.text = cubit.state.quantity.toString();
-    dateController.text = DateFormat.yMd().format(cubit.state.service.date);
+    dateController.text =
+        DateFormat.yMd().format(cubit.state.service.date).normalizeDate();
     super.initState();
   }
 
@@ -196,7 +197,6 @@ class _DateField extends StatelessWidget {
       label: label,
       fieldKey: fieldKey,
       controller: controller,
-      initialDate: cubit.state.service.date,
       onChange: (date) {
         cubit.onChangeServiceDate(date);
         controller.text = DateFormat.yMd().format(date).normalizeDate();
