@@ -91,7 +91,7 @@ class _Build extends StatelessWidget {
               style: context.titleMedium,
             ),
             Text(
-              '${state.serviceTypeList.length.toString()} ${state.serviceTypeList.length > 1 ? AppLocalizations.current.services : AppLocalizations.current.service}',
+              '${state.serviceTypes.length.toString()} ${state.serviceTypes.length > 1 ? AppLocalizations.current.services : AppLocalizations.current.service}',
               style: context.titleMedium,
             ),
           ],
@@ -102,9 +102,9 @@ class _Build extends StatelessWidget {
           child: ListView.separated(
             shrinkWrap: true,
             physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: state.serviceTypeList.length,
+            itemCount: state.serviceTypes.length,
             itemBuilder: (context, index) => ServiceTypeCard(
-              serviceType: state.serviceTypeList[index],
+              serviceType: state.serviceTypes[index],
               onTapEdit: (serviceType) {
                 context.read<SettingsCubit>().changeServiceType(serviceType);
                 Navigator.pushNamed(context, AppRoutes.addServiceType);

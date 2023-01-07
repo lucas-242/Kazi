@@ -69,8 +69,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _serviceTypeRepository.add(state.serviceType);
-      final newList = List<ServiceType>.from(state.serviceTypeList)
-        ..add(result);
+      final newList = List<ServiceType>.from(state.serviceTypes)..add(result);
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypes: newList,
@@ -150,7 +149,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
               .requiredProperty(AppLocalizations.current.serviceType),
           trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
     }
-    if (state.serviceTypeList
+    if (state.serviceTypes
         .map((e) => e.name)
         .contains(state.serviceType.name)) {
       throw ClientError(

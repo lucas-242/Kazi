@@ -1,7 +1,7 @@
 part of 'settings_cubit.dart';
 
 class SettingsState extends BaseState with EquatableMixin {
-  List<ServiceType> serviceTypeList;
+  List<ServiceType> serviceTypes;
   ServiceType serviceType;
   String userId;
 
@@ -12,7 +12,7 @@ class SettingsState extends BaseState with EquatableMixin {
       required super.status,
       super.callbackMessage})
       : serviceType = serviceType ?? ServiceType(userId: userId),
-        serviceTypeList = serviceTypeList ?? [];
+        serviceTypes = serviceTypeList ?? [];
 
   @override
   SettingsState copyWith({
@@ -24,7 +24,7 @@ class SettingsState extends BaseState with EquatableMixin {
     return SettingsState(
       status: status ?? this.status,
       serviceType: serviceType ?? this.serviceType,
-      serviceTypeList: serviceTypes ?? this.serviceTypeList,
+      serviceTypeList: serviceTypes ?? this.serviceTypes,
       callbackMessage: callbackMessage ?? this.callbackMessage,
       userId: userId,
     );
@@ -32,5 +32,5 @@ class SettingsState extends BaseState with EquatableMixin {
 
   @override
   List<Object?> get props =>
-      [serviceTypeList, serviceType, userId, status, callbackMessage];
+      [serviceTypes, serviceType, userId, status, callbackMessage];
 }
