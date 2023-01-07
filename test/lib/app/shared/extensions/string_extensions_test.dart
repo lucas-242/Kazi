@@ -43,4 +43,11 @@ void main() {
 
     expect(result, equals('Test'));
   });
+
+  test('Should capitalize a letter', () {
+    const string = 'a';
+    final result = string.capitalize();
+
+    expect(result, equals('A'));
+  });
 }
