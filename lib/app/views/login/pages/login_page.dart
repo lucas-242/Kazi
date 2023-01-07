@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   void _login() {
-    locator<AuthService>().signInWithGoogle().then((value) {
+    injector<AuthService>().signInWithGoogle().then((value) {
       if (value) Navigator.of(context).pushReplacementNamed(AppRoutes.app);
     }).catchError((error) {
       getCustomSnackBar(context, message: error.message);

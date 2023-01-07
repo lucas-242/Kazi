@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _listenUser() {
-    final auth = locator<AuthService>();
+    final auth = injector<AuthService>();
     userStream = auth.userChanges().listen((user) {
       if (user != null) {
         auth.user = user;

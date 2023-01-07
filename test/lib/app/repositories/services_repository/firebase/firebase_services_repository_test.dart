@@ -59,7 +59,7 @@ void main() {
   group('Count Services', () {
     final totalServicesToUser = servicesMock.length + 1;
     const typeId = 'abcde';
-    final totalServicesToUserWithTargetTypeId = 1;
+    const totalServicesToUserWithTargetTypeId = 1;
 
     setUp(() async {
       for (var service in servicesMock) {
