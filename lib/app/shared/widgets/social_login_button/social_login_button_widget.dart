@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../l10n/generated/l10n.dart';
 import '../../themes/themes.dart';
 
 class SocialLoginButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class SocialLoginButton extends StatelessWidget {
       child: Container(
         height: context.height * 0.075,
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: context.colorsScheme.primaryContainer,
           borderRadius: BorderRadius.circular(5),
           border: Border.fromBorderSide(BorderSide(color: Colors.grey[50]!)),
         ),
@@ -23,7 +24,7 @@ class SocialLoginButton extends StatelessWidget {
             const FaIcon(FontAwesomeIcons.google),
             const SizedBox(width: 12),
             Text(
-              'Login com Google',
+              AppLocalizations.current.googleSignIn,
               style: context.bodyLarge,
             ),
           ],

@@ -15,6 +15,10 @@ class AddServiceTypePage extends StatefulWidget {
 class _AddServiceTypePageState extends State<AddServiceTypePage> {
   @override
   Widget build(BuildContext context) {
+    final label = context.read<SettingsCubit>().state.serviceType.id != ''
+        ? AppLocalizations.current.update
+        : AppLocalizations.current.add;
+
     void onConfirm(SettingsState state) {
       if (state.serviceType.id.isEmpty) {
         context.read<SettingsCubit>().addServiceType();
@@ -29,6 +33,14 @@ class _AddServiceTypePageState extends State<AddServiceTypePage> {
         return true;
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '$label ${AppLocalizations.current.serviceType.toLowerCase()}',
+            style: context.titleLarge,
+          ),
+          centerTitle: true,
+          leading: const BackButton(),
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: BlocListener<SettingsCubit, SettingsState>(
@@ -41,23 +53,10 @@ class _AddServiceTypePageState extends State<AddServiceTypePage> {
               },
               child: BlocBuilder<SettingsCubit, SettingsState>(
                 builder: (context, state) {
-                  final label = state.serviceType.id != ''
-                      ? AppLocalizations.current.update
-                      : AppLocalizations.current.add;
                   return Padding(
                     padding: const EdgeInsets.only(top: 25),
-                    child: Column(
-                      children: [
-                        Text(
-                          '$label ${AppLocalizations.current.serviceType.toLowerCase()}',
-                          style: context.headlineSmall,
-                        ),
-                        const SizedBox(height: 25),
-                        AddServiceTypeForm(
-                            labelButton: label,
-                            onConfirm: () => onConfirm(state)),
-                      ],
-                    ),
+                    child: AddServiceTypeForm(
+                        labelButton: label, onConfirm: () => onConfirm(state)),
                   );
                 },
               ),

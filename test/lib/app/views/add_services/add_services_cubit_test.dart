@@ -48,7 +48,7 @@ void main() {
         AddServicesState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
-          status: BaseStateStatus.success,
+          status: BaseStateStatus.readyToUserInput,
         )
       ],
     );

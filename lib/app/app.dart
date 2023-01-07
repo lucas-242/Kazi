@@ -45,7 +45,6 @@ class _AppState extends State<App> {
             injector.get<ServiceTypeRepository>(),
             injector.get<AuthService>(),
           ),
-          lazy: true,
         ),
         BlocProvider<AddServicesCubit>(
           create: (_) => AddServicesCubit(
@@ -53,7 +52,6 @@ class _AppState extends State<App> {
             injector.get<ServiceTypeRepository>(),
             injector.get<AuthService>(),
           ),
-          lazy: true,
         ),
         BlocProvider<CalendarCubit>(
           create: (_) => CalendarCubit(
@@ -62,7 +60,6 @@ class _AppState extends State<App> {
             injector.get<AuthService>(),
             injector.get<TimeService>(),
           ),
-          lazy: true,
         ),
       ],
       child: ThemeService(

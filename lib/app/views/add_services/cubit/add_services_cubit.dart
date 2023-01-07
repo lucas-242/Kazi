@@ -30,10 +30,11 @@ class AddServicesCubit extends Cubit<AddServicesState>
 
   Future<void> onInit() async {
     try {
-      final types = await _fetchServiceTypes();
+      final types = await _getServiceTypes();
 
-      final status =
-          types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+      final status = types.isEmpty
+          ? BaseStateStatus.noData
+          : BaseStateStatus.readyToUserInput;
 
       emit(state.copyWith(status: status, serviceTypes: types));
     } on AppError catch (exception) {
@@ -43,7 +44,7 @@ class AddServicesCubit extends Cubit<AddServicesState>
     }
   }
 
-  Future<List<ServiceType>> _fetchServiceTypes() async {
+  Future<List<ServiceType>> _getServiceTypes() async {
     final result = await _serviceTypeRepository.get(_authService.user!.uid);
     return result;
   }
@@ -61,6 +62,16 @@ class AddServicesCubit extends Cubit<AddServicesState>
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
+    }
+  }
+
+  void _checkServiceValidity() {
+    if (state.service.typeId.isEmpty) {
+      throw ClientError(
+        AppLocalizations.current
+            .requiredProperty(AppLocalizations.current.serviceType),
+        trace: 'Triggered by _checkServiceValidity on AddServicesCubit.',
+      );
     }
   }
 
@@ -132,15 +143,5 @@ class AddServicesCubit extends Cubit<AddServicesState>
 
   void onChangeServiceDate(DateTime? value) {
     emit(state.copyWith(service: state.service.copyWith(date: value)));
-  }
-
-  void _checkServiceValidity() {
-    if (state.service.typeId.isEmpty) {
-      throw ClientError(
-        AppLocalizations.current
-            .requiredProperty(AppLocalizations.current.serviceType),
-        trace: 'Triggered by _checkServiceValidity on AddServicesCubit.',
-      );
-    }
   }
 }
