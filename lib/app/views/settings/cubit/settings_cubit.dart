@@ -33,7 +33,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
 
       final status = types.isEmpty
           ? BaseStateStatus.noData
-          : BaseStateStatus.readyTouserInput;
+          : BaseStateStatus.readyToUserInput;
 
       emit(state.copyWith(status: status, serviceTypes: types));
     } on AppError catch (exception) {
@@ -54,7 +54,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       final result = await _fetchServiceTypes();
       final newStatus = result.isEmpty
           ? BaseStateStatus.noData
-          : BaseStateStatus.readyTouserInput;
+          : BaseStateStatus.readyToUserInput;
 
       emit(state.copyWith(status: newStatus, serviceTypes: result));
     } on AppError catch (exception) {

@@ -1,4 +1,4 @@
-enum BaseStateStatus { loading, error, success, noData, readyTouserInput }
+enum BaseStateStatus { loading, error, success, noData, readyToUserInput }
 
 class BaseState {
   BaseStateStatus status;

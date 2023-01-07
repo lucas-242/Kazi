@@ -34,7 +34,7 @@ class AddServicesCubit extends Cubit<AddServicesState>
 
       final status = types.isEmpty
           ? BaseStateStatus.noData
-          : BaseStateStatus.readyTouserInput;
+          : BaseStateStatus.readyToUserInput;
 
       emit(state.copyWith(status: status, serviceTypes: types));
     } on AppError catch (exception) {
@@ -51,7 +51,6 @@ class AddServicesCubit extends Cubit<AddServicesState>
 
   Future<void> addService() async {
     try {
-      emit(state.copyWith(status: BaseStateStatus.error));
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _servicesRepository.add(state.service, state.quantity);

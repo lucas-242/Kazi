@@ -50,7 +50,7 @@ void main() {
         SettingsState(
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
-          status: BaseStateStatus.success,
+          status: BaseStateStatus.readyToUserInput,
         )
       ],
     );
@@ -85,7 +85,7 @@ void main() {
         SettingsState(
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
-          status: BaseStateStatus.success,
+          status: BaseStateStatus.readyToUserInput,
         )
       ],
     );
