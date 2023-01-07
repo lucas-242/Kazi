@@ -15,20 +15,14 @@ class ServiceListTotalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Icon(icon),
         Text(
           NumberFormatHelper.formatCurrency(context, value),
           style: context.bodyLarge,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon),
-            Text(title, style: context.bodyMedium),
-            const SizedBox(width: 8),
-          ],
-        ),
+        Text(title, style: context.bodyMedium),
       ],
     );
   }

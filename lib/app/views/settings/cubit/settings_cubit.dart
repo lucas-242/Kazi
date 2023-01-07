@@ -31,10 +31,11 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     try {
       final types = await _fetchServiceTypes();
 
-      final status =
-          types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+      final status = types.isEmpty
+          ? BaseStateStatus.noData
+          : BaseStateStatus.readyTouserInput;
 
-      emit(state.copyWith(status: status, serviceTypeList: types));
+      emit(state.copyWith(status: status, serviceTypes: types));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -51,10 +52,11 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _fetchServiceTypes();
-      final newStatus =
-          result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+      final newStatus = result.isEmpty
+          ? BaseStateStatus.noData
+          : BaseStateStatus.readyTouserInput;
 
-      emit(state.copyWith(status: newStatus, serviceTypeList: result));
+      emit(state.copyWith(status: newStatus, serviceTypes: result));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -71,7 +73,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
         ..add(result);
       emit(state.copyWith(
           status: BaseStateStatus.success,
-          serviceTypeList: newList,
+          serviceTypes: newList,
           serviceType: ServiceType(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
       onAppError(exception);
@@ -89,7 +91,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
 
       emit(state.copyWith(
           status: BaseStateStatus.success,
-          serviceTypeList: newList,
+          serviceTypes: newList,
           serviceType: ServiceType(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
       onAppError(exception);
@@ -107,7 +109,7 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
 
       emit(state.copyWith(
         status: BaseStateStatus.success,
-        serviceTypeList: newList,
+        serviceTypes: newList,
       ));
     } on AppError catch (exception) {
       onAppError(exception);

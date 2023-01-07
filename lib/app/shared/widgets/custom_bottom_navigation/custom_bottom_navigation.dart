@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   final int currentPage;
@@ -36,20 +37,21 @@ class CustomBottomNavigation extends StatelessWidget {
         onTap: (index) => onTap(index),
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             activeIcon: Icon(Icons.home),
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-              activeIcon: Icon(Icons.calendar_month),
-              icon: Icon(Icons.calendar_month_outlined),
-              label: 'Serviços'),
+            activeIcon: const Icon(Icons.calendar_month),
+            icon: const Icon(Icons.calendar_month_outlined),
+            label: AppLocalizations.current.calendar,
+          ),
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.settings),
-            icon: Icon(Icons.settings_outlined),
-            label: 'Configurações',
+            activeIcon: const Icon(Icons.settings),
+            icon: const Icon(Icons.settings_outlined),
+            label: AppLocalizations.current.settings,
           ),
         ],
       ),

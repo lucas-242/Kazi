@@ -29,4 +29,18 @@ void main() {
 
     expect(result, '11/25/2023');
   });
+
+  test('Should capitalize compound word', () {
+    const string = 'Test this string';
+    final result = string.capitalize();
+
+    expect(result, equals('Test This String'));
+  });
+
+  test('Should capitalize simple word', () {
+    const string = 'test';
+    final result = string.capitalize();
+
+    expect(result, equals('Test'));
+  });
 }

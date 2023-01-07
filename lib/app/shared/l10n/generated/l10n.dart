@@ -160,6 +160,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Fortnight`
+  String get fortnight {
+    return Intl.message(
+      'Fortnight',
+      name: 'fortnight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with Google`
+  String get googleSignIn {
+    return Intl.message(
+      'Sign in with Google',
+      name: 'googleSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Home`
   String get home {
     return Intl.message(
@@ -205,6 +225,26 @@ class AppLocalizations {
     return Intl.message(
       'Name',
       name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month`
+  String get month {
+    return Intl.message(
+      'Month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order by`
+  String get orderBy {
+    return Intl.message(
+      'Order by',
+      name: 'orderBy',
       desc: '',
       args: [],
     );
@@ -280,31 +320,21 @@ class AppLocalizations {
     );
   }
 
-  /// `Update`
-  String get update {
-    return Intl.message(
-      'Update',
-      name: 'update',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Would you like to delete`
-  String get wouldYouLikeDelete {
-    return Intl.message(
-      'Would you like to delete',
-      name: 'wouldYouLikeDelete',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Today`
   String get today {
     return Intl.message(
       'Today',
       name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get update {
+    return Intl.message(
+      'Update',
+      name: 'update',
       desc: '',
       args: [],
     );
@@ -320,21 +350,71 @@ class AppLocalizations {
     );
   }
 
-  /// `Fortnight`
-  String get fortnight {
+  /// `Would you like to delete`
+  String get wouldYouLikeDelete {
     return Intl.message(
-      'Fortnight',
-      name: 'fortnight',
+      'Would you like to delete',
+      name: 'wouldYouLikeDelete',
       desc: '',
       args: [],
     );
   }
 
-  /// `Month`
-  String get month {
+  /// `Type: From A to Z`
+  String get orderTypeAsc {
     return Intl.message(
-      'Month',
-      name: 'month',
+      'Type: From A to Z',
+      name: 'orderTypeAsc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type: From Z to A`
+  String get orderTypeDesc {
+    return Intl.message(
+      'Type: From Z to A',
+      name: 'orderTypeDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date: Least current to most current`
+  String get orderDateAsc {
+    return Intl.message(
+      'Date: Least current to most current',
+      name: 'orderDateAsc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date: Most current to least current`
+  String get orderDateDesc {
+    return Intl.message(
+      'Date: Most current to least current',
+      name: 'orderDateDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value: Lowest to highest`
+  String get orderValueAsc {
+    return Intl.message(
+      'Value: Lowest to highest',
+      name: 'orderValueAsc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value: Highest to lowest`
+  String get orderValueDesc {
+    return Intl.message(
+      'Value: Highest to lowest',
+      name: 'orderValueDesc',
       desc: '',
       args: [],
     );
@@ -370,6 +450,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Discounts`
+  String get discounts {
+    return Intl.message(
+      'Discounts',
+      name: 'discounts',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No services in the selected period.`
   String get noServicesInPeriod {
     return Intl.message(
@@ -395,6 +485,16 @@ class AppLocalizations {
     return Intl.message(
       'No services types registered',
       name: 'noServiceTypes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My balance`
+  String get myBalance {
+    return Intl.message(
+      'My balance',
+      name: 'myBalance',
       desc: '',
       args: [],
     );
@@ -465,6 +565,16 @@ class AppLocalizations {
     return Intl.message(
       'Total value',
       name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total received`
+  String get totalReceived {
+    return Intl.message(
+      'Total received',
+      name: 'totalReceived',
       desc: '',
       args: [],
     );

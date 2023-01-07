@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Descrição"),
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Porcentagem do desconto"),
+        "discounts": MessageLookupByLibrary.simpleMessage("Descontos"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "O email é inválido ou mal formatado"),
         "emailWasNotFound": MessageLookupByLibrary.simpleMessage(
@@ -76,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Erro ao efetuar a edição do tipo de serviço"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
+        "googleSignIn":
+            MessageLookupByLibrary.simpleMessage("Login com Google"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inUse": m1,
         "incorrectEmailOrPassword":
@@ -92,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "methodNotAllowed": MessageLookupByLibrary.simpleMessage(
             "Método não permitido. Tente outra conta ou entre em contato com o suporte para obter ajuda."),
         "month": MessageLookupByLibrary.simpleMessage("Mês"),
+        "myBalance": MessageLookupByLibrary.simpleMessage("Meu saldo"),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Não há tipos de serviço cadastrado"),
@@ -99,6 +103,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Não há serviços prestados no período selecionado."),
         "noServicesOnDay":
             MessageLookupByLibrary.simpleMessage("Não há serviços no dia"),
+        "orderBy": MessageLookupByLibrary.simpleMessage("Ordernar por"),
+        "orderDateAsc": MessageLookupByLibrary.simpleMessage(
+            "Data: Menos atual para mais atual"),
+        "orderDateDesc": MessageLookupByLibrary.simpleMessage(
+            "Data: Mais atual para menos atual"),
+        "orderTypeAsc": MessageLookupByLibrary.simpleMessage("Tipo: De A à Z"),
+        "orderTypeDesc": MessageLookupByLibrary.simpleMessage("Tipo: De Z à A"),
+        "orderValueAsc":
+            MessageLookupByLibrary.simpleMessage("Valor: Menor para maior"),
+        "orderValueDesc":
+            MessageLookupByLibrary.simpleMessage("Valor: Maior para menor"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "A senha é muito fraca, por favor, tente outra senha"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
@@ -121,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Já existe uma conta com estas credenciais"),
         "today": MessageLookupByLibrary.simpleMessage("Hoje"),
         "total": MessageLookupByLibrary.simpleMessage("Valor total"),
+        "totalReceived": MessageLookupByLibrary.simpleMessage("Total recebido"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro desconhecido"),
         "update": MessageLookupByLibrary.simpleMessage("Atualizar"),

@@ -16,7 +16,7 @@ class SettingsState extends BaseState with EquatableMixin {
 
   @override
   SettingsState copyWith({
-    List<ServiceType>? serviceTypeList,
+    List<ServiceType>? serviceTypes,
     ServiceType? serviceType,
     BaseStateStatus? status,
     String? callbackMessage,
@@ -24,7 +24,7 @@ class SettingsState extends BaseState with EquatableMixin {
     return SettingsState(
       status: status ?? this.status,
       serviceType: serviceType ?? this.serviceType,
-      serviceTypeList: serviceTypeList ?? this.serviceTypeList,
+      serviceTypeList: serviceTypes ?? this.serviceTypeList,
       callbackMessage: callbackMessage ?? this.callbackMessage,
       userId: userId,
     );

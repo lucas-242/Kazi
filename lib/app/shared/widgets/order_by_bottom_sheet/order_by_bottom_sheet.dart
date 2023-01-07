@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../l10n/generated/l10n.dart';
 import '../../themes/themes.dart';
 
 import '../../../models/enums.dart';
 
 class OrderByBottomSheet extends StatelessWidget {
   Map<OrderBy, String> get orderOptions => {
-        OrderBy.typeAsc: 'Tipo: De A à Z',
-        OrderBy.typeDesc: 'Tipo: De Z à A',
-        OrderBy.dateDesc: 'Data: Mais atual para menos atual',
-        OrderBy.dateAsc: 'Data: Menos atual para mais atual',
-        OrderBy.valueDesc: 'Valor: Maior para menor',
-        OrderBy.valueAsc: 'Valor: Menor para maior',
+        OrderBy.typeAsc: AppLocalizations.current.orderTypeAsc,
+        OrderBy.typeDesc: AppLocalizations.current.orderTypeDesc,
+        OrderBy.dateDesc: AppLocalizations.current.orderDateDesc,
+        OrderBy.dateAsc: AppLocalizations.current.orderDateAsc,
+        OrderBy.valueDesc: AppLocalizations.current.orderValueDesc,
+        OrderBy.valueAsc: AppLocalizations.current.orderValueAsc,
       };
 
   final Function(OrderBy) onPressed;
@@ -21,7 +22,7 @@ class OrderByBottomSheet extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 15),
-        Text('Ordernar por', style: context.titleLarge),
+        Text(AppLocalizations.current.orderBy, style: context.titleLarge),
         const SizedBox(height: 15),
         ListView.builder(
           shrinkWrap: true,
