@@ -52,12 +52,33 @@
    $ flutterfire config
    ```
 
-   6. Install the dependencies:
+   6. Create a file named ad_keys.dart in lib/app/shared/constants.
+   ```
+   $ echo "abstract class AdKeys {
+   static String androidFinishAddActionKeyDev = 'ca-app-pub-3940256099942544/1033173712';
+   static String androidFinishAddActionKeyProd = '';
+   static String iosFinishAddActionKeyDev = 'ca-app-pub-3940256099942544/4411468910';
+   static String iosFinishAddActionKeyProd = '';
+
+   static String androidCalendarServiceListKeyDev = 'ca-app-pub-3940256099942544/6300978111';
+   static String androidCalendarServiceListKeyProd = '';
+   static String iosCalendarServiceListKeyDev = 'ca-app-pub-3940256099942544/2934735716';
+   static String iosCalendarServiceListKeyProd = '';
+
+   static String androidHomeServiceListKeyDev = 'ca-app-pub-3940256099942544/6300978111';
+   static String androidHomeServiceListKeyProd = '';
+   static String iosHomeServiceListKeyDev = 'ca-app-pub-3940256099942544/2934735716';
+   static String iosHomeServiceListKeyProd = '';
+   }" > lib/app/shared/constants/ad_keys.dart
+   ```
+
+   7. Install the dependencies.
    ```
    $ flutter pub get
    ```
 
-   7. Run the app: 
+   8. Run the app. 
+   Set APP_EVN to prod if you want to run on prod mode.
    ```
-   $ flutter run
+   $ flutter run --dart-define="APP_ENV=dev"
    ```

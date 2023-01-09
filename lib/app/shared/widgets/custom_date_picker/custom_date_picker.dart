@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
-import '../../constants/global_settings.dart';
+import '../../constants/global_keys.dart';
 import '../custom_text_form_field/custom_text_form_field.dart';
 
 class CustomDatePicker extends StatelessWidget {
@@ -41,8 +41,8 @@ class CustomDatePicker extends StatelessWidget {
           context: context,
           initialDate:
               controller.text.isNotEmpty ? initialDate : DateTime.now(),
-          firstDate: GlobalSettings.formStartDate,
-          lastDate: GlobalSettings.formEndDate,
+          firstDate: GlobalKeys.formStartDate,
+          lastDate: GlobalKeys.formEndDate,
         ).then((value) => onChangeDatePicker(value));
       },
       validator: validator,

@@ -47,6 +47,9 @@ app.*.map.json
 /android/app/google-services.json
 /lib/firebase_options.dart
 
+# Admob keys
+/lib/app/shared/constants/ad_keys.dart
+
 # Act secrets
 /.secrets
 

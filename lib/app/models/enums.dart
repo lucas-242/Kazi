@@ -3,3 +3,21 @@ enum FastSearch { today, week, fortnight, month, custom }
 
 /// Represents the possibilities that the ordering of the Services lists can follow
 enum OrderBy { typeAsc, typeDesc, valueAsc, valueDesc, dateAsc, dateDesc }
+
+enum EnvironmentValue {
+  dev('dev'),
+  prod('prod');
+
+  final String value;
+  const EnvironmentValue(this.value);
+
+  static EnvironmentValue? fromString(String value) {
+    for (EnvironmentValue environment in EnvironmentValue.values) {
+      if (environment.value == value) {
+        return environment;
+      }
+    }
+
+    return null;
+  }
+}
