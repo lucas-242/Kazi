@@ -1,14 +1,13 @@
+import 'package:my_services/app/shared/constants/ad_keys.dart';
 import 'dart:io';
 
 import '../../models/enums.dart';
 import '../constants/global_keys.dart';
-import '../constants/ad_keys.dart';
 
 abstract class Environment {
-  static EnvironmentValue get environmentValue =>
-      EnvironmentValue.fromString(
-          const String.fromEnvironment(GlobalKeys.environmentKey)) ??
-      EnvironmentValue.dev;
+  static EnvironmentValue get environmentValue => EnvironmentValue.fromString(
+      String.fromEnvironment(GlobalKeys.environmentKey,
+          defaultValue: EnvironmentValue.dev.value))!;
 
   static Environment get instance => environmentValue == EnvironmentValue.dev
       ? DevEnvironment()
@@ -27,8 +26,10 @@ class DevEnvironment extends Environment {
       );
 
   @override
-  String get adCalendarServiceListKey =>
-      AdKeys.androidCalendarServiceListKeyDev;
+  String get adCalendarServiceListKey => _checkEnvironmentAdKey(
+        AdKeys.androidCalendarServiceListKeyDev,
+        AdKeys.iosCalendarServiceListKeyDev,
+      );
 
   @override
   String get adHomeServiceListKey => _checkEnvironmentAdKey(
@@ -45,8 +46,9 @@ class ProdEnvironment extends Environment {
       );
 
   @override
-  String get adCalendarServiceListKey =>
-      AdKeys.androidCalendarServiceListKeyProd;
+  String get adCalendarServiceListKey => _checkEnvironmentAdKey(
+      AdKeys.androidCalendarServiceListKeyProd,
+      AdKeys.iosCalendarServiceListKeyProd);
 
   @override
   String get adHomeServiceListKey => _checkEnvironmentAdKey(

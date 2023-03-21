@@ -26,6 +26,7 @@ dependencies:
   google_fonts: ^3.0.1
   google_sign_in: ^5.4.2
   intl: ^0.17.0
+  google_mobile_ads: ^2.3.0
 
 dev_dependencies:
   bloc_test: ^9.1.0
