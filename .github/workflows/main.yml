@@ -78,7 +78,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.9'
+          flutter-version: '3.7.7'
           cache: true
      
       - name: Get dependencies
