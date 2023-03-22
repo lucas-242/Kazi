@@ -66,6 +66,10 @@ jobs:
         run: |
           echo "${{ secrets.GOOGLE_SERVICES }}" > android/app/google-services.json
 
+      - name: Create ad_keys.dart
+        run: |
+          echo "${{ secrets.AD_KEYS }}" > lib/app/shared/constants/ad_keys.dart
+
       - name: Create firebase_options.dart
         run: |
           echo "${{ secrets.FIREBASE_OPTIONS_CLASS }}" > lib/firebase_options.dart

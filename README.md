@@ -72,7 +72,7 @@
    }" > lib/app/shared/constants/ad_keys.dart
    ```
 
-   7. Add your adMob app id in the android/local.properties
+   7. Add your adMob app id in the android/key.properties
    ```
    adMobAppId.debug=ca-app-pub-3940256099942544~3347511713
    adMobAppId.release=ca-app-pub-xxxxx~xxxxx
@@ -89,13 +89,13 @@
    ```
    buildTypes {
       debug {
-         resValue "string", "ADMOB_APPID", localProperties.getProperty('adMobAppId.debug')
+         resValue "string", "ADMOB_APPID", keystoreProperties['adMobAppId.debug']
          signingConfig signingConfigs.debug
       }
-         release {
-            resValue "string", "ADMOB_APPID", localProperties.getProperty('adMobAppId.release')
-            signingConfig signingConfigs.release
-        }
+      release {
+         resValue "string", "ADMOB_APPID", keystoreProperties['adMobAppId.release']
+         signingConfig signingConfigs.release
+      }
    }
    ```
 
