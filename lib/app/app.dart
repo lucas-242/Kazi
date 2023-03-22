@@ -66,9 +66,9 @@ class _AppState extends State<App> {
         settings: lightThemeSettings,
         child: Builder(
           builder: ((context) {
-            var appTheme = ThemeService.of(context);
+            final appTheme = ThemeService.of(context);
             return MaterialApp(
-              title: 'My Services',
+              title: 'Korbi',
               debugShowCheckedModeBanner: false,
               theme: appTheme.light(lightThemeSettings.sourceColor),
               darkTheme: appTheme.dark(darkThemeSettings.sourceColor),

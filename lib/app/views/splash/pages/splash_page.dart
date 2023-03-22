@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../injector_container.dart';
 import '../../../models/app_user.dart';
@@ -46,24 +47,14 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text(
-              'My',
-              style: context.headlineLarge,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Center(
-            child: Text(
-              'Services',
-              style: context.headlineLarge,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
+      backgroundColor: context.colorsScheme.primary,
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(AppAssets.logo),
+          ],
+        ),
       ),
     );
   }

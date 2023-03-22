@@ -79,6 +79,7 @@ class ThemeService extends InheritedWidget {
       seedColor: dynamicPrimary,
       // seedColor: dynamicPrimary ?? source(targetColor),
       brightness: brightness,
+      primary: dynamicPrimary,
     );
   }
 

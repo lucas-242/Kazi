@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import '../../l10n/generated/l10n.dart';
 import '../../themes/themes.dart';
+import '../ads/ad_block.dart';
 import '../service_list_total_card/service_list_total_card.dart';
 
 import '../../../models/service.dart';
@@ -72,12 +73,25 @@ class ServiceList extends StatelessWidget {
               shrinkWrap: true,
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: services.length,
-              itemBuilder: (context, index) => ServiceCard(
-                service: services[index],
-                onTapEdit: onTapEdit,
-                onTapDelete: onTapDelete,
-                showDate: showDate,
-              ),
+              itemBuilder: (context, index) {
+                if (index != 0 && index % 2 == 0) {
+                  return AdBlock(
+                    showDate: showDate,
+                    child: ServiceCard(
+                      service: services[index],
+                      onTapEdit: onTapEdit,
+                      onTapDelete: onTapDelete,
+                      showDate: showDate,
+                    ),
+                  );
+                }
+                return ServiceCard(
+                  service: services[index],
+                  onTapEdit: onTapEdit,
+                  onTapDelete: onTapDelete,
+                  showDate: showDate,
+                );
+              },
               separatorBuilder: (context, index) => const Divider(),
             ),
           ),

@@ -61,10 +61,16 @@ jobs:
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
           echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
+          echo "adMobAppId.debug=${{ secrets.ADMOB_APPID_DEBUG }}" >> android/key.properties
+          echo "adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}" >> android/key.properties
 
       - name: Create google-services.json
         run: |
           echo "${{ secrets.GOOGLE_SERVICES }}" > android/app/google-services.json
+
+      - name: Create ad_keys.dart
+        run: |
+          echo "${{ secrets.AD_KEYS_CLASS }}" > lib/app/shared/constants/ad_keys.dart
 
       - name: Create firebase_options.dart
         run: |
@@ -78,7 +84,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.9'
+          flutter-version: '3.7.7'
           cache: true
      
       - name: Get dependencies

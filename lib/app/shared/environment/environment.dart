@@ -1,49 +1,68 @@
-import 'package:my_services/app/shared/environment/environment_keys.dart';
+import 'package:my_services/app/shared/constants/ad_keys.dart';
+import 'dart:io';
 
-enum EnvironmentValue {
-  dev('dev'),
-  prod('prod');
-
-  final String value;
-  const EnvironmentValue(this.value);
-
-  static EnvironmentValue? fromString(String value) {
-    for (EnvironmentValue environment in EnvironmentValue.values) {
-      if (environment.value == value) {
-        return environment;
-      }
-    }
-
-    return null;
-  }
-}
+import '../../models/enums.dart';
+import '../constants/global_keys.dart';
 
 abstract class Environment {
-  static EnvironmentValue get environmentValue =>
-      EnvironmentValue.fromString(
-          const String.fromEnvironment(EnvironmentKeys.env)) ??
-      EnvironmentValue.dev;
+  static EnvironmentValue get environmentValue => EnvironmentValue.fromString(
+      String.fromEnvironment(GlobalKeys.environmentKey,
+          defaultValue: EnvironmentValue.dev.value))!;
 
   static Environment get instance => environmentValue == EnvironmentValue.dev
       ? DevEnvironment()
       : ProdEnvironment();
 
-  String get banner1AdKey;
-  String get banner2AdKey;
+  String get adFinishAddActionKey;
+  String get adCalendarServiceListKey;
+  String get adHomeServiceListKey;
 }
 
 class DevEnvironment extends Environment {
   @override
-  String get banner1AdKey => 'abcde';
+  String get adFinishAddActionKey => _checkEnvironmentAdKey(
+        AdKeys.androidFinishAddActionKeyDev,
+        AdKeys.iosFinishAddActionKeyDev,
+      );
 
   @override
-  String get banner2AdKey => 'fghij';
+  String get adCalendarServiceListKey => _checkEnvironmentAdKey(
+        AdKeys.androidCalendarServiceListKeyDev,
+        AdKeys.iosCalendarServiceListKeyDev,
+      );
+
+  @override
+  String get adHomeServiceListKey => _checkEnvironmentAdKey(
+        AdKeys.androidHomeServiceListKeyDev,
+        AdKeys.iosHomeServiceListKeyDev,
+      );
 }
 
 class ProdEnvironment extends Environment {
   @override
-  String get banner1AdKey => 'prodKey1';
+  String get adFinishAddActionKey => _checkEnvironmentAdKey(
+        AdKeys.androidFinishAddActionKeyProd,
+        AdKeys.iosFinishAddActionKeyProd,
+      );
 
   @override
-  String get banner2AdKey => 'prodKey2';
+  String get adCalendarServiceListKey => _checkEnvironmentAdKey(
+      AdKeys.androidCalendarServiceListKeyProd,
+      AdKeys.iosCalendarServiceListKeyProd);
+
+  @override
+  String get adHomeServiceListKey => _checkEnvironmentAdKey(
+        AdKeys.androidHomeServiceListKeyProd,
+        AdKeys.iosHomeServiceListKeyProd,
+      );
+}
+
+String _checkEnvironmentAdKey(String android, String ios) {
+  if (Platform.isAndroid) {
+    return android;
+  } else if (Platform.isIOS) {
+    return ios;
+  }
+
+  return '';
 }

@@ -9,9 +9,9 @@ abstract class LogService {
   void info(String message);
   void flow(String message);
 
-  void error(
+  void error({
     Object? error,
-    StackTrace? stackTrace, {
+    StackTrace? stackTrace,
     String? message,
   });
 }
@@ -57,9 +57,9 @@ class LocalLogService implements LogService {
   }
 
   @override
-  void error(
+  void error({
     Object? error,
-    StackTrace? stackTrace, {
+    StackTrace? stackTrace,
     String? message,
   }) {
     _log(
