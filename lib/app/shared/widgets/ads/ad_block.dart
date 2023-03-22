@@ -6,9 +6,8 @@ import 'ad_widget.dart';
 
 class AdBlock extends StatelessWidget {
   final Widget child;
-  final bool showDate;
 
-  const AdBlock({super.key, required this.child, required this.showDate});
+  const AdBlock({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

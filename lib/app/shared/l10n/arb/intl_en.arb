@@ -22,10 +22,13 @@
     }
   },
   "home": "Home",
+  "lastServices": "Last services",
   "lightMode": "Light Mode",
   "logout": "Logout",
   "logoutConfirmation": "Do you really want to logout?",
   "name": "Name",
+  "newService": "New service",
+  "noServices": "If you have not yet registered any services, click on the button above to register a new one.",
   "month": "Month",
   "orderBy": "Order by",
   "profile": "Profile",

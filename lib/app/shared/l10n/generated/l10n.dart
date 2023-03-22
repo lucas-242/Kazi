@@ -210,6 +210,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Last services`
+  String get lastServices {
+    return Intl.message(
+      'Last services',
+      name: 'lastServices',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Light Mode`
   String get lightMode {
     return Intl.message(
@@ -245,6 +255,26 @@ class AppLocalizations {
     return Intl.message(
       'Name',
       name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New service`
+  String get newService {
+    return Intl.message(
+      'New service',
+      name: 'newService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you have not yet registered any services, click on the button above to register a new one.`
+  String get noServices {
+    return Intl.message(
+      'If you have not yet registered any services, click on the button above to register a new one.',
+      name: 'noServices',
       desc: '',
       args: [],
     );

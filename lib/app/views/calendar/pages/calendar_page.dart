@@ -118,15 +118,9 @@ class _Build extends StatelessWidget {
       children: [
         _TopSearch(dateKey: dateKey, dateController: dateController),
         ServiceList(
-          title:
-              '${DateFormat.yMd().format(state.startDate).normalizeDate()} - ${DateFormat.yMd().format(state.endDate).normalizeDate()}',
           services: state.services,
-          totalValue: state.totalValue,
-          totalWithDiscount: state.totalWithDiscount,
-          totalDiscounted: state.totalDiscounted,
           onTapEdit: onEdit,
           onTapDelete: onDelete,
-          showDate: state.selectedFastSearch != FastSearch.today,
         ),
       ],
     );

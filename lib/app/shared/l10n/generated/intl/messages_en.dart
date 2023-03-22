@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
         "invalidProperty": m3,
+        "lastServices": MessageLookupByLibrary.simpleMessage("Last services"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "linkHasBeenUsed": MessageLookupByLibrary.simpleMessage(
             "The link has already been used"),
@@ -101,8 +102,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "myBalance": MessageLookupByLibrary.simpleMessage("My balance"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "newService": MessageLookupByLibrary.simpleMessage("New service"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "No services types registered"),
+        "noServices": MessageLookupByLibrary.simpleMessage(
+            "If you have not yet registered any services, click on the button above to register a new one."),
         "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
             "No services in the selected period."),
         "noServicesOnDay":

@@ -28,7 +28,7 @@ class ThemeService extends InheritedWidget {
   );
 
   ShapeBorder get shapeMedium => RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
       );
 
   ThemeData light([Color? targetColor]) {
@@ -80,6 +80,8 @@ class ThemeService extends InheritedWidget {
       // seedColor: dynamicPrimary ?? source(targetColor),
       brightness: brightness,
       primary: dynamicPrimary,
+      background: settings.backgroundColor,
+      onSurface: settings.textColor,
     );
   }
 
@@ -106,8 +108,9 @@ class ThemeService extends InheritedWidget {
 
   CardTheme cardTheme() {
     return CardTheme(
-      elevation: 2,
+      elevation: 0,
       shape: shapeMedium,
+      margin: const EdgeInsets.only(bottom: 10),
       clipBehavior: Clip.antiAlias,
     );
   }

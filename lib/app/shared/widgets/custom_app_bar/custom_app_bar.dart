@@ -30,6 +30,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       toolbarHeight: preferredSize.height,
       centerTitle: true,
       automaticallyImplyLeading: false,
+      foregroundColor: context.colorsScheme.onSurface,
       title: Row(
         children: [
           const SizedBox(width: 10),
@@ -44,7 +45,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Text(AppLocalizations.current.hi(cubit.state.user.shortName)),
+          Text(
+            AppLocalizations.current.hi(cubit.state.user.shortName),
+            style: context.headlineSmall,
+          ),
         ],
       ),
       shape: const RoundedRectangleBorder(
