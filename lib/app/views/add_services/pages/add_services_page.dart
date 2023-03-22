@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 import '../../../app_cubit.dart';
 import '../../../models/service.dart';
 import '../../../shared/themes/themes.dart';
@@ -33,13 +34,8 @@ class _AddServicesPageState extends State<AddServicesPage> {
         ? AppLocalizations.current.update
         : AppLocalizations.current.add;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '$label ${AppLocalizations.current.service.toLowerCase()}',
-          style: context.titleLarge,
-        ),
-        centerTitle: true,
-        leading: const BackButton(),
+      appBar: CustomAppBar(
+        title: '$label ${AppLocalizations.current.service.toLowerCase()}',
       ),
       body: SafeArea(
         child: SingleChildScrollView(

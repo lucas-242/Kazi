@@ -12,6 +12,7 @@
   "description": "Descrição",
   "fortnight": "Quinzena",
   "googleSignIn": "Login com Google",
+  "hi": "Olá, {person}!",
   "home": "Home",
   "lightMode": "Modo claro",
   "logout": "Sair",

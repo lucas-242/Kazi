@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_services/app/shared/widgets/custom_app_bar/cubit/custom_app_bar_cubit.dart';
 import 'shared/themes/themes.dart';
 import 'views/add_services/add_services.dart';
 import '../injector_container.dart';
@@ -32,6 +33,8 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AppCubit>(
             create: (_) => AppCubit(injector.get<AuthService>())),
+        BlocProvider<CustomAppBarCubit>(
+            create: (_) => CustomAppBarCubit(injector.get<AuthService>())),
         BlocProvider<SettingsCubit>(
           create: (_) => SettingsCubit(
             injector.get<ServiceTypeRepository>(),

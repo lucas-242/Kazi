@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 import '../../../models/enums.dart';
 import '../../../models/service.dart';
 import '../../../shared/themes/themes.dart';
@@ -44,25 +45,7 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Calendário', style: context.titleLarge),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IconButton(
-            onPressed: () => context.read<CalendarCubit>().signOut(),
-            icon: const Icon(Icons.logout),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.addServices),
-            icon: const Icon(Icons.add),
-          ),
-          const SizedBox(width: 20),
-        ],
-      ),
+      appBar: CustomAppBar(title: AppLocalizations.current.calendar),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<CalendarCubit>().onRefresh(),

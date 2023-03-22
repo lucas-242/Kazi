@@ -180,6 +180,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Hi, {person}!`
+  String hi(String person) {
+    return Intl.message(
+      'Hi, $person!',
+      name: 'hi',
+      desc: '',
+      args: [person],
+    );
+  }
+
   /// `Home`
   String get home {
     return Intl.message(

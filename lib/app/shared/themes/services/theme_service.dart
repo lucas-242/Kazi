@@ -122,8 +122,8 @@ class ThemeService extends InheritedWidget {
   AppBarTheme appBarTheme(ColorScheme colors) {
     return AppBarTheme(
       elevation: 0,
-      backgroundColor: colors.surface,
-      foregroundColor: colors.onSurface,
+      backgroundColor: colors.primary,
+      // foregroundColor: colors.onSurface,
     );
   }
 

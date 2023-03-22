@@ -169,15 +169,4 @@ class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
       );
     }
   }
-
-  Future<void> signOut() async {
-    try {
-      emit(state.copyWith(status: BaseStateStatus.loading));
-      await _authService.signOut();
-    } on AppError catch (exception) {
-      onAppError(exception);
-    } catch (exception) {
-      unexpectedError(exception);
-    }
-  }
 }

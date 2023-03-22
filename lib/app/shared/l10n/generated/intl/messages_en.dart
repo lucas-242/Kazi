@@ -22,11 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(property) => "${property} already exists";
 
-  static String m1(property) => "${property} is being used";
+  static String m1(person) => "Hi, ${person}!";
 
-  static String m2(property) => "${property} is invalid";
+  static String m2(property) => "${property} is being used";
 
-  static String m3(property) => "${property} is required";
+  static String m3(property) => "${property} is invalid";
+
+  static String m4(property) => "${property} is required";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -79,11 +81,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Sign in with Google"),
+        "hi": m1,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "inUse": m1,
+        "inUse": m2,
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
-        "invalidProperty": m2,
+        "invalidProperty": m3,
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "linkHasBeenUsed": MessageLookupByLibrary.simpleMessage(
             "The link has already been used"),
@@ -119,7 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "Password is too weak. Please, try a different one"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
-        "requiredProperty": m3,
+        "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "selectServiceType":

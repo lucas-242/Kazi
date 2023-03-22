@@ -12,6 +12,14 @@
   "description": "Description",
   "fortnight": "Fortnight",
   "googleSignIn": "Sign in with Google",
+  "hi": "Hi, {person}!",
+  "@hi": {
+    "placeholders": {
+        "person": {
+          "type": "String"
+        }
+    }
+  },
   "home": "Home",
   "lightMode": "Light Mode",
   "logout": "Logout",

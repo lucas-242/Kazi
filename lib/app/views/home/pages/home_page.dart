@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 
 import '../../../shared/l10n/generated/l10n.dart';
 import '../../../shared/themes/themes.dart';
@@ -34,33 +35,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.current.home, style: context.titleLarge),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () => context.read<HomeCubit>().signOut(),
-          icon: const Icon(Icons.logout),
+      appBar: CustomAppBar(
+        title: AppLocalizations.current.home,
+        showOrderBy: true,
+        onSelectedOrderBy: () => showModalBottomSheet(
+          context: context,
+          builder: (context) => OrderByBottomSheet(
+            onPressed: (orderBy) {
+              Navigator.of(context).pop();
+              context.read<HomeCubit>().onChangeOrderBy(orderBy);
+            },
+          ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () => showModalBottomSheet(
-              context: context,
-              builder: (context) => OrderByBottomSheet(
-                onPressed: (orderBy) {
-                  Navigator.of(context).pop();
-                  context.read<HomeCubit>().onChangeOrderBy(orderBy);
-                },
-              ),
-            ),
-            icon: const Icon(Icons.filter_list),
-          ),
-          IconButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.addServices),
-            icon: const Icon(Icons.add),
-          ),
-          const SizedBox(width: 20),
-        ],
       ),
       body: SafeArea(
         child: RefreshIndicator(
