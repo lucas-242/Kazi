@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
-import 'package:my_services/app/shared/widgets/pill_button/pill_button.dart';
 import 'package:my_services/app/views/home/widgets/info_card.dart';
 
 import '../../../models/service.dart';

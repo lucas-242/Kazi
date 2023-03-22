@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/themes/extensions/typography_extension.dart';
-import 'package:my_services/app/shared/themes/utils/app_colors.dart';
 
 import '../../../models/service.dart';
+import '../../themes/themes.dart';
 import '../../utils/number_format_helper.dart';
-import '../custom_slidable/custom_slidable.dart';
 
 class ServiceCard extends StatelessWidget {
   final Function(Service) onTapDelete;
