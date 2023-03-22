@@ -61,6 +61,8 @@ jobs:
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
           echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
+          echo "adMobAppId.debug=${{ secrets.ADMOB_APPID_DEBUG }}" >> android/key.properties
+          echo "adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}" >> android/key.properties
 
       - name: Create google-services.json
         run: |
@@ -68,7 +70,7 @@ jobs:
 
       - name: Create ad_keys.dart
         run: |
-          echo "${{ secrets.AD_KEYS }}" > lib/app/shared/constants/ad_keys.dart
+          echo "${{ secrets.AD_KEYS_CLASS }}" > lib/app/shared/constants/ad_keys.dart
 
       - name: Create firebase_options.dart
         run: |
