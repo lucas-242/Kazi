@@ -80,6 +80,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Calculator`
+  String get calculator {
+    return Intl.message(
+      'Calculator',
+      name: 'calculator',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Calendar`
   String get calendar {
     return Intl.message(
@@ -255,6 +265,16 @@ class AppLocalizations {
     return Intl.message(
       'Order by',
       name: 'orderBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
       desc: '',
       args: [],
     );

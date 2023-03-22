@@ -29,6 +29,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       toolbarHeight: preferredSize.height,
       centerTitle: true,
+      automaticallyImplyLeading: false,
       title: Row(
         children: [
           const SizedBox(width: 10),

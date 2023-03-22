@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
 import 'views/calendar/calendar.dart';
 
 import 'shared/widgets/custom_bottom_navigation/custom_bottom_navigation.dart';
@@ -54,6 +56,17 @@ class _AppScaffoldState extends State<AppScaffold> {
           bottomNavigationBar: CustomBottomNavigation(
             currentPage: context.watch<AppCubit>().state,
             onTap: (index) => context.read<AppCubit>().changePage(index),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () =>
+                Navigator.pushNamed(context, AppRoutes.addServices),
+            tooltip: AppLocalizations.current.addNewService,
+            elevation: 0,
+            highlightElevation: 0,
+            backgroundColor: context.colorsScheme.primary,
+            child: const Icon(Icons.add),
           ),
         );
       },

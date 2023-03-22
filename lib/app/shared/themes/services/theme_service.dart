@@ -47,7 +47,7 @@ class ThemeService extends InheritedWidget {
       drawerTheme: drawerTheme(_colors),
       inputDecorationTheme: inputDecorationTheme(),
       scaffoldBackgroundColor: _colors.background,
-      useMaterial3: true,
+      useMaterial3: false,
     );
   }
 
@@ -144,17 +144,20 @@ class ThemeService extends InheritedWidget {
 
   BottomAppBarTheme bottomAppBarTheme(ColorScheme colors) {
     return BottomAppBarTheme(
-      color: colors.surface,
+      color: colors.background,
       elevation: 0,
+      height: 75,
     );
   }
 
   BottomNavigationBarThemeData bottomNavigationBarTheme(ColorScheme colors) {
     return BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: colors.primaryContainer,
-      selectedItemColor: colors.onPrimaryContainer,
-      unselectedItemColor: colors.onSurfaceVariant,
+      backgroundColor: colors.background,
+      selectedItemColor: colors.primary,
+      unselectedItemColor: colors.onPrimaryContainer,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       elevation: 0,
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
     );
