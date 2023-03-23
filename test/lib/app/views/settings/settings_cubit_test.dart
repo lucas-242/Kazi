@@ -6,7 +6,6 @@ import 'package:my_services/app/models/service_type.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
@@ -305,56 +304,5 @@ void main() {
         )
       ],
     );
-
-    group('Sign out', () {
-      blocTest(
-        'emits SettingsState with status loading when call signOut',
-        build: () => cubit,
-        act: (cubit) => [cubit.signOut()],
-        expect: () => [
-          SettingsState(
-            status: BaseStateStatus.loading,
-            userId: authService.user!.uid,
-          )
-        ],
-      );
-
-      blocTest(
-        'emits SettingsState with status error and methodNotAllowed message when call signOut',
-        build: () => cubit,
-        setUp: () => when(authService.signOut()).thenThrow(
-            FirebaseSignInError.fromCode('operation-not-allowed', null)),
-        act: (cubit) => [cubit.signOut()],
-        expect: () => [
-          SettingsState(
-            status: BaseStateStatus.loading,
-            userId: authService.user!.uid,
-          ),
-          SettingsState(
-            status: BaseStateStatus.error,
-            callbackMessage: AppLocalizations.current.methodNotAllowed,
-            userId: authService.user!.uid,
-          )
-        ],
-      );
-
-      blocTest(
-        'emits SettingsState with status error and unknowError message when call signOut',
-        build: () => cubit,
-        setUp: () => when(authService.signOut()).thenThrow(Exception()),
-        act: (cubit) => [cubit.signOut()],
-        expect: () => [
-          SettingsState(
-            status: BaseStateStatus.loading,
-            userId: authService.user!.uid,
-          ),
-          SettingsState(
-            status: BaseStateStatus.error,
-            callbackMessage: AppLocalizations.current.unknowError,
-            userId: authService.user!.uid,
-          )
-        ],
-      );
-    });
   });
 }

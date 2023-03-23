@@ -80,6 +80,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Calculator`
+  String get calculator {
+    return Intl.message(
+      'Calculator',
+      name: 'calculator',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Calendar`
   String get calendar {
     return Intl.message(
@@ -180,11 +190,31 @@ class AppLocalizations {
     );
   }
 
+  /// `Hi, {person}!`
+  String hi(String person) {
+    return Intl.message(
+      'Hi, $person!',
+      name: 'hi',
+      desc: '',
+      args: [person],
+    );
+  }
+
   /// `Home`
   String get home {
     return Intl.message(
       'Home',
       name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last services`
+  String get lastServices {
+    return Intl.message(
+      'Last services',
+      name: 'lastServices',
       desc: '',
       args: [],
     );
@@ -230,6 +260,26 @@ class AppLocalizations {
     );
   }
 
+  /// `New service`
+  String get newService {
+    return Intl.message(
+      'New service',
+      name: 'newService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you have not yet registered any services, click on the button above to register a new one.`
+  String get noServices {
+    return Intl.message(
+      'If you have not yet registered any services, click on the button above to register a new one.',
+      name: 'noServices',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Month`
   String get month {
     return Intl.message(
@@ -245,6 +295,16 @@ class AppLocalizations {
     return Intl.message(
       'Order by',
       name: 'orderBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
       desc: '',
       args: [],
     );

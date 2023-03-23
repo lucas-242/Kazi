@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 import '../../../shared/routes/app_routes.dart';
 import '../../../shared/themes/themes.dart';
 import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
@@ -26,15 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:
-            Text(AppLocalizations.current.settings, style: context.titleLarge),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () => context.read<SettingsCubit>().signOut(),
-          icon: const Icon(Icons.logout),
-        ),
-      ),
+      appBar: CustomAppBar(title: AppLocalizations.current.settings),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<SettingsCubit>().getServiceTypes(),

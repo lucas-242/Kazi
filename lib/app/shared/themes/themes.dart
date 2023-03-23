@@ -1,6 +1,5 @@
 export 'extensions/theme_extension.dart';
 export 'extensions/typography_extension.dart';
-export 'models/theme_settings.dart';
-export 'services/theme_service.dart';
-export 'settings/themes_definitions.dart';
-export 'utils/app_assets.dart';
+export 'settings/theme_settings.dart';
+export 'settings/app_assets.dart';
+export 'settings/app_colors.dart';

@@ -10,4 +10,6 @@ class AppUser {
     this.photoUrl,
     required this.uid,
   });
+
+  String get shortName => name.length > 18 ? name.split('').first : name;
 }

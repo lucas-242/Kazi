@@ -2,6 +2,7 @@
   "all": "All",
   "add": "Add",
   "appSubtitle": "Organize your services",
+  "calculator": "Calculator",
   "calendar": "Calendar",
   "cancel": "Cancel",
   "create": "Create",  
@@ -12,13 +13,25 @@
   "description": "Description",
   "fortnight": "Fortnight",
   "googleSignIn": "Sign in with Google",
+  "hi": "Hi, {person}!",
+  "@hi": {
+    "placeholders": {
+        "person": {
+          "type": "String"
+        }
+    }
+  },
   "home": "Home",
+  "lastServices": "Last services",
   "lightMode": "Light Mode",
   "logout": "Logout",
   "logoutConfirmation": "Do you really want to logout?",
   "name": "Name",
+  "newService": "New service",
+  "noServices": "If you have not yet registered any services, click on the button above to register a new one.",
   "month": "Month",
   "orderBy": "Order by",
+  "profile": "Profile",
   "save": "Save",
   "search": "Search",
   "settings": "Settings",

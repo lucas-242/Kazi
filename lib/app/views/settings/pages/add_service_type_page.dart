@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import '../../../shared/themes/themes.dart';
+import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 import '../../../shared/utils/base_state.dart';
 import '../settings.dart';
 
@@ -33,13 +33,8 @@ class _AddServiceTypePageState extends State<AddServiceTypePage> {
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '$label ${AppLocalizations.current.serviceType.toLowerCase()}',
-            style: context.titleLarge,
-          ),
-          centerTitle: true,
-          leading: const BackButton(),
+        appBar: CustomAppBar(
+          title: '$label ${AppLocalizations.current.serviceType.toLowerCase()}',
         ),
         body: SafeArea(
           child: SingleChildScrollView(

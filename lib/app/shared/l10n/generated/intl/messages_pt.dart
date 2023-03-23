@@ -22,11 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(property) => "${property} já existe";
 
-  static String m1(property) => "${property} está em uso";
+  static String m1(person) => "Olá, ${person}!";
 
-  static String m2(property) => "${property} inválido";
+  static String m2(property) => "${property} está em uso";
 
-  static String m3(property) => "${property} precisa ser preenchido";
+  static String m3(property) => "${property} inválido";
+
+  static String m4(property) => "${property} precisa ser preenchido";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -39,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyExists": m0,
         "appSubtitle":
             MessageLookupByLibrary.simpleMessage("Organize seus serviços"),
+        "calculator": MessageLookupByLibrary.simpleMessage("Calculadora"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendário"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
@@ -79,11 +82,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Login com Google"),
+        "hi": m1,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "inUse": m1,
+        "inUse": m2,
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Senha ou email incorretos"),
-        "invalidProperty": m2,
+        "invalidProperty": m3,
+        "lastServices":
+            MessageLookupByLibrary.simpleMessage("Últimos serviços"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Modo claro"),
         "linkHasBeenUsed":
             MessageLookupByLibrary.simpleMessage("O link já foi usado"),
@@ -97,8 +103,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "month": MessageLookupByLibrary.simpleMessage("Mês"),
         "myBalance": MessageLookupByLibrary.simpleMessage("Meu saldo"),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
+        "newService": MessageLookupByLibrary.simpleMessage("Novo serviço"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Não há tipos de serviço cadastrado"),
+        "noServices": MessageLookupByLibrary.simpleMessage(
+            "Se você ainda não registrou nenhum serviço, clique no botão acima para registrar um novo."),
         "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
             "Não há serviços prestados no período selecionado."),
         "noServicesOnDay":
@@ -116,8 +125,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Valor: Maior para menor"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "A senha é muito fraca, por favor, tente outra senha"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
-        "requiredProperty": m3,
+        "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
         "selectServiceType":

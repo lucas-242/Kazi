@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'shared/themes/themes.dart';
+
+import 'shared/themes/settings/theme_settings.dart';
+import 'shared/widgets/custom_app_bar/cubit/custom_app_bar_cubit.dart';
 import 'views/add_services/add_services.dart';
 import '../injector_container.dart';
 import 'repositories/service_type_repository/service_type_repository.dart';
@@ -32,6 +34,8 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AppCubit>(
             create: (_) => AppCubit(injector.get<AuthService>())),
+        BlocProvider<CustomAppBarCubit>(
+            create: (_) => CustomAppBarCubit(injector.get<AuthService>())),
         BlocProvider<SettingsCubit>(
           create: (_) => SettingsCubit(
             injector.get<ServiceTypeRepository>(),
@@ -62,35 +66,26 @@ class _AppState extends State<App> {
           ),
         ),
       ],
-      child: ThemeService(
-        settings: lightThemeSettings,
-        child: Builder(
-          builder: ((context) {
-            final appTheme = ThemeService.of(context);
-            return MaterialApp(
-              title: 'Korbi',
-              debugShowCheckedModeBanner: false,
-              theme: appTheme.light(lightThemeSettings.sourceColor),
-              darkTheme: appTheme.dark(darkThemeSettings.sourceColor),
-              themeMode: lightThemeSettings.themeMode,
-              initialRoute: AppRoutes.splash,
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: AppLocalizations.delegate.supportedLocales,
-              routes: {
-                AppRoutes.splash: (context) => const SplashPage(),
-                AppRoutes.app: (context) => const AppScaffold(),
-                AppRoutes.login: (context) => const LoginPage(),
-                AppRoutes.addServiceType: (context) =>
-                    const AddServiceTypePage(),
-                AppRoutes.addServices: (context) => const AddServicesPage(),
-              },
-            );
-          }),
-        ),
+      child: MaterialApp(
+        title: 'Korbi',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeSettings.light(),
+        darkTheme: ThemeSettings.dark(),
+        themeMode: ThemeMode.light,
+        initialRoute: AppRoutes.splash,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.delegate.supportedLocales,
+        routes: {
+          AppRoutes.splash: (context) => const SplashPage(),
+          AppRoutes.app: (context) => const AppScaffold(),
+          AppRoutes.login: (context) => const LoginPage(),
+          AppRoutes.addServiceType: (context) => const AddServiceTypePage(),
+          AppRoutes.addServices: (context) => const AddServicesPage(),
+        },
       ),
     );
   }
