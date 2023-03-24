@@ -5,15 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 
 import 'app_cubit.dart';
 import 'shared/routes/app_routes.dart';
 import 'shared/widgets/custom_bottom_navigation/custom_bottom_navigation.dart';
-import 'views/calendar/calendar.dart';
-import 'views/home/pages/home_page.dart';
-import 'views/settings/settings.dart';
 
 class AppScaffold extends StatefulWidget {
   final Widget child;
@@ -52,46 +48,63 @@ class _AppScaffoldState extends State<AppScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<AppCubit>();
     return BlocBuilder<AppCubit, int>(
       builder: (context, state) {
         return Scaffold(
           appBar: const CustomAppBar(),
           body: widget.child,
+          resizeToAvoidBottomInset: false,
           bottomNavigationBar: CustomBottomNavigation(
             currentPage: context.watch<AppCubit>().state,
-            onTap: (index) {
-              context.read<AppCubit>().changePage(index);
-              _onItemTapped(index, context);
-            },
+            onTap: (index) => _onTapBottomItem(index, context),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => context.go(AppRoutes.addServices),
-            tooltip: AppLocalizations.current.addNewService,
-            elevation: 0,
-            highlightElevation: 0,
-            backgroundColor: context.colorsScheme.primary,
-            child: const Icon(Icons.add),
+          floatingActionButton: Align(
+            alignment: Alignment.bottomCenter,
+            heightFactor: 1.5,
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 4),
+                shape: BoxShape.circle,
+              ),
+              child: FloatingActionButton(
+                onPressed: _onTapFloatingActionButton,
+                tooltip: AppLocalizations.current.addNewService,
+                child: Icon(cubit.isAddServicePage ? Icons.close : Icons.add),
+              ),
+            ),
           ),
         );
       },
     );
   }
 
-  void _onItemTapped(int index, BuildContext context) {
+  void _onTapFloatingActionButton() {
+    final cubit = context.read<AppCubit>();
+    if (cubit.isAddServicePage) {
+      _onTapBottomItem(1, context);
+    } else {
+      cubit.changeToAddServicePage();
+      context.go(AppRoutes.addServices);
+    }
+  }
+
+  void _onTapBottomItem(int index, BuildContext context) {
+    context.read<AppCubit>().changePage(index);
     switch (index) {
       case 0:
-        GoRouter.of(context).go(AppRoutes.home);
+        context.go(AppRoutes.home);
         break;
       case 1:
-        GoRouter.of(context).go(AppRoutes.services);
+        context.go(AppRoutes.services);
         break;
       case 2:
-        GoRouter.of(context).go(AppRoutes.calculator);
+        context.go(AppRoutes.calculator);
         break;
       case 3:
-        GoRouter.of(context).go(AppRoutes.profile);
+        context.go(AppRoutes.profile);
         break;
     }
   }

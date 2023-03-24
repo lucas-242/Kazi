@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/app_cubit.dart';
 
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';

@@ -8,4 +8,6 @@ extension ThemeExtension on BuildContext {
   double get width => _mediaQuery.size.width;
   double get height => _mediaQuery.size.height;
   double get topBarHeight => _mediaQuery.padding.top + kToolbarHeight;
+
+  bool get isKeyboardOpen => _mediaQuery.viewInsets.bottom > 0;
 }

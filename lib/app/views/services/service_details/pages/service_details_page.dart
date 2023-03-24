@@ -15,77 +15,120 @@ class ServiceDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          BackAndPill(
-            pillText: AppLocalizations.current.share,
-            onTapBack: () => context.pop(),
-            onTapPill: () => null,
-          ),
-          const SizedBox(height: 20),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Text('${service.type?.name}'),
-                  Text(
-                    DateFormat.yMd().format(service.date).normalizeDate(),
-                    style: context.bodySmall,
-                  ),
-                  Row(
-                    children: [
-                      Text(AppLocalizations.current.myBalance),
-                      Text(
-                        NumberFormatHelper.formatCurrency(
-                          context,
-                          service.value,
-                        ),
-                      )
-                    ],
-                  ),
-                  const Divider(),
-                  Row(
-                    children: [
-                      Text(AppLocalizations.current.discount),
-                      Text(
-                        NumberFormatHelper.formatCurrency(
-                          context,
-                          service.valueDiscounted,
-                        ),
-                      )
-                    ],
-                  ),
-                  const Divider(),
-                  Row(
-                    children: [
-                      Text(AppLocalizations.current.totalReceived),
-                      Text(
-                        NumberFormatHelper.formatCurrency(
-                          context,
-                          service.valueWithDiscount,
-                        ),
-                      )
-                    ],
-                  ),
-                  service.description != null
-                      ? Column(
-                          children: [
-                            const Divider(),
-                            Column(
-                              children: [
-                                Text(AppLocalizations.current.description),
-                                Text(service.description!)
-                              ],
-                            ),
-                          ],
-                        )
-                      : const SizedBox.shrink()
-                ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: BackAndPill(
+                pillText: AppLocalizations.current.share,
+                onTapBack: () => context.pop(),
+                onTapPill: () => null,
               ),
             ),
-          ),
-        ],
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${service.type?.name}',
+                      style: context.titleMedium,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      DateFormat.yMd().format(service.date).normalizeDate(),
+                      style: context.labelMedium,
+                    ),
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.current.myBalance,
+                          style: context.titleSmall,
+                        ),
+                        Text(
+                          NumberFormatHelper.formatCurrency(
+                            context,
+                            service.value,
+                          ),
+                          style: context.titleSmall!
+                              .copyWith(color: AppColors.green),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Divider(),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.current.discount,
+                          style: context.titleSmall,
+                        ),
+                        Text(
+                          NumberFormatHelper.formatCurrency(
+                            context,
+                            service.valueDiscounted,
+                          ),
+                          style: context.titleSmall!
+                              .copyWith(color: AppColors.orange),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Divider(),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.current.totalReceived,
+                          style: context.titleSmall,
+                        ),
+                        Text(
+                          NumberFormatHelper.formatCurrency(
+                            context,
+                            service.valueWithDiscount,
+                          ),
+                          style: context.titleSmall,
+                        )
+                      ],
+                    ),
+                    service.description != null
+                        ? Column(
+                            children: [
+                              const SizedBox(height: 20),
+                              const Divider(),
+                              const SizedBox(height: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.current.description,
+                                    style: context.titleSmall,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    service.description!,
+                                    style: context.bodyMedium,
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                            ],
+                          )
+                        : const SizedBox.shrink()
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

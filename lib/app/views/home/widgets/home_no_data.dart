@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_services/app/app_cubit.dart';
 
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
@@ -16,7 +18,11 @@ class HomeNoData extends StatelessWidget {
         TitleAndPill(
           title: AppLocalizations.current.services,
           pillText: AppLocalizations.current.newService,
-          onTap: () => context.go(AppRoutes.addServices),
+          onTap: () {
+            context.read<AppCubit>().changeToAddServicePage();
+
+            context.go(AppRoutes.addServices);
+          },
         ),
         SizedBox(height: context.height * 0.12),
         Image.asset(AppAssets.noData),

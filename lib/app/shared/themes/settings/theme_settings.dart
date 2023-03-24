@@ -29,6 +29,8 @@ abstract class ThemeSettings {
       listTileTheme: _listTileTheme(colors),
       bottomAppBarTheme: _bottomAppBarTheme(colors),
       bottomNavigationBarTheme: _bottomNavigationBarTheme(colors),
+      floatingActionButtonTheme: _floatingActionButtonTheme(colors),
+      dividerTheme: _dividerTheme(colors),
       navigationRailTheme: _navigationRailTheme(colors),
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
@@ -48,12 +50,14 @@ abstract class ThemeSettings {
       listTileTheme: _listTileTheme(colors),
       bottomAppBarTheme: _bottomAppBarTheme(colors),
       bottomNavigationBarTheme: _bottomNavigationBarTheme(colors),
+      floatingActionButtonTheme: _floatingActionButtonTheme(colors),
+      dividerTheme: _dividerTheme(colors),
       navigationRailTheme: _navigationRailTheme(colors),
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(),
       scaffoldBackgroundColor: colors.background,
-      useMaterial3: true,
+      useMaterial3: false,
     );
   }
 
@@ -63,6 +67,7 @@ abstract class ThemeSettings {
       seedColor: AppColors.primary,
       primary: AppColors.primary,
       background: AppColors.background,
+      surface: AppColors.white,
       onSurface: AppColors.black,
     );
   }
@@ -108,7 +113,7 @@ abstract class ThemeSettings {
 
   static BottomAppBarTheme _bottomAppBarTheme(ColorScheme colors) {
     return BottomAppBarTheme(
-      color: colors.background,
+      color: colors.surface,
       elevation: 0,
       height: 75,
     );
@@ -125,6 +130,28 @@ abstract class ThemeSettings {
       showUnselectedLabels: true,
       elevation: 0,
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+    );
+  }
+
+  static FloatingActionButtonThemeData _floatingActionButtonTheme(
+      ColorScheme colors) {
+    return FloatingActionButtonThemeData(
+      elevation: 0,
+      highlightElevation: 0,
+      backgroundColor: colors.primary,
+      foregroundColor: colors.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50),
+      ),
+    );
+  }
+
+  static DividerThemeData _dividerTheme(ColorScheme colors) {
+    return const DividerThemeData(
+      color: AppColors.lightGrey,
+      indent: 0,
+      endIndent: 0,
+      space: 0,
     );
   }
 

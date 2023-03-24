@@ -21,7 +21,7 @@ class PillButton extends StatelessWidget {
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(25),
         )),
         backgroundColor: backgroundColor != null
             ? MaterialStateProperty.all<Color>(backgroundColor!)

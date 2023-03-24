@@ -20,10 +20,10 @@ class ServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      title: Text('${service.type?.name}', style: context.tileTitle),
+      title: Text('${service.type?.name}', style: context.titleSmall),
       subtitle: Text(
         DateFormat.yMd().format(service.date).normalizeDate(),
-        style: context.bodySmall,
+        style: context.labelSmall,
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -32,7 +32,7 @@ class ServiceCard extends StatelessWidget {
           Text(
             NumberFormatHelper.formatCurrency(
                 context, service.valueWithDiscount),
-            style: context.tileTitle!.copyWith(color: AppColors.green),
+            style: context.titleSmall!.copyWith(color: AppColors.green),
           ),
           const SizedBox(width: 25),
           IconButton(

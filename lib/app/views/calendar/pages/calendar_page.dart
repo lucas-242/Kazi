@@ -3,9 +3,9 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
@@ -110,6 +110,7 @@ class _Build extends StatelessWidget {
 
     void onEdit(Service service) async {
       context.read<AddServicesCubit>().onChangeService(service);
+      context.read<AppCubit>().changeToAddServicePage();
       context.go(AppRoutes.addServices);
     }
 
@@ -141,7 +142,10 @@ class _NoData extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         CustomElevatedButton(
-          onTap: () => context.go(AppRoutes.addServices),
+          onTap: () {
+            context.read<AppCubit>().changeToAddServicePage();
+            context.go(AppRoutes.addServices);
+          },
           text: AppLocalizations.current.addNewService,
         ),
       ],

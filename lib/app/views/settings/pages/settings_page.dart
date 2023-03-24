@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
 import '../settings.dart';

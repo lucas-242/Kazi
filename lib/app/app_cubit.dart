@@ -7,7 +7,18 @@ class AppCubit extends Cubit<int> {
 
   AppCubit(this._authService) : super(0);
 
-  void changePage(int newPage) => emit(newPage);
+  bool _isAddServicePage = false;
+  bool get isAddServicePage => _isAddServicePage;
+
+  void changePage(int newPage) {
+    _isAddServicePage = false;
+    emit(newPage);
+  }
+
+  void changeToAddServicePage() {
+    _isAddServicePage = true;
+    emit(1);
+  }
 
   Stream<bool> userSignOut() =>
       _authService.userChanges().map((user) => user == null ? true : false);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/views/home/widgets/info_card.dart';
@@ -31,6 +32,8 @@ class HomeContent extends StatelessWidget {
 
     void onEdit(Service service) async {
       context.read<AddServicesCubit>().onChangeService(service);
+      context.read<AppCubit>().changeToAddServicePage();
+
       context.go(AppRoutes.addServices);
     }
 
@@ -61,7 +64,10 @@ class HomeContent extends StatelessWidget {
         TitleAndPill(
           title: AppLocalizations.current.lastServices,
           pillText: AppLocalizations.current.newService,
-          onTap: () => context.go(AppRoutes.addServices),
+          onTap: () {
+            context.read<AppCubit>().changeToAddServicePage();
+            context.go(AppRoutes.addServices);
+          },
         ),
         const SizedBox(height: 20),
         ServiceList(services: state.services),

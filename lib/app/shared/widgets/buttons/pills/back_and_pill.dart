@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/widgets/buttons/circular_button/circular_button.dart';
 
 import 'pill_button.dart';
 
@@ -21,10 +21,8 @@ class BackAndPill extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        PillButton(
+        CircularButton(
           onTap: onTapBack,
-          backgroundColor: context.colorsScheme.onSurface,
-          foregroundColor: context.colorsScheme.background,
           child: const Icon(Icons.chevron_left),
         ),
         PillButton(
