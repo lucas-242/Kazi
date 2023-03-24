@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 
-import '../../../models/service.dart';
-import '../../themes/themes.dart';
-import '../../utils/number_format_helper.dart';
+import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/utils/number_format_helper.dart';
 
 class ServiceCard extends StatelessWidget {
   final Function(Service) onTapDelete;

@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_services/injector_container.dart';
 
-import '../../../../injector_container.dart';
-import '../../../models/app_user.dart';
-import '../../../services/auth_service/auth_service.dart';
-import '../../../shared/routes/app_routes.dart';
-import '../../../shared/themes/themes.dart';
+import 'package:my_services/app/models/app_user.dart';
+import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

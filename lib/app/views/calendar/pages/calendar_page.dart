@@ -5,21 +5,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
-import '../../../models/enums.dart';
-import '../../../models/service.dart';
-import '../../../shared/themes/themes.dart';
-import '../../../shared/widgets/service_list/service_list.dart';
+import 'package:my_services/app/models/enums.dart';
+import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/widgets/service_list/service_list.dart';
 
-import '../../../shared/routes/app_routes.dart';
-import '../../../shared/utils/base_state.dart';
-import '../../../shared/widgets/custom_date_range_picker/custom_date_range_picker.dart';
-import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
-import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
-import '../../../shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
-import '../../../shared/widgets/selectable_tag/selectable_tag.dart';
-import '../../add_services/cubit/add_services_cubit.dart';
-import '../../home/home.dart';
-import '../cubit/calendar_cubit.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
+import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/widgets/custom_date_range_picker/custom_date_range_picker.dart';
+import 'package:my_services/app/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+import 'package:my_services/app/shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
+import 'package:my_services/app/shared/widgets/selectable_tag/selectable_tag.dart';
+import 'package:my_services/app/views/calendar/calendar.dart';
+import 'package:my_services/app/views/home/home.dart';
+import 'package:my_services/app/views/services/add_services/add_services.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});

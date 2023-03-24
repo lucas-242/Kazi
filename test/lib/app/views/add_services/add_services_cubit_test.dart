@@ -10,7 +10,7 @@ import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/views/add_services/add_services.dart';
+import 'package:my_services/app/views/services/add_services/add_services.dart';
 
 import '../../../../mocks/mocks.dart';
 import '../../../../utils/test_helper.dart';

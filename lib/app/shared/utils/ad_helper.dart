@@ -1,7 +1,7 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../../injector_container.dart';
-import '../../services/log_service/log_service.dart';
+import 'package:my_services/injector_container.dart';
+import 'package:my_services/app/services/log_service/log_service.dart';
 
 abstract class AdHelper {
   static BannerAd? getBannerAd(String adUnitId) {

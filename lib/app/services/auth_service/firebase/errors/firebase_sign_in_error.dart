@@ -1,5 +1,5 @@
-import '../../../../shared/errors/errors.dart';
-import '../../../../shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 
 /// {@template firebase_sign_in_error}
 /// Thrown during the login process if a failure occurs.

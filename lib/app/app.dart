@@ -4,8 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'shared/themes/settings/theme_settings.dart';
 import 'shared/widgets/custom_app_bar/cubit/custom_app_bar_cubit.dart';
-import 'views/add_services/add_services.dart';
-import '../injector_container.dart';
+import 'views/services/add_services/add_services.dart';
+import '/injector_container.dart';
 import 'repositories/service_type_repository/service_type_repository.dart';
 import 'services/auth_service/auth_service.dart';
 import 'services/time_service/time_service.dart';

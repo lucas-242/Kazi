@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../ads/ad_block.dart';
-import '../../../models/service.dart';
-import '../service_card/service_card.dart';
+import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/shared/widgets/ads/ad_block.dart';
+import 'widgets/service_card.dart';
 
 class ServiceList extends StatelessWidget {
   final List<Service> services;

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 
-import '../../../shared/l10n/generated/l10n.dart';
-import '../../../shared/themes/themes.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 import '../cubit/home_cubit.dart';
 
-import '../../../shared/utils/base_state.dart';
-import '../../../shared/widgets/custom_snack_bar/custom_snack_bar.dart';
-import '../../../shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
+import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+import 'package:my_services/app/shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
 import '../widgets/home_content.dart';
 import '../widgets/home_no_data.dart';
 

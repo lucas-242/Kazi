@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../shared/l10n/generated/l10n.dart';
-import '../../../shared/routes/app_routes.dart';
-import '../../../shared/themes/themes.dart';
-import '../../../shared/widgets/title_pill/title_pill.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/widgets/title_pill/title_pill.dart';
 
 class HomeNoData extends StatelessWidget {
   const HomeNoData({super.key});

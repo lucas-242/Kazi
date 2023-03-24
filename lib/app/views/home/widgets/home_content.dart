@@ -4,13 +4,13 @@ import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/views/home/widgets/info_card.dart';
 
-import '../../../models/service.dart';
-import '../../../shared/routes/app_routes.dart';
-import '../../../shared/utils/number_format_helper.dart';
-import '../../../shared/widgets/service_list/service_list.dart';
-import '../../../shared/widgets/title_pill/title_pill.dart';
-import '../../add_services/cubit/add_services_cubit.dart';
-import '../../calendar/cubit/calendar_cubit.dart';
+import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
+import 'package:my_services/app/shared/utils/number_format_helper.dart';
+import 'package:my_services/app/shared/widgets/service_list/service_list.dart';
+import 'package:my_services/app/shared/widgets/title_pill/title_pill.dart';
+import 'package:my_services/app/views/services/add_services/cubit/add_services_cubit.dart';
+import 'package:my_services/app/views/calendar/cubit/calendar_cubit.dart';
 import '../cubit/home_cubit.dart';
 
 class HomeContent extends StatelessWidget {

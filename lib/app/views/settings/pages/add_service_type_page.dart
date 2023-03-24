@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
-import '../../../shared/utils/base_state.dart';
+import 'package:my_services/app/shared/utils/base_state.dart';
 import '../settings.dart';
 
 class AddServiceTypePage extends StatefulWidget {

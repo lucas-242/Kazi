@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../models/service.dart';
-import '../../../models/service_type.dart';
-import '../../../repositories/services_repository/services_repository.dart';
-import '../../../repositories/service_type_repository/service_type_repository.dart';
-import '../../../services/auth_service/auth_service.dart';
-import '../../../services/time_service/time_service.dart';
-import '../../../shared/utils/service_helper.dart';
-import '../../../shared/utils/base_cubit.dart';
-import '../../../shared/utils/base_state.dart';
+import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/repositories/services_repository/services_repository.dart';
+import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
+import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:my_services/app/shared/utils/service_helper.dart';
+import 'package:my_services/app/shared/utils/base_cubit.dart';
+import 'package:my_services/app/shared/utils/base_state.dart';
 
-import '../../../models/enums.dart';
-import '../../../shared/errors/errors.dart';
-import '../../../shared/extensions/extensions.dart';
+import 'package:my_services/app/models/enums.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 
 part 'calendar_state.dart';
 

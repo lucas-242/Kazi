@@ -4,8 +4,8 @@ import 'package:my_services/app/models/dropdown_item.dart';
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/cubit/custom_app_bar_cubit.dart';
 
-import '../../../shared/l10n/generated/l10n.dart';
-import '../../../shared/themes/themes.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;

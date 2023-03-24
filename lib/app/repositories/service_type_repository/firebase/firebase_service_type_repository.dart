@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../shared/extensions/extensions.dart';
-import '../../../models/service_type.dart';
-import '../../../shared/errors/errors.dart';
-import '../../../shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../service_type_repository.dart';
 
 class FirebaseServiceTypeRepository extends ServiceTypeRepository {

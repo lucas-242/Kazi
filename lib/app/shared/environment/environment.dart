@@ -1,7 +1,7 @@
 import 'package:my_services/app/shared/constants/ad_keys.dart';
 import 'dart:io';
 
-import '../../models/enums.dart';
+import 'package:my_services/app/models/enums.dart';
 import '../constants/global_keys.dart';
 
 abstract class Environment {

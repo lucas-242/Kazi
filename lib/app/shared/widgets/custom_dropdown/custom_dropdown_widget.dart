@@ -1,8 +1,8 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import '../../themes/themes.dart';
 
-import '../../../models/dropdown_item.dart';
+import 'package:my_services/app/models/dropdown_item.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
 class CustomDropdown extends StatelessWidget {
   final String label;
