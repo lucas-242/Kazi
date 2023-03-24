@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import '../cubit/home_cubit.dart';
 
@@ -30,19 +30,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: AppLocalizations.current.home,
-        showOrderBy: true,
-        onSelectedOrderBy: () => showModalBottomSheet(
-          context: context,
-          builder: (context) => OrderByBottomSheet(
-            onPressed: (orderBy) {
-              Navigator.of(context).pop();
-              context.read<HomeCubit>().onChangeOrderBy(orderBy);
-            },
-          ),
-        ),
-      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<HomeCubit>().onRefresh(),

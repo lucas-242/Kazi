@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 
 import 'package:my_services/injector_container.dart';
@@ -17,8 +18,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   void _login() {
-    injector<AuthService>().signInWithGoogle().then((value) {
-      if (value) Navigator.of(context).pushReplacementNamed(AppRoutes.app);
+    injector<AuthService>().signInWithGoogle().then((isSignedIn) {
+      if (isSignedIn) context.go(AppRoutes.home);
     }).catchError((error) {
       getCustomSnackBar(context, message: error.message);
     });

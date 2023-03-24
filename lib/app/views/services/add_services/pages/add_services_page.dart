@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:my_services/app/app_cubit.dart';
@@ -9,7 +10,7 @@ import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/views/calendar/calendar.dart';
 import 'package:my_services/app/views/home/cubit/home_cubit.dart';
 
-import 'package:my_services/app/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
 import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:my_services/app/views/services/add_services/add_services.dart';
 import 'package:my_services/app/views/services/add_services/widgets/add_services_form.dart';
@@ -34,9 +35,6 @@ class _AddServicesPageState extends State<AddServicesPage> {
         ? AppLocalizations.current.update
         : AppLocalizations.current.add;
     return Scaffold(
-      appBar: CustomAppBar(
-        title: '$label ${AppLocalizations.current.service.toLowerCase()}',
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: BlocListener<AddServicesCubit, AddServicesState>(
@@ -46,7 +44,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
               if (state.status == BaseStateStatus.success) {
                 context.read<HomeCubit>().onChangeServices();
                 context.read<CalendarCubit>().onChangeServices();
-                Navigator.of(context).pop();
+                context.pop();
               } else if (state.status == BaseStateStatus.error) {
                 getCustomSnackBar(
                   context,
@@ -121,7 +119,7 @@ class _NoData extends StatelessWidget {
         const SizedBox(height: 25),
         CustomElevatedButton(
           onTap: () {
-            Navigator.of(context).pop();
+            context.pop();
             context.read<AppCubit>().changePage(2);
           },
           text: AppLocalizations.current.addNewServiceType,

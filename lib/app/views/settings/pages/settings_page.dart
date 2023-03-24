@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
 import '../settings.dart';
 
 import 'package:my_services/app/shared/utils/base_state.dart';
@@ -27,7 +27,6 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: AppLocalizations.current.settings),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<SettingsCubit>().getServiceTypes(),
@@ -100,7 +99,7 @@ class _Build extends StatelessWidget {
               serviceType: state.serviceTypes[index],
               onTapEdit: (serviceType) {
                 context.read<SettingsCubit>().changeServiceType(serviceType);
-                Navigator.pushNamed(context, AppRoutes.addServiceType);
+                // context.go(AppRoutes.addServiceType);
               },
               onTapDelete: (serviceType) =>
                   context.read<SettingsCubit>().deleteServiceType(serviceType),
@@ -111,7 +110,9 @@ class _Build extends StatelessWidget {
         const SizedBox(height: 25),
         Center(
           child: CustomElevatedButton(
-            onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
+            onTap: () => null,
+            // context.go(AppRoutes.addServiceType);
+
             text: AppLocalizations.current.addNewServiceType,
           ),
         ),
@@ -132,7 +133,7 @@ class _NoData extends StatelessWidget {
             style: context.headlineSmall),
         const SizedBox(height: 25),
         CustomElevatedButton(
-          onTap: () => Navigator.pushNamed(context, AppRoutes.addServiceType),
+          onTap: () => null,
           text: AppLocalizations.current.addNewServiceType,
         ),
       ],

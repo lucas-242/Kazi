@@ -8,13 +8,11 @@ import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  final String title;
   final bool showOrderBy;
   final VoidCallback? onSelectedOrderBy;
 
   const CustomAppBar({
     Key? key,
-    required this.title,
     this.showOrderBy = false,
     this.onSelectedOrderBy,
   }) : super(key: key);

@@ -7,14 +7,12 @@ import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 
 class ServiceCard extends StatelessWidget {
-  final Function(Service) onTapDelete;
-  final Function(Service) onTapEdit;
+  final VoidCallback onTap;
   final Service service;
 
   const ServiceCard({
     super.key,
-    required this.onTapDelete,
-    required this.onTapEdit,
+    required this.onTap,
     required this.service,
   });
 
@@ -27,10 +25,6 @@ class ServiceCard extends StatelessWidget {
         DateFormat.yMd().format(service.date).normalizeDate(),
         style: context.bodySmall,
       ),
-      // trailing: Icon(
-      //   Icons.chevron_right,
-      //   color: AppColors.grey,
-
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,9 +35,12 @@ class ServiceCard extends StatelessWidget {
             style: context.tileTitle!.copyWith(color: AppColors.green),
           ),
           const SizedBox(width: 25),
-          const Icon(
-            Icons.chevron_right,
-            color: AppColors.grey,
+          IconButton(
+            onPressed: onTap,
+            icon: const Icon(
+              Icons.chevron_right,
+              color: AppColors.grey,
+            ),
           ),
         ],
       ),

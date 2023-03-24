@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_services/injector_container.dart';
 
 import 'package:my_services/app/models/app_user.dart';
@@ -30,10 +31,10 @@ class _SplashPageState extends State<SplashPage> {
     userStream = auth.userChanges().listen((user) {
       if (user != null) {
         auth.user = user;
-        Navigator.pushReplacementNamed(context, AppRoutes.app);
+        context.go(AppRoutes.home);
         userStream.cancel();
       } else {
-        Navigator.pushReplacementNamed(context, AppRoutes.login);
+        context.go(AppRoutes.login);
       }
     });
   }

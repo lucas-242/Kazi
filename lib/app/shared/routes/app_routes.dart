@@ -1,9 +1,11 @@
 abstract class AppRoutes {
-  static String splash = '/splash';
-  static String app = '/app';
+  static String initial = '/';
+  static String home = '/home';
   static String login = '/login';
-  static String addServices = '/services';
-  static String addServiceType = '/service-type';
+  static String services = '/services';
+  static String addServices = '/services/add';
+  static String calculator = '/calculator';
+  static String profile = '/profile';
 
-  static List<String> screenNames = ['Home', 'Meses', 'Configurações'];
+  static String add = 'add';
 }

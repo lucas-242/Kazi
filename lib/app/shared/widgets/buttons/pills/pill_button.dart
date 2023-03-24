@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class PillButton extends StatelessWidget {
   final VoidCallback onTap;
-  final String text;
+  final Widget child;
   final Color? backgroundColor;
   final Color? foregroundColor;
   const PillButton({
     super.key,
     required this.onTap,
-    required this.text,
+    required this.child,
     this.backgroundColor,
     this.foregroundColor,
   });
@@ -30,7 +30,7 @@ class PillButton extends StatelessWidget {
             ? MaterialStateProperty.all<Color>(foregroundColor!)
             : null,
       ),
-      child: Text(text),
+      child: child,
     );
   }
 }

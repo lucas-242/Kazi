@@ -34,7 +34,6 @@ class InfoCard extends StatelessWidget {
                     title,
                     style: context.cardTitle,
                   ),
-                  // const SizedBox(height: 5),
                   Text(
                     subtitle,
                     style: context.cardSubtitle,

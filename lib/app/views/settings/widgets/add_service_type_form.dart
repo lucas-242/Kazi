@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import '../settings.dart';
 
-import 'package:my_services/app/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
 import 'package:my_services/app/shared/widgets/custom_text_form_field/custom_text_form_field.dart';
 
 class AddServiceTypeForm extends StatefulWidget {

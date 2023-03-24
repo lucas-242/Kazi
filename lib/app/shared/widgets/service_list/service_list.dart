@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_services/app/app_cubit.dart';
 
 import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/widgets/ads/ad_block.dart';
 import 'widgets/service_card.dart';
 
 class ServiceList extends StatelessWidget {
   final List<Service> services;
-  final Function(Service) onTapEdit;
-  final Function(Service) onTapDelete;
 
   const ServiceList({
     super.key,
     required this.services,
-    required this.onTapEdit,
-    required this.onTapDelete,
   });
 
   @override
@@ -31,15 +31,19 @@ class ServiceList extends StatelessWidget {
                 return AdBlock(
                   child: ServiceCard(
                     service: services[index],
-                    onTapEdit: onTapEdit,
-                    onTapDelete: onTapDelete,
+                    onTap: () => context.go(
+                      '${AppRoutes.services}/${services[index].id}',
+                      extra: services[index],
+                    ),
                   ),
                 );
               }
               return ServiceCard(
                 service: services[index],
-                onTapEdit: onTapEdit,
-                onTapDelete: onTapDelete,
+                onTap: () => context.go(
+                  '${AppRoutes.services}/${services[index].id}',
+                  extra: services[index],
+                ),
               );
             },
             separatorBuilder: (context, index) => const Divider(),

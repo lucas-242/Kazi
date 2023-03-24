@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
@@ -13,7 +14,7 @@ import 'package:my_services/app/shared/widgets/service_list/service_list.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/custom_date_range_picker/custom_date_range_picker.dart';
-import 'package:my_services/app/shared/widgets/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
 import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:my_services/app/shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
 import 'package:my_services/app/shared/widgets/selectable_tag/selectable_tag.dart';
@@ -45,7 +46,6 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: AppLocalizations.current.calendar),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<CalendarCubit>().onRefresh(),
@@ -110,18 +110,14 @@ class _Build extends StatelessWidget {
 
     void onEdit(Service service) async {
       context.read<AddServicesCubit>().onChangeService(service);
-      Navigator.pushNamed(context, AppRoutes.addServices);
+      context.go(AppRoutes.addServices);
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _TopSearch(dateKey: dateKey, dateController: dateController),
-        ServiceList(
-          services: state.services,
-          onTapEdit: onEdit,
-          onTapDelete: onDelete,
-        ),
+        ServiceList(services: state.services),
       ],
     );
   }
@@ -145,7 +141,7 @@ class _NoData extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         CustomElevatedButton(
-          onTap: () => Navigator.pushNamed(context, AppRoutes.addServices),
+          onTap: () => context.go(AppRoutes.addServices),
           text: AppLocalizations.current.addNewService,
         ),
       ],
@@ -195,7 +191,7 @@ class _TopSearch extends StatelessWidget {
                 context: context,
                 builder: (context) => OrderByBottomSheet(
                   onPressed: (orderBy) {
-                    Navigator.of(context).pop();
+                    context.pop();
                     cubit.onChangeOrderBy(orderBy);
                   },
                 ),
