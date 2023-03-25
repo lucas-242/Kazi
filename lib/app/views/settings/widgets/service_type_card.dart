@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
-import '../../../models/service_type.dart';
-
-import '../../../shared/widgets/custom_slidable/custom_slidable.dart';
+import 'package:my_services/app/models/service_type.dart';
 
 class ServiceTypeCard extends StatelessWidget {
   final Function(ServiceType) onTapDelete;
@@ -18,23 +16,17 @@ class ServiceTypeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomSlidable(
-      leftPanel: true,
-      rightPanel: true,
-      onLeftSlide: () => onTapEdit(serviceType),
-      onRightSlide: () => onTapDelete(serviceType),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(serviceType.name),
-            Text(NumberFormatHelper.formatCurrency(
-                context, serviceType.defaultValue)),
-          ],
-        ),
-        subtitle: Text('${serviceType.discountPercent ?? 0}%'),
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(serviceType.name),
+          Text(NumberFormatHelper.formatCurrency(
+              context, serviceType.defaultValue)),
+        ],
       ),
+      subtitle: Text('${serviceType.discountPercent ?? 0}%'),
     );
   }
 }

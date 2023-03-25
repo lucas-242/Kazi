@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
-class PillButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final VoidCallback onTap;
   final String text;
   final Color? backgroundColor;
   final Color? foregroundColor;
-  const PillButton({
-    super.key,
+  final double? width;
+  final double? height;
+
+  const CustomElevatedButton({
+    Key? key,
     required this.onTap,
     required this.text,
     this.backgroundColor,
     this.foregroundColor,
-  });
+    this.width,
+    this.height,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +25,8 @@ class PillButton extends StatelessWidget {
       key: key,
       onPressed: onTap,
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        )),
+        minimumSize: MaterialStateProperty.all<Size>(Size(
+            width ?? context.width * 0.7, height ?? context.height * 0.067)),
         backgroundColor: backgroundColor != null
             ? MaterialStateProperty.all<Color>(backgroundColor!)
             : null,

@@ -5,11 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 
-import '../../../models/dropdown_item.dart';
-import '../../../shared/widgets/custom_date_picker/custom_date_picker.dart';
-import '../../../shared/widgets/custom_dropdown/custom_dropdown_widget.dart';
-import '../../../shared/widgets/custom_elevated_button/custom_elevated_button.dart';
-import '../../../shared/widgets/custom_text_form_field/custom_text_form_field.dart';
+import 'package:my_services/app/models/dropdown_item.dart';
+import 'package:my_services/app/shared/widgets/custom_date_picker/custom_date_picker.dart';
+import 'package:my_services/app/shared/widgets/custom_dropdown/custom_dropdown_widget.dart';
+import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/widgets/custom_text_form_field/custom_text_form_field.dart';
 import '../cubit/add_services_cubit.dart';
 
 class AddServicesForm extends StatefulWidget {

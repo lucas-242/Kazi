@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../shared/errors/errors.dart';
-import '../../../models/service.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
+import 'package:my_services/app/models/service.dart';
 import 'models/firebase_service_model.dart';
 import '../services_repository.dart';
-import '../../../shared/extensions/extensions.dart';
-import '../../../shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 
 class FirebaseServicesRepository extends ServicesRepository {
   final FirebaseFirestore _firestore;

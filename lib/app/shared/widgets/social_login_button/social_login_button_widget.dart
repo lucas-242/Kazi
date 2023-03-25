@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../l10n/generated/l10n.dart';
-import '../../themes/themes.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
 class SocialLoginButton extends StatelessWidget {
   final VoidCallback? onTap;

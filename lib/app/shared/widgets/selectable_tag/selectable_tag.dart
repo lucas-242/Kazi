@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../themes/themes.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
 class SelectableTag extends StatelessWidget {
   final VoidCallback onTap;

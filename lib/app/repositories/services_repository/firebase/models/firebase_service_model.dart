@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../../models/service.dart';
-import '../../../../models/service_type.dart';
+import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/models/service_type.dart';
 
 class FirebaseServiceModel extends Service {
   FirebaseServiceModel({

@@ -1,4 +1,4 @@
-import '../../models/service_type.dart';
+import 'package:my_services/app/models/service_type.dart';
 
 abstract class ServiceTypeRepository {
   Future<ServiceType> add(ServiceType serviceType);

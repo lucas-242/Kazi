@@ -19,12 +19,6 @@ extension TypographyExtension on BuildContext {
         fontSize: 16,
       );
 
-  TextStyle? get tileTitle => _textTheme.bodyMedium?.copyWith(
-        color: _colors.onSurface,
-        fontWeight: FontWeight.w500,
-        fontSize: 16,
-      );
-
   TextStyle? get noData => _textTheme.bodyMedium?.copyWith(
         color: AppColors.grey,
         fontWeight: FontWeight.w400,
@@ -39,6 +33,7 @@ extension TypographyExtension on BuildContext {
         fontWeight: FontWeight.w500,
         fontSize: 18,
       );
+
   TextStyle? get titleLarge => _textTheme.titleLarge?.copyWith(
         color: _colors.onSurface,
       );
@@ -48,14 +43,24 @@ extension TypographyExtension on BuildContext {
       );
   TextStyle? get titleSmall => _textTheme.titleSmall?.copyWith(
         color: _colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
       );
+
   TextStyle? get bodyLarge => _textTheme.bodyLarge?.copyWith(
         color: _colors.onSurface,
       );
   TextStyle? get bodyMedium => _textTheme.bodyMedium?.copyWith(
         color: _colors.onSurface,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
       );
-  TextStyle? get bodySmall => _textTheme.bodySmall?.copyWith(
+
+  TextStyle? get labelMedium => _textTheme.labelMedium?.copyWith(
+        color: AppColors.grey,
+        fontSize: 14,
+      );
+  TextStyle? get labelSmall => _textTheme.labelSmall?.copyWith(
         color: AppColors.grey,
         fontSize: 12,
       );

@@ -3,8 +3,6 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
 
-import '../../../themes/themes.dart';
-
 class BottomNavigationButton extends StatelessWidget {
   final VoidCallback onTap;
   final String icon;
@@ -26,6 +24,8 @@ class BottomNavigationButton extends StatelessWidget {
         ? context.colorsScheme.primary
         : context.colorsScheme.onPrimaryContainer;
 
+    FontWeight fontWeight = isSelected ? FontWeight.w500 : FontWeight.w400;
+
     return Expanded(
       child: Padding(
         padding: padding,
@@ -43,7 +43,11 @@ class BottomNavigationButton extends StatelessWidget {
               const SizedBox(height: 5),
               Text(
                 label,
-                style: TextStyle(color: color),
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: fontWeight,
+                ),
               )
             ],
           ),

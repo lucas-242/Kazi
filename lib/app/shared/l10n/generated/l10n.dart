@@ -170,6 +170,36 @@ class AppLocalizations {
     );
   }
 
+  /// `Discount percentage`
+  String get discountPercentage {
+    return Intl.message(
+      'Discount percentage',
+      name: 'discountPercentage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discount`
+  String get discount {
+    return Intl.message(
+      'Discount',
+      name: 'discount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discounts`
+  String get discounts {
+    return Intl.message(
+      'Discounts',
+      name: 'discounts',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fortnight`
   String get fortnight {
     return Intl.message(
@@ -310,6 +340,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Quantity`
+  String get quantity {
+    return Intl.message(
+      'Quantity',
+      name: 'quantity',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save`
   String get save {
     return Intl.message(
@@ -325,6 +365,46 @@ class AppLocalizations {
     return Intl.message(
       'Search',
       name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `service`
+  String get service {
+    return Intl.message(
+      'service',
+      name: 'service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `services`
+  String get services {
+    return Intl.message(
+      'services',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service type`
+  String get serviceType {
+    return Intl.message(
+      'Service type',
+      name: 'serviceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service types`
+  String get serviceTypes {
+    return Intl.message(
+      'Service types',
+      name: 'serviceTypes',
       desc: '',
       args: [],
     );
@@ -370,6 +450,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Action done successfully`
   String get success {
     return Intl.message(
@@ -385,6 +475,26 @@ class AppLocalizations {
     return Intl.message(
       'Today',
       name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total value`
+  String get total {
+    return Intl.message(
+      'Total value',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total received`
+  String get totalReceived {
+    return Intl.message(
+      'Total received',
+      name: 'totalReceived',
       desc: '',
       args: [],
     );
@@ -500,26 +610,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Discount percentage`
-  String get discountPercentage {
-    return Intl.message(
-      'Discount percentage',
-      name: 'discountPercentage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Discounts`
-  String get discounts {
-    return Intl.message(
-      'Discounts',
-      name: 'discounts',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `No services in the selected period.`
   String get noServicesInPeriod {
     return Intl.message(
@@ -565,76 +655,6 @@ class AppLocalizations {
     return Intl.message(
       'Select the service type',
       name: 'selectServiceType',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Quantity`
-  String get quantity {
-    return Intl.message(
-      'Quantity',
-      name: 'quantity',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `service`
-  String get service {
-    return Intl.message(
-      'service',
-      name: 'service',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `services`
-  String get services {
-    return Intl.message(
-      'services',
-      name: 'services',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Service type`
-  String get serviceType {
-    return Intl.message(
-      'Service type',
-      name: 'serviceType',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Service types`
-  String get serviceTypes {
-    return Intl.message(
-      'Service types',
-      name: 'serviceTypes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total value`
-  String get total {
-    return Intl.message(
-      'Total value',
-      name: 'total',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total received`
-  String get totalReceived {
-    return Intl.message(
-      'Total received',
-      name: 'totalReceived',
       desc: '',
       args: [],
     );

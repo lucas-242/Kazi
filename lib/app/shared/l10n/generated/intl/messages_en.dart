@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultValue": MessageLookupByLibrary.simpleMessage("Default Value"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Discount percentage"),
         "discounts": MessageLookupByLibrary.simpleMessage("Discounts"),
@@ -138,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "serviceTypes": MessageLookupByLibrary.simpleMessage("Service types"),
         "services": MessageLookupByLibrary.simpleMessage("services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(

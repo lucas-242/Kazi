@@ -16,8 +16,6 @@ class CustomBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 5,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,47 +49,5 @@ class CustomBottomNavigation extends StatelessWidget {
         ],
       ),
     );
-
-    // return BottomNavigationBar(
-    //   currentIndex: currentPage,
-    //   type: BottomNavigationBarType.fixed,
-    //   items: [
-    //     BottomNavigationBarItem(
-    //         icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
-    //         label: 'Home'),
-    //     BottomNavigationBarItem(
-    //         icon: Icon(Icons.power, color: Color.fromARGB(255, 0, 0, 0)),
-    //         label: 'Power')
-    //   ],
-    //   onTap: onTap,
-    // );
-
-    // return BottomNavigationBar(
-    //   currentIndex: currentPage,
-    //   onTap: (index) => onTap(index),
-
-    //   items: [
-    //     const BottomNavigationBarItem(
-    //       activeIcon: Icon(Icons.home),
-    //       icon: Icon(Icons.home_outlined),
-    //       label: 'Home',
-    //     ),
-    //     BottomNavigationBarItem(
-    //       activeIcon: const Icon(Icons.calendar_month),
-    //       icon: const Icon(Icons.calendar_month_outlined),
-    //       label: AppLocalizations.current.calendar,
-    //     ),
-    //     BottomNavigationBarItem(
-    //       activeIcon: const Icon(Icons.settings),
-    //       icon: const Icon(Icons.settings_outlined),
-    //       label: AppLocalizations.current.settings,
-    //     ),
-    //     BottomNavigationBarItem(
-    //       activeIcon: const Icon(Icons.person),
-    //       icon: const Icon(Icons.person),
-    //       label: AppLocalizations.current.settings,
-    //     ),
-    //   ],
-    // );
   }
 }

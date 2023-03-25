@@ -1,4 +1,4 @@
-import '../../models/dropdown_item.dart';
+import 'package:my_services/app/models/dropdown_item.dart';
 
 mixin FormValidator {
   String? validateTextField(String? fieldValue, String fieldName) {

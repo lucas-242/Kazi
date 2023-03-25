@@ -2,18 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
-import 'views/calendar/calendar.dart';
+import 'package:go_router/go_router.dart';
 
-import 'shared/widgets/custom_bottom_navigation/custom_bottom_navigation.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
+
 import 'app_cubit.dart';
 import 'shared/routes/app_routes.dart';
-import 'views/home/pages/home_page.dart';
-import 'views/settings/settings.dart';
+import 'shared/widgets/custom_bottom_navigation/custom_bottom_navigation.dart';
 
 class AppScaffold extends StatefulWidget {
-  const AppScaffold({Key? key}) : super(key: key);
+  final Widget child;
+  const AppScaffold({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
 
   @override
   State<AppScaffold> createState() => _AppScaffoldState();
@@ -32,7 +35,7 @@ class _AppScaffoldState extends State<AppScaffold> {
   void _listenUser() {
     userStream = context.read<AppCubit>().userSignOut().listen((userSignOut) {
       if (userSignOut) {
-        Navigator.pushReplacementNamed(context, AppRoutes.login);
+        context.go(AppRoutes.login);
       }
     });
   }
@@ -45,31 +48,64 @@ class _AppScaffoldState extends State<AppScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<AppCubit>();
     return BlocBuilder<AppCubit, int>(
       builder: (context, state) {
         return Scaffold(
-          body: [
-            const HomePage(),
-            const CalendarPage(),
-            const SettingsPage(),
-          ][state],
+          appBar: const CustomAppBar(),
+          body: widget.child,
+          resizeToAvoidBottomInset: false,
           bottomNavigationBar: CustomBottomNavigation(
             currentPage: context.watch<AppCubit>().state,
-            onTap: (index) => context.read<AppCubit>().changePage(index),
+            onTap: (index) => _onTapBottomItem(index, context),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, AppRoutes.addServices),
-            tooltip: AppLocalizations.current.addNewService,
-            elevation: 0,
-            highlightElevation: 0,
-            backgroundColor: context.colorsScheme.primary,
-            child: const Icon(Icons.add),
+          floatingActionButton: Align(
+            alignment: Alignment.bottomCenter,
+            heightFactor: 1.5,
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 4),
+                shape: BoxShape.circle,
+              ),
+              child: FloatingActionButton(
+                onPressed: _onTapFloatingActionButton,
+                tooltip: AppLocalizations.current.addNewService,
+                child: Icon(cubit.isAddServicePage ? Icons.close : Icons.add),
+              ),
+            ),
           ),
         );
       },
     );
+  }
+
+  void _onTapFloatingActionButton() {
+    final cubit = context.read<AppCubit>();
+    if (cubit.isAddServicePage) {
+      _onTapBottomItem(1, context);
+    } else {
+      cubit.changeToAddServicePage();
+      context.go(AppRoutes.addServices);
+    }
+  }
+
+  void _onTapBottomItem(int index, BuildContext context) {
+    context.read<AppCubit>().changePage(index);
+    switch (index) {
+      case 0:
+        context.go(AppRoutes.home);
+        break;
+      case 1:
+        context.go(AppRoutes.services);
+        break;
+      case 2:
+        context.go(AppRoutes.calculator);
+        break;
+      case 3:
+        context.go(AppRoutes.profile);
+        break;
+    }
   }
 }
