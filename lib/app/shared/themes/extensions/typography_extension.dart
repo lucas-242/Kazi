@@ -47,8 +47,10 @@ extension TypographyExtension on BuildContext {
         fontSize: 16,
       );
 
-  TextStyle? get bodyLarge => _textTheme.bodyLarge?.copyWith(
+  TextStyle? get bodyLarge => _textTheme.bodyMedium?.copyWith(
         color: _colors.onSurface,
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
       );
   TextStyle? get bodyMedium => _textTheme.bodyMedium?.copyWith(
         color: _colors.onSurface,

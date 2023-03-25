@@ -37,6 +37,7 @@ extension FirebaseUserExtension on User {
       uid: uid,
       email: email ?? '',
       name: displayName ?? email ?? '',
+      phoneNumber: phoneNumber,
       photoUrl: photoURL,
     );
   }

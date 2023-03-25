@@ -200,6 +200,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fortnight`
   String get fortnight {
     return Intl.message(
@@ -325,6 +335,16 @@ class AppLocalizations {
     return Intl.message(
       'Order by',
       name: 'orderBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone`
+  String get phone {
+    return Intl.message(
+      'Phone',
+      name: 'phone',
       desc: '',
       args: [],
     );
