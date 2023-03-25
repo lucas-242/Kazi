@@ -31,19 +31,24 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       title: Row(
         children: [
           const SizedBox(width: 10),
-          ClipOval(
-            child: Container(
-              color: context.colorsScheme.background,
-              height: 48,
-              width: 48,
-              child: const Center(
-                child: Text('🦆'),
-              ),
+          SizedBox(
+            width: 48.0,
+            height: 48.0,
+            child: CircleAvatar(
+              backgroundImage:
+                  user!.photoUrl != null ? NetworkImage(user.photoUrl!) : null,
+              backgroundColor: AppColors.white,
+              child: user.photoUrl == null
+                  ? Text(
+                      '🦆',
+                      style: context.cardTitle!.copyWith(fontSize: 38),
+                    )
+                  : null,
             ),
           ),
           const SizedBox(width: 10),
           Text(
-            AppLocalizations.current.hi(user!.shortName),
+            AppLocalizations.current.hi(user.shortName),
             style: context.headlineSmall,
           ),
         ],

@@ -5,7 +5,6 @@ import 'package:my_services/app/shared/routes/router.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 import 'shared/themes/settings/theme_settings.dart';
-import 'shared/widgets/custom_app_bar/cubit/custom_app_bar_cubit.dart';
 import '/injector_container.dart';
 import 'repositories/service_type_repository/service_type_repository.dart';
 import 'services/auth_service/auth_service.dart';
@@ -30,8 +29,6 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AppCubit>(
             create: (_) => AppCubit(injector.get<AuthService>())),
-        BlocProvider<CustomAppBarCubit>(
-            create: (_) => CustomAppBarCubit(injector.get<AuthService>())),
         BlocProvider<SettingsCubit>(
           create: (_) => SettingsCubit(
             injector.get<ServiceTypeRepository>(),

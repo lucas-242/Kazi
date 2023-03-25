@@ -25,16 +25,23 @@ class ProfilePage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    user.photoUrl != null
-                        ? SizedBox(
-                            width: 120.0,
-                            height: 120.0,
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(user.photoUrl!),
-                              backgroundColor: AppColors.white,
-                            ),
-                          )
-                        : const Text('🦆'),
+                    SizedBox(
+                      width: 120.0,
+                      height: 120.0,
+                      child: CircleAvatar(
+                        backgroundImage: user.photoUrl != null
+                            ? NetworkImage(user.photoUrl!)
+                            : null,
+                        backgroundColor: AppColors.white,
+                        child: user.photoUrl == null
+                            ? Text(
+                                '🦆',
+                                style:
+                                    context.cardTitle!.copyWith(fontSize: 80),
+                              )
+                            : null,
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     Text(user.name, style: context.titleMedium),
                     const SizedBox(height: 40),
