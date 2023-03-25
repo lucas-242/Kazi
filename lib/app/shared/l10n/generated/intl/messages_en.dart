@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Discount percentage"),
         "discounts": MessageLookupByLibrary.simpleMessage("Discounts"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "Email is invalid or badly formatted"),
         "emailWasNotFound": MessageLookupByLibrary.simpleMessage(
@@ -127,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Value: Highest to lowest"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "Password is too weak. Please, try a different one"),
+        "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "requiredProperty": m4,

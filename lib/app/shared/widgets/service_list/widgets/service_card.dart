@@ -19,7 +19,7 @@ class ServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.zero,
+      contentPadding: const EdgeInsets.only(top: 15, bottom: 10),
       title: Text('${service.type?.name}', style: context.titleSmall),
       subtitle: Text(
         DateFormat.yMd().format(service.date).normalizeDate(),

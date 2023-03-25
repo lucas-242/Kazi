@@ -7,6 +7,7 @@ import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/pills/back_and_pill.dart';
+import 'package:my_services/app/shared/widgets/texts/row_text.dart';
 
 class ServiceDetailsPage extends StatelessWidget {
   final Service service;
@@ -43,68 +44,46 @@ class ServiceDetailsPage extends StatelessWidget {
                       style: context.labelMedium,
                     ),
                     const SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.current.myBalance,
-                          style: context.titleSmall,
-                        ),
-                        Text(
-                          NumberFormatHelper.formatCurrency(
-                            context,
-                            service.value,
-                          ),
-                          style: context.titleSmall!
-                              .copyWith(color: AppColors.green),
-                        )
-                      ],
+                    RowText(
+                      leftText: AppLocalizations.current.myBalance,
+                      rightText: NumberFormatHelper.formatCurrency(
+                        context,
+                        service.value,
+                      ),
+                      rightTextStyle:
+                          context.titleSmall!.copyWith(color: AppColors.green),
                     ),
-                    const SizedBox(height: 20),
-                    const Divider(),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.current.discount,
-                          style: context.titleSmall,
-                        ),
-                        Text(
-                          NumberFormatHelper.formatCurrency(
-                            context,
-                            service.valueDiscounted,
-                          ),
-                          style: context.titleSmall!
-                              .copyWith(color: AppColors.orange),
-                        )
-                      ],
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      child: Divider(),
                     ),
-                    const SizedBox(height: 20),
-                    const Divider(),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.current.totalReceived,
-                          style: context.titleSmall,
-                        ),
-                        Text(
-                          NumberFormatHelper.formatCurrency(
-                            context,
-                            service.valueWithDiscount,
-                          ),
-                          style: context.titleSmall,
-                        )
-                      ],
+                    RowText(
+                      leftText: AppLocalizations.current.discount,
+                      rightText: NumberFormatHelper.formatCurrency(
+                        context,
+                        service.valueDiscounted,
+                      ),
+                      rightTextStyle:
+                          context.titleSmall!.copyWith(color: AppColors.orange),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      child: Divider(),
+                    ),
+                    RowText(
+                      leftText: AppLocalizations.current.totalReceived,
+                      rightText: NumberFormatHelper.formatCurrency(
+                        context,
+                        service.valueWithDiscount,
+                      ),
                     ),
                     service.description != null
                         ? Column(
                             children: [
-                              const SizedBox(height: 20),
-                              const Divider(),
-                              const SizedBox(height: 20),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 20.0),
+                                child: Divider(),
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

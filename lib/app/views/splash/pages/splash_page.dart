@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppAssets.logo),
+            SvgPicture.asset(AppAssets.logoName),
           ],
         ),
       ),

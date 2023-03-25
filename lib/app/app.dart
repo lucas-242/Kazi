@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_services/app/shared/routes/router.dart';
+import 'package:my_services/app/views/services/services.dart';
 
 import 'shared/themes/settings/theme_settings.dart';
-import 'shared/widgets/custom_app_bar/cubit/custom_app_bar_cubit.dart';
-import 'views/services/add_services/add_services.dart';
 import '/injector_container.dart';
 import 'repositories/service_type_repository/service_type_repository.dart';
 import 'services/auth_service/auth_service.dart';
 import 'services/time_service/time_service.dart';
-import 'views/calendar/calendar.dart';
 import 'views/home/cubit/home_cubit.dart';
 import 'views/settings/settings.dart';
 import 'app_cubit.dart';
@@ -31,8 +29,6 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AppCubit>(
             create: (_) => AppCubit(injector.get<AuthService>())),
-        BlocProvider<CustomAppBarCubit>(
-            create: (_) => CustomAppBarCubit(injector.get<AuthService>())),
         BlocProvider<SettingsCubit>(
           create: (_) => SettingsCubit(
             injector.get<ServiceTypeRepository>(),

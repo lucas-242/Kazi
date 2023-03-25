@@ -17,10 +17,9 @@ import 'package:my_services/app/shared/widgets/custom_date_range_picker/custom_d
 import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
 import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:my_services/app/shared/widgets/order_by_bottom_sheet/order_by_bottom_sheet.dart';
-import 'package:my_services/app/shared/widgets/selectable_tag/selectable_tag.dart';
-import 'package:my_services/app/views/calendar/calendar.dart';
+import 'package:my_services/app/shared/widgets/buttons/selectable_tag/selectable_tag.dart';
 import 'package:my_services/app/views/home/home.dart';
-import 'package:my_services/app/views/services/add_services/add_services.dart';
+import 'package:my_services/app/views/services/services.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});

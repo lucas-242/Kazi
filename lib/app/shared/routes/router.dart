@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_scaffold.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/views/calendar/calendar.dart';
 import 'package:my_services/app/views/home/home.dart';
-import 'package:my_services/app/views/services/add_services/add_services.dart';
-import 'package:my_services/app/views/services/service_details/pages/service_details_page.dart';
+import 'package:my_services/app/views/login/login.dart';
+import 'package:my_services/app/views/profile/profile.dart';
+import 'package:my_services/app/views/services/services.dart';
 import 'package:my_services/app/views/splash/splash.dart';
 
 final router = GoRouter(
@@ -16,6 +16,11 @@ final router = GoRouter(
       path: AppRoutes.initial,
       pageBuilder: (context, state) =>
           _customTransition(state, const SplashPage()),
+    ),
+    GoRoute(
+      path: AppRoutes.login,
+      pageBuilder: (context, state) =>
+          _customTransition(state, const LoginPage()),
     ),
     ShellRoute(
       builder: (context, state, child) => AppScaffold(child: child),
@@ -49,9 +54,7 @@ final router = GoRouter(
         ),
         GoRoute(
           path: AppRoutes.profile,
-          builder: (context, state) => Container(
-            color: Colors.red,
-          ),
+          builder: (context, state) => const ProfilePage(),
         ),
       ],
     ),

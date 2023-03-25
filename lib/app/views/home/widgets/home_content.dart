@@ -11,8 +11,7 @@ import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/service_list/service_list.dart';
 import 'package:my_services/app/shared/widgets/buttons/pills/title_and_pill.dart';
-import 'package:my_services/app/views/services/add_services/cubit/add_services_cubit.dart';
-import 'package:my_services/app/views/calendar/cubit/calendar_cubit.dart';
+import 'package:my_services/app/views/services/services.dart';
 import '../cubit/home_cubit.dart';
 
 class HomeContent extends StatelessWidget {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_services/app/models/dropdown_item.dart';
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/shared/widgets/custom_app_bar/cubit/custom_app_bar_cubit.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:my_services/app/services/auth_service/auth_service.dart';
 
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/injector_container.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final bool showOrderBy;
@@ -22,7 +21,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<CustomAppBarCubit>();
+    final user = injector.get<AuthService>().user;
 
     return AppBar(
       toolbarHeight: preferredSize.height,
@@ -32,19 +31,24 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       title: Row(
         children: [
           const SizedBox(width: 10),
-          ClipOval(
-            child: Container(
-              color: context.colorsScheme.background,
-              height: 48,
-              width: 48,
-              child: const Center(
-                child: Text('🦆'),
-              ),
+          SizedBox(
+            width: 48.0,
+            height: 48.0,
+            child: CircleAvatar(
+              backgroundImage:
+                  user!.photoUrl != null ? NetworkImage(user.photoUrl!) : null,
+              backgroundColor: AppColors.white,
+              child: user.photoUrl == null
+                  ? Text(
+                      '🦆',
+                      style: context.cardTitle!.copyWith(fontSize: 38),
+                    )
+                  : null,
             ),
           ),
           const SizedBox(width: 10),
           Text(
-            AppLocalizations.current.hi(cubit.state.user.shortName),
+            AppLocalizations.current.hi(user.shortName),
             style: context.headlineSmall,
           ),
         ],
@@ -56,28 +60,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: PopupMenuButton<DropdownItem>(
-            onSelected: (item) {
-              cubit.onChangeSelectedMenuItem(item);
-              if (item.value == CustomAppBarOptions.order.toString()) {
-                onSelectedOrderBy?.call();
-              } else if (item.value == CustomAppBarOptions.logout.toString()) {
-                cubit.signOut();
-              }
-            },
-            splashRadius: 10,
-            position: PopupMenuPosition.under,
-            itemBuilder: (BuildContext context) => cubit.state.items
-                .skipWhile((item) =>
-                    !showOrderBy &&
-                    item.value == CustomAppBarOptions.order.toString())
-                .map((item) => PopupMenuItem<DropdownItem>(
-                      value: item,
-                      child: Text(item.label),
-                    ))
-                .toList(),
-          ),
+          padding: const EdgeInsets.only(right: 20),
+          child: SvgPicture.asset(AppAssets.logo),
         ),
       ],
     );

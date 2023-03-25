@@ -1,6 +1,7 @@
 class AppUser {
   final String name;
   final String email;
+  final String? phoneNumber;
   final String? photoUrl;
   final String uid;
 
@@ -8,6 +9,7 @@ class AppUser {
     required this.name,
     required this.email,
     this.photoUrl,
+    this.phoneNumber,
     required this.uid,
   });
 
