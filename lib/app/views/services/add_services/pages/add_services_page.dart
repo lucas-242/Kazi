@@ -6,10 +6,10 @@ import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/home/cubit/home_cubit.dart';
 
-import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
-import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:my_services/app/views/services/add_services/widgets/add_services_form.dart';
 import 'package:my_services/app/views/services/services.dart';
 
@@ -41,7 +41,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
             listener: (context, state) {
               if (state.status == BaseStateStatus.success) {
                 context.read<HomeCubit>().onChangeServices();
-                context.read<CalendarCubit>().onChangeServices();
+                context.read<ServiceLandingCubit>().onChangeServices();
                 context.pop();
               } else if (state.status == BaseStateStatus.error) {
                 getCustomSnackBar(

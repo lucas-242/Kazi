@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       foregroundColor: context.colorsScheme.onSurface,
       title: Row(
         children: [
-          const SizedBox(width: 10),
+          AppSizeConstants.smallHorizontalSpacer,
           SizedBox(
             width: 48.0,
             height: 48.0,
@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   : null,
             ),
           ),
-          const SizedBox(width: 10),
+          AppSizeConstants.smallHorizontalSpacer,
           Text(
             AppLocalizations.current.hi(user.shortName),
             style: context.headlineSmall,

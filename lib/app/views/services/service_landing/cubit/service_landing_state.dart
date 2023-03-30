@@ -1,6 +1,6 @@
-part of 'calendar_cubit.dart';
+part of 'service_landing_cubit.dart';
 
-class CalendarState extends BaseState with EquatableMixin {
+class ServiceLandingState extends BaseState with EquatableMixin {
   DateTime startDate;
   DateTime endDate;
   FastSearch selectedFastSearch;
@@ -19,7 +19,7 @@ class CalendarState extends BaseState with EquatableMixin {
     return services.fold<double>(0, (a, b) => a + b.valueDiscounted);
   }
 
-  CalendarState({
+  ServiceLandingState({
     required super.status,
     List<Service>? services,
     super.callbackMessage,
@@ -32,7 +32,7 @@ class CalendarState extends BaseState with EquatableMixin {
         selectedFastSearch = selectedFastSearch ?? FastSearch.today;
 
   @override
-  CalendarState copyWith({
+  ServiceLandingState copyWith({
     BaseStateStatus? status,
     String? callbackMessage,
     List<Service>? services,
@@ -41,7 +41,7 @@ class CalendarState extends BaseState with EquatableMixin {
     FastSearch? selectedFastSearch,
     OrderBy? selectedOrderBy,
   }) {
-    return CalendarState(
+    return ServiceLandingState(
       status: status ?? this.status,
       callbackMessage: callbackMessage ?? this.callbackMessage,
       services: services ?? this.services,

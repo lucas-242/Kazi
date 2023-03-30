@@ -4,6 +4,7 @@ abstract class AppRoutes {
   static String login = '/login';
   static String services = '/services';
   static String addServices = '/services/add';
+  static String addServiceType = '/services/type/add';
   static String calculator = '/calculator';
   static String profile = '/profile';
 

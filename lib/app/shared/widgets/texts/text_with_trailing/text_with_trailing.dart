@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
-class TextIcon extends StatelessWidget {
+class TextWithTrailing extends StatelessWidget {
   final String text;
-  final IconData icon;
+  final Widget trailing;
   final TextStyle? textStyle;
-  const TextIcon({
+
+  const TextWithTrailing({
     super.key,
     required this.text,
-    required this.icon,
+    required this.trailing,
     this.textStyle,
   });
 
@@ -18,13 +20,10 @@ class TextIcon extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          text,
-          style: textStyle ?? context.titleSmall,
+          text.capitalize(),
+          style: textStyle ?? context.titleMedium,
         ),
-        Icon(
-          icon,
-          color: AppColors.grey,
-        )
+        trailing
       ],
     );
   }

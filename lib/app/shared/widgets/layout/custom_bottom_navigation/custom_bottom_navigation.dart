@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/custom_bottom_navigation/widgets/bottom_navigation_button.dart';
+import 'package:my_services/app/shared/widgets/layout/custom_bottom_navigation/widgets/bottom_navigation_button.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   final int currentPage;

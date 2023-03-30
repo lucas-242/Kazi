@@ -9,7 +9,7 @@ import 'package:my_services/app/views/home/widgets/info_card.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
-import 'package:my_services/app/shared/widgets/service_list/service_list.dart';
+import 'package:my_services/app/shared/widgets/services/service_list/service_list.dart';
 import 'package:my_services/app/shared/widgets/buttons/pills/title_and_pill.dart';
 import 'package:my_services/app/views/services/services.dart';
 import '../cubit/home_cubit.dart';
@@ -24,7 +24,7 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void onDelete(Service service) async {
-      final calendarCubit = context.read<CalendarCubit>();
+      final calendarCubit = context.read<ServiceLandingCubit>();
       await context.read<HomeCubit>().deleteService(service);
       calendarCubit.onChangeServices();
     }
@@ -59,7 +59,7 @@ class HomeContent extends StatelessWidget {
           icon: AppAssets.rocket,
           color: AppColors.blue,
         ),
-        const SizedBox(height: 10),
+        AppSizeConstants.smallVerticalSpacer,
         TitleAndPill(
           title: AppLocalizations.current.lastServices,
           pillText: AppLocalizations.current.newService,
@@ -68,7 +68,7 @@ class HomeContent extends StatelessWidget {
             context.go(AppRoutes.addServices);
           },
         ),
-        const SizedBox(height: 20),
+        AppSizeConstants.mediumVerticalSpacer,
         ServiceList(services: state.services),
       ],
     );

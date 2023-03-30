@@ -7,6 +7,7 @@ import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/login/login.dart';
 import 'package:my_services/app/views/profile/profile.dart';
 import 'package:my_services/app/views/services/services.dart';
+import 'package:my_services/app/views/settings/settings.dart';
 import 'package:my_services/app/views/splash/splash.dart';
 
 final router = GoRouter(
@@ -33,7 +34,7 @@ final router = GoRouter(
         GoRoute(
             path: AppRoutes.services,
             pageBuilder: (context, state) =>
-                _customTransition(state, const CalendarPage()),
+                _customTransition(state, const ServiceLandingPage()),
             routes: [
               GoRoute(
                 path: AppRoutes.add,
@@ -45,12 +46,16 @@ final router = GoRouter(
                 pageBuilder: (context, state) => _customTransition(
                     state, ServiceDetailsPage(service: state.extra as Service)),
               ),
+              GoRoute(
+                path: 'type/add',
+                pageBuilder: (context, state) =>
+                    _customTransition(state, const AddServiceTypePage()),
+              ),
             ]),
         GoRoute(
           path: AppRoutes.calculator,
-          builder: (context, state) => Container(
-            color: Colors.blue,
-          ),
+          pageBuilder: (context, state) =>
+              _customTransition(state, const SettingsPage()),
         ),
         GoRoute(
           path: AppRoutes.profile,

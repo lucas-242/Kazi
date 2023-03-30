@@ -14,20 +14,20 @@ import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 
-part 'calendar_state.dart';
+part 'service_landing_state.dart';
 
-class CalendarCubit extends Cubit<CalendarState> with BaseCubit {
+class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
   final TimeService _timeService;
 
-  CalendarCubit(
+  ServiceLandingCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
     this._authService,
     this._timeService,
-  ) : super(CalendarState(
+  ) : super(ServiceLandingState(
           status: BaseStateStatus.loading,
           startDate: _timeService.nowWithoutTime,
           endDate: _timeService.nowWithoutTime,

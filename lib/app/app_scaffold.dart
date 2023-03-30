@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 
 import 'app_cubit.dart';
 import 'shared/routes/app_routes.dart';
-import 'shared/widgets/custom_bottom_navigation/custom_bottom_navigation.dart';
 
 class AppScaffold extends StatefulWidget {
   final Widget child;

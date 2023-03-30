@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import '../settings.dart';
 
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -109,9 +111,7 @@ class _Build extends StatelessWidget {
         const SizedBox(height: 25),
         Center(
           child: CustomElevatedButton(
-            onTap: () => null,
-            // context.go(AppRoutes.addServiceType);
-
+            onTap: () => context.go(AppRoutes.addServiceType),
             text: AppLocalizations.current.addNewServiceType,
           ),
         ),

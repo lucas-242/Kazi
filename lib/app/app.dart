@@ -50,8 +50,8 @@ class _AppState extends State<App> {
             injector.get<AuthService>(),
           ),
         ),
-        BlocProvider<CalendarCubit>(
-          create: (_) => CalendarCubit(
+        BlocProvider<ServiceLandingCubit>(
+          create: (_) => ServiceLandingCubit(
             injector.get<ServicesRepository>(),
             injector.get<ServiceTypeRepository>(),
             injector.get<AuthService>(),
