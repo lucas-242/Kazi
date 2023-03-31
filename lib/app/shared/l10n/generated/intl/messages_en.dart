@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyExists": m0,
         "appSubtitle":
             MessageLookupByLibrary.simpleMessage("Organize your services"),
+        "applyFilters": MessageLookupByLibrary.simpleMessage("Apply Filters"),
         "calculator": MessageLookupByLibrary.simpleMessage("Calculator"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -81,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to update service"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Error to update service type"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Sign in with Google"),
@@ -113,24 +115,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "No services in the selected period."),
         "noServicesOnDay":
             MessageLookupByLibrary.simpleMessage("No services on"),
+        "orderAlphabetical":
+            MessageLookupByLibrary.simpleMessage("Alphabetical"),
         "orderBy": MessageLookupByLibrary.simpleMessage("Order by"),
         "orderDateAsc": MessageLookupByLibrary.simpleMessage(
-            "Date: Least current to most current"),
+            "Least current to most current"),
         "orderDateDesc": MessageLookupByLibrary.simpleMessage(
-            "Date: Most current to least current"),
-        "orderTypeAsc":
-            MessageLookupByLibrary.simpleMessage("Type: From A to Z"),
-        "orderTypeDesc":
-            MessageLookupByLibrary.simpleMessage("Type: From Z to A"),
+            "Most current to least current"),
         "orderValueAsc":
-            MessageLookupByLibrary.simpleMessage("Value: Lowest to highest"),
+            MessageLookupByLibrary.simpleMessage("Lowest to highest"),
         "orderValueDesc":
-            MessageLookupByLibrary.simpleMessage("Value: Highest to lowest"),
+            MessageLookupByLibrary.simpleMessage("Highest to lowest"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "Password is too weak. Please, try a different one"),
+        "period": MessageLookupByLibrary.simpleMessage("Period"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
+        "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
         "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),

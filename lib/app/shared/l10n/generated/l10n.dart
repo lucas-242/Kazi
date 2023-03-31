@@ -70,6 +70,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Apply Filters`
+  String get applyFilters {
+    return Intl.message(
+      'Apply Filters',
+      name: 'applyFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Organize your services`
   String get appSubtitle {
     return Intl.message(
@@ -210,6 +220,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Filters`
+  String get filters {
+    return Intl.message(
+      'Filters',
+      name: 'filters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fortnight`
   String get fortnight {
     return Intl.message(
@@ -330,11 +350,71 @@ class AppLocalizations {
     );
   }
 
+  /// `Alphabetical`
+  String get orderAlphabetical {
+    return Intl.message(
+      'Alphabetical',
+      name: 'orderAlphabetical',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Order by`
   String get orderBy {
     return Intl.message(
       'Order by',
       name: 'orderBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Least current to most current`
+  String get orderDateAsc {
+    return Intl.message(
+      'Least current to most current',
+      name: 'orderDateAsc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Most current to least current`
+  String get orderDateDesc {
+    return Intl.message(
+      'Most current to least current',
+      name: 'orderDateDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lowest to highest`
+  String get orderValueAsc {
+    return Intl.message(
+      'Lowest to highest',
+      name: 'orderValueAsc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Highest to lowest`
+  String get orderValueDesc {
+    return Intl.message(
+      'Highest to lowest',
+      name: 'orderValueDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Period`
+  String get period {
+    return Intl.message(
+      'Period',
+      name: 'period',
       desc: '',
       args: [],
     );
@@ -365,6 +445,16 @@ class AppLocalizations {
     return Intl.message(
       'Quantity',
       name: 'quantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove filters`
+  String get removeFilters {
+    return Intl.message(
+      'Remove filters',
+      name: 'removeFilters',
       desc: '',
       args: [],
     );
@@ -545,66 +635,6 @@ class AppLocalizations {
     return Intl.message(
       'Would you like to delete',
       name: 'wouldYouLikeDelete',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Type: From A to Z`
-  String get orderTypeAsc {
-    return Intl.message(
-      'Type: From A to Z',
-      name: 'orderTypeAsc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Type: From Z to A`
-  String get orderTypeDesc {
-    return Intl.message(
-      'Type: From Z to A',
-      name: 'orderTypeDesc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Date: Least current to most current`
-  String get orderDateAsc {
-    return Intl.message(
-      'Date: Least current to most current',
-      name: 'orderDateAsc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Date: Most current to least current`
-  String get orderDateDesc {
-    return Intl.message(
-      'Date: Most current to least current',
-      name: 'orderDateDesc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Value: Lowest to highest`
-  String get orderValueAsc {
-    return Intl.message(
-      'Value: Lowest to highest',
-      name: 'orderValueAsc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Value: Highest to lowest`
-  String get orderValueDesc {
-    return Intl.message(
-      'Value: Highest to lowest',
-      name: 'orderValueDesc',
       desc: '',
       args: [],
     );

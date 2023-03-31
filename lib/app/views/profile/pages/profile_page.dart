@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
                   RowText(
                     leftText: AppLocalizations.current.email,
                     rightText: user.email,
-                    rightTextStyle: context.bodyLarge,
+                    rightTextStyle: context.bodyMedium,
                   ),
                   AppSizeConstants.mediumVerticalSpacer,
                   const Divider(),

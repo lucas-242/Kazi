@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyExists": m0,
         "appSubtitle":
             MessageLookupByLibrary.simpleMessage("Organize seus serviços"),
+        "applyFilters": MessageLookupByLibrary.simpleMessage("Aplicar Filtros"),
         "calculator": MessageLookupByLibrary.simpleMessage("Calculadora"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendário"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
@@ -81,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Erro ao efetuar a edição do serviço"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Erro ao efetuar a edição do tipo de serviço"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Login com Google"),
@@ -114,22 +116,25 @@ class MessageLookup extends MessageLookupByLibrary {
             "Não há serviços prestados no período selecionado."),
         "noServicesOnDay":
             MessageLookupByLibrary.simpleMessage("Não há serviços no dia"),
+        "orderAlphabetical":
+            MessageLookupByLibrary.simpleMessage("Alfabétical"),
         "orderBy": MessageLookupByLibrary.simpleMessage("Ordernar por"),
-        "orderDateAsc": MessageLookupByLibrary.simpleMessage(
-            "Data: Menos atual para mais atual"),
-        "orderDateDesc": MessageLookupByLibrary.simpleMessage(
-            "Data: Mais atual para menos atual"),
-        "orderTypeAsc": MessageLookupByLibrary.simpleMessage("Tipo: De A à Z"),
-        "orderTypeDesc": MessageLookupByLibrary.simpleMessage("Tipo: De Z à A"),
+        "orderDateAsc":
+            MessageLookupByLibrary.simpleMessage("Menos atual para mais atual"),
+        "orderDateDesc":
+            MessageLookupByLibrary.simpleMessage("Mais atual para menos atual"),
         "orderValueAsc":
-            MessageLookupByLibrary.simpleMessage("Valor: Menor para maior"),
+            MessageLookupByLibrary.simpleMessage("Menor para maior"),
         "orderValueDesc":
-            MessageLookupByLibrary.simpleMessage("Valor: Maior para menor"),
+            MessageLookupByLibrary.simpleMessage("Maior para menor"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "A senha é muito fraca, por favor, tente outra senha"),
+        "period": MessageLookupByLibrary.simpleMessage("Período"),
         "phone": MessageLookupByLibrary.simpleMessage("Telefone"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
+        "removeFilters":
+            MessageLookupByLibrary.simpleMessage("Remover filtros"),
         "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
         "search": MessageLookupByLibrary.simpleMessage("Busca"),

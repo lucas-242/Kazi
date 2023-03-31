@@ -48,6 +48,7 @@ class _AppScaffoldState extends State<AppScaffold> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<AppCubit>();
+
     return BlocBuilder<AppCubit, int>(
       builder: (context, state) {
         return Scaffold(

@@ -90,7 +90,7 @@ class ServiceDetailsPage extends StatelessWidget {
                                 AppSizeConstants.smallVerticalSpacer,
                                 Text(
                                   service.description!,
-                                  style: context.bodyMedium,
+                                  style: context.bodySmall,
                                 )
                               ],
                             ),

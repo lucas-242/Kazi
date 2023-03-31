@@ -8,7 +8,7 @@ import 'package:my_services/app/shared/themes/themes.dart';
 
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/shared/widgets/services/services.dart';
+import 'package:my_services/app/views/services/service_landing/widgets/filters_bottom_sheet.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/service_landing_content.dart';
 import 'package:my_services/app/views/services/services.dart';
 
@@ -60,7 +60,12 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
                 height: context.height,
                 child: const Center(child: CircularProgressIndicator()),
               ),
-              onNoData: () => const NoServices(),
+              onNoData: () => NoServices(
+                filtersBottomSheet: FiltersBottomSheet(
+                  dateKey: dateKey,
+                  dateController: dateController,
+                ),
+              ),
             );
           },
         ),

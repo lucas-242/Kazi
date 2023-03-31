@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/shared/widgets/services/services.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/views/home/home.dart';
-import 'package:my_services/app/views/services/service_landing/widgets/top_search.dart';
 import 'package:my_services/app/views/services/services.dart';
+import 'package:my_services/app/views/services/service_landing/widgets/filters_bottom_sheet.dart';
 
 class ServiceLandingContent extends StatelessWidget {
   final ServiceLandingState state;
@@ -38,8 +38,13 @@ class ServiceLandingContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TitleWithButtons(),
-        TopSearch(dateKey: dateKey, dateController: dateController),
+        TitleWithButtons(
+          filtersBottomSheet: FiltersBottomSheet(
+            dateKey: dateKey,
+            dateController: dateController,
+          ),
+        ),
+        AppSizeConstants.largeVerticalSpacer,
         ServiceList(services: state.services),
       ],
     );

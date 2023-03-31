@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/shared/widgets/services/services.dart';
+import 'package:my_services/app/views/services/services.dart';
 
 import '../cubit/home_cubit.dart';
 import '../widgets/home_content.dart';
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 height: context.height,
                 child: const Center(child: CircularProgressIndicator()),
               ),
-              onNoData: () => const NoServices(),
+              onNoData: () => const NoServices(showFilters: false),
             );
           },
         ),

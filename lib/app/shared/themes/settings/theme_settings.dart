@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../animations/no_animation_page_transition.dart';
 import 'app_colors.dart';
@@ -21,6 +22,8 @@ abstract class ThemeSettings {
 
   static ThemeData light() {
     final colors = _getColorScheme(Brightness.light);
+    final textTheme = GoogleFonts.outfitTextTheme();
+
     return ThemeData.light().copyWith(
       pageTransitionsTheme: pageTransitionsTheme,
       colorScheme: colors,
@@ -29,12 +32,14 @@ abstract class ThemeSettings {
       listTileTheme: _listTileTheme(colors),
       bottomAppBarTheme: _bottomAppBarTheme(colors),
       bottomNavigationBarTheme: _bottomNavigationBarTheme(colors),
+      bottomSheetTheme: _bottomSheetTheme(colors),
       floatingActionButtonTheme: _floatingActionButtonTheme(colors),
       dividerTheme: _dividerTheme(colors),
       navigationRailTheme: _navigationRailTheme(colors),
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
-      inputDecorationTheme: _inputDecorationTheme(),
+      inputDecorationTheme: _inputDecorationTheme(colors),
+      textTheme: textTheme,
       scaffoldBackgroundColor: colors.background,
       useMaterial3: false,
     );
@@ -42,6 +47,8 @@ abstract class ThemeSettings {
 
   static ThemeData dark() {
     final colors = _getColorScheme(Brightness.dark);
+    final textTheme = GoogleFonts.outfitTextTheme();
+
     return ThemeData.dark().copyWith(
       pageTransitionsTheme: pageTransitionsTheme,
       colorScheme: colors,
@@ -50,12 +57,14 @@ abstract class ThemeSettings {
       listTileTheme: _listTileTheme(colors),
       bottomAppBarTheme: _bottomAppBarTheme(colors),
       bottomNavigationBarTheme: _bottomNavigationBarTheme(colors),
+      bottomSheetTheme: _bottomSheetTheme(colors),
       floatingActionButtonTheme: _floatingActionButtonTheme(colors),
       dividerTheme: _dividerTheme(colors),
       navigationRailTheme: _navigationRailTheme(colors),
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
-      inputDecorationTheme: _inputDecorationTheme(),
+      inputDecorationTheme: _inputDecorationTheme(colors),
+      textTheme: textTheme,
       scaffoldBackgroundColor: colors.background,
       useMaterial3: false,
     );
@@ -133,6 +142,19 @@ abstract class ThemeSettings {
     );
   }
 
+  static BottomSheetThemeData _bottomSheetTheme(ColorScheme colors) {
+    return BottomSheetThemeData(
+      backgroundColor: colors.surface,
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+    );
+  }
+
   static FloatingActionButtonThemeData _floatingActionButtonTheme(
       ColorScheme colors) {
     return FloatingActionButtonThemeData(
@@ -165,14 +187,17 @@ abstract class ThemeSettings {
     );
   }
 
-  static InputDecorationTheme _inputDecorationTheme() {
-    return const InputDecorationTheme(
+  static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) {
+    return InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.never,
-      contentPadding: EdgeInsets.symmetric(horizontal: 18),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(25.0),
-        ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        borderSide: BorderSide(color: colors.onSurface),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        borderSide: BorderSide(color: colors.onSurface),
       ),
     );
   }

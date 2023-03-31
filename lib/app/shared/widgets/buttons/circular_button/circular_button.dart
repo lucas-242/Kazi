@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
 class CircularButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget child;
   const CircularButton({
     super.key,
-    required this.onTap,
+    this.onTap,
     required this.child,
   });
 

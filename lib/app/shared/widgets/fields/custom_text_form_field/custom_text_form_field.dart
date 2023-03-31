@@ -7,7 +7,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction textInputAction;
   final String labelText;
   final String hintText;
-  final IconData? icon;
+  final IconData? iconLeft;
+  final IconData? iconRight;
   final String? initialValue;
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatters;
@@ -22,7 +23,8 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     required this.labelText,
-    this.icon,
+    this.iconLeft,
+    this.iconRight,
     this.hintText = '',
     this.initialValue,
     this.validator,
@@ -52,15 +54,20 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
+        labelStyle:
+            context.labelLarge!.copyWith(color: context.colorsScheme.onSurface),
         hintText: hintText,
         hintStyle: context.bodyMedium,
-        contentPadding:
-            icon == null ? const EdgeInsets.only(left: 15) : EdgeInsets.zero,
-        border: const OutlineInputBorder(),
-        prefixIcon: icon != null
-            ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Icon(icon),
+        prefixIcon: iconLeft != null
+            ? Icon(
+                iconLeft,
+                color: context.colorsScheme.onSurface,
+              )
+            : null,
+        suffixIcon: iconRight != null
+            ? Icon(
+                iconRight,
+                color: context.colorsScheme.onSurface,
               )
             : null,
       ),
