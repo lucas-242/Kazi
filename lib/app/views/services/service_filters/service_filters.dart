@@ -101,9 +101,9 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                  top: AppSizeConstants.largeSpace,
-                  left: AppSizeConstants.largeSpace,
-                  right: AppSizeConstants.largeSpace,
+                  top: AppSizeConstants.bigSpace,
+                  left: AppSizeConstants.bigSpace,
+                  right: AppSizeConstants.bigSpace,
                   bottom: AppSizeConstants.imenseSpace,
                 ),
                 child: Column(
@@ -116,7 +116,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         child: Text(AppLocalizations.current.removeFilters),
                       ),
                     ),
-                    AppSizeConstants.largeVerticalSpacer,
+                    AppSizeConstants.bigVerticalSpacer,
                     CustomDateRangePicker(
                       fieldKey: widget.dateKey,
                       controller: widget.dateController,
@@ -124,7 +124,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       endDate: initialEndDate,
                       onChange: (range) => onChangeDate(context, range),
                     ),
-                    AppSizeConstants.largeVerticalSpacer,
+                    AppSizeConstants.bigVerticalSpacer,
                     BlocBuilder<ServiceFiltersCubit, ServiceFiltersState>(
                       builder: (context, state) {
                         final cubit = context.read<ServiceFiltersCubit>();

@@ -3,39 +3,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import '../settings.dart';
+import '../services_type.dart';
 
-class AddServiceTypePage extends StatefulWidget {
-  const AddServiceTypePage({super.key});
+class ServiceTypeFormPage extends StatefulWidget {
+  const ServiceTypeFormPage({super.key});
 
   @override
-  State<AddServiceTypePage> createState() => _AddServiceTypePageState();
+  State<ServiceTypeFormPage> createState() => _ServiceTypeFormPageState();
 }
 
-class _AddServiceTypePageState extends State<AddServiceTypePage> {
+class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
   @override
   Widget build(BuildContext context) {
-    final label = context.read<SettingsCubit>().state.serviceType.id != ''
+    final label = context.read<ServicesTypeCubit>().state.serviceType.id != ''
         ? AppLocalizations.current.update
         : AppLocalizations.current.add;
 
-    void onConfirm(SettingsState state) {
+    void onConfirm(ServicesTypeState state) {
       if (state.serviceType.id.isEmpty) {
-        context.read<SettingsCubit>().addServiceType();
+        context.read<ServicesTypeCubit>().addServiceType();
       } else {
-        context.read<SettingsCubit>().updateServiceType();
+        context.read<ServicesTypeCubit>().updateServiceType();
       }
     }
 
     return WillPopScope(
       onWillPop: () async {
-        context.read<SettingsCubit>().eraseServiceType();
+        context.read<ServicesTypeCubit>().eraseServiceType();
         return true;
       },
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
-            child: BlocListener<SettingsCubit, SettingsState>(
+            child: BlocListener<ServicesTypeCubit, ServicesTypeState>(
               listenWhen: (previous, current) =>
                   previous.status != current.status,
               listener: (context, state) {
@@ -43,11 +43,11 @@ class _AddServiceTypePageState extends State<AddServiceTypePage> {
                   context.pop();
                 }
               },
-              child: BlocBuilder<SettingsCubit, SettingsState>(
+              child: BlocBuilder<ServicesTypeCubit, ServicesTypeState>(
                 builder: (context, state) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 25),
-                    child: AddServiceTypeForm(
+                    child: ServiceTypeFormContent(
                         labelButton: label, onConfirm: () => onConfirm(state)),
                   );
                 },

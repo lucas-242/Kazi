@@ -33,10 +33,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add": MessageLookupByLibrary.simpleMessage("Add"),
-        "addNewService":
-            MessageLookupByLibrary.simpleMessage("Add new service"),
-        "addNewServiceType":
-            MessageLookupByLibrary.simpleMessage("Add new service type"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "alreadyExists": m0,
         "appSubtitle":
@@ -107,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myBalance": MessageLookupByLibrary.simpleMessage("My balance"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "newService": MessageLookupByLibrary.simpleMessage("New service"),
+        "newType": MessageLookupByLibrary.simpleMessage("New Type"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "No services types registered"),
         "noServices": MessageLookupByLibrary.simpleMessage(
@@ -138,10 +135,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Select the service type"),
-        "service": MessageLookupByLibrary.simpleMessage("service"),
-        "serviceType": MessageLookupByLibrary.simpleMessage("Service type"),
-        "serviceTypes": MessageLookupByLibrary.simpleMessage("Service types"),
-        "services": MessageLookupByLibrary.simpleMessage("services"),
+        "service": MessageLookupByLibrary.simpleMessage("Service"),
+        "serviceType": MessageLookupByLibrary.simpleMessage("Service Type"),
+        "serviceTypes": MessageLookupByLibrary.simpleMessage("Service Types"),
+        "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),

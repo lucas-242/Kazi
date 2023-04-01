@@ -21,8 +21,7 @@ class ServiceCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: ListTile(
-        contentPadding:
-            const EdgeInsets.only(top: 15, bottom: 10, left: 20, right: 20),
+        contentPadding: EdgeInsets.zero,
         title: Text('${service.type?.name}', style: context.titleSmall),
         subtitle: Text(
           DateFormat.yMd().format(service.date).normalizeDate(),
@@ -36,7 +35,7 @@ class ServiceCard extends StatelessWidget {
                   context, service.valueWithDiscount),
               style: context.titleSmall!.copyWith(color: AppColors.green),
             ),
-            AppSizeConstants.mediumHorizontalSpacer,
+            AppSizeConstants.largeHorizontalSpacer,
             const Icon(
               Icons.chevron_right,
               color: AppColors.grey,

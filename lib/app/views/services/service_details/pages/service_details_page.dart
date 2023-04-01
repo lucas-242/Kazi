@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
@@ -21,12 +20,12 @@ class ServiceDetailsPage extends StatelessWidget {
         children: [
           BackAndPill(
             pillText: AppLocalizations.current.share,
-            onTapBack: () => context.pop(),
             onTapPill: () => null,
           ),
+          AppSizeConstants.largeVerticalSpacer,
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -39,7 +38,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     DateFormat.yMd().format(service.date).normalizeDate(),
                     style: context.labelMedium,
                   ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSizeConstants.bigVerticalSpacer,
                   RowText(
                     leftText: AppLocalizations.current.myBalance,
                     rightText: NumberFormatHelper.formatCurrency(
@@ -50,7 +49,9 @@ class ServiceDetailsPage extends StatelessWidget {
                         context.titleSmall!.copyWith(color: AppColors.green),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: EdgeInsets.symmetric(
+                      vertical: AppSizeConstants.largeSpace,
+                    ),
                     child: Divider(),
                   ),
                   RowText(
@@ -63,7 +64,9 @@ class ServiceDetailsPage extends StatelessWidget {
                         context.titleSmall!.copyWith(color: AppColors.orange),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: EdgeInsets.symmetric(
+                      vertical: AppSizeConstants.largeSpace,
+                    ),
                     child: Divider(),
                   ),
                   RowText(
@@ -77,7 +80,9 @@ class ServiceDetailsPage extends StatelessWidget {
                       ? Column(
                           children: [
                             const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 20.0),
+                              padding: EdgeInsets.symmetric(
+                                vertical: AppSizeConstants.largeSpace,
+                              ),
                               child: Divider(),
                             ),
                             Column(

@@ -11,17 +11,18 @@ import 'package:my_services/app/repositories/service_type_repository/service_typ
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 
-part 'settings_state.dart';
+part 'services_type_state.dart';
 
-class SettingsCubit extends Cubit<SettingsState> with BaseCubit, FormValidator {
+class ServicesTypeCubit extends Cubit<ServicesTypeState>
+    with BaseCubit, FormValidator {
   final ServiceTypeRepository _serviceTypeRepository;
   final ServicesRepository _serviceRepository;
   final AuthService _authService;
 
-  SettingsCubit(
+  ServicesTypeCubit(
       this._serviceTypeRepository, this._serviceRepository, this._authService)
       : super(
-          SettingsState(
+          ServicesTypeState(
             userId: _authService.user!.uid,
             status: BaseStateStatus.loading,
           ),

@@ -116,7 +116,7 @@ class _NoData extends StatelessWidget {
             context.pop();
             context.read<AppCubit>().changePage(2);
           },
-          text: AppLocalizations.current.addNewServiceType,
+          text: AppLocalizations.current.newType,
         ),
       ],
     );

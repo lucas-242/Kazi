@@ -10,18 +10,18 @@ import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'app_cubit.dart';
 import 'shared/routes/app_routes.dart';
 
-class AppScaffold extends StatefulWidget {
+class AppShell extends StatefulWidget {
   final Widget child;
-  const AppScaffold({
+  const AppShell({
     Key? key,
     required this.child,
   }) : super(key: key);
 
   @override
-  State<AppScaffold> createState() => _AppScaffoldState();
+  State<AppShell> createState() => _AppShellState();
 }
 
-class _AppScaffoldState extends State<AppScaffold> {
+class _AppShellState extends State<AppShell> {
   late StreamSubscription<bool> userStream;
 
   @override
@@ -71,7 +71,7 @@ class _AppScaffoldState extends State<AppScaffold> {
               ),
               child: FloatingActionButton(
                 onPressed: _onTapFloatingActionButton,
-                tooltip: AppLocalizations.current.addNewService,
+                tooltip: AppLocalizations.current.newService,
                 child: Icon(cubit.isAddServicePage ? Icons.close : Icons.add),
               ),
             ),

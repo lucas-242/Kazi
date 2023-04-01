@@ -310,6 +310,26 @@ class AppLocalizations {
     );
   }
 
+  /// `My balance`
+  String get myBalance {
+    return Intl.message(
+      'My balance',
+      name: 'myBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month`
+  String get month {
+    return Intl.message(
+      'Month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Name`
   String get name {
     return Intl.message(
@@ -330,21 +350,21 @@ class AppLocalizations {
     );
   }
 
-  /// `If you have not yet registered any services, click on the button above to register a new one.`
-  String get noServices {
+  /// `New Type`
+  String get newType {
     return Intl.message(
-      'If you have not yet registered any services, click on the button above to register a new one.',
-      name: 'noServices',
+      'New Type',
+      name: 'newType',
       desc: '',
       args: [],
     );
   }
 
-  /// `Month`
-  String get month {
+  /// `If you have not yet registered any services, click on the button above to register a new one.`
+  String get noServices {
     return Intl.message(
-      'Month',
-      name: 'month',
+      'If you have not yet registered any services, click on the button above to register a new one.',
+      name: 'noServices',
       desc: '',
       args: [],
     );
@@ -480,40 +500,40 @@ class AppLocalizations {
     );
   }
 
-  /// `service`
+  /// `Service`
   String get service {
     return Intl.message(
-      'service',
+      'Service',
       name: 'service',
       desc: '',
       args: [],
     );
   }
 
-  /// `services`
+  /// `Services`
   String get services {
     return Intl.message(
-      'services',
+      'Services',
       name: 'services',
       desc: '',
       args: [],
     );
   }
 
-  /// `Service type`
+  /// `Service Type`
   String get serviceType {
     return Intl.message(
-      'Service type',
+      'Service Type',
       name: 'serviceType',
       desc: '',
       args: [],
     );
   }
 
-  /// `Service types`
+  /// `Service Types`
   String get serviceTypes {
     return Intl.message(
-      'Service types',
+      'Service Types',
       name: 'serviceTypes',
       desc: '',
       args: [],
@@ -650,26 +670,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Add new service`
-  String get addNewService {
-    return Intl.message(
-      'Add new service',
-      name: 'addNewService',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Add new service type`
-  String get addNewServiceType {
-    return Intl.message(
-      'Add new service type',
-      name: 'addNewServiceType',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `No services in the selected period.`
   String get noServicesInPeriod {
     return Intl.message(
@@ -695,16 +695,6 @@ class AppLocalizations {
     return Intl.message(
       'No services types registered',
       name: 'noServiceTypes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `My balance`
-  String get myBalance {
-    return Intl.message(
-      'My balance',
-      name: 'myBalance',
       desc: '',
       args: [],
     );

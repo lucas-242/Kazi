@@ -67,7 +67,7 @@ class HomeContent extends StatelessWidget {
             context.go(AppRoutes.addServices);
           },
         ),
-        AppSizeConstants.mediumVerticalSpacer,
+        AppSizeConstants.largeVerticalSpacer,
         Expanded(child: ServiceList(services: state.services)),
       ],
     );

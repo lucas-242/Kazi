@@ -1,4 +1,4 @@
-extension StringExtension on String {
+extension StringExtensions on String {
   /// Return normalized date.
   String normalizeDate() {
     final splitedDate = _splitDate(this);

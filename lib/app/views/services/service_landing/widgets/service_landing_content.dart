@@ -46,7 +46,7 @@ class ServiceLandingContent extends StatelessWidget {
             dateController: dateController,
           ),
         ),
-        AppSizeConstants.largeVerticalSpacer,
+        AppSizeConstants.bigVerticalSpacer,
         Expanded(
           child: ServiceListByDate(
             servicesByDate:

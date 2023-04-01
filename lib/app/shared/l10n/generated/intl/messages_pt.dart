@@ -33,10 +33,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add": MessageLookupByLibrary.simpleMessage("Adicionar"),
-        "addNewService":
-            MessageLookupByLibrary.simpleMessage("Adicionar novo serviço"),
-        "addNewServiceType": MessageLookupByLibrary.simpleMessage(
-            "Adicionar novo tipo de serviço"),
         "all": MessageLookupByLibrary.simpleMessage("Todos"),
         "alreadyExists": m0,
         "appSubtitle":
@@ -107,7 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "month": MessageLookupByLibrary.simpleMessage("Mês"),
         "myBalance": MessageLookupByLibrary.simpleMessage("Meu saldo"),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
-        "newService": MessageLookupByLibrary.simpleMessage("Novo serviço"),
+        "newService": MessageLookupByLibrary.simpleMessage("Novo Serviço"),
+        "newType": MessageLookupByLibrary.simpleMessage("Novo Tipo"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Não há tipos de serviço cadastrado"),
         "noServices": MessageLookupByLibrary.simpleMessage(
@@ -140,11 +137,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
-        "service": MessageLookupByLibrary.simpleMessage("serviço"),
-        "serviceType": MessageLookupByLibrary.simpleMessage("Tipo de serviço"),
+        "service": MessageLookupByLibrary.simpleMessage("Serviço"),
+        "serviceType": MessageLookupByLibrary.simpleMessage("Tipo de Serviço"),
         "serviceTypes":
-            MessageLookupByLibrary.simpleMessage("Tipos de serviço"),
-        "services": MessageLookupByLibrary.simpleMessage("serviços"),
+            MessageLookupByLibrary.simpleMessage("Tipos de Serviço"),
+        "services": MessageLookupByLibrary.simpleMessage("Serviços"),
         "settings": MessageLookupByLibrary.simpleMessage("Configurações"),
         "share": MessageLookupByLibrary.simpleMessage("Compartilhar"),
         "signIn": MessageLookupByLibrary.simpleMessage("Entrar"),

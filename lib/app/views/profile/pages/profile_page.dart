@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_services/app/models/app_user.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/shared/widgets/texts/row_text/row_text.dart';
-import 'package:my_services/app/shared/widgets/texts/text_with_trailing/text_with_trailing.dart';
+import 'package:my_services/app/views/profile/widgets/option_button.dart';
 import 'package:my_services/injector_container.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -39,9 +41,9 @@ class ProfilePage extends StatelessWidget {
                           : null,
                     ),
                   ),
-                  AppSizeConstants.mediumVerticalSpacer,
-                  Text(user.name, style: context.titleMedium),
                   AppSizeConstants.largeVerticalSpacer,
+                  Text(user.name, style: context.titleMedium),
+                  AppSizeConstants.bigVerticalSpacer,
                   user.phoneNumber != null && user.phoneNumber!.isNotEmpty
                       ? Column(
                           children: [
@@ -63,25 +65,17 @@ class ProfilePage extends StatelessWidget {
                     rightText: user.email,
                     rightTextStyle: context.bodyMedium,
                   ),
-                  AppSizeConstants.mediumVerticalSpacer,
+                  AppSizeConstants.largeVerticalSpacer,
                   const Divider(),
-                  InkWell(
+                  OptionButton(
+                    onTap: () => context.go(AppRoutes.servicesType),
+                    text: AppLocalizations.current.serviceTypes,
+                  ),
+                  OptionButton(
                     onTap: () => injector.get<AuthService>().signOut(),
-                    child: Column(
-                      children: [
-                        AppSizeConstants.mediumVerticalSpacer,
-                        TextWithTrailing(
-                          text: AppLocalizations.current.logout,
-                          textStyle: context.titleSmall!
-                              .copyWith(color: AppColors.red),
-                          trailing: const Icon(
-                            Icons.chevron_right,
-                            color: AppColors.grey,
-                          ),
-                        ),
-                        AppSizeConstants.mediumVerticalSpacer,
-                      ],
-                    ),
+                    text: AppLocalizations.current.logout,
+                    textStyle:
+                        context.titleSmall!.copyWith(color: AppColors.red),
                   ),
                 ],
               ),

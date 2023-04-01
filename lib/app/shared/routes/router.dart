@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/app_scaffold.dart';
+import 'package:my_services/app/app_shell.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/login/login.dart';
 import 'package:my_services/app/views/profile/profile.dart';
 import 'package:my_services/app/views/services/services.dart';
-import 'package:my_services/app/views/settings/settings.dart';
+import 'package:my_services/app/views/services_type/services_type.dart';
 import 'package:my_services/app/views/splash/splash.dart';
 
 abstract class AppRouter {
@@ -28,7 +28,7 @@ final _router = GoRouter(
           _customTransition(state, const LoginPage()),
     ),
     ShellRoute(
-      builder: (context, state, child) => AppScaffold(child: child),
+      builder: (context, state, child) => AppShell(child: child),
       routes: [
         GoRoute(
           path: AppRoutes.home,
@@ -36,30 +36,38 @@ final _router = GoRouter(
               _customTransition(state, const HomePage()),
         ),
         GoRoute(
-            path: AppRoutes.services,
-            pageBuilder: (context, state) =>
-                _customTransition(state, const ServiceLandingPage()),
-            routes: [
-              GoRoute(
-                path: AppRoutes.add,
-                pageBuilder: (context, state) =>
-                    _customTransition(state, const AddServicesPage()),
-              ),
-              GoRoute(
-                path: ':serviceId',
-                pageBuilder: (context, state) => _customTransition(
-                    state, ServiceDetailsPage(service: state.extra as Service)),
-              ),
-              GoRoute(
-                path: 'type/add',
-                pageBuilder: (context, state) =>
-                    _customTransition(state, const AddServiceTypePage()),
-              ),
-            ]),
+          path: AppRoutes.services,
+          pageBuilder: (context, state) =>
+              _customTransition(state, const ServiceLandingPage()),
+          routes: [
+            GoRoute(
+              path: AppRoutes.type,
+              pageBuilder: (context, state) =>
+                  _customTransition(state, const ServicesTypePage()),
+              routes: [
+                GoRoute(
+                  path: AppRoutes.add,
+                  pageBuilder: (context, state) =>
+                      _customTransition(state, const ServiceTypeFormPage()),
+                ),
+              ],
+            ),
+            GoRoute(
+              path: AppRoutes.add,
+              pageBuilder: (context, state) =>
+                  _customTransition(state, const AddServicesPage()),
+            ),
+            GoRoute(
+              path: ':serviceId',
+              pageBuilder: (context, state) => _customTransition(
+                  state, ServiceDetailsPage(service: state.extra as Service)),
+            ),
+          ],
+        ),
         GoRoute(
           path: AppRoutes.calculator,
           pageBuilder: (context, state) =>
-              _customTransition(state, const SettingsPage()),
+              _customTransition(state, const ServicesTypePage()),
         ),
         GoRoute(
           path: AppRoutes.profile,

@@ -48,11 +48,11 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  left: AppSizeConstants.mediumSpace,
-                  right: AppSizeConstants.mediumSpace,
-                  top: AppSizeConstants.mediumSpace,
+                  left: AppSizeConstants.largeSpace,
+                  right: AppSizeConstants.largeSpace,
+                  top: AppSizeConstants.largeSpace,
                   bottom: !servicesByDate.isExpaded
-                      ? AppSizeConstants.mediumSpace
+                      ? AppSizeConstants.largeSpace
                       : 0,
                 ),
                 child: TextWithTrailing(

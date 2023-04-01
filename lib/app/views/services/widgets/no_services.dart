@@ -23,7 +23,7 @@ class NoServices extends StatelessWidget {
         Image.asset(AppAssets.noData),
         Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: AppSizeConstants.mediumSpace),
+              horizontal: AppSizeConstants.largeSpace),
           child: Text(
             AppLocalizations.current.noServices,
             style: context.noData,

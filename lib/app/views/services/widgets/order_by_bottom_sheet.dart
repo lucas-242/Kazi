@@ -27,9 +27,9 @@ class OrderByBottomSheet extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            top: AppSizeConstants.largeSpace,
-            left: AppSizeConstants.largeSpace,
-            right: AppSizeConstants.largeSpace,
+            top: AppSizeConstants.bigSpace,
+            left: AppSizeConstants.bigSpace,
+            right: AppSizeConstants.bigSpace,
             bottom: AppSizeConstants.imenseSpace,
           ),
           child: Column(
@@ -39,7 +39,7 @@ class OrderByBottomSheet extends StatelessWidget {
                 AppLocalizations.current.orderBy,
                 style: context.titleMedium,
               ),
-              AppSizeConstants.largeVerticalSpacer,
+              AppSizeConstants.bigVerticalSpacer,
               ListView.separated(
                 shrinkWrap: true,
                 itemCount: orderOptions.length,

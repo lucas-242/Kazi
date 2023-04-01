@@ -10,7 +10,7 @@ import 'repositories/service_type_repository/service_type_repository.dart';
 import 'services/auth_service/auth_service.dart';
 import 'services/time_service/time_service.dart';
 import 'views/home/cubit/home_cubit.dart';
-import 'views/settings/settings.dart';
+import 'views/services_type/services_type.dart';
 import 'app_cubit.dart';
 import 'repositories/services_repository/services_repository.dart';
 import 'shared/l10n/generated/l10n.dart';
@@ -29,8 +29,8 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AppCubit>(
             create: (_) => AppCubit(injector.get<AuthService>())),
-        BlocProvider<SettingsCubit>(
-          create: (_) => SettingsCubit(
+        BlocProvider<ServicesTypeCubit>(
+          create: (_) => ServicesTypeCubit(
             injector.get<ServiceTypeRepository>(),
             injector.get<ServicesRepository>(),
             injector.get<AuthService>(),

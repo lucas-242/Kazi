@@ -3,19 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
-import '../settings.dart';
+import '../services_type.dart';
 
-class AddServiceTypeForm extends StatefulWidget {
+class ServiceTypeFormContent extends StatefulWidget {
   final String labelButton;
   final Function() onConfirm;
-  const AddServiceTypeForm(
+  const ServiceTypeFormContent(
       {super.key, required this.labelButton, required this.onConfirm});
 
   @override
-  State<AddServiceTypeForm> createState() => _AddServiceTypeFormState();
+  State<ServiceTypeFormContent> createState() => _ServiceTypeFormContentState();
 }
 
-class _AddServiceTypeFormState extends State<AddServiceTypeForm> {
+class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
   final _formKey = GlobalKey<FormState>();
   final _nameKey = GlobalKey<FormFieldState>();
   final _defaultKey = GlobalKey<FormFieldState>();
@@ -59,7 +59,7 @@ class _NameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.name;
-    final cubit = context.read<SettingsCubit>();
+    final cubit = context.read<ServicesTypeCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
@@ -79,7 +79,7 @@ class _DefaultValueField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.defaultValue;
-    final cubit = context.read<SettingsCubit>();
+    final cubit = context.read<ServicesTypeCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
@@ -100,7 +100,7 @@ class _DiscountPercentField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.discountPercentage;
-    final cubit = context.read<SettingsCubit>();
+    final cubit = context.read<ServicesTypeCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
