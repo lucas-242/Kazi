@@ -117,11 +117,7 @@ abstract class ServiceHelper {
     DateTime today,
   ) {
     final result = <ServicesGroupByDate>[];
-    final dates = services.map((s) => s.date).toSet().toList();
-
-    final wasRemoved = dates.remove(today);
-    dates.sort((a, b) => b.compareTo(a));
-    if (wasRemoved) dates.insert(0, today);
+    final dates = _getServicesDates(services, today);
 
     for (var date in dates) {
       final servicesOnDate = services.where((s) => s.date == date).toList();
@@ -154,9 +150,9 @@ abstract class ServiceHelper {
 
     if (todayWasRemoved) {
       dates.insert(0, today);
-      if (yesterdayWasRemoved) dates.insert(1, today);
+      if (yesterdayWasRemoved) dates.insert(1, yesterday);
     } else if (yesterdayWasRemoved) {
-      dates.insert(0, today);
+      dates.insert(0, yesterday);
     }
 
     return dates;
