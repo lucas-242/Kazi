@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 abstract class NumberFormatHelper {
   static String formatCurrency(BuildContext context,
       [num? value, Locale? locale]) {
-    String? stringLocale =
+    final stringLocale =
         locale != null ? '${locale.languageCode}_${locale.countryCode}' : null;
     return NumberFormat.currency(
             locale: stringLocale, symbol: _getCurrencySymbol(context, locale))

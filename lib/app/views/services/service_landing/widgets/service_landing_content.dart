@@ -23,13 +23,13 @@ class ServiceLandingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onDelete(Service service) async {
+    Future<void> onDelete(Service service) async {
       final homeCubit = context.read<HomeCubit>();
       await context.read<ServiceLandingCubit>().deleteService(service);
       homeCubit.onChangeServices();
     }
 
-    void onEdit(Service service) async {
+    void onEdit(Service service) {
       context.read<AddServicesCubit>().onChangeService(service);
       context.read<AppCubit>().changeToAddServicePage();
       context.go(AppRoutes.addServices);

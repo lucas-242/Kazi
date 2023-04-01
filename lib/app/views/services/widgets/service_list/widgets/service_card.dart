@@ -30,7 +30,6 @@ class ServiceCard extends StatelessWidget {
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               NumberFormatHelper.formatCurrency(

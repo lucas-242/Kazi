@@ -22,13 +22,13 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onDelete(Service service) async {
+    Future<void> onDelete(Service service) async {
       final calendarCubit = context.read<ServiceLandingCubit>();
       await context.read<HomeCubit>().deleteService(service);
       calendarCubit.onChangeServices();
     }
 
-    void onEdit(Service service) async {
+    void onEdit(Service service) {
       context.read<AddServicesCubit>().onChangeService(service);
       context.read<AppCubit>().changeToAddServicePage();
 

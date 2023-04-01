@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
             getCustomSnackBar(
               context,
               message: state.callbackMessage,
-              type: SnackBarType.error,
             );
           }
         },

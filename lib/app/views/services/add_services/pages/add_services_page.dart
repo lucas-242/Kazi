@@ -29,9 +29,6 @@ class _AddServicesPageState extends State<AddServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final label = context.read<AddServicesCubit>().state.service.id != ''
-        ? AppLocalizations.current.update
-        : AppLocalizations.current.add;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,7 +44,6 @@ class _AddServicesPageState extends State<AddServicesPage> {
                 getCustomSnackBar(
                   context,
                   message: state.callbackMessage,
-                  type: SnackBarType.error,
                 );
               }
             },

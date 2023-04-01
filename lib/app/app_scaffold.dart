@@ -64,7 +64,7 @@ class _AppScaffoldState extends State<AppScaffold> {
           floatingActionButton: Align(
             alignment: Alignment.bottomCenter,
             heightFactor: 1.5,
-            child: Container(
+            child: DecoratedBox(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 4),
                 shape: BoxShape.circle,

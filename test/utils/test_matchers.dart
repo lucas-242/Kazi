@@ -8,8 +8,8 @@ class ErrorWithMessage<T extends AppError> extends CustomMatcher {
 
   ErrorWithMessage(this.message)
       : super(
-            "Error should be ${T.runtimeType} with message: $message",
-            "Error and message",
+            'Error should be ${T.runtimeType} with message: $message',
+            'Error and message',
             throwsA(predicate((e) => e is T && e.message == message)));
 }
 

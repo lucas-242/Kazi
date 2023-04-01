@@ -276,8 +276,8 @@ void main() {
     blocTest(
       'emits HomeState with status error and methodNotAllowed message when call signOut',
       build: () => cubit,
-      setUp: () => when(authService.signOut()).thenThrow(
-          FirebaseSignInError.fromCode('operation-not-allowed', null)),
+      setUp: () => when(authService.signOut())
+          .thenThrow(FirebaseSignInError.fromCode('operation-not-allowed')),
       act: (cubit) => [cubit.signOut()],
       expect: () => [
         HomeState(status: BaseStateStatus.loading),

@@ -34,7 +34,6 @@ class _AddServiceTypeFormState extends State<AddServiceTypeForm> {
       child: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _NameField(fieldKey: _nameKey),
             const SizedBox(height: 30),

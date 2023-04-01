@@ -41,7 +41,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   getCustomSnackBar(
                     context,
                     message: state.callbackMessage,
-                    type: SnackBarType.error,
                   );
                 }
               },

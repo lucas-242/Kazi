@@ -47,7 +47,6 @@ class CustomDropdown extends StatelessWidget {
           DropdownInputDecorator(labelText: label).build(context),
       dropdownButtonProps: const DropdownButtonProps(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        icon: Icon(Icons.arrow_drop_down, size: 24),
       ),
     );
   }

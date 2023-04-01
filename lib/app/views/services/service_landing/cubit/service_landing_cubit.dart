@@ -33,7 +33,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
           endDate: _timeService.nowWithoutTime,
         ));
 
-  void onInit() async {
+  Future<void> onInit() async {
     try {
       final range = getRangeDateByFastSearch(state.fastSearch);
       final result = await _getServices(range['startDate']!, range['endDate']!);
@@ -56,7 +56,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
         break;
       case FastSearch.fortnight:
         if (today.day <= 15) {
-          startDate = DateTime(today.year, today.month, 1);
+          startDate = DateTime(today.year, today.month);
           endDate = DateTime(today.year, today.month, 15);
         } else {
           startDate = DateTime(today.year, today.month, 16);
@@ -64,7 +64,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
         }
         break;
       case FastSearch.month:
-        startDate = DateTime(today.year, today.month, 1);
+        startDate = DateTime(today.year, today.month);
         endDate = DateTime(today.year, today.month + 1, 0);
         break;
       default:

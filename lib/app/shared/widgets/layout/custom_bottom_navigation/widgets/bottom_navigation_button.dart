@@ -20,11 +20,11 @@ class BottomNavigationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = isSelected
+    final color = isSelected
         ? context.colorsScheme.primary
         : context.colorsScheme.onPrimaryContainer;
 
-    FontWeight fontWeight = isSelected ? FontWeight.w500 : FontWeight.w400;
+    final fontWeight = isSelected ? FontWeight.w500 : FontWeight.w400;
 
     return Expanded(
       child: Padding(

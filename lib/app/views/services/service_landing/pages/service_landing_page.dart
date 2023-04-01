@@ -44,7 +44,6 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
             getCustomSnackBar(
               context,
               message: state.callbackMessage,
-              type: SnackBarType.error,
             );
           }
         },

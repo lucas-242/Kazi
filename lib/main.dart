@@ -14,7 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   MobileAds.instance.initialize();
-  RequestConfiguration configuration =
+  final configuration =
       RequestConfiguration(testDeviceIds: AdKeys.testDeviceIds);
   MobileAds.instance.updateRequestConfiguration(configuration);
   initInjectorContainer();

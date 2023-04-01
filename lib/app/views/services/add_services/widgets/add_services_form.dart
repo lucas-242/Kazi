@@ -60,7 +60,6 @@ class _AddServicesFormState extends State<AddServicesForm> {
       child: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _ServiceTypeField(
               fieldKey: _dropdownKey,

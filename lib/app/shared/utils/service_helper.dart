@@ -1,7 +1,6 @@
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
 
 abstract class ServiceHelper {
   static List<Service> mergeServices(
