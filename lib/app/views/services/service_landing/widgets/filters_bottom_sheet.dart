@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
 
@@ -14,7 +16,7 @@ import 'package:my_services/app/views/services/services.dart';
 
 import 'selectable_pill_button.dart';
 
-class FiltersBottomSheet extends StatelessWidget {
+class FiltersBottomSheet extends StatefulWidget {
   final GlobalKey<FormFieldState> dateKey;
   final MaskedTextController dateController;
   const FiltersBottomSheet({
@@ -24,13 +26,54 @@ class FiltersBottomSheet extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<FiltersBottomSheet> createState() => _FiltersBottomSheetState();
+}
+
+class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
+  late DateTime startDate;
+  late DateTime endDate;
+  late FastSearch fastSearch;
+
+  @override
+  void initState() {
+    final cubit = context.read<ServiceLandingCubit>();
+    startDate = cubit.state.startDate;
+    endDate = cubit.state.endDate;
+    fastSearch = cubit.state.fastSearch;
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final cubit = context.read<ServiceLandingCubit>();
 
-    Future<void> onChangeFastSearch(FastSearch fastSearch) async {
-      await cubit.onChageSelectedFastSearch(fastSearch);
-      dateController.text =
-          '${DateFormat.yMd().format(cubit.state.startDate).normalizeDate()} - ${DateFormat.yMd().format(cubit.state.endDate).normalizeDate()}';
+    void onChangeDate(DateTimeRange range) {
+      startDate = range.start;
+      endDate = range.end;
+      widget.dateController.text =
+          '${DateFormat.yMd().format(startDate).normalizeDate()} - ${DateFormat.yMd().format(endDate).normalizeDate()}';
+    }
+
+    void onChangeFastSearch(FastSearch selectedFastSearch) {
+      setState(() {
+        fastSearch = selectedFastSearch;
+        final range = cubit.getRangeDateByFastSearch(fastSearch);
+        onChangeDate(DateTimeRange(
+          start: range['startDate']!,
+          end: range['endDate']!,
+        ));
+      });
+    }
+
+    Future<void> onApplyFilters() async {
+      context.pop();
+      await cubit.onApplyFilters(fastSearch, startDate, endDate);
+    }
+
+    Future<void> onCleanFilters() async {
+      context.pop();
+      await cubit.onCleanFilters();
     }
 
     return Wrap(
@@ -47,22 +90,18 @@ class FiltersBottomSheet extends StatelessWidget {
               TextWithTrailing(
                 text: AppLocalizations.current.filters,
                 trailing: PillButton(
-                  onTap: () => null,
+                  onTap: onCleanFilters,
                   backgroundColor: context.colorsScheme.primary,
                   child: Text(AppLocalizations.current.removeFilters),
                 ),
               ),
               AppSizeConstants.largeVerticalSpacer,
               CustomDateRangePicker(
-                fieldKey: dateKey,
-                controller: dateController,
-                startDate: cubit.state.startDate,
-                endDate: cubit.state.endDate,
-                onChange: (range) {
-                  cubit.onChangeDate(range.start, range.end);
-                  dateController.text =
-                      '${DateFormat.yMd().format(range.start).normalizeDate()} - ${DateFormat.yMd().format(range.end).normalizeDate()}';
-                },
+                fieldKey: widget.dateKey,
+                controller: widget.dateController,
+                startDate: startDate,
+                endDate: endDate,
+                onChange: onChangeDate,
               ),
               AppSizeConstants.largeVerticalSpacer,
               Row(
@@ -71,32 +110,28 @@ class FiltersBottomSheet extends StatelessWidget {
                   SelectablePillButton(
                     onTap: () => onChangeFastSearch(FastSearch.today),
                     text: AppLocalizations.current.today,
-                    isSelected:
-                        cubit.state.selectedFastSearch == FastSearch.today,
+                    isSelected: fastSearch == FastSearch.today,
                   ),
                   SelectablePillButton(
                     onTap: () => onChangeFastSearch(FastSearch.week),
                     text: AppLocalizations.current.week,
-                    isSelected:
-                        cubit.state.selectedFastSearch == FastSearch.week,
+                    isSelected: fastSearch == FastSearch.week,
                   ),
                   SelectablePillButton(
                     onTap: () => onChangeFastSearch(FastSearch.fortnight),
                     text: AppLocalizations.current.fortnight,
-                    isSelected:
-                        cubit.state.selectedFastSearch == FastSearch.fortnight,
+                    isSelected: fastSearch == FastSearch.fortnight,
                   ),
                   SelectablePillButton(
                     onTap: () => onChangeFastSearch(FastSearch.month),
                     text: AppLocalizations.current.month,
-                    isSelected:
-                        cubit.state.selectedFastSearch == FastSearch.month,
+                    isSelected: fastSearch == FastSearch.month,
                   ),
                 ],
               ),
               AppSizeConstants.imenseVerticalSpacer,
               PillButton(
-                onTap: () => null,
+                onTap: onApplyFilters,
                 child: Text(AppLocalizations.current.applyFilters),
               ),
             ],

@@ -2,7 +2,7 @@
 enum FastSearch { today, week, fortnight, month, custom }
 
 /// Represents the possibilities that the ordering of the Services lists can follow
-enum OrderBy { typeAsc, typeDesc, valueAsc, valueDesc, dateAsc, dateDesc }
+enum OrderBy { alphabetical, valueAsc, valueDesc, dateAsc, dateDesc }
 
 /// Represents the possibilities for CustomAppBar menu options
 enum CustomAppBarOptions { order, logout }

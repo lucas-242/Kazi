@@ -22,7 +22,7 @@ class HomeState extends BaseState with EquatableMixin {
     Service? serviceProvided,
     super.callbackMessage,
     OrderBy? selectedOrderBy,
-  })  : selectedOrderBy = selectedOrderBy ?? OrderBy.typeAsc,
+  })  : selectedOrderBy = selectedOrderBy ?? OrderBy.alphabetical,
         services = services ?? [];
 
   @override

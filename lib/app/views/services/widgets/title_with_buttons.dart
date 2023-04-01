@@ -56,6 +56,7 @@ class TitleWithButtons extends StatelessWidget {
             Visibility(
               visible: showFilters,
               child: CircularButton(
+                showCircularIndicator: serviceCubit.state.didFiltersChange,
                 onTap: () => showModalBottomSheet(
                   context: context,
                   useRootNavigator: true,

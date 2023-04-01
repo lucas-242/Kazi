@@ -6,13 +6,13 @@ import 'package:my_services/app/repositories/services_repository/services_reposi
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/shared/utils/base_cubit.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
 
 part 'service_landing_state.dart';
 
@@ -35,7 +35,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
 
   void onInit() async {
     try {
-      final range = _getRangeDateByFastSearch(state.selectedFastSearch);
+      final range = getRangeDateByFastSearch(state.fastSearch);
       final result = await _getServices(range['startDate']!, range['endDate']!);
       _handleGetServices(result);
     } on AppError catch (exception) {
@@ -45,8 +45,8 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     }
   }
 
-  Map<String, DateTime> _getRangeDateByFastSearch(FastSearch fastSearch) {
-    final today = _timeService.now;
+  Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch) {
+    final today = _timeService.nowWithoutTime;
     DateTime startDate;
     DateTime endDate;
     switch (fastSearch) {
@@ -110,7 +110,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final range = _getRangeDateByFastSearch(state.selectedFastSearch);
+      final range = getRangeDateByFastSearch(state.fastSearch);
       final fetchResult =
           await _getServices(range['startDate']!, range['endDate']!);
       _handleGetServices(fetchResult);
@@ -137,13 +137,49 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     }
   }
 
-  Future<void> onChangeDate(DateTime startDate, DateTime endDate) async {
+  Future<void> onApplyFilters([
+    FastSearch? fastSearch,
+    DateTime? startDate,
+    DateTime? endDate,
+  ]) async {
+    if (fastSearch != null) {
+      await _onChageSelectedFastSearch(fastSearch);
+    } else if (startDate != null && endDate != null) {
+      await _onChangeDate(startDate, endDate);
+    }
+  }
+
+  Future<void> _onChageSelectedFastSearch(FastSearch fastSearch) async {
+    try {
+      if (fastSearch == state.fastSearch) return;
+
+      final range = getRangeDateByFastSearch(fastSearch);
+
+      emit(state.copyWith(
+        status: BaseStateStatus.loading,
+        fastSearch: fastSearch,
+        startDate: range['startDate']!,
+        endDate: range['endDate']!,
+        didFiltersChange: true,
+      ));
+      final fetchResult =
+          await _getServices(range['startDate']!, range['endDate']!);
+      _handleGetServices(fetchResult);
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError(exception);
+    }
+  }
+
+  Future<void> _onChangeDate(DateTime startDate, DateTime endDate) async {
     try {
       emit(state.copyWith(
         status: BaseStateStatus.loading,
         startDate: startDate,
         endDate: endDate,
-        selectedFastSearch: FastSearch.custom,
+        fastSearch: FastSearch.custom,
+        didFiltersChange: true,
       ));
       final fetchResult = await _getServices(startDate, endDate);
       _handleGetServices(fetchResult);
@@ -154,20 +190,15 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     }
   }
 
-  Future<void> onChageSelectedFastSearch(FastSearch fastSearch) async {
+  Future<void> onCleanFilters() async {
     try {
-      if (fastSearch == state.selectedFastSearch) return;
-
-      final range = _getRangeDateByFastSearch(fastSearch);
-
       emit(state.copyWith(
         status: BaseStateStatus.loading,
-        selectedFastSearch: fastSearch,
-        startDate: range['startDate']!,
-        endDate: range['endDate']!,
+        startDate: _timeService.nowWithoutTime,
+        endDate: _timeService.nowWithoutTime,
+        didFiltersChange: false,
       ));
-      final fetchResult =
-          await _getServices(range['startDate']!, range['endDate']!);
+      final fetchResult = await _getServices(state.startDate, state.endDate);
       _handleGetServices(fetchResult);
     } on AppError catch (exception) {
       onAppError(exception);
@@ -186,17 +217,6 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _getServices(state.startDate, state.endDate);
       _handleGetServices(result);
-    } on AppError catch (exception) {
-      onAppError(exception);
-    } catch (exception) {
-      unexpectedError(exception);
-    }
-  }
-
-  Future<void> signOut() async {
-    try {
-      emit(state.copyWith(status: BaseStateStatus.loading));
-      await _authService.signOut();
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {

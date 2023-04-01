@@ -3,21 +3,10 @@ part of 'service_landing_cubit.dart';
 class ServiceLandingState extends BaseState with EquatableMixin {
   DateTime startDate;
   DateTime endDate;
-  FastSearch selectedFastSearch;
+  FastSearch fastSearch;
   OrderBy selectedOrderBy;
   List<Service> services;
-
-  double get totalValue {
-    return services.fold<double>(0, (a, b) => a + b.value);
-  }
-
-  double get totalWithDiscount {
-    return services.fold<double>(0, (a, b) => a + b.valueWithDiscount);
-  }
-
-  double get totalDiscounted {
-    return services.fold<double>(0, (a, b) => a + b.valueDiscounted);
-  }
+  bool didFiltersChange;
 
   ServiceLandingState({
     required super.status,
@@ -25,11 +14,18 @@ class ServiceLandingState extends BaseState with EquatableMixin {
     super.callbackMessage,
     required this.startDate,
     required this.endDate,
-    FastSearch? selectedFastSearch,
-    OrderBy? selectedOrderBy,
-  })  : services = services ?? [],
-        selectedOrderBy = selectedOrderBy ?? OrderBy.typeAsc,
-        selectedFastSearch = selectedFastSearch ?? FastSearch.today;
+    this.fastSearch = FastSearch.month,
+    this.selectedOrderBy = OrderBy.alphabetical,
+    this.didFiltersChange = false,
+  }) : services = services ?? [];
+
+  double get totalValue => services.fold<double>(0, (a, b) => a + b.value);
+
+  double get totalWithDiscount =>
+      services.fold<double>(0, (a, b) => a + b.valueWithDiscount);
+
+  double get totalDiscounted =>
+      services.fold<double>(0, (a, b) => a + b.valueDiscounted);
 
   @override
   ServiceLandingState copyWith({
@@ -38,8 +34,9 @@ class ServiceLandingState extends BaseState with EquatableMixin {
     List<Service>? services,
     DateTime? startDate,
     DateTime? endDate,
-    FastSearch? selectedFastSearch,
+    FastSearch? fastSearch,
     OrderBy? selectedOrderBy,
+    bool? didFiltersChange,
   }) {
     return ServiceLandingState(
       status: status ?? this.status,
@@ -47,8 +44,9 @@ class ServiceLandingState extends BaseState with EquatableMixin {
       services: services ?? this.services,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
-      selectedFastSearch: selectedFastSearch ?? this.selectedFastSearch,
+      fastSearch: fastSearch ?? this.fastSearch,
       selectedOrderBy: selectedOrderBy ?? this.selectedOrderBy,
+      didFiltersChange: didFiltersChange ?? this.didFiltersChange,
     );
   }
 
@@ -56,10 +54,11 @@ class ServiceLandingState extends BaseState with EquatableMixin {
   List<Object?> get props => [
         startDate,
         endDate,
-        selectedFastSearch,
+        fastSearch,
         selectedOrderBy,
         services,
+        didFiltersChange,
         status,
-        callbackMessage
+        callbackMessage,
       ];
 }

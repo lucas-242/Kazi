@@ -6,7 +6,7 @@ import 'package:my_services/app/models/enums.dart';
 
 class OrderByBottomSheet extends StatelessWidget {
   Map<OrderBy, String> get orderOptions => {
-        OrderBy.typeAsc: AppLocalizations.current.orderAlphabetical,
+        OrderBy.alphabetical: AppLocalizations.current.orderAlphabetical,
         OrderBy.dateDesc: AppLocalizations.current.orderDateDesc,
         OrderBy.dateAsc: AppLocalizations.current.orderDateAsc,
         OrderBy.valueDesc: AppLocalizations.current.orderValueDesc,

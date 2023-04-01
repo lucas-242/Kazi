@@ -1,6 +1,7 @@
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 
 abstract class ServiceHelper {
   static List<Service> mergeServices(
@@ -33,7 +34,7 @@ abstract class ServiceHelper {
 
   static List<Service> filterServicesByRange(
       List<Service> services, DateTime startDate, DateTime endDate) {
-    var filtered = services.where((s) {
+    final filtered = services.where((s) {
       final serviceDate = DateTime(s.date.year, s.date.month, s.date.day);
       return (serviceDate.isAtSameMomentAs(startDate) ||
               serviceDate.isAfter(startDate)) &&
@@ -52,11 +53,8 @@ abstract class ServiceHelper {
       case OrderBy.dateDesc:
         services.sort((a, b) => b.date.compareTo(a.date));
         break;
-      case OrderBy.typeAsc:
+      case OrderBy.alphabetical:
         services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
-        break;
-      case OrderBy.typeDesc:
-        services.sort((a, b) => b.type!.name.compareTo(a.type!.name));
         break;
       case OrderBy.valueAsc:
         services.sort((a, b) => a.value.compareTo(b.value));

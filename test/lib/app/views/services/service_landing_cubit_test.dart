@@ -8,7 +8,6 @@ import 'package:my_services/app/repositories/service_type_repository/service_typ
 import 'package:my_services/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
@@ -17,7 +16,7 @@ import 'package:my_services/app/views/services/services.dart';
 
 import '../../../../mocks/mocks.dart';
 import '../../../../utils/test_helper.dart';
-import 'calendar_cubit_test.mocks.dart';
+import 'service_landing_cubit_test.mocks.dart';
 
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
 void main() {
@@ -32,7 +31,7 @@ void main() {
   setUp(() {
     serviceTypeRepository = MockServiceTypeRepository();
     servicesRepository = MockServicesRepository();
-    timeService = LocalTimeService();
+    timeService = LocalTimeService(serviceMock.date);
     authService = MockAuthService();
 
     when(authService.user).thenReturn(userMock);
@@ -49,7 +48,7 @@ void main() {
 
   group('Call onInit function', () {
     blocTest(
-      'emits CalendarState with loaded services and status success when call onInit',
+      'emits ServiceLandingState with loaded services and status success when call onInit',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
@@ -63,7 +62,7 @@ void main() {
     );
 
     blocTest(
-      'emits CalendarState with empty services and status noData when call onInit',
+      'emits ServiceLandingState with empty services and status noData when call onInit',
       setUp: () {
         when(servicesRepository.get(any, any, any)).thenAnswer((_) async => []);
       },
@@ -79,7 +78,7 @@ void main() {
     );
 
     blocTest(
-      'emits CalendarState with status error and callbackMessage = errorToGetServices when call onInit',
+      'emits ServiceLandingState with status error and callbackMessage = errorToGetServices when call onInit',
       build: () => cubit,
       seed: () => ServiceLandingState(
         status: BaseStateStatus.noData,
@@ -102,7 +101,7 @@ void main() {
     );
 
     blocTest(
-      'emits CalendarState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
+      'emits ServiceLandingState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
       build: () => cubit,
       seed: () => ServiceLandingState(
         status: BaseStateStatus.noData,
@@ -125,7 +124,7 @@ void main() {
     );
 
     blocTest(
-      'emits CalendarState with status error and callbackMessage = unknowError when call onInit',
+      'emits ServiceLandingState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(Exception());
@@ -152,7 +151,7 @@ void main() {
     });
 
     blocTest(
-      'emits CalendarState with loaded services and status success when call deleteService',
+      'emits ServiceLandingState with loaded services and status success when call deleteService',
       build: () => cubit,
       seed: () => ServiceLandingState(
         services: serviceList,
@@ -180,7 +179,7 @@ void main() {
 
   group('Call onRefresh function', () {
     blocTest(
-      'emits CalendarState with loaded services and status success when call onRefresh',
+      'emits ServiceLandingState with loaded services and status success when call onRefresh',
       build: () => cubit,
       act: (cubit) => cubit.onRefresh(),
       expect: () => [
@@ -211,28 +210,31 @@ void main() {
     });
 
     blocTest(
-      'emits CalendarState with new services with different dates when call onChangeDate',
+      'emits ServiceLandingState with new services with different dates and didFiltersChange when call onApplyFilters with dates',
       build: () => cubit,
-      act: (cubit) => [cubit.onChangeDate(newStartDateTime, newEndDateTime)],
+      act: (cubit) =>
+          [cubit.onApplyFilters(null, newStartDateTime, newEndDateTime)],
       expect: () => [
         ServiceLandingState(
           status: BaseStateStatus.loading,
           startDate: newStartDateTime,
           endDate: newEndDateTime,
-          selectedFastSearch: FastSearch.custom,
+          fastSearch: FastSearch.custom,
+          didFiltersChange: true,
         ),
         ServiceLandingState(
           startDate: newStartDateTime,
           endDate: newEndDateTime,
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
-          selectedFastSearch: FastSearch.custom,
+          fastSearch: FastSearch.custom,
+          didFiltersChange: true,
         )
       ],
     );
 
     blocTest(
-      'emits CalendarState with new services with different selectedFastSearch when call onChageSelectedFastSearch',
+      'emits ServiceLandingState with new services with different selectedFastSearch and didFiltersChange when call onApplyFilters with FastSearch',
       build: () => ServiceLandingCubit(
         servicesRepository,
         serviceTypeRepository,
@@ -243,26 +245,28 @@ void main() {
         newStartDateTime = DateTime(2022, 12, 1);
         newEndDateTime = DateTime(2022, 12, 15, 23, 59, 59);
       },
-      act: (cubit) => [cubit.onChageSelectedFastSearch(FastSearch.fortnight)],
+      act: (cubit) => [cubit.onApplyFilters(FastSearch.fortnight)],
       expect: () => [
         ServiceLandingState(
           status: BaseStateStatus.loading,
           startDate: newStartDateTime,
           endDate: newEndDateTime,
-          selectedFastSearch: FastSearch.fortnight,
+          fastSearch: FastSearch.fortnight,
+          didFiltersChange: true,
         ),
         ServiceLandingState(
           startDate: newStartDateTime,
           endDate: newEndDateTime,
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
-          selectedFastSearch: FastSearch.fortnight,
+          fastSearch: FastSearch.fortnight,
+          didFiltersChange: true,
         )
       ],
     );
 
     blocTest(
-      'emits CalendarState with new services and status success when call onChangeServices',
+      'emits ServiceLandingState with new services and status success when call onChangeServices',
       build: () => cubit,
       act: (cubit) => [cubit.onChangeServices()],
       expect: () => [
@@ -283,7 +287,7 @@ void main() {
 
   group('Call onChangeOrderBy', () {
     blocTest(
-      'emits CalendarState with services ordered dateDesc and status success when call onChangeOrderBy',
+      'emits ServiceLandingState with services ordered dateDesc and status success when call onChangeOrderBy',
       build: () => cubit,
       act: (cubit) => [cubit.onChangeOrderBy(OrderBy.dateDesc)],
       seed: () => ServiceLandingState(
@@ -340,61 +344,5 @@ void main() {
 
       expect(state.totalDiscounted, 105);
     });
-  });
-
-  group('Sign out', () {
-    blocTest(
-      'emits CalendarState with status loading when call signOut',
-      build: () => cubit,
-      act: (cubit) => [cubit.signOut()],
-      expect: () => [
-        ServiceLandingState(
-          status: BaseStateStatus.loading,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
-        )
-      ],
-    );
-
-    blocTest(
-      'emits CalendarState with status error and methodNotAllowed message when call signOut',
-      build: () => cubit,
-      setUp: () => when(authService.signOut()).thenThrow(
-          FirebaseSignInError.fromCode('operation-not-allowed', null)),
-      act: (cubit) => [cubit.signOut()],
-      expect: () => [
-        ServiceLandingState(
-          status: BaseStateStatus.loading,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
-        ),
-        ServiceLandingState(
-          status: BaseStateStatus.error,
-          callbackMessage: AppLocalizations.current.methodNotAllowed,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
-        )
-      ],
-    );
-
-    blocTest(
-      'emits CalendarState with status error and unknowError message when call signOut',
-      build: () => cubit,
-      setUp: () => when(authService.signOut()).thenThrow(Exception()),
-      act: (cubit) => [cubit.signOut()],
-      expect: () => [
-        ServiceLandingState(
-          status: BaseStateStatus.loading,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
-        ),
-        ServiceLandingState(
-          status: BaseStateStatus.error,
-          callbackMessage: AppLocalizations.current.unknowError,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
-        )
-      ],
-    );
   });
 }

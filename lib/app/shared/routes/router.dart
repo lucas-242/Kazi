@@ -10,7 +10,11 @@ import 'package:my_services/app/views/services/services.dart';
 import 'package:my_services/app/views/settings/settings.dart';
 import 'package:my_services/app/views/splash/splash.dart';
 
-final router = GoRouter(
+abstract class AppRouter {
+  static GoRouter get router => _router;
+}
+
+final _router = GoRouter(
   initialLocation: AppRoutes.initial,
   routes: [
     GoRoute(

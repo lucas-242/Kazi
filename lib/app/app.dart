@@ -71,7 +71,7 @@ class _AppState extends State<App> {
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.delegate.supportedLocales,
-        routerConfig: router,
+        routerConfig: AppRouter.router,
       ),
     );
   }
