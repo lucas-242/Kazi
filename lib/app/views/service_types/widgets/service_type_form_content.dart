@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
-import '../services_type.dart';
+import '../service_types.dart';
 
 class ServiceTypeFormContent extends StatefulWidget {
   final String labelButton;
@@ -59,7 +59,7 @@ class _NameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.name;
-    final cubit = context.read<ServicesTypeCubit>();
+    final cubit = context.read<ServiceTypesCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
@@ -79,7 +79,7 @@ class _DefaultValueField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.defaultValue;
-    final cubit = context.read<ServicesTypeCubit>();
+    final cubit = context.read<ServiceTypesCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,
@@ -100,7 +100,7 @@ class _DiscountPercentField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.discountPercentage;
-    final cubit = context.read<ServicesTypeCubit>();
+    final cubit = context.read<ServiceTypesCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,

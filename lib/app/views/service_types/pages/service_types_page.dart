@@ -5,30 +5,30 @@ import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/views/services_type/widgets/services_type_content.dart';
-import '../services_type.dart';
+import 'package:my_services/app/views/service_types/widgets/service_types_content.dart';
+import '../service_types.dart';
 
 import 'package:my_services/app/shared/utils/base_state.dart';
 
-class ServicesTypePage extends StatefulWidget {
-  const ServicesTypePage({super.key});
+class ServiceTypesPage extends StatefulWidget {
+  const ServiceTypesPage({super.key});
 
   @override
-  State<ServicesTypePage> createState() => _ServicesTypePageState();
+  State<ServiceTypesPage> createState() => _ServiceTypesPageState();
 }
 
-class _ServicesTypePageState extends State<ServicesTypePage> {
+class _ServiceTypesPageState extends State<ServiceTypesPage> {
   @override
   void initState() {
-    context.read<ServicesTypeCubit>().onInit();
+    context.read<ServiceTypesCubit>().onInit();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      onRefresh: () => context.read<ServicesTypeCubit>().getServiceTypes(),
-      child: BlocListener<ServicesTypeCubit, ServicesTypeState>(
+      onRefresh: () => context.read<ServiceTypesCubit>().getServiceTypes(),
+      child: BlocListener<ServiceTypesCubit, ServiceTypesState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.error) {
@@ -38,11 +38,11 @@ class _ServicesTypePageState extends State<ServicesTypePage> {
             );
           }
         },
-        child: BlocBuilder<ServicesTypeCubit, ServicesTypeState>(
+        child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
             return state.when(
-              onState: (_) => ServicesTypeContent(state: state),
+              onState: (_) => ServiceTypesContent(state: state),
               onLoading: () => SizedBox(
                 height: context.height,
                 child: const Center(child: CircularProgressIndicator()),

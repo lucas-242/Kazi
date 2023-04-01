@@ -5,11 +5,11 @@ import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/app/views/services_type/services_type.dart';
+import 'package:my_services/app/views/service_types/service_types.dart';
 
-class ServicesTypeContent extends StatelessWidget {
-  final ServicesTypeState state;
-  const ServicesTypeContent({super.key, required this.state});
+class ServiceTypesContent extends StatelessWidget {
+  final ServiceTypesState state;
+  const ServiceTypesContent({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +39,11 @@ class ServicesTypeContent extends StatelessWidget {
                   serviceType: state.serviceTypes[index],
                   onTapEdit: (serviceType) {
                     context
-                        .read<ServicesTypeCubit>()
+                        .read<ServiceTypesCubit>()
                         .changeServiceType(serviceType);
                   },
                   onTapDelete: (serviceType) => context
-                      .read<ServicesTypeCubit>()
+                      .read<ServiceTypesCubit>()
                       .deleteServiceType(serviceType),
                 ),
                 separatorBuilder: (context, index) => const Divider(),

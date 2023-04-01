@@ -6,8 +6,8 @@ import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/login/login.dart';
 import 'package:my_services/app/views/profile/profile.dart';
+import 'package:my_services/app/views/service_types/service_types.dart';
 import 'package:my_services/app/views/services/services.dart';
-import 'package:my_services/app/views/services_type/services_type.dart';
 import 'package:my_services/app/views/splash/splash.dart';
 
 abstract class AppRouter {
@@ -43,7 +43,7 @@ final _router = GoRouter(
             GoRoute(
               path: AppRoutes.type,
               pageBuilder: (context, state) =>
-                  _customTransition(state, const ServicesTypePage()),
+                  _customTransition(state, const ServiceTypesPage()),
               routes: [
                 GoRoute(
                   path: AppRoutes.add,
@@ -67,7 +67,7 @@ final _router = GoRouter(
         GoRoute(
           path: AppRoutes.calculator,
           pageBuilder: (context, state) =>
-              _customTransition(state, const ServicesTypePage()),
+              _customTransition(state, const ServiceTypesPage()),
         ),
         GoRoute(
           path: AppRoutes.profile,

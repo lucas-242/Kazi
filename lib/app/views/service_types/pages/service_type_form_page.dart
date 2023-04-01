@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import '../services_type.dart';
+import '../service_types.dart';
 
 class ServiceTypeFormPage extends StatefulWidget {
   const ServiceTypeFormPage({super.key});
@@ -15,27 +15,27 @@ class ServiceTypeFormPage extends StatefulWidget {
 class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
   @override
   Widget build(BuildContext context) {
-    final label = context.read<ServicesTypeCubit>().state.serviceType.id != ''
+    final label = context.read<ServiceTypesCubit>().state.serviceType.id != ''
         ? AppLocalizations.current.update
         : AppLocalizations.current.add;
 
-    void onConfirm(ServicesTypeState state) {
+    void onConfirm(ServiceTypesState state) {
       if (state.serviceType.id.isEmpty) {
-        context.read<ServicesTypeCubit>().addServiceType();
+        context.read<ServiceTypesCubit>().addServiceType();
       } else {
-        context.read<ServicesTypeCubit>().updateServiceType();
+        context.read<ServiceTypesCubit>().updateServiceType();
       }
     }
 
     return WillPopScope(
       onWillPop: () async {
-        context.read<ServicesTypeCubit>().eraseServiceType();
+        context.read<ServiceTypesCubit>().eraseServiceType();
         return true;
       },
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
-            child: BlocListener<ServicesTypeCubit, ServicesTypeState>(
+            child: BlocListener<ServiceTypesCubit, ServiceTypesState>(
               listenWhen: (previous, current) =>
                   previous.status != current.status,
               listener: (context, state) {
@@ -43,7 +43,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
                   context.pop();
                 }
               },
-              child: BlocBuilder<ServicesTypeCubit, ServicesTypeState>(
+              child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(
                 builder: (context, state) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 25),
