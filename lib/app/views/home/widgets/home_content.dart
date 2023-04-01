@@ -68,7 +68,7 @@ class HomeContent extends StatelessWidget {
           },
         ),
         AppSizeConstants.mediumVerticalSpacer,
-        ServiceList(services: state.services),
+        Expanded(child: ServiceList(services: state.services)),
       ],
     );
   }

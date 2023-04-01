@@ -6,6 +6,7 @@ import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/services/services.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/filters_bottom_sheet.dart';
@@ -23,9 +24,11 @@ class ServiceLandingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ServiceLandingCubit>();
+
     Future<void> onDelete(Service service) async {
       final homeCubit = context.read<HomeCubit>();
-      await context.read<ServiceLandingCubit>().deleteService(service);
+      await cubit.deleteService(service);
       homeCubit.onChangeServices();
     }
 
@@ -45,7 +48,12 @@ class ServiceLandingContent extends StatelessWidget {
           ),
         ),
         AppSizeConstants.largeVerticalSpacer,
-        ServiceList(services: state.services),
+        Expanded(
+          child: ServiceListByDate(
+            servicesByDate:
+                ServiceHelper.groupServicesByDate(state.services, cubit.now),
+          ),
+        ),
       ],
     );
   }

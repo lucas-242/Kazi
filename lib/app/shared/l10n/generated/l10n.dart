@@ -620,6 +620,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Yesterday`
+  String get yesterday {
+    return Intl.message(
+      'Yesterday',
+      name: 'yesterday',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Week`
   String get week {
     return Intl.message(

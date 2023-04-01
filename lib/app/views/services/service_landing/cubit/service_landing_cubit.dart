@@ -22,6 +22,8 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   final AuthService _authService;
   final TimeService _timeService;
 
+  DateTime get now => _timeService.nowWithoutTime;
+
   ServiceLandingCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
@@ -46,7 +48,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   }
 
   Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch) {
-    final today = _timeService.nowWithoutTime;
+    final today = now;
     DateTime startDate;
     DateTime endDate;
     switch (fastSearch) {
@@ -194,8 +196,8 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     try {
       emit(state.copyWith(
         status: BaseStateStatus.loading,
-        startDate: _timeService.nowWithoutTime,
-        endDate: _timeService.nowWithoutTime,
+        startDate: now,
+        endDate: now,
         didFiltersChange: false,
       ));
       final fetchResult = await _getServices(state.startDate, state.endDate);

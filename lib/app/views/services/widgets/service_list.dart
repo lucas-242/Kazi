@@ -4,14 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/widgets/ads/ad_block.dart';
-import 'widgets/service_card.dart';
+
+import 'service_card.dart';
 
 class ServiceList extends StatelessWidget {
   final List<Service> services;
+  final bool canScroll;
 
   const ServiceList({
     super.key,
     required this.services,
+    this.canScroll = true,
   });
 
   @override
@@ -19,7 +22,9 @@ class ServiceList extends StatelessWidget {
     return Card(
       child: ListView.separated(
         shrinkWrap: true,
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: canScroll
+            ? const AlwaysScrollableScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
         itemCount: services.length,
         itemBuilder: (context, index) {
           if (index != 0 && index % 2 == 0) {

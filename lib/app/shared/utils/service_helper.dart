@@ -1,6 +1,8 @@
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/models/service_group_by_date.dart';
 import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 
 abstract class ServiceHelper {
   static List<Service> mergeServices(
@@ -44,6 +46,7 @@ abstract class ServiceHelper {
     return filtered.toList();
   }
 
+  //TODO: Sort by aphabetical and dateDesc
   static List<Service> orderServices(List<Service> services, OrderBy orderBy) {
     switch (orderBy) {
       case OrderBy.dateAsc:
@@ -63,5 +66,26 @@ abstract class ServiceHelper {
         break;
     }
     return services;
+  }
+
+  static List<ServicesGroupByDate> groupServicesByDate(
+      List<Service> services, DateTime isExpadendUntil) {
+    final result = <ServicesGroupByDate>[];
+    final dates = services.map((s) => s.date).toSet();
+
+    for (var date in dates) {
+      final servicesOnDate = services.where((s) => s.date == date).toList();
+      if (servicesOnDate.isNotEmpty) {
+        final daysOfDifference = date.calculateDifference(isExpadendUntil);
+        final isExpanded = daysOfDifference == 0 || daysOfDifference == -1;
+        result.add(ServicesGroupByDate(
+          date: date,
+          services: servicesOnDate,
+          isExpaded: isExpanded,
+        ));
+      }
+    }
+
+    return result;
   }
 }

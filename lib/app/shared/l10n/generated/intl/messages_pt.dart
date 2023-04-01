@@ -165,6 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "O Id de verificação inserido é inválido"),
         "week": MessageLookupByLibrary.simpleMessage("Semana"),
         "wouldYouLikeDelete":
-            MessageLookupByLibrary.simpleMessage("Gostaria de deletar")
+            MessageLookupByLibrary.simpleMessage("Gostaria de deletar"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Ontem")
       };
 }
