@@ -9,7 +9,6 @@ import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/services/services.dart';
-import 'package:my_services/app/views/services/service_landing/widgets/filters_bottom_sheet.dart';
 
 class ServiceLandingContent extends StatelessWidget {
   final ServiceLandingState state;

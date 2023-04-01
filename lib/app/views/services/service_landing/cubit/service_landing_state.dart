@@ -1,12 +1,12 @@
 part of 'service_landing_cubit.dart';
 
 class ServiceLandingState extends BaseState with EquatableMixin {
-  DateTime startDate;
-  DateTime endDate;
-  FastSearch fastSearch;
-  OrderBy selectedOrderBy;
-  List<Service> services;
-  bool didFiltersChange;
+  final DateTime startDate;
+  final DateTime endDate;
+  final FastSearch fastSearch;
+  final OrderBy selectedOrderBy;
+  final List<Service> services;
+  final bool didFiltersChange;
 
   ServiceLandingState({
     required super.status,

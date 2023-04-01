@@ -8,7 +8,6 @@ import 'package:my_services/app/shared/themes/themes.dart';
 
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/views/services/service_landing/widgets/filters_bottom_sheet.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/service_landing_content.dart';
 import 'package:my_services/app/views/services/services.dart';
 

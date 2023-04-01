@@ -46,37 +46,87 @@ abstract class ServiceHelper {
     return filtered.toList();
   }
 
-  //TODO: Sort by aphabetical and dateDesc
   static List<Service> orderServices(List<Service> services, OrderBy orderBy) {
     switch (orderBy) {
       case OrderBy.dateAsc:
-        services.sort((a, b) => a.date.compareTo(b.date));
-        break;
+        return _sortWithTiebreaker(
+          services,
+          _compareDateAsc,
+          _compareAlphabetical,
+          _compareValueDesc,
+        );
       case OrderBy.dateDesc:
-        services.sort((a, b) => b.date.compareTo(a.date));
-        break;
+        return _sortWithTiebreaker(
+          services,
+          _compareDateDesc,
+          _compareAlphabetical,
+          _compareValueDesc,
+        );
       case OrderBy.alphabetical:
-        services.sort((a, b) => a.type!.name.compareTo(b.type!.name));
-        break;
+        return _sortWithTiebreaker(
+          services,
+          _compareAlphabetical,
+          _compareDateDesc,
+          _compareValueDesc,
+        );
       case OrderBy.valueAsc:
-        services.sort((a, b) => a.value.compareTo(b.value));
-        break;
+        return _sortWithTiebreaker(
+          services,
+          _compareValueAsc,
+          _compareAlphabetical,
+          _compareDateDesc,
+        );
       case OrderBy.valueDesc:
-        services.sort((a, b) => b.value.compareTo(a.value));
-        break;
+        return _sortWithTiebreaker(
+          services,
+          _compareValueDesc,
+          _compareAlphabetical,
+          _compareDateDesc,
+        );
     }
+  }
+
+  static List<Service> _sortWithTiebreaker(
+    List<Service> services,
+    int Function(Service, Service) firstCompare,
+    int Function(Service, Service) secondCompare,
+    int Function(Service, Service) thirdCompare,
+  ) {
+    services.sort((a, b) {
+      final firstResult = firstCompare(a, b);
+      if (firstResult != 0) return firstResult;
+      final secondResult = secondCompare(a, b);
+      if (secondResult != 0) return secondResult;
+      return thirdCompare(a, b);
+    });
+
     return services;
   }
 
+  static int _compareAlphabetical(Service a, Service b) =>
+      a.type!.name.compareTo(b.type!.name);
+  static int _compareDateAsc(Service a, Service b) => a.date.compareTo(b.date);
+  static int _compareDateDesc(Service a, Service b) => b.date.compareTo(a.date);
+  static int _compareValueAsc(Service a, Service b) =>
+      a.value.compareTo(b.value);
+  static int _compareValueDesc(Service a, Service b) =>
+      b.value.compareTo(a.value);
+
   static List<ServicesGroupByDate> groupServicesByDate(
-      List<Service> services, DateTime isExpadendUntil) {
+    List<Service> services,
+    DateTime today,
+  ) {
     final result = <ServicesGroupByDate>[];
-    final dates = services.map((s) => s.date).toSet();
+    final dates = services.map((s) => s.date).toSet().toList();
+
+    final wasRemoved = dates.remove(today);
+    dates.sort((a, b) => b.compareTo(a));
+    if (wasRemoved) dates.insert(0, today);
 
     for (var date in dates) {
       final servicesOnDate = services.where((s) => s.date == date).toList();
       if (servicesOnDate.isNotEmpty) {
-        final daysOfDifference = date.calculateDifference(isExpadendUntil);
+        final daysOfDifference = date.calculateDifference(today);
         final isExpanded = daysOfDifference == 0 || daysOfDifference == -1;
         result.add(ServicesGroupByDate(
           date: date,
@@ -87,5 +137,63 @@ abstract class ServiceHelper {
     }
 
     return result;
+  }
+
+  static List<DateTime> _getServicesDates(
+    List<Service> services,
+    DateTime today,
+  ) {
+    final dates = services.map((s) => s.date).toSet().toList();
+    final yesterday = today.copyWith(day: today.day - 1);
+
+    //* Remove today and yesterday from middle of the list to add them on top
+    final todayWasRemoved = dates.remove(today);
+    final yesterdayWasRemoved = dates.remove(yesterday);
+
+    dates.sort((a, b) => b.compareTo(a));
+
+    if (todayWasRemoved) {
+      dates.insert(0, today);
+      if (yesterdayWasRemoved) dates.insert(1, today);
+    } else if (yesterdayWasRemoved) {
+      dates.insert(0, today);
+    }
+
+    return dates;
+  }
+
+  static Map<String, DateTime> getRangeDateByFastSearch(
+    FastSearch fastSearch,
+    DateTime today,
+  ) {
+    DateTime startDate;
+    DateTime endDate;
+    switch (fastSearch) {
+      case FastSearch.week:
+        startDate = today.lastWeekday(DateTime.sunday);
+        endDate = today.nextWeekday(DateTime.saturday);
+        break;
+      case FastSearch.fortnight:
+        if (today.day <= 15) {
+          startDate = DateTime(today.year, today.month);
+          endDate = DateTime(today.year, today.month, 15);
+        } else {
+          startDate = DateTime(today.year, today.month, 16);
+          endDate = DateTime(today.year, today.month + 1, 0);
+        }
+        break;
+      case FastSearch.month:
+        startDate = DateTime(today.year, today.month);
+        endDate = DateTime(today.year, today.month + 1, 0);
+        break;
+      default:
+        startDate = today;
+        endDate = today;
+        break;
+    }
+    return {
+      'startDate': startDate.firstHourOfDay,
+      'endDate': endDate.lastHourOfDay,
+    };
   }
 }

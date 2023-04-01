@@ -28,9 +28,6 @@ class ServiceListByDate extends StatefulWidget {
 class _ServiceListByDateState extends State<ServiceListByDate> {
   @override
   Widget build(BuildContext context) {
-    //TODO: FIlter by date is not working
-    //TODO: FIlter by week is not working
-    //TODO: Button should be deselected when filtering by date
     String getTextDate(DateTime date) {
       final today = injector.get<TimeService>().nowWithoutTime;
       if (date == today) {

@@ -6,7 +6,6 @@ import 'package:my_services/app/repositories/services_repository/services_reposi
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/shared/utils/base_cubit.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
@@ -37,7 +36,8 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
 
   Future<void> onInit() async {
     try {
-      final range = getRangeDateByFastSearch(state.fastSearch);
+      final range =
+          ServiceHelper.getRangeDateByFastSearch(state.fastSearch, now);
       final result = await _getServices(range['startDate']!, range['endDate']!);
       _handleGetServices(result);
     } on AppError catch (exception) {
@@ -45,39 +45,6 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     } catch (exception) {
       unexpectedError(exception);
     }
-  }
-
-  Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch) {
-    final today = now;
-    DateTime startDate;
-    DateTime endDate;
-    switch (fastSearch) {
-      case FastSearch.week:
-        startDate = today.lastWeekday(DateTime.sunday);
-        endDate = today.nextWeekday(DateTime.saturday);
-        break;
-      case FastSearch.fortnight:
-        if (today.day <= 15) {
-          startDate = DateTime(today.year, today.month);
-          endDate = DateTime(today.year, today.month, 15);
-        } else {
-          startDate = DateTime(today.year, today.month, 16);
-          endDate = DateTime(today.year, today.month + 1, 0);
-        }
-        break;
-      case FastSearch.month:
-        startDate = DateTime(today.year, today.month);
-        endDate = DateTime(today.year, today.month + 1, 0);
-        break;
-      default:
-        startDate = today;
-        endDate = today;
-        break;
-    }
-    return {
-      'startDate': startDate.firstHourOfDay,
-      'endDate': endDate.lastHourOfDay,
-    };
   }
 
   Future<List<Service>> _getServices(
@@ -112,7 +79,8 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final range = getRangeDateByFastSearch(state.fastSearch);
+      final range =
+          ServiceHelper.getRangeDateByFastSearch(state.fastSearch, now);
       final fetchResult =
           await _getServices(range['startDate']!, range['endDate']!);
       _handleGetServices(fetchResult);
@@ -144,7 +112,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     DateTime? startDate,
     DateTime? endDate,
   ]) async {
-    if (fastSearch != null) {
+    if (fastSearch != null && fastSearch != FastSearch.custom) {
       await _onChageSelectedFastSearch(fastSearch);
     } else if (startDate != null && endDate != null) {
       await _onChangeDate(startDate, endDate);
@@ -155,7 +123,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     try {
       if (fastSearch == state.fastSearch) return;
 
-      final range = getRangeDateByFastSearch(fastSearch);
+      final range = ServiceHelper.getRangeDateByFastSearch(fastSearch, now);
 
       emit(state.copyWith(
         status: BaseStateStatus.loading,
@@ -193,20 +161,12 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   }
 
   Future<void> onCleanFilters() async {
-    try {
-      emit(state.copyWith(
-        status: BaseStateStatus.loading,
-        startDate: now,
-        endDate: now,
-        didFiltersChange: false,
-      ));
-      final fetchResult = await _getServices(state.startDate, state.endDate);
-      _handleGetServices(fetchResult);
-    } on AppError catch (exception) {
-      onAppError(exception);
-    } catch (exception) {
-      unexpectedError(exception);
-    }
+    emit(ServiceLandingState(
+      status: BaseStateStatus.loading,
+      startDate: _timeService.nowWithoutTime,
+      endDate: _timeService.nowWithoutTime,
+    ));
+    onInit();
   }
 
   void onChangeOrderBy(OrderBy orderBy) {
