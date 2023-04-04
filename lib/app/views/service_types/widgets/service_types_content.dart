@@ -8,46 +8,46 @@ import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/views/service_types/service_types.dart';
 
 class ServiceTypesContent extends StatelessWidget {
-  final ServiceTypesState state;
-  const ServiceTypesContent({super.key, required this.state});
+  const ServiceTypesContent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ServiceTypesCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BackAndPill(
           pillText: AppLocalizations.current.newType,
           text: AppLocalizations.current.serviceTypes,
-          onTapPill: () => context.go(AppRoutes.addServiceType),
+          onTapPill: () => context.go(
+            AppRoutes.addServiceType,
+            extra: cubit,
+          ),
         ),
         AppSizeConstants.bigVerticalSpacer,
         Card(
-          child: Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: AppSizeConstants.largeSpace,
-                right: AppSizeConstants.largeSpace,
-                top: AppSizeConstants.tinySpace,
-                bottom: AppSizeConstants.mediumSpace,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: AppSizeConstants.largeSpace,
+              right: AppSizeConstants.largeSpace,
+              top: AppSizeConstants.tinySpace,
+              bottom: AppSizeConstants.mediumSpace,
+            ),
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: cubit.state.serviceTypes.length,
+              itemBuilder: (context, index) => ServiceTypeCard(
+                serviceType: cubit.state.serviceTypes[index],
+                onTapEdit: (serviceType) {
+                  cubit.changeServiceType(serviceType);
+                  context.go(
+                    AppRoutes.addServiceType,
+                    extra: cubit,
+                  );
+                },
               ),
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: state.serviceTypes.length,
-                itemBuilder: (context, index) => ServiceTypeCard(
-                  serviceType: state.serviceTypes[index],
-                  onTapEdit: (serviceType) {
-                    context
-                        .read<ServiceTypesCubit>()
-                        .changeServiceType(serviceType);
-                  },
-                  onTapDelete: (serviceType) => context
-                      .read<ServiceTypesCubit>()
-                      .deleteServiceType(serviceType),
-                ),
-                separatorBuilder: (context, index) => const Divider(),
-              ),
+              separatorBuilder: (context, index) => const Divider(),
             ),
           ),
         ),

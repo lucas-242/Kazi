@@ -6,15 +6,21 @@ import 'package:my_services/app/shared/widgets/buttons/circular_button/circular_
 import 'pill_button.dart';
 
 class BackAndPill extends StatelessWidget {
-  final VoidCallback onTapPill;
+  final VoidCallback? onTapBack;
+  final VoidCallback? onTapPill;
   final String? text;
-  final String pillText;
+  final String? pillText;
+  final Color? foregroundColor;
+  final Color? backgroundColor;
 
   const BackAndPill({
     super.key,
-    required this.pillText,
-    required this.onTapPill,
+    this.pillText,
+    this.onTapPill,
     this.text,
+    this.foregroundColor,
+    this.backgroundColor,
+    this.onTapBack,
   });
 
   @override
@@ -25,7 +31,7 @@ class BackAndPill extends StatelessWidget {
         Row(
           children: [
             CircularButton(
-              onTap: () => context.pop(),
+              onTap: () => onTapBack != null ? onTapBack!() : context.pop(),
               child: const Icon(Icons.chevron_left),
             ),
             AppSizeConstants.smallHorizontalSpacer,
@@ -38,11 +44,14 @@ class BackAndPill extends StatelessWidget {
             )
           ],
         ),
-        PillButton(
-          onTap: onTapPill,
-          backgroundColor: context.colorsScheme.onSurface,
-          foregroundColor: context.colorsScheme.background,
-          child: Text(pillText),
+        Visibility(
+          visible: pillText != null && pillText!.isNotEmpty,
+          child: PillButton(
+            onTap: onTapPill,
+            backgroundColor: backgroundColor ?? context.colorsScheme.onSurface,
+            foregroundColor: foregroundColor ?? context.colorsScheme.background,
+            child: Text(pillText ?? ''),
+          ),
         ),
       ],
     );

@@ -1,12 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'dart:ui' as ui;
 
 abstract class NumberFormatHelper {
   static String formatCurrency(BuildContext context,
       [num? value, Locale? locale]) {
-    final stringLocale =
-        locale != null ? '${locale.languageCode}_${locale.countryCode}' : null;
+    final stringLocale = locale != null
+        ? '${locale.languageCode}_${locale.countryCode}'
+        : getCurrentLocale();
     return NumberFormat.currency(
             locale: stringLocale, symbol: _getCurrencySymbol(context, locale))
         .format(value ?? 0);
@@ -26,10 +29,33 @@ abstract class NumberFormatHelper {
       decimalDigits = splitted[1].length;
     }
 
-    final stringLocale =
-        locale != null ? '${locale.languageCode}_${locale.countryCode}' : null;
+    final stringLocale = locale != null
+        ? '${locale.languageCode}_${locale.countryCode}'
+        : getCurrentLocale();
     return NumberFormat.decimalPercentPattern(
             locale: stringLocale, decimalDigits: decimalDigits)
         .format((double.tryParse(valueWithoutZero) ?? 0) / 100);
+  }
+
+  static String getCurrentLocale() {
+    final locale = ui.window.locale;
+    final joined = '${locale.languageCode}_${locale.countryCode}';
+    if (numberFormatSymbols.keys.contains(joined)) {
+      return joined;
+    }
+    return locale.languageCode;
+  }
+
+  static String getDecimalSeparator() {
+    return numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? ',';
+  }
+
+  static String getThousandSeparator() {
+    return numberFormatSymbols[getCurrentLocale()]?.GROUP_SEP ?? '.';
+  }
+
+  static String getCurrencySymbol() {
+    final format = NumberFormat.simpleCurrency(locale: getCurrentLocale());
+    return format.currencySymbol;
   }
 }

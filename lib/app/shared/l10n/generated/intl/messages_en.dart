@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Discount percentage"),
         "discounts": MessageLookupByLibrary.simpleMessage("Discounts"),
+        "editServiceType":
+            MessageLookupByLibrary.simpleMessage("Edit Service Type"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "Email is invalid or badly formatted"),
@@ -103,6 +105,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "myBalance": MessageLookupByLibrary.simpleMessage("My balance"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "newService": MessageLookupByLibrary.simpleMessage("New service"),
+        "newServiceType":
+            MessageLookupByLibrary.simpleMessage("New Service Type"),
         "newType": MessageLookupByLibrary.simpleMessage("New Type"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "No services types registered"),
@@ -132,12 +136,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
         "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveType": MessageLookupByLibrary.simpleMessage("Save Type"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Select the service type"),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
         "serviceType": MessageLookupByLibrary.simpleMessage("Service Type"),
         "serviceTypes": MessageLookupByLibrary.simpleMessage("Service Types"),
+        "serviceValue": MessageLookupByLibrary.simpleMessage("Service Value"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),

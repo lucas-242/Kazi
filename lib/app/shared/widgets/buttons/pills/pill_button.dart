@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
 class PillButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget child;
   final Color? backgroundColor;
   final Color? foregroundColor;

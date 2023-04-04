@@ -13,7 +13,6 @@ import 'views/home/cubit/home_cubit.dart';
 import 'app_cubit.dart';
 import 'repositories/services_repository/services_repository.dart';
 import 'shared/l10n/generated/l10n.dart';
-import 'views/service_types/service_types.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -24,17 +23,13 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
+
+  //TODO: Check if blocs need to be here globally
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AppCubit>(
-            create: (_) => AppCubit(injector.get<AuthService>())),
-        BlocProvider<ServiceTypesCubit>(
-          create: (_) => ServiceTypesCubit(
-            injector.get<ServiceTypeRepository>(),
-            injector.get<ServicesRepository>(),
-            injector.get<AuthService>(),
-          ),
+          create: (_) => AppCubit(injector.get<AuthService>()),
         ),
         BlocProvider<HomeCubit>(
           create: (_) => HomeCubit(

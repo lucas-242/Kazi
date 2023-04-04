@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
 import '../service_types.dart';
 
 class ServiceTypeFormContent extends StatefulWidget {
-  final String labelButton;
-  final Function() onConfirm;
-  const ServiceTypeFormContent(
-      {super.key, required this.labelButton, required this.onConfirm});
+  final void Function() onConfirm;
+  const ServiceTypeFormContent({
+    super.key,
+    required this.onConfirm,
+  });
 
   @override
   State<ServiceTypeFormContent> createState() => _ServiceTypeFormContentState();
@@ -18,8 +22,29 @@ class ServiceTypeFormContent extends StatefulWidget {
 class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
   final _formKey = GlobalKey<FormState>();
   final _nameKey = GlobalKey<FormFieldState>();
-  final _defaultKey = GlobalKey<FormFieldState>();
-  final _discountPercentKey = GlobalKey<FormFieldState>();
+  final _serviceValueKey = GlobalKey<FormFieldState>();
+  final _discountKey = GlobalKey<FormFieldState>();
+  late final MoneyMaskedTextController _serviceValueController;
+  late final MoneyMaskedTextController _discountController;
+
+  @override
+  void initState() {
+    final cubit = context.read<ServiceTypesCubit>();
+    _serviceValueController = MoneyMaskedTextController(
+      initialValue: cubit.state.serviceType.defaultValue ?? 0,
+      leftSymbol: NumberFormatHelper.getCurrencySymbol(),
+      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
+      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+    );
+    _discountController = MoneyMaskedTextController(
+      initialValue: cubit.state.serviceType.discountPercent ?? 0,
+      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
+      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+      rightSymbol: '%',
+      precision: 1,
+    );
+    super.initState();
+  }
 
   void onConfirm() {
     if (_formKey.currentState!.validate()) {
@@ -29,86 +54,53 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ServiceTypesCubit>();
+
     return Form(
       key: _formKey,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-        child: Column(
-          children: [
-            _NameField(fieldKey: _nameKey),
-            const SizedBox(height: 30),
-            _DefaultValueField(fieldKey: _defaultKey),
-            const SizedBox(height: 30),
-            _DiscountPercentField(fieldKey: _discountPercentKey),
-            const SizedBox(height: 35),
-            CustomElevatedButton(
-              onTap: onConfirm,
-              text: widget.labelButton,
+      child: Column(
+        children: [
+          CustomTextFormField(
+            textFormKey: _nameKey,
+            labelText: AppLocalizations.current.name,
+            initialValue: cubit.state.serviceType.name,
+            onChanged: (value) => cubit.changeServiceTypeName(value),
+            validator: (value) => cubit.validateTextField(
+              value,
+              AppLocalizations.current.name,
             ),
-          ],
-        ),
+          ),
+          AppSizeConstants.largeVerticalSpacer,
+          CustomTextFormField(
+            textFormKey: _discountKey,
+            controller: _discountController,
+            labelText: AppLocalizations.current.discountPercentage,
+            keyboardType: TextInputType.number,
+            onChanged: (value) => cubit.changeServiceTypeDiscountPercent(value),
+            validator: (value) => cubit.validateNumberField(
+              _discountController.numberValue.toString(),
+              AppLocalizations.current.discountPercentage,
+            ),
+          ),
+          AppSizeConstants.largeVerticalSpacer,
+          CustomTextFormField(
+            textFormKey: _serviceValueKey,
+            labelText: AppLocalizations.current.serviceValue,
+            controller: _serviceValueController,
+            keyboardType: TextInputType.number,
+            onChanged: (value) => cubit.changeServiceTypeDefaultValue(value),
+            validator: (value) => cubit.validateNumberField(
+              _serviceValueController.numberValue.toString(),
+              AppLocalizations.current.serviceValue,
+            ),
+          ),
+          AppSizeConstants.bigVerticalSpacer,
+          PillButton(
+            onTap: onConfirm,
+            child: Text(AppLocalizations.current.saveType),
+          ),
+        ],
       ),
-    );
-  }
-}
-
-class _NameField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  const _NameField({Key? key, required this.fieldKey}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.name;
-    final cubit = context.read<ServiceTypesCubit>();
-
-    return CustomTextFormField(
-      textFormKey: fieldKey,
-      labelText: label,
-      initialValue: cubit.state.serviceType.name,
-      onChanged: (value) => cubit.changeServiceTypeName(value),
-      validator: (value) => cubit.validateTextField(value, label),
-    );
-  }
-}
-
-class _DefaultValueField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  const _DefaultValueField({Key? key, required this.fieldKey})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.defaultValue;
-    final cubit = context.read<ServiceTypesCubit>();
-
-    return CustomTextFormField(
-      textFormKey: fieldKey,
-      labelText: label,
-      keyboardType: TextInputType.number,
-      initialValue: cubit.state.serviceType.defaultValue?.toString(),
-      onChanged: (value) => cubit.changeServiceTypeDefaultValue(value),
-      validator: (value) => cubit.validateNumberField(value, label),
-    );
-  }
-}
-
-class _DiscountPercentField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  const _DiscountPercentField({Key? key, required this.fieldKey})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.discountPercentage;
-    final cubit = context.read<ServiceTypesCubit>();
-
-    return CustomTextFormField(
-      textFormKey: fieldKey,
-      labelText: label,
-      keyboardType: TextInputType.number,
-      initialValue: cubit.state.serviceType.discountPercent?.toString(),
-      onChanged: (value) => cubit.changeServiceTypeDiscountPercent(value),
-      validator: (value) => cubit.validateNumberField(value, label),
     );
   }
 }

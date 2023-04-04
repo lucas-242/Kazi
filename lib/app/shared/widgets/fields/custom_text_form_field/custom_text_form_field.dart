@@ -52,10 +52,12 @@ class CustomTextFormField extends StatelessWidget {
       style: context.bodyMedium,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
-        floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
-        labelStyle:
-            context.labelLarge!.copyWith(color: context.colorsScheme.onSurface),
+        labelStyle: context.labelLarge!.copyWith(
+          color: context.colorsScheme.onSurface,
+          backgroundColor: context.colorsScheme.background,
+          //TODO: CustomPaint here to create a rounded border background
+        ),
         hintText: hintText,
         hintStyle: context.bodyMedium,
         prefixIcon: iconLeft != null

@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Porcentagem do desconto"),
         "discounts": MessageLookupByLibrary.simpleMessage("Descontos"),
+        "editServiceType":
+            MessageLookupByLibrary.simpleMessage("Editar Tipo de Serviço"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "O email é inválido ou mal formatado"),
@@ -104,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "myBalance": MessageLookupByLibrary.simpleMessage("Meu saldo"),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
         "newService": MessageLookupByLibrary.simpleMessage("Novo Serviço"),
+        "newServiceType":
+            MessageLookupByLibrary.simpleMessage("Novo Tipo de Serviço"),
         "newType": MessageLookupByLibrary.simpleMessage("Novo Tipo"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Não há tipos de serviço cadastrado"),
@@ -134,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
         "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
+        "saveType": MessageLookupByLibrary.simpleMessage("Salvar Tipo"),
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
@@ -141,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "serviceType": MessageLookupByLibrary.simpleMessage("Tipo de Serviço"),
         "serviceTypes":
             MessageLookupByLibrary.simpleMessage("Tipos de Serviço"),
+        "serviceValue":
+            MessageLookupByLibrary.simpleMessage("Valor do Serviço"),
         "services": MessageLookupByLibrary.simpleMessage("Serviços"),
         "settings": MessageLookupByLibrary.simpleMessage("Configurações"),
         "share": MessageLookupByLibrary.simpleMessage("Compartilhar"),

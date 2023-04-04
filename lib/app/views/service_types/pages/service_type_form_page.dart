@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import '../service_types.dart';
 
 class ServiceTypeFormPage extends StatefulWidget {
@@ -15,27 +18,45 @@ class ServiceTypeFormPage extends StatefulWidget {
 class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
   @override
   Widget build(BuildContext context) {
-    final label = context.read<ServiceTypesCubit>().state.serviceType.id != ''
-        ? AppLocalizations.current.update
-        : AppLocalizations.current.add;
+    final cubit = context.read<ServiceTypesCubit>();
 
-    void onConfirm(ServiceTypesState state) {
-      if (state.serviceType.id.isEmpty) {
-        context.read<ServiceTypesCubit>().addServiceType();
+    void onConfirm() {
+      if (cubit.state.serviceType.id.isEmpty) {
+        cubit.addServiceType();
       } else {
-        context.read<ServiceTypesCubit>().updateServiceType();
+        cubit.updateServiceType();
       }
+    }
+
+    void onTapBack() {
+      cubit.eraseServiceType();
+      context.pop();
     }
 
     return WillPopScope(
       onWillPop: () async {
-        context.read<ServiceTypesCubit>().eraseServiceType();
+        cubit.eraseServiceType();
         return true;
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: BlocListener<ServiceTypesCubit, ServiceTypesState>(
+      child: CustomScaffold(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            cubit.state.serviceType.id.isEmpty
+                ? BackAndPill(
+                    text: AppLocalizations.current.newServiceType,
+                    onTapBack: () => onTapBack(),
+                  )
+                : BackAndPill(
+                    text: AppLocalizations.current.editServiceType,
+                    pillText: AppLocalizations.current.delete,
+                    backgroundColor: context.colorsScheme.error,
+                    onTapBack: () => onTapBack(),
+                    onTapPill: () =>
+                        cubit.deleteServiceType(cubit.state.serviceType),
+                  ),
+            AppSizeConstants.bigVerticalSpacer,
+            BlocListener<ServiceTypesCubit, ServiceTypesState>(
               listenWhen: (previous, current) =>
                   previous.status != current.status,
               listener: (context, state) {
@@ -44,16 +65,12 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
                 }
               },
               child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(
-                builder: (context, state) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: ServiceTypeFormContent(
-                        labelButton: label, onConfirm: () => onConfirm(state)),
-                  );
-                },
+                builder: (context, state) => ServiceTypeFormContent(
+                  onConfirm: onConfirm,
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

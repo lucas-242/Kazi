@@ -78,6 +78,7 @@ abstract class ThemeSettings {
       background: AppColors.background,
       surface: AppColors.white,
       onSurface: AppColors.black,
+      error: AppColors.red,
     );
   }
 
@@ -188,15 +189,22 @@ abstract class ThemeSettings {
   }
 
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) {
+    const borderRadius = BorderRadius.all(Radius.circular(10.0));
     return InputDecorationTheme(
-      floatingLabelBehavior: FloatingLabelBehavior.never,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      filled: true,
+      fillColor: colors.surface,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       enabledBorder: OutlineInputBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        borderRadius: borderRadius,
         borderSide: BorderSide(color: colors.onSurface),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        borderRadius: borderRadius,
+        borderSide: BorderSide(color: colors.onSurface),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: borderRadius,
         borderSide: BorderSide(color: colors.onSurface),
       ),
     );

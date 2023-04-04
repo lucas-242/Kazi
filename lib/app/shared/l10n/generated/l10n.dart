@@ -210,6 +210,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Edit Service Type`
+  String get editServiceType {
+    return Intl.message(
+      'Edit Service Type',
+      name: 'editServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Email`
   String get email {
     return Intl.message(
@@ -345,6 +355,16 @@ class AppLocalizations {
     return Intl.message(
       'New service',
       name: 'newService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Service Type`
+  String get newServiceType {
+    return Intl.message(
+      'New Service Type',
+      name: 'newServiceType',
       desc: '',
       args: [],
     );
@@ -490,6 +510,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Save Type`
+  String get saveType {
+    return Intl.message(
+      'Save Type',
+      name: 'saveType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Search`
   String get search {
     return Intl.message(
@@ -505,6 +535,16 @@ class AppLocalizations {
     return Intl.message(
       'Service',
       name: 'service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Value`
+  String get serviceValue {
+    return Intl.message(
+      'Service Value',
+      name: 'serviceValue',
       desc: '',
       args: [],
     );

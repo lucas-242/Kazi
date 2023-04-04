@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_shell.dart';
 import 'package:my_services/app/models/service.dart';
@@ -47,8 +48,13 @@ final _router = GoRouter(
               routes: [
                 GoRoute(
                   path: AppRoutes.add,
-                  pageBuilder: (context, state) =>
-                      _customTransition(state, const ServiceTypeFormPage()),
+                  pageBuilder: (context, state) => _customTransition(
+                    state,
+                    BlocProvider.value(
+                      value: state.extra as ServiceTypesCubit,
+                      child: const ServiceTypeFormPage(),
+                    ),
+                  ),
                 ),
               ],
             ),
