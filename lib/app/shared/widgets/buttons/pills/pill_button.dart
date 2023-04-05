@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
 class PillButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget child;
   final Color? backgroundColor;
   final Color? foregroundColor;
@@ -23,12 +24,16 @@ class PillButton extends StatelessWidget {
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         )),
-        backgroundColor: backgroundColor != null
-            ? MaterialStateProperty.all<Color>(backgroundColor!)
-            : null,
-        foregroundColor: foregroundColor != null
-            ? MaterialStateProperty.all<Color>(foregroundColor!)
-            : null,
+        backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor != null
+              ? backgroundColor!
+              : context.colorsScheme.onSurface,
+        ),
+        foregroundColor: MaterialStateProperty.all<Color>(
+          foregroundColor != null
+              ? foregroundColor!
+              : context.colorsScheme.background,
+        ),
       ),
       child: child,
     );

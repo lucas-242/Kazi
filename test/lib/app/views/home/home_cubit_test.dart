@@ -3,15 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
-import 'package:my_services/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
+import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/views/home/home.dart';
 
 import '../../../../mocks/mocks.dart';
@@ -23,6 +22,7 @@ void main() {
   late MockServiceTypeRepository serviceTypeRepository;
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
+  late TimeService timeService;
   late HomeCubit cubit;
 
   TestHelper.loadAppLocalizations();
@@ -31,6 +31,7 @@ void main() {
     serviceTypeRepository = MockServiceTypeRepository();
     servicesRepository = MockServicesRepository();
     authService = MockAuthService();
+    timeService = LocalTimeService();
 
     when(authService.user).thenReturn(userMock);
 
@@ -40,18 +41,26 @@ void main() {
     when(servicesRepository.get(any, any, any))
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
-    cubit = HomeCubit(servicesRepository, serviceTypeRepository, authService);
+    cubit = HomeCubit(
+      servicesRepository,
+      serviceTypeRepository,
+      authService,
+      timeService,
+    );
   });
 
   group('Call onInit function', () {
     blocTest(
-      'emits HomeState with loaded services and status success when call onInit',
+      'emits HomeState with loaded services ordered by DateDesc and status success when call onInit',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
         HomeState(
           status: BaseStateStatus.success,
-          services: servicesWithTypesMock,
+          services: ServiceHelper.orderServices(
+            servicesWithTypesMock,
+            OrderBy.dateDesc,
+          ),
         )
       ],
     );
@@ -120,36 +129,6 @@ void main() {
     );
   });
 
-  group('Call delete Service Type', () {
-    late FirebaseServiceModel serviceToDelete;
-    late List<Service> serviceList;
-
-    setUp(() {
-      serviceToDelete = serviceMock.copyWith(id: '123456', typeId: '1');
-      serviceList = List.from(servicesWithTypeIdMock)..add(serviceToDelete);
-    });
-
-    blocTest(
-      'emits HomeState with loaded services and status success when call deleteService',
-      build: () => cubit,
-      seed: () => HomeState(
-        services: serviceList,
-        status: BaseStateStatus.success,
-      ),
-      act: (cubit) => [cubit.deleteService(serviceToDelete)],
-      expect: () => [
-        HomeState(
-          services: serviceList,
-          status: BaseStateStatus.loading,
-        ),
-        HomeState(
-          services: servicesWithTypeIdMock,
-          status: BaseStateStatus.success,
-        )
-      ],
-    );
-  });
-
   group('Call onRefresh function', () {
     blocTest(
       'emits HomeState with loaded services and status success when call onRefresh',
@@ -210,25 +189,6 @@ void main() {
     );
   });
 
-  group('Call onChangeOrderBy', () {
-    blocTest(
-      'emits HomeState with services ordered dateDesc and status success when call onChangeOrderBy',
-      build: () => cubit,
-      act: (cubit) => [cubit.onChangeOrderBy(OrderBy.dateDesc)],
-      seed: () => HomeState(
-        services: servicesWithTypesMock,
-        status: BaseStateStatus.success,
-      ),
-      expect: () => [
-        HomeState(
-          services: servicesWithTypesMock,
-          status: BaseStateStatus.success,
-          selectedOrderBy: OrderBy.dateDesc,
-        )
-      ],
-    );
-  });
-
   group('State properties', () {
     test('totalValue should be 210', () {
       final state = HomeState(
@@ -259,45 +219,5 @@ void main() {
 
       expect(state.totalDiscounted, 105);
     });
-  });
-
-  group('Sign out', () {
-    blocTest(
-      'emits HomeState with status loading when call signOut',
-      build: () => cubit,
-      act: (cubit) => [cubit.signOut()],
-      expect: () => [
-        HomeState(
-          status: BaseStateStatus.loading,
-        )
-      ],
-    );
-
-    blocTest(
-      'emits HomeState with status error and methodNotAllowed message when call signOut',
-      build: () => cubit,
-      setUp: () => when(authService.signOut()).thenThrow(
-          FirebaseSignInError.fromCode('operation-not-allowed', null)),
-      act: (cubit) => [cubit.signOut()],
-      expect: () => [
-        HomeState(status: BaseStateStatus.loading),
-        HomeState(
-            status: BaseStateStatus.error,
-            callbackMessage: AppLocalizations.current.methodNotAllowed)
-      ],
-    );
-
-    blocTest(
-      'emits HomeState with status error and unknowError message when call signOut',
-      build: () => cubit,
-      setUp: () => when(authService.signOut()).thenThrow(Exception()),
-      act: (cubit) => [cubit.signOut()],
-      expect: () => [
-        HomeState(status: BaseStateStatus.loading),
-        HomeState(
-            status: BaseStateStatus.error,
-            callbackMessage: AppLocalizations.current.unknowError)
-      ],
-    );
   });
 }

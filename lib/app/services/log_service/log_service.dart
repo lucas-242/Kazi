@@ -63,7 +63,6 @@ class LocalLogService implements LogService {
     String? message,
   }) {
     _log(
-      color: LogColor.red,
       type: 'Error',
       message: message,
       error: error,

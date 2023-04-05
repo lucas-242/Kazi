@@ -38,4 +38,9 @@ extension DateTimeExtension on DateTime {
   /// Find the last [weekday]. [weekday] can be 0 for Sunday, 1 for Monday, etc. up to 7 for Sunday.
   DateTime lastWeekday(int weekday) =>
       DateTime(year, month, day - (this.weekday - weekday) % 7);
+
+  /// Returns the difference (in full days) between the provided [date]
+  int calculateDifference(DateTime date) => DateTime(year, month, day)
+      .difference(DateTime(date.year, date.month, date.day))
+      .inDays;
 }

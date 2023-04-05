@@ -6,10 +6,10 @@ import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/home/cubit/home_cubit.dart';
 
-import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
-import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:my_services/app/views/services/add_services/widgets/add_services_form.dart';
 import 'package:my_services/app/views/services/services.dart';
 
@@ -29,9 +29,6 @@ class _AddServicesPageState extends State<AddServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final label = context.read<AddServicesCubit>().state.service.id != ''
-        ? AppLocalizations.current.update
-        : AppLocalizations.current.add;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -41,13 +38,12 @@ class _AddServicesPageState extends State<AddServicesPage> {
             listener: (context, state) {
               if (state.status == BaseStateStatus.success) {
                 context.read<HomeCubit>().onChangeServices();
-                context.read<CalendarCubit>().onChangeServices();
+                context.read<ServiceLandingCubit>().onChangeServices();
                 context.pop();
               } else if (state.status == BaseStateStatus.error) {
                 getCustomSnackBar(
                   context,
                   message: state.callbackMessage,
-                  type: SnackBarType.error,
                 );
               }
             },
@@ -120,7 +116,7 @@ class _NoData extends StatelessWidget {
             context.pop();
             context.read<AppCubit>().changePage(2);
           },
-          text: AppLocalizations.current.addNewServiceType,
+          text: AppLocalizations.current.newType,
         ),
       ],
     );

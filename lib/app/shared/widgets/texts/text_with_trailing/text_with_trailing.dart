@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
+
+class TextWithTrailing extends StatelessWidget {
+  final String text;
+  final Widget trailing;
+  final TextStyle? textStyle;
+
+  const TextWithTrailing({
+    super.key,
+    required this.text,
+    required this.trailing,
+    this.textStyle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          text.capitalize(),
+          style: textStyle ?? context.titleMedium,
+        ),
+        trailing
+      ],
+    );
+  }
+}

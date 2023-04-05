@@ -3,7 +3,7 @@ import 'package:my_services/app/shared/extensions/extensions.dart';
 
 void main() {
   test('Should copyWith', () {
-    final date = DateTime(2023, DateTime.january, 07, 0, 0, 0, 0, 0);
+    final date = DateTime(2023, DateTime.january, 07);
     final result = date.copyWith(day: 09, minute: 14);
 
     expect(result.year, 2023);

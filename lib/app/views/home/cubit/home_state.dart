@@ -19,10 +19,9 @@ class HomeState extends BaseState with EquatableMixin {
   HomeState({
     required super.status,
     List<Service>? services,
-    Service? serviceProvided,
     super.callbackMessage,
     OrderBy? selectedOrderBy,
-  })  : selectedOrderBy = selectedOrderBy ?? OrderBy.typeAsc,
+  })  : selectedOrderBy = selectedOrderBy ?? OrderBy.dateDesc,
         services = services ?? [];
 
   @override

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 
 import 'package:my_services/injector_container.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
 import 'package:my_services/app/shared/widgets/buttons/social_login_button/social_login_button_widget.dart';
 
 class LoginPage extends StatefulWidget {

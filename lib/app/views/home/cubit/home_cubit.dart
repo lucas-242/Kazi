@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/shared/utils/base_cubit.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
@@ -18,19 +19,23 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
+  final TimeService _timeService;
 
   HomeCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
     this._authService,
+    this._timeService,
   ) : super(HomeState(status: BaseStateStatus.loading));
 
   Future<void> onInit() async {
     try {
-      final result =
-          await Future.wait<dynamic>([_fetchServiceTypes(), _fetchServices()]);
+      final result = await Future.wait<dynamic>([
+        _getServiceTypes(),
+        _getServices(),
+      ]);
 
-      _handleFetchServices(result[1]);
+      await _handleServices(result[1]);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -38,17 +43,16 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  Future<List<ServiceType>> _fetchServiceTypes() async {
+  Future<List<ServiceType>> _getServiceTypes() async {
     final result = await _serviceTypeRepository.get(_authService.user!.uid);
     return result;
   }
 
-  Future<List<Service>> _fetchServices() async {
-    final today = DateTime.now();
-    final date = DateTime(today.year, today.month, today.day);
+  Future<List<Service>> _getServices() async {
+    final today = _timeService.nowWithoutTime;
     final result = await _serviceProvidedRepository.get(
       _authService.user!.uid,
-      date,
+      today,
     );
     return result;
   }
@@ -56,8 +60,8 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result = await _fetchServices();
-      _handleFetchServices(result);
+      final result = await _getServices();
+      _handleServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -65,61 +69,29 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     }
   }
 
-  Future<void> _handleFetchServices(List<Service> fetchResult) async {
+  Future<void> _handleServices(List<Service> services) async {
     try {
-      final types = await _fetchServiceTypes();
-      var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
-      services = ServiceHelper.orderServices(services, state.selectedOrderBy);
+      final types = await _getServiceTypes();
+      var newServices = ServiceHelper.addServiceTypeToServices(services, types);
+      newServices =
+          ServiceHelper.orderServices(newServices, state.selectedOrderBy);
 
-      final newStatus = fetchResult.isEmpty
-          ? BaseStateStatus.noData
-          : BaseStateStatus.success;
-
-      emit(state.copyWith(status: newStatus, services: services));
-    } on AppError catch (exception) {
-      onAppError(exception);
-    } catch (exception) {
-      unexpectedError(exception);
-    }
-  }
-
-  Future<void> deleteService(Service service) async {
-    try {
-      emit(state.copyWith(status: BaseStateStatus.loading));
-      await _serviceProvidedRepository.delete(service.id);
-      final newList = await _fetchServices();
       final newStatus =
-          newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+          services.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
 
-      emit(state.copyWith(status: newStatus, services: newList));
+      emit(state.copyWith(status: newStatus, services: newServices));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
     }
-  }
-
-  void onChangeOrderBy(OrderBy orderBy) {
-    final services = ServiceHelper.orderServices(state.services, orderBy);
-    emit(state.copyWith(services: services, selectedOrderBy: orderBy));
   }
 
   Future<void> onChangeServices() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result = await _fetchServices();
-      _handleFetchServices(result);
-    } on AppError catch (exception) {
-      onAppError(exception);
-    } catch (exception) {
-      unexpectedError(exception);
-    }
-  }
-
-  Future<void> signOut() async {
-    try {
-      emit(state.copyWith(status: BaseStateStatus.loading));
-      await _authService.signOut();
+      final result = await _getServices();
+      _handleServices(result);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {

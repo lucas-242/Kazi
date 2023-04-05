@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/widgets/custom_snack_bar/custom_snack_bar.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:my_services/app/views/services/services.dart';
 
 import '../cubit/home_cubit.dart';
 import '../widgets/home_content.dart';
-import '../widgets/home_no_data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,38 +26,29 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () => context.read<HomeCubit>().onRefresh(),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-            child: BlocListener<HomeCubit, HomeState>(
-              listenWhen: (previous, current) =>
-                  previous.status != current.status,
-              listener: (context, state) {
-                if (state.status == BaseStateStatus.error) {
-                  getCustomSnackBar(
-                    context,
-                    message: state.callbackMessage,
-                    type: SnackBarType.error,
-                  );
-                }
-              },
-              child: BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  return state.when(
-                    onState: (_) => HomeContent(state: state),
-                    onLoading: () => SizedBox(
-                      height: context.height,
-                      child: const Center(child: CircularProgressIndicator()),
-                    ),
-                    onNoData: () => const HomeNoData(),
-                  );
-                },
+    return CustomScaffold(
+      onRefresh: () => context.read<HomeCubit>().onRefresh(),
+      child: BlocListener<HomeCubit, HomeState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          if (state.status == BaseStateStatus.error) {
+            getCustomSnackBar(
+              context,
+              message: state.callbackMessage,
+            );
+          }
+        },
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return state.when(
+              onState: (_) => HomeContent(state: state),
+              onLoading: () => SizedBox(
+                height: context.height,
+                child: const Center(child: CircularProgressIndicator()),
               ),
-            ),
-          ),
+              onNoData: () => const NoServices(showFilters: false),
+            );
+          },
         ),
       ),
     );

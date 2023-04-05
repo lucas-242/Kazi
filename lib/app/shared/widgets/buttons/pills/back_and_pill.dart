@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/circular_button/circular_button.dart';
 
 import 'pill_button.dart';
 
 class BackAndPill extends StatelessWidget {
-  final VoidCallback onTapBack;
-  final VoidCallback onTapPill;
-  final String pillText;
+  final VoidCallback? onTapBack;
+  final VoidCallback? onTapPill;
+  final String? text;
+  final String? pillText;
+  final Color? foregroundColor;
+  final Color? backgroundColor;
 
   const BackAndPill({
     super.key,
-    required this.pillText,
-    required this.onTapBack,
-    required this.onTapPill,
+    this.pillText,
+    this.onTapPill,
+    this.text,
+    this.foregroundColor,
+    this.backgroundColor,
+    this.onTapBack,
   });
 
   @override
@@ -21,15 +28,30 @@ class BackAndPill extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        CircularButton(
-          onTap: onTapBack,
-          child: const Icon(Icons.chevron_left),
+        Row(
+          children: [
+            CircularButton(
+              onTap: () => onTapBack != null ? onTapBack!() : context.pop(),
+              child: const Icon(Icons.chevron_left),
+            ),
+            AppSizeConstants.smallHorizontalSpacer,
+            Visibility(
+              visible: text != null,
+              child: Text(
+                text ?? '',
+                style: context.titleMedium,
+              ),
+            )
+          ],
         ),
-        PillButton(
-          onTap: onTapPill,
-          backgroundColor: context.colorsScheme.onSurface,
-          foregroundColor: context.colorsScheme.background,
-          child: Text(pillText),
+        Visibility(
+          visible: pillText != null && pillText!.isNotEmpty,
+          child: PillButton(
+            onTap: onTapPill,
+            backgroundColor: backgroundColor ?? context.colorsScheme.onSurface,
+            foregroundColor: foregroundColor ?? context.colorsScheme.background,
+            child: Text(pillText ?? ''),
+          ),
         ),
       ],
     );

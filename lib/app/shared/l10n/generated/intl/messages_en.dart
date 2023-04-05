@@ -33,14 +33,11 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add": MessageLookupByLibrary.simpleMessage("Add"),
-        "addNewService":
-            MessageLookupByLibrary.simpleMessage("Add new service"),
-        "addNewServiceType":
-            MessageLookupByLibrary.simpleMessage("Add new service type"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "alreadyExists": m0,
         "appSubtitle":
             MessageLookupByLibrary.simpleMessage("Organize your services"),
+        "applyFilters": MessageLookupByLibrary.simpleMessage("Apply Filters"),
         "calculator": MessageLookupByLibrary.simpleMessage("Calculator"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -58,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Discount percentage"),
         "discounts": MessageLookupByLibrary.simpleMessage("Discounts"),
+        "editServiceType":
+            MessageLookupByLibrary.simpleMessage("Edit Service Type"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "Email is invalid or badly formatted"),
@@ -81,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to update service"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Error to update service type"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Sign in with Google"),
@@ -105,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "myBalance": MessageLookupByLibrary.simpleMessage("My balance"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "newService": MessageLookupByLibrary.simpleMessage("New service"),
+        "newServiceType":
+            MessageLookupByLibrary.simpleMessage("New Service Type"),
+        "newType": MessageLookupByLibrary.simpleMessage("New Type"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "No services types registered"),
         "noServices": MessageLookupByLibrary.simpleMessage(
@@ -113,33 +116,35 @@ class MessageLookup extends MessageLookupByLibrary {
             "No services in the selected period."),
         "noServicesOnDay":
             MessageLookupByLibrary.simpleMessage("No services on"),
+        "orderAlphabetical":
+            MessageLookupByLibrary.simpleMessage("Alphabetical"),
         "orderBy": MessageLookupByLibrary.simpleMessage("Order by"),
         "orderDateAsc": MessageLookupByLibrary.simpleMessage(
-            "Date: Least current to most current"),
+            "Least current to most current"),
         "orderDateDesc": MessageLookupByLibrary.simpleMessage(
-            "Date: Most current to least current"),
-        "orderTypeAsc":
-            MessageLookupByLibrary.simpleMessage("Type: From A to Z"),
-        "orderTypeDesc":
-            MessageLookupByLibrary.simpleMessage("Type: From Z to A"),
+            "Most current to least current"),
         "orderValueAsc":
-            MessageLookupByLibrary.simpleMessage("Value: Lowest to highest"),
+            MessageLookupByLibrary.simpleMessage("Lowest to highest"),
         "orderValueDesc":
-            MessageLookupByLibrary.simpleMessage("Value: Highest to lowest"),
+            MessageLookupByLibrary.simpleMessage("Highest to lowest"),
         "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
             "Password is too weak. Please, try a different one"),
+        "period": MessageLookupByLibrary.simpleMessage("Period"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
+        "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
         "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveType": MessageLookupByLibrary.simpleMessage("Save Type"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Select the service type"),
-        "service": MessageLookupByLibrary.simpleMessage("service"),
-        "serviceType": MessageLookupByLibrary.simpleMessage("Service type"),
-        "serviceTypes": MessageLookupByLibrary.simpleMessage("Service types"),
-        "services": MessageLookupByLibrary.simpleMessage("services"),
+        "service": MessageLookupByLibrary.simpleMessage("Service"),
+        "serviceType": MessageLookupByLibrary.simpleMessage("Service Type"),
+        "serviceTypes": MessageLookupByLibrary.simpleMessage("Service Types"),
+        "serviceValue": MessageLookupByLibrary.simpleMessage("Service Value"),
+        "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
@@ -164,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The verification ID entered is invalid"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
         "wouldYouLikeDelete":
-            MessageLookupByLibrary.simpleMessage("Would you like to delete")
+            MessageLookupByLibrary.simpleMessage("Would you like to delete"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")
       };
 }

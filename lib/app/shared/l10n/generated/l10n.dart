@@ -70,6 +70,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Apply Filters`
+  String get applyFilters {
+    return Intl.message(
+      'Apply Filters',
+      name: 'applyFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Organize your services`
   String get appSubtitle {
     return Intl.message(
@@ -200,11 +210,31 @@ class AppLocalizations {
     );
   }
 
+  /// `Edit Service Type`
+  String get editServiceType {
+    return Intl.message(
+      'Edit Service Type',
+      name: 'editServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Email`
   String get email {
     return Intl.message(
       'Email',
       name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filters`
+  String get filters {
+    return Intl.message(
+      'Filters',
+      name: 'filters',
       desc: '',
       args: [],
     );
@@ -290,6 +320,26 @@ class AppLocalizations {
     );
   }
 
+  /// `My balance`
+  String get myBalance {
+    return Intl.message(
+      'My balance',
+      name: 'myBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month`
+  String get month {
+    return Intl.message(
+      'Month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Name`
   String get name {
     return Intl.message(
@@ -310,6 +360,26 @@ class AppLocalizations {
     );
   }
 
+  /// `New Service Type`
+  String get newServiceType {
+    return Intl.message(
+      'New Service Type',
+      name: 'newServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Type`
+  String get newType {
+    return Intl.message(
+      'New Type',
+      name: 'newType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `If you have not yet registered any services, click on the button above to register a new one.`
   String get noServices {
     return Intl.message(
@@ -320,11 +390,11 @@ class AppLocalizations {
     );
   }
 
-  /// `Month`
-  String get month {
+  /// `Alphabetical`
+  String get orderAlphabetical {
     return Intl.message(
-      'Month',
-      name: 'month',
+      'Alphabetical',
+      name: 'orderAlphabetical',
       desc: '',
       args: [],
     );
@@ -335,6 +405,56 @@ class AppLocalizations {
     return Intl.message(
       'Order by',
       name: 'orderBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Least current to most current`
+  String get orderDateAsc {
+    return Intl.message(
+      'Least current to most current',
+      name: 'orderDateAsc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Most current to least current`
+  String get orderDateDesc {
+    return Intl.message(
+      'Most current to least current',
+      name: 'orderDateDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lowest to highest`
+  String get orderValueAsc {
+    return Intl.message(
+      'Lowest to highest',
+      name: 'orderValueAsc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Highest to lowest`
+  String get orderValueDesc {
+    return Intl.message(
+      'Highest to lowest',
+      name: 'orderValueDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Period`
+  String get period {
+    return Intl.message(
+      'Period',
+      name: 'period',
       desc: '',
       args: [],
     );
@@ -370,11 +490,31 @@ class AppLocalizations {
     );
   }
 
+  /// `Remove filters`
+  String get removeFilters {
+    return Intl.message(
+      'Remove filters',
+      name: 'removeFilters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save`
   String get save {
     return Intl.message(
       'Save',
       name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Type`
+  String get saveType {
+    return Intl.message(
+      'Save Type',
+      name: 'saveType',
       desc: '',
       args: [],
     );
@@ -390,40 +530,50 @@ class AppLocalizations {
     );
   }
 
-  /// `service`
+  /// `Service`
   String get service {
     return Intl.message(
-      'service',
+      'Service',
       name: 'service',
       desc: '',
       args: [],
     );
   }
 
-  /// `services`
+  /// `Service Value`
+  String get serviceValue {
+    return Intl.message(
+      'Service Value',
+      name: 'serviceValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
   String get services {
     return Intl.message(
-      'services',
+      'Services',
       name: 'services',
       desc: '',
       args: [],
     );
   }
 
-  /// `Service type`
+  /// `Service Type`
   String get serviceType {
     return Intl.message(
-      'Service type',
+      'Service Type',
       name: 'serviceType',
       desc: '',
       args: [],
     );
   }
 
-  /// `Service types`
+  /// `Service Types`
   String get serviceTypes {
     return Intl.message(
-      'Service types',
+      'Service Types',
       name: 'serviceTypes',
       desc: '',
       args: [],
@@ -530,6 +680,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Yesterday`
+  String get yesterday {
+    return Intl.message(
+      'Yesterday',
+      name: 'yesterday',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Week`
   String get week {
     return Intl.message(
@@ -545,86 +705,6 @@ class AppLocalizations {
     return Intl.message(
       'Would you like to delete',
       name: 'wouldYouLikeDelete',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Type: From A to Z`
-  String get orderTypeAsc {
-    return Intl.message(
-      'Type: From A to Z',
-      name: 'orderTypeAsc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Type: From Z to A`
-  String get orderTypeDesc {
-    return Intl.message(
-      'Type: From Z to A',
-      name: 'orderTypeDesc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Date: Least current to most current`
-  String get orderDateAsc {
-    return Intl.message(
-      'Date: Least current to most current',
-      name: 'orderDateAsc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Date: Most current to least current`
-  String get orderDateDesc {
-    return Intl.message(
-      'Date: Most current to least current',
-      name: 'orderDateDesc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Value: Lowest to highest`
-  String get orderValueAsc {
-    return Intl.message(
-      'Value: Lowest to highest',
-      name: 'orderValueAsc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Value: Highest to lowest`
-  String get orderValueDesc {
-    return Intl.message(
-      'Value: Highest to lowest',
-      name: 'orderValueDesc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Add new service`
-  String get addNewService {
-    return Intl.message(
-      'Add new service',
-      name: 'addNewService',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Add new service type`
-  String get addNewServiceType {
-    return Intl.message(
-      'Add new service type',
-      name: 'addNewServiceType',
       desc: '',
       args: [],
     );
@@ -655,16 +735,6 @@ class AppLocalizations {
     return Intl.message(
       'No services types registered',
       name: 'noServiceTypes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `My balance`
-  String get myBalance {
-    return Intl.message(
-      'My balance',
-      name: 'myBalance',
       desc: '',
       args: [],
     );

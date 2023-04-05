@@ -24,8 +24,6 @@ class TitleAndPill extends StatelessWidget {
         Text(title.capitalize(), style: context.titleMedium),
         PillButton(
           onTap: onTap,
-          backgroundColor: context.colorsScheme.onSurface,
-          foregroundColor: context.colorsScheme.background,
           child: Text(pillText),
         ),
       ],

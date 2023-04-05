@@ -9,7 +9,6 @@ import 'package:my_services/app/views/home/widgets/info_card.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
-import 'package:my_services/app/shared/widgets/service_list/service_list.dart';
 import 'package:my_services/app/shared/widgets/buttons/pills/title_and_pill.dart';
 import 'package:my_services/app/views/services/services.dart';
 import '../cubit/home_cubit.dart';
@@ -23,19 +22,6 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onDelete(Service service) async {
-      final calendarCubit = context.read<CalendarCubit>();
-      await context.read<HomeCubit>().deleteService(service);
-      calendarCubit.onChangeServices();
-    }
-
-    void onEdit(Service service) async {
-      context.read<AddServicesCubit>().onChangeService(service);
-      context.read<AppCubit>().changeToAddServicePage();
-
-      context.go(AppRoutes.addServices);
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -59,7 +45,7 @@ class HomeContent extends StatelessWidget {
           icon: AppAssets.rocket,
           color: AppColors.blue,
         ),
-        const SizedBox(height: 10),
+        AppSizeConstants.smallVerticalSpacer,
         TitleAndPill(
           title: AppLocalizations.current.lastServices,
           pillText: AppLocalizations.current.newService,
@@ -68,8 +54,8 @@ class HomeContent extends StatelessWidget {
             context.go(AppRoutes.addServices);
           },
         ),
-        const SizedBox(height: 20),
-        ServiceList(services: state.services),
+        AppSizeConstants.largeVerticalSpacer,
+        Expanded(child: ServiceList(services: state.services)),
       ],
     );
   }
