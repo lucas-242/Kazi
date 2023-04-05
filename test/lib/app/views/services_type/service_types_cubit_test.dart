@@ -13,7 +13,7 @@ import 'package:my_services/app/views/service_types/service_types.dart';
 
 import '../../../../mocks/mocks.dart';
 import '../../../../utils/test_helper.dart';
-import '../add_services/add_services_cubit_test.mocks.dart';
+import '../services/service_form/service_form_cubit_test.mocks.dart';
 
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
 void main() {

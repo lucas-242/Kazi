@@ -8,19 +8,19 @@ import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/models/dropdown_item.dart';
 import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
-import '../cubit/add_services_cubit.dart';
+import 'package:my_services/app/views/services/services.dart';
 
-class AddServicesForm extends StatefulWidget {
+class ServiceFormContent extends StatefulWidget {
   final String labelButton;
   final Function() onConfirm;
-  const AddServicesForm(
+  const ServiceFormContent(
       {super.key, required this.labelButton, required this.onConfirm});
 
   @override
-  State<AddServicesForm> createState() => _AddServicesFormState();
+  State<ServiceFormContent> createState() => _ServiceFormContentState();
 }
 
-class _AddServicesFormState extends State<AddServicesForm> {
+class _ServiceFormContentState extends State<ServiceFormContent> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionKey = GlobalKey<FormFieldState>();
   final _dateKey = GlobalKey<FormFieldState>();
@@ -38,7 +38,7 @@ class _AddServicesFormState extends State<AddServicesForm> {
 
   @override
   void initState() {
-    final cubit = context.read<AddServicesCubit>();
+    final cubit = context.read<ServiceFormCubit>();
     valueController.text = cubit.state.service.value.toString();
     discountController.text = cubit.state.service.discountPercent.toString();
     quantityController.text = cubit.state.quantity.toString();
@@ -104,7 +104,7 @@ class _ServiceTypeField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.serviceType;
-    final cubit = context.read<AddServicesCubit>();
+    final cubit = context.read<ServiceFormCubit>();
 
     return CustomDropdown(
       key: fieldKey,
@@ -136,7 +136,7 @@ class _ValueField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.total;
-    final cubit = context.read<AddServicesCubit>();
+    final cubit = context.read<ServiceFormCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
@@ -161,7 +161,7 @@ class _DiscountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.discountPercentage;
-    final cubit = context.watch<AddServicesCubit>();
+    final cubit = context.watch<ServiceFormCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
@@ -188,7 +188,7 @@ class _DateField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.date;
-    final cubit = context.read<AddServicesCubit>();
+    final cubit = context.read<ServiceFormCubit>();
 
     return CustomDatePicker(
       label: label,
@@ -213,7 +213,7 @@ class _QuantityField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = AppLocalizations.current.quantity;
-    final cubit = context.read<AddServicesCubit>();
+    final cubit = context.read<ServiceFormCubit>();
 
     return SizedBox(
       child: CustomTextFormField(
@@ -234,7 +234,7 @@ class _DescriptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<AddServicesCubit>();
+    final cubit = context.read<ServiceFormCubit>();
 
     return CustomTextFormField(
       textFormKey: fieldKey,

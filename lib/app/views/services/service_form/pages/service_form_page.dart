@@ -10,7 +10,7 @@ import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/home/cubit/home_cubit.dart';
 
-import 'package:my_services/app/views/services/add_services/widgets/add_services_form.dart';
+import 'package:my_services/app/views/services/service_form/widgets/service_form_content.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 class AddServicesPage extends StatefulWidget {
@@ -23,7 +23,7 @@ class AddServicesPage extends StatefulWidget {
 class _AddServicesPageState extends State<AddServicesPage> {
   @override
   void initState() {
-    context.read<AddServicesCubit>().onInit();
+    context.read<ServiceFormCubit>().onInit();
     super.initState();
   }
 
@@ -32,7 +32,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: BlocListener<AddServicesCubit, AddServicesState>(
+          child: BlocListener<ServiceFormCubit, ServiceFormState>(
             listenWhen: (previous, current) =>
                 previous.status != current.status,
             listener: (context, state) {
@@ -47,7 +47,7 @@ class _AddServicesPageState extends State<AddServicesPage> {
                 );
               }
             },
-            child: BlocBuilder<AddServicesCubit, AddServicesState>(
+            child: BlocBuilder<ServiceFormCubit, ServiceFormState>(
               builder: (context, state) {
                 return state.when(
                   onState: (_) => _Build(service: state.service),
@@ -78,9 +78,9 @@ class _Build extends StatelessWidget {
 
     void onConfirm() {
       if (service.id.isEmpty) {
-        context.read<AddServicesCubit>().addService();
+        context.read<ServiceFormCubit>().addService();
       } else {
-        context.read<AddServicesCubit>().updateService();
+        context.read<ServiceFormCubit>().updateService();
       }
     }
 
@@ -88,7 +88,7 @@ class _Build extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 25),
-        AddServicesForm(
+        ServiceFormContent(
           labelButton: label,
           onConfirm: () => onConfirm(),
         ),

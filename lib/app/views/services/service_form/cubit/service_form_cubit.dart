@@ -13,19 +13,19 @@ import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/models/dropdown_item.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 
-part 'add_services_state.dart';
+part 'service_form_state.dart';
 
-class AddServicesCubit extends Cubit<AddServicesState>
+class ServiceFormCubit extends Cubit<ServiceFormState>
     with BaseCubit, FormValidator {
   final ServicesRepository _servicesRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
 
-  AddServicesCubit(
+  ServiceFormCubit(
     this._servicesRepository,
     this._serviceTypeRepository,
     this._authService,
-  ) : super(AddServicesState(
+  ) : super(ServiceFormState(
             status: BaseStateStatus.loading, userId: _authService.user!.uid));
 
   Future<void> onInit() async {

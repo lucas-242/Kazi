@@ -32,7 +32,7 @@ class ServiceLandingContent extends StatelessWidget {
     }
 
     void onEdit(Service service) {
-      context.read<AddServicesCubit>().onChangeService(service);
+      context.read<ServiceFormCubit>().onChangeService(service);
       context.read<AppCubit>().changeToAddServicePage();
       context.go(AppRoutes.addServices);
     }

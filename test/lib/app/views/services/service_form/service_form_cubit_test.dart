@@ -10,18 +10,18 @@ import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/views/services/add_services/add_services.dart';
+import 'package:my_services/app/views/services/services.dart';
 
-import '../../../../mocks/mocks.dart';
-import '../../../../utils/test_helper.dart';
-import 'add_services_cubit_test.mocks.dart';
+import '../../../../../mocks/mocks.dart';
+import '../../../../../utils/test_helper.dart';
+import 'service_form_cubit_test.mocks.dart';
 
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
 void main() {
   late MockServiceTypeRepository serviceTypeRepository;
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
-  late AddServicesCubit cubit;
+  late ServiceFormCubit cubit;
 
   TestHelper.loadAppLocalizations();
 
@@ -35,17 +35,17 @@ void main() {
     when(serviceTypeRepository.get(any))
         .thenAnswer((_) async => serviceTypesMock);
 
-    cubit = AddServicesCubit(
+    cubit = ServiceFormCubit(
         servicesRepository, serviceTypeRepository, authService);
   });
 
   group('Call onInit function', () {
     blocTest(
-      'emits AddServicesState with loaded serviceTypes and status success when call onInit',
+      'emits ServiceFormState with loaded serviceTypes and status success when call onInit',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.readyToUserInput,
@@ -54,14 +54,14 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with empty serviceTypes and status noData when call onInit',
+      'emits ServiceFormState with empty serviceTypes and status noData when call onInit',
       setUp: () {
         when(serviceTypeRepository.get(any)).thenAnswer((_) async => []);
       },
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           status: BaseStateStatus.noData,
         )
@@ -69,9 +69,9 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
+      'emits ServiceFormState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         status: BaseStateStatus.noData,
       ),
@@ -81,7 +81,7 @@ void main() {
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
@@ -90,14 +90,14 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with status error and callbackMessage = unknowError when call onInit',
+      'emits ServiceFormState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(Exception());
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           callbackMessage: AppLocalizations.current.unknowError,
           status: BaseStateStatus.error,
@@ -115,9 +115,9 @@ void main() {
     });
 
     blocTest(
-      'emits AddServicesState with status success when call addService',
+      'emits ServiceFormState with status success when call addService',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         serviceTypes: serviceTypesMock,
         status: BaseStateStatus.success,
@@ -128,27 +128,27 @@ void main() {
         cubit.addService(),
       ],
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           service: serviceMock,
           status: BaseStateStatus.success,
         ),
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           quantity: quantityServices,
           service: serviceMock,
           status: BaseStateStatus.success,
         ),
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           quantity: quantityServices,
           service: serviceMock,
           status: BaseStateStatus.loading,
         ),
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.success,
@@ -159,9 +159,9 @@ void main() {
 
   group('Update Service', () {
     blocTest(
-      'emits AddServicesState with status success when call updateService',
+      'emits ServiceFormState with status success when call updateService',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         serviceTypes: serviceTypesMock,
         status: BaseStateStatus.success,
@@ -171,19 +171,19 @@ void main() {
         cubit.updateService(),
       ],
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           service: serviceMock,
           status: BaseStateStatus.success,
         ),
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           service: serviceMock,
           status: BaseStateStatus.loading,
         ),
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.success,
@@ -202,15 +202,15 @@ void main() {
         DropdownItem(value: newServiceType.id, label: newServiceType.name);
 
     blocTest(
-      'emits AddServicesState with new service with different date when call onChangeServiceDate',
+      'emits ServiceFormState with new service with different date when call onChangeServiceDate',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         status: BaseStateStatus.noData,
       ),
       act: (cubit) => [cubit.onChangeServiceDate(newDateTime)],
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           service: Service(userId: authService.user!.uid, date: newDateTime),
           status: BaseStateStatus.noData,
@@ -219,16 +219,16 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with new service with different description when call onChangeServiceDescription',
+      'emits ServiceFormState with new service with different description when call onChangeServiceDescription',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         service: serviceMock,
         status: BaseStateStatus.noData,
       ),
       act: (cubit) => [cubit.onChangeServiceDescription(newDescription)],
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           service: serviceMock.copyWith(description: newDescription),
           status: BaseStateStatus.noData,
@@ -237,16 +237,16 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with new service with different value when call onChangeServiceValue',
+      'emits ServiceFormState with new service with different value when call onChangeServiceValue',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         service: serviceMock,
         status: BaseStateStatus.noData,
       ),
       act: (cubit) => [cubit.onChangeServiceValue(newValue.toString())],
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           service: serviceMock.copyWith(value: newValue),
           status: BaseStateStatus.noData,
@@ -255,9 +255,9 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with new service with different discountPercent when call onChangeServiceDiscount',
+      'emits ServiceFormState with new service with different discountPercent when call onChangeServiceDiscount',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         service: serviceMock,
         status: BaseStateStatus.noData,
@@ -265,7 +265,7 @@ void main() {
       act: (cubit) =>
           [cubit.onChangeServiceDiscount(newDiscountPercent.toString())],
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           service: serviceMock.copyWith(discountPercent: newDiscountPercent),
           status: BaseStateStatus.noData,
@@ -274,9 +274,9 @@ void main() {
     );
 
     blocTest(
-      'emits AddServicesState with new service with different discountPercent when call onChangeServiceType',
+      'emits ServiceFormState with new service with different discountPercent when call onChangeServiceType',
       build: () => cubit,
-      seed: () => AddServicesState(
+      seed: () => ServiceFormState(
         userId: authService.user!.uid,
         serviceTypes: serviceTypesMock..add(newServiceType),
         service: serviceMock,
@@ -284,7 +284,7 @@ void main() {
       ),
       act: (cubit) => [cubit.onChangeServiceType(newDropdownItem)],
       expect: () => [
-        AddServicesState(
+        ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock..add(newServiceType),
           service: serviceMock.copyWith(typeId: newDropdownItem.value),
