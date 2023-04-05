@@ -14,6 +14,7 @@ import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 import '../../../../mocks/mocks.dart';
@@ -50,13 +51,17 @@ void main() {
 
   group('Call onInit function', () {
     blocTest(
-      'emits ServiceLandingState with loaded services and status success when call onInit',
+      '''emits ServiceLandingState with loaded services 
+      ordered alphabetical and status success when call onInit''',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceLandingState(
           status: BaseStateStatus.success,
-          services: servicesWithTypesMock,
+          services: ServiceHelper.orderServices(
+            servicesWithTypesMock,
+            OrderBy.alphabetical,
+          ),
           startDate: timeService.nowWithoutTime,
           endDate: timeService.nowWithoutTime,
         )
@@ -181,7 +186,8 @@ void main() {
 
   group('Call onRefresh function', () {
     blocTest(
-      'emits ServiceLandingState with loaded services and status success when call onRefresh',
+      '''emits ServiceLandingState with loaded services 
+      and status success when call onRefresh''',
       build: () => cubit,
       act: (cubit) => cubit.onRefresh(),
       expect: () => [
@@ -192,7 +198,10 @@ void main() {
         ),
         ServiceLandingState(
           status: BaseStateStatus.success,
-          services: servicesWithTypesMock,
+          services: ServiceHelper.orderServices(
+            servicesWithTypesMock,
+            OrderBy.alphabetical,
+          ),
           startDate: timeService.nowWithoutTime,
           endDate: timeService.nowWithoutTime,
         )
@@ -212,7 +221,8 @@ void main() {
     });
 
     blocTest(
-      'emits ServiceLandingState with new services with different dates and didFiltersChange when call onApplyFilters with dates',
+      '''emits ServiceLandingState with new services 
+      with different dates and didFiltersChange when call onApplyFilters with dates''',
       build: () => cubit,
       act: (cubit) =>
           [cubit.onApplyFilters(null, newStartDateTime, newEndDateTime)],
@@ -227,7 +237,10 @@ void main() {
         ServiceLandingState(
           startDate: newStartDateTime,
           endDate: newEndDateTime,
-          services: servicesWithTypesMock,
+          services: ServiceHelper.orderServices(
+            servicesWithTypesMock,
+            OrderBy.alphabetical,
+          ),
           status: BaseStateStatus.success,
           fastSearch: FastSearch.custom,
           didFiltersChange: true,

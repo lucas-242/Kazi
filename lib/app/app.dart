@@ -36,6 +36,7 @@ class _AppState extends State<App> {
             injector.get<ServicesRepository>(),
             injector.get<ServiceTypeRepository>(),
             injector.get<AuthService>(),
+            injector.get<TimeService>(),
           ),
         ),
         BlocProvider<AddServicesCubit>(
