@@ -43,7 +43,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     leftText: AppLocalizations.current.myBalance,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
-                      service.value,
+                      service.valueWithDiscount,
                     ),
                     rightTextStyle:
                         context.titleSmall!.copyWith(color: AppColors.green),
@@ -73,11 +73,12 @@ class ServiceDetailsPage extends StatelessWidget {
                     leftText: AppLocalizations.current.totalReceived,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
-                      service.valueWithDiscount,
+                      service.value,
                     ),
                   ),
                   service.description != null
                       ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Padding(
                               padding: EdgeInsets.symmetric(
@@ -102,7 +103,7 @@ class ServiceDetailsPage extends StatelessWidget {
                             AppSizeConstants.smallVerticalSpacer,
                           ],
                         )
-                      : AppSizeConstants.emptyWidget
+                      : AppSizeConstants.smallVerticalSpacer,
                 ],
               ),
             ),

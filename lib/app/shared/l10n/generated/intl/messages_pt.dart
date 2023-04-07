@@ -109,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "newServiceType":
             MessageLookupByLibrary.simpleMessage("Novo Tipo de Serviço"),
         "newType": MessageLookupByLibrary.simpleMessage("Novo Tipo"),
+        "noResults": MessageLookupByLibrary.simpleMessage("Sem resultados"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Não há tipos de serviço cadastrado"),
         "noServices": MessageLookupByLibrary.simpleMessage(
@@ -138,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
         "requiredProperty": m4,
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
+        "saveService": MessageLookupByLibrary.simpleMessage("Salvar Serviço"),
         "saveType": MessageLookupByLibrary.simpleMessage("Salvar Tipo"),
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
         "selectServiceType":

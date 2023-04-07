@@ -189,7 +189,7 @@ abstract class ThemeSettings {
   }
 
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) {
-    const borderRadius = BorderRadius.all(Radius.circular(10.0));
+    const borderRadius = BorderRadius.all(Radius.circular(6.0));
     return InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.always,
       filled: true,
