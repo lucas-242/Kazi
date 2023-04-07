@@ -4,13 +4,16 @@ import 'package:my_services/app/shared/themes/themes.dart';
 class CircularButton extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget child;
+  final double? iconSize;
   final bool showCircularIndicator;
+
   const CircularButton({
-    super.key,
+    Key? key,
     this.onTap,
     required this.child,
+    this.iconSize,
     this.showCircularIndicator = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,7 @@ class CircularButton extends StatelessWidget {
           IconButton(
             icon: child,
             onPressed: onTap,
+            iconSize: iconSize,
             style: IconButton.styleFrom(
               foregroundColor: context.colorsScheme.surface,
               backgroundColor: context.colorsScheme.onSurface,

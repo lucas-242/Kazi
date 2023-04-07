@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'package:my_services/app/models/service_group_by_date.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
@@ -10,8 +9,8 @@ import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/texts/texts.dart';
 import 'package:my_services/injector_container.dart';
 
-import 'service_list.dart';
 import '../../../shared/widgets/animation/expanded_section/expanded_section.dart';
+import 'service_list.dart';
 
 class ServiceListByDate extends StatefulWidget {
   final List<ServicesGroupByDate> servicesByDate;
@@ -29,7 +28,7 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
   @override
   Widget build(BuildContext context) {
     String getTextDate(DateTime date) {
-      final today = injector.get<TimeService>().nowWithoutTime;
+      final today = serviceLocator.get<TimeService>().nowWithoutTime;
       if (date == today) {
         return AppLocalizations.current.today;
       } else if (date.calculateDifference(today) == -1) {

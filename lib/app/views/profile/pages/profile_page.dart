@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/app_user.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:my_services/app/shared/constants/global_keys.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
@@ -15,14 +17,23 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUser user = injector.get<AuthService>().user!;
+    final AppUser user = serviceLocator.get<AuthService>().user!;
+
+    Future<void> onSignOut() async {
+      await serviceLocator.get<AuthService>().signOut();
+      await serviceLocator
+          .get<LocalStorage>()
+          .remove(GlobalKeys.showOnboardingStorage);
+    }
 
     return CustomScaffold(
       child: Column(
         children: [
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(
+                AppSizeConstants.largeSpace,
+              ),
               child: Column(
                 children: [
                   SizedBox(
@@ -54,7 +65,9 @@ class ProfilePage extends StatelessWidget {
                                   .copyWith(fontWeight: FontWeight.w400),
                             ),
                             const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 20.0),
+                              padding: EdgeInsets.symmetric(
+                                vertical: AppSizeConstants.largeSpace,
+                              ),
                               child: Divider(),
                             ),
                           ],
@@ -71,8 +84,9 @@ class ProfilePage extends StatelessWidget {
                     onTap: () => context.go(AppRoutes.servicesType),
                     text: AppLocalizations.current.serviceTypes,
                   ),
+                  const Divider(),
                   OptionButton(
-                    onTap: () => injector.get<AuthService>().signOut(),
+                    onTap: onSignOut,
                     text: AppLocalizations.current.logout,
                     textStyle:
                         context.titleSmall!.copyWith(color: AppColors.red),

@@ -19,24 +19,23 @@ extension TypographyExtension on BuildContext {
         fontSize: 16,
       );
 
-  TextStyle? get noData => GoogleFonts.outfit(
-        color: AppColors.grey,
+  TextStyle? get appBarTitle => GoogleFonts.outfit(
+        color: _colors.onSurface,
         fontWeight: FontWeight.w400,
         fontSize: 18,
       );
 
   TextStyle? get headlineLarge => GoogleFonts.outfit(
         color: _colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 32,
       );
   TextStyle? get headlineSmall => GoogleFonts.outfit(
-        color: _colors.onSurface,
+        color: AppColors.grey,
         fontWeight: FontWeight.w500,
         fontSize: 18,
       );
 
-  TextStyle? get titleLarge => GoogleFonts.outfit(
-        color: _colors.onSurface,
-      );
   TextStyle? get titleMedium => GoogleFonts.outfit(
         fontWeight: FontWeight.w500,
         fontSize: 20,

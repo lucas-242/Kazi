@@ -118,6 +118,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Não há serviços prestados no período selecionado."),
         "noServicesOnDay":
             MessageLookupByLibrary.simpleMessage("Não há serviços no dia"),
+        "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
+            "Esta ferramenta inteligente foi projetada para ajudá-lo a gerenciar melhor seus serviços."),
+        "onboardingTitle1":
+            MessageLookupByLibrary.simpleMessage("Calcule os\nganhos dos "),
+        "onboardingTitle2":
+            MessageLookupByLibrary.simpleMessage("seus\nserviços"),
         "orderAlphabetical":
             MessageLookupByLibrary.simpleMessage("Alfabétical"),
         "orderBy": MessageLookupByLibrary.simpleMessage("Ordernar por"),

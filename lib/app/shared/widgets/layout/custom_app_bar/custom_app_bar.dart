@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/injector_container.dart';
@@ -21,7 +20,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = injector.get<AuthService>().user;
+    final user = serviceLocator.get<AuthService>().user;
 
     return AppBar(
       toolbarHeight: preferredSize.height,
@@ -49,7 +48,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           AppSizeConstants.smallHorizontalSpacer,
           Text(
             AppLocalizations.current.hi(user.shortName),
-            style: context.headlineSmall,
+            style: context.appBarTitle,
           ),
         ],
       ),

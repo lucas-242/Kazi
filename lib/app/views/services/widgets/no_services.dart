@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/views/services/services.dart';
@@ -26,7 +25,7 @@ class NoServices extends StatelessWidget {
               horizontal: AppSizeConstants.largeSpace),
           child: Text(
             AppLocalizations.current.noServices,
-            style: context.noData,
+            style: context.headlineSmall,
             textAlign: TextAlign.center,
           ),
         )
