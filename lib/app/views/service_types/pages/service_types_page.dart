@@ -4,17 +4,16 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/service_types/widgets/service_types_content.dart';
 import 'package:my_services/injector_container.dart';
-import '../service_types.dart';
 
-import 'package:my_services/app/shared/utils/base_state.dart';
+import '../service_types.dart';
 
 class ServiceTypesPage extends StatelessWidget {
   const ServiceTypesPage({super.key});
@@ -23,9 +22,9 @@ class ServiceTypesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ServiceTypesCubit>(
       create: (context) => ServiceTypesCubit(
-        injector.get<ServiceTypeRepository>(),
-        injector.get<ServicesRepository>(),
-        injector.get<AuthService>(),
+        serviceLocator.get<ServiceTypeRepository>(),
+        serviceLocator.get<ServicesRepository>(),
+        serviceLocator.get<AuthService>(),
       ),
       lazy: false,
       child: Builder(builder: (context) {

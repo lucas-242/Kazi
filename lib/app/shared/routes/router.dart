@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_shell.dart';
+import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/shared/constants/global_keys.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/views/home/home.dart';
+import 'package:my_services/app/views/initial/intial.dart';
 import 'package:my_services/app/views/login/login.dart';
 import 'package:my_services/app/views/profile/profile.dart';
 import 'package:my_services/app/views/service_types/service_types.dart';
 import 'package:my_services/app/views/services/services.dart';
-import 'package:my_services/app/views/splash/splash.dart';
+import 'package:my_services/injector_container.dart';
 
 abstract class AppRouter {
   static GoRouter get router => _router;
@@ -22,6 +25,21 @@ final _router = GoRouter(
       path: AppRoutes.initial,
       pageBuilder: (context, state) =>
           _customTransition(state, const SplashPage()),
+    ),
+    GoRoute(
+      path: AppRoutes.onboarding,
+      redirect: (context, state) {
+        final showOnboarding = serviceLocator
+                .get<LocalStorage>()
+                .getBool(GlobalKeys.showOnboardingStorage) ??
+            true;
+
+        if (showOnboarding) return null;
+
+        return AppRoutes.home;
+      },
+      pageBuilder: (context, state) =>
+          _customTransition(state, const OnboardingPage()),
     ),
     GoRoute(
       path: AppRoutes.login,

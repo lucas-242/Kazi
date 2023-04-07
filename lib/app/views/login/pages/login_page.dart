@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
-
-import 'package:my_services/injector_container.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/social_login_button/social_login_button_widget.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:my_services/injector_container.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,8 +17,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   void _login() {
-    injector<AuthService>().signInWithGoogle().then((isSignedIn) {
-      if (isSignedIn) context.go(AppRoutes.home);
+    serviceLocator<AuthService>().signInWithGoogle().then((isSignedIn) {
+      if (isSignedIn) context.go(AppRoutes.onboarding);
     }).catchError((error) {
       getCustomSnackBar(context, message: error.message);
     });

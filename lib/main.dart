@@ -17,12 +17,12 @@ Future<void> main() async {
   final configuration =
       RequestConfiguration(testDeviceIds: AdKeys.testDeviceIds);
   MobileAds.instance.updateRequestConfiguration(configuration);
-  initInjectorContainer();
+  await initInjectorContainer();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
-  injector
+  serviceLocator
       .get<LogService>()
       .flow('Environment: ${Environment.environmentValue}');
   runApp(const App());

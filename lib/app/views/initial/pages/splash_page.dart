@@ -3,12 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/injector_container.dart';
-
 import 'package:my_services/app/models/app_user.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/injector_container.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -27,12 +26,11 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _listenUser() {
-    final auth = injector<AuthService>();
+    final auth = serviceLocator<AuthService>();
     userStream = auth.userChanges().listen((user) {
       if (user != null) {
         auth.user = user;
-        context.go(AppRoutes.home);
-        userStream.cancel();
+        context.go(AppRoutes.onboarding);
       } else {
         context.go(AppRoutes.login);
       }

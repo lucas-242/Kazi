@@ -1,12 +1,11 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-import 'package:my_services/injector_container.dart';
 import 'package:my_services/app/services/log_service/log_service.dart';
+import 'package:my_services/injector_container.dart';
 
 abstract class AdHelper {
   static BannerAd? getBannerAd(String adUnitId) {
     if (adUnitId.isEmpty) {
-      injector
+      serviceLocator
           .get<LogService>()
           .error(error: 'Can\'t load banner ad - AdUnitId is empty.');
       return null;
@@ -25,7 +24,7 @@ abstract class AdHelper {
       size: size,
       listener: BannerAdListener(
         onAdFailedToLoad: (ad, error) {
-          injector.get<LogService>().error(error: error);
+          serviceLocator.get<LogService>().error(error: error);
           ad.dispose();
         },
       ),

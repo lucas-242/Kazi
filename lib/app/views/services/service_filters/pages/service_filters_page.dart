@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
-
 import 'package:my_services/app/shared/widgets/texts/texts.dart';
 import 'package:my_services/app/views/services/service_filters/cubit/service_filters_cubit.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/selectable_pill_button.dart';
@@ -92,7 +91,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
         startDate: initialStartDate,
         endDate: initialEndDate,
         fastSearch: initialFastSearch,
-        timeService: injector.get<TimeService>(),
+        timeService: serviceLocator.get<TimeService>(),
       ),
       child: Builder(
         builder: (context) {

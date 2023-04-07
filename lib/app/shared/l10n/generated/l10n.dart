@@ -400,6 +400,36 @@ class AppLocalizations {
     );
   }
 
+  /// `This smart tool is designed to help you better manage your services.`
+  String get onboardingSubtitle {
+    return Intl.message(
+      'This smart tool is designed to help you better manage your services.',
+      name: 'onboardingSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calculate the\nearnings from `
+  String get onboardingTitle1 {
+    return Intl.message(
+      'Calculate the\nearnings from ',
+      name: 'onboardingTitle1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `your\nservices`
+  String get onboardingTitle2 {
+    return Intl.message(
+      'your\nservices',
+      name: 'onboardingTitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Alphabetical`
   String get orderAlphabetical {
     return Intl.message(
