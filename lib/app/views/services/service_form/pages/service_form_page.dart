@@ -27,72 +27,48 @@ class _AddServicesPageState extends State<AddServicesPage> {
     super.initState();
   }
 
+  void onConfirm(Service service) {
+    if (service.id.isEmpty) {
+      context.read<ServiceFormCubit>().addService();
+    } else {
+      context.read<ServiceFormCubit>().updateService();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: BlocListener<ServiceFormCubit, ServiceFormState>(
-            listenWhen: (previous, current) =>
-                previous.status != current.status,
-            listener: (context, state) {
-              if (state.status == BaseStateStatus.success) {
-                context.read<HomeCubit>().onChangeServices();
-                context.read<ServiceLandingCubit>().onChangeServices();
-                context.pop();
-              } else if (state.status == BaseStateStatus.error) {
-                getCustomSnackBar(
-                  context,
-                  message: state.callbackMessage,
-                );
-              }
+    return CustomScaffold(
+      child: SingleChildScrollView(
+        child: BlocListener<ServiceFormCubit, ServiceFormState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            if (state.status == BaseStateStatus.success) {
+              context.read<HomeCubit>().onChangeServices();
+              context.read<ServiceLandingCubit>().onChangeServices();
+              context.pop();
+            } else if (state.status == BaseStateStatus.error) {
+              getCustomSnackBar(
+                context,
+                message: state.callbackMessage,
+              );
+            }
+          },
+          child: BlocBuilder<ServiceFormCubit, ServiceFormState>(
+            builder: (context, state) {
+              return state.when(
+                onState: (_) => ServiceFormContent(
+                  onConfirm: () => onConfirm(state.service),
+                ),
+                onLoading: () => SizedBox(
+                  height: context.height,
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+                onNoData: () => const _NoData(),
+              );
             },
-            child: BlocBuilder<ServiceFormCubit, ServiceFormState>(
-              builder: (context, state) {
-                return state.when(
-                  onState: (_) => _Build(service: state.service),
-                  onLoading: () => SizedBox(
-                    height: context.height,
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
-                  onNoData: () => const _NoData(),
-                );
-              },
-            ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class _Build extends StatelessWidget {
-  final Service service;
-  const _Build({required this.service});
-
-  @override
-  Widget build(BuildContext context) {
-    final label = service.id != ''
-        ? AppLocalizations.current.update
-        : AppLocalizations.current.add;
-
-    void onConfirm() {
-      if (service.id.isEmpty) {
-        context.read<ServiceFormCubit>().addService();
-      } else {
-        context.read<ServiceFormCubit>().updateService();
-      }
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(height: 25),
-        ServiceFormContent(
-          labelButton: label,
-          onConfirm: () => onConfirm(),
-        ),
-      ],
     );
   }
 }

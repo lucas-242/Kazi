@@ -7,6 +7,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction textInputAction;
   final String labelText;
   final String hintText;
+  final int? maxLines;
   final IconData? iconLeft;
   final IconData? iconRight;
   final String? initialValue;
@@ -34,6 +35,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onTap,
     this.readOnly = false,
     this.textFormKey,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -49,6 +51,7 @@ class CustomTextFormField extends StatelessWidget {
       readOnly: readOnly,
       onChanged: onChanged,
       onTap: onTap,
+      maxLines: maxLines,
       style: context.bodyMedium,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(

@@ -10,7 +10,7 @@ dependencies:
   bloc: ^8.1.0
   cloud_firestore: ^4.0.5
   cupertino_icons: ^1.0.2
-  dropdown_search: ^5.0.3
+  dropdown_search: ^5.0.6
   equatable: ^2.0.5
   flutter:
     sdk: flutter

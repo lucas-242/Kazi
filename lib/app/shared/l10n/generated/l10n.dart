@@ -380,6 +380,16 @@ class AppLocalizations {
     );
   }
 
+  /// `No results`
+  String get noResults {
+    return Intl.message(
+      'No results',
+      name: 'noResults',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `If you have not yet registered any services, click on the button above to register a new one.`
   String get noServices {
     return Intl.message(
@@ -515,6 +525,16 @@ class AppLocalizations {
     return Intl.message(
       'Save Type',
       name: 'saveType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Service`
+  String get saveService {
+    return Intl.message(
+      'Save Service',
+      name: 'saveService',
       desc: '',
       args: [],
     );

@@ -1,7 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-
 import 'package:my_services/app/models/dropdown_item.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
 class CustomDropdown extends StatelessWidget {
@@ -34,19 +34,27 @@ class CustomDropdown extends StatelessWidget {
       onChanged: onChanged,
       validator: validator,
       autoValidateMode: AutovalidateMode.onUserInteraction,
-      popupProps: PopupProps.bottomSheet(
+      popupProps: PopupProps.menu(
         showSearchBox: showSeach,
         fit: FlexFit.loose,
         constraints: const BoxConstraints.tightFor(),
         emptyBuilder: (context, searchEntry) => const DropdownEmpty(),
-        itemBuilder: (context, item, isSelected) => PopupItem(item: item),
+        //! IsSelected is not working
+        itemBuilder: (context, item, isSelected) => PopupItem(
+          item: item,
+          isSelected: isSelected,
+        ),
         searchFieldProps: SearchFieldProps(searchHint).build(context),
       ),
       dropdownBuilder: (_, item) => DropdownInput(item: item, hint: hint),
       dropdownDecoratorProps:
           DropdownInputDecorator(labelText: label).build(context),
-      dropdownButtonProps: const DropdownButtonProps(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+      dropdownButtonProps: DropdownButtonProps(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSizeConstants.mediumSpace,
+        ),
+        color: context.colorsScheme.onBackground,
+        icon: const Icon(Icons.keyboard_arrow_down_outlined),
       ),
     );
   }
@@ -59,12 +67,9 @@ class DropdownInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Text(
-        item == null || item!.label == '' ? hint : item!.label,
-        style: context.bodyMedium,
-      ),
+    return Text(
+      item == null || item!.label == '' ? hint : item!.label,
+      style: context.bodyMedium,
     );
   }
 }
@@ -80,7 +85,8 @@ class DropdownInputDecorator extends DropDownDecoratorProps {
         labelText: labelText,
         hintStyle: context.bodyMedium,
         labelStyle: context.bodyMedium,
-        contentPadding: const EdgeInsets.only(left: 15),
+        contentPadding:
+            const EdgeInsets.only(left: AppSizeConstants.mediumSpace),
         border: const OutlineInputBorder(),
       ),
     );
@@ -89,12 +95,26 @@ class DropdownInputDecorator extends DropDownDecoratorProps {
 
 class PopupItem extends StatelessWidget {
   final DropdownItem item;
-  const PopupItem({super.key, required this.item});
+  final bool isSelected;
+  const PopupItem({
+    super.key,
+    required this.item,
+    required this.isSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(item.label, style: context.bodyMedium),
+    return ColoredBox(
+      color: isSelected
+          ? AppColors.lightYellow
+          : context.colorsScheme.primary.withOpacity(0.08),
+      child: ListTile(
+        contentPadding: const EdgeInsets.only(
+          left: AppSizeConstants.mediumSpace,
+          right: AppSizeConstants.largeSpace,
+        ),
+        title: Text(item.label, style: context.bodyMedium),
+      ),
     );
   }
 }
@@ -105,9 +125,12 @@ class DropdownEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      padding: const EdgeInsets.symmetric(
+        vertical: AppSizeConstants.mediumSpace,
+        horizontal: AppSizeConstants.mediumSpace,
+      ),
       child: Text(
-        'Sem resultados',
+        AppLocalizations.current.noResults,
         style: context.titleSmall,
       ),
     );
@@ -124,7 +147,7 @@ class SearchFieldProps extends TextFieldProps {
       style: context.bodyMedium,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelText: 'Busca',
+        labelText: AppLocalizations.current.search,
         hintText: searchHint,
         hintStyle: context.bodyMedium,
         contentPadding: EdgeInsets.zero,

@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
+import 'package:my_services/app/models/dropdown_item.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-
-import 'package:my_services/app/models/dropdown_item.dart';
-import 'package:my_services/app/shared/widgets/buttons/custom_elevated_button/custom_elevated_button.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/utils/number_format_helper.dart';
+import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 class ServiceFormContent extends StatefulWidget {
-  final String labelButton;
   final Function() onConfirm;
-  const ServiceFormContent(
-      {super.key, required this.labelButton, required this.onConfirm});
+  const ServiceFormContent({super.key, required this.onConfirm});
 
   @override
   State<ServiceFormContent> createState() => _ServiceFormContentState();
@@ -29,22 +28,50 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
   final _quantityKey = GlobalKey<FormFieldState>();
   final _discountKey = GlobalKey<FormFieldState>();
 
-  final valueController = TextEditingController();
-  final discountController = TextEditingController();
-  final quantityController = TextEditingController();
-
-  final dateController =
-      MaskedTextController(text: 'dd/MM/yyyy', mask: '00/00/0000');
+  late final TextEditingController _quantityController;
+  late final MoneyMaskedTextController _valueController;
+  late final MoneyMaskedTextController _discountController;
+  late final MaskedTextController _dateController;
 
   @override
   void initState() {
     final cubit = context.read<ServiceFormCubit>();
-    valueController.text = cubit.state.service.value.toString();
-    discountController.text = cubit.state.service.discountPercent.toString();
-    quantityController.text = cubit.state.quantity.toString();
-    dateController.text =
-        DateFormat.yMd().format(cubit.state.service.date).normalizeDate();
+    _quantityController = TextEditingController(
+      text: cubit.state.quantity.toString(),
+    );
+    _dateController = MaskedTextController(
+      text: DateFormat.yMd().format(cubit.state.service.date).normalizeDate(),
+      mask: '00/00/0000',
+    );
+    _valueController = MoneyMaskedTextController(
+      initialValue: cubit.state.service.value,
+      leftSymbol: NumberFormatHelper.getCurrencySymbol(),
+      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
+      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+    );
+    _discountController = MoneyMaskedTextController(
+      initialValue: cubit.state.service.discountPercent,
+      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
+      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+      rightSymbol: '%',
+      precision: 1,
+    );
     super.initState();
+  }
+
+  void onChangedDropdownItem(DropdownItem? data) {
+    final cubit = context.read<ServiceFormCubit>();
+    if (data != null) {
+      cubit.onChangeServiceType(data);
+      _valueController.updateValue(cubit.state.service.value);
+      _discountController.updateValue(cubit.state.service.discountPercent);
+    }
+  }
+
+  void onChangeDate(DateTime date) {
+    final cubit = context.read<ServiceFormCubit>();
+    cubit.onChangeServiceDate(date);
+    _dateController.text = DateFormat.yMd().format(date).normalizeDate();
   }
 
   void onConfirm() {
@@ -55,192 +82,94 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-        child: Column(
-          children: [
-            _ServiceTypeField(
-              fieldKey: _dropdownKey,
-              valueController: valueController,
-              discountController: discountController,
-            ),
-            const SizedBox(height: 30),
-            _ValueField(fieldKey: _valueKey, controller: valueController),
-            const SizedBox(height: 30),
-            _DiscountField(
-                fieldKey: _discountKey, controller: discountController),
-            const SizedBox(height: 30),
-            _DateField(fieldKey: _dateKey, controller: dateController),
-            const SizedBox(height: 30),
-            _QuantityField(
-                fieldKey: _quantityKey, controller: quantityController),
-            const SizedBox(height: 30),
-            _DescriptionField(fieldKey: _descriptionKey),
-            const SizedBox(height: 35),
-            CustomElevatedButton(
-              onTap: onConfirm,
-              text: widget.labelButton,
-            ),
-          ],
+    final cubit = context.read<ServiceFormCubit>();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
+          child: Text(
+            AppLocalizations.current.newService,
+            style: context.titleMedium,
+          ),
         ),
-      ),
-    );
-  }
-}
-
-class _ServiceTypeField extends StatelessWidget {
-  final TextEditingController valueController;
-  final TextEditingController discountController;
-  final GlobalKey<FormFieldState> fieldKey;
-  const _ServiceTypeField({
-    Key? key,
-    required this.fieldKey,
-    required this.valueController,
-    required this.discountController,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.serviceType;
-    final cubit = context.read<ServiceFormCubit>();
-
-    return CustomDropdown(
-      key: fieldKey,
-      label: label,
-      hint: AppLocalizations.current.selectServiceType,
-      items: cubit.state.dropdownItems,
-      selectedItem: cubit.state.selectedDropdownItem,
-      onChanged: (DropdownItem? data) {
-        if (data != null) {
-          cubit.onChangeServiceType(data);
-          valueController.text = cubit.state.service.value.toString();
-          discountController.text =
-              cubit.state.service.discountPercent.toString();
-        }
-      },
-      validator: (value) => cubit.validateDropdownField(value, label),
-      showSeach: true,
-    );
-  }
-}
-
-class _ValueField extends StatelessWidget {
-  final TextEditingController controller;
-  final GlobalKey<FormFieldState> fieldKey;
-  const _ValueField(
-      {Key? key, required this.fieldKey, required this.controller})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.total;
-    final cubit = context.read<ServiceFormCubit>();
-
-    return SizedBox(
-      child: CustomTextFormField(
-        textFormKey: fieldKey,
-        controller: controller,
-        labelText: label,
-        keyboardType: TextInputType.number,
-        onChanged: (value) => cubit.onChangeServiceValue(value),
-        validator: (value) => cubit.validateNumberField(value, label),
-      ),
-    );
-  }
-}
-
-class _DiscountField extends StatelessWidget {
-  final TextEditingController controller;
-  final GlobalKey<FormFieldState> fieldKey;
-  const _DiscountField(
-      {Key? key, required this.fieldKey, required this.controller})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.discountPercentage;
-    final cubit = context.watch<ServiceFormCubit>();
-
-    return SizedBox(
-      child: CustomTextFormField(
-        textFormKey: fieldKey,
-        controller: controller,
-        labelText: label,
-        keyboardType: TextInputType.number,
-        onChanged: (value) => cubit.onChangeServiceValue(value),
-        validator: (value) => cubit.validateNumberField(value, label),
-      ),
-    );
-  }
-}
-
-class _DateField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  final MaskedTextController controller;
-  const _DateField({
-    Key? key,
-    required this.fieldKey,
-    required this.controller,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.date;
-    final cubit = context.read<ServiceFormCubit>();
-
-    return CustomDatePicker(
-      label: label,
-      fieldKey: fieldKey,
-      controller: controller,
-      onChange: (date) {
-        cubit.onChangeServiceDate(date);
-        controller.text = DateFormat.yMd().format(date).normalizeDate();
-      },
-      validator: (value) => cubit.validateTextField(value, label),
-    );
-  }
-}
-
-class _QuantityField extends StatelessWidget {
-  final TextEditingController controller;
-  final GlobalKey<FormFieldState> fieldKey;
-  const _QuantityField(
-      {Key? key, required this.fieldKey, required this.controller})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final label = AppLocalizations.current.quantity;
-    final cubit = context.read<ServiceFormCubit>();
-
-    return SizedBox(
-      child: CustomTextFormField(
-        textFormKey: fieldKey,
-        controller: controller,
-        labelText: label,
-        keyboardType: TextInputType.number,
-        onChanged: (value) => cubit.onChangeServicesQuantity(value),
-        validator: (value) => cubit.validateNumberField(value, label),
-      ),
-    );
-  }
-}
-
-class _DescriptionField extends StatelessWidget {
-  final GlobalKey<FormFieldState> fieldKey;
-  const _DescriptionField({Key? key, required this.fieldKey}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cubit = context.read<ServiceFormCubit>();
-
-    return CustomTextFormField(
-      textFormKey: fieldKey,
-      labelText: AppLocalizations.current.description,
-      initialValue: cubit.state.service.description,
-      onChanged: (value) => cubit.onChangeServiceDescription(value),
+        AppSizeConstants.largeVerticalSpacer,
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              CustomDropdown(
+                key: _dropdownKey,
+                label: AppLocalizations.current.serviceType,
+                hint: AppLocalizations.current.selectServiceType,
+                items: cubit.state.dropdownItems,
+                selectedItem: cubit.state.selectedDropdownItem,
+                onChanged: onChangedDropdownItem,
+                validator: (value) => cubit.validateDropdownField(
+                  value,
+                  AppLocalizations.current.serviceType,
+                ),
+              ),
+              AppSizeConstants.largeVerticalSpacer,
+              CustomTextFormField(
+                textFormKey: _valueKey,
+                controller: _valueController,
+                labelText: AppLocalizations.current.total,
+                keyboardType: TextInputType.number,
+                onChanged: (value) => cubit.onChangeServiceValue(value),
+                validator: (value) => cubit.validateNumberField(
+                  _valueController.numberValue.toString(),
+                  AppLocalizations.current.total,
+                ),
+              ),
+              AppSizeConstants.largeVerticalSpacer,
+              CustomTextFormField(
+                textFormKey: _discountKey,
+                controller: _discountController,
+                labelText: AppLocalizations.current.discountPercentage,
+                keyboardType: TextInputType.number,
+                onChanged: (value) => cubit.onChangeServiceValue(value),
+                validator: (value) => cubit.validateNumberField(
+                  _discountController.numberValue.toString(),
+                  AppLocalizations.current.discountPercentage,
+                ),
+              ),
+              AppSizeConstants.largeVerticalSpacer,
+              CustomDatePicker(
+                label: AppLocalizations.current.date,
+                fieldKey: _dateKey,
+                controller: _dateController,
+                onChange: onChangeDate,
+                validator: (value) => cubit.validateTextField(
+                    value, AppLocalizations.current.date),
+              ),
+              AppSizeConstants.largeVerticalSpacer,
+              CustomTextFormField(
+                textFormKey: _quantityKey,
+                controller: _quantityController,
+                labelText: AppLocalizations.current.quantity,
+                keyboardType: TextInputType.number,
+                onChanged: (value) => cubit.onChangeServicesQuantity(value),
+                validator: (value) => cubit.validateNumberField(
+                    value, AppLocalizations.current.quantity),
+              ),
+              AppSizeConstants.largeVerticalSpacer,
+              CustomTextFormField(
+                textFormKey: _descriptionKey,
+                labelText: AppLocalizations.current.description,
+                maxLines: 3,
+                initialValue: cubit.state.service.description,
+                onChanged: (value) => cubit.onChangeServiceDescription(value),
+              ),
+              AppSizeConstants.bigVerticalSpacer,
+              PillButton(
+                onTap: onConfirm,
+                child: Text(AppLocalizations.current.saveService),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
