@@ -7,6 +7,7 @@ abstract class GlobalKeys {
   /// Key to identify if it is necessary to display the onboarding
   static String showOnboardingStorage = 'showOnboarding';
 
+  //TODO: Remove these dates from GlobalKeys
   static DateTime formStartDate = DateTime(2022);
 
   static DateTime get formEndDate {

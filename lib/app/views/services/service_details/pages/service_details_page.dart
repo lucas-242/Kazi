@@ -18,10 +18,11 @@ class ServiceDetailsPage extends StatelessWidget {
     return CustomScaffold(
       child: Column(
         children: [
-          BackAndPill(
-            pillText: AppLocalizations.current.share,
-            onTapPill: () => null,
-          ),
+          const BackAndPill(),
+          // BackAndPill(
+          //   pillText: AppLocalizations.current.share,
+          //   onTapPill: () => null,
+          // ),
           AppSizeConstants.largeVerticalSpacer,
           Card(
             child: Padding(

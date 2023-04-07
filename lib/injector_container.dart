@@ -34,8 +34,3 @@ Future<void> initInjectorContainer() async {
         FirebaseServiceTypeRepository(serviceLocator.get<FirebaseFirestore>()),
   );
 }
-
-test() async {
-  final prefs = await SharedPreferences.getInstance();
-  SharedPreferencesStorage(prefs);
-}
