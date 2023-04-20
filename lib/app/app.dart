@@ -23,8 +23,6 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
-
-  //TODO: Check if blocs need to be here globally
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [

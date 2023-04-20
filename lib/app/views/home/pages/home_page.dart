@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:my_services/app/shared/widgets/layout/loading/loading.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 import '../cubit/home_cubit.dart';
@@ -42,10 +41,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, state) {
             return state.when(
               onState: (_) => HomeContent(state: state),
-              onLoading: () => SizedBox(
-                height: context.height,
-                child: const Center(child: CircularProgressIndicator()),
-              ),
+              onLoading: () => const Loading(),
               onNoData: () => const NoServices(showFilters: false),
             );
           },

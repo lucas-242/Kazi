@@ -130,6 +130,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Action`
+  String get confirmAction {
+    return Intl.message(
+      'Confirm Action',
+      name: 'confirmAction',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Date`
   String get date {
     return Intl.message(
@@ -180,6 +200,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Discount percentage`
   String get discountPercentage {
     return Intl.message(
@@ -205,6 +235,26 @@ class AppLocalizations {
     return Intl.message(
       'Discounts',
       name: 'discounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Service`
+  String get editService {
+    return Intl.message(
+      'Edit Service',
+      name: 'editService',
       desc: '',
       args: [],
     );
@@ -590,6 +640,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Service Details`
+  String get serviceDetails {
+    return Intl.message(
+      'Service Details',
+      name: 'serviceDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Service Value`
   String get serviceValue {
     return Intl.message(
@@ -690,6 +750,16 @@ class AppLocalizations {
     );
   }
 
+  /// `this service`
+  String get thisService {
+    return Intl.message(
+      'this service',
+      name: 'thisService',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Today`
   String get today {
     return Intl.message(
@@ -720,16 +790,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Update`
-  String get update {
-    return Intl.message(
-      'Update',
-      name: 'update',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Yesterday`
   String get yesterday {
     return Intl.message(
@@ -750,13 +810,13 @@ class AppLocalizations {
     );
   }
 
-  /// `Would you like to delete`
-  String get wouldYouLikeDelete {
+  /// `Would you like to delete {item}?`
+  String wouldYouLikeDelete(String item) {
     return Intl.message(
-      'Would you like to delete',
+      'Would you like to delete $item?',
       name: 'wouldYouLikeDelete',
       desc: '',
-      args: [],
+      args: [item],
     );
   }
 

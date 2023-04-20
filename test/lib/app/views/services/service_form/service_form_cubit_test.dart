@@ -41,14 +41,37 @@ void main() {
 
   group('Call onInit function', () {
     blocTest(
-      'emits ServiceFormState with loaded serviceTypes and status success when call onInit',
+      'emits ServiceFormState with loaded serviceTypes when call onInit',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceFormState(
           userId: authService.user!.uid,
+          status: BaseStateStatus.loading,
+        ),
+        ServiceFormState(
+          userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.readyToUserInput,
+        )
+      ],
+    );
+
+    blocTest(
+      'emits ServiceFormState with loaded serviceTypes and Service when call onInit',
+      build: () => cubit,
+      act: (cubit) => cubit.onInit(serviceMock),
+      expect: () => [
+        ServiceFormState(
+          userId: authService.user!.uid,
+          status: BaseStateStatus.loading,
+          service: serviceMock,
+        ),
+        ServiceFormState(
+          userId: authService.user!.uid,
+          serviceTypes: serviceTypesMock,
+          status: BaseStateStatus.readyToUserInput,
+          service: serviceMock,
         )
       ],
     );
@@ -61,6 +84,10 @@ void main() {
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
+        ServiceFormState(
+          userId: authService.user!.uid,
+          status: BaseStateStatus.loading,
+        ),
         ServiceFormState(
           userId: authService.user!.uid,
           status: BaseStateStatus.noData,
@@ -83,6 +110,10 @@ void main() {
       expect: () => [
         ServiceFormState(
           userId: authService.user!.uid,
+          status: BaseStateStatus.loading,
+        ),
+        ServiceFormState(
+          userId: authService.user!.uid,
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
         )
@@ -97,6 +128,10 @@ void main() {
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
+        ServiceFormState(
+          userId: authService.user!.uid,
+          status: BaseStateStatus.loading,
+        ),
         ServiceFormState(
           userId: authService.user!.uid,
           callbackMessage: AppLocalizations.current.unknowError,
@@ -244,7 +279,7 @@ void main() {
         service: serviceMock,
         status: BaseStateStatus.noData,
       ),
-      act: (cubit) => [cubit.onChangeServiceValue(newValue.toString())],
+      act: (cubit) => [cubit.onChangeServiceValue(newValue)],
       expect: () => [
         ServiceFormState(
           userId: authService.user!.uid,
@@ -262,8 +297,7 @@ void main() {
         service: serviceMock,
         status: BaseStateStatus.noData,
       ),
-      act: (cubit) =>
-          [cubit.onChangeServiceDiscount(newDiscountPercent.toString())],
+      act: (cubit) => [cubit.onChangeServiceDiscount(newDiscountPercent)],
       expect: () => [
         ServiceFormState(
           userId: authService.user!.uid,

@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(property) => "${property} precisa ser preenchido";
 
+  static String m5(item) => "Gostaria de deletar ${item}?";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add": MessageLookupByLibrary.simpleMessage("Adicionar"),
@@ -43,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
             "O tipo de serviço não pode ser deletado pois está em uso"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
+        "confirmAction": MessageLookupByLibrary.simpleMessage("Confirmar Ação"),
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
         "credentialIsInvalid":
             MessageLookupByLibrary.simpleMessage("A credencial é inválida"),
@@ -51,10 +55,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultValue": MessageLookupByLibrary.simpleMessage("Valor padrão"),
         "delete": MessageLookupByLibrary.simpleMessage("Deletar"),
         "description": MessageLookupByLibrary.simpleMessage("Descrição"),
+        "details": MessageLookupByLibrary.simpleMessage("Detalhes"),
         "discount": MessageLookupByLibrary.simpleMessage("Desconto"),
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Porcentagem do desconto"),
         "discounts": MessageLookupByLibrary.simpleMessage("Descontos"),
+        "edit": MessageLookupByLibrary.simpleMessage("Editar"),
+        "editService": MessageLookupByLibrary.simpleMessage("Editar Serviço"),
         "editServiceType":
             MessageLookupByLibrary.simpleMessage("Editar Tipo de Serviço"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -151,6 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
         "service": MessageLookupByLibrary.simpleMessage("Serviço"),
+        "serviceDetails":
+            MessageLookupByLibrary.simpleMessage("Detalhes do Serviço"),
         "serviceType": MessageLookupByLibrary.simpleMessage("Tipo de Serviço"),
         "serviceTypes":
             MessageLookupByLibrary.simpleMessage("Tipos de Serviço"),
@@ -165,19 +174,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Cadastro efetuado com sucesso"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
             "Já existe uma conta com estas credenciais"),
+        "thisService": MessageLookupByLibrary.simpleMessage("esse serviço"),
         "today": MessageLookupByLibrary.simpleMessage("Hoje"),
         "total": MessageLookupByLibrary.simpleMessage("Valor total"),
         "totalReceived": MessageLookupByLibrary.simpleMessage("Total recebido"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro desconhecido"),
-        "update": MessageLookupByLibrary.simpleMessage("Atualizar"),
         "userHasBeenDisabled": MessageLookupByLibrary.simpleMessage(
             "Este usuário foi desabilitado. Entre em contato com o suporte para obter ajuda"),
         "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
             "O Id de verificação inserido é inválido"),
         "week": MessageLookupByLibrary.simpleMessage("Semana"),
-        "wouldYouLikeDelete":
-            MessageLookupByLibrary.simpleMessage("Gostaria de deletar"),
+        "wouldYouLikeDelete": m5,
         "yesterday": MessageLookupByLibrary.simpleMessage("Ontem")
       };
 }

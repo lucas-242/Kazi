@@ -63,7 +63,8 @@ void main() {
             OrderBy.alphabetical,
           ),
           startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime
+              .copyWith(day: 31, hour: 23, minute: 59, second: 59),
         )
       ],
     );
@@ -79,7 +80,8 @@ void main() {
         ServiceLandingState(
           status: BaseStateStatus.noData,
           startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime
+              .copyWith(day: 31, hour: 23, minute: 59, second: 59),
         )
       ],
     );
@@ -151,10 +153,14 @@ void main() {
   group('Call delete Service Type', () {
     late FirebaseServiceModel serviceToDelete;
     late List<Service> serviceList;
+    late List<Service> resultList;
 
     setUp(() {
       serviceToDelete = serviceMock.copyWith(id: '123456', typeId: '1');
       serviceList = List.from(servicesWithTypeIdMock)..add(serviceToDelete);
+      resultList = List.from(servicesWithTypesMock);
+      resultList =
+          ServiceHelper.orderServices(resultList, OrderBy.alphabetical);
     });
 
     blocTest(
@@ -175,7 +181,7 @@ void main() {
           endDate: timeService.nowWithoutTime,
         ),
         ServiceLandingState(
-          services: servicesWithTypeIdMock,
+          services: resultList,
           status: BaseStateStatus.success,
           startDate: timeService.nowWithoutTime,
           endDate: timeService.nowWithoutTime,
@@ -192,10 +198,9 @@ void main() {
       act: (cubit) => cubit.onRefresh(),
       expect: () => [
         ServiceLandingState(
-          status: BaseStateStatus.loading,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
-        ),
+            status: BaseStateStatus.loading,
+            startDate: timeService.nowWithoutTime,
+            endDate: timeService.nowWithoutTime),
         ServiceLandingState(
           status: BaseStateStatus.success,
           services: ServiceHelper.orderServices(
@@ -203,7 +208,8 @@ void main() {
             OrderBy.alphabetical,
           ),
           startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          endDate: timeService.nowWithoutTime
+              .copyWith(day: 31, hour: 23, minute: 59, second: 59),
         )
       ],
     );

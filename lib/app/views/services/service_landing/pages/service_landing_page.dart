@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:my_services/app/shared/widgets/layout/loading/loading.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/service_landing_content.dart';
 import 'package:my_services/app/views/services/services.dart';
 
@@ -54,10 +52,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
                 dateController: dateController,
                 dateKey: dateKey,
               ),
-              onLoading: () => SizedBox(
-                height: context.height,
-                child: const Center(child: CircularProgressIndicator()),
-              ),
+              onLoading: () => const Loading(),
               onNoData: () => NoServices(
                 filtersBottomSheet: FiltersBottomSheet(
                   dateKey: dateKey,

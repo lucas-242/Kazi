@@ -13,7 +13,12 @@ import 'package:my_services/app/views/services/services.dart';
 
 class ServiceFormContent extends StatefulWidget {
   final Function() onConfirm;
-  const ServiceFormContent({super.key, required this.onConfirm});
+  final bool isCreating;
+  const ServiceFormContent({
+    super.key,
+    required this.onConfirm,
+    this.isCreating = true,
+  });
 
   @override
   State<ServiceFormContent> createState() => _ServiceFormContentState();
@@ -89,7 +94,9 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
         Padding(
           padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
           child: Text(
-            AppLocalizations.current.newService,
+            widget.isCreating
+                ? AppLocalizations.current.newService
+                : AppLocalizations.current.editService,
             style: context.titleMedium,
           ),
         ),
@@ -116,7 +123,8 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 controller: _valueController,
                 labelText: AppLocalizations.current.total,
                 keyboardType: TextInputType.number,
-                onChanged: (value) => cubit.onChangeServiceValue(value),
+                onChanged: (value) =>
+                    cubit.onChangeServiceValue(_valueController.numberValue),
                 validator: (value) => cubit.validateNumberField(
                   _valueController.numberValue.toString(),
                   AppLocalizations.current.total,
@@ -128,7 +136,8 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 controller: _discountController,
                 labelText: AppLocalizations.current.discountPercentage,
                 keyboardType: TextInputType.number,
-                onChanged: (value) => cubit.onChangeServiceValue(value),
+                onChanged: (value) => cubit
+                    .onChangeServiceDiscount(_discountController.numberValue),
                 validator: (value) => cubit.validateNumberField(
                   _discountController.numberValue.toString(),
                   AppLocalizations.current.discountPercentage,
@@ -143,17 +152,24 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 validator: (value) => cubit.validateTextField(
                     value, AppLocalizations.current.date),
               ),
+              if (widget.isCreating)
+                Column(
+                  children: [
+                    AppSizeConstants.largeVerticalSpacer,
+                    CustomTextFormField(
+                      textFormKey: _quantityKey,
+                      controller: _quantityController,
+                      labelText: AppLocalizations.current.quantity,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) =>
+                          cubit.onChangeServicesQuantity(value),
+                      validator: (value) => cubit.validateNumberField(
+                          value, AppLocalizations.current.quantity),
+                    ),
+                  ],
+                ),
               AppSizeConstants.largeVerticalSpacer,
-              CustomTextFormField(
-                textFormKey: _quantityKey,
-                controller: _quantityController,
-                labelText: AppLocalizations.current.quantity,
-                keyboardType: TextInputType.number,
-                onChanged: (value) => cubit.onChangeServicesQuantity(value),
-                validator: (value) => cubit.validateNumberField(
-                    value, AppLocalizations.current.quantity),
-              ),
-              AppSizeConstants.largeVerticalSpacer,
+              //TODO: Fix layout glitch
               CustomTextFormField(
                 textFormKey: _descriptionKey,
                 labelText: AppLocalizations.current.description,

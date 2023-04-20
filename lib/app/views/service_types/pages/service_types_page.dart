@@ -10,6 +10,7 @@ import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:my_services/app/shared/widgets/layout/loading/loading.dart';
 import 'package:my_services/app/views/service_types/widgets/service_types_content.dart';
 import 'package:my_services/injector_container.dart';
 
@@ -49,10 +50,7 @@ class ServiceTypesPage extends StatelessWidget {
               builder: (context, state) {
                 return state.when(
                   onState: (_) => const ServiceTypesContent(),
-                  onLoading: () => SizedBox(
-                    height: context.height,
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
+                  onLoading: () => const Loading(),
                   //TODO: Create new layout for NoData widget
                   onNoData: () => const _NoData(),
                 );

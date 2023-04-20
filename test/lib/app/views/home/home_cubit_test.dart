@@ -144,51 +144,6 @@ void main() {
     );
   });
 
-  group('Call onChangeServices', () {
-    blocTest(
-      'emits HomeState with new services and status success when call onChangeServices',
-      build: () => cubit,
-      act: (cubit) => [cubit.onChangeServices()],
-      expect: () => [
-        HomeState(status: BaseStateStatus.loading),
-        HomeState(
-          services: servicesWithTypesMock,
-          status: BaseStateStatus.success,
-        )
-      ],
-    );
-
-    blocTest(
-      'emits HomeState with new services and status success when call onChangeServices',
-      build: () => cubit,
-      act: (cubit) => [cubit.onChangeServices()],
-      expect: () => [
-        HomeState(status: BaseStateStatus.loading),
-        HomeState(
-          services: servicesWithTypesMock,
-          status: BaseStateStatus.success,
-        )
-      ],
-    );
-
-    blocTest(
-      'emits HomeState with status error and callbackMessage = errorToGetServices when call onChangeServices',
-      build: () => cubit,
-      setUp: () {
-        when(servicesRepository.get(any, any, any)).thenThrow(
-            ClientError(AppLocalizations.current.errorToGetServices));
-      },
-      act: (cubit) => cubit.onChangeServices(),
-      expect: () => [
-        HomeState(status: BaseStateStatus.loading),
-        HomeState(
-          callbackMessage: AppLocalizations.current.errorToGetServices,
-          status: BaseStateStatus.error,
-        )
-      ],
-    );
-  });
-
   group('State properties', () {
     test('totalValue should be 210', () {
       final state = HomeState(

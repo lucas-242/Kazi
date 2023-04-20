@@ -86,7 +86,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
       await serviceLandingcubit.onCleanFilters();
     }
 
-    return BlocProvider(
+    return BlocProvider<ServiceFiltersCubit>(
       create: (context) => ServiceFiltersCubit(
         startDate: initialStartDate,
         endDate: initialEndDate,

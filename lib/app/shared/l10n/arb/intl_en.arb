@@ -7,14 +7,19 @@
   "calendar": "Calendar",
   "cancel": "Cancel",
   "create": "Create",  
+  "confirm": "Confirm",
+  "confirmAction": "Confirm Action",
   "date": "Date",
   "darkMode": "Dark Mode",
   "defaultValue": "Default Value",
   "delete": "Delete",
   "description": "Description",
+  "details": "Details",
   "discountPercentage": "Discount percentage",
   "discount": "Discount",
   "discounts": "Discounts",
+  "edit": "Edit",
+  "editService": "Edit Service",
   "editServiceType": "Edit Service Type",
   "email": "Email",
   "filters": "Filters",
@@ -60,6 +65,7 @@
   "saveService": "Save Service",
   "search": "Search",
   "service" : "Service",
+  "serviceDetails" : "Service Details",
   "serviceValue" : "Service Value",
   "services" : "Services",
   "serviceType": "Service Type",
@@ -70,13 +76,20 @@
   "signUpSuccess": "Account created successfully",
   "share": "Share",
   "success": "Action done successfully",
+  "thisService" : "this service",
   "today": "Today",
   "total": "Total value",
   "totalReceived": "Total received",
-  "update": "Update",
   "yesterday": "Yesterday",
   "week": "Week",
-  "wouldYouLikeDelete": "Would you like to delete",
+  "wouldYouLikeDelete": "Would you like to delete {item}?",
+  "@wouldYouLikeDelete" : {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
 
   "noServicesInPeriod": "No services in the selected period.",
   "noServicesOnDay": "No services on",

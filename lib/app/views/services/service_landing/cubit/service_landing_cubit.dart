@@ -1,17 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
+import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
-import 'package:my_services/app/shared/utils/service_helper.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/utils/base_cubit.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/shared/errors/errors.dart';
+import 'package:my_services/app/shared/utils/service_helper.dart';
 
 part 'service_landing_state.dart';
 
@@ -38,8 +37,10 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     try {
       final range =
           ServiceHelper.getRangeDateByFastSearch(state.fastSearch, now);
-      final result = await _getServices(range['startDate']!, range['endDate']!);
-      _handleGetServices(result);
+      final startDate = range['startDate']!;
+      final endDate = range['endDate']!;
+      final result = await _getServices(startDate, endDate);
+      _handleGetServices(result, startDate, endDate);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -54,7 +55,11 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     return result;
   }
 
-  Future<void> _handleGetServices(List<Service> fetchResult) async {
+  Future<void> _handleGetServices(
+    List<Service> fetchResult, [
+    DateTime? startDate,
+    DateTime? endDate,
+  ]) async {
     try {
       final types = await _getServiceTypes();
       var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
@@ -63,7 +68,12 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
       final newStatus = fetchResult.isEmpty
           ? BaseStateStatus.noData
           : BaseStateStatus.success;
-      emit(state.copyWith(status: newStatus, services: services));
+      emit(state.copyWith(
+        status: newStatus,
+        services: services,
+        startDate: startDate,
+        endDate: endDate,
+      ));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -81,9 +91,10 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
       emit(state.copyWith(status: BaseStateStatus.loading));
       final range =
           ServiceHelper.getRangeDateByFastSearch(state.fastSearch, now);
-      final fetchResult =
-          await _getServices(range['startDate']!, range['endDate']!);
-      _handleGetServices(fetchResult);
+      final startDate = range['startDate']!;
+      final endDate = range['endDate']!;
+      final result = await _getServices(startDate, endDate);
+      _handleGetServices(result, startDate, endDate);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -96,10 +107,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceProvidedRepository.delete(service.id);
       final newList = await _getServices(state.startDate, state.endDate);
-      final newStatus =
-          newList.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-
-      emit(state.copyWith(status: newStatus, services: newList));
+      _handleGetServices(newList);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -152,7 +160,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
         didFiltersChange: true,
       ));
       final fetchResult = await _getServices(startDate, endDate);
-      _handleGetServices(fetchResult);
+      _handleGetServices(fetchResult, startDate, endDate);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
