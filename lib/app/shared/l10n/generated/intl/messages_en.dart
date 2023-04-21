@@ -117,13 +117,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "newType": MessageLookupByLibrary.simpleMessage("New Type"),
         "noResults": MessageLookupByLibrary.simpleMessage("No results"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
-            "No services types registered"),
+            "It seems you don\'t have any service type registered yet, click on the button above to register a new one."),
         "noServices": MessageLookupByLibrary.simpleMessage(
-            "If you have not yet registered any services, click on the button above to register a new one."),
-        "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
-            "No services in the selected period."),
-        "noServicesOnDay":
-            MessageLookupByLibrary.simpleMessage("No services on"),
+            "It seems you don\'t have any service registered yet, click on the button above to register a new one."),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
             "This smart tool is designed to help you better manage your services."),
         "onboardingTitle1": MessageLookupByLibrary.simpleMessage(

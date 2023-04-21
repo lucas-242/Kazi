@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -17,8 +17,8 @@ class ServiceTypesContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BackAndPill(
-          pillText: AppLocalizations.current.newType,
-          text: AppLocalizations.current.serviceTypes,
+          text: context.appLocalizations.serviceTypes,
+          pillText: context.appLocalizations.newType,
           onTapPill: () => context.go(
             AppRoutes.addServiceType,
             extra: cubit,

@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 
 import 'app_cubit.dart';
@@ -71,7 +70,7 @@ class _AppShellState extends State<AppShell> {
               ),
               child: FloatingActionButton(
                 onPressed: _onTapFloatingActionButton,
-                tooltip: AppLocalizations.current.newService,
+                tooltip: context.appLocalizations.newService,
                 child: Icon(cubit.isAddServicePage ? Icons.close : Icons.add),
               ),
             ),

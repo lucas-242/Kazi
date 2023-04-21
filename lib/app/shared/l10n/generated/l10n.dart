@@ -440,11 +440,21 @@ class AppLocalizations {
     );
   }
 
-  /// `If you have not yet registered any services, click on the button above to register a new one.`
+  /// `It seems you don't have any service registered yet, click on the button above to register a new one.`
   String get noServices {
     return Intl.message(
-      'If you have not yet registered any services, click on the button above to register a new one.',
+      'It seems you don\'t have any service registered yet, click on the button above to register a new one.',
       name: 'noServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It seems you don't have any service type registered yet, click on the button above to register a new one.`
+  String get noServiceTypes {
+    return Intl.message(
+      'It seems you don\'t have any service type registered yet, click on the button above to register a new one.',
+      name: 'noServiceTypes',
       desc: '',
       args: [],
     );
@@ -625,6 +635,16 @@ class AppLocalizations {
     return Intl.message(
       'Search',
       name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select the service type`
+  String get selectServiceType {
+    return Intl.message(
+      'Select the service type',
+      name: 'selectServiceType',
       desc: '',
       args: [],
     );
@@ -817,46 +837,6 @@ class AppLocalizations {
       name: 'wouldYouLikeDelete',
       desc: '',
       args: [item],
-    );
-  }
-
-  /// `No services in the selected period.`
-  String get noServicesInPeriod {
-    return Intl.message(
-      'No services in the selected period.',
-      name: 'noServicesInPeriod',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No services on`
-  String get noServicesOnDay {
-    return Intl.message(
-      'No services on',
-      name: 'noServicesOnDay',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No services types registered`
-  String get noServiceTypes {
-    return Intl.message(
-      'No services types registered',
-      name: 'noServiceTypes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select the service type`
-  String get selectServiceType {
-    return Intl.message(
-      'Select the service type',
-      name: 'selectServiceType',
-      desc: '',
-      args: [],
     );
   }
 

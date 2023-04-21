@@ -5,12 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/app/shared/widgets/layout/confirmation_dialog/confirmation_dialog.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/shared/widgets/texts/row_text/row_text.dart';
 import 'package:my_services/app/views/services/services.dart';
@@ -33,9 +31,9 @@ class ServiceDetailsPage extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => ConfirmationDialog(
-          message: AppLocalizations.current
-              .wouldYouLikeDelete(AppLocalizations.current.thisService),
-          confirmText: AppLocalizations.current.delete,
+          message: context.appLocalizations
+              .wouldYouLikeDelete(context.appLocalizations.thisService),
+          confirmText: context.appLocalizations.delete,
           onCancel: () => context.pop(),
           onConfirm: () => onDelete(service),
         ),
@@ -61,7 +59,7 @@ class ServiceDetailsPage extends StatelessWidget {
                   ),
                   AppSizeConstants.smallHorizontalSpacer,
                   Text(
-                    AppLocalizations.current.serviceDetails,
+                    context.appLocalizations.serviceDetails,
                     style: context.titleMedium,
                   ),
                 ],
@@ -72,13 +70,13 @@ class ServiceDetailsPage extends StatelessWidget {
                 children: [
                   PillButton(
                     onTap: onTapUpdate,
-                    child: Text(AppLocalizations.current.edit),
+                    child: Text(context.appLocalizations.edit),
                   ),
                   AppSizeConstants.smallHorizontalSpacer,
                   PillButton(
                     backgroundColor: context.colorsScheme.error,
                     onTap: onTapDelete,
-                    child: Text(AppLocalizations.current.delete),
+                    child: Text(context.appLocalizations.delete),
                   ),
                 ],
               ),
@@ -102,7 +100,7 @@ class ServiceDetailsPage extends StatelessWidget {
                   ),
                   AppSizeConstants.bigVerticalSpacer,
                   RowText(
-                    leftText: AppLocalizations.current.myBalance,
+                    leftText: context.appLocalizations.myBalance,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
                       service.valueWithDiscount,
@@ -117,7 +115,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     child: Divider(),
                   ),
                   RowText(
-                    leftText: AppLocalizations.current.discount,
+                    leftText: context.appLocalizations.discount,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
                       service.valueDiscounted,
@@ -132,7 +130,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     child: Divider(),
                   ),
                   RowText(
-                    leftText: AppLocalizations.current.totalReceived,
+                    leftText: context.appLocalizations.totalReceived,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
                       service.value,
@@ -152,7 +150,7 @@ class ServiceDetailsPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  AppLocalizations.current.description,
+                                  context.appLocalizations.description,
                                   style: context.titleSmall,
                                 ),
                                 AppSizeConstants.smallVerticalSpacer,

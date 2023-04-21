@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
-import 'package:my_services/app/models/enums.dart';
-
 class OrderByBottomSheet extends StatelessWidget {
-  Map<OrderBy, String> get orderOptions => {
-        OrderBy.alphabetical: AppLocalizations.current.orderAlphabetical,
-        OrderBy.dateDesc: AppLocalizations.current.orderDateDesc,
-        OrderBy.dateAsc: AppLocalizations.current.orderDateAsc,
-        OrderBy.valueDesc: AppLocalizations.current.orderValueDesc,
-        OrderBy.valueAsc: AppLocalizations.current.orderValueAsc,
-      };
-
   final Function(OrderBy) onPressed;
   final OrderBy selectedOption;
   const OrderByBottomSheet({
@@ -20,6 +11,14 @@ class OrderByBottomSheet extends StatelessWidget {
     required this.onPressed,
     required this.selectedOption,
   });
+
+  Map<OrderBy, String> get orderOptions => {
+        OrderBy.alphabetical: AppLocalizations.current.orderAlphabetical,
+        OrderBy.dateDesc: AppLocalizations.current.orderDateDesc,
+        OrderBy.dateAsc: AppLocalizations.current.orderDateAsc,
+        OrderBy.valueDesc: AppLocalizations.current.orderValueDesc,
+        OrderBy.valueAsc: AppLocalizations.current.orderValueAsc,
+      };
 
   @override
   Widget build(BuildContext context) {

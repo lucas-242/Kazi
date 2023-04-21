@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/shared/widgets/layout/loading/loading.dart';
+import 'package:my_services/app/views/service_types/widgets/service_type_no_data_navbar.dart';
 import 'package:my_services/app/views/services/service_form/widgets/service_form_content.dart';
 import 'package:my_services/app/views/services/services.dart';
 
@@ -70,38 +67,15 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                   return const Loading();
                 },
                 onLoading: () => const Loading(),
-                onNoData: () => const _NoData(),
+                onNoData: () => NoData(
+                  message: context.appLocalizations.noServiceTypes,
+                  navbar: const ServiceTypeNoDataNavbar(),
+                ),
               );
             },
           ),
         ),
       ),
-    );
-  }
-}
-
-class _NoData extends StatelessWidget {
-  const _NoData();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          AppLocalizations.current.noServiceTypes,
-          style: context.titleMedium,
-          textAlign: TextAlign.center,
-        ),
-        AppSizeConstants.bigVerticalSpacer,
-        CustomElevatedButton(
-          onTap: () {
-            context.pop();
-            context.read<AppCubit>().changePage(2);
-          },
-          text: AppLocalizations.current.newType,
-        ),
-      ],
     );
   }
 }

@@ -38,7 +38,8 @@
   "newService": "Novo Serviço",
   "newServiceType": "Novo Tipo de Serviço",
   "newType": "Novo Tipo",
-  "noServices": "Se você ainda não registrou nenhum serviço, clique no botão acima para registrar um novo.",
+  "noServices": "Parece que você não registrou nenhum serviço, clique no botão acima para registrar um novo.",
+  "noServiceTypes": "Parece que você não registrou nenhum tipo de serviço,  clique no botão acima para registrar um novo.",
   "onboardingSubtitle" : "Esta ferramenta inteligente foi projetada para ajudá-lo a gerenciar melhor seus serviços.",
   "onboardingTitle1" : "Calcule os\nganhos dos ",
   "onboardingTitle2" : "seus\nserviços",
@@ -84,10 +85,6 @@
       }
     }
   },
-
-  "noServicesInPeriod": "Não há serviços prestados no período selecionado.",
-  "noServicesOnDay": "Não há serviços no dia",
-  "noServiceTypes": "Não há tipos de serviço cadastrado",
   
   "alreadyExists": "{property} já existe",
   "inUse": "{property} está em uso",

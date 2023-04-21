@@ -4,7 +4,6 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/models/dropdown_item.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -95,8 +94,8 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
           padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
           child: Text(
             widget.isCreating
-                ? AppLocalizations.current.newService
-                : AppLocalizations.current.editService,
+                ? context.appLocalizations.newService
+                : context.appLocalizations.editService,
             style: context.titleMedium,
           ),
         ),
@@ -107,50 +106,50 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
             children: [
               CustomDropdown(
                 key: _dropdownKey,
-                label: AppLocalizations.current.serviceType,
-                hint: AppLocalizations.current.selectServiceType,
+                label: context.appLocalizations.serviceType,
+                hint: context.appLocalizations.selectServiceType,
                 items: cubit.state.dropdownItems,
                 selectedItem: cubit.state.selectedDropdownItem,
                 onChanged: onChangedDropdownItem,
                 validator: (value) => cubit.validateDropdownField(
                   value,
-                  AppLocalizations.current.serviceType,
+                  context.appLocalizations.serviceType,
                 ),
               ),
               AppSizeConstants.largeVerticalSpacer,
               CustomTextFormField(
                 textFormKey: _valueKey,
                 controller: _valueController,
-                labelText: AppLocalizations.current.total,
+                labelText: context.appLocalizations.total,
                 keyboardType: TextInputType.number,
                 onChanged: (value) =>
                     cubit.onChangeServiceValue(_valueController.numberValue),
                 validator: (value) => cubit.validateNumberField(
                   _valueController.numberValue.toString(),
-                  AppLocalizations.current.total,
+                  context.appLocalizations.total,
                 ),
               ),
               AppSizeConstants.largeVerticalSpacer,
               CustomTextFormField(
                 textFormKey: _discountKey,
                 controller: _discountController,
-                labelText: AppLocalizations.current.discountPercentage,
+                labelText: context.appLocalizations.discountPercentage,
                 keyboardType: TextInputType.number,
                 onChanged: (value) => cubit
                     .onChangeServiceDiscount(_discountController.numberValue),
                 validator: (value) => cubit.validateNumberField(
                   _discountController.numberValue.toString(),
-                  AppLocalizations.current.discountPercentage,
+                  context.appLocalizations.discountPercentage,
                 ),
               ),
               AppSizeConstants.largeVerticalSpacer,
               CustomDatePicker(
-                label: AppLocalizations.current.date,
+                label: context.appLocalizations.date,
                 fieldKey: _dateKey,
                 controller: _dateController,
                 onChange: onChangeDate,
                 validator: (value) => cubit.validateTextField(
-                    value, AppLocalizations.current.date),
+                    value, context.appLocalizations.date),
               ),
               if (widget.isCreating)
                 Column(
@@ -159,12 +158,12 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                     CustomTextFormField(
                       textFormKey: _quantityKey,
                       controller: _quantityController,
-                      labelText: AppLocalizations.current.quantity,
+                      labelText: context.appLocalizations.quantity,
                       keyboardType: TextInputType.number,
                       onChanged: (value) =>
                           cubit.onChangeServicesQuantity(value),
                       validator: (value) => cubit.validateNumberField(
-                          value, AppLocalizations.current.quantity),
+                          value, context.appLocalizations.quantity),
                     ),
                   ],
                 ),
@@ -172,7 +171,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
               //TODO: Fix layout glitch
               CustomTextFormField(
                 textFormKey: _descriptionKey,
-                labelText: AppLocalizations.current.description,
+                labelText: context.appLocalizations.description,
                 maxLines: 3,
                 initialValue: cubit.state.service.description,
                 onChanged: (value) => cubit.onChangeServiceDescription(value),
@@ -180,7 +179,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
               AppSizeConstants.bigVerticalSpacer,
               PillButton(
                 onTap: onConfirm,
-                child: Text(AppLocalizations.current.saveService),
+                child: Text(context.appLocalizations.saveService),
               ),
             ],
           ),

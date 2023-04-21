@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
@@ -18,7 +16,7 @@ import 'package:my_services/injector_container.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
   final GlobalKey<FormFieldState> dateKey;
-  final MaskedTextController dateController;
+  final TextEditingController dateController;
   const FiltersBottomSheet({
     Key? key,
     required this.dateKey,
@@ -107,11 +105,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 child: Column(
                   children: [
                     TextWithTrailing(
-                      text: AppLocalizations.current.filters,
+                      text: context.appLocalizations.filters,
                       trailing: PillButton(
                         onTap: onCleanFilters,
                         backgroundColor: context.colorsScheme.primary,
-                        child: Text(AppLocalizations.current.removeFilters),
+                        child: Text(context.appLocalizations.removeFilters),
                       ),
                     ),
                     AppSizeConstants.bigVerticalSpacer,
@@ -132,28 +130,28 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             SelectablePillButton(
                               onTap: () =>
                                   onChangeFastSearch(context, FastSearch.today),
-                              text: AppLocalizations.current.today,
+                              text: context.appLocalizations.today,
                               isSelected:
                                   cubit.state.fastSearch == FastSearch.today,
                             ),
                             SelectablePillButton(
                               onTap: () =>
                                   onChangeFastSearch(context, FastSearch.week),
-                              text: AppLocalizations.current.week,
+                              text: context.appLocalizations.week,
                               isSelected:
                                   cubit.state.fastSearch == FastSearch.week,
                             ),
                             SelectablePillButton(
                               onTap: () => onChangeFastSearch(
                                   context, FastSearch.fortnight),
-                              text: AppLocalizations.current.fortnight,
+                              text: context.appLocalizations.fortnight,
                               isSelected: cubit.state.fastSearch ==
                                   FastSearch.fortnight,
                             ),
                             SelectablePillButton(
                               onTap: () =>
                                   onChangeFastSearch(context, FastSearch.month),
-                              text: AppLocalizations.current.month,
+                              text: context.appLocalizations.month,
                               isSelected:
                                   cubit.state.fastSearch == FastSearch.month,
                             ),
@@ -164,7 +162,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     AppSizeConstants.imenseVerticalSpacer,
                     PillButton(
                       onTap: () => onApplyFilters(context),
-                      child: Text(AppLocalizations.current.applyFilters),
+                      child: Text(context.appLocalizations.applyFilters),
                     ),
                   ],
                 ),

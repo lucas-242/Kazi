@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:my_services/app/shared/constants/global_keys.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 
 import '../custom_text_form_field/custom_text_form_field.dart';
 
 class CustomDateRangePicker extends StatelessWidget {
   final GlobalKey<FormFieldState> fieldKey;
-  final MaskedTextController controller;
+  final TextEditingController controller;
   final DateTime startDate;
   final DateTime endDate;
   final void Function(DateTimeRange) onChange;
@@ -30,7 +29,7 @@ class CustomDateRangePicker extends StatelessWidget {
     }
 
     return CustomTextFormField(
-      labelText: AppLocalizations.current.period,
+      labelText: context.appLocalizations.period,
       keyboardType: TextInputType.datetime,
       iconRight: Icons.calendar_today,
       controller: controller,

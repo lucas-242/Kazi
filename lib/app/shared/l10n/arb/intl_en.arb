@@ -45,7 +45,8 @@
   "newServiceType": "New Service Type",
   "newType": "New Type",
   "noResults": "No results",
-  "noServices": "If you have not yet registered any services, click on the button above to register a new one.",
+  "noServices": "It seems you don't have any service registered yet, click on the button above to register a new one.",
+  "noServiceTypes": "It seems you don't have any service type registered yet, click on the button above to register a new one.",
   "onboardingSubtitle" : "This smart tool is designed to help you better manage your services.",
   "onboardingTitle1" : "Calculate the\nearnings from ",
   "onboardingTitle2" : "your\nservices",
@@ -64,6 +65,7 @@
   "saveType": "Save Type",
   "saveService": "Save Service",
   "search": "Search",
+  "selectServiceType": "Select the service type",
   "service" : "Service",
   "serviceDetails" : "Service Details",
   "serviceValue" : "Service Value",
@@ -91,10 +93,6 @@
     }
   },
 
-  "noServicesInPeriod": "No services in the selected period.",
-  "noServicesOnDay": "No services on",
-  "noServiceTypes": "No services types registered",
-  "selectServiceType": "Select the service type",
 
   "alreadyExists": "{property} already exists",
   "@alreadyExists": {

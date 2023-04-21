@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
 class SocialLoginButton extends StatelessWidget {
@@ -23,7 +23,7 @@ class SocialLoginButton extends StatelessWidget {
             // const FaIcon(FontAwesomeIcons.google),
             const SizedBox(width: 12),
             Text(
-              AppLocalizations.current.googleSignIn,
+              context.appLocalizations.googleSignIn,
               style: context.bodyLarge,
             ),
           ],
