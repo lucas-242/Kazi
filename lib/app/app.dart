@@ -62,7 +62,7 @@ class _AppState extends State<App> {
         ),
       ],
       child: MaterialApp.router(
-        title: 'Korbi',
+        title: 'Kazi',
         debugShowCheckedModeBanner: false,
         theme: ThemeSettings.light(),
         darkTheme: ThemeSettings.dark(),

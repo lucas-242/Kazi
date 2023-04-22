@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/buttons/social_login_button/social_login_button_widget.dart';
+import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/injector_container.dart';
 
@@ -27,55 +28,57 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: context.width,
-        height: context.height,
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: context.height * 0.3),
-              child: Column(
+      backgroundColor: context.colorsScheme.primary,
+      body: Padding(
+        padding: const EdgeInsets.only(
+          top: 140,
+          bottom: 100,
+          left: AppSizeConstants.hugeSpace,
+          right: AppSizeConstants.hugeSpace,
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
                 children: [
-                  Center(
-                    child: Text(
-                      'My',
-                      style: context.headlineLarge!,
-                      textAlign: TextAlign.center,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AppAssets.logo),
+                      Text('Kazi', style: context.loginTitle)
+                    ],
                   ),
-                  Center(
-                    child: Text(
-                      'Services',
-                      style: context.headlineLarge,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(height: context.height * 0.07),
+                  AppSizeConstants.smallVerticalSpacer,
                   Text(
                     context.appLocalizations.appSubtitle,
                     textAlign: TextAlign.center,
-                    style: context.headlineSmall,
+                    style: context.headlineMedium,
                   ),
                 ],
               ),
-            ),
-            Positioned(
-              bottom: 50,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 40, right: 40, top: 40),
-                    child: SocialLoginButton(
-                      onTap: () => _login(),
+              AppSizeConstants.imenseVerticalSpacer,
+              AppSizeConstants.bigVerticalSpacer,
+              PillButton(
+                onTap: _login,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      AppAssets.google,
+                      height: 18,
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.white,
+                        BlendMode.srcIn,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                    AppSizeConstants.smallHorizontalSpacer,
+                    Text(context.appLocalizations.googleSignIn),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

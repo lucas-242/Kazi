@@ -48,10 +48,12 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: context.colorsScheme.primary,
       body: Center(
+        //TODO: Animate it - OnInit text show up from behind centered image. On dispose, text collapse to the image
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppAssets.logoName),
+            SvgPicture.asset(AppAssets.logo),
+            Text('Kazi', style: context.loginTitle)
           ],
         ),
       ),
