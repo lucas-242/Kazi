@@ -46,129 +46,129 @@ class ServiceDetailsPage extends StatelessWidget {
     }
 
     return CustomScaffold(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CircularButton(
-                    onTap: () => context.pop(),
-                    child: const Icon(Icons.chevron_left),
-                  ),
-                  AppSizeConstants.smallHorizontalSpacer,
-                  Text(
-                    context.appLocalizations.serviceDetails,
-                    style: context.titleMedium,
-                  ),
-                ],
-              ),
-              AppSizeConstants.smallHorizontalSpacer,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  PillButton(
-                    onTap: onTapUpdate,
-                    child: Text(context.appLocalizations.edit),
-                  ),
-                  AppSizeConstants.smallHorizontalSpacer,
-                  PillButton(
-                    backgroundColor: context.colorsScheme.error,
-                    onTap: onTapDelete,
-                    child: Text(context.appLocalizations.delete),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          AppSizeConstants.largeVerticalSpacer,
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${service.type?.name}',
-                    style: context.titleMedium,
-                  ),
-                  AppSizeConstants.smallVerticalSpacer,
-                  Text(
-                    DateFormat.yMd().format(service.date).normalizeDate(),
-                    style: context.labelMedium,
-                  ),
-                  AppSizeConstants.bigVerticalSpacer,
-                  RowText(
-                    leftText: context.appLocalizations.myBalance,
-                    rightText: NumberFormatHelper.formatCurrency(
-                      context,
-                      service.valueWithDiscount,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    CircularButton(
+                      onTap: () => context.pop(),
+                      child: const Icon(Icons.chevron_left),
                     ),
-                    rightTextStyle:
-                        context.titleSmall!.copyWith(color: AppColors.green),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSizeConstants.largeSpace,
+                    Text(
+                      context.appLocalizations.serviceDetails,
+                      style: context.titleMedium,
                     ),
-                    child: Divider(),
-                  ),
-                  RowText(
-                    leftText: context.appLocalizations.discount,
-                    rightText: NumberFormatHelper.formatCurrency(
-                      context,
-                      service.valueDiscounted,
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    PillButton(
+                      onTap: onTapUpdate,
+                      child: Text(context.appLocalizations.edit),
                     ),
-                    rightTextStyle:
-                        context.titleSmall!.copyWith(color: AppColors.orange),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSizeConstants.largeSpace,
+                    AppSizeConstants.tinyHorizontalSpacer,
+                    PillButton(
+                      backgroundColor: context.colorsScheme.error,
+                      onTap: onTapDelete,
+                      child: Text(context.appLocalizations.delete),
                     ),
-                    child: Divider(),
-                  ),
-                  RowText(
-                    leftText: context.appLocalizations.totalReceived,
-                    rightText: NumberFormatHelper.formatCurrency(
-                      context,
-                      service.value,
+                  ],
+                ),
+              ],
+            ),
+            AppSizeConstants.largeVerticalSpacer,
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${service.type?.name}',
+                      style: context.titleMedium,
                     ),
-                  ),
-                  service.description != null
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: AppSizeConstants.largeSpace,
-                              ),
-                              child: Divider(),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  context.appLocalizations.description,
-                                  style: context.titleSmall,
+                    AppSizeConstants.smallVerticalSpacer,
+                    Text(
+                      DateFormat.yMd().format(service.date).normalizeDate(),
+                      style: context.labelMedium,
+                    ),
+                    AppSizeConstants.bigVerticalSpacer,
+                    RowText(
+                      leftText: context.appLocalizations.myBalance,
+                      rightText: NumberFormatHelper.formatCurrency(
+                        context,
+                        service.valueWithDiscount,
+                      ),
+                      rightTextStyle:
+                          context.titleSmall!.copyWith(color: AppColors.green),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: AppSizeConstants.largeSpace,
+                      ),
+                      child: Divider(),
+                    ),
+                    RowText(
+                      leftText: context.appLocalizations.discount,
+                      rightText: NumberFormatHelper.formatCurrency(
+                        context,
+                        service.valueDiscounted,
+                      ),
+                      rightTextStyle:
+                          context.titleSmall!.copyWith(color: AppColors.orange),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: AppSizeConstants.largeSpace,
+                      ),
+                      child: Divider(),
+                    ),
+                    RowText(
+                      leftText: context.appLocalizations.totalReceived,
+                      rightText: NumberFormatHelper.formatCurrency(
+                        context,
+                        service.value,
+                      ),
+                    ),
+                    service.description != null
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: AppSizeConstants.largeSpace,
                                 ),
-                                AppSizeConstants.smallVerticalSpacer,
-                                Text(
-                                  service.description!,
-                                  style: context.bodySmall,
-                                )
-                              ],
-                            ),
-                            AppSizeConstants.smallVerticalSpacer,
-                          ],
-                        )
-                      : AppSizeConstants.smallVerticalSpacer,
-                ],
+                                child: Divider(),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    context.appLocalizations.description,
+                                    style: context.titleSmall,
+                                  ),
+                                  AppSizeConstants.smallVerticalSpacer,
+                                  Text(
+                                    service.description!,
+                                    style: context.bodySmall,
+                                  )
+                                ],
+                              ),
+                              AppSizeConstants.smallVerticalSpacer,
+                            ],
+                          )
+                        : AppSizeConstants.smallVerticalSpacer,
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

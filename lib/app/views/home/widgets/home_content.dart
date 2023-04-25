@@ -20,41 +20,47 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InfoCard(
-          title: NumberFormatHelper.formatCurrency(context, state.totalValue),
-          subtitle: context.appLocalizations.myBalance,
-          icon: AppAssets.services,
-          color: AppColors.green,
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: context.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InfoCard(
+              title:
+                  NumberFormatHelper.formatCurrency(context, state.totalValue),
+              subtitle: context.appLocalizations.myBalance,
+              icon: AppAssets.services,
+              color: AppColors.green,
+            ),
+            InfoCard(
+              title: NumberFormatHelper.formatCurrency(
+                  context, state.totalDiscounted),
+              subtitle: context.appLocalizations.discounts,
+              icon: AppAssets.fire,
+              color: AppColors.orange,
+            ),
+            InfoCard(
+              title: NumberFormatHelper.formatCurrency(
+                  context, state.totalWithDiscount),
+              subtitle: context.appLocalizations.totalReceived,
+              icon: AppAssets.rocket,
+              color: AppColors.blue,
+            ),
+            AppSizeConstants.smallVerticalSpacer,
+            TitleAndPill(
+              title: context.appLocalizations.lastServices,
+              pillText: context.appLocalizations.newService,
+              onTap: () {
+                context.read<AppCubit>().changeToAddServicePage();
+                context.go(AppRoutes.addServices);
+              },
+            ),
+            AppSizeConstants.largeVerticalSpacer,
+            Expanded(child: ServiceList(services: state.services)),
+          ],
         ),
-        InfoCard(
-          title:
-              NumberFormatHelper.formatCurrency(context, state.totalDiscounted),
-          subtitle: context.appLocalizations.discounts,
-          icon: AppAssets.fire,
-          color: AppColors.orange,
-        ),
-        InfoCard(
-          title: NumberFormatHelper.formatCurrency(
-              context, state.totalWithDiscount),
-          subtitle: context.appLocalizations.totalReceived,
-          icon: AppAssets.rocket,
-          color: AppColors.blue,
-        ),
-        AppSizeConstants.smallVerticalSpacer,
-        TitleAndPill(
-          title: context.appLocalizations.lastServices,
-          pillText: context.appLocalizations.newService,
-          onTap: () {
-            context.read<AppCubit>().changeToAddServicePage();
-            context.go(AppRoutes.addServices);
-          },
-        ),
-        AppSizeConstants.largeVerticalSpacer,
-        Expanded(child: ServiceList(services: state.services)),
-      ],
+      ),
     );
   }
 }

@@ -50,10 +50,18 @@ final _router = GoRouter(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
         GoRoute(
-          path: AppRoutes.home,
-          pageBuilder: (context, state) =>
-              _customTransition(state, const HomePage()),
-        ),
+            path: AppRoutes.home,
+            pageBuilder: (context, state) =>
+                _customTransition(state, const HomePage()),
+            routes: [
+              GoRoute(
+                path: ':serviceId',
+                pageBuilder: (context, state) => _customTransition(
+                  state,
+                  ServiceDetailsPage(service: state.extra as Service),
+                ),
+              ),
+            ]),
         GoRoute(
           path: AppRoutes.services,
           pageBuilder: (context, state) =>
@@ -86,7 +94,9 @@ final _router = GoRouter(
             GoRoute(
               path: ':serviceId',
               pageBuilder: (context, state) => _customTransition(
-                  state, ServiceDetailsPage(service: state.extra as Service)),
+                state,
+                ServiceDetailsPage(service: state.extra as Service),
+              ),
             ),
           ],
         ),
