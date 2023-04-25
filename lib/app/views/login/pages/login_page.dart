@@ -45,7 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(AppAssets.logo),
+                      SvgPicture.asset(
+                        AppAssets.logo,
+                        height: 45,
+                      ),
                       Text('Kazi', style: context.loginTitle)
                     ],
                   ),

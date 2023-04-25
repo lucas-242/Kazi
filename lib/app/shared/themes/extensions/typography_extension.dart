@@ -36,7 +36,7 @@ extension TypographyExtension on BuildContext {
         fontSize: 32,
       );
   TextStyle? get headlineMedium => GoogleFonts.outfit(
-        color: AppColors.white,
+        color: _colors.onSurface,
         fontWeight: FontWeight.w500,
         fontSize: 24,
       );
