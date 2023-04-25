@@ -34,6 +34,7 @@ dev_dependencies:
   fake_cloud_firestore: ^2.0.1
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
   mockito: ^5.3.2
 
@@ -42,6 +43,12 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
+
+flutter_launcher_icons:
+  android: true
+  min_sdk_android: 23
+  ios: true
+  image_path: "assets/images/icon.png"
 
 flutter_intl:
   enabled: true
