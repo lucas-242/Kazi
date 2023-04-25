@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/constants/global_keys.dart';
+import 'package:my_services/app/shared/constants/app_keys.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 
 import '../custom_text_form_field/custom_text_form_field.dart';
@@ -41,8 +41,8 @@ class CustomDateRangePicker extends StatelessWidget {
             start: startDate,
             end: endDate,
           ),
-          firstDate: GlobalKeys.formStartDate,
-          lastDate: GlobalKeys.formEndDate,
+          firstDate: AppKeys.formStartDate,
+          lastDate: AppKeys.formEndDate,
         ).then((value) => onChangeDatePicker(value));
       },
     );

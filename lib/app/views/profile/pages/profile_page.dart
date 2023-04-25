@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/app_user.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/shared/constants/global_keys.dart';
+import 'package:my_services/app/shared/constants/app_keys.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
       await serviceLocator.get<AuthService>().signOut();
       await serviceLocator
           .get<LocalStorage>()
-          .remove(GlobalKeys.showOnboardingStorage);
+          .remove(AppKeys.showOnboardingStorage);
     }
 
     return CustomScaffold(

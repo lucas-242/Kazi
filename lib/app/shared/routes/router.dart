@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_shell.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/constants/global_keys.dart';
+import 'package:my_services/app/shared/constants/app_keys.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/initial/intial.dart';
@@ -31,7 +31,7 @@ final _router = GoRouter(
       redirect: (context, state) {
         final showOnboarding = serviceLocator
                 .get<LocalStorage>()
-                .getBool(GlobalKeys.showOnboardingStorage) ??
+                .getBool(AppKeys.showOnboardingStorage) ??
             true;
 
         if (showOnboarding) return null;
