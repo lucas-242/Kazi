@@ -168,11 +168,9 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   ],
                 ),
               AppSizeConstants.largeVerticalSpacer,
-              //TODO: Fix layout glitch
               CustomTextFormField(
                 textFormKey: _descriptionKey,
                 labelText: context.appLocalizations.description,
-                maxLines: 3,
                 initialValue: cubit.state.service.description,
                 onChanged: (value) => cubit.onChangeServiceDescription(value),
               ),
@@ -181,6 +179,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 onTap: onConfirm,
                 child: Text(context.appLocalizations.saveService),
               ),
+              AppSizeConstants.bigVerticalSpacer,
             ],
           ),
         ),

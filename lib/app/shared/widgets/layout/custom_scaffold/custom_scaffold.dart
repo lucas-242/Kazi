@@ -14,17 +14,29 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: onRefresh != null ? onRefresh! : () => Future.value(),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: AppSizeConstants.largeSpace,
-            right: AppSizeConstants.largeSpace,
-            top: AppSizeConstants.largeSpace,
-          ),
-          child: child,
-        ),
+      child: onRefresh != null
+          ? RefreshIndicator(
+              onRefresh: onRefresh!,
+              child: DefaultPadding(child: child),
+            )
+          : DefaultPadding(child: child),
+    );
+  }
+}
+
+class DefaultPadding extends StatelessWidget {
+  const DefaultPadding({super.key, this.child});
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: AppSizeConstants.largeSpace,
+        right: AppSizeConstants.largeSpace,
+        top: AppSizeConstants.largeSpace,
       ),
+      child: child,
     );
   }
 }
