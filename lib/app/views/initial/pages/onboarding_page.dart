@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/shared/constants/global_keys.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
 import 'package:my_services/app/shared/themes/extensions/typography_extension.dart';
@@ -37,11 +37,11 @@ class OnboardingPage extends StatelessWidget {
               Center(child: Image.asset(AppAssets.onboarding)),
               RichText(
                 text: TextSpan(
-                  text: AppLocalizations.current.onboardingTitle1,
+                  text: context.appLocalizations.onboardingTitle1,
                   style: context.headlineLarge,
                   children: [
                     TextSpan(
-                      text: AppLocalizations.current.onboardingTitle2,
+                      text: context.appLocalizations.onboardingTitle2,
                       style: context.headlineLarge!
                           .copyWith(color: context.colorsScheme.primary),
                     ),
@@ -50,7 +50,7 @@ class OnboardingPage extends StatelessWidget {
               ),
               AppSizeConstants.smallVerticalSpacer,
               Text(
-                AppLocalizations.current.onboardingSubtitle,
+                context.appLocalizations.onboardingSubtitle,
                 style: context.headlineSmall,
               ),
               SizedBox(height: context.height * .17),

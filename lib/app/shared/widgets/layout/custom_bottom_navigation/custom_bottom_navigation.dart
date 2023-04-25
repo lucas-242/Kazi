@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/layout/custom_bottom_navigation/widgets/bottom_navigation_button.dart';
 
@@ -28,21 +27,21 @@ class CustomBottomNavigation extends StatelessWidget {
           BottomNavigationButton(
             onTap: () => onTap(1),
             icon: AppAssets.services,
-            label: AppLocalizations.current.services.capitalize(),
+            label: context.appLocalizations.services.capitalize(),
             isSelected: currentPage == 1,
             padding: const EdgeInsets.only(right: 32.0),
           ),
           BottomNavigationButton(
             onTap: () => onTap(2),
             icon: AppAssets.calculator,
-            label: AppLocalizations.current.calculator,
+            label: context.appLocalizations.calculator,
             isSelected: currentPage == 2,
             padding: const EdgeInsets.only(left: 32.0),
           ),
           BottomNavigationButton(
             onTap: () => onTap(3),
             icon: AppAssets.person,
-            label: AppLocalizations.current.profile,
+            label: context.appLocalizations.profile,
             isSelected: currentPage == 3,
           ),
         ],

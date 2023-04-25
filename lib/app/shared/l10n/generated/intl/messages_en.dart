@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(property) => "${property} is required";
 
+  static String m5(item) => "Would you like to delete ${item}?";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add": MessageLookupByLibrary.simpleMessage("Add"),
@@ -43,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
             "The service type can\'t be deleted because it is being used"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirmAction": MessageLookupByLibrary.simpleMessage("Confirm Action"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "credentialIsInvalid":
             MessageLookupByLibrary.simpleMessage("The credential is invalid"),
@@ -51,10 +55,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultValue": MessageLookupByLibrary.simpleMessage("Default Value"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "details": MessageLookupByLibrary.simpleMessage("Details"),
         "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Discount percentage"),
         "discounts": MessageLookupByLibrary.simpleMessage("Discounts"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "editService": MessageLookupByLibrary.simpleMessage("Edit Service"),
         "editServiceType":
             MessageLookupByLibrary.simpleMessage("Edit Service Type"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -110,13 +117,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "newType": MessageLookupByLibrary.simpleMessage("New Type"),
         "noResults": MessageLookupByLibrary.simpleMessage("No results"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
-            "No services types registered"),
+            "It seems you don\'t have any service type registered yet, click on the button above to register a new one."),
         "noServices": MessageLookupByLibrary.simpleMessage(
-            "If you have not yet registered any services, click on the button above to register a new one."),
-        "noServicesInPeriod": MessageLookupByLibrary.simpleMessage(
-            "No services in the selected period."),
-        "noServicesOnDay":
-            MessageLookupByLibrary.simpleMessage("No services on"),
+            "It seems you don\'t have any service registered yet, click on the button above to register a new one."),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
             "This smart tool is designed to help you better manage your services."),
         "onboardingTitle1": MessageLookupByLibrary.simpleMessage(
@@ -149,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Select the service type"),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
+        "serviceDetails":
+            MessageLookupByLibrary.simpleMessage("Service Details"),
         "serviceType": MessageLookupByLibrary.simpleMessage("Service Type"),
         "serviceTypes": MessageLookupByLibrary.simpleMessage("Service Types"),
         "serviceValue": MessageLookupByLibrary.simpleMessage("Service Value"),
@@ -163,12 +168,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Action done successfully"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
             "There is already an account with this credential"),
+        "thisService": MessageLookupByLibrary.simpleMessage("this service"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "total": MessageLookupByLibrary.simpleMessage("Total value"),
         "totalReceived": MessageLookupByLibrary.simpleMessage("Total received"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "An unknown exception occurred"),
-        "update": MessageLookupByLibrary.simpleMessage("Update"),
         "userHasBeenDisabled": MessageLookupByLibrary.simpleMessage(
             "This user has been disabled. Please contact support for help"),
         "verificationCodeIsInvalid": MessageLookupByLibrary.simpleMessage(
@@ -176,8 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
             "The verification ID entered is invalid"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
-        "wouldYouLikeDelete":
-            MessageLookupByLibrary.simpleMessage("Would you like to delete"),
+        "wouldYouLikeDelete": m5,
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")
       };
 }

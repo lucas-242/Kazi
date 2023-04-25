@@ -1,7 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:my_services/app/models/dropdown_item.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
 class CustomDropdown extends StatelessWidget {
@@ -130,7 +130,7 @@ class DropdownEmpty extends StatelessWidget {
         horizontal: AppSizeConstants.mediumSpace,
       ),
       child: Text(
-        AppLocalizations.current.noResults,
+        context.appLocalizations.noResults,
         style: context.titleSmall,
       ),
     );
@@ -147,7 +147,7 @@ class SearchFieldProps extends TextFieldProps {
       style: context.bodyMedium,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelText: AppLocalizations.current.search,
+        labelText: context.appLocalizations.search,
         hintText: searchHint,
         hintStyle: context.bodyMedium,
         contentPadding: EdgeInsets.zero,

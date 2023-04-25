@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_services/app/shared/routes/router.dart';
+import 'package:my_services/app/views/service_types/service_types.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 import '/injector_container.dart';
@@ -23,8 +24,6 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
-
-  //TODO: Check if blocs need to be here globally
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -52,6 +51,13 @@ class _AppState extends State<App> {
             serviceLocator.get<ServiceTypeRepository>(),
             serviceLocator.get<AuthService>(),
             serviceLocator.get<TimeService>(),
+          ),
+        ),
+        BlocProvider<ServiceTypesCubit>(
+          create: (context) => ServiceTypesCubit(
+            serviceLocator.get<ServiceTypeRepository>(),
+            serviceLocator.get<ServicesRepository>(),
+            serviceLocator.get<AuthService>(),
           ),
         ),
       ],

@@ -1,17 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/utils/base_cubit.dart';
-import 'package:my_services/app/shared/utils/form_validator.dart';
-
-import 'package:my_services/app/shared/errors/errors.dart';
+import 'package:my_services/app/models/dropdown_item.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
+import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/models/dropdown_item.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/utils/base_cubit.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/utils/form_validator.dart';
 
 part 'service_form_state.dart';
 
@@ -28,15 +27,21 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
   ) : super(ServiceFormState(
             status: BaseStateStatus.loading, userId: _authService.user!.uid));
 
-  Future<void> onInit() async {
+  Future<void> onInit([Service? service]) async {
     try {
+      emit(state.copyWith(status: BaseStateStatus.loading, service: service));
       final types = await _getServiceTypes();
 
       final status = types.isEmpty
           ? BaseStateStatus.noData
           : BaseStateStatus.readyToUserInput;
 
-      emit(state.copyWith(status: status, serviceTypes: types));
+      emit(ServiceFormState(
+        status: status,
+        userId: _authService.user!.uid,
+        serviceTypes: types,
+        service: service,
+      ));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -125,9 +130,8 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
     return serviceType.discountPercent;
   }
 
-  void onChangeServiceValue(String value) {
-    final finalValue = double.tryParse(value);
-    emit(state.copyWith(service: state.service.copyWith(value: finalValue)));
+  void onChangeServiceValue(double value) {
+    emit(state.copyWith(service: state.service.copyWith(value: value)));
   }
 
   void onChangeServicesQuantity(String value) {
@@ -135,10 +139,9 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
     emit(state.copyWith(quantity: finalValue));
   }
 
-  void onChangeServiceDiscount(String value) {
-    final finalValue = double.tryParse(value);
+  void onChangeServiceDiscount(double value) {
     emit(state.copyWith(
-        service: state.service.copyWith(discountPercent: finalValue)));
+        service: state.service.copyWith(discountPercent: value)));
   }
 
   void onChangeServiceDate(DateTime? value) {

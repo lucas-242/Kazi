@@ -78,8 +78,10 @@ final _router = GoRouter(
             ),
             GoRoute(
               path: AppRoutes.add,
-              pageBuilder: (context, state) =>
-                  _customTransition(state, const AddServicesPage()),
+              pageBuilder: (context, state) => _customTransition(
+                state,
+                ServiceFormPage(service: state.extra as Service?),
+              ),
             ),
             GoRoute(
               path: ':serviceId',

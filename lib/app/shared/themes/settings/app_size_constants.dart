@@ -11,6 +11,7 @@ abstract class AppSizeConstants {
   static const imenseSpace = 50.0;
 
   // Vertical space
+  static const tinyVerticalSpacer = SizedBox(height: tinySpace);
   static const smallVerticalSpacer = SizedBox(height: smallSpace);
   static const mediumVerticalSpacer = SizedBox(height: mediumSpace);
   static const largeVerticalSpacer = SizedBox(height: largeSpace);
@@ -19,6 +20,7 @@ abstract class AppSizeConstants {
   static const imenseVerticalSpacer = SizedBox(height: imenseSpace);
 
   // Horizontal space
+  static const tinyHorizontalSpacer = SizedBox(width: tinySpace);
   static const smallHorizontalSpacer = SizedBox(width: smallSpace);
   static const mediumHorizontalSpacer = SizedBox(width: mediumSpace);
   static const largeHorizontalSpacer = SizedBox(width: largeSpace);

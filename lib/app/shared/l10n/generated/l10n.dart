@@ -130,6 +130,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Action`
+  String get confirmAction {
+    return Intl.message(
+      'Confirm Action',
+      name: 'confirmAction',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Date`
   String get date {
     return Intl.message(
@@ -180,6 +200,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Discount percentage`
   String get discountPercentage {
     return Intl.message(
@@ -205,6 +235,26 @@ class AppLocalizations {
     return Intl.message(
       'Discounts',
       name: 'discounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Service`
+  String get editService {
+    return Intl.message(
+      'Edit Service',
+      name: 'editService',
       desc: '',
       args: [],
     );
@@ -390,11 +440,21 @@ class AppLocalizations {
     );
   }
 
-  /// `If you have not yet registered any services, click on the button above to register a new one.`
+  /// `It seems you don't have any service registered yet, click on the button above to register a new one.`
   String get noServices {
     return Intl.message(
-      'If you have not yet registered any services, click on the button above to register a new one.',
+      'It seems you don\'t have any service registered yet, click on the button above to register a new one.',
       name: 'noServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It seems you don't have any service type registered yet, click on the button above to register a new one.`
+  String get noServiceTypes {
+    return Intl.message(
+      'It seems you don\'t have any service type registered yet, click on the button above to register a new one.',
+      name: 'noServiceTypes',
       desc: '',
       args: [],
     );
@@ -580,11 +640,31 @@ class AppLocalizations {
     );
   }
 
+  /// `Select the service type`
+  String get selectServiceType {
+    return Intl.message(
+      'Select the service type',
+      name: 'selectServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Service`
   String get service {
     return Intl.message(
       'Service',
       name: 'service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Details`
+  String get serviceDetails {
+    return Intl.message(
+      'Service Details',
+      name: 'serviceDetails',
       desc: '',
       args: [],
     );
@@ -690,6 +770,16 @@ class AppLocalizations {
     );
   }
 
+  /// `this service`
+  String get thisService {
+    return Intl.message(
+      'this service',
+      name: 'thisService',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Today`
   String get today {
     return Intl.message(
@@ -720,16 +810,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Update`
-  String get update {
-    return Intl.message(
-      'Update',
-      name: 'update',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Yesterday`
   String get yesterday {
     return Intl.message(
@@ -750,53 +830,13 @@ class AppLocalizations {
     );
   }
 
-  /// `Would you like to delete`
-  String get wouldYouLikeDelete {
+  /// `Would you like to delete {item}?`
+  String wouldYouLikeDelete(String item) {
     return Intl.message(
-      'Would you like to delete',
+      'Would you like to delete $item?',
       name: 'wouldYouLikeDelete',
       desc: '',
-      args: [],
-    );
-  }
-
-  /// `No services in the selected period.`
-  String get noServicesInPeriod {
-    return Intl.message(
-      'No services in the selected period.',
-      name: 'noServicesInPeriod',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No services on`
-  String get noServicesOnDay {
-    return Intl.message(
-      'No services on',
-      name: 'noServicesOnDay',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No services types registered`
-  String get noServiceTypes {
-    return Intl.message(
-      'No services types registered',
-      name: 'noServiceTypes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select the service type`
-  String get selectServiceType {
-    return Intl.message(
-      'Select the service type',
-      name: 'selectServiceType',
-      desc: '',
-      args: [],
+      args: [item],
     );
   }
 

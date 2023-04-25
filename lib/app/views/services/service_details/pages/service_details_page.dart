@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
-import 'package:my_services/app/shared/widgets/buttons/pills/back_and_pill.dart';
+import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/shared/widgets/texts/row_text/row_text.dart';
+import 'package:my_services/app/views/services/services.dart';
 
 class ServiceDetailsPage extends StatelessWidget {
   final Service service;
@@ -15,14 +19,69 @@ class ServiceDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> onDelete(Service service) async {
+      context.pop();
+      final cubit = context.read<ServiceLandingCubit>();
+      await cubit
+          .deleteService(service)
+          .then((value) => context.go(AppRoutes.services));
+    }
+
+    void onTapDelete() {
+      showDialog(
+        context: context,
+        builder: (context) => ConfirmationDialog(
+          message: context.appLocalizations
+              .wouldYouLikeDelete(context.appLocalizations.thisService),
+          confirmText: context.appLocalizations.delete,
+          onCancel: () => context.pop(),
+          onConfirm: () => onDelete(service),
+        ),
+      );
+    }
+
+    void onTapUpdate() {
+      context.read<AppCubit>().changeToAddServicePage();
+      context.go(AppRoutes.addServices, extra: service);
+    }
+
     return CustomScaffold(
       child: Column(
         children: [
-          const BackAndPill(),
-          // BackAndPill(
-          //   pillText: AppLocalizations.current.share,
-          //   onTapPill: () => null,
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  CircularButton(
+                    onTap: () => context.pop(),
+                    child: const Icon(Icons.chevron_left),
+                  ),
+                  AppSizeConstants.smallHorizontalSpacer,
+                  Text(
+                    context.appLocalizations.serviceDetails,
+                    style: context.titleMedium,
+                  ),
+                ],
+              ),
+              AppSizeConstants.smallHorizontalSpacer,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  PillButton(
+                    onTap: onTapUpdate,
+                    child: Text(context.appLocalizations.edit),
+                  ),
+                  AppSizeConstants.smallHorizontalSpacer,
+                  PillButton(
+                    backgroundColor: context.colorsScheme.error,
+                    onTap: onTapDelete,
+                    child: Text(context.appLocalizations.delete),
+                  ),
+                ],
+              ),
+            ],
+          ),
           AppSizeConstants.largeVerticalSpacer,
           Card(
             child: Padding(
@@ -41,7 +100,7 @@ class ServiceDetailsPage extends StatelessWidget {
                   ),
                   AppSizeConstants.bigVerticalSpacer,
                   RowText(
-                    leftText: AppLocalizations.current.myBalance,
+                    leftText: context.appLocalizations.myBalance,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
                       service.valueWithDiscount,
@@ -56,7 +115,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     child: Divider(),
                   ),
                   RowText(
-                    leftText: AppLocalizations.current.discount,
+                    leftText: context.appLocalizations.discount,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
                       service.valueDiscounted,
@@ -71,7 +130,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     child: Divider(),
                   ),
                   RowText(
-                    leftText: AppLocalizations.current.totalReceived,
+                    leftText: context.appLocalizations.totalReceived,
                     rightText: NumberFormatHelper.formatCurrency(
                       context,
                       service.value,
@@ -91,7 +150,7 @@ class ServiceDetailsPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  AppLocalizations.current.description,
+                                  context.appLocalizations.description,
                                   style: context.titleSmall,
                                 ),
                                 AppSizeConstants.smallVerticalSpacer,

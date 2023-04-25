@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/social_login_button/social_login_button_widget.dart';
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: context.height * 0.07),
                   Text(
-                    AppLocalizations.current.appSubtitle,
+                    context.appLocalizations.appSubtitle,
                     textAlign: TextAlign.center,
                     style: context.headlineSmall,
                   ),
