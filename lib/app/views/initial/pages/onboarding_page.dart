@@ -26,42 +26,43 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.colorsScheme.surface,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSizeConstants.hugeSpace,
-            vertical: AppSizeConstants.imenseSpace,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(child: Image.asset(AppAssets.onboarding)),
-              RichText(
-                text: TextSpan(
-                  text: context.appLocalizations.onboardingTitle1,
-                  style: context.headlineLarge,
-                  children: [
-                    TextSpan(
-                      text: context.appLocalizations.onboardingTitle2,
-                      style: context.headlineLarge!
-                          .copyWith(color: context.colorsScheme.primary),
-                    ),
-                  ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizeConstants.hugeSpace),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Image.asset(AppAssets.onboarding),
                 ),
-              ),
-              AppSizeConstants.smallVerticalSpacer,
-              Text(
-                context.appLocalizations.onboardingSubtitle,
-                style: context.headlineSmall,
-              ),
-              SizedBox(height: context.height * .17),
-              Center(
-                child: CircularButton(
-                  iconSize: 54,
-                  onTap: onTap,
-                  child: const Icon(Icons.chevron_right),
+                RichText(
+                  text: TextSpan(
+                    text: context.appLocalizations.onboardingTitle1,
+                    style: context.headlineLarge,
+                    children: [
+                      TextSpan(
+                        text: context.appLocalizations.onboardingTitle2,
+                        style: context.headlineLarge!
+                            .copyWith(color: context.colorsScheme.primary),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
+                AppSizeConstants.smallVerticalSpacer,
+                Text(
+                  context.appLocalizations.onboardingSubtitle,
+                  style: context.headlineSmall,
+                ),
+                AppSizeConstants.hugeVerticalSpacer,
+                Center(
+                  child: CircularButton(
+                    iconSize: 54,
+                    onTap: onTap,
+                    child: const Icon(Icons.chevron_right),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

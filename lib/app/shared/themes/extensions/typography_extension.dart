@@ -24,11 +24,21 @@ extension TypographyExtension on BuildContext {
         fontWeight: FontWeight.w400,
         fontSize: 18,
       );
+  TextStyle? get loginTitle => GoogleFonts.outfit(
+        color: _colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 36,
+      );
 
   TextStyle? get headlineLarge => GoogleFonts.outfit(
         color: _colors.onSurface,
         fontWeight: FontWeight.w500,
         fontSize: 32,
+      );
+  TextStyle? get headlineMedium => GoogleFonts.outfit(
+        color: _colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 24,
       );
   TextStyle? get headlineSmall => GoogleFonts.outfit(
         color: AppColors.grey,

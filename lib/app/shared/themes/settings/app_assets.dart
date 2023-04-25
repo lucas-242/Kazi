@@ -1,6 +1,7 @@
 abstract class AppAssets {
   static const String calculator = 'assets/svgs/calculator.svg';
   static const String fire = 'assets/svgs/fire.svg';
+  static const String google = 'assets/svgs/google.svg';
   static const String home = 'assets/svgs/home.svg';
   static const String logo = 'assets/svgs/logo.svg';
   static const String logoName = 'assets/svgs/logo_name.svg';
