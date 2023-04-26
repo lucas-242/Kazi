@@ -97,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Senha ou email incorretos"),
         "invalidProperty": m3,
+        "lastMonth": MessageLookupByLibrary.simpleMessage("Mês Passado"),
         "lastServices":
             MessageLookupByLibrary.simpleMessage("Últimos serviços"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Modo claro"),
