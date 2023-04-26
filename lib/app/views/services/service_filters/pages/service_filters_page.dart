@@ -124,38 +124,41 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     BlocBuilder<ServiceFiltersCubit, ServiceFiltersState>(
                       builder: (context, state) {
                         final cubit = context.read<ServiceFiltersCubit>();
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SelectablePillButton(
-                              onTap: () =>
-                                  onChangeFastSearch(context, FastSearch.today),
-                              text: context.appLocalizations.today,
-                              isSelected:
-                                  cubit.state.fastSearch == FastSearch.today,
-                            ),
-                            SelectablePillButton(
-                              onTap: () =>
-                                  onChangeFastSearch(context, FastSearch.week),
-                              text: context.appLocalizations.week,
-                              isSelected:
-                                  cubit.state.fastSearch == FastSearch.week,
-                            ),
-                            SelectablePillButton(
-                              onTap: () => onChangeFastSearch(
-                                  context, FastSearch.fortnight),
-                              text: context.appLocalizations.fortnight,
-                              isSelected: cubit.state.fastSearch ==
-                                  FastSearch.fortnight,
-                            ),
-                            SelectablePillButton(
-                              onTap: () =>
-                                  onChangeFastSearch(context, FastSearch.month),
-                              text: context.appLocalizations.month,
-                              isSelected:
-                                  cubit.state.fastSearch == FastSearch.month,
-                            ),
-                          ],
+                        return SizedBox(
+                          width: double.infinity,
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceBetween,
+                            children: [
+                              SelectablePillButton(
+                                onTap: () => onChangeFastSearch(
+                                    context, FastSearch.today),
+                                text: context.appLocalizations.today,
+                                isSelected:
+                                    cubit.state.fastSearch == FastSearch.today,
+                              ),
+                              SelectablePillButton(
+                                onTap: () => onChangeFastSearch(
+                                    context, FastSearch.week),
+                                text: context.appLocalizations.week,
+                                isSelected:
+                                    cubit.state.fastSearch == FastSearch.week,
+                              ),
+                              SelectablePillButton(
+                                onTap: () => onChangeFastSearch(
+                                    context, FastSearch.fortnight),
+                                text: context.appLocalizations.fortnight,
+                                isSelected: cubit.state.fastSearch ==
+                                    FastSearch.fortnight,
+                              ),
+                              SelectablePillButton(
+                                onTap: () => onChangeFastSearch(
+                                    context, FastSearch.month),
+                                text: context.appLocalizations.month,
+                                isSelected:
+                                    cubit.state.fastSearch == FastSearch.month,
+                              ),
+                            ],
+                          ),
                         );
                       },
                     ),

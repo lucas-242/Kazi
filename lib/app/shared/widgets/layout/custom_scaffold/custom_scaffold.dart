@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/widgets/layout/custom_scroll_behavior/custom_scroll_behavior.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold({
@@ -14,12 +15,15 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: onRefresh != null
-          ? RefreshIndicator(
-              onRefresh: onRefresh!,
-              child: DefaultPadding(child: child),
-            )
-          : DefaultPadding(child: child),
+      child: ScrollConfiguration(
+        behavior: CustomScrollBehavior(),
+        child: onRefresh != null
+            ? RefreshIndicator(
+                onRefresh: onRefresh!,
+                child: DefaultPadding(child: child),
+              )
+            : DefaultPadding(child: child),
+      ),
     );
   }
 }
