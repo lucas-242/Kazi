@@ -77,7 +77,8 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
             controller: _discountController,
             labelText: context.appLocalizations.discountPercentage,
             keyboardType: TextInputType.number,
-            onChanged: (value) => cubit.changeServiceTypeDiscountPercent(value),
+            onChanged: (value) => cubit.changeServiceTypeDiscountPercent(
+                _discountController.numberValue),
             validator: (value) => cubit.validateNumberField(
               _discountController.numberValue.toString(),
               context.appLocalizations.discountPercentage,
@@ -89,7 +90,8 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
             labelText: context.appLocalizations.serviceValue,
             controller: _serviceValueController,
             keyboardType: TextInputType.number,
-            onChanged: (value) => cubit.changeServiceTypeDefaultValue(value),
+            onChanged: (value) => cubit.changeServiceTypeDefaultValue(
+                _serviceValueController.numberValue),
             validator: (value) => cubit.validateNumberField(
               _serviceValueController.numberValue.toString(),
               context.appLocalizations.serviceValue,

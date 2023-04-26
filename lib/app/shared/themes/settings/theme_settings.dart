@@ -203,6 +203,10 @@ abstract class ThemeSettings {
         borderRadius: borderRadius,
         borderSide: BorderSide(color: colors.onSurface),
       ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(6.0)),
+        borderSide: BorderSide(color: colors.onSurface),
+      ),
       errorBorder: OutlineInputBorder(
         borderRadius: borderRadius,
         borderSide: BorderSide(color: colors.onSurface),

@@ -1,15 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
+import 'package:my_services/app/repositories/services_repository/services_repository.dart';
+import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_cubit.dart';
-import 'package:my_services/app/shared/utils/form_validator.dart';
-
-import 'package:my_services/app/shared/errors/errors.dart';
-import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/repositories/services_repository/services_repository.dart';
-import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
-import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:my_services/app/shared/utils/form_validator.dart';
 
 part 'service_types_state.dart';
 
@@ -84,7 +83,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
 
   Future<void> updateServiceType() async {
     try {
-      _checkServiceValidity();
+      _checkServiceValidity(state.serviceType.id);
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _serviceTypeRepository.update(state.serviceType);
       final newList = await _fetchServiceTypes();
@@ -131,19 +130,13 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
     emit(state.copyWith(serviceType: state.serviceType.copyWith(name: value)));
   }
 
-  void changeServiceTypeDefaultValue(String value) {
-    final finalValue = double.tryParse(value);
-    emit(state.copyWith(
-        serviceType: state.serviceType.copyWith(defaultValue: finalValue)));
-  }
+  void changeServiceTypeDefaultValue(double value) => emit(state.copyWith(
+      serviceType: state.serviceType.copyWith(defaultValue: value)));
 
-  void changeServiceTypeDiscountPercent(String value) {
-    final finalValue = double.tryParse(value);
-    emit(state.copyWith(
-        serviceType: state.serviceType.copyWith(discountPercent: finalValue)));
-  }
+  void changeServiceTypeDiscountPercent(double value) => emit(state.copyWith(
+      serviceType: state.serviceType.copyWith(discountPercent: value)));
 
-  void _checkServiceValidity() {
+  void _checkServiceValidity([String? idToExclude]) {
     if (state.serviceType.name.isEmpty) {
       throw ClientError(
           AppLocalizations.current
@@ -151,6 +144,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
           trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
     }
     if (state.serviceTypes
+        .where((type) => type.id != idToExclude)
         .map((e) => e.name)
         .contains(state.serviceType.name)) {
       throw ClientError(
