@@ -1,12 +1,13 @@
-import 'package:my_services/app/shared/constants/ad_keys.dart';
 import 'dart:io';
 
 import 'package:my_services/app/models/enums.dart';
-import '../constants/global_keys.dart';
+import 'package:my_services/app/shared/constants/ad_keys.dart';
+
+import '../constants/app_keys.dart';
 
 abstract class Environment {
-  static EnvironmentValue get environmentValue => EnvironmentValue.fromString(
-      String.fromEnvironment(GlobalKeys.environmentKey,
+  static EnvironmentValue get environmentValue =>
+      EnvironmentValue.fromString(String.fromEnvironment(AppKeys.environmentKey,
           defaultValue: EnvironmentValue.dev.value))!;
 
   static Environment get instance => environmentValue == EnvironmentValue.dev

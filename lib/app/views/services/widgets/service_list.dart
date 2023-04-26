@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
@@ -17,6 +18,14 @@ class ServiceList extends StatelessWidget {
     required this.services,
     this.canScroll = true,
   });
+
+  void _onTap(BuildContext context, Service service) {
+    var currentRoute = AppRoutes.services;
+    if (context.read<AppCubit>().state == 0) {
+      currentRoute = AppRoutes.home;
+    }
+    context.go('$currentRoute/${service.id}', extra: service);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +48,13 @@ class ServiceList extends StatelessWidget {
               return AdBlock(
                 child: ServiceCard(
                   service: services[index],
-                  onTap: () => context.go(
-                    '${AppRoutes.services}/${services[index].id}',
-                    extra: services[index],
-                  ),
+                  onTap: () => _onTap(context, services[index]),
                 ),
               );
             }
             return ServiceCard(
               service: services[index],
-              onTap: () => context.go(
-                '${AppRoutes.services}/${services[index].id}',
-                extra: services[index],
-              ),
+              onTap: () => _onTap(context, services[index]),
             );
           },
           separatorBuilder: (context, index) => const Divider(),

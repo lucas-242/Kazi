@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_shell.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/constants/global_keys.dart';
+import 'package:my_services/app/shared/constants/app_keys.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/initial/intial.dart';
@@ -31,7 +31,7 @@ final _router = GoRouter(
       redirect: (context, state) {
         final showOnboarding = serviceLocator
                 .get<LocalStorage>()
-                .getBool(GlobalKeys.showOnboardingStorage) ??
+                .getBool(AppKeys.showOnboardingStorage) ??
             true;
 
         if (showOnboarding) return null;
@@ -50,10 +50,18 @@ final _router = GoRouter(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
         GoRoute(
-          path: AppRoutes.home,
-          pageBuilder: (context, state) =>
-              _customTransition(state, const HomePage()),
-        ),
+            path: AppRoutes.home,
+            pageBuilder: (context, state) =>
+                _customTransition(state, const HomePage()),
+            routes: [
+              GoRoute(
+                path: ':serviceId',
+                pageBuilder: (context, state) => _customTransition(
+                  state,
+                  ServiceDetailsPage(service: state.extra as Service),
+                ),
+              ),
+            ]),
         GoRoute(
           path: AppRoutes.services,
           pageBuilder: (context, state) =>
@@ -86,7 +94,9 @@ final _router = GoRouter(
             GoRoute(
               path: ':serviceId',
               pageBuilder: (context, state) => _customTransition(
-                  state, ServiceDetailsPage(service: state.extra as Service)),
+                state,
+                ServiceDetailsPage(service: state.extra as Service),
+              ),
             ),
           ],
         ),

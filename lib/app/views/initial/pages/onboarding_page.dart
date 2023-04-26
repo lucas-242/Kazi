@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
-import 'package:my_services/app/shared/constants/global_keys.dart';
+import 'package:my_services/app/shared/constants/app_keys.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
@@ -19,7 +19,7 @@ class OnboardingPage extends StatelessWidget {
     void onTap() {
       serviceLocator
           .get<LocalStorage>()
-          .setBool(GlobalKeys.showOnboardingStorage, false);
+          .setBool(AppKeys.showOnboardingStorage, false);
       context.go(AppRoutes.home);
     }
 

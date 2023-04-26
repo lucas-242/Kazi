@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:my_services/app/models/service_type.dart';
@@ -273,8 +273,7 @@ void main() {
         serviceType: serviceTypeMock,
         status: BaseStateStatus.noData,
       ),
-      act: (cubit) =>
-          [cubit.changeServiceTypeDefaultValue(newDefaultValue.toString())],
+      act: (cubit) => [cubit.changeServiceTypeDefaultValue(newDefaultValue)],
       expect: () => [
         ServiceTypesState(
           userId: authService.user!.uid,
@@ -292,9 +291,8 @@ void main() {
         serviceType: serviceTypeMock,
         status: BaseStateStatus.noData,
       ),
-      act: (cubit) => [
-        cubit.changeServiceTypeDiscountPercent(newDiscountPercent.toString())
-      ],
+      act: (cubit) =>
+          [cubit.changeServiceTypeDiscountPercent(newDiscountPercent)],
       expect: () => [
         ServiceTypesState(
           userId: authService.user!.uid,

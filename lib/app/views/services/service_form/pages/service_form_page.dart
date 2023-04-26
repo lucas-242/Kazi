@@ -43,7 +43,6 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
             if (state.status == BaseStateStatus.success) {
-              //TODO: Remove onChangeServices
               context.read<ServiceLandingCubit>().onChangeServices();
               context.pop();
             } else if (state.status == BaseStateStatus.error) {

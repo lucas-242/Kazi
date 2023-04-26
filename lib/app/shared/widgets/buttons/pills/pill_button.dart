@@ -24,6 +24,7 @@ class PillButton extends StatelessWidget {
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         )),
+        minimumSize: MaterialStateProperty.all<Size>(const Size(5, 35)),
         backgroundColor: MaterialStateProperty.all<Color>(
           backgroundColor != null
               ? backgroundColor!

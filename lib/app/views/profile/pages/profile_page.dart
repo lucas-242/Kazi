@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/app_user.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/shared/constants/global_keys.dart';
+import 'package:my_services/app/shared/constants/app_keys.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
@@ -23,79 +23,82 @@ class ProfilePage extends StatelessWidget {
       await serviceLocator.get<AuthService>().signOut();
       await serviceLocator
           .get<LocalStorage>()
-          .remove(GlobalKeys.showOnboardingStorage);
+          .remove(AppKeys.showOnboardingStorage);
     }
 
     return CustomScaffold(
-      child: Column(
-        children: [
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(
-                AppSizeConstants.largeSpace,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 120.0,
-                    height: 120.0,
-                    child: CircleAvatar(
-                      backgroundImage: user.photoUrl != null
-                          ? NetworkImage(user.photoUrl!)
-                          : null,
-                      backgroundColor: AppColors.white,
-                      child: user.photoUrl == null
-                          ? Text(
-                              '🦆',
-                              style: context.cardTitle!.copyWith(fontSize: 80),
-                            )
-                          : null,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(
+                  AppSizeConstants.largeSpace,
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 120.0,
+                      height: 120.0,
+                      child: CircleAvatar(
+                        backgroundImage: user.photoUrl != null
+                            ? NetworkImage(user.photoUrl!)
+                            : null,
+                        backgroundColor: AppColors.white,
+                        child: user.photoUrl == null
+                            ? Text(
+                                '🦆',
+                                style:
+                                    context.cardTitle!.copyWith(fontSize: 80),
+                              )
+                            : null,
+                      ),
                     ),
-                  ),
-                  AppSizeConstants.largeVerticalSpacer,
-                  Text(user.name, style: context.titleMedium),
-                  AppSizeConstants.bigVerticalSpacer,
-                  user.phoneNumber != null && user.phoneNumber!.isNotEmpty
-                      ? Column(
-                          children: [
-                            RowText(
-                              leftText: context.appLocalizations.phone,
-                              rightText: user.phoneNumber!,
-                              rightTextStyle: context.titleSmall!
-                                  .copyWith(fontWeight: FontWeight.w400),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: AppSizeConstants.largeSpace,
+                    AppSizeConstants.largeVerticalSpacer,
+                    Text(user.name, style: context.titleMedium),
+                    AppSizeConstants.bigVerticalSpacer,
+                    user.phoneNumber != null && user.phoneNumber!.isNotEmpty
+                        ? Column(
+                            children: [
+                              RowText(
+                                leftText: context.appLocalizations.phone,
+                                rightText: user.phoneNumber!,
+                                rightTextStyle: context.titleSmall!
+                                    .copyWith(fontWeight: FontWeight.w400),
                               ),
-                              child: Divider(),
-                            ),
-                          ],
-                        )
-                      : AppSizeConstants.emptyWidget,
-                  RowText(
-                    leftText: context.appLocalizations.email,
-                    rightText: user.email,
-                    rightTextStyle: context.bodyMedium,
-                  ),
-                  AppSizeConstants.largeVerticalSpacer,
-                  const Divider(),
-                  OptionButton(
-                    onTap: () => context.go(AppRoutes.servicesType),
-                    text: context.appLocalizations.serviceTypes,
-                  ),
-                  const Divider(),
-                  OptionButton(
-                    onTap: onSignOut,
-                    text: context.appLocalizations.logout,
-                    textStyle:
-                        context.titleSmall!.copyWith(color: AppColors.red),
-                  ),
-                ],
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: AppSizeConstants.largeSpace,
+                                ),
+                                child: Divider(),
+                              ),
+                            ],
+                          )
+                        : AppSizeConstants.emptyWidget,
+                    RowText(
+                      leftText: context.appLocalizations.email,
+                      rightText: user.email,
+                      rightTextStyle: context.bodyMedium,
+                    ),
+                    AppSizeConstants.largeVerticalSpacer,
+                    const Divider(),
+                    OptionButton(
+                      onTap: () => context.go(AppRoutes.servicesType),
+                      text: context.appLocalizations.serviceTypes,
+                    ),
+                    const Divider(),
+                    OptionButton(
+                      onTap: onSignOut,
+                      text: context.appLocalizations.logout,
+                      textStyle:
+                          context.titleSmall!.copyWith(color: AppColors.red),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
