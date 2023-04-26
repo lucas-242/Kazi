@@ -1,5 +1,5 @@
 /// Represents the search possibilities for the Services lists
-enum FastSearch { today, week, fortnight, month, custom }
+enum FastSearch { today, week, fortnight, month, lastMonth, custom }
 
 /// Represents the possibilities that the ordering of the Services lists can follow
 enum OrderBy { alphabetical, valueAsc, valueDesc, dateAsc, dateDesc }

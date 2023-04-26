@@ -182,6 +182,10 @@ abstract class ServiceHelper {
         startDate = DateTime(today.year, today.month);
         endDate = DateTime(today.year, today.month + 1, 0);
         break;
+      case FastSearch.lastMonth:
+        startDate = DateTime(today.year, today.month - 1);
+        endDate = DateTime(today.year, today.month, 0);
+        break;
       default:
         startDate = today;
         endDate = today;

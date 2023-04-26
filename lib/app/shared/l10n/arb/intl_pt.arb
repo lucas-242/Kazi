@@ -27,6 +27,7 @@
   "googleSignIn": "Login com Google",
   "hi": "Olá, {person}!",
   "home": "Home",
+  "lastMonth": "Mês Passado",
   "lastServices": "Últimos serviços",
   "lightMode": "Modo claro",
   "logout": "Sair",

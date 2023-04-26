@@ -34,6 +34,7 @@
     }
   },
   "home": "Home",
+  "lastMonth": "Last Month",
   "lastServices": "Last services",
   "lightMode": "Light Mode",
   "logout": "Logout",

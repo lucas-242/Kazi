@@ -330,6 +330,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Last Month`
+  String get lastMonth {
+    return Intl.message(
+      'Last Month',
+      name: 'lastMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Last services`
   String get lastServices {
     return Intl.message(

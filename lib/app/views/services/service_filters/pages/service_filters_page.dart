@@ -127,7 +127,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         return SizedBox(
                           width: double.infinity,
                           child: Wrap(
-                            alignment: WrapAlignment.spaceBetween,
+                            spacing: AppSizeConstants.mediumSpace,
                             children: [
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
@@ -156,6 +156,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                                 text: context.appLocalizations.month,
                                 isSelected:
                                     cubit.state.fastSearch == FastSearch.month,
+                              ),
+                              SelectablePillButton(
+                                onTap: () => onChangeFastSearch(
+                                    context, FastSearch.lastMonth),
+                                text: context.appLocalizations.lastMonth,
+                                isSelected: cubit.state.fastSearch ==
+                                    FastSearch.lastMonth,
                               ),
                             ],
                           ),
