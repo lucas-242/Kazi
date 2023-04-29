@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../animations/no_animation_page_transition.dart';
-import 'app_colors.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 
 abstract class ThemeSettings {
   static const pageTransitionsTheme = PageTransitionsTheme(
@@ -22,7 +20,6 @@ abstract class ThemeSettings {
 
   static ThemeData light() {
     final colors = _getColorScheme(Brightness.light);
-    final textTheme = GoogleFonts.outfitTextTheme();
 
     return ThemeData.light().copyWith(
       pageTransitionsTheme: pageTransitionsTheme,
@@ -39,7 +36,7 @@ abstract class ThemeSettings {
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
-      textTheme: textTheme,
+      textTheme: _textTheme(colors),
       scaffoldBackgroundColor: colors.background,
       useMaterial3: false,
     );
@@ -47,7 +44,6 @@ abstract class ThemeSettings {
 
   static ThemeData dark() {
     final colors = _getColorScheme(Brightness.dark);
-    final textTheme = GoogleFonts.outfitTextTheme();
 
     return ThemeData.dark().copyWith(
       pageTransitionsTheme: pageTransitionsTheme,
@@ -64,7 +60,7 @@ abstract class ThemeSettings {
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
-      textTheme: textTheme,
+      textTheme: _textTheme(colors),
       scaffoldBackgroundColor: colors.background,
       useMaterial3: false,
     );
@@ -210,6 +206,70 @@ abstract class ThemeSettings {
       errorBorder: OutlineInputBorder(
         borderRadius: borderRadius,
         borderSide: BorderSide(color: colors.onSurface),
+      ),
+    );
+  }
+
+  static TextTheme _textTheme(ColorScheme colors) {
+    return TextTheme(
+      displayLarge: GoogleFonts.outfit(),
+      displayMedium: GoogleFonts.outfit(),
+      displaySmall: GoogleFonts.outfit(),
+      headlineLarge: GoogleFonts.outfit(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 32,
+      ),
+      headlineMedium: GoogleFonts.outfit(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 24,
+      ),
+      headlineSmall: GoogleFonts.outfit(
+        color: AppColors.grey,
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
+      ),
+      titleLarge: GoogleFonts.outfit(),
+      titleMedium: GoogleFonts.outfit(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 20,
+      ),
+      titleSmall: GoogleFonts.outfit(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
+      ),
+      bodyLarge: GoogleFonts.outfit(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w400,
+        fontSize: 18,
+      ),
+      bodyMedium: GoogleFonts.outfit(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
+      ),
+      bodySmall: GoogleFonts.outfit(
+        color: colors.onSurface,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+      labelLarge: GoogleFonts.outfit(
+        color: AppColors.grey,
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
+      ),
+      labelMedium: GoogleFonts.outfit(
+        color: AppColors.grey,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+      labelSmall: GoogleFonts.outfit(
+        color: AppColors.grey,
+        fontWeight: FontWeight.w400,
+        fontSize: 12,
       ),
     );
   }
