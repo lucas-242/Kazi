@@ -38,6 +38,7 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
     }
 
     return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: widget.servicesByDate.length,
       itemBuilder: (context, index) {

@@ -16,11 +16,13 @@ class ServiceList extends StatelessWidget {
     required this.services,
     this.canScroll = true,
     this.title,
+    this.expandList = false,
   });
 
   final List<Service> services;
   final bool canScroll;
   final String? title;
+  final bool expandList;
 
   void _onTap(BuildContext context, Service service) {
     var currentRoute = AppRoutes.services;
@@ -55,32 +57,35 @@ class ServiceList extends StatelessWidget {
                   AppSizeConstants.largeVerticalSpacer,
                 ],
               ),
-            Expanded(
-              child: ListView.separated(
-                physics: canScroll
-                    ? const AlwaysScrollableScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
-                itemCount: services.length,
-                itemBuilder: (context, index) {
-                  if (index != 0 && index % 2 == 0) {
-                    return AdBlock(
-                      child: ServiceCard(
-                        service: services[index],
-                        onTap: () => _onTap(context, services[index]),
-                      ),
-                    );
-                  }
-                  return ServiceCard(
-                    service: services[index],
-                    onTap: () => _onTap(context, services[index]),
-                  );
-                },
-                separatorBuilder: (context, index) => const Divider(),
-              ),
-            ),
+            expandList ? Expanded(child: getServiceList()) : getServiceList(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget getServiceList() {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: canScroll
+          ? const AlwaysScrollableScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
+      itemCount: services.length,
+      itemBuilder: (context, index) {
+        if (index != 0 && index % 2 == 0) {
+          return AdBlock(
+            child: ServiceCard(
+              service: services[index],
+              onTap: () => _onTap(context, services[index]),
+            ),
+          );
+        }
+        return ServiceCard(
+          service: services[index],
+          onTap: () => _onTap(context, services[index]),
+        );
+      },
+      separatorBuilder: (context, index) => const Divider(),
     );
   }
 }

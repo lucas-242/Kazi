@@ -3,17 +3,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 
 class InfoCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String icon;
-  final Color color;
   const InfoCard({
     super.key,
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.color,
+    this.width,
   });
+
+  final String title;
+  final String subtitle;
+  final String icon;
+  final Color color;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,7 @@ class InfoCard extends StatelessWidget {
       color: color,
       child: SizedBox(
         height: 98,
+        width: width,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(

@@ -7,6 +7,7 @@ import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/views/services/service_landing/widgets/info_list.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/service_navbar.dart';
 import 'package:my_services/app/views/services/services.dart';
 import 'package:my_services/injector_container.dart';
@@ -24,13 +25,26 @@ class ServiceLandingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ServiceNavbar(dateKey: dateKey, dateController: dateController),
-        AppSizeConstants.bigVerticalSpacer,
-        Expanded(child: _getServiceList()),
-      ],
+    return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ServiceNavbar(dateKey: dateKey, dateController: dateController),
+          AppSizeConstants.mediumVerticalSpacer,
+          SizedBox(
+            height: 105,
+            child: InfoList(
+              totalValue: state.totalValue,
+              totalDiscounted: state.totalDiscounted,
+              totalWithDiscount: state.totalWithDiscount,
+            ),
+          ),
+          AppSizeConstants.mediumVerticalSpacer,
+          _getServiceList(),
+        ],
+      ),
     );
   }
 
