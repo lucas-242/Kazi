@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
+import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/ads/ad_block.dart';
@@ -10,14 +11,16 @@ import 'package:my_services/app/shared/widgets/ads/ad_block.dart';
 import 'service_card.dart';
 
 class ServiceList extends StatelessWidget {
-  final List<Service> services;
-  final bool canScroll;
-
   const ServiceList({
     super.key,
     required this.services,
     this.canScroll = true,
+    this.title,
   });
+
+  final List<Service> services;
+  final bool canScroll;
+  final String? title;
 
   void _onTap(BuildContext context, Service service) {
     var currentRoute = AppRoutes.services;
@@ -31,33 +34,51 @@ class ServiceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(
+        padding: EdgeInsets.only(
           left: AppSizeConstants.largeSpace,
           right: AppSizeConstants.largeSpace,
-          top: AppSizeConstants.tinySpace,
+          top: title == null
+              ? AppSizeConstants.tinySpace
+              : AppSizeConstants.largeSpace,
           bottom: AppSizeConstants.mediumSpace,
         ),
-        child: ListView.separated(
-          shrinkWrap: true,
-          physics: canScroll
-              ? const AlwaysScrollableScrollPhysics()
-              : const NeverScrollableScrollPhysics(),
-          itemCount: services.length,
-          itemBuilder: (context, index) {
-            if (index != 0 && index % 2 == 0) {
-              return AdBlock(
-                child: ServiceCard(
-                  service: services[index],
-                  onTap: () => _onTap(context, services[index]),
-                ),
-              );
-            }
-            return ServiceCard(
-              service: services[index],
-              onTap: () => _onTap(context, services[index]),
-            );
-          },
-          separatorBuilder: (context, index) => const Divider(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (title != null)
+              Column(
+                children: [
+                  Text(
+                    title!.capitalize(),
+                    style: context.titleSmall,
+                  ),
+                  AppSizeConstants.largeVerticalSpacer,
+                ],
+              ),
+            Expanded(
+              child: ListView.separated(
+                physics: canScroll
+                    ? const AlwaysScrollableScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
+                itemCount: services.length,
+                itemBuilder: (context, index) {
+                  if (index != 0 && index % 2 == 0) {
+                    return AdBlock(
+                      child: ServiceCard(
+                        service: services[index],
+                        onTap: () => _onTap(context, services[index]),
+                      ),
+                    );
+                  }
+                  return ServiceCard(
+                    service: services[index],
+                    onTap: () => _onTap(context, services[index]),
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(),
+              ),
+            ),
+          ],
         ),
       ),
     );

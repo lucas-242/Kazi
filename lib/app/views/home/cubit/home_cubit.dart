@@ -6,11 +6,10 @@ import 'package:my_services/app/models/service_type.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:my_services/app/services/services_service/services_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/utils/base_cubit.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/utils/service_helper.dart';
 
 part 'home_state.dart';
 
@@ -18,13 +17,13 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
-  final TimeService _timeService;
+  final ServicesService _servicesService;
 
   HomeCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
     this._authService,
-    this._timeService,
+    this._servicesService,
   ) : super(HomeState(status: BaseStateStatus.loading));
 
   Future<void> onInit() async {
@@ -48,7 +47,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   }
 
   Future<List<Service>> _getServices() async {
-    final today = _timeService.nowWithoutTime;
+    final today = _servicesService.now;
     final result = await _serviceProvidedRepository.get(
       _authService.user!.uid,
       today,
@@ -71,9 +70,10 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   Future<void> _handleServices(List<Service> services) async {
     try {
       final types = await _getServiceTypes();
-      var newServices = ServiceHelper.addServiceTypeToServices(services, types);
+      var newServices =
+          _servicesService.addServiceTypeToServices(services, types);
       newServices =
-          ServiceHelper.orderServices(newServices, state.selectedOrderBy);
+          _servicesService.orderServices(newServices, state.selectedOrderBy);
 
       final newStatus =
           services.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;

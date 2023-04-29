@@ -22,15 +22,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(property) => "${property} já existe";
 
-  static String m1(person) => "Olá, ${person}!";
+  static String m1(start, end) => "De ${start} até ${end}";
 
-  static String m2(property) => "${property} está em uso";
+  static String m2(person) => "Olá, ${person}!";
 
-  static String m3(property) => "${property} inválido";
+  static String m3(property) => "${property} está em uso";
 
-  static String m4(property) => "${property} precisa ser preenchido";
+  static String m4(property) => "${property} inválido";
 
-  static String m5(item) => "Gostaria de deletar ${item}?";
+  static String m5(property) => "${property} precisa ser preenchido";
+
+  static String m6(item) => "Gostaria de deletar ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -87,16 +89,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Erro ao efetuar a edição do serviço"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Erro ao efetuar a edição do tipo de serviço"),
+        "filteringLastMonth":
+            MessageLookupByLibrary.simpleMessage("Filtrando pelo mês passado"),
         "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
+        "fromTo": m1,
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Login com Google"),
-        "hi": m1,
+        "hi": m2,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "inUse": m2,
+        "inUse": m3,
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Senha ou email incorretos"),
-        "invalidProperty": m3,
+        "invalidProperty": m4,
         "lastMonth": MessageLookupByLibrary.simpleMessage("Mês Passado"),
         "lastServices":
             MessageLookupByLibrary.simpleMessage("Últimos serviços"),
@@ -147,7 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
         "removeFilters":
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
-        "requiredProperty": m4,
+        "requiredProperty": m5,
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
         "saveService": MessageLookupByLibrary.simpleMessage("Salvar Serviço"),
         "saveType": MessageLookupByLibrary.simpleMessage("Salvar Tipo"),
@@ -182,7 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
             "O Id de verificação inserido é inválido"),
         "week": MessageLookupByLibrary.simpleMessage("Semana"),
-        "wouldYouLikeDelete": m5,
+        "wouldYouLikeDelete": m6,
         "yesterday": MessageLookupByLibrary.simpleMessage("Ontem")
       };
 }

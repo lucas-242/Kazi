@@ -9,8 +9,8 @@ import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/texts/texts.dart';
 import 'package:my_services/app/views/services/services.dart';
 
-class ServiceNoDataNavbar extends StatelessWidget {
-  const ServiceNoDataNavbar({
+class ServiceNavbar extends StatelessWidget {
+  const ServiceNavbar({
     super.key,
     required this.dateKey,
     required this.dateController,

@@ -23,7 +23,19 @@
   "editServiceType": "Edit Service Type",
   "email": "Email",
   "filters": "Filters",
+  "filteringLastMonth": "Filtering by last month",
   "fortnight": "Fortnight",
+  "fromTo": "From {start} to {end}",
+  "@fromTo": {
+    "placeholders": {
+        "start": {
+          "type": "String"
+        },
+        "end": {
+          "type": "String"
+        }
+    }
+  },
   "googleSignIn": "Sign in with Google",
   "hi": "Hi, {person}!",
   "@hi": {

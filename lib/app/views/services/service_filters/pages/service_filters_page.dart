@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:my_services/app/services/services_service/services_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -89,7 +89,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
         startDate: initialStartDate,
         endDate: initialEndDate,
         fastSearch: initialFastSearch,
-        timeService: serviceLocator.get<TimeService>(),
+        servicesService: serviceLocator.get<ServicesService>(),
       ),
       child: Builder(
         builder: (context) {

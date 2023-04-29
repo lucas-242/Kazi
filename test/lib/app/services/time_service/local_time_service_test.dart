@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:my_services/app/services/time_service/local/local_time_service.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
 
 void main() {
@@ -8,13 +9,9 @@ void main() {
     timeService = LocalTimeService();
   });
 
-  test('Should return current DateTime', () {
-    final now = DateTime.now();
-    expect(timeService.now.year, equals(now.year));
-    expect(timeService.now.month, equals(now.month));
-    expect(timeService.now.day, equals(now.day));
-    expect(timeService.now.hour, equals(now.hour));
-    expect(timeService.now.minute, equals(now.minute));
+  test('Should return DateTime without time', () {
+    timeService = LocalTimeService(DateTime(2022, 12, 26, 11, 39, 46));
+    expect(timeService.now, DateTime(2022, 12, 26));
   });
 
   test('Should return fixed DateTime', () {
@@ -23,8 +20,39 @@ void main() {
     expect(timeService.now, date);
   });
 
-  test('Should return DateTime without time', () {
-    timeService = LocalTimeService(DateTime(2022, 12, 26, 11, 39, 46));
-    expect(timeService.nowWithoutTime, DateTime(2022, 12, 26));
+  group('Should check if date range is between Last Month', () {
+    test('Should return true', () {
+      timeService = LocalTimeService(DateTime(2023, 04, 29, 11, 39, 46));
+      final startDate = DateTime(2023, 03, 08, 00, 59, 59);
+      final endDate = DateTime(2023, 03, 30, 23, 59, 59);
+      final result = timeService.isRangeInLastMonth(startDate, endDate);
+      expect(result, true);
+    });
+
+    test('Should return false', () {
+      timeService = LocalTimeService(DateTime(2023, 04, 29, 11, 39, 46));
+      final startDate = DateTime(2023, 02, 28, 23, 59, 59);
+      final endDate = DateTime(2023, 03, 30, 23, 59, 59);
+      final result = timeService.isRangeInLastMonth(startDate, endDate);
+      expect(result, false);
+    });
+  });
+
+  group('Should check if date range is between the current Month', () {
+    test('Should return true', () {
+      timeService = LocalTimeService(DateTime(2023, 04, 29, 11, 39, 46));
+      final startDate = DateTime(2023, 04, 08, 00, 59, 59);
+      final endDate = DateTime(2023, 04, 30, 23, 59, 59);
+      final result = timeService.isRangeInThisMonth(startDate, endDate);
+      expect(result, true);
+    });
+
+    test('Should return false', () {
+      timeService = LocalTimeService(DateTime(2023, 04, 29, 11, 39, 46));
+      final startDate = DateTime(2023, 03, 28, 23, 59, 59);
+      final endDate = DateTime(2023, 04, 30, 23, 59, 59);
+      final result = timeService.isRangeInThisMonth(startDate, endDate);
+      expect(result, false);
+    });
   });
 }

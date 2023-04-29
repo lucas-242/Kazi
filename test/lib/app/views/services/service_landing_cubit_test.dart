@@ -10,11 +10,12 @@ import 'package:my_services/app/repositories/service_type_repository/service_typ
 import 'package:my_services/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:my_services/app/services/services_service/local/local_services_service.dart';
+import 'package:my_services/app/services/services_service/services_service.dart';
+import 'package:my_services/app/services/time_service/local/local_time_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 import '../../../../mocks/mocks.dart';
@@ -27,6 +28,7 @@ void main() {
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
   late LocalTimeService timeService;
+  late ServicesService servicesService;
   late ServiceLandingCubit cubit;
 
   TestHelper.loadAppLocalizations();
@@ -35,6 +37,7 @@ void main() {
     serviceTypeRepository = MockServiceTypeRepository();
     servicesRepository = MockServicesRepository();
     timeService = LocalTimeService(serviceMock.date);
+    servicesService = LocalServicesService(timeService);
     authService = MockAuthService();
 
     when(authService.user).thenReturn(userMock);
@@ -45,8 +48,8 @@ void main() {
     when(servicesRepository.get(any, any, any))
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
-    cubit = ServiceLandingCubit(
-        servicesRepository, serviceTypeRepository, authService, timeService);
+    cubit = ServiceLandingCubit(servicesRepository, serviceTypeRepository,
+        authService, servicesService);
   });
 
   group('Call onInit function', () {
@@ -58,12 +61,12 @@ void main() {
       expect: () => [
         ServiceLandingState(
           status: BaseStateStatus.success,
-          services: ServiceHelper.orderServices(
+          services: servicesService.orderServices(
             servicesWithTypesMock,
             OrderBy.alphabetical,
           ),
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime
+          startDate: servicesService.now,
+          endDate: servicesService.now
               .copyWith(day: 31, hour: 23, minute: 59, second: 59),
         )
       ],
@@ -79,8 +82,8 @@ void main() {
       expect: () => [
         ServiceLandingState(
           status: BaseStateStatus.noData,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime
+          startDate: servicesService.now,
+          endDate: servicesService.now
               .copyWith(day: 31, hour: 23, minute: 59, second: 59),
         )
       ],
@@ -91,8 +94,8 @@ void main() {
       build: () => cubit,
       seed: () => ServiceLandingState(
         status: BaseStateStatus.noData,
-        startDate: timeService.nowWithoutTime,
-        endDate: timeService.nowWithoutTime,
+        startDate: servicesService.now,
+        endDate: servicesService.now,
       ),
       setUp: () {
         when(servicesRepository.get(any, any, any)).thenThrow(
@@ -103,8 +106,8 @@ void main() {
         ServiceLandingState(
           callbackMessage: AppLocalizations.current.errorToGetServices,
           status: BaseStateStatus.error,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         )
       ],
     );
@@ -114,8 +117,8 @@ void main() {
       build: () => cubit,
       seed: () => ServiceLandingState(
         status: BaseStateStatus.noData,
-        startDate: timeService.nowWithoutTime,
-        endDate: timeService.nowWithoutTime,
+        startDate: servicesService.now,
+        endDate: servicesService.now,
       ),
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(
@@ -126,8 +129,8 @@ void main() {
         ServiceLandingState(
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         )
       ],
     );
@@ -143,8 +146,8 @@ void main() {
         ServiceLandingState(
           callbackMessage: AppLocalizations.current.unknowError,
           status: BaseStateStatus.error,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         )
       ],
     );
@@ -160,7 +163,7 @@ void main() {
       serviceList = List.from(servicesWithTypeIdMock)..add(serviceToDelete);
       resultList = List.from(servicesWithTypesMock);
       resultList =
-          ServiceHelper.orderServices(resultList, OrderBy.alphabetical);
+          servicesService.orderServices(resultList, OrderBy.alphabetical);
     });
 
     blocTest(
@@ -169,22 +172,22 @@ void main() {
       seed: () => ServiceLandingState(
         services: serviceList,
         status: BaseStateStatus.success,
-        startDate: timeService.nowWithoutTime,
-        endDate: timeService.nowWithoutTime,
+        startDate: servicesService.now,
+        endDate: servicesService.now,
       ),
       act: (cubit) => [cubit.deleteService(serviceToDelete)],
       expect: () => [
         ServiceLandingState(
           services: serviceList,
           status: BaseStateStatus.loading,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         ),
         ServiceLandingState(
           services: resultList,
           status: BaseStateStatus.success,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         )
       ],
     );
@@ -199,16 +202,16 @@ void main() {
       expect: () => [
         ServiceLandingState(
             status: BaseStateStatus.loading,
-            startDate: timeService.nowWithoutTime,
-            endDate: timeService.nowWithoutTime),
+            startDate: servicesService.now,
+            endDate: servicesService.now),
         ServiceLandingState(
           status: BaseStateStatus.success,
-          services: ServiceHelper.orderServices(
+          services: servicesService.orderServices(
             servicesWithTypesMock,
             OrderBy.alphabetical,
           ),
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime
+          startDate: servicesService.now,
+          endDate: servicesService.now
               .copyWith(day: 31, hour: 23, minute: 59, second: 59),
         )
       ],
@@ -218,10 +221,10 @@ void main() {
   group('Call Change properties', () {
     late DateTime newStartDateTime;
     late DateTime newEndDateTime;
-    late DateTime today;
+    late LocalTimeService localTimeService;
 
     setUp(() {
-      today = DateTime(2022, 12, 12);
+      localTimeService = LocalTimeService(DateTime(2022, 12, 12));
       newStartDateTime = DateTime(2022, 1, 1);
       newEndDateTime = DateTime(2022, 1, 12);
     });
@@ -243,7 +246,7 @@ void main() {
         ServiceLandingState(
           startDate: newStartDateTime,
           endDate: newEndDateTime,
-          services: ServiceHelper.orderServices(
+          services: servicesService.orderServices(
             servicesWithTypesMock,
             OrderBy.alphabetical,
           ),
@@ -257,11 +260,10 @@ void main() {
     blocTest(
       'emits ServiceLandingState with new services with different selectedFastSearch and didFiltersChange when call onApplyFilters with FastSearch',
       build: () => ServiceLandingCubit(
-        servicesRepository,
-        serviceTypeRepository,
-        authService,
-        LocalTimeService(today),
-      ),
+          servicesRepository,
+          serviceTypeRepository,
+          authService,
+          LocalServicesService(localTimeService)),
       setUp: () {
         newStartDateTime = DateTime(2022, 12, 1);
         newEndDateTime = DateTime(2022, 12, 15, 23, 59, 59);
@@ -293,14 +295,14 @@ void main() {
       expect: () => [
         ServiceLandingState(
           status: BaseStateStatus.loading,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         ),
         ServiceLandingState(
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         )
       ],
     );
@@ -314,16 +316,16 @@ void main() {
       seed: () => ServiceLandingState(
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
-        startDate: timeService.nowWithoutTime,
-        endDate: timeService.nowWithoutTime,
+        startDate: servicesService.now,
+        endDate: servicesService.now,
       ),
       expect: () => [
         ServiceLandingState(
           services: servicesWithTypesMock,
           status: BaseStateStatus.success,
           selectedOrderBy: OrderBy.dateDesc,
-          startDate: timeService.nowWithoutTime,
-          endDate: timeService.nowWithoutTime,
+          startDate: servicesService.now,
+          endDate: servicesService.now,
         )
       ],
     );
@@ -335,8 +337,8 @@ void main() {
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
-        startDate: timeService.nowWithoutTime,
-        endDate: timeService.nowWithoutTime,
+        startDate: servicesService.now,
+        endDate: servicesService.now,
       );
 
       expect(state.totalValue, 210);
@@ -347,8 +349,8 @@ void main() {
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
-        startDate: timeService.nowWithoutTime,
-        endDate: timeService.nowWithoutTime,
+        startDate: servicesService.now,
+        endDate: servicesService.now,
       );
 
       expect(state.totalWithDiscount, 105);
@@ -359,8 +361,8 @@ void main() {
         services: servicesWithTypesMock,
         status: BaseStateStatus.success,
         selectedOrderBy: OrderBy.dateDesc,
-        startDate: timeService.nowWithoutTime,
-        endDate: timeService.nowWithoutTime,
+        startDate: servicesService.now,
+        endDate: servicesService.now,
       );
 
       expect(state.totalDiscounted, 105);
