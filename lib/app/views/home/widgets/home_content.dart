@@ -8,7 +8,6 @@ import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/pills/title_and_pill.dart';
 import 'package:my_services/app/views/home/home.dart';
-import 'package:my_services/app/views/home/widgets/info_card.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 class HomeContent extends StatelessWidget {
@@ -21,45 +20,47 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: SizedBox(
-        height: context.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InfoCard(
-              title:
-                  NumberFormatHelper.formatCurrency(context, state.totalValue),
-              subtitle: context.appLocalizations.myBalance,
-              icon: AppAssets.services,
-              color: AppColors.green,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InfoCard(
+            title: NumberFormatHelper.formatCurrency(
+                context, state.totalWithDiscount),
+            subtitle: context.appLocalizations.myBalance,
+            icon: AppAssets.services,
+            color: AppColors.green,
+          ),
+          InfoCard(
+            title: NumberFormatHelper.formatCurrency(
+                context, state.totalDiscounted),
+            subtitle: context.appLocalizations.discounts,
+            icon: AppAssets.fire,
+            color: AppColors.orange,
+          ),
+          InfoCard(
+            title: NumberFormatHelper.formatCurrency(context, state.totalValue),
+            subtitle: context.appLocalizations.totalReceived,
+            icon: AppAssets.rocket,
+            color: AppColors.blue,
+          ),
+          AppSizeConstants.smallVerticalSpacer,
+          TitleAndPill(
+            title: context.appLocalizations.lastServices,
+            pillText: context.appLocalizations.newService,
+            onTap: () {
+              context.read<AppCubit>().changeToAddServicePage();
+              context.go(AppRoutes.addServices);
+            },
+          ),
+          AppSizeConstants.largeVerticalSpacer,
+          SizedBox(
+            height: 245,
+            child: ServiceList(
+              services: state.services,
+              expandList: true,
             ),
-            InfoCard(
-              title: NumberFormatHelper.formatCurrency(
-                  context, state.totalDiscounted),
-              subtitle: context.appLocalizations.discounts,
-              icon: AppAssets.fire,
-              color: AppColors.orange,
-            ),
-            InfoCard(
-              title: NumberFormatHelper.formatCurrency(
-                  context, state.totalWithDiscount),
-              subtitle: context.appLocalizations.totalReceived,
-              icon: AppAssets.rocket,
-              color: AppColors.blue,
-            ),
-            AppSizeConstants.smallVerticalSpacer,
-            TitleAndPill(
-              title: context.appLocalizations.lastServices,
-              pillText: context.appLocalizations.newService,
-              onTap: () {
-                context.read<AppCubit>().changeToAddServicePage();
-                context.go(AppRoutes.addServices);
-              },
-            ),
-            AppSizeConstants.largeVerticalSpacer,
-            Expanded(child: ServiceList(services: state.services)),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
