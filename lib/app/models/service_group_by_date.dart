@@ -1,14 +1,15 @@
+import 'package:equatable/equatable.dart';
 import 'package:my_services/app/models/service.dart';
 
-class ServicesGroupByDate {
+class ServicesGroupByDate extends Equatable {
   final DateTime date;
   final List<Service> services;
-  final bool isExpaded;
+  final bool isExpanded;
 
-  ServicesGroupByDate({
+  const ServicesGroupByDate({
     required this.date,
     required this.services,
-    this.isExpaded = false,
+    this.isExpanded = false,
   });
 
   ServicesGroupByDate copyWith({
@@ -19,7 +20,10 @@ class ServicesGroupByDate {
     return ServicesGroupByDate(
       date: date ?? this.date,
       services: services ?? this.services,
-      isExpaded: isExpaded ?? this.isExpaded,
+      isExpanded: isExpaded ?? isExpanded,
     );
   }
+
+  @override
+  List<Object?> get props => [date, services, isExpanded];
 }

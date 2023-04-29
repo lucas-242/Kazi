@@ -27,7 +27,8 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
   @override
   Widget build(BuildContext context) {
     String getTextDate(DateTime date) {
-      final today = serviceLocator.get<TimeService>().nowWithoutTime;
+      final today = serviceLocator.get<TimeService>().now;
+
       if (date == today) {
         return context.appLocalizations.today;
       } else if (date.calculateDifference(today) == -1) {
@@ -49,7 +50,7 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
                   left: AppSizeConstants.largeSpace,
                   right: AppSizeConstants.largeSpace,
                   top: AppSizeConstants.largeSpace,
-                  bottom: !servicesByDate.isExpaded
+                  bottom: !servicesByDate.isExpanded
                       ? AppSizeConstants.largeSpace
                       : 0,
                 ),
@@ -58,10 +59,10 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
                   trailing: CircularButton(
                     onTap: () => setState(() {
                       widget.servicesByDate[index] = servicesByDate.copyWith(
-                          isExpaded: !servicesByDate.isExpaded);
+                          isExpaded: !servicesByDate.isExpanded);
                     }),
                     child: Icon(
-                      servicesByDate.isExpaded
+                      servicesByDate.isExpanded
                           ? Icons.keyboard_arrow_up_outlined
                           : Icons.keyboard_arrow_down_outlined,
                     ),
@@ -69,7 +70,7 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
                 ),
               ),
               ExpandedSection(
-                isExpanded: servicesByDate.isExpaded,
+                isExpanded: servicesByDate.isExpanded,
                 child: ServiceList(
                   services: servicesByDate.services,
                   canScroll: false,

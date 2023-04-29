@@ -6,7 +6,7 @@ import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/service_landing_content.dart';
-import 'package:my_services/app/views/services/service_landing/widgets/service_no_data_navbar.dart';
+import 'package:my_services/app/views/services/service_landing/widgets/service_navbar.dart';
 import 'package:my_services/app/views/services/services.dart';
 
 class ServiceLandingPage extends StatefulWidget {
@@ -55,7 +55,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
               onLoading: () => const Loading(),
               onNoData: () => NoData(
                 message: context.appLocalizations.noServices,
-                navbar: ServiceNoDataNavbar(
+                navbar: ServiceNavbar(
                   dateKey: dateKey,
                   dateController: dateController,
                 ),

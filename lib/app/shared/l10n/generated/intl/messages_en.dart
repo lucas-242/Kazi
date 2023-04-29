@@ -22,15 +22,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(property) => "${property} already exists";
 
-  static String m1(person) => "Hi, ${person}!";
+  static String m1(start, end) => "From ${start} to ${end}";
 
-  static String m2(property) => "${property} is being used";
+  static String m2(person) => "Hi, ${person}!";
 
-  static String m3(property) => "${property} is invalid";
+  static String m3(property) => "${property} is being used";
 
-  static String m4(property) => "${property} is required";
+  static String m4(property) => "${property} is invalid";
 
-  static String m5(item) => "Would you like to delete ${item}?";
+  static String m5(property) => "${property} is required";
+
+  static String m6(item) => "Would you like to delete ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -87,16 +89,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to update service"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Error to update service type"),
+        "filteringLastMonth":
+            MessageLookupByLibrary.simpleMessage("Filtering by last month"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
+        "fromTo": m1,
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Sign in with Google"),
-        "hi": m1,
+        "hi": m2,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "inUse": m2,
+        "inUse": m3,
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
-        "invalidProperty": m3,
+        "invalidProperty": m4,
         "lastMonth": MessageLookupByLibrary.simpleMessage("Last Month"),
         "lastServices": MessageLookupByLibrary.simpleMessage("Last services"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
@@ -145,7 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
-        "requiredProperty": m4,
+        "requiredProperty": m5,
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveService": MessageLookupByLibrary.simpleMessage("Save Service"),
         "saveType": MessageLookupByLibrary.simpleMessage("Save Type"),
@@ -182,7 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
             "The verification ID entered is invalid"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
-        "wouldYouLikeDelete": m5,
+        "wouldYouLikeDelete": m6,
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")
       };
 }

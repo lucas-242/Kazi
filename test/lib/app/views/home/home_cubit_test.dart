@@ -6,11 +6,13 @@ import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:my_services/app/services/services_service/local/local_services_service.dart';
+import 'package:my_services/app/services/services_service/services_service.dart';
+import 'package:my_services/app/services/time_service/local/local_time_service.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/utils/service_helper.dart';
 import 'package:my_services/app/views/home/home.dart';
 
 import '../../../../mocks/mocks.dart';
@@ -23,6 +25,7 @@ void main() {
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
   late TimeService timeService;
+  late ServicesService servicesService;
   late HomeCubit cubit;
 
   TestHelper.loadAppLocalizations();
@@ -32,6 +35,7 @@ void main() {
     servicesRepository = MockServicesRepository();
     authService = MockAuthService();
     timeService = LocalTimeService();
+    servicesService = LocalServicesService(timeService);
 
     when(authService.user).thenReturn(userMock);
 
@@ -45,7 +49,7 @@ void main() {
       servicesRepository,
       serviceTypeRepository,
       authService,
-      timeService,
+      servicesService,
     );
   });
 
@@ -57,7 +61,7 @@ void main() {
       expect: () => [
         HomeState(
           status: BaseStateStatus.success,
-          services: ServiceHelper.orderServices(
+          services: servicesService.orderServices(
             servicesWithTypesMock,
             OrderBy.dateDesc,
           ),

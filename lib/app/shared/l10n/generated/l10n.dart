@@ -290,6 +290,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Filtering by last month`
+  String get filteringLastMonth {
+    return Intl.message(
+      'Filtering by last month',
+      name: 'filteringLastMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fortnight`
   String get fortnight {
     return Intl.message(
@@ -297,6 +307,16 @@ class AppLocalizations {
       name: 'fortnight',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `From {start} to {end}`
+  String fromTo(String start, String end) {
+    return Intl.message(
+      'From $start to $end',
+      name: 'fromTo',
+      desc: '',
+      args: [start, end],
     );
   }
 

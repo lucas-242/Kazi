@@ -6,11 +6,10 @@ import 'package:my_services/app/models/service_type.dart';
 import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:my_services/app/repositories/services_repository/services_repository.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:my_services/app/services/services_service/services_service.dart';
 import 'package:my_services/app/shared/errors/errors.dart';
 import 'package:my_services/app/shared/utils/base_cubit.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/utils/service_helper.dart';
 
 part 'service_landing_state.dart';
 
@@ -18,25 +17,22 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final AuthService _authService;
-  final TimeService _timeService;
-
-  DateTime get now => _timeService.nowWithoutTime;
+  final ServicesService _servicesService;
 
   ServiceLandingCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
     this._authService,
-    this._timeService,
+    this._servicesService,
   ) : super(ServiceLandingState(
           status: BaseStateStatus.loading,
-          startDate: _timeService.nowWithoutTime,
-          endDate: _timeService.nowWithoutTime,
+          startDate: _servicesService.now,
+          endDate: _servicesService.now,
         ));
 
   Future<void> onInit() async {
     try {
-      final range =
-          ServiceHelper.getRangeDateByFastSearch(state.fastSearch, now);
+      final range = _servicesService.getRangeDateByFastSearch(state.fastSearch);
       final startDate = range['startDate']!;
       final endDate = range['endDate']!;
       final result = await _getServices(startDate, endDate);
@@ -62,8 +58,10 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   ]) async {
     try {
       final types = await _getServiceTypes();
-      var services = ServiceHelper.addServiceTypeToServices(fetchResult, types);
-      services = ServiceHelper.orderServices(services, state.selectedOrderBy);
+      var services =
+          _servicesService.addServiceTypeToServices(fetchResult, types);
+      services =
+          _servicesService.orderServices(services, state.selectedOrderBy);
 
       final newStatus = fetchResult.isEmpty
           ? BaseStateStatus.noData
@@ -89,8 +87,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final range =
-          ServiceHelper.getRangeDateByFastSearch(state.fastSearch, now);
+      final range = _servicesService.getRangeDateByFastSearch(state.fastSearch);
       final startDate = range['startDate']!;
       final endDate = range['endDate']!;
       final result = await _getServices(startDate, endDate);
@@ -131,7 +128,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     try {
       if (fastSearch == state.fastSearch) return;
 
-      final range = ServiceHelper.getRangeDateByFastSearch(fastSearch, now);
+      final range = _servicesService.getRangeDateByFastSearch(fastSearch);
 
       emit(state.copyWith(
         status: BaseStateStatus.loading,
@@ -171,14 +168,14 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   Future<void> onCleanFilters() async {
     emit(ServiceLandingState(
       status: BaseStateStatus.loading,
-      startDate: _timeService.nowWithoutTime,
-      endDate: _timeService.nowWithoutTime,
+      startDate: _servicesService.now,
+      endDate: _servicesService.now,
     ));
     onInit();
   }
 
   void onChangeOrderBy(OrderBy orderBy) {
-    final services = ServiceHelper.orderServices(state.services, orderBy);
+    final services = _servicesService.orderServices(state.services, orderBy);
     emit(state.copyWith(services: services, selectedOrderBy: orderBy));
   }
 

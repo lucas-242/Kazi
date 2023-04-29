@@ -2,23 +2,19 @@ import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/models/service_group_by_date.dart';
 import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/services/services_service/services_service.dart';
+import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 
-abstract class ServiceHelper {
-  static List<Service> mergeServices(
-    List<Service> cachedServices,
-    List<Service> newServices,
-  ) {
-    final setCachedServices = <Service>{}..addAll(cachedServices);
-    final toAdd = newServices.where((e) {
-      final isNew = !setCachedServices.contains(e);
-      return isNew;
-    });
-    setCachedServices.addAll(toAdd);
-    return setCachedServices.toList();
-  }
+class LocalServicesService extends ServicesService {
+  LocalServicesService(this._timeService);
 
-  static List<Service> addServiceTypeToServices(
+  final TimeService _timeService;
+  @override
+  DateTime get now => _timeService.now;
+
+  @override
+  List<Service> addServiceTypeToServices(
       List<Service> services, List<ServiceType> serviceTypes) {
     final result = <Service>[];
     for (var service in services) {
@@ -27,26 +23,14 @@ abstract class ServiceHelper {
     return result;
   }
 
-  static Service _fillServiceWithServiceType(
+  Service _fillServiceWithServiceType(
       Service service, List<ServiceType> serviceTypes) {
     return service.copyWith(
         type: serviceTypes.firstWhere((st) => st.id == service.typeId));
   }
 
-  static List<Service> filterServicesByRange(
-      List<Service> services, DateTime startDate, DateTime endDate) {
-    final filtered = services.where((s) {
-      final serviceDate = DateTime(s.date.year, s.date.month, s.date.day);
-      return (serviceDate.isAtSameMomentAs(startDate) ||
-              serviceDate.isAfter(startDate)) &&
-          (serviceDate.isAtSameMomentAs(endDate) ||
-              serviceDate.isBefore(endDate));
-    });
-
-    return filtered.toList();
-  }
-
-  static List<Service> orderServices(List<Service> services, OrderBy orderBy) {
+  @override
+  List<Service> orderServices(List<Service> services, OrderBy orderBy) {
     switch (orderBy) {
       case OrderBy.dateAsc:
         return _sortWithTiebreaker(
@@ -86,7 +70,7 @@ abstract class ServiceHelper {
     }
   }
 
-  static List<Service> _sortWithTiebreaker(
+  List<Service> _sortWithTiebreaker(
     List<Service> services,
     int Function(Service, Service) firstCompare,
     int Function(Service, Service) secondCompare,
@@ -103,53 +87,47 @@ abstract class ServiceHelper {
     return services;
   }
 
-  static int _compareAlphabetical(Service a, Service b) =>
+  int _compareAlphabetical(Service a, Service b) =>
       a.type!.name.compareTo(b.type!.name);
-  static int _compareDateAsc(Service a, Service b) => a.date.compareTo(b.date);
-  static int _compareDateDesc(Service a, Service b) => b.date.compareTo(a.date);
-  static int _compareValueAsc(Service a, Service b) =>
-      a.value.compareTo(b.value);
-  static int _compareValueDesc(Service a, Service b) =>
-      b.value.compareTo(a.value);
+  int _compareDateAsc(Service a, Service b) => a.date.compareTo(b.date);
+  int _compareDateDesc(Service a, Service b) => b.date.compareTo(a.date);
+  int _compareValueAsc(Service a, Service b) => a.value.compareTo(b.value);
+  int _compareValueDesc(Service a, Service b) => b.value.compareTo(a.value);
 
-  static List<ServicesGroupByDate> groupServicesByDate(
-    List<Service> services,
-    DateTime today,
-  ) {
+  @override
+  List<ServicesGroupByDate> groupServicesByDate(List<Service> services) {
     final result = <ServicesGroupByDate>[];
-    final dates = _getServicesDates(services, today);
+    final dates = _getServicesDates(services);
 
     for (var date in dates) {
       final servicesOnDate = services.where((s) => s.date == date).toList();
       if (servicesOnDate.isNotEmpty) {
-        final daysOfDifference = date.calculateDifference(today);
+        final daysOfDifference = date.calculateDifference(now);
         final isExpanded = daysOfDifference == 0 || daysOfDifference == -1;
         result.add(ServicesGroupByDate(
           date: date,
           services: servicesOnDate,
-          isExpaded: isExpanded,
+          isExpanded: isExpanded,
         ));
       }
     }
 
+    result.sort((a, b) => b.date.compareTo(a.date));
     return result;
   }
 
-  static List<DateTime> _getServicesDates(
-    List<Service> services,
-    DateTime today,
-  ) {
+  List<DateTime> _getServicesDates(List<Service> services) {
     final dates = services.map((s) => s.date).toSet().toList();
-    final yesterday = today.copyWith(day: today.day - 1);
+    final yesterday = now.copyWith(day: now.day - 1);
 
     //* Remove today and yesterday from middle of the list to add them on top
-    final todayWasRemoved = dates.remove(today);
+    final todayWasRemoved = dates.remove(now);
     final yesterdayWasRemoved = dates.remove(yesterday);
 
     dates.sort((a, b) => b.compareTo(a));
 
     if (todayWasRemoved) {
-      dates.insert(0, today);
+      dates.insert(0, now);
       if (yesterdayWasRemoved) dates.insert(1, yesterday);
     } else if (yesterdayWasRemoved) {
       dates.insert(0, yesterday);
@@ -158,37 +136,35 @@ abstract class ServiceHelper {
     return dates;
   }
 
-  static Map<String, DateTime> getRangeDateByFastSearch(
-    FastSearch fastSearch,
-    DateTime today,
-  ) {
+  @override
+  Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch) {
     DateTime startDate;
     DateTime endDate;
     switch (fastSearch) {
       case FastSearch.week:
-        startDate = today.lastWeekday(DateTime.sunday);
-        endDate = today.nextWeekday(DateTime.saturday);
+        startDate = now.lastWeekday(DateTime.sunday);
+        endDate = now.nextWeekday(DateTime.saturday);
         break;
       case FastSearch.fortnight:
-        if (today.day <= 15) {
-          startDate = DateTime(today.year, today.month);
-          endDate = DateTime(today.year, today.month, 15);
+        if (now.day <= 15) {
+          startDate = DateTime(now.year, now.month);
+          endDate = DateTime(now.year, now.month, 15);
         } else {
-          startDate = DateTime(today.year, today.month, 16);
-          endDate = DateTime(today.year, today.month + 1, 0);
+          startDate = DateTime(now.year, now.month, 16);
+          endDate = DateTime(now.year, now.month + 1, 0);
         }
         break;
       case FastSearch.month:
-        startDate = DateTime(today.year, today.month);
-        endDate = DateTime(today.year, today.month + 1, 0);
+        startDate = DateTime(now.year, now.month);
+        endDate = DateTime(now.year, now.month + 1, 0);
         break;
       case FastSearch.lastMonth:
-        startDate = DateTime(today.year, today.month - 1);
-        endDate = DateTime(today.year, today.month, 0);
+        startDate = DateTime(now.year, now.month - 1);
+        endDate = DateTime(now.year, now.month, 0);
         break;
       default:
-        startDate = today;
-        endDate = today;
+        startDate = now;
+        endDate = now;
         break;
     }
     return {
