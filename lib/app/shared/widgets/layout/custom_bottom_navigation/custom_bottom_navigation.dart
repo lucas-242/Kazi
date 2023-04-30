@@ -16,7 +16,7 @@ class CustomBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           BottomNavigationButton(
             onTap: () => onTap(0),
@@ -29,21 +29,21 @@ class CustomBottomNavigation extends StatelessWidget {
             icon: AppAssets.services,
             label: context.appLocalizations.services.capitalize(),
             isSelected: currentPage == 1,
-            padding: const EdgeInsets.only(right: 32.0),
+            // padding: const EdgeInsets.only(right: 32.0),
           ),
-          BottomNavigationButton(
-            onTap: () => onTap(2),
-            icon: AppAssets.calculator,
-            label: context.appLocalizations.calculator,
-            isSelected: currentPage == 2,
-            padding: const EdgeInsets.only(left: 32.0),
-          ),
-          BottomNavigationButton(
-            onTap: () => onTap(3),
-            icon: AppAssets.person,
-            label: context.appLocalizations.profile,
-            isSelected: currentPage == 3,
-          ),
+          // BottomNavigationButton(
+          //   onTap: () => onTap(2),
+          //   icon: AppAssets.calculator,
+          //   label: context.appLocalizations.calculator,
+          //   isSelected: currentPage == 2,
+          //   padding: const EdgeInsets.only(left: 32.0),
+          // ),
+          // BottomNavigationButton(
+          //   onTap: () => onTap(3),
+          //   icon: AppAssets.person,
+          //   label: context.appLocalizations.profile,
+          //   isSelected: currentPage == 3,
+          // ),
         ],
       ),
     );

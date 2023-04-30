@@ -27,7 +27,7 @@ class InfoList extends StatelessWidget {
           color: AppColors.green,
           width: cardWidth,
         ),
-        AppSizeConstants.largeHorizontalSpacer,
+        AppSizeConstants.mediumHorizontalSpacer,
         InfoCard(
           title: NumberFormatHelper.formatCurrency(context, totalDiscounted),
           subtitle: context.appLocalizations.discounts,
@@ -35,7 +35,7 @@ class InfoList extends StatelessWidget {
           color: AppColors.orange,
           width: cardWidth,
         ),
-        AppSizeConstants.largeHorizontalSpacer,
+        AppSizeConstants.mediumHorizontalSpacer,
         InfoCard(
           title: NumberFormatHelper.formatCurrency(context, totalValue),
           subtitle: context.appLocalizations.totalReceived,
