@@ -64,7 +64,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _checkUser(AppUser? user) async {
-    await _closeAnimation();
+    // await _closeAnimation();
     if (user != null) {
       _setUser(user);
       context.go(AppRoutes.onboarding);
@@ -78,10 +78,10 @@ class _SplashPageState extends State<SplashPage> {
     auth.user = user;
   }
 
-  Future<void> _closeAnimation() async {
-    setState(() => showText = false);
-    await Future.delayed(opacityAnimationDuration);
-  }
+  // Future<void> _closeAnimation() async {
+  //   setState(() => showText = false);
+  //   await Future.delayed(opacityAnimationDuration);
+  // }
 
   @override
   void dispose() {
