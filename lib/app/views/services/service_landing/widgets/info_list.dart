@@ -19,6 +19,10 @@ class InfoList extends StatelessWidget {
     final cardWidth = context.width * .57;
     return ListView(
       scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.only(
+        left: AppSizeConstants.largeSpace,
+        right: AppSizeConstants.largeSpace,
+      ),
       children: [
         InfoCard(
           title: NumberFormatHelper.formatCurrency(context, totalWithDiscount),

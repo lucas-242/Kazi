@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/service_landing_content.dart';
@@ -33,6 +34,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
       onRefresh: () => context.read<ServiceLandingCubit>().onRefresh(),
       child: BlocListener<ServiceLandingCubit, ServiceLandingState>(
         listenWhen: (previous, current) => previous.status != current.status,
@@ -52,12 +54,20 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
                 dateController: dateController,
                 dateKey: dateKey,
               ),
-              onLoading: () => const Loading(),
-              onNoData: () => NoData(
-                message: context.appLocalizations.noServices,
-                navbar: ServiceNavbar(
-                  dateKey: dateKey,
-                  dateController: dateController,
+              onLoading: () => const Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppSizeConstants.largeSpace),
+                child: Loading(),
+              ),
+              onNoData: () => Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppSizeConstants.largeSpace),
+                child: NoData(
+                  message: context.appLocalizations.noServices,
+                  navbar: ServiceNavbar(
+                    dateKey: dateKey,
+                    dateController: dateController,
+                  ),
                 ),
               ),
             );

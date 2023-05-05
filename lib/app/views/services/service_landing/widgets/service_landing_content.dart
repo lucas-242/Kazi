@@ -31,7 +31,12 @@ class ServiceLandingContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ServiceNavbar(dateKey: dateKey, dateController: dateController),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizeConstants.largeSpace),
+            child:
+                ServiceNavbar(dateKey: dateKey, dateController: dateController),
+          ),
           AppSizeConstants.mediumVerticalSpacer,
           SizedBox(
             height: 105,
@@ -42,7 +47,11 @@ class ServiceLandingContent extends StatelessWidget {
             ),
           ),
           AppSizeConstants.mediumVerticalSpacer,
-          _getServiceList(),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizeConstants.largeSpace),
+            child: _getServiceList(),
+          ),
         ],
       ),
     );
