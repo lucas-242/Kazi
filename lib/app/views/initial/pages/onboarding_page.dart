@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/data/local_storage/local_storage.dart';
-import 'package:my_services/app/shared/constants/app_keys.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
@@ -9,7 +7,6 @@ import 'package:my_services/app/shared/themes/extensions/typography_extension.da
 import 'package:my_services/app/shared/themes/settings/app_assets.dart';
 import 'package:my_services/app/shared/themes/settings/app_size_constants.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/injector_container.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -17,9 +14,11 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void onTap() {
-      serviceLocator
-          .get<LocalStorage>()
-          .setBool(AppKeys.showOnboardingStorage, false);
+      //TODO: Move to the finish onboarding button
+
+      // serviceLocator
+      //     .get<LocalStorage>()
+      //     .setBool(AppKeys.showOnboardingStorage, false);
       context.go(AppRoutes.home);
     }
 

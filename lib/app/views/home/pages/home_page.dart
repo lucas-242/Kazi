@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_services/app/shared/constants/app_onboarding.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
@@ -8,7 +9,11 @@ import '../cubit/home_cubit.dart';
 import '../widgets/home_content.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+    this.showOnboarding = false,
+  });
+  final bool showOnboarding;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -36,16 +41,18 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return state.when(
-              onState: (_) => HomeContent(state: state),
-              onLoading: () => const Loading(),
-              onNoData: () =>
-                  NoData(message: context.appLocalizations.noServices),
-            );
-          },
-        ),
+        child: widget.showOnboarding
+            ? HomeContent(state: AppOnboarding.homeState)
+            : BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  return state.when(
+                    onState: (_) => HomeContent(state: state),
+                    onLoading: () => const Loading(),
+                    onNoData: () =>
+                        NoData(message: context.appLocalizations.noServices),
+                  );
+                },
+              ),
       ),
     );
   }

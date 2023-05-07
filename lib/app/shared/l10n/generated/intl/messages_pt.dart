@@ -127,6 +127,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Parece que você não registrou nenhum tipo de serviço,  clique no botão acima para registrar um novo."),
         "noServices": MessageLookupByLibrary.simpleMessage(
             "Parece que você não registrou nenhum serviço, clique no botão acima para registrar um novo."),
+        "onboardingAppBarDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui você encontra a possibilidade de alterar seu número de telefone, e-mail, empresa, alterar sua senha, tipos de serviços, exportar itens, fazer logoff e muito mais."),
+        "onboardingAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Área do Perfil"),
+        "onboardingHomeBalanceDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui é exibido os seus ganhos diários, o total descontado e o total recebido."),
+        "onboardingHomeBalanceTitle":
+            MessageLookupByLibrary.simpleMessage("Balanço"),
+        "onboardingHomeServicesDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "Esses são os serviços que você realizou hoje."),
+        "onboardingHomeServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Serviços do dia"),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
             "Esta ferramenta inteligente foi projetada para ajudá-lo a gerenciar melhor seus serviços."),
         "onboardingTitle1":

@@ -490,6 +490,66 @@ class AppLocalizations {
     );
   }
 
+  /// `Perfil Area`
+  String get onboardingAppBarTitle {
+    return Intl.message(
+      'Perfil Area',
+      name: 'onboardingAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.`
+  String get onboardingAppBarDescription {
+    return Intl.message(
+      'Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.',
+      name: 'onboardingAppBarDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Balance`
+  String get onboardingHomeBalanceTitle {
+    return Intl.message(
+      'Balance',
+      name: 'onboardingHomeBalanceTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here your daily earnings are displayed, also the total discount and the total received.`
+  String get onboardingHomeBalanceDescription {
+    return Intl.message(
+      'Here your daily earnings are displayed, also the total discount and the total received.',
+      name: 'onboardingHomeBalanceDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily Services`
+  String get onboardingHomeServicesTitle {
+    return Intl.message(
+      'Daily Services',
+      name: 'onboardingHomeServicesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `These are the services you performed today.`
+  String get onboardingHomeServicesDescription {
+    return Intl.message(
+      'These are the services you performed today.',
+      name: 'onboardingHomeServicesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `This smart tool is designed to help you better manage your services.`
   String get onboardingSubtitle {
     return Intl.message(
