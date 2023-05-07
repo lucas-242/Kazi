@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:my_services/app/models/service_group_by_date.dart';
 import 'package:my_services/app/services/time_service/time_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/texts/texts.dart';
@@ -30,9 +31,9 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
       final today = serviceLocator.get<TimeService>().now;
 
       if (date == today) {
-        return context.appLocalizations.today;
+        return AppLocalizations.current.today;
       } else if (date.calculateDifference(today) == -1) {
-        return context.appLocalizations.yesterday;
+        return AppLocalizations.current.yesterday;
       }
       return DateFormat.yMMMd().format(date).normalizeDate();
     }

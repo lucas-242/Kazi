@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/shared/constants/app_onboarding.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 import 'app_cubit.dart';
+import 'shared/l10n/generated/l10n.dart';
 import 'shared/routes/app_routes.dart';
 
 class AppShell extends StatefulWidget {
@@ -89,7 +89,7 @@ class _AppShellState extends State<AppShell> {
               ),
               child: FloatingActionButton(
                 onPressed: _onTapFloatingActionButton,
-                tooltip: context.appLocalizations.newService,
+                tooltip: AppLocalizations.current.newService,
                 child: Icon(cubit.isAddServicePage ? Icons.close : Icons.add),
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
@@ -63,7 +64,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: AppSizeConstants.largeSpace),
                 child: NoData(
-                  message: context.appLocalizations.noServices,
+                  message: AppLocalizations.current.noServices,
                   navbar: ServiceNavbar(
                     dateKey: dateKey,
                     dateController: dateController,

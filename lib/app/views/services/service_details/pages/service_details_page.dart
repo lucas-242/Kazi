@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
@@ -31,9 +32,9 @@ class ServiceDetailsPage extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => ConfirmationDialog(
-          message: context.appLocalizations
-              .wouldYouLikeDelete(context.appLocalizations.thisService),
-          confirmText: context.appLocalizations.delete,
+          message: AppLocalizations.current
+              .wouldYouLikeDelete(AppLocalizations.current.thisService),
+          confirmText: AppLocalizations.current.delete,
           onCancel: () => context.pop(),
           onConfirm: () => onDelete(service),
         ),
@@ -59,7 +60,7 @@ class ServiceDetailsPage extends StatelessWidget {
                       child: const Icon(Icons.chevron_left),
                     ),
                     Text(
-                      context.appLocalizations.serviceDetails,
+                      AppLocalizations.current.serviceDetails,
                       style: context.titleMedium,
                     ),
                   ],
@@ -69,13 +70,13 @@ class ServiceDetailsPage extends StatelessWidget {
                   children: [
                     PillButton(
                       onTap: onTapUpdate,
-                      child: Text(context.appLocalizations.edit),
+                      child: Text(AppLocalizations.current.edit),
                     ),
                     AppSizeConstants.tinyHorizontalSpacer,
                     PillButton(
                       backgroundColor: context.colorsScheme.error,
                       onTap: onTapDelete,
-                      child: Text(context.appLocalizations.delete),
+                      child: Text(AppLocalizations.current.delete),
                     ),
                   ],
                 ),
@@ -99,7 +100,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     ),
                     AppSizeConstants.bigVerticalSpacer,
                     RowText(
-                      leftText: context.appLocalizations.myBalance,
+                      leftText: AppLocalizations.current.myBalance,
                       rightText: NumberFormatHelper.formatCurrency(
                         context,
                         service.valueWithDiscount,
@@ -114,7 +115,7 @@ class ServiceDetailsPage extends StatelessWidget {
                       child: Divider(),
                     ),
                     RowText(
-                      leftText: context.appLocalizations.discount,
+                      leftText: AppLocalizations.current.discount,
                       rightText: NumberFormatHelper.formatCurrency(
                         context,
                         service.valueDiscounted,
@@ -129,7 +130,7 @@ class ServiceDetailsPage extends StatelessWidget {
                       child: Divider(),
                     ),
                     RowText(
-                      leftText: context.appLocalizations.totalReceived,
+                      leftText: AppLocalizations.current.totalReceived,
                       rightText: NumberFormatHelper.formatCurrency(
                         context,
                         service.value,
@@ -149,7 +150,7 @@ class ServiceDetailsPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    context.appLocalizations.description,
+                                    AppLocalizations.current.description,
                                     style: context.titleSmall,
                                   ),
                                   AppSizeConstants.smallVerticalSpacer,

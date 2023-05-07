@@ -1,4 +1,3 @@
-export 'app_localizations_extensions.dart';
 export 'date_time_extensions.dart';
 export 'double_extensions.dart';
 export 'firebase_extensions.dart';

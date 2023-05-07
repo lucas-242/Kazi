@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:my_services/app/models/enums.dart';
 import 'package:my_services/app/services/services_service/services_service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
@@ -105,11 +106,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 child: Column(
                   children: [
                     TextWithTrailing(
-                      text: context.appLocalizations.filters,
+                      text: AppLocalizations.current.filters,
                       trailing: PillButton(
                         onTap: onCleanFilters,
                         backgroundColor: context.colorsScheme.primary,
-                        child: Text(context.appLocalizations.removeFilters),
+                        child: Text(AppLocalizations.current.removeFilters),
                       ),
                     ),
                     AppSizeConstants.bigVerticalSpacer,
@@ -132,35 +133,35 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
                                     context, FastSearch.today),
-                                text: context.appLocalizations.today,
+                                text: AppLocalizations.current.today,
                                 isSelected:
                                     cubit.state.fastSearch == FastSearch.today,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
                                     context, FastSearch.week),
-                                text: context.appLocalizations.week,
+                                text: AppLocalizations.current.week,
                                 isSelected:
                                     cubit.state.fastSearch == FastSearch.week,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
                                     context, FastSearch.fortnight),
-                                text: context.appLocalizations.fortnight,
+                                text: AppLocalizations.current.fortnight,
                                 isSelected: cubit.state.fastSearch ==
                                     FastSearch.fortnight,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
                                     context, FastSearch.month),
-                                text: context.appLocalizations.month,
+                                text: AppLocalizations.current.month,
                                 isSelected:
                                     cubit.state.fastSearch == FastSearch.month,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
                                     context, FastSearch.lastMonth),
-                                text: context.appLocalizations.lastMonth,
+                                text: AppLocalizations.current.lastMonth,
                                 isSelected: cubit.state.fastSearch ==
                                     FastSearch.lastMonth,
                               ),
@@ -172,7 +173,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     AppSizeConstants.imenseVerticalSpacer,
                     PillButton(
                       onTap: () => onApplyFilters(context),
-                      child: Text(context.appLocalizations.applyFilters),
+                      child: Text(AppLocalizations.current.applyFilters),
                     ),
                   ],
                 ),

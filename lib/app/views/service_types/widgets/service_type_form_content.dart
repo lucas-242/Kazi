@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -63,44 +63,44 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
         children: [
           CustomTextFormField(
             textFormKey: _nameKey,
-            labelText: context.appLocalizations.name,
+            labelText: AppLocalizations.current.name,
             initialValue: cubit.state.serviceType.name,
             onChanged: (value) => cubit.changeServiceTypeName(value),
             validator: (value) => cubit.validateTextField(
               value,
-              context.appLocalizations.name,
+              AppLocalizations.current.name,
             ),
           ),
           AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _discountKey,
             controller: _discountController,
-            labelText: context.appLocalizations.discountPercentage,
+            labelText: AppLocalizations.current.discountPercentage,
             keyboardType: TextInputType.number,
             onChanged: (value) => cubit.changeServiceTypeDiscountPercent(
                 _discountController.numberValue),
             validator: (value) => cubit.validateNumberField(
               _discountController.numberValue.toString(),
-              context.appLocalizations.discountPercentage,
+              AppLocalizations.current.discountPercentage,
             ),
           ),
           AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _serviceValueKey,
-            labelText: context.appLocalizations.serviceValue,
+            labelText: AppLocalizations.current.serviceValue,
             controller: _serviceValueController,
             keyboardType: TextInputType.number,
             onChanged: (value) => cubit.changeServiceTypeDefaultValue(
                 _serviceValueController.numberValue),
             validator: (value) => cubit.validateNumberField(
               _serviceValueController.numberValue.toString(),
-              context.appLocalizations.serviceValue,
+              AppLocalizations.current.serviceValue,
             ),
           ),
           AppSizeConstants.bigVerticalSpacer,
           PillButton(
             onTap: onConfirm,
-            child: Text(context.appLocalizations.saveType),
+            child: Text(AppLocalizations.current.saveType),
           ),
         ],
       ),

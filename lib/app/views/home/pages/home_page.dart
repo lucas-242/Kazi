@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_services/app/shared/constants/app_onboarding.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                     onState: (_) => HomeContent(state: state),
                     onLoading: () => const Loading(),
                     onNoData: () =>
-                        NoData(message: context.appLocalizations.noServices),
+                        NoData(message: AppLocalizations.current.noServices),
                   );
                 },
               ),

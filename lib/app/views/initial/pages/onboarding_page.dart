@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
 import 'package:my_services/app/shared/themes/extensions/typography_extension.dart';
@@ -36,11 +36,11 @@ class OnboardingPage extends StatelessWidget {
                 ),
                 RichText(
                   text: TextSpan(
-                    text: context.appLocalizations.onboardingTitle1,
+                    text: AppLocalizations.current.onboardingTitle1,
                     style: context.headlineLarge,
                     children: [
                       TextSpan(
-                        text: context.appLocalizations.onboardingTitle2,
+                        text: AppLocalizations.current.onboardingTitle2,
                         style: context.headlineLarge!
                             .copyWith(color: context.colorsScheme.primary),
                       ),
@@ -49,7 +49,7 @@ class OnboardingPage extends StatelessWidget {
                 ),
                 AppSizeConstants.smallVerticalSpacer,
                 Text(
-                  context.appLocalizations.onboardingSubtitle,
+                  AppLocalizations.current.onboardingSubtitle,
                   style: context.headlineSmall,
                 ),
                 AppSizeConstants.hugeVerticalSpacer,

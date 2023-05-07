@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -45,12 +45,12 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
           children: [
             cubit.state.serviceType.id.isEmpty
                 ? BackAndPill(
-                    text: context.appLocalizations.newServiceType,
+                    text: AppLocalizations.current.newServiceType,
                     onTapBack: () => onTapBack(),
                   )
                 : BackAndPill(
-                    text: context.appLocalizations.editServiceType,
-                    pillText: context.appLocalizations.delete,
+                    text: AppLocalizations.current.editServiceType,
+                    pillText: AppLocalizations.current.delete,
                     backgroundColor: context.colorsScheme.error,
                     onTapBack: () => onTapBack(),
                     onTapPill: () =>

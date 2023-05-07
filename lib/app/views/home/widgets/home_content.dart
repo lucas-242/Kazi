@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/shared/constants/app_onboarding.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
@@ -44,21 +43,21 @@ class HomeContent extends StatelessWidget {
                 InfoCard(
                   title: NumberFormatHelper.formatCurrency(
                       context, state.totalWithDiscount),
-                  subtitle: context.appLocalizations.myBalance,
+                  subtitle: AppLocalizations.current.myBalance,
                   icon: AppAssets.services,
                   color: AppColors.green,
                 ),
                 InfoCard(
                   title: NumberFormatHelper.formatCurrency(
                       context, state.totalDiscounted),
-                  subtitle: context.appLocalizations.discounts,
+                  subtitle: AppLocalizations.current.discounts,
                   icon: AppAssets.fire,
                   color: AppColors.orange,
                 ),
                 InfoCard(
                   title: NumberFormatHelper.formatCurrency(
                       context, state.totalValue),
-                  subtitle: context.appLocalizations.totalReceived,
+                  subtitle: AppLocalizations.current.totalReceived,
                   icon: AppAssets.rocket,
                   color: AppColors.blue,
                 ),
@@ -67,8 +66,8 @@ class HomeContent extends StatelessWidget {
           ),
           AppSizeConstants.smallVerticalSpacer,
           TitleAndPill(
-            title: context.appLocalizations.lastServices,
-            pillText: context.appLocalizations.newService,
+            title: AppLocalizations.current.lastServices,
+            pillText: AppLocalizations.current.newService,
             onTap: () {
               context.read<AppCubit>().changeToAddServicePage();
               context.go(AppRoutes.addServices);

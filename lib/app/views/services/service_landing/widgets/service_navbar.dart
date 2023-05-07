@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_cubit.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -24,7 +24,7 @@ class ServiceNavbar extends StatelessWidget {
     final serviceCubit = context.read<ServiceLandingCubit>();
 
     return TextWithTrailing(
-      text: context.appLocalizations.services,
+      text: AppLocalizations.current.services,
       trailing: Row(
         children: [
           CircularButton(
@@ -68,7 +68,7 @@ class ServiceNavbar extends StatelessWidget {
               context.read<AppCubit>().changeToAddServicePage();
               context.go(AppRoutes.addServices);
             },
-            child: Text(context.appLocalizations.newService),
+            child: Text(AppLocalizations.current.newService),
           )
         ],
       ),

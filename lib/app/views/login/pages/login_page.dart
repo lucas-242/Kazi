@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   AppSizeConstants.smallVerticalSpacer,
                   Text(
-                    context.appLocalizations.appSubtitle,
+                    AppLocalizations.current.appSubtitle,
                     textAlign: TextAlign.center,
                     style: context.headlineMedium,
                   ),
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     AppSizeConstants.smallHorizontalSpacer,
-                    Text(context.appLocalizations.googleSignIn),
+                    Text(AppLocalizations.current.googleSignIn),
                   ],
                 ),
               )

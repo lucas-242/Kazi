@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/views/services/widgets/info_card.dart';
@@ -26,7 +26,7 @@ class InfoList extends StatelessWidget {
       children: [
         InfoCard(
           title: NumberFormatHelper.formatCurrency(context, totalWithDiscount),
-          subtitle: context.appLocalizations.myBalance,
+          subtitle: AppLocalizations.current.myBalance,
           icon: AppAssets.services,
           color: AppColors.green,
           width: cardWidth,
@@ -34,7 +34,7 @@ class InfoList extends StatelessWidget {
         AppSizeConstants.smallHorizontalSpacer,
         InfoCard(
           title: NumberFormatHelper.formatCurrency(context, totalDiscounted),
-          subtitle: context.appLocalizations.discounts,
+          subtitle: AppLocalizations.current.discounts,
           icon: AppAssets.fire,
           color: AppColors.orange,
           width: cardWidth,
@@ -42,7 +42,7 @@ class InfoList extends StatelessWidget {
         AppSizeConstants.smallHorizontalSpacer,
         InfoCard(
           title: NumberFormatHelper.formatCurrency(context, totalValue),
-          subtitle: context.appLocalizations.totalReceived,
+          subtitle: AppLocalizations.current.totalReceived,
           icon: AppAssets.rocket,
           color: AppColors.blue,
           width: cardWidth,

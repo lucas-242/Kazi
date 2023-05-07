@@ -4,7 +4,7 @@ import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/app_user.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/constants/app_keys.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
                         ? Column(
                             children: [
                               RowText(
-                                leftText: context.appLocalizations.phone,
+                                leftText: AppLocalizations.current.phone,
                                 rightText: user.phoneNumber!,
                                 rightTextStyle: context.titleSmall!
                                     .copyWith(fontWeight: FontWeight.w400),
@@ -76,7 +76,7 @@ class ProfilePage extends StatelessWidget {
                           )
                         : AppSizeConstants.emptyWidget,
                     RowText(
-                      leftText: context.appLocalizations.email,
+                      leftText: AppLocalizations.current.email,
                       rightText: user.email,
                       rightTextStyle: context.bodyMedium,
                     ),
@@ -84,12 +84,12 @@ class ProfilePage extends StatelessWidget {
                     const Divider(),
                     OptionButton(
                       onTap: () => context.go(AppRoutes.servicesType),
-                      text: context.appLocalizations.serviceTypes,
+                      text: AppLocalizations.current.serviceTypes,
                     ),
                     const Divider(),
                     OptionButton(
                       onTap: onSignOut,
-                      text: context.appLocalizations.logout,
+                      text: AppLocalizations.current.logout,
                       textStyle:
                           context.titleSmall!.copyWith(color: AppColors.red),
                     ),
