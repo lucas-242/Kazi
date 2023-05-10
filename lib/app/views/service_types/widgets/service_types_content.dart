@@ -20,10 +20,7 @@ class ServiceTypesContent extends StatelessWidget {
           BackAndPill(
             text: AppLocalizations.current.serviceTypes,
             pillText: AppLocalizations.current.newType,
-            onTapPill: () => context.go(
-              AppRoutes.addServiceType,
-              extra: cubit,
-            ),
+            onTapPill: () => context.go(AppRoutes.addServiceType),
           ),
           AppSizeConstants.bigVerticalSpacer,
           Card(
@@ -42,10 +39,7 @@ class ServiceTypesContent extends StatelessWidget {
                   serviceType: cubit.state.serviceTypes[index],
                   onTapEdit: (serviceType) {
                     cubit.changeServiceType(serviceType);
-                    context.go(
-                      AppRoutes.addServiceType,
-                      extra: cubit,
-                    );
+                    context.go(AppRoutes.addServiceType);
                   },
                 ),
                 separatorBuilder: (context, index) => const Divider(),

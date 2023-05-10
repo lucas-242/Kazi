@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
 import 'package:my_services/app/models/app_user.dart';
 import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/constants/app_keys.dart';
+import 'package:my_services/app/shared/constants/app_onboarding.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
@@ -82,17 +85,35 @@ class ProfilePage extends StatelessWidget {
                     ),
                     AppSizeConstants.largeVerticalSpacer,
                     const Divider(),
-                    OptionButton(
-                      onTap: () => context.go(AppRoutes.servicesType),
-                      text: AppLocalizations.current.serviceTypes,
-                    ),
-                    const Divider(),
-                    OptionButton(
-                      onTap: onSignOut,
-                      text: AppLocalizations.current.logout,
-                      textStyle:
-                          context.titleSmall!.copyWith(color: AppColors.red),
-                    ),
+                    OnboardingTooltip(
+                      onboardingKey: AppOnboarding.stepFour,
+                      title: AppLocalizations.current.tourProfileTitle,
+                      description:
+                          AppLocalizations.current.tourProfileDescription,
+                      currentPage: 4,
+                      onNextCallback: () {
+                        context.read<AppCubit>().changeToAddServicePage();
+                        context.go(AppRoutes.addServiceType);
+                      },
+                      onBackCallback: () => context.go(AppRoutes.home),
+                      targetPadding:
+                          const EdgeInsets.all(AppSizeConstants.largeSpace),
+                      child: Column(
+                        children: [
+                          OptionButton(
+                            onTap: () => context.go(AppRoutes.servicesType),
+                            text: AppLocalizations.current.serviceTypes,
+                          ),
+                          const Divider(),
+                          OptionButton(
+                            onTap: onSignOut,
+                            text: AppLocalizations.current.logout,
+                            textStyle: context.titleSmall!
+                                .copyWith(color: AppColors.red),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

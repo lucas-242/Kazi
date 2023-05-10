@@ -34,44 +34,47 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
       context.pop();
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        cubit.eraseServiceType();
-        return true;
-      },
-      child: CustomScaffold(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            cubit.state.serviceType.id.isEmpty
-                ? BackAndPill(
-                    text: AppLocalizations.current.newServiceType,
-                    onTapBack: () => onTapBack(),
-                  )
-                : BackAndPill(
-                    text: AppLocalizations.current.editServiceType,
-                    pillText: AppLocalizations.current.delete,
-                    backgroundColor: context.colorsScheme.error,
-                    onTapBack: () => onTapBack(),
-                    onTapPill: () =>
-                        cubit.deleteServiceType(cubit.state.serviceType),
+    return BlocProvider.value(
+      value: cubit,
+      child: WillPopScope(
+        onWillPop: () async {
+          cubit.eraseServiceType();
+          return true;
+        },
+        child: CustomScaffold(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              cubit.state.serviceType.id.isEmpty
+                  ? BackAndPill(
+                      text: AppLocalizations.current.newServiceType,
+                      onTapBack: () => onTapBack(),
+                    )
+                  : BackAndPill(
+                      text: AppLocalizations.current.editServiceType,
+                      pillText: AppLocalizations.current.delete,
+                      backgroundColor: context.colorsScheme.error,
+                      onTapBack: () => onTapBack(),
+                      onTapPill: () =>
+                          cubit.deleteServiceType(cubit.state.serviceType),
+                    ),
+              AppSizeConstants.bigVerticalSpacer,
+              BlocListener<ServiceTypesCubit, ServiceTypesState>(
+                listenWhen: (previous, current) =>
+                    previous.status != current.status,
+                listener: (context, state) {
+                  if (state.status == BaseStateStatus.success) {
+                    context.pop();
+                  }
+                },
+                child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(
+                  builder: (context, state) => ServiceTypeFormContent(
+                    onConfirm: onConfirm,
                   ),
-            AppSizeConstants.bigVerticalSpacer,
-            BlocListener<ServiceTypesCubit, ServiceTypesState>(
-              listenWhen: (previous, current) =>
-                  previous.status != current.status,
-              listener: (context, state) {
-                if (state.status == BaseStateStatus.success) {
-                  context.pop();
-                }
-              },
-              child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(
-                builder: (context, state) => ServiceTypeFormContent(
-                  onConfirm: onConfirm,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

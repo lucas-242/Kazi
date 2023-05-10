@@ -127,19 +127,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Parece que você não registrou nenhum tipo de serviço,  clique no botão acima para registrar um novo."),
         "noServices": MessageLookupByLibrary.simpleMessage(
             "Parece que você não registrou nenhum serviço, clique no botão acima para registrar um novo."),
-        "onboardingAppBarDescription": MessageLookupByLibrary.simpleMessage(
-            "Aqui você encontra a possibilidade de alterar seu número de telefone, e-mail, empresa, alterar sua senha, tipos de serviços, exportar itens, fazer logoff e muito mais."),
-        "onboardingAppBarTitle":
-            MessageLookupByLibrary.simpleMessage("Área do Perfil"),
-        "onboardingHomeBalanceDescription": MessageLookupByLibrary.simpleMessage(
-            "Aqui é exibido os seus ganhos diários, o total descontado e o total recebido."),
-        "onboardingHomeBalanceTitle":
-            MessageLookupByLibrary.simpleMessage("Balanço"),
-        "onboardingHomeServicesDescription":
-            MessageLookupByLibrary.simpleMessage(
-                "Esses são os serviços que você realizou hoje."),
-        "onboardingHomeServicesTitle":
-            MessageLookupByLibrary.simpleMessage("Serviços do dia"),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
             "Esta ferramenta inteligente foi projetada para ajudá-lo a gerenciar melhor seus serviços."),
         "onboardingTitle1":
@@ -193,6 +180,33 @@ class MessageLookup extends MessageLookupByLibrary {
         "today": MessageLookupByLibrary.simpleMessage("Hoje"),
         "total": MessageLookupByLibrary.simpleMessage("Valor total"),
         "totalReceived": MessageLookupByLibrary.simpleMessage("Total recebido"),
+        "tourAppBarDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui você encontra a possibilidade de alterar seu número de telefone, e-mail, empresa, alterar sua senha, tipos de serviços, exportar itens, fazer logoff e muito mais."),
+        "tourAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Área do Perfil"),
+        "tourBottomNavigationServicesDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "Nesse menu você encontrará todos os serviços que realizou além de poder cadastrar um novo serviço."),
+        "tourBottomNavigationServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Área de Serviços"),
+        "tourHomeBalanceDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui é exibido os seus ganhos diários, o total descontado e o total recebido."),
+        "tourHomeBalanceTitle": MessageLookupByLibrary.simpleMessage("Balanço"),
+        "tourHomeServicesDescription": MessageLookupByLibrary.simpleMessage(
+            "Esses são os serviços que você realizou hoje."),
+        "tourHomeServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Serviços do dia"),
+        "tourProfileDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui você encontrará algumas ações disponíveis, inclusive a de cadastrar um novo tipo de serviço. O tipo de serviço permite que você identifique facilmente um serviço prestado."),
+        "tourProfileTitle": MessageLookupByLibrary.simpleMessage("Ações"),
+        "tourServiceTypesDescription": MessageLookupByLibrary.simpleMessage(
+            "Essas informações te ajudarão a cadastrar facilmente os serviços que realizará. Você pode dar um nome, como \"Cílios - Volume Brasileiro\", preencher o valor padrão, e a porcentagem que será descontada desse serviço caso você trabalhe em um salão que te cobre. Mas não se preocupe, esses valores podem ser alterados sempre que realizar um novo serviço."),
+        "tourServiceTypesTitle":
+            MessageLookupByLibrary.simpleMessage("Tipo de serviço"),
+        "tourServicesListDescription": MessageLookupByLibrary.simpleMessage(
+            "Esses são todos os serviços que realizou em um determinado período de tempo. Por padrão você verá todos os serviços do mês, mas também poderá filtrar e ordenar o seus serviços pela data que desejar."),
+        "tourServicesListTitle":
+            MessageLookupByLibrary.simpleMessage("Serviços"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro desconhecido"),
         "userHasBeenDisabled": MessageLookupByLibrary.simpleMessage(

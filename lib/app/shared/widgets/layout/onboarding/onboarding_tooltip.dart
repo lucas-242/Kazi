@@ -73,7 +73,7 @@ class OnboardingTooltip extends StatelessWidget {
                 children: [
                   Text(title, style: context.titleMedium),
                   Text(
-                    '$currentPage of ${AppOnboarding.totalSteps}',
+                    '$currentPage of ${AppOnboarding.stepList.length}',
                     style: context.labelMedium,
                   ),
                 ],
@@ -118,7 +118,7 @@ class OnboardingTooltip extends StatelessWidget {
                       if (onNextCallback != null) onNextCallback!();
                     },
                     child: Text(
-                      currentPage == AppOnboarding.totalSteps
+                      currentPage == AppOnboarding.stepList.length
                           ? 'Finish'
                           : 'Next',
                     ),

@@ -44,16 +44,7 @@ class _AppShellState extends State<AppShell> {
 
   void _startShowCase() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => ShowCaseWidget.of(context).startShowCase(
-        [
-          AppOnboarding.stepOne,
-          AppOnboarding.stepTwo,
-          AppOnboarding.stepThree,
-          AppOnboarding.stepFour,
-          AppOnboarding.stepFive,
-          AppOnboarding.stepSix
-        ],
-      ),
+      (_) => ShowCaseWidget.of(context).startShowCase(AppOnboarding.stepList),
     );
   }
 

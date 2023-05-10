@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 
 class BottomNavigationButton extends StatelessWidget {
-  final VoidCallback onTap;
-  final String icon;
-  final String label;
-  final bool isSelected;
-  final EdgeInsets padding;
   const BottomNavigationButton({
     super.key,
     required this.onTap,
@@ -16,7 +11,25 @@ class BottomNavigationButton extends StatelessWidget {
     required this.label,
     required this.isSelected,
     this.padding = EdgeInsets.zero,
+    this.onboardingKey,
+    this.onboardingTitle,
+    this.onboardingDescription,
+    this.onboardingCurrentPage,
+    this.onboardingBackCallback,
+    this.onboardingNextCallback,
   });
+
+  final VoidCallback onTap;
+  final String icon;
+  final String label;
+  final bool isSelected;
+  final EdgeInsets padding;
+  final GlobalKey? onboardingKey;
+  final String? onboardingTitle;
+  final String? onboardingDescription;
+  final int? onboardingCurrentPage;
+  final VoidCallback? onboardingBackCallback;
+  final VoidCallback? onboardingNextCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +38,22 @@ class BottomNavigationButton extends StatelessWidget {
         : context.colorsScheme.onPrimaryContainer;
 
     final fontWeight = isSelected ? FontWeight.w500 : FontWeight.w400;
+
+    List<Widget> getIconWithText() => [
+          SvgPicture.asset(
+            icon,
+            colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+          ),
+          AppSizeConstants.tinyVerticalSpacer,
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontWeight: fontWeight,
+            ),
+          ),
+        ];
 
     return Expanded(
       child: Padding(
@@ -36,19 +65,28 @@ class BottomNavigationButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                icon,
-                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                label,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
-                  fontWeight: fontWeight,
-                ),
-              )
+              if (onboardingKey != null &&
+                  onboardingTitle != null &&
+                  onboardingDescription != null &&
+                  onboardingCurrentPage != null)
+                OnboardingTooltip(
+                  onboardingKey: onboardingKey!,
+                  title: onboardingTitle!,
+                  description: onboardingDescription!,
+                  currentPage: onboardingCurrentPage!,
+                  position: OnboardingTooltipPosition.top,
+                  onNextCallback: onboardingNextCallback,
+                  onBackCallback: onboardingBackCallback,
+                  targetPadding: const EdgeInsets.only(
+                    top: AppSizeConstants.mediumSpace,
+                    bottom: AppSizeConstants.mediumSpace,
+                    left: AppSizeConstants.largeSpace,
+                    right: AppSizeConstants.largeSpace,
+                  ),
+                  child: Column(children: getIconWithText()),
+                )
+              else
+                ...getIconWithText(),
             ],
           ),
         ),

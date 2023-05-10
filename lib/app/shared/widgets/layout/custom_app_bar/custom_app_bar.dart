@@ -43,9 +43,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           AppSizeConstants.smallHorizontalSpacer,
           OnboardingTooltip(
             onboardingKey: AppOnboarding.stepThree,
-            title: AppLocalizations.current.onboardingAppBarTitle,
+            title: AppLocalizations.current.tourAppBarTitle,
             currentPage: 3,
-            description: AppLocalizations.current.onboardingAppBarDescription,
+            description: AppLocalizations.current.tourAppBarDescription,
+            onNextCallback: () => context.go(AppRoutes.profile),
             child: TextButton(
               onPressed: onTapImage,
               child: SizedBox(

@@ -490,66 +490,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Perfil Area`
-  String get onboardingAppBarTitle {
-    return Intl.message(
-      'Perfil Area',
-      name: 'onboardingAppBarTitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.`
-  String get onboardingAppBarDescription {
-    return Intl.message(
-      'Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.',
-      name: 'onboardingAppBarDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Balance`
-  String get onboardingHomeBalanceTitle {
-    return Intl.message(
-      'Balance',
-      name: 'onboardingHomeBalanceTitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Here your daily earnings are displayed, also the total discount and the total received.`
-  String get onboardingHomeBalanceDescription {
-    return Intl.message(
-      'Here your daily earnings are displayed, also the total discount and the total received.',
-      name: 'onboardingHomeBalanceDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Daily Services`
-  String get onboardingHomeServicesTitle {
-    return Intl.message(
-      'Daily Services',
-      name: 'onboardingHomeServicesTitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `These are the services you performed today.`
-  String get onboardingHomeServicesDescription {
-    return Intl.message(
-      'These are the services you performed today.',
-      name: 'onboardingHomeServicesDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `This smart tool is designed to help you better manage your services.`
   String get onboardingSubtitle {
     return Intl.message(
@@ -895,6 +835,166 @@ class AppLocalizations {
     return Intl.message(
       'Total received',
       name: 'totalReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Perfil Area`
+  String get tourAppBarTitle {
+    return Intl.message(
+      'Perfil Area',
+      name: 'tourAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.`
+  String get tourAppBarDescription {
+    return Intl.message(
+      'Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.',
+      name: 'tourAppBarDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services Area`
+  String get tourBottomNavigationServicesTitle {
+    return Intl.message(
+      'Services Area',
+      name: 'tourBottomNavigationServicesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In this menu you will find all the services you have performed, and also being able to register a new service.`
+  String get tourBottomNavigationServicesDescription {
+    return Intl.message(
+      'In this menu you will find all the services you have performed, and also being able to register a new service.',
+      name: 'tourBottomNavigationServicesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Balance`
+  String get tourHomeBalanceTitle {
+    return Intl.message(
+      'Balance',
+      name: 'tourHomeBalanceTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here your daily earnings are displayed, also the total discount and the total received.`
+  String get tourHomeBalanceDescription {
+    return Intl.message(
+      'Here your daily earnings are displayed, also the total discount and the total received.',
+      name: 'tourHomeBalanceDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily Services`
+  String get tourHomeServicesTitle {
+    return Intl.message(
+      'Daily Services',
+      name: 'tourHomeServicesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `These are the services you performed today.`
+  String get tourHomeServicesDescription {
+    return Intl.message(
+      'These are the services you performed today.',
+      name: 'tourHomeServicesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actions`
+  String get tourProfileTitle {
+    return Intl.message(
+      'Actions',
+      name: 'tourProfileTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here you will find some actions available, including the one to register a new type of service. The service type allows you to easily identify a service provided.`
+  String get tourProfileDescription {
+    return Intl.message(
+      'Here you will find some actions available, including the one to register a new type of service. The service type allows you to easily identify a service provided.',
+      name: 'tourProfileDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
+  String get tourServicesInfoTitle {
+    return Intl.message(
+      'Services',
+      name: 'tourServicesInfoTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here you can filter and sort your services and view the balance for the selected period. You can also register performed services.`
+  String get tourServicesInfoDescription {
+    return Intl.message(
+      'Here you can filter and sort your services and view the balance for the selected period. You can also register performed services.',
+      name: 'tourServicesInfoDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
+  String get tourServicesListTitle {
+    return Intl.message(
+      'Services',
+      name: 'tourServicesListTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `These are all the jobs you've provided in a given period of time. By default you will see all the services for the current month, but you can also filter and sort your services by the date you desire.`
+  String get tourServicesListDescription {
+    return Intl.message(
+      'These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month, but you can also filter and sort your services by the date you desire.',
+      name: 'tourServicesListDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Type`
+  String get tourServiceTypesTitle {
+    return Intl.message(
+      'Service Type',
+      name: 'tourServiceTypesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and the percentage that will be deducted from this service if you work in a salon that charges you. But don't worry, these values can be changed whenever you perform a new service.`
+  String get tourServiceTypesDescription {
+    return Intl.message(
+      'This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and the percentage that will be deducted from this service if you work in a salon that charges you. But don\'t worry, these values can be changed whenever you perform a new service.',
+      name: 'tourServiceTypesDescription',
       desc: '',
       args: [],
     );

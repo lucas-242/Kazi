@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_services/app/shared/constants/app_onboarding.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/fields/fields.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
 
 import '../service_types.dart';
 
@@ -61,40 +65,57 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
       key: _formKey,
       child: Column(
         children: [
-          CustomTextFormField(
-            textFormKey: _nameKey,
-            labelText: AppLocalizations.current.name,
-            initialValue: cubit.state.serviceType.name,
-            onChanged: (value) => cubit.changeServiceTypeName(value),
-            validator: (value) => cubit.validateTextField(
-              value,
-              AppLocalizations.current.name,
+          OnboardingTooltip(
+            onboardingKey: AppOnboarding.stepFive,
+            title: AppLocalizations.current.tourServiceTypesTitle,
+            description: AppLocalizations.current.tourServiceTypesDescription,
+            currentPage: 5,
+            onBackCallback: () => context.go(AppRoutes.profile),
+            targetPadding: const EdgeInsets.only(
+              top: AppSizeConstants.largeSpace,
+              bottom: AppSizeConstants.mediumSpace,
+              left: AppSizeConstants.largeSpace,
+              right: AppSizeConstants.largeSpace,
             ),
-          ),
-          AppSizeConstants.largeVerticalSpacer,
-          CustomTextFormField(
-            textFormKey: _discountKey,
-            controller: _discountController,
-            labelText: AppLocalizations.current.discountPercentage,
-            keyboardType: TextInputType.number,
-            onChanged: (value) => cubit.changeServiceTypeDiscountPercent(
-                _discountController.numberValue),
-            validator: (value) => cubit.validateNumberField(
-              _discountController.numberValue.toString(),
-              AppLocalizations.current.discountPercentage,
-            ),
-          ),
-          AppSizeConstants.largeVerticalSpacer,
-          CustomTextFormField(
-            textFormKey: _serviceValueKey,
-            labelText: AppLocalizations.current.serviceValue,
-            controller: _serviceValueController,
-            keyboardType: TextInputType.number,
-            onChanged: (value) => cubit.changeServiceTypeDefaultValue(
-                _serviceValueController.numberValue),
-            validator: (value) => cubit.validateNumberField(
-              _serviceValueController.numberValue.toString(),
-              AppLocalizations.current.serviceValue,
+            child: Column(
+              children: [
+                CustomTextFormField(
+                  textFormKey: _nameKey,
+                  labelText: AppLocalizations.current.name,
+                  initialValue: cubit.state.serviceType.name,
+                  onChanged: (value) => cubit.changeServiceTypeName(value),
+                  validator: (value) => cubit.validateTextField(
+                    value,
+                    AppLocalizations.current.name,
+                  ),
+                ),
+                AppSizeConstants.largeVerticalSpacer,
+                CustomTextFormField(
+                  textFormKey: _serviceValueKey,
+                  labelText: AppLocalizations.current.serviceValue,
+                  controller: _serviceValueController,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) => cubit.changeServiceTypeDefaultValue(
+                      _serviceValueController.numberValue),
+                  validator: (value) => cubit.validateNumberField(
+                    _serviceValueController.numberValue.toString(),
+                    AppLocalizations.current.serviceValue,
+                  ),
+                ),
+                AppSizeConstants.largeVerticalSpacer,
+                CustomTextFormField(
+                  textFormKey: _discountKey,
+                  controller: _discountController,
+                  labelText: AppLocalizations.current.discountPercentage,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) => cubit.changeServiceTypeDiscountPercent(
+                      _discountController.numberValue),
+                  validator: (value) => cubit.validateNumberField(
+                    _discountController.numberValue.toString(),
+                    AppLocalizations.current.discountPercentage,
+                  ),
+                ),
+              ],
             ),
           ),
           AppSizeConstants.bigVerticalSpacer,

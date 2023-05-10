@@ -28,9 +28,8 @@ class HomeContent extends StatelessWidget {
         children: [
           OnboardingTooltip(
             onboardingKey: AppOnboarding.stepOne,
-            title: AppLocalizations.current.onboardingHomeBalanceTitle,
-            description:
-                AppLocalizations.current.onboardingHomeBalanceDescription,
+            title: AppLocalizations.current.tourHomeBalanceTitle,
+            description: AppLocalizations.current.tourHomeBalanceDescription,
             currentPage: 1,
             targetPadding: const EdgeInsets.only(
               top: AppSizeConstants.largeSpace,
@@ -76,9 +75,8 @@ class HomeContent extends StatelessWidget {
           AppSizeConstants.largeVerticalSpacer,
           OnboardingTooltip(
             onboardingKey: AppOnboarding.stepTwo,
-            title: AppLocalizations.current.onboardingHomeServicesTitle,
-            description:
-                AppLocalizations.current.onboardingHomeServicesDescription,
+            title: AppLocalizations.current.tourHomeServicesTitle,
+            description: AppLocalizations.current.tourHomeServicesDescription,
             position: OnboardingTooltipPosition.top,
             currentPage: 2,
             targetPadding: const EdgeInsets.only(

@@ -1,85 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:my_services/app/models/service_group_by_date.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/constants/app_onboarding.dart';
 import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/routes/router.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/app/shared/widgets/texts/texts.dart';
-import 'package:my_services/injector_container.dart';
-
-import '../../../shared/widgets/animation/expanded_section/expanded_section.dart';
-import 'service_list.dart';
+import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:my_services/app/views/services/widgets/service_date_card.dart';
 
 class ServiceListByDate extends StatefulWidget {
-  final List<ServicesGroupByDate> servicesByDate;
-
   const ServiceListByDate({
     Key? key,
-    required this.servicesByDate,
+    required this.servicesByDateList,
+    this.showOnboarding = false,
   }) : super(key: key);
+
+  final List<ServicesGroupByDate> servicesByDateList;
+  final bool showOnboarding;
 
   @override
   State<ServiceListByDate> createState() => _ServiceListByDateState();
 }
 
 class _ServiceListByDateState extends State<ServiceListByDate> {
+  void onTap(ServicesGroupByDate servicesByDate, int index) => setState(() {
+        widget.servicesByDateList[index] =
+            servicesByDate.copyWith(isExpaded: !servicesByDate.isExpanded);
+      });
+
   @override
   Widget build(BuildContext context) {
-    String getTextDate(DateTime date) {
-      final today = serviceLocator.get<TimeService>().now;
-
-      if (date == today) {
-        return AppLocalizations.current.today;
-      } else if (date.calculateDifference(today) == -1) {
-        return AppLocalizations.current.yesterday;
-      }
-      return DateFormat.yMMMd().format(date).normalizeDate();
-    }
-
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: widget.servicesByDate.length,
+      itemCount: widget.servicesByDateList.length,
       itemBuilder: (context, index) {
-        final servicesByDate = widget.servicesByDate[index];
-        return Card(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: AppSizeConstants.largeSpace,
-                  right: AppSizeConstants.largeSpace,
-                  top: AppSizeConstants.largeSpace,
-                  bottom: !servicesByDate.isExpanded
-                      ? AppSizeConstants.largeSpace
-                      : 0,
-                ),
-                child: TextWithTrailing(
-                  text: getTextDate(servicesByDate.date),
-                  trailing: CircularButton(
-                    onTap: () => setState(() {
-                      widget.servicesByDate[index] = servicesByDate.copyWith(
-                          isExpaded: !servicesByDate.isExpanded);
-                    }),
-                    child: Icon(
-                      servicesByDate.isExpanded
-                          ? Icons.keyboard_arrow_up_outlined
-                          : Icons.keyboard_arrow_down_outlined,
-                    ),
-                  ),
-                ),
-              ),
-              ExpandedSection(
-                isExpanded: servicesByDate.isExpanded,
-                child: ServiceList(
-                  services: servicesByDate.services,
-                  canScroll: false,
-                ),
-              ),
-            ],
-          ),
+        final servicesByDate = widget.servicesByDateList[index];
+        if (showOnboarding && index == 1) {
+          return OnboardingTooltip(
+            onboardingKey: AppOnboarding.stepEight,
+            title: AppLocalizations.current.tourHomeBalanceTitle,
+            description: AppLocalizations.current.tourHomeBalanceDescription,
+            currentPage: 8,
+            targetPadding: const EdgeInsets.only(
+              top: AppSizeConstants.largeSpace,
+              bottom: AppSizeConstants.mediumSpace,
+              left: AppSizeConstants.largeSpace,
+              right: AppSizeConstants.largeSpace,
+            ),
+            child: ServiceDateCard(
+              servicesByDate: servicesByDate,
+              onTap: () => onTap(servicesByDate, index),
+            ),
+          );
+        }
+
+        return ServiceDateCard(
+          servicesByDate: servicesByDate,
+          onTap: () => onTap(servicesByDate, index),
         );
       },
       separatorBuilder: (context, index) =>
