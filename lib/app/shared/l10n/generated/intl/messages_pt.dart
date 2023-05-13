@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtrando pelo mês passado"),
         "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
+        "finish": MessageLookupByLibrary.simpleMessage("Finalizar"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
         "fromTo": m1,
         "googleSignIn":
@@ -122,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "newServiceType":
             MessageLookupByLibrary.simpleMessage("Novo Tipo de Serviço"),
         "newType": MessageLookupByLibrary.simpleMessage("Novo Tipo"),
+        "next": MessageLookupByLibrary.simpleMessage("Próximo"),
         "noResults": MessageLookupByLibrary.simpleMessage("Sem resultados"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Parece que você não registrou nenhum tipo de serviço,  clique no botão acima para registrar um novo."),
@@ -181,7 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "total": MessageLookupByLibrary.simpleMessage("Valor total"),
         "totalReceived": MessageLookupByLibrary.simpleMessage("Total recebido"),
         "tourAppBarDescription": MessageLookupByLibrary.simpleMessage(
-            "Aqui você encontra a possibilidade de alterar seu número de telefone, e-mail, empresa, alterar sua senha, tipos de serviços, exportar itens, fazer logoff e muito mais."),
+            "Aqui você pode cadastrar os tipos de serviços que você realiza e sair da sua conta."),
         "tourAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Área do Perfil"),
         "tourBottomNavigationServicesDescription":
@@ -204,7 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tourServiceDetailsTitle":
             MessageLookupByLibrary.simpleMessage("Detalhes do Serviço"),
         "tourServiceTypesDescription": MessageLookupByLibrary.simpleMessage(
-            "Essas informações te ajudarão a cadastrar facilmente os serviços que realizará. Você pode dar um nome, como \"Cílios - Volume Brasileiro\", preencher o valor padrão, e a porcentagem que será descontada desse serviço caso você trabalhe em um salão que te cobre. Mas não se preocupe, esses valores podem ser alterados sempre que realizar um novo serviço."),
+            "Essas informações te ajudarão a cadastrar facilmente os serviços que realizará. Você pode dar um nome, como \"Cílios - Volume Brasileiro\", preencher o valor padrão, e caso se aplique, o percentual que normalmente é descontado desse serviço."),
         "tourServiceTypesTitle":
             MessageLookupByLibrary.simpleMessage("Tipo de serviço"),
         "tourServicesForm1Description": MessageLookupByLibrary.simpleMessage(

@@ -144,6 +144,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 description:
                     AppLocalizations.current.tourServicesForm1Description,
                 currentPage: 10,
+                width: context.width * 0.918,
                 onBackCallback: () => context.go(AppRoutes.services),
                 targetPadding: const EdgeInsets.only(
                   top: AppSizeConstants.largeSpace,

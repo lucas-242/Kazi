@@ -73,22 +73,22 @@ class ServiceLandingContent extends StatelessWidget {
             ),
           ),
           AppSizeConstants.mediumVerticalSpacer,
-          OnboardingTooltip(
-            onboardingKey: AppOnboarding.stepSeven,
-            title: AppLocalizations.current.tourServicesListTitle,
-            description: AppLocalizations.current.tourServicesListDescription,
-            currentPage: 7,
-            position: OnboardingTooltipPosition.top,
-            onBackCallback: () => context.go(AppRoutes.addServiceType),
-            targetPadding: const EdgeInsets.only(
-              top: AppSizeConstants.largeSpace,
-              bottom: AppSizeConstants.mediumSpace,
-              left: AppSizeConstants.largeSpace,
-              right: AppSizeConstants.largeSpace,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizeConstants.largeSpace),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizeConstants.largeSpace),
+            child: OnboardingTooltip(
+              onboardingKey: AppOnboarding.stepSeven,
+              title: AppLocalizations.current.tourServicesListTitle,
+              description: AppLocalizations.current.tourServicesListDescription,
+              currentPage: 7,
+              position: OnboardingTooltipPosition.top,
+              width: context.width * 0.918,
+              onBackCallback: () => context.go(AppRoutes.addServiceType),
+              targetPadding: const EdgeInsets.only(
+                top: AppSizeConstants.smallSpace,
+                left: AppSizeConstants.smallSpace,
+                right: AppSizeConstants.smallSpace,
+              ),
               child: _getServiceList(),
             ),
           ),

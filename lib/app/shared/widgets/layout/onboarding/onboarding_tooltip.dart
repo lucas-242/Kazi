@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_services/app/shared/constants/app_onboarding.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -32,6 +33,7 @@ class OnboardingTooltip extends StatelessWidget {
     this.targetPadding = EdgeInsets.zero,
     this.onBackCallback,
     this.onNextCallback,
+    this.width,
     required this.child,
   });
 
@@ -44,6 +46,7 @@ class OnboardingTooltip extends StatelessWidget {
   final VoidCallback? onBackCallback;
   final VoidCallback? onNextCallback;
   final Widget child;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +54,12 @@ class OnboardingTooltip extends StatelessWidget {
       key: onboardingKey,
       height: 0,
       width: 300,
+      overlayOpacity: 0.5,
       tooltipPosition: position.toTooltipPosition(),
       targetPadding: targetPadding,
+      targetBorderRadius: const BorderRadius.all(Radius.circular(18)),
       container: Container(
-        width: context.width * 0.75,
+        width: width ?? context.width * 0.8,
         decoration: const BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.all(Radius.circular(18)),
@@ -119,8 +124,8 @@ class OnboardingTooltip extends StatelessWidget {
                     },
                     child: Text(
                       currentPage == AppOnboarding.stepList.length
-                          ? 'Finish'
-                          : 'Next',
+                          ? AppLocalizations.current.finish
+                          : AppLocalizations.current.next,
                     ),
                   )
                 ],

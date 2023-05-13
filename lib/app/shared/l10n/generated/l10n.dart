@@ -300,6 +300,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Finish`
+  String get finish {
+    return Intl.message(
+      'Finish',
+      name: 'finish',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fortnight`
   String get fortnight {
     return Intl.message(
@@ -425,6 +435,16 @@ class AppLocalizations {
     return Intl.message(
       'Name',
       name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
       desc: '',
       args: [],
     );
@@ -850,10 +870,10 @@ class AppLocalizations {
     );
   }
 
-  /// `Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.`
+  /// `Here you can register the types of services you perform and log out of your account.`
   String get tourAppBarDescription {
     return Intl.message(
-      'Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more.',
+      'Here you can register the types of services you perform and log out of your account.',
       name: 'tourAppBarDescription',
       desc: '',
       args: [],
@@ -1050,10 +1070,10 @@ class AppLocalizations {
     );
   }
 
-  /// `This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and the percentage that will be deducted from this service if you work in a salon that charges you. But don't worry, these values can be changed whenever you perform a new service.`
+  /// `This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and if applicable, the percentage that is normally deducted from this service.`
   String get tourServiceTypesDescription {
     return Intl.message(
-      'This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and the percentage that will be deducted from this service if you work in a salon that charges you. But don\'t worry, these values can be changed whenever you perform a new service.',
+      'This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and if applicable, the percentage that is normally deducted from this service.',
       name: 'tourServiceTypesDescription',
       desc: '',
       args: [],

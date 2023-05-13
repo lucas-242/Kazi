@@ -37,6 +37,7 @@ class CustomBottomNavigation extends StatelessWidget {
             isSelected: currentPage == 1,
             // padding: const EdgeInsets.only(right: 32.0),
             onboardingKey: AppOnboarding.stepSix,
+            onboardingTooltipWidth: context.width * 0.65,
             onboardingCurrentPage: 6,
             onboardingNextCallback: () {
               context.read<AppCubit>().changePage(1);

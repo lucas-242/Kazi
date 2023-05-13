@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtering by last month"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
+        "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "fromTo": m1,
         "googleSignIn":
@@ -121,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "newServiceType":
             MessageLookupByLibrary.simpleMessage("New Service Type"),
         "newType": MessageLookupByLibrary.simpleMessage("New Type"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noResults": MessageLookupByLibrary.simpleMessage("No results"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "It seems you don\'t have any service type registered yet, click on the button above to register a new one."),
@@ -179,7 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "total": MessageLookupByLibrary.simpleMessage("Total value"),
         "totalReceived": MessageLookupByLibrary.simpleMessage("Total received"),
         "tourAppBarDescription": MessageLookupByLibrary.simpleMessage(
-            "Here you will find the possibility to change your phone number, e-mail, company, change your password, service types, export items, log off and more."),
+            "Here you can register the types of services you perform and log out of your account."),
         "tourAppBarTitle": MessageLookupByLibrary.simpleMessage("Perfil Area"),
         "tourBottomNavigationServicesDescription":
             MessageLookupByLibrary.simpleMessage(
@@ -201,7 +203,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tourServiceDetailsTitle":
             MessageLookupByLibrary.simpleMessage("Service Details"),
         "tourServiceTypesDescription": MessageLookupByLibrary.simpleMessage(
-            "This information will help you to easily register the services you will perform. You can give a name, such as \"Lashes - Brazilian Volume\", fill in the default value, and the percentage that will be deducted from this service if you work in a salon that charges you. But don\'t worry, these values can be changed whenever you perform a new service."),
+            "This information will help you to easily register the services you will perform. You can give a name, such as \"Lashes - Brazilian Volume\", fill in the default value, and if applicable, the percentage that is normally deducted from this service."),
         "tourServiceTypesTitle":
             MessageLookupByLibrary.simpleMessage("Service Type"),
         "tourServicesForm1Description": MessageLookupByLibrary.simpleMessage(

@@ -58,8 +58,7 @@ class ServiceListContent extends StatelessWidget {
             currentPage: 9,
             onNextCallback: () => _onNextCallback(context),
             targetPadding: const EdgeInsets.only(
-              top: AppSizeConstants.largeSpace,
-              bottom: AppSizeConstants.tinySpace,
+              top: AppSizeConstants.tinySpace,
               left: AppSizeConstants.largeSpace,
               right: AppSizeConstants.largeSpace,
             ),

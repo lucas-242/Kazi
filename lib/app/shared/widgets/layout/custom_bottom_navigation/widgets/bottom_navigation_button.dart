@@ -15,6 +15,7 @@ class BottomNavigationButton extends StatelessWidget {
     this.onboardingTitle,
     this.onboardingDescription,
     this.onboardingCurrentPage,
+    this.onboardingTooltipWidth,
     this.onboardingBackCallback,
     this.onboardingNextCallback,
   });
@@ -28,6 +29,7 @@ class BottomNavigationButton extends StatelessWidget {
   final String? onboardingTitle;
   final String? onboardingDescription;
   final int? onboardingCurrentPage;
+  final double? onboardingTooltipWidth;
   final VoidCallback? onboardingBackCallback;
   final VoidCallback? onboardingNextCallback;
 
@@ -75,6 +77,7 @@ class BottomNavigationButton extends StatelessWidget {
                   description: onboardingDescription!,
                   currentPage: onboardingCurrentPage!,
                   position: OnboardingTooltipPosition.top,
+                  width: onboardingTooltipWidth,
                   onNextCallback: onboardingNextCallback,
                   onBackCallback: onboardingBackCallback,
                   targetPadding: const EdgeInsets.only(
