@@ -196,16 +196,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "tourProfileDescription": MessageLookupByLibrary.simpleMessage(
             "Here you will find some actions available, including the one to register a new type of service. The service type allows you to easily identify a service provided."),
         "tourProfileTitle": MessageLookupByLibrary.simpleMessage("Actions"),
+        "tourServiceDetailsDescription": MessageLookupByLibrary.simpleMessage(
+            "You can click in the services to see all the information, update or delete it."),
+        "tourServiceDetailsTitle":
+            MessageLookupByLibrary.simpleMessage("Service Details"),
         "tourServiceTypesDescription": MessageLookupByLibrary.simpleMessage(
             "This information will help you to easily register the services you will perform. You can give a name, such as \"Lashes - Brazilian Volume\", fill in the default value, and the percentage that will be deducted from this service if you work in a salon that charges you. But don\'t worry, these values can be changed whenever you perform a new service."),
         "tourServiceTypesTitle":
             MessageLookupByLibrary.simpleMessage("Service Type"),
+        "tourServicesForm1Description": MessageLookupByLibrary.simpleMessage(
+            "To register a new service provided, first select one of the types of service that you previously registered and the values will be filled in automatically according to the data of that type of service. If you wish, you can change the values for that specific service."),
+        "tourServicesForm1Title":
+            MessageLookupByLibrary.simpleMessage("New Service"),
+        "tourServicesForm2Description": MessageLookupByLibrary.simpleMessage(
+            "Just select the date and the number of services performed, and fill in a description or note if you wish."),
+        "tourServicesForm2Title":
+            MessageLookupByLibrary.simpleMessage("New Service"),
         "tourServicesInfoDescription": MessageLookupByLibrary.simpleMessage(
             "Here you can filter and sort your services and view the balance for the selected period. You can also register performed services."),
         "tourServicesInfoTitle":
             MessageLookupByLibrary.simpleMessage("Services"),
         "tourServicesListDescription": MessageLookupByLibrary.simpleMessage(
-            "These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month, but you can also filter and sort your services by the date you desire."),
+            "These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month."),
         "tourServicesListTitle":
             MessageLookupByLibrary.simpleMessage("Services"),
         "unknowError": MessageLookupByLibrary.simpleMessage(

@@ -37,15 +37,15 @@ class CustomBottomNavigation extends StatelessWidget {
             isSelected: currentPage == 1,
             // padding: const EdgeInsets.only(right: 32.0),
             onboardingKey: AppOnboarding.stepSix,
+            onboardingCurrentPage: 6,
             onboardingNextCallback: () {
-              context.read<AppCubit>().changeToAddServicePage();
+              context.read<AppCubit>().changePage(1);
               context.go(AppRoutes.services);
             },
             onboardingTitle:
                 AppLocalizations.current.tourBottomNavigationServicesTitle,
             onboardingDescription: AppLocalizations
                 .current.tourBottomNavigationServicesDescription,
-            onboardingCurrentPage: 6,
           ),
           // BottomNavigationButton(
           //   onTap: () => onTap(2),

@@ -6,3 +6,4 @@ export 'widgets/info_card.dart';
 export 'widgets/order_by_bottom_sheet.dart';
 export 'widgets/service_list.dart';
 export 'widgets/service_list_by_date.dart';
+export 'widgets/service_list_content.dart';

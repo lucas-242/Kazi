@@ -21,11 +21,12 @@ class ServiceLandingContent extends StatelessWidget {
   final GlobalKey<FormFieldState> dateKey;
   final MaskedTextController dateController;
 
-  const ServiceLandingContent(
-      {super.key,
-      required this.dateKey,
-      required this.dateController,
-      required this.state});
+  const ServiceLandingContent({
+    super.key,
+    required this.dateKey,
+    required this.dateController,
+    required this.state,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,6 @@ class ServiceLandingContent extends StatelessWidget {
             title: AppLocalizations.current.tourServicesInfoTitle,
             description: AppLocalizations.current.tourServicesInfoDescription,
             currentPage: 8,
-            onBackCallback: () => context.go(AppRoutes.addServiceType),
             targetPadding: const EdgeInsets.only(
               top: AppSizeConstants.largeSpace,
               bottom: AppSizeConstants.mediumSpace,

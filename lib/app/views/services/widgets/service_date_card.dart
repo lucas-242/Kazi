@@ -8,9 +8,8 @@ import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/animation/expanded_section/expanded_section.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
 import 'package:my_services/app/shared/widgets/texts/texts.dart';
+import 'package:my_services/app/views/services/services.dart';
 import 'package:my_services/injector_container.dart';
-
-import 'service_list.dart';
 
 class ServiceDateCard extends StatelessWidget {
   const ServiceDateCard({

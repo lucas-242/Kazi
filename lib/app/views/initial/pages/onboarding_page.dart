@@ -13,15 +13,6 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onTap() {
-      //TODO: Move to the finish onboarding button
-
-      // serviceLocator
-      //     .get<LocalStorage>()
-      //     .setBool(AppKeys.showOnboardingStorage, false);
-      context.go(AppRoutes.home);
-    }
-
     return Scaffold(
       backgroundColor: context.colorsScheme.surface,
       body: SafeArea(
@@ -56,7 +47,7 @@ class OnboardingPage extends StatelessWidget {
                 Center(
                   child: CircularButton(
                     iconSize: 54,
-                    onTap: onTap,
+                    onTap: () => context.go(AppRoutes.home),
                     child: const Icon(Icons.chevron_right),
                   ),
                 )

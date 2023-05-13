@@ -18,7 +18,7 @@ abstract class AppRouter {
   static GoRouter get router => _router;
 }
 
-bool get showOnboarding =>
+bool get _showOnboarding =>
     serviceLocator.get<LocalStorage>().getBool(AppKeys.showOnboardingStorage) ??
     true;
 
@@ -32,16 +32,10 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.onboarding,
-      // redirect: (context, state) {
-      //   final showOnboarding = serviceLocator
-      //           .get<LocalStorage>()
-      //           .getBool(AppKeys.showOnboardingStorage) ??
-      //       true;
-
-      //   if (showOnboarding) return null;
-
-      //   return AppRoutes.home;
-      // },
+      redirect: (context, state) {
+        if (_showOnboarding) return null;
+        return AppRoutes.home;
+      },
       pageBuilder: (context, state) =>
           _customTransition(state, const OnboardingPage()),
     ),
@@ -52,10 +46,9 @@ final _router = GoRouter(
     ),
     ShellRoute(
       builder: (context, state, child) => ShowCaseWidget(
-        //TODO: Disable barrier interaction
-        // onStart: (p0, p1) => print('Started'),
-        // disableBarrierInteraction: true,
+        disableBarrierInteraction: true,
         disableMovingAnimation: true,
+        enableAutoScroll: true,
         builder: Builder(
           builder: (context) => AppShell(child: child),
         ),
@@ -63,13 +56,10 @@ final _router = GoRouter(
       routes: [
         GoRoute(
           path: AppRoutes.home,
-          pageBuilder: (context, state) {
-            return _customTransition(
-              state,
-              const HomePage(showOnboarding: true),
-              // HomePage(showOnboarding: showOnboarding),
-            );
-          },
+          pageBuilder: (context, state) => _customTransition(
+            state,
+            HomePage(showOnboarding: _showOnboarding),
+          ),
           routes: [
             GoRoute(
               path: ':serviceId',
@@ -82,8 +72,10 @@ final _router = GoRouter(
         ),
         GoRoute(
           path: AppRoutes.services,
-          pageBuilder: (context, state) =>
-              _customTransition(state, const ServiceLandingPage()),
+          pageBuilder: (context, state) => _customTransition(
+            state,
+            ServiceLandingPage(showOnboarding: _showOnboarding),
+          ),
           routes: [
             GoRoute(
               path: AppRoutes.type,

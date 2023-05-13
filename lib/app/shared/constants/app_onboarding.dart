@@ -1,8 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/models/service_type.dart';
+import 'package:my_services/app/services/services_service/local/local_services_service.dart';
+import 'package:my_services/app/services/time_service/local/local_time_service.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/views/home/home.dart';
+import 'package:my_services/app/views/services/services.dart';
 
 abstract class AppOnboarding {
   static final stepOne = GlobalKey();
@@ -16,7 +19,6 @@ abstract class AppOnboarding {
   static final stepNine = GlobalKey();
   static final stepTen = GlobalKey();
   static final stepEleven = GlobalKey();
-  static final stepTwelve = GlobalKey();
 
   static List<GlobalKey> get stepList => [
         AppOnboarding.stepOne,
@@ -30,34 +32,47 @@ abstract class AppOnboarding {
         AppOnboarding.stepNine,
         AppOnboarding.stepTen,
         AppOnboarding.stepEleven,
-        AppOnboarding.stepTwelve,
       ];
 
-  static const defaultServiceType = ServiceType(
+  static const _defaultServiceType = ServiceType(
     userId: 'aaaaa',
     name: 'Corte cabelo',
     defaultValue: 30,
     discountPercent: 5,
   );
-  static final defaultService = Service(
+  static final _defaultService = Service(
     userId: 'aaaaa',
     value: 30,
     discountPercent: 5,
-    type: defaultServiceType,
+    type: _defaultServiceType,
+  );
+
+  static final _defaultService2 = _defaultService.copyWith(
+    type: _defaultServiceType.copyWith(
+      defaultValue: 20,
+      name: 'Corte máquina',
+    ),
   );
 
   static final homeState = HomeState(
     status: BaseStateStatus.success,
     services: [
-      defaultService,
-      defaultService.copyWith(
-        type: defaultServiceType.copyWith(
-          defaultValue: 20,
-          name: 'Corte máquina',
-        ),
-      ),
-      defaultService,
-      defaultService,
+      _defaultService,
+      _defaultService2,
+      _defaultService,
+      _defaultService,
+    ],
+  );
+
+  static final servicesState = ServiceLandingState(
+    status: BaseStateStatus.success,
+    startDate: LocalServicesService(LocalTimeService()).now,
+    endDate: LocalServicesService(LocalTimeService()).now,
+    services: [
+      _defaultService,
+      _defaultService2,
+      _defaultService,
+      _defaultService,
     ],
   );
 }

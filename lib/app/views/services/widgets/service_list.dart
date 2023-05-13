@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:my_services/app/app_cubit.dart';
 import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/ads/ad_block.dart';
-
-import 'service_card.dart';
+import 'package:my_services/app/views/services/services.dart';
 
 class ServiceList extends StatelessWidget {
   const ServiceList({
@@ -23,14 +17,6 @@ class ServiceList extends StatelessWidget {
   final bool canScroll;
   final String? title;
   final bool expandList;
-
-  void _onTap(BuildContext context, Service service) {
-    var currentRoute = AppRoutes.services;
-    if (context.read<AppCubit>().state == 0) {
-      currentRoute = AppRoutes.home;
-    }
-    context.go('$currentRoute/${service.id}', extra: service);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,35 +43,20 @@ class ServiceList extends StatelessWidget {
                   AppSizeConstants.largeVerticalSpacer,
                 ],
               ),
-            expandList ? Expanded(child: getServiceList()) : getServiceList(),
+            expandList
+                ? Expanded(
+                    child: ServiceListContent(
+                      services: services,
+                      canScroll: canScroll,
+                    ),
+                  )
+                : ServiceListContent(
+                    services: services,
+                    canScroll: canScroll,
+                  ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget getServiceList() {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: canScroll
-          ? const AlwaysScrollableScrollPhysics()
-          : const NeverScrollableScrollPhysics(),
-      itemCount: services.length,
-      itemBuilder: (context, index) {
-        if (index != 0 && index % 2 == 0) {
-          return AdBlock(
-            child: ServiceCard(
-              service: services[index],
-              onTap: () => _onTap(context, services[index]),
-            ),
-          );
-        }
-        return ServiceCard(
-          service: services[index],
-          onTap: () => _onTap(context, services[index]),
-        );
-      },
-      separatorBuilder: (context, index) => const Divider(),
     );
   }
 }

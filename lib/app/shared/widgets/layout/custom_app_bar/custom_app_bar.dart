@@ -11,7 +11,7 @@ import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/widgets/layout/onboarding/onboarding_tooltip.dart';
 import 'package:my_services/injector_container.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     Key? key,
     this.showOrderBy = false,

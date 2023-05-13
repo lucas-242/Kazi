@@ -199,12 +199,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "tourProfileDescription": MessageLookupByLibrary.simpleMessage(
             "Aqui você encontrará algumas ações disponíveis, inclusive a de cadastrar um novo tipo de serviço. O tipo de serviço permite que você identifique facilmente um serviço prestado."),
         "tourProfileTitle": MessageLookupByLibrary.simpleMessage("Ações"),
+        "tourServiceDetailsDescription": MessageLookupByLibrary.simpleMessage(
+            "Clicando no serviço, você pode visualizar todas as informações dele, editar ou deletar."),
+        "tourServiceDetailsTitle":
+            MessageLookupByLibrary.simpleMessage("Detalhes do Serviço"),
         "tourServiceTypesDescription": MessageLookupByLibrary.simpleMessage(
             "Essas informações te ajudarão a cadastrar facilmente os serviços que realizará. Você pode dar um nome, como \"Cílios - Volume Brasileiro\", preencher o valor padrão, e a porcentagem que será descontada desse serviço caso você trabalhe em um salão que te cobre. Mas não se preocupe, esses valores podem ser alterados sempre que realizar um novo serviço."),
         "tourServiceTypesTitle":
             MessageLookupByLibrary.simpleMessage("Tipo de serviço"),
+        "tourServicesForm1Description": MessageLookupByLibrary.simpleMessage(
+            "Para cadastrar um novo serviço prestado, primeiro selecione um dos tipos de serviço que cadastrou anteriomente e os valores serão preenchidos automaticamente de acordo com os dados daquele tipo de serviço. Caso desejar, você pode alterar os valores para esse serviço em específico."),
+        "tourServicesForm1Title":
+            MessageLookupByLibrary.simpleMessage("Cadastrar Serviço"),
+        "tourServicesForm2Description": MessageLookupByLibrary.simpleMessage(
+            "Basta selecionar a data do serviço realizado, a quantidade de serviços realizados, e preencher com uma descrição ou anotação caso desejar."),
+        "tourServicesForm2Title":
+            MessageLookupByLibrary.simpleMessage("Cadastrar Serviço"),
         "tourServicesListDescription": MessageLookupByLibrary.simpleMessage(
-            "Esses são todos os serviços que realizou em um determinado período de tempo. Por padrão você verá todos os serviços do mês, mas também poderá filtrar e ordenar o seus serviços pela data que desejar."),
+            "Esses são todos os serviços que realizou em um determinado período de tempo. Por padrão você verá todos os serviços desse mês."),
         "tourServicesListTitle":
             MessageLookupByLibrary.simpleMessage("Serviços"),
         "unknowError": MessageLookupByLibrary.simpleMessage(

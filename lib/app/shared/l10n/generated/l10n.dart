@@ -940,6 +940,66 @@ class AppLocalizations {
     );
   }
 
+  /// `Service Details`
+  String get tourServiceDetailsTitle {
+    return Intl.message(
+      'Service Details',
+      name: 'tourServiceDetailsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can click in the services to see all the information, update or delete it.`
+  String get tourServiceDetailsDescription {
+    return Intl.message(
+      'You can click in the services to see all the information, update or delete it.',
+      name: 'tourServiceDetailsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Service`
+  String get tourServicesForm1Title {
+    return Intl.message(
+      'New Service',
+      name: 'tourServicesForm1Title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To register a new service provided, first select one of the types of service that you previously registered and the values will be filled in automatically according to the data of that type of service. If you wish, you can change the values for that specific service.`
+  String get tourServicesForm1Description {
+    return Intl.message(
+      'To register a new service provided, first select one of the types of service that you previously registered and the values will be filled in automatically according to the data of that type of service. If you wish, you can change the values for that specific service.',
+      name: 'tourServicesForm1Description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Service`
+  String get tourServicesForm2Title {
+    return Intl.message(
+      'New Service',
+      name: 'tourServicesForm2Title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Just select the date and the number of services performed, and fill in a description or note if you wish.`
+  String get tourServicesForm2Description {
+    return Intl.message(
+      'Just select the date and the number of services performed, and fill in a description or note if you wish.',
+      name: 'tourServicesForm2Description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Services`
   String get tourServicesInfoTitle {
     return Intl.message(
@@ -970,10 +1030,10 @@ class AppLocalizations {
     );
   }
 
-  /// `These are all the jobs you've provided in a given period of time. By default you will see all the services for the current month, but you can also filter and sort your services by the date you desire.`
+  /// `These are all the jobs you've provided in a given period of time. By default you will see all the services for the current month.`
   String get tourServicesListDescription {
     return Intl.message(
-      'These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month, but you can also filter and sort your services by the date you desire.',
+      'These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month.',
       name: 'tourServicesListDescription',
       desc: '',
       args: [],
