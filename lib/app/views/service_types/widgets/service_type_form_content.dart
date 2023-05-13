@@ -72,10 +72,10 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
             currentPage: 5,
             onBackCallback: () => context.go(AppRoutes.profile),
             targetPadding: const EdgeInsets.only(
-              top: AppSizeConstants.largeSpace,
-              bottom: AppSizeConstants.mediumSpace,
-              left: AppSizeConstants.largeSpace,
-              right: AppSizeConstants.largeSpace,
+              top: AppSizeConstants.mediumSpace,
+              bottom: AppSizeConstants.smallSpace,
+              left: AppSizeConstants.smallSpace,
+              right: AppSizeConstants.smallSpace,
             ),
             child: Column(
               children: [

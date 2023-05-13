@@ -82,7 +82,6 @@ class ServiceLandingContent extends StatelessWidget {
               description: AppLocalizations.current.tourServicesListDescription,
               currentPage: 7,
               position: OnboardingTooltipPosition.top,
-              width: context.width * 0.918,
               onBackCallback: () => context.go(AppRoutes.addServiceType),
               targetPadding: const EdgeInsets.only(
                 top: AppSizeConstants.smallSpace,

@@ -32,10 +32,9 @@ class HomeContent extends StatelessWidget {
             description: AppLocalizations.current.tourHomeBalanceDescription,
             currentPage: 1,
             targetPadding: const EdgeInsets.only(
-              top: AppSizeConstants.largeSpace,
-              bottom: AppSizeConstants.mediumSpace,
-              left: AppSizeConstants.largeSpace,
-              right: AppSizeConstants.largeSpace,
+              top: AppSizeConstants.smallSpace,
+              left: AppSizeConstants.smallSpace,
+              right: AppSizeConstants.smallSpace,
             ),
             child: Column(
               children: [
@@ -80,10 +79,9 @@ class HomeContent extends StatelessWidget {
             position: OnboardingTooltipPosition.top,
             currentPage: 2,
             targetPadding: const EdgeInsets.only(
-              top: AppSizeConstants.largeSpace,
-              bottom: AppSizeConstants.mediumSpace,
-              left: AppSizeConstants.largeSpace,
-              right: AppSizeConstants.largeSpace,
+              top: AppSizeConstants.smallSpace,
+              left: AppSizeConstants.smallSpace,
+              right: AppSizeConstants.smallSpace,
             ),
             child: SizedBox(
               height: 245,

@@ -3,6 +3,7 @@ import 'package:my_services/app/models/service.dart';
 import 'package:my_services/app/models/service_type.dart';
 import 'package:my_services/app/services/services_service/local/local_services_service.dart';
 import 'package:my_services/app/services/time_service/local/local_time_service.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/views/home/home.dart';
 import 'package:my_services/app/views/services/services.dart';
@@ -34,9 +35,9 @@ abstract class AppOnboarding {
         AppOnboarding.stepEleven,
       ];
 
-  static const _defaultServiceType = ServiceType(
+  static final _defaultServiceType = ServiceType(
     userId: 'aaaaa',
-    name: 'Corte cabelo',
+    name: AppLocalizations.current.clipperCut,
     defaultValue: 30,
     discountPercent: 5,
   );
@@ -50,7 +51,7 @@ abstract class AppOnboarding {
   static final _defaultService2 = _defaultService.copyWith(
     type: _defaultServiceType.copyWith(
       defaultValue: 20,
-      name: 'Corte máquina',
+      name: AppLocalizations.current.clipperCut,
     ),
   );
 

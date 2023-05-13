@@ -59,7 +59,7 @@ class OnboardingTooltip extends StatelessWidget {
       targetPadding: targetPadding,
       targetBorderRadius: const BorderRadius.all(Radius.circular(18)),
       container: Container(
-        width: width ?? context.width * 0.8,
+        width: width ?? context.width * 0.918,
         decoration: const BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.all(Radius.circular(18)),

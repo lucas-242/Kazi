@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
             "The service type can\'t be deleted because it is being used"),
+        "clipperCut": MessageLookupByLibrary.simpleMessage("Clipper cut"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmAction": MessageLookupByLibrary.simpleMessage("Confirm Action"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),

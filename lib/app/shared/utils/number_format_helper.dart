@@ -1,8 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/number_symbols_data.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'dart:ui' as ui;
 
 abstract class NumberFormatHelper {
   static String formatCurrency(BuildContext context,
@@ -38,7 +39,7 @@ abstract class NumberFormatHelper {
   }
 
   static String getCurrentLocale() {
-    final locale = ui.window.locale;
+    final locale = PlatformDispatcher.instance.locale;
     final joined = '${locale.languageCode}_${locale.countryCode}';
     if (numberFormatSymbols.keys.contains(joined)) {
       return joined;

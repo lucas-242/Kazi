@@ -96,8 +96,10 @@ class ProfilePage extends StatelessWidget {
                         context.go(AppRoutes.addServiceType);
                       },
                       onBackCallback: () => context.go(AppRoutes.home),
-                      targetPadding:
-                          const EdgeInsets.all(AppSizeConstants.largeSpace),
+                      targetPadding: const EdgeInsets.only(
+                        left: AppSizeConstants.mediumSpace,
+                        right: AppSizeConstants.mediumSpace,
+                      ),
                       child: Column(
                         children: [
                           OptionButton(

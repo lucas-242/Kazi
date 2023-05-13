@@ -120,6 +120,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Clipper cut`
+  String get clipperCut {
+    return Intl.message(
+      'Clipper cut',
+      name: 'clipperCut',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Create`
   String get create {
     return Intl.message(
