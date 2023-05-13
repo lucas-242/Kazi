@@ -4,7 +4,7 @@ import 'package:my_services/app/services/auth_service/auth_service.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/injector_container.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showOrderBy;
   final VoidCallback? onSelectedOrderBy;
 
