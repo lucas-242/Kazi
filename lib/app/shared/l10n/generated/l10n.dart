@@ -120,6 +120,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Clipper cut`
+  String get clipperCut {
+    return Intl.message(
+      'Clipper cut',
+      name: 'clipperCut',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Create`
   String get create {
     return Intl.message(
@@ -300,6 +310,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Finish`
+  String get finish {
+    return Intl.message(
+      'Finish',
+      name: 'finish',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fortnight`
   String get fortnight {
     return Intl.message(
@@ -425,6 +445,16 @@ class AppLocalizations {
     return Intl.message(
       'Name',
       name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
       desc: '',
       args: [],
     );
@@ -835,6 +865,226 @@ class AppLocalizations {
     return Intl.message(
       'Total received',
       name: 'totalReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Perfil Area`
+  String get tourAppBarTitle {
+    return Intl.message(
+      'Perfil Area',
+      name: 'tourAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here you can register the types of services you perform and log out of your account.`
+  String get tourAppBarDescription {
+    return Intl.message(
+      'Here you can register the types of services you perform and log out of your account.',
+      name: 'tourAppBarDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services Area`
+  String get tourBottomNavigationServicesTitle {
+    return Intl.message(
+      'Services Area',
+      name: 'tourBottomNavigationServicesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In this menu you will find all the services you have performed, and also being able to register a new service.`
+  String get tourBottomNavigationServicesDescription {
+    return Intl.message(
+      'In this menu you will find all the services you have performed, and also being able to register a new service.',
+      name: 'tourBottomNavigationServicesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Balance`
+  String get tourHomeBalanceTitle {
+    return Intl.message(
+      'Balance',
+      name: 'tourHomeBalanceTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here your daily earnings are displayed, also the total discount and the total received.`
+  String get tourHomeBalanceDescription {
+    return Intl.message(
+      'Here your daily earnings are displayed, also the total discount and the total received.',
+      name: 'tourHomeBalanceDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily Services`
+  String get tourHomeServicesTitle {
+    return Intl.message(
+      'Daily Services',
+      name: 'tourHomeServicesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `These are the services you performed today.`
+  String get tourHomeServicesDescription {
+    return Intl.message(
+      'These are the services you performed today.',
+      name: 'tourHomeServicesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actions`
+  String get tourProfileTitle {
+    return Intl.message(
+      'Actions',
+      name: 'tourProfileTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here you will find some actions available, including the one to register a new type of service. The service type allows you to easily identify a service provided.`
+  String get tourProfileDescription {
+    return Intl.message(
+      'Here you will find some actions available, including the one to register a new type of service. The service type allows you to easily identify a service provided.',
+      name: 'tourProfileDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Details`
+  String get tourServiceDetailsTitle {
+    return Intl.message(
+      'Service Details',
+      name: 'tourServiceDetailsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can click in the services to see all the information, update or delete it.`
+  String get tourServiceDetailsDescription {
+    return Intl.message(
+      'You can click in the services to see all the information, update or delete it.',
+      name: 'tourServiceDetailsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Service`
+  String get tourServicesForm1Title {
+    return Intl.message(
+      'New Service',
+      name: 'tourServicesForm1Title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To register a new service provided, first select one of the types of service that you previously registered and the values will be filled in automatically according to the data of that type of service. If you wish, you can change the values for that specific service.`
+  String get tourServicesForm1Description {
+    return Intl.message(
+      'To register a new service provided, first select one of the types of service that you previously registered and the values will be filled in automatically according to the data of that type of service. If you wish, you can change the values for that specific service.',
+      name: 'tourServicesForm1Description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Service`
+  String get tourServicesForm2Title {
+    return Intl.message(
+      'New Service',
+      name: 'tourServicesForm2Title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Just select the date and the number of services performed, and fill in a description or note if you wish.`
+  String get tourServicesForm2Description {
+    return Intl.message(
+      'Just select the date and the number of services performed, and fill in a description or note if you wish.',
+      name: 'tourServicesForm2Description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
+  String get tourServicesInfoTitle {
+    return Intl.message(
+      'Services',
+      name: 'tourServicesInfoTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Here you can filter and sort your services and view the balance for the selected period. You can also register performed services.`
+  String get tourServicesInfoDescription {
+    return Intl.message(
+      'Here you can filter and sort your services and view the balance for the selected period. You can also register performed services.',
+      name: 'tourServicesInfoDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
+  String get tourServicesListTitle {
+    return Intl.message(
+      'Services',
+      name: 'tourServicesListTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `These are all the jobs you've provided in a given period of time. By default you will see all the services for the current month.`
+  String get tourServicesListDescription {
+    return Intl.message(
+      'These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month.',
+      name: 'tourServicesListDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Type`
+  String get tourServiceTypesTitle {
+    return Intl.message(
+      'Service Type',
+      name: 'tourServiceTypesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and if applicable, the percentage that is normally deducted from this service.`
+  String get tourServiceTypesDescription {
+    return Intl.message(
+      'This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and if applicable, the percentage that is normally deducted from this service.',
+      name: 'tourServiceTypesDescription',
       desc: '',
       args: [],
     );

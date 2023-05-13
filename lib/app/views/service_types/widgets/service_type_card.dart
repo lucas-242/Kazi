@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/number_format_helper.dart';
 import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
@@ -21,7 +21,7 @@ class ServiceTypeCard extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       title: Text(serviceType.name, style: context.titleSmall),
       subtitle: Text(
-        '${NumberFormatHelper.formatPercent(serviceType.discountPercent)} ${context.appLocalizations.discount.toLowerCase()}',
+        '${NumberFormatHelper.formatPercent(serviceType.discountPercent)} ${AppLocalizations.current.discount.toLowerCase()}',
         style: context.labelSmall,
       ),
       trailing: Row(

@@ -99,6 +99,7 @@ class LocalServicesService extends ServicesService {
     final result = <ServicesGroupByDate>[];
     final dates = _getServicesDates(services);
 
+    //TODO: Should bring back isExpanded as true the newest group if there is not today or yesterday group
     for (var date in dates) {
       final servicesOnDate = services.where((s) => s.date == date).toList();
       if (servicesOnDate.isNotEmpty) {

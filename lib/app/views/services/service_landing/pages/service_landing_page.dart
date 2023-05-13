@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
+import 'package:my_services/app/shared/constants/app_onboarding.dart';
 import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:my_services/app/shared/themes/themes.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/services/service_landing/widgets/service_landing_content.dart';
@@ -10,7 +13,9 @@ import 'package:my_services/app/views/services/service_landing/widgets/service_n
 import 'package:my_services/app/views/services/services.dart';
 
 class ServiceLandingPage extends StatefulWidget {
-  const ServiceLandingPage({super.key});
+  const ServiceLandingPage({super.key, required this.showOnboarding});
+
+  final bool showOnboarding;
 
   @override
   State<ServiceLandingPage> createState() => _ServiceLandingPageState();
@@ -33,6 +38,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
       onRefresh: () => context.read<ServiceLandingCubit>().onRefresh(),
       child: BlocListener<ServiceLandingCubit, ServiceLandingState>(
         listenWhen: (previous, current) => previous.status != current.status,
@@ -44,25 +50,39 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
             );
           }
         },
-        child: BlocBuilder<ServiceLandingCubit, ServiceLandingState>(
-          builder: (context, state) {
-            return state.when(
-              onState: (_) => ServiceLandingContent(
-                state: state,
+        child: widget.showOnboarding
+            ? ServiceLandingContent(
+                state: AppOnboarding.servicesState,
                 dateController: dateController,
                 dateKey: dateKey,
+              )
+            : BlocBuilder<ServiceLandingCubit, ServiceLandingState>(
+                builder: (context, state) {
+                  return state.when(
+                    onState: (_) => ServiceLandingContent(
+                      state: state,
+                      dateController: dateController,
+                      dateKey: dateKey,
+                    ),
+                    onLoading: () => const Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppSizeConstants.largeSpace),
+                      child: Loading(),
+                    ),
+                    onNoData: () => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: AppSizeConstants.largeSpace),
+                      child: NoData(
+                        message: AppLocalizations.current.noServices,
+                        navbar: ServiceNavbar(
+                          dateKey: dateKey,
+                          dateController: dateController,
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
-              onLoading: () => const Loading(),
-              onNoData: () => NoData(
-                message: context.appLocalizations.noServices,
-                navbar: ServiceNavbar(
-                  dateKey: dateKey,
-                  dateController: dateController,
-                ),
-              ),
-            );
-          },
-        ),
       ),
     );
   }

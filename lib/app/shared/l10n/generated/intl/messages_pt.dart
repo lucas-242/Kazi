@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
             "O tipo de serviço não pode ser deletado pois está em uso"),
+        "clipperCut": MessageLookupByLibrary.simpleMessage("Corte na máquina"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
         "confirmAction": MessageLookupByLibrary.simpleMessage("Confirmar Ação"),
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
@@ -92,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtrando pelo mês passado"),
         "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
+        "finish": MessageLookupByLibrary.simpleMessage("Finalizar"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
         "fromTo": m1,
         "googleSignIn":
@@ -122,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "newServiceType":
             MessageLookupByLibrary.simpleMessage("Novo Tipo de Serviço"),
         "newType": MessageLookupByLibrary.simpleMessage("Novo Tipo"),
+        "next": MessageLookupByLibrary.simpleMessage("Próximo"),
         "noResults": MessageLookupByLibrary.simpleMessage("Sem resultados"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Parece que você não registrou nenhum tipo de serviço,  clique no botão acima para registrar um novo."),
@@ -180,6 +183,45 @@ class MessageLookup extends MessageLookupByLibrary {
         "today": MessageLookupByLibrary.simpleMessage("Hoje"),
         "total": MessageLookupByLibrary.simpleMessage("Valor total"),
         "totalReceived": MessageLookupByLibrary.simpleMessage("Total recebido"),
+        "tourAppBarDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui você pode cadastrar os tipos de serviços que você realiza e sair da sua conta."),
+        "tourAppBarTitle":
+            MessageLookupByLibrary.simpleMessage("Área do Perfil"),
+        "tourBottomNavigationServicesDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "Nesse menu você encontrará todos os serviços que realizou além de poder cadastrar um novo serviço."),
+        "tourBottomNavigationServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Área de Serviços"),
+        "tourHomeBalanceDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui é exibido os seus ganhos diários, o total descontado e o total recebido."),
+        "tourHomeBalanceTitle": MessageLookupByLibrary.simpleMessage("Balanço"),
+        "tourHomeServicesDescription": MessageLookupByLibrary.simpleMessage(
+            "Esses são os serviços que você realizou hoje."),
+        "tourHomeServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Serviços do dia"),
+        "tourProfileDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui você encontrará algumas ações disponíveis, inclusive a de cadastrar um novo tipo de serviço. O tipo de serviço permite que você identifique facilmente um serviço prestado."),
+        "tourProfileTitle": MessageLookupByLibrary.simpleMessage("Ações"),
+        "tourServiceDetailsDescription": MessageLookupByLibrary.simpleMessage(
+            "Clicando no serviço, você pode visualizar todas as informações dele, editar ou deletar."),
+        "tourServiceDetailsTitle":
+            MessageLookupByLibrary.simpleMessage("Detalhes do Serviço"),
+        "tourServiceTypesDescription": MessageLookupByLibrary.simpleMessage(
+            "Essas informações te ajudarão a cadastrar facilmente os serviços que realizará. Você pode dar um nome, como \"Cílios - Volume Brasileiro\", preencher o valor padrão, e caso se aplique, o percentual que normalmente é descontado desse serviço."),
+        "tourServiceTypesTitle":
+            MessageLookupByLibrary.simpleMessage("Tipo de serviço"),
+        "tourServicesForm1Description": MessageLookupByLibrary.simpleMessage(
+            "Para cadastrar um novo serviço prestado, primeiro selecione um dos tipos de serviço que cadastrou anteriomente e os valores serão preenchidos automaticamente de acordo com os dados daquele tipo de serviço. Caso desejar, você pode alterar os valores para esse serviço em específico."),
+        "tourServicesForm1Title":
+            MessageLookupByLibrary.simpleMessage("Cadastrar Serviço"),
+        "tourServicesForm2Description": MessageLookupByLibrary.simpleMessage(
+            "Basta selecionar a data do serviço realizado, a quantidade de serviços realizados, e preencher com uma descrição ou anotação caso desejar."),
+        "tourServicesForm2Title":
+            MessageLookupByLibrary.simpleMessage("Cadastrar Serviço"),
+        "tourServicesListDescription": MessageLookupByLibrary.simpleMessage(
+            "Esses são todos os serviços que realizou em um determinado período de tempo. Por padrão você verá todos os serviços desse mês."),
+        "tourServicesListTitle":
+            MessageLookupByLibrary.simpleMessage("Serviços"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro desconhecido"),
         "userHasBeenDisabled": MessageLookupByLibrary.simpleMessage(

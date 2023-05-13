@@ -3,18 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/constants/app_onboarding.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'app_cubit.dart';
+import 'shared/l10n/generated/l10n.dart';
 import 'shared/routes/app_routes.dart';
 
 class AppShell extends StatefulWidget {
-  final Widget child;
   const AppShell({
     Key? key,
     required this.child,
   }) : super(key: key);
+
+  final Widget child;
 
   @override
   State<AppShell> createState() => _AppShellState();
@@ -28,6 +31,7 @@ class _AppShellState extends State<AppShell> {
     context.read<AppCubit>().changePage(0);
     _listenUser();
     super.initState();
+    _startShowCase();
   }
 
   void _listenUser() {
@@ -36,6 +40,12 @@ class _AppShellState extends State<AppShell> {
         context.go(AppRoutes.login);
       }
     });
+  }
+
+  void _startShowCase() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => ShowCaseWidget.of(context).startShowCase(AppOnboarding.stepList),
+    );
   }
 
   @override
@@ -70,7 +80,7 @@ class _AppShellState extends State<AppShell> {
               ),
               child: FloatingActionButton(
                 onPressed: _onTapFloatingActionButton,
-                tooltip: context.appLocalizations.newService,
+                tooltip: AppLocalizations.current.newService,
                 child: Icon(cubit.isAddServicePage ? Icons.close : Icons.add),
               ),
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:my_services/app/shared/l10n/generated/l10n.dart';
 import 'package:my_services/app/shared/utils/base_state.dart';
 import 'package:my_services/app/shared/widgets/layout/layout.dart';
 import 'package:my_services/app/views/service_types/widgets/service_type_no_data_navbar.dart';
@@ -67,7 +67,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 },
                 onLoading: () => const Loading(),
                 onNoData: () => NoData(
-                  message: context.appLocalizations.noServiceTypes,
+                  message: AppLocalizations.current.noServiceTypes,
                   navbar: const ServiceTypeNoDataNavbar(),
                 ),
               );

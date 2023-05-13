@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
             "The service type can\'t be deleted because it is being used"),
+        "clipperCut": MessageLookupByLibrary.simpleMessage("Clipper cut"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmAction": MessageLookupByLibrary.simpleMessage("Confirm Action"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
@@ -92,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtering by last month"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
+        "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "fromTo": m1,
         "googleSignIn":
@@ -121,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "newServiceType":
             MessageLookupByLibrary.simpleMessage("New Service Type"),
         "newType": MessageLookupByLibrary.simpleMessage("New Type"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noResults": MessageLookupByLibrary.simpleMessage("No results"),
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "It seems you don\'t have any service type registered yet, click on the button above to register a new one."),
@@ -178,6 +181,48 @@ class MessageLookup extends MessageLookupByLibrary {
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "total": MessageLookupByLibrary.simpleMessage("Total value"),
         "totalReceived": MessageLookupByLibrary.simpleMessage("Total received"),
+        "tourAppBarDescription": MessageLookupByLibrary.simpleMessage(
+            "Here you can register the types of services you perform and log out of your account."),
+        "tourAppBarTitle": MessageLookupByLibrary.simpleMessage("Perfil Area"),
+        "tourBottomNavigationServicesDescription":
+            MessageLookupByLibrary.simpleMessage(
+                "In this menu you will find all the services you have performed, and also being able to register a new service."),
+        "tourBottomNavigationServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Services Area"),
+        "tourHomeBalanceDescription": MessageLookupByLibrary.simpleMessage(
+            "Here your daily earnings are displayed, also the total discount and the total received."),
+        "tourHomeBalanceTitle": MessageLookupByLibrary.simpleMessage("Balance"),
+        "tourHomeServicesDescription": MessageLookupByLibrary.simpleMessage(
+            "These are the services you performed today."),
+        "tourHomeServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Daily Services"),
+        "tourProfileDescription": MessageLookupByLibrary.simpleMessage(
+            "Here you will find some actions available, including the one to register a new type of service. The service type allows you to easily identify a service provided."),
+        "tourProfileTitle": MessageLookupByLibrary.simpleMessage("Actions"),
+        "tourServiceDetailsDescription": MessageLookupByLibrary.simpleMessage(
+            "You can click in the services to see all the information, update or delete it."),
+        "tourServiceDetailsTitle":
+            MessageLookupByLibrary.simpleMessage("Service Details"),
+        "tourServiceTypesDescription": MessageLookupByLibrary.simpleMessage(
+            "This information will help you to easily register the services you will perform. You can give a name, such as \"Lashes - Brazilian Volume\", fill in the default value, and if applicable, the percentage that is normally deducted from this service."),
+        "tourServiceTypesTitle":
+            MessageLookupByLibrary.simpleMessage("Service Type"),
+        "tourServicesForm1Description": MessageLookupByLibrary.simpleMessage(
+            "To register a new service provided, first select one of the types of service that you previously registered and the values will be filled in automatically according to the data of that type of service. If you wish, you can change the values for that specific service."),
+        "tourServicesForm1Title":
+            MessageLookupByLibrary.simpleMessage("New Service"),
+        "tourServicesForm2Description": MessageLookupByLibrary.simpleMessage(
+            "Just select the date and the number of services performed, and fill in a description or note if you wish."),
+        "tourServicesForm2Title":
+            MessageLookupByLibrary.simpleMessage("New Service"),
+        "tourServicesInfoDescription": MessageLookupByLibrary.simpleMessage(
+            "Here you can filter and sort your services and view the balance for the selected period. You can also register performed services."),
+        "tourServicesInfoTitle":
+            MessageLookupByLibrary.simpleMessage("Services"),
+        "tourServicesListDescription": MessageLookupByLibrary.simpleMessage(
+            "These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month."),
+        "tourServicesListTitle":
+            MessageLookupByLibrary.simpleMessage("Services"),
         "unknowError": MessageLookupByLibrary.simpleMessage(
             "An unknown exception occurred"),
         "userHasBeenDisabled": MessageLookupByLibrary.simpleMessage(

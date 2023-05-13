@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_services/app/app_shell.dart';
 import 'package:my_services/app/data/local_storage/local_storage.dart';
@@ -13,10 +12,15 @@ import 'package:my_services/app/views/profile/profile.dart';
 import 'package:my_services/app/views/service_types/service_types.dart';
 import 'package:my_services/app/views/services/services.dart';
 import 'package:my_services/injector_container.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 abstract class AppRouter {
   static GoRouter get router => _router;
 }
+
+bool get _showOnboarding =>
+    serviceLocator.get<LocalStorage>().getBool(AppKeys.showOnboardingStorage) ??
+    true;
 
 final _router = GoRouter(
   initialLocation: AppRoutes.initial,
@@ -29,13 +33,7 @@ final _router = GoRouter(
     GoRoute(
       path: AppRoutes.onboarding,
       redirect: (context, state) {
-        final showOnboarding = serviceLocator
-                .get<LocalStorage>()
-                .getBool(AppKeys.showOnboardingStorage) ??
-            true;
-
-        if (showOnboarding) return null;
-
+        if (_showOnboarding) return null;
         return AppRoutes.home;
       },
       pageBuilder: (context, state) =>
@@ -47,25 +45,37 @@ final _router = GoRouter(
           _customTransition(state, const LoginPage()),
     ),
     ShellRoute(
-      builder: (context, state, child) => AppShell(child: child),
+      builder: (context, state, child) => ShowCaseWidget(
+        disableBarrierInteraction: true,
+        disableMovingAnimation: true,
+        enableAutoScroll: true,
+        builder: Builder(
+          builder: (context) => AppShell(child: child),
+        ),
+      ),
       routes: [
         GoRoute(
-            path: AppRoutes.home,
-            pageBuilder: (context, state) =>
-                _customTransition(state, const HomePage()),
-            routes: [
-              GoRoute(
-                path: ':serviceId',
-                pageBuilder: (context, state) => _customTransition(
-                  state,
-                  ServiceDetailsPage(service: state.extra as Service),
-                ),
+          path: AppRoutes.home,
+          pageBuilder: (context, state) => _customTransition(
+            state,
+            HomePage(showOnboarding: _showOnboarding),
+          ),
+          routes: [
+            GoRoute(
+              path: ':serviceId',
+              pageBuilder: (context, state) => _customTransition(
+                state,
+                ServiceDetailsPage(service: state.extra as Service),
               ),
-            ]),
+            ),
+          ],
+        ),
         GoRoute(
           path: AppRoutes.services,
-          pageBuilder: (context, state) =>
-              _customTransition(state, const ServiceLandingPage()),
+          pageBuilder: (context, state) => _customTransition(
+            state,
+            ServiceLandingPage(showOnboarding: _showOnboarding),
+          ),
           routes: [
             GoRoute(
               path: AppRoutes.type,
@@ -76,10 +86,7 @@ final _router = GoRouter(
                   path: AppRoutes.add,
                   pageBuilder: (context, state) => _customTransition(
                     state,
-                    BlocProvider.value(
-                      value: state.extra as ServiceTypesCubit,
-                      child: const ServiceTypeFormPage(),
-                    ),
+                    const ServiceTypeFormPage(),
                   ),
                 ),
               ],

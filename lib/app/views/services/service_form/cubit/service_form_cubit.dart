@@ -59,15 +59,22 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _servicesRepository.add(state.service, state.quantity);
-      emit(state.copyWith(
-          status: BaseStateStatus.success,
-          quantity: 1,
-          service: Service(userId: _authService.user!.uid)));
+      cleanState();
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
     }
+  }
+
+  void cleanState() {
+    emit(
+      state.copyWith(
+        status: BaseStateStatus.success,
+        quantity: 1,
+        service: Service(userId: _authService.user!.uid),
+      ),
+    );
   }
 
   void _checkServiceValidity() {
@@ -85,10 +92,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _servicesRepository.update(state.service);
-      emit(state.copyWith(
-          status: BaseStateStatus.success,
-          quantity: 1,
-          service: Service(userId: _authService.user!.uid)));
+      cleanState();
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
