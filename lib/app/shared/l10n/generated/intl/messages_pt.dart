@@ -218,6 +218,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Basta selecionar a data do serviço realizado, a quantidade de serviços realizados, e preencher com uma descrição ou anotação caso desejar."),
         "tourServicesForm2Title":
             MessageLookupByLibrary.simpleMessage("Cadastrar Serviço"),
+        "tourServicesInfoDescription": MessageLookupByLibrary.simpleMessage(
+            "Aqui você pode filtrar e ordernar os serviços, bem como visualizar o saldo do período selecionado. Você também pode cadastrar os serviços realizados."),
+        "tourServicesInfoTitle":
+            MessageLookupByLibrary.simpleMessage("Serviços"),
         "tourServicesListDescription": MessageLookupByLibrary.simpleMessage(
             "Esses são todos os serviços que realizou em um determinado período de tempo. Por padrão você verá todos os serviços desse mês."),
         "tourServicesListTitle":
