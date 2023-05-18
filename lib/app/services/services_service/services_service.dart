@@ -1,7 +1,7 @@
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/models/service_group_by_date.dart';
-import 'package:my_services/app/models/service_type.dart';
+import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/service_group_by_date.dart';
+import 'package:kazi/app/models/service_type.dart';
 
 abstract class ServicesService {
   DateTime get now;

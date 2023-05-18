@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/widgets/layout/custom_scaffold/widgets/padding_wrap.dart';
-import 'package:my_services/app/shared/widgets/layout/custom_scroll_behavior/custom_scroll_behavior.dart';
+import 'package:kazi/app/shared/widgets/layout/custom_scaffold/widgets/padding_wrap.dart';
+import 'package:kazi/app/shared/widgets/layout/custom_scroll_behavior/custom_scroll_behavior.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold({

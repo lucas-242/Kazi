@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
 
 abstract class ThemeSettings {
   static const pageTransitionsTheme = PageTransitionsTheme(

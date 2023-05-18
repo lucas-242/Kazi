@@ -1,4 +1,4 @@
-import 'package:my_services/app/models/service_type.dart';
+import 'package:kazi/app/models/service_type.dart';
 
 abstract class ServiceTypeRepository {
   Future<ServiceType> add(ServiceType serviceType);

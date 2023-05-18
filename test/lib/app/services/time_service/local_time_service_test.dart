@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_services/app/services/time_service/local/local_time_service.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:kazi/app/services/time_service/local/local_time_service.dart';
+import 'package:kazi/app/services/time_service/time_service.dart';
 
 void main() {
   late TimeService timeService;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/utils/base_state.dart';
+import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
+import 'package:kazi/app/shared/widgets/layout/layout.dart';
 
 import '../service_types.dart';
 

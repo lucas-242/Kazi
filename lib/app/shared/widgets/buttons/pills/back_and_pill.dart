@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/buttons/circular_button/circular_button.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/widgets/buttons/circular_button/circular_button.dart';
 
 import 'pill_button.dart';
 

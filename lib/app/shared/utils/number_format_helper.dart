@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/number_symbols_data.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 
 abstract class NumberFormatHelper {
   static String formatCurrency(BuildContext context,

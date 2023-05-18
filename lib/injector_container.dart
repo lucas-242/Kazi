@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_services/app/data/local_storage/local_storage.dart';
-import 'package:my_services/app/services/services_service/services_service.dart';
-import 'package:my_services/app/services/time_service/local/local_time_service.dart';
+import 'package:kazi/app/data/local_storage/local_storage.dart';
+import 'package:kazi/app/services/services_service/services_service.dart';
+import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/repositories/service_type_repository/firebase/firebase_service_type_repository.dart';

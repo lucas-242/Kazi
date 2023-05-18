@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:my_services/app/models/app_user.dart';
-import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'errors/firebase_sign_in_error.dart';
 
 class FirebaseAuthService extends AuthService {

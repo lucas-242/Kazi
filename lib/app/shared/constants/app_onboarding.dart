@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/services/services_service/local/local_services_service.dart';
-import 'package:my_services/app/services/time_service/local/local_time_service.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/views/home/home.dart';
-import 'package:my_services/app/views/services/services.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/service_type.dart';
+import 'package:kazi/app/services/services_service/local/local_services_service.dart';
+import 'package:kazi/app/services/time_service/local/local_time_service.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/utils/base_state.dart';
+import 'package:kazi/app/views/home/home.dart';
+import 'package:kazi/app/views/services/services.dart';
 
 abstract class AppOnboarding {
   static final stepOne = GlobalKey();

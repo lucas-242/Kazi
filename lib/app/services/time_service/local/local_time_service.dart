@@ -1,4 +1,4 @@
-import 'package:my_services/app/services/time_service/time_service.dart';
+import 'package:kazi/app/services/time_service/time_service.dart';
 
 class LocalTimeService implements TimeService {
   final DateTime _currentDate;

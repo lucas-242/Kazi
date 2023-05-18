@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_services/app/models/service_group_by_date.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/animation/expanded_section/expanded_section.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/app/shared/widgets/texts/texts.dart';
-import 'package:my_services/app/views/services/services.dart';
-import 'package:my_services/injector_container.dart';
+import 'package:kazi/app/models/service_group_by_date.dart';
+import 'package:kazi/app/services/time_service/time_service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/widgets/animation/expanded_section/expanded_section.dart';
+import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
+import 'package:kazi/app/shared/widgets/texts/texts.dart';
+import 'package:kazi/app/views/services/services.dart';
+import 'package:kazi/injector_container.dart';
 
 class ServiceDateCard extends StatelessWidget {
   const ServiceDateCard({

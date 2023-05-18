@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/services/services_service/services_service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/services/services_service/services_service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 
 part 'service_filters_state.dart';
 

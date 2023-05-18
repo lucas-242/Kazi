@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/constants/app_onboarding.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
+import 'package:kazi/app/shared/constants/app_onboarding.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 enum OnboardingTooltipPosition {

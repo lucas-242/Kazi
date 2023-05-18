@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/shared/themes/extensions/theme_extension.dart';
-import 'package:my_services/app/shared/themes/extensions/typography_extension.dart';
-import 'package:my_services/app/shared/themes/settings/app_assets.dart';
-import 'package:my_services/app/shared/themes/settings/app_size_constants.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/themes/extensions/theme_extension.dart';
+import 'package:kazi/app/shared/themes/extensions/typography_extension.dart';
+import 'package:kazi/app/shared/themes/settings/app_assets.dart';
+import 'package:kazi/app/shared/themes/settings/app_size_constants.dart';
+import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/widgets/layout/layout.dart';
 
 class BottomNavigationButton extends StatelessWidget {
   const BottomNavigationButton({

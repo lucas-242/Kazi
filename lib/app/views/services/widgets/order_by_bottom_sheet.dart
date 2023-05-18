@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
 
 class OrderByBottomSheet extends StatelessWidget {
   final Function(OrderBy) onPressed;

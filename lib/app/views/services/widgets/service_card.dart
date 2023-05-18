@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/utils/number_format_helper.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/utils/number_format_helper.dart';
 
 class ServiceCard extends StatelessWidget {
   final VoidCallback onTap;

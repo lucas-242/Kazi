@@ -1,6 +1,6 @@
-import 'package:my_services/app/models/app_user.dart';
-import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
+import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/service_type.dart';
+import 'package:kazi/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
 
 final userMock = AppUser(
   uid: 'abc123',

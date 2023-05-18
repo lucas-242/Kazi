@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:my_services/app/app_cubit.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/utils/number_format_helper.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/shared/widgets/texts/row_text/row_text.dart';
-import 'package:my_services/app/views/services/services.dart';
+import 'package:kazi/app/app_cubit.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/utils/number_format_helper.dart';
+import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
+import 'package:kazi/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/app/shared/widgets/texts/row_text/row_text.dart';
+import 'package:kazi/app/views/services/services.dart';
 
 class ServiceDetailsPage extends StatelessWidget {
   final Service service;

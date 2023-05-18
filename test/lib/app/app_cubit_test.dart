@@ -2,8 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:my_services/app/app_cubit.dart';
-import 'package:my_services/app/services/auth_service/auth_service.dart';
+import 'package:kazi/app/app_cubit.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
 
 import 'app_cubit_test.mocks.dart';
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/app_cubit.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/constants/app_onboarding.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/ads/ad_block.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/views/services/widgets/service_card.dart';
+import 'package:kazi/app/app_cubit.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/shared/constants/app_onboarding.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/widgets/ads/ad_block.dart';
+import 'package:kazi/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/app/views/services/widgets/service_card.dart';
 
 class ServiceListContent extends StatelessWidget {
   const ServiceListContent({
