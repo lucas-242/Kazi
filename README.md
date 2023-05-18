@@ -1,4 +1,4 @@
-<h1>My services</h1>
+<h1>Kazi</h1>
 
 <h2 align="center">Topics 📋</h2>
 
@@ -22,17 +22,17 @@
 <h2 align="center">How to use🤔</h2>
 
 <p>
-    You can download it to use <a href="https://github.com/lucas-242/my_services/releases/">here</a> or you can clone the repository and create your own project on Firebase.
+    You can download it to use <a href="https://github.com/lucas-242/Kazi/releases/">here</a> or you can clone the repository and create your own project on Firebase.
 </p>
 
    1. Clone this repository:
    ```
-   $ git clone https://github.com/lucas-242/my_services
+   $ git clone https://github.com/lucas-242/Kazi
    ```
 
    2. Enter in the directory:
    ```
-   $ cd my_services
+   $ cd Kazi
    ```
 
    3. Generate your keys in the project android/app folder
