@@ -14,7 +14,7 @@
 <h2 align="center">About 📖</h2>
    
 <p>
-  My services is an app to keep track of your personal or work services. For example, if you are a hairdresser, you can register and track all hair styles that you have done in that day.
+  Kazi is an app to keep track of your personal or work services. For example, if you are a hairdresser, you can register and track all hair styles that you have done in that day.
 </p>
 
 ---
