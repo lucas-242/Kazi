@@ -99,6 +99,8 @@
   "tourServicesForm2Description": "Basta selecionar a data do serviço realizado, a quantidade de serviços realizados, e preencher com uma descrição ou anotação caso desejar.",
   "tourServicessInfoTitle": "Serviços",
   "tourServiceInfoDescription": "Aqui você poderá filtrar e ordenar os seus serviços e visualizar o balanço do período selecionado. Poderá também cadastrar serviços prestados.",
+  "tourServicesInfoTitle": "Serviços",
+  "tourServicesInfoDescription": "Aqui você pode filtrar e ordernar os serviços, bem como visualizar o saldo do período selecionado. Você também pode cadastrar os serviços realizados.",
   "tourServicesListTitle": "Serviços",
   "tourServicesListDescription": "Esses são todos os serviços que realizou em um determinado período de tempo. Por padrão você verá todos os serviços desse mês.",
   "tourServiceTypesTitle": "Tipo de serviço",

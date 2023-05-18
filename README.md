@@ -43,7 +43,7 @@
    4. Change the variables below in local.properties file inside the android folder:
    ```   
    flutter.minSdkVersion=23
-   flutter.targetSdkVersion=30
+   flutter.targetSdkVersion=31
    ```
 
    5. Create and configure a firebase project to use Firestore Database and Google Authentication.

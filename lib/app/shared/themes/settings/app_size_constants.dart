@@ -29,4 +29,6 @@ abstract class AppSizeConstants {
   static const imenseHorizontalSpacer = SizedBox(width: imenseSpace);
 
   static const emptyWidget = SizedBox.shrink();
+
+  static const logoHeight = 50.0;
 }

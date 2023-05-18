@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       SvgPicture.asset(
                         AppAssets.logo,
-                        height: 45,
+                        height: AppSizeConstants.logoHeight,
                       ),
                       Text('Kazi', style: context.loginTitle)
                     ],

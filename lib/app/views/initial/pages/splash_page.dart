@@ -101,11 +101,11 @@ class _SplashPageState extends State<SplashPage> {
           children: [
             SvgPicture.asset(
               AppAssets.logo,
-              height: 70,
+              height: 55,
             ),
             AnimatedContainer(
               duration: containerAnimationDuration,
-              height: 70,
+              height: AppSizeConstants.logoHeight,
               width: showText ? context.width * 0.19 : 0,
               child: Center(
                 child: AnimatedOpacity(

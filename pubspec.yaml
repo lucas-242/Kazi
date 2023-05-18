@@ -17,6 +17,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_masked_text2: ^0.9.1
+  flutter_native_splash: ^2.2.19
   flutter_svg: ^2.0.4
   firebase_core: ^2.2.0
   firebase_auth: ^4.1.2
@@ -35,7 +36,6 @@ dev_dependencies:
   fake_cloud_firestore: ^2.0.1
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
   mockito: ^5.3.2
 
@@ -44,12 +44,6 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
-
-flutter_launcher_icons:
-  android: true
-  min_sdk_android: 23
-  ios: true
-  image_path: "assets/images/icon.png"
 
 flutter_intl:
   enabled: true
