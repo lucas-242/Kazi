@@ -37,7 +37,7 @@
 
    3. Generate your keys in the project android/app folder
    ```
-   $ keytool -genkey -v -keystore \android\app\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias androiddebugkey
+   $ keytool -genkey -v -keystore \android\app\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
    ```
 
    4. Change the variables below in local.properties file inside the android folder:
