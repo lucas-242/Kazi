@@ -6,8 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:my_services/app/models/app_user.dart' as _i3;
-import 'package:my_services/app/services/auth_service/auth_service.dart' as _i2;
+import 'package:kazi/app/models/app_user.dart' as _i3;
+import 'package:kazi/app/services/auth_service/auth_service.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/models/service_group_by_date.dart';
-import 'package:my_services/app/services/services_service/local/local_services_service.dart';
-import 'package:my_services/app/services/services_service/services_service.dart';
-import 'package:my_services/app/services/time_service/local/local_time_service.dart';
-import 'package:my_services/app/services/time_service/time_service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/service_group_by_date.dart';
+import 'package:kazi/app/services/services_service/local/local_services_service.dart';
+import 'package:kazi/app/services/services_service/services_service.dart';
+import 'package:kazi/app/services/time_service/local/local_time_service.dart';
+import 'package:kazi/app/services/time_service/time_service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 
 import '../../../../mocks/mocks.dart';
 

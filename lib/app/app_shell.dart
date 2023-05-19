@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/shared/constants/app_onboarding.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/app/shared/constants/app_onboarding.dart';
+import 'package:kazi/app/shared/widgets/layout/layout.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 import 'app_cubit.dart';

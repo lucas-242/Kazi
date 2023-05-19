@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/views/services/services.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/views/services/services.dart';
 
 class ServiceList extends StatelessWidget {
   const ServiceList({

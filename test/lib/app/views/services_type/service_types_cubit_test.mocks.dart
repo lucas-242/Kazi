@@ -6,14 +6,14 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:my_services/app/models/app_user.dart' as _i8;
-import 'package:my_services/app/models/service.dart' as _i6;
-import 'package:my_services/app/models/service_type.dart' as _i2;
-import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart'
+import 'package:kazi/app/models/app_user.dart' as _i8;
+import 'package:kazi/app/models/service.dart' as _i6;
+import 'package:kazi/app/models/service_type.dart' as _i2;
+import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart'
     as _i3;
-import 'package:my_services/app/repositories/services_repository/services_repository.dart'
+import 'package:kazi/app/repositories/services_repository/services_repository.dart'
     as _i5;
-import 'package:my_services/app/services/auth_service/auth_service.dart' as _i7;
+import 'package:kazi/app/services/auth_service/auth_service.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

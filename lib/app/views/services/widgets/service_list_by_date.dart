@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/models/service_group_by_date.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/views/services/widgets/service_date_card.dart';
+import 'package:kazi/app/models/service_group_by_date.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/views/services/widgets/service_date_card.dart';
 
 class ServiceListByDate extends StatefulWidget {
   const ServiceListByDate({

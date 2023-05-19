@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/constants/app_keys.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/constants/app_keys.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 
 import '../custom_text_form_field/custom_text_form_field.dart';
 

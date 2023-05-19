@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/utils/number_format_helper.dart';
-import 'package:my_services/app/views/services/widgets/info_card.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/utils/number_format_helper.dart';
+import 'package:kazi/app/views/services/widgets/info_card.dart';
 
 class InfoList extends StatelessWidget {
   const InfoList(

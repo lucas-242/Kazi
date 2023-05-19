@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/app_shell.dart';
-import 'package:my_services/app/data/local_storage/local_storage.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/shared/constants/app_keys.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/views/home/home.dart';
-import 'package:my_services/app/views/initial/intial.dart';
-import 'package:my_services/app/views/login/login.dart';
-import 'package:my_services/app/views/profile/profile.dart';
-import 'package:my_services/app/views/service_types/service_types.dart';
-import 'package:my_services/app/views/services/services.dart';
-import 'package:my_services/injector_container.dart';
+import 'package:kazi/app/app_shell.dart';
+import 'package:kazi/app/data/local_storage/local_storage.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/shared/constants/app_keys.dart';
+import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/views/home/home.dart';
+import 'package:kazi/app/views/initial/intial.dart';
+import 'package:kazi/app/views/login/login.dart';
+import 'package:kazi/app/views/profile/profile.dart';
+import 'package:kazi/app/views/service_types/service_types.dart';
+import 'package:kazi/app/views/services/services.dart';
+import 'package:kazi/injector_container.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 abstract class AppRouter {

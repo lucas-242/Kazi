@@ -1,15 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/models/service.dart';
-import 'package:my_services/app/models/service_type.dart';
-import 'package:my_services/app/repositories/service_type_repository/service_type_repository.dart';
-import 'package:my_services/app/repositories/services_repository/services_repository.dart';
-import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/services/services_service/services_service.dart';
-import 'package:my_services/app/shared/errors/errors.dart';
-import 'package:my_services/app/shared/utils/base_cubit.dart';
-import 'package:my_services/app/shared/utils/base_state.dart';
+import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/service_type.dart';
+import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
+import 'package:kazi/app/repositories/services_repository/services_repository.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
+import 'package:kazi/app/services/services_service/services_service.dart';
+import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/shared/utils/base_cubit.dart';
+import 'package:kazi/app/shared/utils/base_state.dart';
 
 part 'service_landing_state.dart';
 

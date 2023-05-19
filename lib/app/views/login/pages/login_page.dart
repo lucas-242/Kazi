@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/widgets/buttons/buttons.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/injector_container.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
+import 'package:kazi/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/injector_container.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

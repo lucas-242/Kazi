@@ -1,4 +1,4 @@
-import 'package:my_services/app/models/service.dart';
+import 'package:kazi/app/models/service.dart';
 
 abstract class ServicesRepository {
   Future<List<Service>> add(Service service, [int quantity = 1]);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:my_services/app/shared/constants/app_keys.dart';
-import 'package:my_services/app/shared/widgets/fields/fields.dart';
+import 'package:kazi/app/shared/constants/app_keys.dart';
+import 'package:kazi/app/shared/widgets/fields/fields.dart';
 
 class CustomDatePicker extends StatelessWidget {
   final GlobalKey<FormFieldState> fieldKey;

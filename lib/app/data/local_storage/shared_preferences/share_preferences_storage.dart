@@ -1,4 +1,4 @@
-import 'package:my_services/app/data/local_storage/local_storage.dart';
+import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesStorage implements LocalStorage {

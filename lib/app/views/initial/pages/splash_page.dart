@@ -5,11 +5,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_services/app/models/app_user.dart';
-import 'package:my_services/app/services/auth_service/auth_service.dart';
-import 'package:my_services/app/shared/routes/app_routes.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/injector_container.dart';
+import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
+import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/injector_container.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

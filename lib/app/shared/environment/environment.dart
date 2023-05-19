@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:my_services/app/models/enums.dart';
-import 'package:my_services/app/shared/constants/ad_keys.dart';
+import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/shared/constants/ad_keys.dart';
 
 import '../constants/app_keys.dart';
 

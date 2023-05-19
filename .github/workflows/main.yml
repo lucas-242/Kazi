@@ -98,13 +98,20 @@ jobs:
         with:
           file: coverage/lcov.info
 
-      - name: Start Android Release Build
-        # run: flutter build appbundle
+      - name: Start Android APK Release Build
         run: flutter build apk --dart-define="APP_ENV=prod"
       
-      - name: Upload Android Release
+      - name: Upload Android APK Release
         uses: actions/upload-artifact@v3
         with:
-          name: my_services_${{ needs.version.outputs.version }}+${{ github.run_number }}
-          # path: build/app/outputs/bundle/release/app-release.aab
+          name: kazi_${{ needs.version.outputs.version }}+${{ github.run_number }}
           path: build/app/outputs/apk/release/app-release.apk
+
+      - name: Start Android Bundle Release Build
+        run: flutter build appbundle --dart-define="APP_ENV=prod"
+
+      - name: Upload Android Bundle Release
+        uses: actions/upload-artifact@v3
+        with:
+          name: kazi_${{ needs.version.outputs.version }}+${{ github.run_number }}
+          path: build/app/outputs/bundle/release/app-release.aab

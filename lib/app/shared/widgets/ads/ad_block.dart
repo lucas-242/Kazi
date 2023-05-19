@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/environment/environment.dart';
-import 'package:my_services/app/shared/utils/ad_helper.dart';
+import 'package:kazi/app/shared/environment/environment.dart';
+import 'package:kazi/app/shared/utils/ad_helper.dart';
 
 import 'widgets/ad_widget.dart';
 

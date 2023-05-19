@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
 
 class PaddingWrap extends StatelessWidget {
   const PaddingWrap({

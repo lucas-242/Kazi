@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
-import 'package:my_services/app/shared/constants/app_onboarding.dart';
-import 'package:my_services/app/shared/extensions/extensions.dart';
-import 'package:my_services/app/shared/l10n/generated/l10n.dart';
-import 'package:my_services/app/shared/themes/themes.dart';
-import 'package:my_services/app/shared/utils/base_state.dart';
-import 'package:my_services/app/shared/widgets/layout/layout.dart';
-import 'package:my_services/app/views/services/service_landing/widgets/service_landing_content.dart';
-import 'package:my_services/app/views/services/service_landing/widgets/service_navbar.dart';
-import 'package:my_services/app/views/services/services.dart';
+import 'package:kazi/app/shared/constants/app_onboarding.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/themes/themes.dart';
+import 'package:kazi/app/shared/utils/base_state.dart';
+import 'package:kazi/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/app/views/services/service_landing/widgets/service_landing_content.dart';
+import 'package:kazi/app/views/services/service_landing/widgets/service_navbar.dart';
+import 'package:kazi/app/views/services/services.dart';
 
 class ServiceLandingPage extends StatefulWidget {
   const ServiceLandingPage({super.key, required this.showOnboarding});
