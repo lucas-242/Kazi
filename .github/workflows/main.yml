@@ -61,7 +61,12 @@ jobs:
           keyPassword.release=${{ secrets.KEY_PASSWORD }}\n
           keyAlias.release=${{ secrets.KEY_ALIAS }}\n
           storePassword.release=${{ secrets.STORE_PASSWORD }}\n
-          adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}" > android/key.properties
+          adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}
+          storeFile.debug=${{ steps.android_keystore.outputs.filePath }}
+          keyPassword.debug=${{ secrets.KEY_PASSWORD }}\n
+          keyAlias.debug=${{ secrets.KEY_ALIAS }}\n
+          storePassword.debug=${{ secrets.STORE_PASSWORD }}\n
+          adMobAppId.debug=${{ secrets.ADMOB_APPID_DEBUG }}" > android/key.properties
 
       - name: Create google-services.json
         run: |
