@@ -57,12 +57,12 @@ jobs:
       
       - name: Create key.properties
         run: |
-          echo "storeFile.release=${{ steps.android_keystore.outputs.filePath }}
+          echo "storeFile.release=${{ steps.android_keystore.outputs.filePath }}\n
           keyPassword.release=${{ secrets.KEY_PASSWORD }}\n
           keyAlias.release=${{ secrets.KEY_ALIAS }}\n
           storePassword.release=${{ secrets.STORE_PASSWORD }}\n
-          adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}
-          storeFile.debug=${{ steps.android_keystore.outputs.filePath }}
+          adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}\n
+          storeFile.debug=${{ steps.android_keystore.outputs.filePath }}\n
           keyPassword.debug=${{ secrets.KEY_PASSWORD }}\n
           keyAlias.debug=${{ secrets.KEY_ALIAS }}\n
           storePassword.debug=${{ secrets.STORE_PASSWORD }}\n
