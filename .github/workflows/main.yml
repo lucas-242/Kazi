@@ -57,16 +57,16 @@ jobs:
       
       - name: Create key.properties
         run: |
-          echo "storeFile.release=${{ steps.android_keystore.outputs.filePath }}\n
-          keyPassword.release=${{ secrets.KEY_PASSWORD }}\n
-          keyAlias.release=${{ secrets.KEY_ALIAS }}\n
-          storePassword.release=${{ secrets.STORE_PASSWORD }}\n
-          adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}\n
-          storeFile.debug=${{ steps.android_keystore.outputs.filePath }}\n
-          keyPassword.debug=${{ secrets.KEY_PASSWORD }}\n
-          keyAlias.debug=${{ secrets.KEY_ALIAS }}\n
-          storePassword.debug=${{ secrets.STORE_PASSWORD }}\n
-          adMobAppId.debug=${{ secrets.ADMOB_APPID_DEBUG }}" > android/key.properties
+          echo "storeFile.debug=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+          echo "keyPassword.debug=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias.debug=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storePassword.debug=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
+          echo "adMobAppId.debug=${{ secrets.ADMOB_APPID_DEBUG }}" >> android/key.properties
+          echo "storeFile.release=${{ steps.android_keystore.outputs.filePath }}" >> android/key.properties
+          echo "keyPassword.release=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias.release=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storePassword.release=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
+          echo "adMobAppId.release=${{ secrets.ADMOB_APPID_RELEASE }}" >> android/key.properties
 
       - name: Create google-services.json
         run: |
