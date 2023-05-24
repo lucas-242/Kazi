@@ -97,17 +97,15 @@ class ServiceLandingContent extends StatelessWidget {
   }
 
   Widget _getServiceList() {
-    final timeService = serviceLocator<TimeService>();
     final servicesService = serviceLocator<ServicesService>();
 
-    if (state.fastSearch == FastSearch.lastMonth ||
-        timeService.isRangeInLastMonth(state.startDate, state.endDate)) {
+    if (_showLastMonthServices()) {
       return ServiceList(
         title: AppLocalizations.current.filteringLastMonth,
         services: state.services,
       );
     }
-    if (!timeService.isRangeInThisMonth(state.startDate, state.endDate)) {
+    if (_showServicesAreNotInCurrentMonth()) {
       return ServiceList(
         title: AppLocalizations.current.fromTo(
           DateFormat.yMd().format(state.startDate).normalizeDate(),
@@ -121,4 +119,12 @@ class ServiceLandingContent extends StatelessWidget {
       servicesByDateList: servicesService.groupServicesByDate(state.services),
     );
   }
+
+  bool _showLastMonthServices() =>
+      state.fastSearch == FastSearch.lastMonth ||
+      serviceLocator<TimeService>()
+          .isRangeInLastMonth(state.startDate, state.endDate);
+
+  bool _showServicesAreNotInCurrentMonth() => !serviceLocator<TimeService>()
+      .isRangeInThisMonth(state.startDate, state.endDate);
 }

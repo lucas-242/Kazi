@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_cubit.dart';
+import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/routes/app_routes.dart';
@@ -10,6 +12,7 @@ import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/ads/ad_block.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
 import 'package:kazi/app/views/services/widgets/service_card.dart';
+import 'package:kazi/injector_container.dart';
 
 class ServiceListContent extends StatelessWidget {
   const ServiceListContent({
@@ -35,6 +38,11 @@ class ServiceListContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final showOnboarding = serviceLocator
+            .get<LocalStorage>()
+            .getBool(AppKeys.showOnboardingStorage) ??
+        true;
+
     return ListView.separated(
       shrinkWrap: true,
       physics: canScroll
@@ -50,7 +58,7 @@ class ServiceListContent extends StatelessWidget {
             ),
           );
         }
-        if (index == 1) {
+        if (showOnboarding && index == 1) {
           return OnboardingTooltip(
             onboardingKey: AppOnboarding.stepNine,
             title: AppLocalizations.current.tourServiceDetailsTitle,
