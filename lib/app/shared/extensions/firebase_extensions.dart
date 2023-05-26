@@ -1,7 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kazi/app/models/app_user.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 extension FirestoreDocumentExtension on DocumentReference {
   Future<DocumentSnapshot> getCacheFirst() async {
@@ -37,7 +36,6 @@ extension FirebaseUserExtension on User {
       uid: uid,
       email: email ?? '',
       name: displayName ?? email ?? '',
-      phoneNumber: phoneNumber,
       photoUrl: photoURL,
     );
   }
