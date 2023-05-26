@@ -60,7 +60,6 @@ class ServiceDateCard extends StatelessWidget {
             isExpanded: servicesByDate.isExpanded,
             child: ServiceList(
               services: servicesByDate.services,
-              canScroll: false,
             ),
           ),
         ],

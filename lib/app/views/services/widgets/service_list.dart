@@ -8,7 +8,7 @@ class ServiceList extends StatelessWidget {
   const ServiceList({
     super.key,
     required this.services,
-    this.canScroll = true,
+    this.canScroll = false,
     this.title,
     this.expandList = false,
   });

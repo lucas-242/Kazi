@@ -88,6 +88,7 @@ class HomeContent extends StatelessWidget {
               child: ServiceList(
                 services: state.services,
                 expandList: true,
+                canScroll: true,
               ),
             ),
           ),
