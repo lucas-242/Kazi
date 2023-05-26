@@ -17,19 +17,16 @@ class OptionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Column(
-        children: [
-          AppSizeConstants.largeVerticalSpacer,
-          TextWithTrailing(
-            text: text,
-            textStyle: textStyle ?? context.titleSmall,
-            trailing: const Icon(
-              Icons.chevron_right,
-              color: AppColors.grey,
-            ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
+        child: TextWithTrailing(
+          text: text,
+          textStyle: textStyle ?? context.titleSmall,
+          trailing: const Icon(
+            Icons.chevron_right,
+            color: AppColors.grey,
           ),
-          AppSizeConstants.largeVerticalSpacer,
-        ],
+        ),
       ),
     );
   }
