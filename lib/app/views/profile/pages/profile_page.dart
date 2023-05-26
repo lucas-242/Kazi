@@ -8,7 +8,7 @@ import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
 import 'package:kazi/app/shared/widgets/texts/row_text/row_text.dart';
@@ -93,9 +93,9 @@ class ProfilePage extends StatelessWidget {
                       currentPage: 4,
                       onNextCallback: () {
                         context.read<AppCubit>().changeToAddServicePage();
-                        context.go(AppRoutes.addServiceType);
+                        context.go(AppRouter.addServiceType);
                       },
-                      onBackCallback: () => context.go(AppRoutes.home),
+                      onBackCallback: () => context.go(AppRouter.home),
                       targetPadding: const EdgeInsets.only(
                         left: AppSizeConstants.mediumSpace,
                         right: AppSizeConstants.mediumSpace,
@@ -103,7 +103,7 @@ class ProfilePage extends StatelessWidget {
                       child: Column(
                         children: [
                           OptionButton(
-                            onTap: () => context.go(AppRoutes.servicesType),
+                            onTap: () => context.go(AppRouter.servicesType),
                             text: AppLocalizations.current.serviceTypes,
                           ),
                           const Divider(),

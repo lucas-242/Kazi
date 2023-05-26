@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/utils/number_format_helper.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
@@ -68,7 +68,7 @@ class HomeContent extends StatelessWidget {
             pillText: AppLocalizations.current.newService,
             onTap: () {
               context.read<AppCubit>().changeToAddServicePage();
-              context.go(AppRoutes.addServices);
+              context.go(AppRouter.addServices);
             },
           ),
           AppSizeConstants.largeVerticalSpacer,

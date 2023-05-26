@@ -6,7 +6,7 @@ import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/utils/number_format_helper.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
@@ -25,7 +25,7 @@ class ServiceDetailsPage extends StatelessWidget {
       final cubit = context.read<ServiceLandingCubit>();
       await cubit
           .deleteService(service)
-          .then((value) => context.go(AppRoutes.services));
+          .then((value) => context.go(AppRouter.services));
     }
 
     void onTapDelete() {
@@ -43,7 +43,7 @@ class ServiceDetailsPage extends StatelessWidget {
 
     void onTapUpdate() {
       context.read<AppCubit>().changeToAddServicePage();
-      context.go(AppRoutes.addServices, extra: service);
+      context.go(AppRouter.addServices, extra: service);
     }
 
     return CustomScaffold(

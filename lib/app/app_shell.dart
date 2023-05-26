@@ -9,7 +9,7 @@ import 'package:showcaseview/showcaseview.dart';
 
 import 'app_cubit.dart';
 import 'shared/l10n/generated/l10n.dart';
-import 'shared/routes/app_routes.dart';
+import 'shared/routes/app_router.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({
@@ -37,7 +37,7 @@ class _AppShellState extends State<AppShell> {
   void _listenUser() {
     userStream = context.read<AppCubit>().userSignOut().listen((userSignOut) {
       if (userSignOut) {
-        context.go(AppRoutes.login);
+        context.go(AppRouter.login);
       }
     });
   }
@@ -96,7 +96,7 @@ class _AppShellState extends State<AppShell> {
       _onTapBottomItem(1, context);
     } else {
       cubit.changeToAddServicePage();
-      context.go(AppRoutes.addServices);
+      context.go(AppRouter.addServices);
     }
   }
 
@@ -104,16 +104,16 @@ class _AppShellState extends State<AppShell> {
     context.read<AppCubit>().changePage(index);
     switch (index) {
       case 0:
-        context.go(AppRoutes.home);
+        context.go(AppRouter.home);
         break;
       case 1:
-        context.go(AppRoutes.services);
+        context.go(AppRouter.services);
         break;
       case 2:
-        context.go(AppRoutes.calculator);
+        context.go(AppRouter.calculator);
         break;
       case 3:
-        context.go(AppRoutes.profile);
+        context.go(AppRouter.profile);
         break;
     }
   }

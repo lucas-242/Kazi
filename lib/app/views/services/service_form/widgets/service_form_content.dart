@@ -9,7 +9,7 @@ import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/utils/number_format_helper.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
@@ -101,7 +101,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
     //* There is an error using navigator if go method is called directly
     context
       ..pop()
-      ..go(AppRoutes.home);
+      ..go(AppRouter.home);
   }
 
   Future<void> _completeOnboarding() async => serviceLocator
@@ -144,7 +144,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 description:
                     AppLocalizations.current.tourServicesForm1Description,
                 currentPage: 10,
-                onBackCallback: () => context.go(AppRoutes.services),
+                onBackCallback: () => context.go(AppRouter.services),
                 targetPadding: const EdgeInsets.only(
                   top: AppSizeConstants.mediumSpace,
                   bottom: AppSizeConstants.smallSpace,

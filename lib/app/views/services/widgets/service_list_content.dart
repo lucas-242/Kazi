@@ -7,7 +7,7 @@ import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/ads/ad_block.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
@@ -24,16 +24,16 @@ class ServiceListContent extends StatelessWidget {
   final bool canScroll;
 
   void _onTap(BuildContext context, Service service) {
-    var currentRoute = AppRoutes.services;
+    var currentRoute = AppRouter.services;
     if (context.read<AppCubit>().state == 0) {
-      currentRoute = AppRoutes.home;
+      currentRoute = AppRouter.home;
     }
     context.go('$currentRoute/${service.id}', extra: service);
   }
 
   void _onNextCallback(BuildContext context) {
     context.read<AppCubit>().changeToAddServicePage();
-    context.go(AppRoutes.addServices);
+    context.go(AppRouter.addServices);
   }
 
   @override

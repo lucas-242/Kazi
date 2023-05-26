@@ -6,7 +6,7 @@ import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/layout/onboarding/onboarding_tooltip.dart';
 import 'package:kazi/injector_container.dart';
@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     void onTapImage() {
       context.read<AppCubit>().changePage(3);
-      context.go(AppRoutes.profile);
+      context.go(AppRouter.profile);
     }
 
     return AppBar(
@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             title: AppLocalizations.current.tourAppBarTitle,
             currentPage: 3,
             description: AppLocalizations.current.tourAppBarDescription,
-            onNextCallback: () => context.go(AppRoutes.profile),
+            onNextCallback: () => context.go(AppRouter.profile),
             child: TextButton(
               onPressed: onTapImage,
               child: SizedBox(
