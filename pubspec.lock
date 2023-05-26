@@ -293,10 +293,10 @@ packages:
     dependency: "direct dev"
     description:
       name: fake_cloud_firestore
-      sha256: "48e4dc3f4ed7448c7f7f9c7697e78b835d5954029f8edb1bc1afa4bb518f5f17"
+      sha256: "77bf24d4ba86d2e45afa92305edf8a7f2a2263ff55b377e33334ce5b4a0e9229"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1+1"
+    version: "2.4.1"
   fake_firebase_security_rules:
     dependency: transitive
     description:
