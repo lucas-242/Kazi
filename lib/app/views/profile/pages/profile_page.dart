@@ -57,24 +57,6 @@ class ProfilePage extends StatelessWidget {
                     AppSizeConstants.largeVerticalSpacer,
                     Text(user.name, style: context.titleMedium),
                     AppSizeConstants.bigVerticalSpacer,
-                    if (user.phoneNumber != null &&
-                        user.phoneNumber!.isNotEmpty)
-                      Column(
-                        children: [
-                          RowText(
-                            leftText: AppLocalizations.current.phone,
-                            rightText: user.phoneNumber!,
-                            rightTextStyle: context.titleSmall!
-                                .copyWith(fontWeight: FontWeight.w400),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: AppSizeConstants.largeSpace,
-                            ),
-                            child: Divider(),
-                          ),
-                        ],
-                      ),
                     RowText(
                       leftText: AppLocalizations.current.email,
                       rightText: user.email,
