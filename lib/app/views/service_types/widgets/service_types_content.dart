@@ -21,6 +21,7 @@ class ServiceTypesContent extends StatelessWidget {
             text: AppLocalizations.current.serviceTypes,
             pillText: AppLocalizations.current.newType,
             onTapPill: () => context.go(AppRouter.addServiceType),
+            onTapBack: () => context.go(AppRouter.profile),
           ),
           AppSizeConstants.bigVerticalSpacer,
           Card(
