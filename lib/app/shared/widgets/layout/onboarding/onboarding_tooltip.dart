@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -50,6 +51,10 @@ class OnboardingTooltip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!AppRouter.showOnboarding) {
+      return child;
+    }
+
     return Showcase.withWidget(
       key: onboardingKey,
       height: 0,

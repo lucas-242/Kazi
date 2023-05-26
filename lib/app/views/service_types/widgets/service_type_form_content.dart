@@ -4,7 +4,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/utils/number_format_helper.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
@@ -70,7 +70,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
             title: AppLocalizations.current.tourServiceTypesTitle,
             description: AppLocalizations.current.tourServiceTypesDescription,
             currentPage: 5,
-            onBackCallback: () => context.go(AppRoutes.profile),
+            onBackCallback: () => context.go(AppRouter.profile),
             targetPadding: const EdgeInsets.only(
               top: AppSizeConstants.mediumSpace,
               bottom: AppSizeConstants.smallSpace,

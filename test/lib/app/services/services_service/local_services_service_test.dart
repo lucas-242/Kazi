@@ -108,7 +108,7 @@ void main() {
     late List<Service> services;
     late List<ServicesGroupByDate> expected;
 
-    setUp(() {
+    setUpAll(() {
       services = [
         serviceMock.copyWith(date: DateTime(2022, 12, 7)),
         serviceMock.copyWith(date: DateTime(2022, 12, 13)),
@@ -152,7 +152,32 @@ void main() {
       ];
     });
 
-    test('Should group services by date', () {
+    test(
+      'Should group services by date with today and yesterday cards expanded',
+      () {
+        final result = servicesService.groupServicesByDate(services);
+
+        expect(result, expected);
+      },
+    );
+
+    test('Should group services by date with unique card expanded', () {
+      services = [
+        serviceMock.copyWith(date: DateTime(2022, 12, 7)),
+        serviceMock.copyWith(date: DateTime(2022, 12, 7)),
+      ];
+
+      expected = [
+        ServicesGroupByDate(
+          date: DateTime(2022, 12, 7),
+          isExpanded: true,
+          services: [
+            serviceMock.copyWith(date: DateTime(2022, 12, 7)),
+            serviceMock.copyWith(date: DateTime(2022, 12, 7)),
+          ],
+        ),
+      ];
+
       final result = servicesService.groupServicesByDate(services);
 
       expect(result, expected);

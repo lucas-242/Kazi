@@ -5,7 +5,7 @@ import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/layout/custom_bottom_navigation/widgets/bottom_navigation_button.dart';
 
@@ -41,7 +41,7 @@ class CustomBottomNavigation extends StatelessWidget {
             onboardingCurrentPage: 6,
             onboardingNextCallback: () {
               context.read<AppCubit>().changePage(1);
-              context.go(AppRoutes.services);
+              context.go(AppRouter.services);
             },
             onboardingTitle:
                 AppLocalizations.current.tourBottomNavigationServicesTitle,

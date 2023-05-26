@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_routes.dart';
+import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 import 'package:kazi/app/shared/widgets/texts/texts.dart';
@@ -66,7 +66,7 @@ class ServiceNavbar extends StatelessWidget {
           PillButton(
             onTap: () {
               context.read<AppCubit>().changeToAddServicePage();
-              context.go(AppRoutes.addServices);
+              context.go(AppRouter.addServices);
             },
             child: Text(AppLocalizations.current.newService),
           )

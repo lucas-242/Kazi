@@ -3,26 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final TextInputType keyboardType;
-  final TextInputAction textInputAction;
-  final String labelText;
-  final String hintText;
-  final int? maxLines;
-  final IconData? iconLeft;
-  final IconData? iconRight;
-  final String? initialValue;
-  final bool readOnly;
-  final List<TextInputFormatter>? inputFormatters;
-  final String? Function(String?)? validator;
-  final TextEditingController? controller;
-  final Key? textFormKey;
-  final void Function(String value)? onChanged;
-  final void Function()? onTap;
-
   const CustomTextFormField({
     Key? key,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
+    this.textCapitalization = TextCapitalization.sentences,
     required this.labelText,
     this.iconLeft,
     this.iconRight,
@@ -38,6 +23,23 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines,
   }) : super(key: key);
 
+  final TextInputType keyboardType;
+  final TextInputAction textInputAction;
+  final String labelText;
+  final String hintText;
+  final int? maxLines;
+  final IconData? iconLeft;
+  final IconData? iconRight;
+  final String? initialValue;
+  final bool readOnly;
+  final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
+  final TextCapitalization textCapitalization;
+  final Key? textFormKey;
+  final void Function(String value)? onChanged;
+  final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -46,6 +48,7 @@ class CustomTextFormField extends StatelessWidget {
       initialValue: initialValue,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      textCapitalization: textCapitalization,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       readOnly: readOnly,
