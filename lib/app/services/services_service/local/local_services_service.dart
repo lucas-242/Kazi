@@ -99,12 +99,10 @@ class LocalServicesService extends ServicesService {
     final result = <ServicesGroupByDate>[];
     final dates = _getServicesDates(services);
 
-    //TODO: Should bring back isExpanded as true the newest group if there is not today or yesterday group
     for (var date in dates) {
       final servicesOnDate = services.where((s) => s.date == date).toList();
       if (servicesOnDate.isNotEmpty) {
-        final daysOfDifference = date.calculateDifference(now);
-        final isExpanded = daysOfDifference == 0 || daysOfDifference == -1;
+        final isExpanded = _mustExpandCard(dates, date);
         result.add(ServicesGroupByDate(
           date: date,
           services: servicesOnDate,
@@ -136,6 +134,19 @@ class LocalServicesService extends ServicesService {
 
     return dates;
   }
+
+  bool _mustExpandCard(List<DateTime> dates, DateTime date) {
+    final daysOfDifference = date.calculateDifference(now);
+    final result = _hasOnlyOneDate(dates) ||
+        _isToday(daysOfDifference) ||
+        _isYesterday(daysOfDifference);
+
+    return result;
+  }
+
+  bool _hasOnlyOneDate(List<DateTime> dates) => dates.length == 1;
+  bool _isToday(int daysOfDifference) => daysOfDifference == 0;
+  bool _isYesterday(int daysOfDifference) => daysOfDifference == -1;
 
   @override
   Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch) {
