@@ -290,6 +290,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Field`
+  String get field {
+    return Intl.message(
+      'Field',
+      name: 'field',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Filters`
   String get filters {
     return Intl.message(
@@ -1127,6 +1137,36 @@ class AppLocalizations {
       name: 'alreadyExists',
       desc: '',
       args: [property],
+    );
+  }
+
+  /// `{property} is Empty`
+  String isEmpty(String property) {
+    return Intl.message(
+      '$property is Empty',
+      name: 'isEmpty',
+      desc: '',
+      args: [property],
+    );
+  }
+
+  /// `Please, inform a valid number`
+  String get invalidNumber {
+    return Intl.message(
+      'Please, inform a valid number',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please, inform a number equal or greater than 0`
+  String get numberLesserThanZero {
+    return Intl.message(
+      'Please, inform a number equal or greater than 0',
+      name: 'numberLesserThanZero',
+      desc: '',
+      args: [],
     );
   }
 

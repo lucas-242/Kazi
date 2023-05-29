@@ -30,9 +30,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(property) => "${property} is invalid";
 
-  static String m5(property) => "${property} is required";
+  static String m5(property) => "${property} is Empty";
 
-  static String m6(item) => "Would you like to delete ${item}?";
+  static String m6(property) => "${property} is required";
+
+  static String m7(item) => "Would you like to delete ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -89,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to update service"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Error to update service type"),
+        "field": MessageLookupByLibrary.simpleMessage("Field"),
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtering by last month"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
@@ -102,7 +105,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "inUse": m3,
         "incorrectEmailOrPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
+        "invalidNumber": MessageLookupByLibrary.simpleMessage(
+            "Please, inform a valid number"),
         "invalidProperty": m4,
+        "isEmpty": m5,
         "lastMonth": MessageLookupByLibrary.simpleMessage("Last Month"),
         "lastServices": MessageLookupByLibrary.simpleMessage("Last services"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
@@ -130,6 +136,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "It seems you don\'t have any service registered yet, click on the button above to register a new one."),
         "noServicesHome": MessageLookupByLibrary.simpleMessage(
             "It seems you don\'t have any service registered today yet, click on the button above to register a new one."),
+        "numberLesserThanZero": MessageLookupByLibrary.simpleMessage(
+            "Please, inform a number equal or greater than 0"),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
             "This smart tool is designed to help you better manage your services."),
         "onboardingTitle1": MessageLookupByLibrary.simpleMessage(
@@ -154,7 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
-        "requiredProperty": m5,
+        "requiredProperty": m6,
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveService": MessageLookupByLibrary.simpleMessage("Save Service"),
         "saveType": MessageLookupByLibrary.simpleMessage("Save Type"),
@@ -231,7 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
             "The verification ID entered is invalid"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
-        "wouldYouLikeDelete": m6,
+        "wouldYouLikeDelete": m7,
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")
       };
 }

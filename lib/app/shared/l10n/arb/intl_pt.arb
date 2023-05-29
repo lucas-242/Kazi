@@ -23,6 +23,7 @@
   "editService": "Editar Serviço",
   "editServiceType": "Editar Tipo",
   "email": "Email",
+  "field": "Campo",
   "filters": "Filtros",
   "filteringLastMonth": "Filtrando pelo mês passado",
   "finish": "Finalizar",
@@ -116,7 +117,10 @@
     }
   },
   "alreadyExists": "{property} já existe",
+  "isEmpty": "{property} está vazio",
   "inUse": "{property} está em uso",
+  "invalidNumber": "Por favor, informe um número válido",
+  "numberLesserThanZero": "Por favor, informe um número maior ou igual a zero",
   "invalidProperty": "{property} inválido",
   "requiredProperty": "{property} precisa ser preenchido",
   "cantDeleteServiceType": "O tipo de serviço não pode ser deletado pois está em uso",

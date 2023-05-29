@@ -23,6 +23,7 @@
   "editService": "Edit Service",
   "editServiceType": "Edit Type",
   "email": "Email",
+  "field": "Field",
   "filters": "Filters",
   "filteringLastMonth": "Filtering by last month",
   "finish": "Finish",
@@ -140,6 +141,16 @@
         }
     }
   },
+  "isEmpty": "{property} is Empty",
+  "@isEmpty": {
+    "placeholders": {
+        "property": {
+          "type": "String"
+        }
+    }
+  },
+  "invalidNumber": "Please, inform a valid number",
+  "numberLesserThanZero": "Please, inform a number equal or greater than 0",
   "inUse": "{property} is being used",
   "@inUse": {
     "placeholders": {
