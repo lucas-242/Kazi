@@ -60,7 +60,7 @@ class ServiceDetailsPage extends StatelessWidget {
                       child: const Icon(Icons.chevron_left),
                     ),
                     Text(
-                      AppLocalizations.current.serviceDetails,
+                      AppLocalizations.current.details,
                       style: context.titleMedium,
                     ),
                   ],

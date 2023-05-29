@@ -270,10 +270,10 @@ class AppLocalizations {
     );
   }
 
-  /// `Edit Service Type`
+  /// `Edit Type`
   String get editServiceType {
     return Intl.message(
-      'Edit Service Type',
+      'Edit Type',
       name: 'editServiceType',
       desc: '',
       args: [],
@@ -715,16 +715,6 @@ class AppLocalizations {
     return Intl.message(
       'Service',
       name: 'service',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Service Details`
-  String get serviceDetails {
-    return Intl.message(
-      'Service Details',
-      name: 'serviceDetails',
       desc: '',
       args: [],
     );

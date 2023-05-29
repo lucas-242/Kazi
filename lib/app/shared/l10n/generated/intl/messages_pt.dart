@@ -65,8 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "discounts": MessageLookupByLibrary.simpleMessage("Descontos"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "editService": MessageLookupByLibrary.simpleMessage("Editar Serviço"),
-        "editServiceType":
-            MessageLookupByLibrary.simpleMessage("Editar Tipo de Serviço"),
+        "editServiceType": MessageLookupByLibrary.simpleMessage("Editar Tipo"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
             "O email é inválido ou mal formatado"),
@@ -163,8 +162,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
         "service": MessageLookupByLibrary.simpleMessage("Serviço"),
-        "serviceDetails":
-            MessageLookupByLibrary.simpleMessage("Detalhes do Serviço"),
         "serviceType": MessageLookupByLibrary.simpleMessage("Tipo de Serviço"),
         "serviceTypes":
             MessageLookupByLibrary.simpleMessage("Tipos de Serviço"),
