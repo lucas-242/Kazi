@@ -116,7 +116,10 @@ class ServiceLandingContent extends StatelessWidget {
     }
 
     return ServiceListByDate(
-      servicesByDateList: servicesService.groupServicesByDate(state.services),
+      servicesByDateList: servicesService.groupServicesByDate(
+        state.services,
+        state.selectedOrderBy,
+      ),
     );
   }
 

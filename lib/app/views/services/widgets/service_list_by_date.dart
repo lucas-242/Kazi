@@ -18,7 +18,7 @@ class ServiceListByDate extends StatefulWidget {
 class _ServiceListByDateState extends State<ServiceListByDate> {
   void onTap(ServicesGroupByDate servicesByDate, int index) => setState(() {
         widget.servicesByDateList[index] =
-            servicesByDate.copyWith(isExpaded: !servicesByDate.isExpanded);
+            servicesByDate.copyWith(isExpanded: !servicesByDate.isExpanded);
       });
 
   @override

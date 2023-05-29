@@ -95,8 +95,11 @@ class LocalServicesService extends ServicesService {
   int _compareValueDesc(Service a, Service b) => b.value.compareTo(a.value);
 
   @override
-  List<ServicesGroupByDate> groupServicesByDate(List<Service> services) {
-    final result = <ServicesGroupByDate>[];
+  List<ServicesGroupByDate> groupServicesByDate(
+    List<Service> services,
+    OrderBy orderBy,
+  ) {
+    var result = <ServicesGroupByDate>[];
     final dates = _getServicesDates(services);
 
     for (var date in dates) {
@@ -109,8 +112,8 @@ class LocalServicesService extends ServicesService {
       }
     }
 
-    result.sort((a, b) => b.date.compareTo(a.date));
-    result.first = result.first.copyWith(isExpaded: true);
+    result = _sortGroupServicesByDate(result, orderBy);
+    result.first = result.first.copyWith(isExpanded: true);
 
     return result;
   }
@@ -133,6 +136,19 @@ class LocalServicesService extends ServicesService {
     }
 
     return dates;
+  }
+
+  List<ServicesGroupByDate> _sortGroupServicesByDate(
+    List<ServicesGroupByDate> groups,
+    OrderBy orderBy,
+  ) {
+    if (orderBy == OrderBy.dateAsc) {
+      groups.sort((a, b) => a.date.compareTo(b.date));
+    } else {
+      groups.sort((a, b) => b.date.compareTo(a.date));
+    }
+
+    return groups;
   }
 
   @override

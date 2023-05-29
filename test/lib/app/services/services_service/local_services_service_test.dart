@@ -129,7 +129,6 @@ void main() {
           ],
         ),
         ServicesGroupByDate(
-          isExpanded: true,
           date: DateTime(2022, 12, 31),
           services: [
             serviceMock.copyWith(date: DateTime(2022, 12, 31)),
@@ -153,32 +152,22 @@ void main() {
     });
 
     test(
-      'Should group services by date with today and yesterday cards expanded',
+      'Should group services by date ordered by date Desc',
       () {
-        final result = servicesService.groupServicesByDate(services);
+        final result =
+            servicesService.groupServicesByDate(services, OrderBy.dateDesc);
 
         expect(result, expected);
       },
     );
 
-    test('Should group services by date with unique card expanded', () {
-      services = [
-        serviceMock.copyWith(date: DateTime(2022, 12, 7)),
-        serviceMock.copyWith(date: DateTime(2022, 12, 7)),
-      ];
+    test('Should group services by date ordered by date Asc', () {
+      expected = expected.reversed.toList();
+      expected.last = expected.last.copyWith(isExpanded: false);
+      expected.first = expected.first.copyWith(isExpanded: true);
 
-      expected = [
-        ServicesGroupByDate(
-          date: DateTime(2022, 12, 7),
-          isExpanded: true,
-          services: [
-            serviceMock.copyWith(date: DateTime(2022, 12, 7)),
-            serviceMock.copyWith(date: DateTime(2022, 12, 7)),
-          ],
-        ),
-      ];
-
-      final result = servicesService.groupServicesByDate(services);
+      final result =
+          servicesService.groupServicesByDate(services, OrderBy.dateAsc);
 
       expect(result, expected);
     });

@@ -15,12 +15,12 @@ class ServicesGroupByDate extends Equatable {
   ServicesGroupByDate copyWith({
     DateTime? date,
     List<Service>? services,
-    bool? isExpaded,
+    bool? isExpanded,
   }) {
     return ServicesGroupByDate(
       date: date ?? this.date,
       services: services ?? this.services,
-      isExpanded: isExpaded ?? isExpanded,
+      isExpanded: isExpanded ?? this.isExpanded,
     );
   }
 
