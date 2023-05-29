@@ -50,35 +50,18 @@ class ServiceDetailsPage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CircularButton(
-                      onTap: () => context.pop(),
-                      child: const Icon(Icons.chevron_left),
-                    ),
-                    Text(
-                      AppLocalizations.current.details,
-                      style: context.titleMedium,
-                    ),
-                  ],
+            BackAndPills(
+              text: AppLocalizations.current.details,
+              pills: [
+                PillButton(
+                  onTap: onTapUpdate,
+                  child: Text(AppLocalizations.current.edit),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    PillButton(
-                      onTap: onTapUpdate,
-                      child: Text(AppLocalizations.current.edit),
-                    ),
-                    AppSizeConstants.tinyHorizontalSpacer,
-                    PillButton(
-                      backgroundColor: context.colorsScheme.error,
-                      onTap: onTapDelete,
-                      child: Text(AppLocalizations.current.delete),
-                    ),
-                  ],
+                AppSizeConstants.tinyHorizontalSpacer,
+                PillButton(
+                  backgroundColor: context.colorsScheme.error,
+                  onTap: onTapDelete,
+                  child: Text(AppLocalizations.current.delete),
                 ),
               ],
             ),
