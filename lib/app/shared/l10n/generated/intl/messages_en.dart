@@ -128,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "It seems you don\'t have any service type registered yet, click on the button above to register a new one."),
         "noServices": MessageLookupByLibrary.simpleMessage(
             "It seems you don\'t have any service registered yet, click on the button above to register a new one."),
+        "noServicesHome": MessageLookupByLibrary.simpleMessage(
+            "It seems you don\'t have any service registered today yet, click on the button above to register a new one."),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
             "This smart tool is designed to help you better manage your services."),
         "onboardingTitle1": MessageLookupByLibrary.simpleMessage(

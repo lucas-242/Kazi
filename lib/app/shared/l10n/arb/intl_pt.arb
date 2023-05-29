@@ -45,6 +45,7 @@
   "newServiceType": "Novo Tipo de Serviço",
   "newType": "Novo Tipo",
   "noServices": "Parece que você não registrou nenhum serviço, clique no botão acima para registrar um novo.",
+  "noServicesHome": "Parece que você não registrou nenhum serviço para hoje, clique no botão acima para registrar um novo.",
   "noServiceTypes": "Parece que você não registrou nenhum tipo de serviço,  clique no botão acima para registrar um novo.",
   "onboardingSubtitle": "Esta ferramenta inteligente foi projetada para ajudá-lo a gerenciar melhor seus serviços.",
   "onboardingTitle1": "Calcule os\nganhos dos ",

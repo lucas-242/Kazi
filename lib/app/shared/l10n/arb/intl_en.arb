@@ -62,6 +62,7 @@
   "newType": "New Type",
   "noResults": "No results",
   "noServices": "It seems you don't have any service registered yet, click on the button above to register a new one.",
+  "noServicesHome": "It seems you don't have any service registered today yet, click on the button above to register a new one.",
   "noServiceTypes": "It seems you don't have any service type registered yet, click on the button above to register a new one.",
   "onboardingSubtitle" : "This smart tool is designed to help you better manage your services.",
   "onboardingTitle1" : "Calculate the\nearnings from ",

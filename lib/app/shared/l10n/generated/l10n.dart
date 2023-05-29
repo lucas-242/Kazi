@@ -510,6 +510,16 @@ class AppLocalizations {
     );
   }
 
+  /// `It seems you don't have any service registered today yet, click on the button above to register a new one.`
+  String get noServicesHome {
+    return Intl.message(
+      'It seems you don\'t have any service registered today yet, click on the button above to register a new one.',
+      name: 'noServicesHome',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `It seems you don't have any service type registered yet, click on the button above to register a new one.`
   String get noServiceTypes {
     return Intl.message(
