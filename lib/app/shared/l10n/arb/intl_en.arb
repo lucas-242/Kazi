@@ -21,8 +21,9 @@
   "discounts": "Discounts",
   "edit": "Edit",
   "editService": "Edit Service",
-  "editServiceType": "Edit Service Type",
+  "editServiceType": "Edit Type",
   "email": "Email",
+  "field": "Field",
   "filters": "Filters",
   "filteringLastMonth": "Filtering by last month",
   "finish": "Finish",
@@ -62,6 +63,7 @@
   "newType": "New Type",
   "noResults": "No results",
   "noServices": "It seems you don't have any service registered yet, click on the button above to register a new one.",
+  "noServicesHome": "It seems you don't have any service registered today yet, click on the button above to register a new one.",
   "noServiceTypes": "It seems you don't have any service type registered yet, click on the button above to register a new one.",
   "onboardingSubtitle" : "This smart tool is designed to help you better manage your services.",
   "onboardingTitle1" : "Calculate the\nearnings from ",
@@ -83,7 +85,6 @@
   "search": "Search",
   "selectServiceType": "Select the service type",
   "service" : "Service",
-  "serviceDetails" : "Service Details",
   "serviceValue" : "Service Value",
   "services" : "Services",
   "serviceType": "Service Type",
@@ -140,6 +141,16 @@
         }
     }
   },
+  "isEmpty": "{property} is Empty",
+  "@isEmpty": {
+    "placeholders": {
+        "property": {
+          "type": "String"
+        }
+    }
+  },
+  "invalidNumber": "Please, inform a valid number",
+  "numberLesserThanZero": "Please, inform a number equal or greater than 0",
   "inUse": "{property} is being used",
   "@inUse": {
     "placeholders": {

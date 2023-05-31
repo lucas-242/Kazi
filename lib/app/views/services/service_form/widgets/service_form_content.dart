@@ -126,11 +126,14 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
-          child: Text(
-            widget.isCreating
+          child: BackAndPill(
+            text: widget.isCreating
                 ? AppLocalizations.current.newService
                 : AppLocalizations.current.editService,
-            style: context.titleMedium,
+            onTapBack: () {
+              context.read<AppCubit>().changePage(1);
+              context.pop();
+            },
           ),
         ),
         AppSizeConstants.largeVerticalSpacer,

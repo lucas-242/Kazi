@@ -95,23 +95,26 @@ class LocalServicesService extends ServicesService {
   int _compareValueDesc(Service a, Service b) => b.value.compareTo(a.value);
 
   @override
-  List<ServicesGroupByDate> groupServicesByDate(List<Service> services) {
-    final result = <ServicesGroupByDate>[];
+  List<ServicesGroupByDate> groupServicesByDate(
+    List<Service> services,
+    OrderBy orderBy,
+  ) {
+    var result = <ServicesGroupByDate>[];
     final dates = _getServicesDates(services);
 
     for (var date in dates) {
       final servicesOnDate = services.where((s) => s.date == date).toList();
       if (servicesOnDate.isNotEmpty) {
-        final isExpanded = _mustExpandCard(dates, date);
         result.add(ServicesGroupByDate(
           date: date,
           services: servicesOnDate,
-          isExpanded: isExpanded,
         ));
       }
     }
 
-    result.sort((a, b) => b.date.compareTo(a.date));
+    result = _sortGroupServicesByDate(result, orderBy);
+    result.first = result.first.copyWith(isExpanded: true);
+
     return result;
   }
 
@@ -135,18 +138,18 @@ class LocalServicesService extends ServicesService {
     return dates;
   }
 
-  bool _mustExpandCard(List<DateTime> dates, DateTime date) {
-    final daysOfDifference = date.calculateDifference(now);
-    final result = _hasOnlyOneDate(dates) ||
-        _isToday(daysOfDifference) ||
-        _isYesterday(daysOfDifference);
+  List<ServicesGroupByDate> _sortGroupServicesByDate(
+    List<ServicesGroupByDate> groups,
+    OrderBy orderBy,
+  ) {
+    if (orderBy == OrderBy.dateAsc) {
+      groups.sort((a, b) => a.date.compareTo(b.date));
+    } else {
+      groups.sort((a, b) => b.date.compareTo(a.date));
+    }
 
-    return result;
+    return groups;
   }
-
-  bool _hasOnlyOneDate(List<DateTime> dates) => dates.length == 1;
-  bool _isToday(int daysOfDifference) => daysOfDifference == 0;
-  bool _isYesterday(int daysOfDifference) => daysOfDifference == -1;
 
   @override
   Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch) {

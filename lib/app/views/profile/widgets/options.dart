@@ -25,10 +25,6 @@ class Options extends StatelessWidget {
         context.go(AppRouter.addServiceType);
       },
       onBackCallback: () => context.go(AppRouter.home),
-      targetPadding: const EdgeInsets.only(
-        left: AppSizeConstants.mediumSpace,
-        right: AppSizeConstants.mediumSpace,
-      ),
       child: Column(
         children: [
           OptionButton(

@@ -270,10 +270,10 @@ class AppLocalizations {
     );
   }
 
-  /// `Edit Service Type`
+  /// `Edit Type`
   String get editServiceType {
     return Intl.message(
-      'Edit Service Type',
+      'Edit Type',
       name: 'editServiceType',
       desc: '',
       args: [],
@@ -285,6 +285,16 @@ class AppLocalizations {
     return Intl.message(
       'Email',
       name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Field`
+  String get field {
+    return Intl.message(
+      'Field',
+      name: 'field',
       desc: '',
       args: [],
     );
@@ -510,6 +520,16 @@ class AppLocalizations {
     );
   }
 
+  /// `It seems you don't have any service registered today yet, click on the button above to register a new one.`
+  String get noServicesHome {
+    return Intl.message(
+      'It seems you don\'t have any service registered today yet, click on the button above to register a new one.',
+      name: 'noServicesHome',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `It seems you don't have any service type registered yet, click on the button above to register a new one.`
   String get noServiceTypes {
     return Intl.message(
@@ -715,16 +735,6 @@ class AppLocalizations {
     return Intl.message(
       'Service',
       name: 'service',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Service Details`
-  String get serviceDetails {
-    return Intl.message(
-      'Service Details',
-      name: 'serviceDetails',
       desc: '',
       args: [],
     );
@@ -1127,6 +1137,36 @@ class AppLocalizations {
       name: 'alreadyExists',
       desc: '',
       args: [property],
+    );
+  }
+
+  /// `{property} is Empty`
+  String isEmpty(String property) {
+    return Intl.message(
+      '$property is Empty',
+      name: 'isEmpty',
+      desc: '',
+      args: [property],
+    );
+  }
+
+  /// `Please, inform a valid number`
+  String get invalidNumber {
+    return Intl.message(
+      'Please, inform a valid number',
+      name: 'invalidNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please, inform a number equal or greater than 0`
+  String get numberLesserThanZero {
+    return Intl.message(
+      'Please, inform a number equal or greater than 0',
+      name: 'numberLesserThanZero',
+      desc: '',
+      args: [],
     );
   }
 
