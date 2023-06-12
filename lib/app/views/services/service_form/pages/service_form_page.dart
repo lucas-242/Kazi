@@ -37,7 +37,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return CustomSafeArea(
       child: SingleChildScrollView(
         child: BlocListener<ServiceFormCubit, ServiceFormState>(
           listenWhen: (previous, current) => previous.status != current.status,

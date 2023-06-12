@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/layout/custom_bottom_navigation/widgets/bottom_navigation_button.dart';
 
@@ -36,17 +32,7 @@ class CustomBottomNavigation extends StatelessWidget {
             label: AppLocalizations.current.services.capitalize(),
             isSelected: currentPage == 1,
             // padding: const EdgeInsets.only(right: 32.0),
-            onboardingKey: AppOnboarding.stepSix,
-            onboardingTooltipWidth: context.width * 0.7,
-            onboardingCurrentPage: 6,
-            onboardingNextCallback: () {
-              context.read<AppCubit>().changePage(1);
-              context.go(AppRouter.services);
-            },
-            onboardingTitle:
-                AppLocalizations.current.tourBottomNavigationServicesTitle,
-            onboardingDescription: AppLocalizations
-                .current.tourBottomNavigationServicesDescription,
+            onboardingKey: AppOnboarding.stepEight,
           ),
           // BottomNavigationButton(
           //   onTap: () => onTap(2),

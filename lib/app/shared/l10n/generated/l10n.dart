@@ -830,6 +830,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Action done successfully`
   String get success {
     return Intl.message(

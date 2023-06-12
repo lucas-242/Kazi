@@ -5,10 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
-import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
-import 'package:kazi/app/shared/widgets/layout/onboarding/onboarding_tooltip.dart';
 import 'package:kazi/injector_container.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -41,29 +39,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           AppSizeConstants.smallHorizontalSpacer,
-          OnboardingTooltip(
-            onboardingKey: AppOnboarding.stepThree,
-            title: AppLocalizations.current.tourAppBarTitle,
-            currentPage: 3,
-            description: AppLocalizations.current.tourAppBarDescription,
-            onNextCallback: () => context.go(AppRouter.profile),
-            child: TextButton(
-              onPressed: onTapImage,
-              child: SizedBox(
-                width: 48.0,
-                height: 48.0,
-                child: CircleAvatar(
-                  backgroundImage: user?.photoUrl != null
-                      ? NetworkImage(user?.photoUrl ?? '')
-                      : null,
-                  backgroundColor: AppColors.white,
-                  child: user?.photoUrl == null
-                      ? Text(
-                          '🦆',
-                          style: context.cardTitle!.copyWith(fontSize: 38),
-                        )
-                      : null,
-                ),
+          TextButton(
+            key: AppOnboarding.stepFive,
+            onPressed: onTapImage,
+            child: SizedBox(
+              width: 48.0,
+              height: 48.0,
+              child: CircleAvatar(
+                backgroundImage: user?.photoUrl != null
+                    ? NetworkImage(user?.photoUrl ?? '')
+                    : null,
+                backgroundColor: AppColors.white,
+                child: user?.photoUrl == null
+                    ? Text(
+                        '🦆',
+                        style: context.cardTitle!.copyWith(fontSize: 38),
+                      )
+                    : null,
               ),
             ),
           ),

@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
           .remove(AppKeys.showOnboardingStorage);
     }
 
-    return CustomScaffold(
+    return CustomSafeArea(
       child: SingleChildScrollView(
         child: Card(
           child: Column(

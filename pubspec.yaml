@@ -28,7 +28,8 @@ dependencies:
   google_sign_in: ^6.1.2
   intl: ^0.18.0
   shared_preferences: ^2.1.1
-  showcaseview: ^2.0.3
+  # tutorial_coach_mark: ^1.2.8
+  tutorial: ^1.0.9
 
 dev_dependencies:
   bloc_test: ^9.1.2

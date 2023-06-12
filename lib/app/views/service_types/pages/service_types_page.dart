@@ -15,7 +15,7 @@ class ServiceTypesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ServiceTypesCubit>().onInit();
 
-    return CustomScaffold(
+    return CustomSafeArea(
       onRefresh: () => context.read<ServiceTypesCubit>().getServiceTypes(),
       child: BlocListener<ServiceTypesCubit, ServiceTypesState>(
         listenWhen: (previous, current) => previous.status != current.status,

@@ -41,7 +41,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
           cubit.eraseServiceType();
           return true;
         },
-        child: CustomScaffold(
+        child: CustomSafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

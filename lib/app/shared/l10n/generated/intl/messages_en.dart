@@ -180,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(
             "Account created successfully"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "success":
             MessageLookupByLibrary.simpleMessage("Action done successfully"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(

@@ -46,7 +46,7 @@ class ServiceDetailsPage extends StatelessWidget {
       context.go(AppRouter.addServices, extra: service);
     }
 
-    return CustomScaffold(
+    return CustomSafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [

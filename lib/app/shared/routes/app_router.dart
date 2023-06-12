@@ -11,7 +11,6 @@ import 'package:kazi/app/views/profile/profile.dart';
 import 'package:kazi/app/views/service_types/service_types.dart';
 import 'package:kazi/app/views/services/services.dart';
 import 'package:kazi/injector_container.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 abstract class AppRouter {
   static GoRouter get router => _router;
@@ -60,14 +59,7 @@ final _router = GoRouter(
           _customTransition(state, const LoginPage()),
     ),
     ShellRoute(
-      builder: (context, state, child) => ShowCaseWidget(
-        disableBarrierInteraction: true,
-        disableMovingAnimation: true,
-        enableAutoScroll: true,
-        builder: Builder(
-          builder: (context) => AppShell(child: child),
-        ),
-      ),
+      builder: (context, state, child) => AppShell(child: child),
       routes: [
         GoRoute(
           path: AppRouter.home,

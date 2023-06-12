@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return CustomSafeArea(
       onRefresh: () => context.read<HomeCubit>().onRefresh(),
       child: BlocListener<HomeCubit, HomeState>(
         listenWhen: (previous, current) => previous.status != current.status,

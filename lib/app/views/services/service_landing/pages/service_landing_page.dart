@@ -37,7 +37,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return CustomSafeArea(
       padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
       onRefresh: () => context.read<ServiceLandingCubit>().onRefresh(),
       child: BlocListener<ServiceLandingCubit, ServiceLandingState>(

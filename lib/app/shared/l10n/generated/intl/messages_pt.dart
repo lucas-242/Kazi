@@ -184,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("Cadastrar"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(
             "Cadastro efetuado com sucesso"),
+        "skip": MessageLookupByLibrary.simpleMessage("Pular"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
             "Já existe uma conta com estas credenciais"),
         "thisService": MessageLookupByLibrary.simpleMessage("esse serviço"),

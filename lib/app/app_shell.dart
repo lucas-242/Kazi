@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 import 'app_cubit.dart';
 import 'shared/l10n/generated/l10n.dart';
@@ -15,9 +14,11 @@ class AppShell extends StatefulWidget {
   const AppShell({
     Key? key,
     required this.child,
+    this.showOnboarding = true,
   }) : super(key: key);
 
   final Widget child;
+  final bool showOnboarding;
 
   @override
   State<AppShell> createState() => _AppShellState();
@@ -29,9 +30,16 @@ class _AppShellState extends State<AppShell> {
   @override
   void initState() {
     context.read<AppCubit>().changePage(0);
+    Future.delayed(const Duration(seconds: 1), showOnboarding);
+    // WidgetsBinding.instance.addPostFrameCallback((_) => showOnboarding());
     _listenUser();
     super.initState();
-    _startShowCase();
+  }
+
+  void showOnboarding() {
+    if (widget.showOnboarding) {
+      AppOnboarding.instance.show(context: context);
+    }
   }
 
   void _listenUser() {
@@ -40,12 +48,6 @@ class _AppShellState extends State<AppShell> {
         context.go(AppRouter.login);
       }
     });
-  }
-
-  void _startShowCase() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => ShowCaseWidget.of(context).startShowCase(AppOnboarding.stepList),
-    );
   }
 
   @override
@@ -61,7 +63,7 @@ class _AppShellState extends State<AppShell> {
     return BlocBuilder<AppCubit, int>(
       builder: (context, state) {
         return Scaffold(
-          appBar: const CustomAppBar(),
+          // appBar: const CustomAppBar(),
           body: widget.child,
           resizeToAvoidBottomInset: false,
           bottomNavigationBar: CustomBottomNavigation(
