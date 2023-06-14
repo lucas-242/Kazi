@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/services/services_service/local/local_services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
+import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/utils/base_state.dart';
 import 'package:kazi/app/views/home/home.dart';
 import 'package:kazi/app/views/services/services.dart';
+import 'package:kazi/injector_container.dart';
 
 abstract class AppOnboarding {
   static final stepOne = GlobalKey();
@@ -411,6 +414,9 @@ abstract class AppOnboarding {
   //       ],
   //     );
 
+  static Future<void> onCompleteOnboarding(BuildContext context) async =>
+      _completeOnboarding();
+
   // static Future<void> _onCompleteOnboarding(BuildContext context) async {
   //   await _completeOnboarding();
   //   _cleanForm(context);
@@ -421,9 +427,9 @@ abstract class AppOnboarding {
   //     ..go(AppRouter.home);
   // }
 
-  // static Future<void> _completeOnboarding() async => serviceLocator
-  //     .get<LocalStorage>()
-  //     .setBool(AppKeys.showOnboardingStorage, false);
+  static Future<void> _completeOnboarding() async => serviceLocator
+      .get<LocalStorage>()
+      .setBool(AppKeys.showOnboardingStorage, false);
 
   // static void _cleanForm(BuildContext context) {
   //   final formCubit = context.read<ServiceFormCubit>();
