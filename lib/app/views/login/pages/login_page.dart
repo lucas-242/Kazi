@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
@@ -19,7 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   void _login() {
     serviceLocator<AuthService>().signInWithGoogle().then((isSignedIn) {
-      if (isSignedIn) context.go(AppRouter.onboarding);
+      if (isSignedIn) context.navigateTo(AppPage.onboarding);
     }).catchError((error) {
       getCustomSnackBar(context, message: error.message);
     });

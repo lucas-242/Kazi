@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:kazi/app/shared/constants/app_onboarding.dart';
+import 'package:kazi/app/shared/extensions/routes_extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/extensions/theme_extension.dart';
 import 'package:kazi/app/shared/themes/extensions/typography_extension.dart';
 import 'package:kazi/app/shared/themes/settings/app_assets.dart';
@@ -47,7 +47,10 @@ class OnboardingPage extends StatelessWidget {
                 Center(
                   child: CircularButton(
                     iconSize: 54,
-                    onTap: () => context.go(AppRouter.home),
+                    onTap: () {
+                      AppOnboarding.onCompleteOnboarding(context);
+                      context.navigateTo(AppPage.home);
+                    },
                     child: const Icon(Icons.chevron_right),
                   ),
                 )

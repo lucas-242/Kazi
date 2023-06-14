@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_shell.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
-import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/app_page.dart';
+import 'package:kazi/app/models/route_params.dart';
 import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/views/home/home.dart';
 import 'package:kazi/app/views/initial/intial.dart';
@@ -11,7 +12,6 @@ import 'package:kazi/app/views/profile/profile.dart';
 import 'package:kazi/app/views/service_types/service_types.dart';
 import 'package:kazi/app/views/services/services.dart';
 import 'package:kazi/injector_container.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 abstract class AppRouter {
   static GoRouter get router => _router;
@@ -60,36 +60,30 @@ final _router = GoRouter(
           _customTransition(state, const LoginPage()),
     ),
     ShellRoute(
-      builder: (context, state, child) => ShowCaseWidget(
-        disableBarrierInteraction: true,
-        disableMovingAnimation: true,
-        enableAutoScroll: true,
-        builder: Builder(
-          builder: (context) => AppShell(child: child),
-        ),
+      builder: (context, state, child) => AppShell(
+        params: state.extra != null
+            ? (state.extra as RouteParams)
+            : RouteParams(
+                lastPage: AppPage.home,
+              ),
+        child: child,
       ),
       routes: [
         GoRoute(
           path: AppRouter.home,
           pageBuilder: (context, state) => _customTransition(
             state,
-            HomePage(showOnboarding: AppRouter.showOnboarding),
+            // HomePage(showOnboarding: AppRouter.showOnboarding),
+            const HomePage(),
           ),
-          routes: [
-            GoRoute(
-              path: ':serviceId',
-              pageBuilder: (context, state) => _customTransition(
-                state,
-                ServiceDetailsPage(service: state.extra as Service),
-              ),
-            ),
-          ],
+          routes: [_addService, _serviceDetails],
         ),
         GoRoute(
           path: AppRouter.services,
           pageBuilder: (context, state) => _customTransition(
             state,
-            ServiceLandingPage(showOnboarding: AppRouter.showOnboarding),
+            const ServiceLandingPage(),
+            // ServiceLandingPage(showOnboarding: AppRouter.showOnboarding),
           ),
           routes: [
             GoRoute(
@@ -106,34 +100,36 @@ final _router = GoRouter(
                 ),
               ],
             ),
-            GoRoute(
-              path: AppRouter.add,
-              pageBuilder: (context, state) => _customTransition(
-                state,
-                ServiceFormPage(service: state.extra as Service?),
-              ),
-            ),
-            GoRoute(
-              path: ':serviceId',
-              pageBuilder: (context, state) => _customTransition(
-                state,
-                ServiceDetailsPage(service: state.extra as Service),
-              ),
-            ),
+            _addService,
+            _serviceDetails,
           ],
-        ),
-        GoRoute(
-          path: AppRouter.calculator,
-          pageBuilder: (context, state) =>
-              _customTransition(state, const ServiceTypesPage()),
         ),
         GoRoute(
           path: AppRouter.profile,
           builder: (context, state) => const ProfilePage(),
+          routes: [_addService],
         ),
       ],
     ),
   ],
+);
+
+final _serviceDetails = GoRoute(
+  path: ':serviceId',
+  pageBuilder: (context, state) => _customTransition(
+    state,
+    ServiceDetailsPage(
+      service: (state.extra as RouteParams).service!,
+    ),
+  ),
+);
+
+final _addService = GoRoute(
+  path: AppRouter.add,
+  pageBuilder: (context, state) => _customTransition(
+    state,
+    ServiceFormPage(service: (state.extra as RouteParams).service),
+  ),
 );
 
 CustomTransitionPage<Widget> _customTransition(

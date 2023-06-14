@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kazi/app/models/app_user.dart';
 
-extension FirestoreDocumentExtension on DocumentReference {
+extension FirestoreDocumentExtensions on DocumentReference {
   Future<DocumentSnapshot> getCacheFirst() async {
     try {
       final ds = await get(const GetOptions(source: Source.cache));
@@ -16,7 +16,7 @@ extension FirestoreDocumentExtension on DocumentReference {
   }
 }
 
-extension FirestoreQueryExtension on Query {
+extension FirestoreQueryExtensions on Query {
   Future<QuerySnapshot> getCacheFirst() async {
     try {
       final qs = await get(const GetOptions(source: Source.cache));
@@ -30,7 +30,7 @@ extension FirestoreQueryExtension on Query {
   }
 }
 
-extension FirebaseUserExtension on User {
+extension FirebaseUserExtensions on User {
   AppUser toAppUser() {
     return AppUser(
       uid: uid,

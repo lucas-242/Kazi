@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/widgets/layout/custom_scaffold/widgets/padding_wrap.dart';
 import 'package:kazi/app/shared/widgets/layout/custom_scroll_behavior/custom_scroll_behavior.dart';
 
-class CustomScaffold extends StatelessWidget {
-  const CustomScaffold({
+class CustomSafeArea extends StatelessWidget {
+  const CustomSafeArea({
     super.key,
     this.onRefresh,
     this.child,

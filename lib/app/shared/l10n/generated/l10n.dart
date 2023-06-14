@@ -510,20 +510,20 @@ class AppLocalizations {
     );
   }
 
-  /// `It seems you don't have any service registered yet, click on the button above to register a new one.`
+  /// `It seems you don't have any service registered yet, click on the button above to register a new one.\n\nRemember, by default this screen shows the services you made this month. Try changing the filters above to see different dates.`
   String get noServices {
     return Intl.message(
-      'It seems you don\'t have any service registered yet, click on the button above to register a new one.',
+      'It seems you don\'t have any service registered yet, click on the button above to register a new one.\n\nRemember, by default this screen shows the services you made this month. Try changing the filters above to see different dates.',
       name: 'noServices',
       desc: '',
       args: [],
     );
   }
 
-  /// `It seems you don't have any service registered today yet, click on the button above to register a new one.`
+  /// `It seems you don't have any service registered today yet, click on the button above to register a new one.\n\nRemember, this screen shows only the services that you made today. Go to the services page to see other dates.`
   String get noServicesHome {
     return Intl.message(
-      'It seems you don\'t have any service registered today yet, click on the button above to register a new one.',
+      'It seems you don\'t have any service registered today yet, click on the button above to register a new one.\n\nRemember, this screen shows only the services that you made today. Go to the services page to see other dates.',
       name: 'noServicesHome',
       desc: '',
       args: [],
@@ -825,6 +825,16 @@ class AppLocalizations {
     return Intl.message(
       'Share',
       name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
       desc: '',
       args: [],
     );

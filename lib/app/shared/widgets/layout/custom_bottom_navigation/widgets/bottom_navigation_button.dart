@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
-import 'package:kazi/app/shared/widgets/layout/layout.dart';
 
 class BottomNavigationButton extends StatelessWidget {
   const BottomNavigationButton({
@@ -41,22 +40,6 @@ class BottomNavigationButton extends StatelessWidget {
 
     final fontWeight = isSelected ? FontWeight.w500 : FontWeight.w400;
 
-    List<Widget> getIconWithText() => [
-          SvgPicture.asset(
-            icon,
-            colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-          ),
-          AppSizeConstants.tinyVerticalSpacer,
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-              fontWeight: fontWeight,
-            ),
-          ),
-        ];
-
     return Expanded(
       child: Padding(
         padding: padding,
@@ -64,32 +47,23 @@ class BottomNavigationButton extends StatelessWidget {
           behavior: HitTestBehavior.translucent,
           onTap: onTap,
           child: Column(
+            key: onboardingKey,
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (onboardingKey != null &&
-                  onboardingTitle != null &&
-                  onboardingDescription != null &&
-                  onboardingCurrentPage != null)
-                OnboardingTooltip(
-                  onboardingKey: onboardingKey!,
-                  title: onboardingTitle!,
-                  description: onboardingDescription!,
-                  currentPage: onboardingCurrentPage!,
-                  position: OnboardingTooltipPosition.top,
-                  width: onboardingTooltipWidth,
-                  onNextCallback: onboardingNextCallback,
-                  onBackCallback: onboardingBackCallback,
-                  targetPadding: const EdgeInsets.only(
-                    top: AppSizeConstants.mediumSpace,
-                    bottom: AppSizeConstants.mediumSpace,
-                    left: AppSizeConstants.largeSpace,
-                    right: AppSizeConstants.largeSpace,
-                  ),
-                  child: Column(children: getIconWithText()),
-                )
-              else
-                ...getIconWithText(),
+              SvgPicture.asset(
+                icon,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              ),
+              AppSizeConstants.tinyVerticalSpacer,
+              Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: fontWeight,
+                ),
+              ),
             ],
           ),
         ),

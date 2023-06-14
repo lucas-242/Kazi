@@ -1,7 +1,7 @@
 name: kazi
 description: An app to keep track of your personal or work services.
 publish_to: 'none'
-version: 1.0.1+4
+version: 1.0.3+6
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
@@ -28,7 +28,6 @@ dependencies:
   google_sign_in: ^6.1.2
   intl: ^0.18.0
   shared_preferences: ^2.1.1
-  showcaseview: ^2.0.3
 
 dev_dependencies:
   bloc_test: ^9.1.2

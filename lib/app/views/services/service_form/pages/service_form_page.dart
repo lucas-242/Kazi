@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/utils/base_state.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
@@ -37,14 +37,14 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return CustomSafeArea(
       child: SingleChildScrollView(
         child: BlocListener<ServiceFormCubit, ServiceFormState>(
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
             if (state.status == BaseStateStatus.success) {
               context.read<ServiceLandingCubit>().onChangeServices();
-              context.pop();
+              context.back();
             } else if (state.status == BaseStateStatus.error) {
               getCustomSnackBar(
                 context,

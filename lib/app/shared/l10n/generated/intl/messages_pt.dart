@@ -134,9 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "Parece que você não registrou nenhum tipo de serviço,  clique no botão acima para registrar um novo."),
         "noServices": MessageLookupByLibrary.simpleMessage(
-            "Parece que você não registrou nenhum serviço, clique no botão acima para registrar um novo."),
+            "Parece que você não registrou nenhum serviço, clique no botão acima para registrar um novo.\n\nLembre-se, aqui você verá os serviços realizados hoje. Para visualizar outras datas, vá para a tela de serviços."),
         "noServicesHome": MessageLookupByLibrary.simpleMessage(
-            "Parece que você não registrou nenhum serviço para hoje, clique no botão acima para registrar um novo."),
+            "Parece que você não registrou nenhum serviço para hoje, clique no botão acima para registrar um novo.\n\nLembre-se, por padrão são exibidos os serviços que você realizou nesse mês. Tente alterar os filtros acima para visualizar datas diferentes."),
         "numberLesserThanZero": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe um número maior ou igual a zero"),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
@@ -184,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("Cadastrar"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(
             "Cadastro efetuado com sucesso"),
+        "skip": MessageLookupByLibrary.simpleMessage("Pular"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
             "Já existe uma conta com estas credenciais"),
         "thisService": MessageLookupByLibrary.simpleMessage("esse serviço"),

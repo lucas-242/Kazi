@@ -133,9 +133,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "noServiceTypes": MessageLookupByLibrary.simpleMessage(
             "It seems you don\'t have any service type registered yet, click on the button above to register a new one."),
         "noServices": MessageLookupByLibrary.simpleMessage(
-            "It seems you don\'t have any service registered yet, click on the button above to register a new one."),
+            "It seems you don\'t have any service registered yet, click on the button above to register a new one.\n\nRemember, by default this screen shows the services you made this month. Try changing the filters above to see different dates."),
         "noServicesHome": MessageLookupByLibrary.simpleMessage(
-            "It seems you don\'t have any service registered today yet, click on the button above to register a new one."),
+            "It seems you don\'t have any service registered today yet, click on the button above to register a new one.\n\nRemember, this screen shows only the services that you made today. Go to the services page to see other dates."),
         "numberLesserThanZero": MessageLookupByLibrary.simpleMessage(
             "Please, inform a number equal or greater than 0"),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(
@@ -180,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signUpSuccess": MessageLookupByLibrary.simpleMessage(
             "Account created successfully"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "success":
             MessageLookupByLibrary.simpleMessage("Action done successfully"),
         "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
