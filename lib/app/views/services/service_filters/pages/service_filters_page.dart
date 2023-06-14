@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
@@ -72,7 +71,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
 
     Future<void> onApplyFilters(BuildContext context) async {
       final state = context.read<ServiceFiltersCubit>().state;
-      context.pop();
+      context.back();
       await serviceLandingcubit.onApplyFilters(
         state.fastSearch,
         state.startDate,
@@ -81,7 +80,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     }
 
     Future<void> onCleanFilters() async {
-      context.pop();
+      context.back();
       await serviceLandingcubit.onCleanFilters();
     }
 

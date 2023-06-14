@@ -13,7 +13,7 @@ import 'package:kazi/app/views/services/service_landing/widgets/service_navbar.d
 import 'package:kazi/app/views/services/services.dart';
 
 class ServiceLandingPage extends StatefulWidget {
-  const ServiceLandingPage({super.key, required this.showOnboarding});
+  const ServiceLandingPage({super.key, this.showOnboarding = false});
 
   final bool showOnboarding;
 

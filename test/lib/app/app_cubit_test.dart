@@ -1,9 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/app_cubit.dart';
+import 'package:kazi/app/models/app_page.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:kazi/app/app_cubit.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 
 import 'app_cubit_test.mocks.dart';
 
@@ -20,10 +21,10 @@ void main() {
   });
 
   blocTest(
-    'emits AppState(1) when call changePage',
+    'emits AppState(AppPage.Services) when call changePage',
     build: () => cubit,
-    act: (cubit) => cubit.changePage(1),
-    expect: () => [1],
+    act: (cubit) => cubit.changePage(AppPage.services),
+    expect: () => [AppPage.services],
   );
 
   blocTest(

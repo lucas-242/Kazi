@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/utils/base_state.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
@@ -56,10 +54,8 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           PillButton(
-                            onTap: () {
-                              context.read<AppCubit>().changeToAddServicePage();
-                              context.go(AppRouter.addServices);
-                            },
+                            onTap: () =>
+                                context.navigateTo(AppPage.addServices),
                             child: Text(AppLocalizations.current.newService),
                           )
                         ],

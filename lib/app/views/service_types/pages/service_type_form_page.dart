@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/utils/base_state.dart';
@@ -31,7 +31,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
 
     void onTapBack() {
       cubit.eraseServiceType();
-      context.pop();
+      context.back();
     }
 
     return BlocProvider.value(
@@ -64,7 +64,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
                     previous.status != current.status,
                 listener: (context, state) {
                   if (state.status == BaseStateStatus.success) {
-                    context.pop();
+                    context.back();
                   }
                 },
                 child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(

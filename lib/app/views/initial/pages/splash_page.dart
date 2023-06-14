@@ -4,10 +4,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kazi/app/models/app_user.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
-import 'package:kazi/app/shared/routes/app_router.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/injector_container.dart';
 
@@ -47,9 +46,8 @@ class _SplashPageState extends State<SplashPage> {
 
   void _listenUser() {
     final auth = serviceLocator<AuthService>();
-    userStream = auth
-        .userChanges()
-        .listen(_onUserChange, onError: (_) => context.go(AppRouter.login));
+    userStream = auth.userChanges().listen(_onUserChange,
+        onError: (_) => context.navigateTo(AppPage.login));
   }
 
   Future<void> _onUserChange(AppUser? user) async {
@@ -67,9 +65,9 @@ class _SplashPageState extends State<SplashPage> {
     // await _closeAnimation();
     if (user != null) {
       _setUser(user);
-      context.go(AppRouter.onboarding);
+      context.navigateTo(AppPage.onboarding);
     } else {
-      context.go(AppRouter.login);
+      context.navigateTo(AppPage.login);
     }
   }
 

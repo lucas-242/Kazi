@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
@@ -12,8 +11,6 @@ import 'package:kazi/app/shared/utils/number_format_helper.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 import 'package:kazi/app/shared/widgets/fields/fields.dart';
 import 'package:kazi/app/views/services/services.dart';
-
-import '../../../../app_cubit.dart';
 
 class ServiceFormContent extends StatefulWidget {
   final Function() onConfirm;
@@ -101,10 +98,8 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
             text: widget.isCreating
                 ? AppLocalizations.current.newService
                 : AppLocalizations.current.editService,
-            onTapBack: () {
-              context.read<AppCubit>().changePage(1);
-              context.pop();
-            },
+            onTapBack: () =>
+                context.navigateTo(AppPage.services, shouldPop: true),
           ),
         ),
         AppSizeConstants.largeVerticalSpacer,

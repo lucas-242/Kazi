@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
-import 'package:kazi/app/shared/routes/app_router.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/injector_container.dart';
 
@@ -26,11 +23,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final user = serviceLocator.get<AuthService>().user;
 
-    void onTapImage() {
-      context.read<AppCubit>().changePage(3);
-      context.go(AppRouter.profile);
-    }
-
     return AppBar(
       toolbarHeight: preferredSize.height,
       centerTitle: true,
@@ -41,7 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           AppSizeConstants.smallHorizontalSpacer,
           TextButton(
             key: AppOnboarding.stepFive,
-            onPressed: onTapImage,
+            onPressed: () => context.navigateTo(AppPage.profile),
             child: SizedBox(
               width: 48.0,
               height: 48.0,
