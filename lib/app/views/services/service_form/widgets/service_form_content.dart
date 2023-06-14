@@ -3,19 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
-import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
-import 'package:kazi/app/shared/routes/app_router.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/utils/number_format_helper.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 import 'package:kazi/app/shared/widgets/fields/fields.dart';
 import 'package:kazi/app/views/services/services.dart';
-import 'package:kazi/injector_container.dart';
 
 import '../../../../app_cubit.dart';
 
@@ -91,30 +87,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
     if (_formKey.currentState!.validate()) {
       widget.onConfirm();
     }
-  }
-
-  Future<void> _onCompleteOnboarding() async {
-    await _completeOnboarding();
-    _cleanForm();
-    _updateBottomNavigator();
-    //* There is an error using navigator if go method is called directly
-    context
-      ..pop()
-      ..go(AppRouter.home);
-  }
-
-  Future<void> _completeOnboarding() async => serviceLocator
-      .get<LocalStorage>()
-      .setBool(AppKeys.showOnboardingStorage, false);
-
-  void _cleanForm() {
-    final formCubit = context.read<ServiceFormCubit>();
-    formCubit.cleanState();
-  }
-
-  void _updateBottomNavigator() {
-    final appCubit = context.read<AppCubit>();
-    appCubit.changePage(0);
   }
 
   @override

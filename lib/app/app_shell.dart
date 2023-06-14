@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kazi/app/shared/constants/app_onboarding.dart';
 import 'package:kazi/app/shared/widgets/layout/layout.dart';
 
 import 'app_cubit.dart';
@@ -30,17 +29,14 @@ class _AppShellState extends State<AppShell> {
   @override
   void initState() {
     context.read<AppCubit>().changePage(0);
-    Future.delayed(const Duration(seconds: 1), showOnboarding);
     // WidgetsBinding.instance.addPostFrameCallback((_) => showOnboarding());
     _listenUser();
     super.initState();
   }
 
-  void showOnboarding() {
-    if (widget.showOnboarding) {
-      AppOnboarding.instance.show(context: context);
-    }
-  }
+  // void showOnboarding() {
+  //     AppOnboarding.instance.show(context: context);
+  // }
 
   void _listenUser() {
     userStream = context.read<AppCubit>().userSignOut().listen((userSignOut) {

@@ -28,11 +28,6 @@ class ServiceListContent extends StatelessWidget {
     context.go('$currentRoute/${service.id}', extra: service);
   }
 
-  void _onNextCallback(BuildContext context) {
-    context.read<AppCubit>().changeToAddServicePage();
-    context.go(AppRouter.addServices);
-  }
-
   @override
   Widget build(BuildContext context) {
     final showOnboarding = serviceLocator
