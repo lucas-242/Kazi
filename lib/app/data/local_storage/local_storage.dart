@@ -1,7 +1,7 @@
-export 'shared_preferences/share_preferences_storage.dart';
+export 'shared_preferences/shared_preferences_storage.dart';
 
 abstract class LocalStorage {
   Future<void> remove(String key);
-  bool? getBool(String key);
-  Future<void> setBool(String key, bool value);
+  Future<void> set<T>(String key, T value);
+  T? get<T>(String key);
 }

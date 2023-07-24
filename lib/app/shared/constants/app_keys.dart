@@ -4,6 +4,8 @@ abstract class AppKeys {
 
   /// Key to identify if it is necessary to display the onboarding
   static String showOnboardingStorage = 'showOnboarding';
+  static String jwtStorage = 'jwt';
+  static String refreshTokenStorage = 'refreshToken';
 
   /// Calendar start date
   static DateTime formStartDate = DateTime(2020);

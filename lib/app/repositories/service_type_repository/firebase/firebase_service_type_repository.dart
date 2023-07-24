@@ -1,24 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/models/service_type.dart';
+import 'package:kazi/app/repositories/service_type_repository/firebase/models/firebase_service_type.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+
 import '../service_type_repository.dart';
 
-class FirebaseServiceTypeRepository extends ServiceTypeRepository {
+final class FirebaseServiceTypeRepository implements ServiceTypeRepository {
+  FirebaseServiceTypeRepository(FirebaseFirestore firestore)
+      : _firestore = firestore;
   final FirebaseFirestore _firestore;
 
   @visibleForTesting
   String get path => 'serviceTypes';
 
-  FirebaseServiceTypeRepository(FirebaseFirestore firestore)
-      : _firestore = firestore;
-
   @override
   Future<ServiceType> add(ServiceType serviceType) async {
     try {
-      final data = serviceType.toMap();
+      final data =
+          FirebaseServiceTypeModel.fromServiceType(serviceType).toMap();
       final document = await _firestore.collection(path).add(data);
       final result = serviceType.copyWith(id: document.id);
       return result;
@@ -48,7 +50,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
 
       final result = query.docs.map((DocumentSnapshot snapshot) {
         final data = snapshot.data() as Map<String, dynamic>;
-        return ServiceType.fromMap(data).copyWith(id: snapshot.id);
+        return FirebaseServiceTypeModel.fromMap(data).copyWith(id: snapshot.id);
       }).toList();
 
       return result;
@@ -61,7 +63,8 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
   @override
   Future<void> update(ServiceType serviceType) async {
     try {
-      final data = serviceType.toMap();
+      final data =
+          FirebaseServiceTypeModel.fromServiceType(serviceType).toMap();
       await _firestore.collection(path).doc(serviceType.id).update(data);
     } catch (exception) {
       throw ExternalError(AppLocalizations.current.errorToUpdateServiceType,

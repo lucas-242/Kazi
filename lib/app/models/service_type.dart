@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'service_type.g.dart';
+
+@JsonSerializable()
 class ServiceType extends Equatable {
-  final String id;
-  final String name;
-  final double? defaultValue;
-  final double? discountPercent;
-  final String userId;
-
   const ServiceType({
     this.id = '',
     this.name = '',
@@ -17,29 +13,17 @@ class ServiceType extends Equatable {
     required this.userId,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'defaultValue': defaultValue,
-      'discountPercent': discountPercent,
-      'userId': userId,
-    };
-  }
+  factory ServiceType.fromJson(Map<String, dynamic> json) =>
+      _$ServiceTypeFromJson(json);
 
-  factory ServiceType.fromMap(Map<String, dynamic> map) {
-    return ServiceType(
-      id: map['id'] ?? '',
-      name: map['name'] ?? '',
-      defaultValue: map['defaultValue']?.toDouble(),
-      discountPercent: map['discountPercent']?.toDouble(),
-      userId: map['userId'] ?? '',
-    );
-  }
+  final String id;
+  final String name;
+  final double? defaultValue;
+  final double? discountPercent;
+  final String userId;
 
-  String toJson() => json.encode(toMap());
-
-  factory ServiceType.fromJson(String source) =>
-      ServiceType.fromMap(json.decode(source));
+  Map<String, dynamic> toJson(Map<String, dynamic> json) =>
+      _$ServiceTypeToJson(this);
 
   ServiceType copyWith({
     String? id,

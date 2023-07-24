@@ -5,7 +5,7 @@ import 'package:kazi/app/shared/constants/ad_keys.dart';
 
 import '../constants/app_keys.dart';
 
-abstract class Environment {
+abstract interface class Environment {
   static EnvironmentValue get environmentValue => EnvironmentValue.fromString(
       const String.fromEnvironment(AppKeys.environmentKey))!;
 
@@ -16,9 +16,10 @@ abstract class Environment {
   String get adFinishAddActionKey;
   String get adCalendarServiceListKey;
   String get adHomeServiceListKey;
+  String get kaziApiUrl;
 }
 
-class DevEnvironment extends Environment {
+final class DevEnvironment implements Environment {
   @override
   String get adFinishAddActionKey => _checkEnvironmentAdKey(
         AdKeys.androidFinishAddActionKeyDev,
@@ -36,9 +37,12 @@ class DevEnvironment extends Environment {
         AdKeys.androidHomeServiceListKeyDev,
         AdKeys.iosHomeServiceListKeyDev,
       );
+
+  @override
+  String get kaziApiUrl => 'https://localhost:7250/';
 }
 
-class ProdEnvironment extends Environment {
+final class ProdEnvironment implements Environment {
   @override
   String get adFinishAddActionKey => _checkEnvironmentAdKey(
         AdKeys.androidFinishAddActionKeyProd,
@@ -55,6 +59,9 @@ class ProdEnvironment extends Environment {
         AdKeys.androidHomeServiceListKeyProd,
         AdKeys.iosHomeServiceListKeyProd,
       );
+
+  @override
+  String get kaziApiUrl => 'https://localhost:7250/';
 }
 
 String _checkEnvironmentAdKey(String android, String ios) {

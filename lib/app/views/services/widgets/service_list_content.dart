@@ -28,7 +28,7 @@ class ServiceListContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final showOnboarding = serviceLocator
             .get<LocalStorage>()
-            .getBool(AppKeys.showOnboardingStorage) ??
+            .get<bool>(AppKeys.showOnboardingStorage) ??
         true;
 
     return ListView.separated(

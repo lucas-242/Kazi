@@ -429,7 +429,7 @@ abstract class AppOnboarding {
 
   static Future<void> _completeOnboarding() async => serviceLocator
       .get<LocalStorage>()
-      .setBool(AppKeys.showOnboardingStorage, false);
+      .set<bool>(AppKeys.showOnboardingStorage, false);
 
   // static void _cleanForm(BuildContext context) {
   //   final formCubit = context.read<ServiceFormCubit>();

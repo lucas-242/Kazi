@@ -1,6 +1,6 @@
 import 'package:kazi/app/models/service_type.dart';
 
-abstract class ServiceTypeRepository {
+abstract interface class ServiceTypeRepository {
   Future<ServiceType> add(ServiceType serviceType);
   Future<void> delete(String id);
   Future<List<ServiceType>> get(String userId);

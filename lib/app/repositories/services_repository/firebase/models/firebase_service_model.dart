@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
 
@@ -16,33 +15,19 @@ class FirebaseServiceModel extends Service {
     required super.date,
     required super.userId,
   });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'description': description,
-      'value': value,
-      'typeId': typeId,
-      'discountPercent': discountPercent,
-      'date': Timestamp.fromDate(date),
-      'userId': userId,
-    };
-  }
-
   factory FirebaseServiceModel.fromMap(Map<String, dynamic> map) {
     return FirebaseServiceModel(
       id: map['id'] ?? '',
       description: map['description'],
       value: map['value']?.toDouble(),
       discountPercent: map['discountPercent']?.toDouble(),
-      type: map['type'] != null ? ServiceType.fromMap(map['type']) : null,
+      type: map['type'] != null ? ServiceType.fromJson(map['type']) : null,
       typeId: map['typeId'],
       date: DateTime.fromMillisecondsSinceEpoch(
           map['date'].millisecondsSinceEpoch),
       userId: map['userId'],
     );
   }
-
-  String toJson() => json.encode(toMap());
 
   factory FirebaseServiceModel.fromJson(String source) =>
       FirebaseServiceModel.fromMap(json.decode(source));
@@ -57,6 +42,19 @@ class FirebaseServiceModel extends Service {
         date: source.date,
         userId: source.userId,
       );
+
+  Map<String, dynamic> toMap() {
+    return {
+      'description': description,
+      'value': value,
+      'typeId': typeId,
+      'discountPercent': discountPercent,
+      'date': Timestamp.fromDate(date),
+      'userId': userId,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 
   @override
   FirebaseServiceModel copyWith({

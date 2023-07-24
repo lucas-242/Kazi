@@ -19,7 +19,7 @@ abstract class AppRouter {
   static bool get showOnboarding =>
       serviceLocator
           .get<LocalStorage>()
-          .getBool(AppKeys.showOnboardingStorage) ??
+          .get<bool>(AppKeys.showOnboardingStorage) ??
       true;
 
   static String initial = '/';
