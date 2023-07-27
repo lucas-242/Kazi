@@ -11,11 +11,11 @@ import 'package:kazi/app/shared/widgets/fields/fields.dart';
 import '../service_types.dart';
 
 class ServiceTypeFormContent extends StatefulWidget {
-  final void Function() onConfirm;
   const ServiceTypeFormContent({
     super.key,
     required this.onConfirm,
   });
+  final void Function() onConfirm;
 
   @override
   State<ServiceTypeFormContent> createState() => _ServiceTypeFormContentState();

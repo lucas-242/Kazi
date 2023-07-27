@@ -1,12 +1,6 @@
 part of 'service_landing_cubit.dart';
 
 class ServiceLandingState extends BaseState with EquatableMixin {
-  final DateTime startDate;
-  final DateTime endDate;
-  final FastSearch fastSearch;
-  final OrderBy selectedOrderBy;
-  final List<Service> services;
-  final bool didFiltersChange;
 
   ServiceLandingState({
     required super.status,
@@ -18,6 +12,12 @@ class ServiceLandingState extends BaseState with EquatableMixin {
     this.selectedOrderBy = OrderBy.alphabetical,
     this.didFiltersChange = false,
   }) : services = services ?? [];
+  final DateTime startDate;
+  final DateTime endDate;
+  final FastSearch fastSearch;
+  final OrderBy selectedOrderBy;
+  final List<Service> services;
+  final bool didFiltersChange;
 
   double get totalValue => services.fold<double>(0, (a, b) => a + b.value);
 

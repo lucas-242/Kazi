@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseTestHelper {
-  final String path;
-  final FirebaseFirestore database;
 
   FirebaseTestHelper(this.database, this.path);
+  final String path;
+  final FirebaseFirestore database;
 
   Future<T> add<T>(
     Map<String, dynamic> data,

@@ -4,13 +4,13 @@ import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class OrderByBottomSheet extends StatelessWidget {
-  final Function(OrderBy) onPressed;
-  final OrderBy selectedOption;
   const OrderByBottomSheet({
     super.key,
     required this.onPressed,
     required this.selectedOption,
   });
+  final Function(OrderBy) onPressed;
+  final OrderBy selectedOption;
 
   Map<OrderBy, String> get orderOptions => {
         OrderBy.alphabetical: AppLocalizations.current.orderAlphabetical,

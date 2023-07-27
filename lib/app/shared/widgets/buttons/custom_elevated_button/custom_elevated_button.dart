@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  final VoidCallback onTap;
-  final String text;
-  final Color? backgroundColor;
-  final Color? foregroundColor;
-  final double? width;
-  final double? height;
 
   const CustomElevatedButton({
     Key? key,
@@ -18,6 +12,12 @@ class CustomElevatedButton extends StatelessWidget {
     this.width,
     this.height,
   }) : super(key: key);
+  final VoidCallback onTap;
+  final String text;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {

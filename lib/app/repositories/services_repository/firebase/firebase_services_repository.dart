@@ -7,11 +7,11 @@ import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 
 class FirebaseServicesRepository extends ServicesRepository {
-  final FirebaseFirestore _firestore;
-  String get path => 'services';
 
   FirebaseServicesRepository(FirebaseFirestore firestore)
       : _firestore = firestore;
+  final FirebaseFirestore _firestore;
+  String get path => 'services';
 
   @override
   Future<List<Service>> add(Service service, [int quantity = 1]) async {

@@ -7,8 +7,6 @@ import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'errors/firebase_sign_in_error.dart';
 
 final class FirebaseAuthService extends AuthService {
-  final GoogleSignIn googleSignIn;
-  final FirebaseAuth firebaseAuth;
 
   FirebaseAuthService({
     GoogleSignIn? googleSignIn,
@@ -18,6 +16,8 @@ final class FirebaseAuthService extends AuthService {
         firebaseAuth = firebaseAuth ?? FirebaseAuth.instance {
     this.user = user;
   }
+  final GoogleSignIn googleSignIn;
+  final FirebaseAuth firebaseAuth;
 
   @override
   Future<bool> signInWithGoogle() async {

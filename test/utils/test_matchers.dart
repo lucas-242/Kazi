@@ -4,20 +4,20 @@ import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
 
 class ErrorWithMessage<T extends AppError> extends CustomMatcher {
-  final String message;
 
   ErrorWithMessage(this.message)
       : super(
             'Error should be ${T.runtimeType} with message: $message',
             'Error and message',
             throwsA(predicate((e) => e is T && e.message == message)));
+  final String message;
 }
 
 class IsTheSameServiceType extends Matcher {
-  final ServiceType compareObject;
-  final bool checkEqualsId;
 
   IsTheSameServiceType(this.compareObject, {this.checkEqualsId = false});
+  final ServiceType compareObject;
+  final bool checkEqualsId;
 
   @override
   bool matches(Object? item, Map matchState) {
@@ -41,10 +41,10 @@ class IsTheSameServiceType extends Matcher {
 }
 
 class IsTheSameService extends Matcher {
-  final Service compareObject;
-  final bool checkEqualsId;
 
   IsTheSameService(this.compareObject, {this.checkEqualsId = false});
+  final Service compareObject;
+  final bool checkEqualsId;
 
   @override
   bool matches(Object? item, Map matchState) {

@@ -16,9 +16,6 @@ part 'service_form_state.dart';
 
 class ServiceFormCubit extends Cubit<ServiceFormState>
     with BaseCubit, FormValidator {
-  final ServicesRepository _servicesRepository;
-  final ServiceTypeRepository _serviceTypeRepository;
-  final AuthService _authService;
 
   ServiceFormCubit(
     this._servicesRepository,
@@ -26,6 +23,9 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
     this._authService,
   ) : super(ServiceFormState(
             status: BaseStateStatus.loading, userId: _authService.user!.uid));
+  final ServicesRepository _servicesRepository;
+  final ServiceTypeRepository _serviceTypeRepository;
+  final AuthService _authService;
 
   Future<void> onInit([Service? service]) async {
     try {

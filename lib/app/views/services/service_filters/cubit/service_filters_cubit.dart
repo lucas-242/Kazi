@@ -7,7 +7,6 @@ import 'package:kazi/app/shared/extensions/extensions.dart';
 part 'service_filters_state.dart';
 
 class ServiceFiltersCubit extends Cubit<ServiceFiltersState> {
-  final ServicesService _servicesService;
 
   ServiceFiltersCubit({
     required ServicesService servicesService,
@@ -20,6 +19,7 @@ class ServiceFiltersCubit extends Cubit<ServiceFiltersState> {
           endDate: endDate,
           fastSearch: fastSearch,
         ));
+  final ServicesService _servicesService;
 
   void onChangeDate(DateTime startDate, DateTime endDate) {
     final finalEndDate = endDate.lastHourOfDay;

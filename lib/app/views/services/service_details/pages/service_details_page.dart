@@ -12,8 +12,8 @@ import 'package:kazi/app/shared/widgets/texts/row_text/row_text.dart';
 import 'package:kazi/app/views/services/services.dart';
 
 class ServiceDetailsPage extends StatelessWidget {
-  final Service service;
   const ServiceDetailsPage({super.key, required this.service});
+  final Service service;
 
   @override
   Widget build(BuildContext context) {

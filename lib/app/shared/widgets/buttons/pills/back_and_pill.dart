@@ -6,12 +6,6 @@ import 'package:kazi/app/shared/widgets/buttons/circular_button/circular_button.
 import 'pill_button.dart';
 
 class BackAndPill extends StatelessWidget {
-  final VoidCallback? onTapBack;
-  final VoidCallback? onTapPill;
-  final String? text;
-  final String? pillText;
-  final Color? foregroundColor;
-  final Color? backgroundColor;
 
   const BackAndPill({
     super.key,
@@ -22,6 +16,12 @@ class BackAndPill extends StatelessWidget {
     this.backgroundColor,
     this.onTapBack,
   });
+  final VoidCallback? onTapBack;
+  final VoidCallback? onTapPill;
+  final String? text;
+  final String? pillText;
+  final Color? foregroundColor;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {

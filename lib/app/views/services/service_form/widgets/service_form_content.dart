@@ -13,13 +13,13 @@ import 'package:kazi/app/shared/widgets/fields/fields.dart';
 import 'package:kazi/app/views/services/services.dart';
 
 class ServiceFormContent extends StatefulWidget {
-  final Function() onConfirm;
-  final bool isCreating;
   const ServiceFormContent({
     super.key,
     required this.onConfirm,
     this.isCreating = true,
   });
+  final Function() onConfirm;
+  final bool isCreating;
 
   @override
   State<ServiceFormContent> createState() => _ServiceFormContentState();

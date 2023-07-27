@@ -5,14 +5,6 @@ import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class CustomDropdown extends StatelessWidget {
-  final String label;
-  final String hint;
-  final DropdownItem? selectedItem;
-  final List<DropdownItem> items;
-  final String? Function(DropdownItem?)? validator;
-  final Function(DropdownItem?)? onChanged;
-  final bool showSeach;
-  final String? searchHint;
   const CustomDropdown({
     Key? key,
     required this.label,
@@ -24,6 +16,14 @@ class CustomDropdown extends StatelessWidget {
     this.showSeach = false,
     this.searchHint,
   }) : super(key: key);
+  final String label;
+  final String hint;
+  final DropdownItem? selectedItem;
+  final List<DropdownItem> items;
+  final String? Function(DropdownItem?)? validator;
+  final Function(DropdownItem?)? onChanged;
+  final bool showSeach;
+  final String? searchHint;
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +61,9 @@ class CustomDropdown extends StatelessWidget {
 }
 
 class DropdownInput extends StatelessWidget {
+  const DropdownInput({super.key, this.item, required this.hint});
   final DropdownItem? item;
   final String hint;
-  const DropdownInput({super.key, this.item, required this.hint});
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +75,8 @@ class DropdownInput extends StatelessWidget {
 }
 
 class DropdownInputDecorator extends DropDownDecoratorProps {
-  final String labelText;
   const DropdownInputDecorator({required this.labelText});
+  final String labelText;
 
   DropDownDecoratorProps build(BuildContext context) {
     return DropDownDecoratorProps(
@@ -94,13 +94,13 @@ class DropdownInputDecorator extends DropDownDecoratorProps {
 }
 
 class PopupItem extends StatelessWidget {
-  final DropdownItem item;
-  final bool isSelected;
   const PopupItem({
     super.key,
     required this.item,
     required this.isSelected,
   });
+  final DropdownItem item;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -138,9 +138,9 @@ class DropdownEmpty extends StatelessWidget {
 }
 
 class SearchFieldProps extends TextFieldProps {
-  final String? searchHint;
 
   const SearchFieldProps(this.searchHint);
+  final String? searchHint;
 
   TextFieldProps build(BuildContext context) {
     return TextFieldProps(

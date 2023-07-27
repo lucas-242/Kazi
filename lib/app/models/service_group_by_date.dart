@@ -2,15 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:kazi/app/models/service.dart';
 
 class ServicesGroupByDate extends Equatable {
-  final DateTime date;
-  final List<Service> services;
-  final bool isExpanded;
 
   const ServicesGroupByDate({
     required this.date,
     required this.services,
     this.isExpanded = false,
   });
+  final DateTime date;
+  final List<Service> services;
+  final bool isExpanded;
 
   ServicesGroupByDate copyWith({
     DateTime? date,

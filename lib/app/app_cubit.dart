@@ -4,9 +4,9 @@ import 'package:kazi/app/models/app_page.dart';
 import 'services/auth_service/auth_service.dart';
 
 class AppCubit extends Cubit<AppPage> {
-  final AuthService _authService;
 
   AppCubit(this._authService) : super(AppPage.home);
+  final AuthService _authService;
 
   void changePage(AppPage newPage) => emit(newPage);
 

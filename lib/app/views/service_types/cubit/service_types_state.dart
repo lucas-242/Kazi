@@ -1,9 +1,6 @@
 part of 'service_types_cubit.dart';
 
 class ServiceTypesState extends BaseState with EquatableMixin {
-  List<ServiceType> serviceTypes;
-  ServiceType serviceType;
-  String userId;
 
   ServiceTypesState(
       {required this.userId,
@@ -13,6 +10,9 @@ class ServiceTypesState extends BaseState with EquatableMixin {
       super.callbackMessage})
       : serviceType = serviceType ?? ServiceType(userId: userId),
         serviceTypes = serviceTypeList ?? [];
+  List<ServiceType> serviceTypes;
+  ServiceType serviceType;
+  String userId;
 
   @override
   ServiceTypesState copyWith({

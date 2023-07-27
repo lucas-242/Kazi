@@ -15,13 +15,13 @@ import 'package:kazi/app/views/services/services.dart';
 import 'package:kazi/injector_container.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
-  final GlobalKey<FormFieldState> dateKey;
-  final TextEditingController dateController;
   const FiltersBottomSheet({
     Key? key,
     required this.dateKey,
     required this.dateController,
   }) : super(key: key);
+  final GlobalKey<FormFieldState> dateKey;
+  final TextEditingController dateController;
 
   @override
   State<FiltersBottomSheet> createState() => _FiltersBottomSheetState();

@@ -13,9 +13,9 @@ import '../../../../utils/test_matchers.dart';
 import 'firebase_auth_service_firebase_test.mocks.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  final bool isSignedIn;
 
   MockFirebaseAuth({this.isSignedIn = false});
+  final bool isSignedIn;
 
   @override
   Future<UserCredential> signInWithCredential(AuthCredential? credential) =>

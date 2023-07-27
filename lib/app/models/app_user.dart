@@ -1,8 +1,4 @@
 class AppUser {
-  final String name;
-  final String email;
-  final String? photoUrl;
-  final String uid;
 
   AppUser({
     required this.name,
@@ -10,6 +6,10 @@ class AppUser {
     this.photoUrl,
     required this.uid,
   });
+  final String name;
+  final String email;
+  final String? photoUrl;
+  final String uid;
 
   String get shortName => name.length > 18 ? name.split('').first : name;
 }

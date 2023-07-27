@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class RowText extends StatelessWidget {
-  final String leftText;
-  final String rightText;
-  final TextStyle? leftTextStyle;
-  final TextStyle? rightTextStyle;
   const RowText({
     super.key,
     required this.leftText,
@@ -13,6 +9,10 @@ class RowText extends StatelessWidget {
     this.leftTextStyle,
     this.rightTextStyle,
   });
+  final String leftText;
+  final String rightText;
+  final TextStyle? leftTextStyle;
+  final TextStyle? rightTextStyle;
 
   @override
   Widget build(BuildContext context) {

@@ -6,13 +6,13 @@ import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/layout/custom_bottom_navigation/widgets/bottom_navigation_button.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
-  final int currentPage;
-  final void Function(int) onTap;
   const CustomBottomNavigation({
     Key? key,
     this.currentPage = 0,
     required this.onTap,
   }) : super(key: key);
+  final int currentPage;
+  final void Function(int) onTap;
 
   @override
   Widget build(BuildContext context) {

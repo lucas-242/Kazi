@@ -14,9 +14,6 @@ import 'package:kazi/app/views/services/services.dart';
 import 'package:kazi/injector_container.dart';
 
 class ServiceLandingContent extends StatelessWidget {
-  final ServiceLandingState state;
-  final GlobalKey<FormFieldState> dateKey;
-  final MaskedTextController dateController;
 
   const ServiceLandingContent({
     super.key,
@@ -24,6 +21,9 @@ class ServiceLandingContent extends StatelessWidget {
     required this.dateController,
     required this.state,
   });
+  final ServiceLandingState state;
+  final GlobalKey<FormFieldState> dateKey;
+  final MaskedTextController dateController;
 
   @override
   Widget build(BuildContext context) {

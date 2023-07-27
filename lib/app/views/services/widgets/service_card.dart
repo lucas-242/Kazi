@@ -7,14 +7,14 @@ import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/utils/number_format_helper.dart';
 
 class ServiceCard extends StatelessWidget {
-  final VoidCallback onTap;
-  final Service service;
 
   const ServiceCard({
     super.key,
     required this.onTap,
     required this.service,
   });
+  final VoidCallback onTap;
+  final Service service;
 
   @override
   Widget build(BuildContext context) {

@@ -14,10 +14,6 @@ import 'package:kazi/app/shared/utils/base_state.dart';
 part 'service_landing_state.dart';
 
 class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
-  final ServicesRepository _serviceProvidedRepository;
-  final ServiceTypeRepository _serviceTypeRepository;
-  final AuthService _authService;
-  final ServicesService _servicesService;
 
   ServiceLandingCubit(
     this._serviceProvidedRepository,
@@ -29,6 +25,10 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
           startDate: _servicesService.now,
           endDate: _servicesService.now,
         ));
+  final ServicesRepository _serviceProvidedRepository;
+  final ServiceTypeRepository _serviceTypeRepository;
+  final AuthService _authService;
+  final ServicesService _servicesService;
 
   Future<void> onInit() async {
     try {

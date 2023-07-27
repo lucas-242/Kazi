@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class NoData extends StatelessWidget {
-  final String message;
-  final Widget? navbar;
 
   const NoData({
     super.key,
     required this.message,
     this.navbar,
   });
+  final String message;
+  final Widget? navbar;
 
   @override
   Widget build(BuildContext context) {

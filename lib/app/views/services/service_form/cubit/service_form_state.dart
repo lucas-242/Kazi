@@ -1,6 +1,17 @@
 part of 'service_form_cubit.dart';
 
 class ServiceFormState extends BaseState with EquatableMixin {
+
+  ServiceFormState({
+    required super.status,
+    Service? service,
+    required this.userId,
+    super.callbackMessage,
+    List<ServiceType>? serviceTypes,
+    int? quantity,
+  })  : service = service ?? Service(userId: userId),
+        serviceTypes = serviceTypes ?? [],
+        quantity = quantity ?? 1;
   Service service;
   List<ServiceType> serviceTypes;
   int quantity;
@@ -23,17 +34,6 @@ class ServiceFormState extends BaseState with EquatableMixin {
 
     return result;
   }
-
-  ServiceFormState({
-    required super.status,
-    Service? service,
-    required this.userId,
-    super.callbackMessage,
-    List<ServiceType>? serviceTypes,
-    int? quantity,
-  })  : service = service ?? Service(userId: userId),
-        serviceTypes = serviceTypes ?? [],
-        quantity = quantity ?? 1;
 
   @override
   ServiceFormState copyWith({

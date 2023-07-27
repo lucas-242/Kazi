@@ -4,10 +4,6 @@ import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/buttons/circular_button/circular_button.dart';
 
 class BackAndPills extends StatelessWidget {
-  final VoidCallback? onTapBack;
-  final VoidCallback? onTapPill1;
-  final String? text;
-  final List<Widget>? pills;
 
   const BackAndPills({
     super.key,
@@ -16,6 +12,10 @@ class BackAndPills extends StatelessWidget {
     this.onTapBack,
     this.pills,
   });
+  final VoidCallback? onTapBack;
+  final VoidCallback? onTapPill1;
+  final String? text;
+  final List<Widget>? pills;
 
   @override
   Widget build(BuildContext context) {
