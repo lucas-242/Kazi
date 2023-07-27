@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/firebase/firebase_service_type_repository.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../../../mocks/mocks.dart';
 import '../../../../../utils/firebase_test_helper.dart';
@@ -38,7 +38,8 @@ void main() {
 
       final serviceTypeAdded = await firebaseHelper.get(
         response.id,
-        (snapshot, data) => ServiceType.fromMap(data).copyWith(id: snapshot.id),
+        (snapshot, data) =>
+            ServiceType.fromJson(data).copyWith(id: snapshot.id),
       );
       expect(serviceTypeAdded,
           IsTheSameServiceType(response, checkEqualsId: true));
@@ -71,7 +72,7 @@ void main() {
       final response = await firebaseHelper.get(
           serviceTypeId,
           (snapshot, data) =>
-              ServiceType.fromMap(data).copyWith(id: snapshot.id));
+              ServiceType.fromJson(data).copyWith(id: snapshot.id));
 
       expect(response, isNull);
     });
@@ -143,7 +144,8 @@ void main() {
 
       final response = await firebaseHelper.get(
         toUpdate.id,
-        (snapshot, data) => ServiceType.fromMap(data).copyWith(id: snapshot.id),
+        (snapshot, data) =>
+            ServiceType.fromJson(data).copyWith(id: snapshot.id),
       );
       expect(response, IsTheSameServiceType(toUpdate, checkEqualsId: true));
     });
