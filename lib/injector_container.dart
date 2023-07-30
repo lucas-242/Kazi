@@ -29,7 +29,7 @@ Future<void> initInjectorContainer() async {
   );
 
   serviceLocator.registerSingleton<LocalStorage>(
-    SharedPreferencesStorage(await SharedPreferences.getInstance()),
+    SharedPreferencesLocalStorage(await SharedPreferences.getInstance()),
   );
 
   serviceLocator.registerFactory<ServicesRepository>(

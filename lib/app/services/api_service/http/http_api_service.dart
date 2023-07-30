@@ -1,40 +1,31 @@
-import 'dart:convert';
-import 'dart:js_interop';
-
 import 'package:http/http.dart' as http;
+import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
+import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final class HttpApiService implements ApiService {
-  HttpApiService(this.url);
+  HttpApiService(this._localStorage);
 
-  final String url;
+  final LocalStorage _localStorage;
 
-  Future<String?> get token async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('userData')) {
-      return null;
-    }
+  String? get jwtToken => _localStorage.get<String>(AppKeys.jwtStorage);
 
-    final extractedUserData =
-        json.decode(prefs.getString('userData')!) as Map<String, Object>;
-    return extractedUserData['token'] as String;
-  }
+  String? get refreshToken =>
+      _localStorage.get<String>(AppKeys.refreshTokenStorage);
 
-  Future<Map<String, String>> get _headers async {
-    final t = await token;
-    if (t == null) {
-      return {
-        'content-type': 'application/json; charset=utf-8',
-      };
-    }
-
-    return {
+  Map<String, String> get _headers {
+    final t = jwtToken;
+    final Map<String, String> response = {
       'content-type': 'application/json; charset=utf-8',
-      'Authorization': 'Bearer $t'
     };
+
+    if (t != null) {
+      response.putIfAbsent('Authorization', () => 'Bearer $t');
+    }
+
+    return response;
   }
 
   @override
@@ -44,7 +35,7 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .delete(_getUri(url, parameters), body: body, headers: await _headers)
+          .delete(_getUri(url, parameters), body: body, headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   ApiResponse _convertHttpResponse(
@@ -63,7 +54,7 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .get(_getUri(url, parameters), headers: await _headers)
+          .get(_getUri(url, parameters), headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   Uri _getUri(String url, Map<String, String>? parameters) {
@@ -72,11 +63,11 @@ final class HttpApiService implements ApiService {
           trace: 'Throwed by _getUri on HttpApiService');
     }
 
-    if (parameters.isNull || parameters!.isEmpty) {
-      Uri.parse(url);
+    if (parameters == null || parameters.isEmpty) {
+      return Uri.parse(url);
     }
 
-    return Uri.parse(url + _handleParameters(parameters!));
+    return Uri.parse(url + _handleParameters(parameters));
   }
 
   String _handleParameters(Map<String, String> parameters) {
@@ -99,7 +90,7 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .patch(_getUri(url, parameters), body: body, headers: await _headers)
+          .patch(_getUri(url, parameters), body: body, headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -109,7 +100,7 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .post(_getUri(url, parameters), body: body, headers: await _headers)
+          .post(_getUri(url, parameters), body: body, headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -119,7 +110,7 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .put(_getUri(url, parameters), body: body, headers: await _headers)
+          .put(_getUri(url, parameters), body: body, headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   @override

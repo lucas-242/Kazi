@@ -2,8 +2,8 @@ import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesStorage implements LocalStorage {
-  SharedPreferencesStorage(this._prefs);
+class SharedPreferencesLocalStorage implements LocalStorage {
+  SharedPreferencesLocalStorage(this._prefs);
   late final SharedPreferences _prefs;
 
   @override

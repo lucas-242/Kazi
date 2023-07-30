@@ -1,4 +1,4 @@
-export 'shared_preferences/shared_preferences_storage.dart';
+export 'shared_preferences/shared_preferences_local_storage.dart';
 
 abstract class LocalStorage {
   Future<void> remove(String key);
