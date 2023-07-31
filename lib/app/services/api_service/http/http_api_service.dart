@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
@@ -5,7 +7,7 @@ import 'package:kazi/app/services/api_service/api_service.dart';
 import 'package:kazi/app/shared/constants/app_keys.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
 
-final class HttpApiService implements ApiService {
+class HttpApiService implements ApiService {
   HttpApiService(this._localStorage);
 
   final LocalStorage _localStorage;
@@ -18,7 +20,7 @@ final class HttpApiService implements ApiService {
   Map<String, String> get _headers {
     final t = jwtToken;
     final Map<String, String> response = {
-      'content-type': 'application/json; charset=utf-8',
+      'content-type': 'application/json',
     };
 
     if (t != null) {
@@ -35,7 +37,8 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .delete(_getUri(url, parameters), body: body, headers: _headers)
+          .delete(_getUri(url, parameters),
+              body: jsonEncode(body), headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   ApiResponse _convertHttpResponse(
@@ -90,7 +93,8 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .patch(_getUri(url, parameters), body: body, headers: _headers)
+          .patch(_getUri(url, parameters),
+              body: jsonEncode(body), headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -100,7 +104,8 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .post(_getUri(url, parameters), body: body, headers: _headers)
+          .post(_getUri(url, parameters),
+              body: jsonEncode(body), headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -110,7 +115,8 @@ final class HttpApiService implements ApiService {
     Map<String, String>? parameters,
   }) async =>
       http
-          .put(_getUri(url, parameters), body: body, headers: _headers)
+          .put(_getUri(url, parameters),
+              body: jsonEncode(body), headers: _headers)
           .then((response) => _convertHttpResponse(response));
 
   @override

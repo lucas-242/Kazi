@@ -7,7 +7,6 @@ import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'errors/firebase_sign_in_error.dart';
 
 final class FirebaseAuthService extends AuthService {
-
   FirebaseAuthService({
     GoogleSignIn? googleSignIn,
     FirebaseAuth? firebaseAuth,
@@ -64,12 +63,11 @@ final class FirebaseAuthService extends AuthService {
   }
 
   @override
-  Stream<AppUser?> userChanges() {
-    return firebaseAuth.userChanges().map((user) => user?.toAppUser());
-  }
+  Stream<AppUser?> userChanges() =>
+      firebaseAuth.userChanges().map((user) => user?.toAppUser());
 
   @override
-  Future<bool> signInWithPassword() {
+  Future<bool> signInWithPassword(String email, String password) {
     throw UnimplementedError();
   }
 }

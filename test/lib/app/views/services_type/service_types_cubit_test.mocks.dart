@@ -182,10 +182,17 @@ class MockAuthService extends _i1.Mock implements _i7.AuthService {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Future<bool> signInWithPassword() => (super.noSuchMethod(
+  _i4.Future<bool> signInWithPassword(
+    String? email,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #signInWithPassword,
-          [],
+          [
+            email,
+            password,
+          ],
         ),
         returnValue: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
