@@ -5,8 +5,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'app/app.dart';
 import 'app/services/log_service/log_service.dart';
-import 'app/shared/constants/ad_keys.dart';
-import 'app/shared/environment/environment.dart';
+import 'app/core/constants/ad_keys.dart';
+import 'app/core/environment/environment.dart';
 import 'firebase_options.dart';
 import 'injector_container.dart';
 

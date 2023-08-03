@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/models/route_params.dart';
-import 'package:kazi/app/shared/extensions/extensions.dart';
-import 'package:kazi/app/shared/widgets/layout/layout.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
+import 'package:kazi/app/core/widgets/layout/layout.dart';
 
 import 'app_cubit.dart';
-import 'shared/l10n/generated/l10n.dart';
+import 'core/l10n/generated/l10n.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({

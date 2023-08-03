@@ -74,7 +74,7 @@ jobs:
 
       - name: Create ad_keys.dart
         run: |
-          echo "${{ secrets.AD_KEYS_CLASS }}" > lib/app/shared/constants/ad_keys.dart
+          echo "${{ secrets.AD_KEYS_CLASS }}" > lib/app/core/constants/ad_keys.dart
 
       - name: Create firebase_options.dart
         run: |

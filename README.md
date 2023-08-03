@@ -52,7 +52,7 @@
    $ flutterfire config
    ```
 
-   6. Create a file named ad_keys.dart in lib/app/shared/constants.
+   6. Create a file named ad_keys.dart in lib/app/core/constants.
    ```
    $ echo "abstract class AdKeys {
    static const androidFinishAddActionKeyDev = 'ca-app-pub-3940256099942544/1033173712';
@@ -69,7 +69,7 @@
    static const androidHomeServiceListKeyProd = '';
    static const iosHomeServiceListKeyDev = 'ca-app-pub-3940256099942544/2934735716';
    static const iosHomeServiceListKeyProd = '';
-   }" > lib/app/shared/constants/ad_keys.dart
+   }" > lib/app/core/constants/ad_keys.dart
    ```
 
    7. Add your adMob app id in the android/key.properties

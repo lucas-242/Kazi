@@ -6,7 +6,7 @@ import 'package:kazi/app/services/services_service/local/local_services_service.
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 
 import '../../../../mocks/mocks.dart';
 

@@ -1,5 +1,5 @@
 import 'dart:developer' as developer;
-import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/core/errors/errors.dart';
 
 enum LogColor { red, blue, green, yellow }
 

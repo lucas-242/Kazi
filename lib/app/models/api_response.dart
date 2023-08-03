@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/core/errors/errors.dart';
 
 class ApiResponse {
   ApiResponse({

@@ -1,5 +1,5 @@
-import 'package:kazi/app/shared/errors/errors.dart';
-import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
 
 /// {@template firebase_sign_in_error}
 /// Thrown during the login process if a failure occurs.

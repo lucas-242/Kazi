@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/firebase/models/firebase_service_type.dart';
-import 'package:kazi/app/shared/errors/errors.dart';
-import 'package:kazi/app/shared/extensions/extensions.dart';
-import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
 
 import '../service_type_repository.dart';
 

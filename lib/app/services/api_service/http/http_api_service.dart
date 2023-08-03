@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
-import 'package:kazi/app/shared/constants/app_keys.dart';
-import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/core/constants/app_keys.dart';
+import 'package:kazi/app/core/errors/errors.dart';
 
 class HttpApiService implements ApiService {
   HttpApiService(this._localStorage);

@@ -5,8 +5,8 @@ import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/app/shared/constants/app_keys.dart';
-import 'package:kazi/app/shared/environment/environment.dart';
+import 'package:kazi/app/core/constants/app_keys.dart';
+import 'package:kazi/app/core/environment/environment.dart';
 
 final class KaziApiAuthService extends AuthService {
   KaziApiAuthService({

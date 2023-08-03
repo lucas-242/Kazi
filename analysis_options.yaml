@@ -3,7 +3,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude: 
     - '**/*.g.dart'
-    - 'lib/app/shared/l10n/generated/'
+    - 'lib/app/core/l10n/generated/'
 
 linter:
   rules:

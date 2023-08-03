@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/models/service.dart';
 import 'models/firebase_service_model.dart';
 import '../services_repository.dart';
-import 'package:kazi/app/shared/extensions/extensions.dart';
-import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
 
 class FirebaseServicesRepository extends ServicesRepository {
-
   FirebaseServicesRepository(FirebaseFirestore firestore)
       : _firestore = firestore;
   final FirebaseFirestore _firestore;

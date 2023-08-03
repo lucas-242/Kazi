@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kazi/app/shared/extensions/extensions.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 
 void main() {
   test('Should return normalized date for 1/3/2023', () {

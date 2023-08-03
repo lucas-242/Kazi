@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:kazi/app/shared/utils/number_format_helper.dart';
+import 'package:kazi/app/core/utils/number_format_helper.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 

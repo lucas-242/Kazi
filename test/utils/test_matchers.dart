@@ -1,10 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/core/errors/errors.dart';
 
 class ErrorWithMessage<T extends AppError> extends CustomMatcher {
-
   ErrorWithMessage(this.message)
       : super(
             'Error should be ${T.runtimeType} with message: $message',
@@ -14,7 +13,6 @@ class ErrorWithMessage<T extends AppError> extends CustomMatcher {
 }
 
 class IsTheSameServiceType extends Matcher {
-
   IsTheSameServiceType(this.compareObject, {this.checkEqualsId = false});
   final ServiceType compareObject;
   final bool checkEqualsId;
@@ -41,7 +39,6 @@ class IsTheSameServiceType extends Matcher {
 }
 
 class IsTheSameService extends Matcher {
-
   IsTheSameService(this.compareObject, {this.checkEqualsId = false});
   final Service compareObject;
   final bool checkEqualsId;

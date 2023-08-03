@@ -1,7 +1,7 @@
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
-import 'package:kazi/app/shared/environment/environment.dart';
+import 'package:kazi/app/core/environment/environment.dart';
 
 final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
   KaziApiServiceTypeRepository(this._apiService);
