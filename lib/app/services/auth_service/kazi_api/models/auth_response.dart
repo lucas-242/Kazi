@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 // ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 
@@ -26,5 +24,5 @@ final class AuthResponse {
   final String userEmail;
   final int authExpires;
 
-  String toJson() => jsonEncode(_$AuthResponseToJson(this));
+  Map<String, dynamic> toJson() => _$AuthResponseToJson(this);
 }

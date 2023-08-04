@@ -23,8 +23,7 @@ class ServiceType extends Equatable {
   final double? discountPercent;
   final String userId;
 
-  Map<String, dynamic> toJson(Map<String, dynamic> json) =>
-      _$ServiceTypeToJson(this);
+  Map<String, dynamic> toJson() => _$ServiceTypeToJson(this);
 
   ServiceType copyWith({
     String? id,

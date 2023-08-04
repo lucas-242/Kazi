@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/app/repositories/service_type_repository/firebase/models/firebase_service_type.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/models/service_type.dart';
+import 'package:kazi/app/repositories/service_type_repository/firebase/models/firebase_service_type.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
 
 import '../service_type_repository.dart';
 
 final class FirebaseServiceTypeRepository implements ServiceTypeRepository {
-  FirebaseServiceTypeRepository(FirebaseFirestore firestore)
-      : _firestore = firestore;
+  FirebaseServiceTypeRepository(this._firestore, this._authService);
   final FirebaseFirestore _firestore;
+  final AuthService _authService;
 
   @visibleForTesting
   String get path => 'serviceTypes';
@@ -41,11 +42,11 @@ final class FirebaseServiceTypeRepository implements ServiceTypeRepository {
   }
 
   @override
-  Future<List<ServiceType>> get(String userId) async {
+  Future<List<ServiceType>> get() async {
     try {
       final query = await _firestore
           .collection(path)
-          .where('userId', isEqualTo: userId)
+          .where('userId', isEqualTo: _authService.user!.uid)
           .getCacheFirst();
 
       final result = query.docs.map((DocumentSnapshot snapshot) {

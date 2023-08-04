@@ -1,7 +1,7 @@
+import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
-import 'package:kazi/app/core/environment/environment.dart';
 
 final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
   KaziApiServiceTypeRepository(this._apiService);
@@ -10,20 +10,20 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
 
   @override
   Future<ServiceType> add(ServiceType serviceType) async {
-    final response = await _apiService.post(url);
+    final response = await _apiService.post(url, body: serviceType.toJson());
     _apiService.handleResponse(response);
 
     return ServiceType.fromJson(response.json);
   }
 
   @override
-  Future<void> delete(String id) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<void> delete(String id) async {
+    final response = await _apiService.delete('$url/$id');
+    _apiService.handleResponse(response);
   }
 
   @override
-  Future<List<ServiceType>> get(String userId) async {
+  Future<List<ServiceType>> get() async {
     final response = await _apiService.get(url);
     _apiService.handleResponse(response);
 
@@ -32,8 +32,8 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
   }
 
   @override
-  Future<void> update(ServiceType serviceType) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<void> update(ServiceType serviceType) async {
+    final response = await _apiService.put(url, body: serviceType.toJson());
+    _apiService.handleResponse(response);
   }
 }

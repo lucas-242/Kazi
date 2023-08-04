@@ -1,16 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/base_cubit.dart';
+import 'package:kazi/app/core/utils/base_state.dart';
+import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/repositories/services_repository/services_repository.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
-import 'package:kazi/app/core/errors/errors.dart';
-import 'package:kazi/app/core/l10n/generated/l10n.dart';
-import 'package:kazi/app/core/utils/base_cubit.dart';
-import 'package:kazi/app/core/utils/base_state.dart';
-import 'package:kazi/app/core/utils/form_validator.dart';
 
 part 'service_form_state.dart';
 
@@ -49,7 +49,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
   }
 
   Future<List<ServiceType>> _getServiceTypes() async {
-    final result = await _serviceTypeRepository.get(_authService.user!.uid);
+    final result = await _serviceTypeRepository.get();
     return result;
   }
 

@@ -1,3 +1,5 @@
+import 'package:kazi/app/core/constants/app_keys.dart';
+import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/app_user.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
@@ -5,8 +7,6 @@ import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/app/core/constants/app_keys.dart';
-import 'package:kazi/app/core/environment/environment.dart';
 
 final class KaziApiAuthService extends AuthService {
   KaziApiAuthService({
@@ -63,8 +63,8 @@ final class KaziApiAuthService extends AuthService {
     );
   }
 
-  Future<void> _saveUserDataInLocalStorage() =>
-      _localStorage.set<String>(AppKeys.userData, _userData!.toJson());
+  Future<void> _saveUserDataInLocalStorage() => _localStorage.set<String>(
+      AppKeys.userData, _userData!.toJson().toString());
 
   @override
   Future<void> signOut() async {

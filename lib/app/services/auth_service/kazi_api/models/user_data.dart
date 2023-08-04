@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 // ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 
@@ -28,5 +26,5 @@ final class UserData {
   final int authExpireMiliseconds;
   final DateTime authExpireDate;
 
-  String toJson() => jsonEncode(_$UserDataToJson(this));
+  Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }
