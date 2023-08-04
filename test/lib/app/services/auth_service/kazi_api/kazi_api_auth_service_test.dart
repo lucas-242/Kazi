@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/services/api_service/http/http_api_service.dart';
@@ -6,7 +9,6 @@ import 'package:kazi/app/services/auth_service/kazi_api/kazi_api_auth_service.da
 import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/app/core/errors/errors.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -87,7 +89,8 @@ void main() {
   group('Sign in with password', () {
     test('Should return true when sign in with password', (() async {
       when(apiService.post(any, body: anyNamed('body'))).thenAnswer((_) async =>
-          ApiResponse(status: 200, body: _authResponseMock.toJson()));
+          ApiResponse(
+              status: 200, body: jsonEncode(_authResponseMock.toJson())));
 
       final isSignedIn =
           await authService.signInWithPassword('email', 'password');
@@ -97,7 +100,8 @@ void main() {
 
     test('Should throw Error for any error that occurs', (() async {
       when(apiService.post(any, body: anyNamed('body'))).thenAnswer((_) async =>
-          ApiResponse(status: 500, body: _authResponseMock.toJson()));
+          ApiResponse(
+              status: 500, body: _authResponseMock.toJson().toString()));
 
       when(apiService.handleResponse(any)).thenThrow(ExternalError('error'));
 

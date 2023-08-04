@@ -1,5 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/features/home/home.dart';
 import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
@@ -9,9 +12,6 @@ import 'package:kazi/app/services/services_service/local/local_services_service.
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/app/core/errors/errors.dart';
-import 'package:kazi/app/core/l10n/generated/l10n.dart';
-import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -39,7 +39,7 @@ void main() {
 
     when(authService.user).thenReturn(userMock);
 
-    when(serviceTypeRepository.get(any))
+    when(serviceTypeRepository.get())
         .thenAnswer((_) async => serviceTypesWithIdsMock);
 
     when(servicesRepository.get(any, any, any))
@@ -105,7 +105,7 @@ void main() {
       build: () => cubit,
       seed: () => HomeState(status: BaseStateStatus.noData),
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenThrow(
+        when(serviceTypeRepository.get()).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServiceTypes));
       },
       act: (cubit) => cubit.onInit(),
@@ -121,7 +121,7 @@ void main() {
       'emits HomeState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenThrow(Exception());
+        when(serviceTypeRepository.get()).thenThrow(Exception());
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [

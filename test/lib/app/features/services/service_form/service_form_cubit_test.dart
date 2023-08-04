@@ -1,14 +1,14 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/repositories/services_repository/services_repository.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
-import 'package:kazi/app/core/errors/errors.dart';
-import 'package:kazi/app/core/l10n/generated/l10n.dart';
-import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -32,8 +32,7 @@ void main() {
 
     when(authService.user).thenReturn(userMock);
 
-    when(serviceTypeRepository.get(any))
-        .thenAnswer((_) async => serviceTypesMock);
+    when(serviceTypeRepository.get()).thenAnswer((_) async => serviceTypesMock);
 
     cubit = ServiceFormCubit(
         servicesRepository, serviceTypeRepository, authService);
@@ -79,7 +78,7 @@ void main() {
     blocTest(
       'emits ServiceFormState with empty serviceTypes and status noData when call onInit',
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenAnswer((_) async => []);
+        when(serviceTypeRepository.get()).thenAnswer((_) async => []);
       },
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
@@ -103,7 +102,7 @@ void main() {
         status: BaseStateStatus.noData,
       ),
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenThrow(
+        when(serviceTypeRepository.get()).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServiceTypes));
       },
       act: (cubit) => cubit.onInit(),
@@ -124,7 +123,7 @@ void main() {
       'emits ServiceFormState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenThrow(Exception());
+        when(serviceTypeRepository.get()).thenThrow(Exception());
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [

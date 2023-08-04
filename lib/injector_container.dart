@@ -53,8 +53,6 @@ Future<void> _initServices() async {
     ),
   );
 
-  // serviceLocator.registerSingleton<AuthService>(FirebaseAuthService());
-
   serviceLocator.registerFactory<ServicesService>(
     () => LocalServicesService(serviceLocator.get<TimeService>()),
   );
@@ -64,12 +62,7 @@ Future<void> _initRepositories() async {
   serviceLocator.registerFactory<ServicesRepository>(
     () => FirebaseServicesRepository(serviceLocator.get<FirebaseFirestore>()),
   );
-  // serviceLocator.registerFactory<ServiceTypeRepository>(
-  //   () => FirebaseServiceTypeRepository(
-  //     serviceLocator.get<FirebaseFirestore>(),
-  //     serviceLocator.get<AuthService>(),
-  //   ),
-  // );
+
   serviceLocator.registerFactory<ServiceTypeRepository>(
     () => KaziApiServiceTypeRepository(serviceLocator.get<ApiService>()),
   );

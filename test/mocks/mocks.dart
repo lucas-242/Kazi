@@ -1,5 +1,5 @@
 import 'package:kazi/app/models/app_user.dart';
-import 'package:kazi/app/repositories/service_type_repository/firebase/models/firebase_service_type.dart';
+import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
 
 final userMock = AppUser(
@@ -9,7 +9,7 @@ final userMock = AppUser(
   photoUrl: 'url.com',
 );
 
-final serviceTypeMock = FirebaseServiceTypeModel(
+final serviceTypeMock = ServiceType(
   userId: userMock.uid,
   name: 'test',
   discountPercent: 50,

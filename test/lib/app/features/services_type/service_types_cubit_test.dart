@@ -1,14 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kazi/app/features/service_types/service_types.dart';
-import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/app/repositories/service_type_repository/firebase/models/firebase_service_type.dart';
-import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
-import 'package:kazi/app/repositories/services_repository/services_repository.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
+import 'package:kazi/app/features/service_types/service_types.dart';
+import 'package:kazi/app/models/service_type.dart';
+import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
+import 'package:kazi/app/repositories/services_repository/services_repository.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -32,8 +31,7 @@ void main() {
 
     when(authService.user).thenReturn(userMock);
 
-    when(serviceTypeRepository.get(any))
-        .thenAnswer((_) async => serviceTypesMock);
+    when(serviceTypeRepository.get()).thenAnswer((_) async => serviceTypesMock);
     when(serviceTypeRepository.add(any))
         .thenAnswer((_) async => serviceTypeMock);
 
@@ -58,7 +56,7 @@ void main() {
     blocTest<ServiceTypesCubit, ServiceTypesState>(
       'emits SettingsState with empty serviceTypeList and status noData when call onInit',
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenAnswer((_) async => []);
+        when(serviceTypeRepository.get()).thenAnswer((_) async => []);
       },
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
@@ -94,7 +92,7 @@ void main() {
       'emits SettingsState with status error and callbackMessage = errorToGetServiceTypes when call getServicesType',
       build: () => cubit,
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenThrow(
+        when(serviceTypeRepository.get()).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServiceTypes));
       },
       act: (cubit) => cubit.getServiceTypes(),
@@ -115,7 +113,7 @@ void main() {
       'emits SettingsState with status error and callbackMessage = unknowError when call getServicesType',
       build: () => cubit,
       setUp: () {
-        when(serviceTypeRepository.get(any)).thenThrow(Exception());
+        when(serviceTypeRepository.get()).thenThrow(Exception());
       },
       act: (cubit) => cubit.getServiceTypes(),
       expect: () => [
@@ -198,8 +196,7 @@ void main() {
 
     setUp(() {
       serviceTypeToDelete = serviceTypeMock.copyWith(id: '123456');
-      serviceTypeList = serviceTypesMock
-        ..add(FirebaseServiceTypeModel.fromServiceType(serviceTypeToDelete));
+      serviceTypeList = serviceTypesMock..add(serviceTypeToDelete);
       when(servicesRepository.count(any, any)).thenAnswer((_) async => 0);
     });
 
