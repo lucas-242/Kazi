@@ -7,15 +7,13 @@ import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
-import 'package:kazi/app/repositories/services_repository/services_repository.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 
 part 'service_types_state.dart';
 
 class ServiceTypesCubit extends Cubit<ServiceTypesState>
     with BaseCubit, FormValidator {
-  ServiceTypesCubit(
-      this._serviceTypeRepository, this._serviceRepository, this._authService)
+  ServiceTypesCubit(this._serviceTypeRepository, this._authService)
       : super(
           ServiceTypesState(
             userId: _authService.user!.uid,
@@ -23,7 +21,6 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
           ),
         );
   final ServiceTypeRepository _serviceTypeRepository;
-  final ServicesRepository _serviceRepository;
   final AuthService _authService;
 
   Future<void> onInit() async {
@@ -101,7 +98,6 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
   Future<void> deleteServiceType(ServiceType serviceType) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await _checkServiceTypeIsInUse(serviceType.id);
       await _serviceTypeRepository.delete(serviceType.id);
       final newList = await _fetchServiceTypes();
 
@@ -150,17 +146,6 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
           AppLocalizations.current
               .alreadyExists(AppLocalizations.current.serviceType),
           trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
-    }
-  }
-
-  Future<void> _checkServiceTypeIsInUse(String typeId) async {
-    final userId = _authService.user!.uid;
-    final count = await _serviceRepository.count(userId, typeId);
-    if (count > 0) {
-      throw ClientError(
-        AppLocalizations.current.cantDeleteServiceType,
-        trace: 'Triggered by _checkServiceTypeIsInUse on SettingsCubit.',
-      );
     }
   }
 }

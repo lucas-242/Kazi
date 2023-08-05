@@ -18,7 +18,6 @@ import '../services/service_form/service_form_cubit_test.mocks.dart';
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
 void main() {
   late MockServiceTypeRepository serviceTypeRepository;
-  late MockServicesRepository servicesRepository;
   late MockAuthService authService;
   late ServiceTypesCubit cubit;
 
@@ -26,7 +25,6 @@ void main() {
 
   setUp(() {
     serviceTypeRepository = MockServiceTypeRepository();
-    servicesRepository = MockServicesRepository();
     authService = MockAuthService();
 
     when(authService.user).thenReturn(userMock);
@@ -35,8 +33,7 @@ void main() {
     when(serviceTypeRepository.add(any))
         .thenAnswer((_) async => serviceTypeMock);
 
-    cubit = ServiceTypesCubit(
-        serviceTypeRepository, servicesRepository, authService);
+    cubit = ServiceTypesCubit(serviceTypeRepository, authService);
   });
 
   group('Call onInit function', () {
@@ -197,7 +194,6 @@ void main() {
     setUp(() {
       serviceTypeToDelete = serviceTypeMock.copyWith(id: '123456');
       serviceTypeList = serviceTypesMock..add(serviceTypeToDelete);
-      when(servicesRepository.count(any, any)).thenAnswer((_) async => 0);
     });
 
     blocTest<ServiceTypesCubit, ServiceTypesState>(

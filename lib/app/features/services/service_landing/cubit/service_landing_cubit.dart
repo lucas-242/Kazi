@@ -8,7 +8,6 @@ import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/repositories/services_repository/services_repository.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 
 part 'service_landing_state.dart';
@@ -17,7 +16,6 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   ServiceLandingCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
-    this._authService,
     this._servicesService,
   ) : super(ServiceLandingState(
           status: BaseStateStatus.loading,
@@ -26,7 +24,6 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
         ));
   final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
-  final AuthService _authService;
   final ServicesService _servicesService;
 
   Future<void> onInit() async {
@@ -45,8 +42,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
 
   Future<List<Service>> _getServices(
       DateTime startDate, DateTime endDate) async {
-    final result = await _serviceProvidedRepository.get(
-        _authService.user!.uid, startDate, endDate);
+    final result = await _serviceProvidedRepository.get(startDate, endDate);
     return result;
   }
 

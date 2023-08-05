@@ -8,7 +8,6 @@ import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/repositories/services_repository/services_repository.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 
 part 'home_state.dart';
@@ -17,12 +16,10 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   HomeCubit(
     this._serviceProvidedRepository,
     this._serviceTypeRepository,
-    this._authService,
     this._servicesService,
   ) : super(HomeState(status: BaseStateStatus.loading));
   final ServicesRepository _serviceProvidedRepository;
   final ServiceTypeRepository _serviceTypeRepository;
-  final AuthService _authService;
   final ServicesService _servicesService;
 
   Future<void> onInit() async {
@@ -47,10 +44,7 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
 
   Future<List<Service>> _getServices() async {
     final today = _servicesService.now;
-    final result = await _serviceProvidedRepository.get(
-      _authService.user!.uid,
-      today,
-    );
+    final result = await _serviceProvidedRepository.get(today);
     return result;
   }
 

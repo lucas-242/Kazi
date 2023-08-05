@@ -42,13 +42,12 @@ void main() {
     when(serviceTypeRepository.get())
         .thenAnswer((_) async => serviceTypesWithIdsMock);
 
-    when(servicesRepository.get(any, any, any))
+    when(servicesRepository.get(any, any))
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
     cubit = HomeCubit(
       servicesRepository,
       serviceTypeRepository,
-      authService,
       servicesService,
     );
   });
@@ -72,7 +71,7 @@ void main() {
     blocTest(
       'emits HomeState with empty services and status noData when call onInit',
       setUp: () {
-        when(servicesRepository.get(any, any, any)).thenAnswer((_) async => []);
+        when(servicesRepository.get(any, any)).thenAnswer((_) async => []);
       },
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
@@ -88,7 +87,7 @@ void main() {
       build: () => cubit,
       seed: () => HomeState(status: BaseStateStatus.noData),
       setUp: () {
-        when(servicesRepository.get(any, any, any)).thenThrow(
+        when(servicesRepository.get(any, any)).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServices));
       },
       act: (cubit) => cubit.onInit(),

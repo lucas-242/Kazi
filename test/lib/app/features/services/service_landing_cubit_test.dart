@@ -9,7 +9,6 @@ import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
-import 'package:kazi/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
 import 'package:kazi/app/repositories/services_repository/services_repository.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/services/services_service/local/local_services_service.dart';
@@ -45,11 +44,11 @@ void main() {
     when(serviceTypeRepository.get())
         .thenAnswer((_) async => serviceTypesWithIdsMock);
 
-    when(servicesRepository.get(any, any, any))
+    when(servicesRepository.get(any, any))
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
-    cubit = ServiceLandingCubit(servicesRepository, serviceTypeRepository,
-        authService, servicesService);
+    cubit = ServiceLandingCubit(
+        servicesRepository, serviceTypeRepository, servicesService);
   });
 
   group('Call onInit function', () {
@@ -75,7 +74,7 @@ void main() {
     blocTest(
       'emits ServiceLandingState with empty services and status noData when call onInit',
       setUp: () {
-        when(servicesRepository.get(any, any, any)).thenAnswer((_) async => []);
+        when(servicesRepository.get(any, any)).thenAnswer((_) async => []);
       },
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
@@ -98,7 +97,7 @@ void main() {
         endDate: servicesService.now,
       ),
       setUp: () {
-        when(servicesRepository.get(any, any, any)).thenThrow(
+        when(servicesRepository.get(any, any)).thenThrow(
             ExternalError(AppLocalizations.current.errorToGetServices));
       },
       act: (cubit) => cubit.onInit(),
@@ -154,7 +153,7 @@ void main() {
   });
 
   group('Call delete Service Type', () {
-    late FirebaseServiceModel serviceToDelete;
+    late Service serviceToDelete;
     late List<Service> serviceList;
     late List<Service> resultList;
 
@@ -260,10 +259,10 @@ void main() {
     blocTest(
       'emits ServiceLandingState with new services with different selectedFastSearch and didFiltersChange when call onApplyFilters with FastSearch',
       build: () => ServiceLandingCubit(
-          servicesRepository,
-          serviceTypeRepository,
-          authService,
-          LocalServicesService(localTimeService)),
+        servicesRepository,
+        serviceTypeRepository,
+        LocalServicesService(localTimeService),
+      ),
       setUp: () {
         newStartDateTime = DateTime(2022, 12, 1);
         newEndDateTime = DateTime(2022, 12, 15, 23, 59, 59);

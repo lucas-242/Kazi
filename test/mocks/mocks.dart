@@ -1,6 +1,6 @@
 import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
 
 final userMock = AppUser(
   uid: 'abc123',
@@ -25,7 +25,7 @@ final serviceTypesMock = [
   serviceTypeMock.copyWith(name: 'test6'),
 ];
 
-final serviceMock = FirebaseServiceModel(
+final serviceMock = Service(
   date: DateTime(2022),
   type: serviceTypeMock,
   userId: userMock.uid,
