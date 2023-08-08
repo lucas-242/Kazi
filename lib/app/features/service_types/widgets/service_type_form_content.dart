@@ -4,6 +4,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
+import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/utils/number_format_helper.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
@@ -70,7 +71,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                 labelText: AppLocalizations.current.name,
                 initialValue: cubit.state.serviceType.name,
                 onChanged: (value) => cubit.changeServiceTypeName(value),
-                validator: (value) => cubit.validateTextField(
+                validator: (value) => FormValidator.validateTextField(
                   value,
                   AppLocalizations.current.name,
                 ),
@@ -83,7 +84,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                 keyboardType: TextInputType.number,
                 onChanged: (value) => cubit.changeServiceTypeDefaultValue(
                     _serviceValueController.numberValue),
-                validator: (value) => cubit.validateNumberField(
+                validator: (value) => FormValidator.validateNumberField(
                   _serviceValueController.numberValue.toString(),
                   AppLocalizations.current.serviceValue,
                 ),
@@ -96,7 +97,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                 keyboardType: TextInputType.number,
                 onChanged: (value) => cubit.changeServiceTypeDiscountPercent(
                     _discountController.numberValue),
-                validator: (value) => cubit.validateNumberField(
+                validator: (value) => FormValidator.validateNumberField(
                   _discountController.numberValue.toString(),
                   AppLocalizations.current.discountPercentage,
                 ),

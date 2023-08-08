@@ -50,6 +50,16 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `All`
   String get all {
     return Intl.message(
@@ -60,11 +70,11 @@ class AppLocalizations {
     );
   }
 
-  /// `Add`
-  String get add {
+  /// `Already has an account? `
+  String get alreadyHasAccont {
     return Intl.message(
-      'Add',
-      name: 'add',
+      'Already has an account? ',
+      name: 'alreadyHasAccont',
       desc: '',
       args: [],
     );
@@ -140,11 +150,31 @@ class AppLocalizations {
     );
   }
 
+  /// `Create an Account`
+  String get createAccount {
+    return Intl.message(
+      'Create an Account',
+      name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm`
   String get confirm {
     return Intl.message(
       'Confirm',
       name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirmPassword',
       desc: '',
       args: [],
     );
@@ -250,6 +280,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Doesn't have an account? `
+  String get doesntHaveAccount {
+    return Intl.message(
+      'Doesn\'t have an account? ',
+      name: 'doesntHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Edit`
   String get edit {
     return Intl.message(
@@ -290,6 +330,106 @@ class AppLocalizations {
     );
   }
 
+  /// `An unknown exception occurred`
+  String get errorUnknowError {
+    return Intl.message(
+      'An unknown exception occurred',
+      name: 'errorUnknowError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to add service type`
+  String get errorToAddServiceType {
+    return Intl.message(
+      'Error to add service type',
+      name: 'errorToAddServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to delete service type`
+  String get errorToDeleteServiceType {
+    return Intl.message(
+      'Error to delete service type',
+      name: 'errorToDeleteServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to get service types`
+  String get errorToGetServiceTypes {
+    return Intl.message(
+      'Error to get service types',
+      name: 'errorToGetServiceTypes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to update service type`
+  String get errorToUpdateServiceType {
+    return Intl.message(
+      'Error to update service type',
+      name: 'errorToUpdateServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to add service`
+  String get errorToAddService {
+    return Intl.message(
+      'Error to add service',
+      name: 'errorToAddService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to count services`
+  String get errorToCountServices {
+    return Intl.message(
+      'Error to count services',
+      name: 'errorToCountServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to delete service`
+  String get errorToDeleteService {
+    return Intl.message(
+      'Error to delete service',
+      name: 'errorToDeleteService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to get service`
+  String get errorToGetServices {
+    return Intl.message(
+      'Error to get service',
+      name: 'errorToGetServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to update service`
+  String get errorToUpdateService {
+    return Intl.message(
+      'Error to update service',
+      name: 'errorToUpdateService',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Field`
   String get field {
     return Intl.message(
@@ -325,6 +465,16 @@ class AppLocalizations {
     return Intl.message(
       'Finish',
       name: 'finish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot your password?`
+  String get forgotPassword {
+    return Intl.message(
+      'Forgot your password?',
+      name: 'forgotPassword',
       desc: '',
       args: [],
     );
@@ -570,6 +720,16 @@ class AppLocalizations {
     );
   }
 
+  /// `or`
+  String get or {
+    return Intl.message(
+      'or',
+      name: 'or',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Alphabetical`
   String get orderAlphabetical {
     return Intl.message(
@@ -625,6 +785,16 @@ class AppLocalizations {
     return Intl.message(
       'Highest to lowest',
       name: 'orderValueDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
       desc: '',
       args: [],
     );
@@ -1110,6 +1280,76 @@ class AppLocalizations {
     );
   }
 
+  /// `By continuing, you agree to Kazi's `
+  String get userTermsAlert1 {
+    return Intl.message(
+      'By continuing, you agree to Kazi\'s ',
+      name: 'userTermsAlert1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Service `
+  String get userTermsAlert2 {
+    return Intl.message(
+      'Terms of Service ',
+      name: 'userTermsAlert2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `and confirm that you have read our `
+  String get userTermsAlert3 {
+    return Intl.message(
+      'and confirm that you have read our ',
+      name: 'userTermsAlert3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get userTermsAlert4 {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'userTermsAlert4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords don't match`
+  String get validatorConfirmPassword {
+    return Intl.message(
+      'Passwords don\'t match',
+      name: 'validatorConfirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email is invalid or badly formatted`
+  String get validatorEmail {
+    return Intl.message(
+      'Email is invalid or badly formatted',
+      name: 'validatorEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password must have a minimum of 8 characters and a maximum of 16`
+  String get validatorPassword {
+    return Intl.message(
+      'Your password must have a minimum of 8 characters and a maximum of 16',
+      name: 'validatorPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Yesterday`
   String get yesterday {
     return Intl.message(
@@ -1207,236 +1447,6 @@ class AppLocalizations {
       name: 'requiredProperty',
       desc: '',
       args: [property],
-    );
-  }
-
-  /// `The service type can't be deleted because it is being used`
-  String get cantDeleteServiceType {
-    return Intl.message(
-      'The service type can\'t be deleted because it is being used',
-      name: 'cantDeleteServiceType',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `An unknown exception occurred`
-  String get unknowError {
-    return Intl.message(
-      'An unknown exception occurred',
-      name: 'unknowError',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The link has expired`
-  String get linkHasExpired {
-    return Intl.message(
-      'The link has expired',
-      name: 'linkHasExpired',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The link has already been used`
-  String get linkHasBeenUsed {
-    return Intl.message(
-      'The link has already been used',
-      name: 'linkHasBeenUsed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Password is too weak. Please, try a different one`
-  String get passwordIsWeak {
-    return Intl.message(
-      'Password is too weak. Please, try a different one',
-      name: 'passwordIsWeak',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Email is invalid or badly formatted`
-  String get emailIsInvalid {
-    return Intl.message(
-      'Email is invalid or badly formatted',
-      name: 'emailIsInvalid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `This user has been disabled. Please contact support for help`
-  String get userHasBeenDisabled {
-    return Intl.message(
-      'This user has been disabled. Please contact support for help',
-      name: 'userHasBeenDisabled',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Email was not found, please create an account`
-  String get emailWasNotFound {
-    return Intl.message(
-      'Email was not found, please create an account',
-      name: 'emailWasNotFound',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `There is already an account with this credential`
-  String get thereIsAnotherAccount {
-    return Intl.message(
-      'There is already an account with this credential',
-      name: 'thereIsAnotherAccount',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The credential is invalid`
-  String get credentialIsInvalid {
-    return Intl.message(
-      'The credential is invalid',
-      name: 'credentialIsInvalid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The verification code entered is invalid`
-  String get verificationCodeIsInvalid {
-    return Intl.message(
-      'The verification code entered is invalid',
-      name: 'verificationCodeIsInvalid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The verification ID entered is invalid`
-  String get verificationIdIsInvalid {
-    return Intl.message(
-      'The verification ID entered is invalid',
-      name: 'verificationIdIsInvalid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Method not allowed. Please try another account or contact support for help`
-  String get methodNotAllowed {
-    return Intl.message(
-      'Method not allowed. Please try another account or contact support for help',
-      name: 'methodNotAllowed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Incorrect email or password`
-  String get incorrectEmailOrPassword {
-    return Intl.message(
-      'Incorrect email or password',
-      name: 'incorrectEmailOrPassword',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to add service type`
-  String get errorToAddServiceType {
-    return Intl.message(
-      'Error to add service type',
-      name: 'errorToAddServiceType',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to delete service type`
-  String get errorToDeleteServiceType {
-    return Intl.message(
-      'Error to delete service type',
-      name: 'errorToDeleteServiceType',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to get service types`
-  String get errorToGetServiceTypes {
-    return Intl.message(
-      'Error to get service types',
-      name: 'errorToGetServiceTypes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to update service type`
-  String get errorToUpdateServiceType {
-    return Intl.message(
-      'Error to update service type',
-      name: 'errorToUpdateServiceType',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to add service`
-  String get errorToAddService {
-    return Intl.message(
-      'Error to add service',
-      name: 'errorToAddService',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to count services`
-  String get errorToCountServices {
-    return Intl.message(
-      'Error to count services',
-      name: 'errorToCountServices',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to delete service`
-  String get errorToDeleteService {
-    return Intl.message(
-      'Error to delete service',
-      name: 'errorToDeleteService',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to get service`
-  String get errorToGetServices {
-    return Intl.message(
-      'Error to get service',
-      name: 'errorToGetServices',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error to update service`
-  String get errorToUpdateService {
-    return Intl.message(
-      'Error to update service',
-      name: 'errorToUpdateService',
-      desc: '',
-      args: [],
     );
   }
 }

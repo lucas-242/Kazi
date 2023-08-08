@@ -41,20 +41,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "alreadyExists": m0,
+        "alreadyHasAccont":
+            MessageLookupByLibrary.simpleMessage("Already has an account? "),
         "appSubtitle":
             MessageLookupByLibrary.simpleMessage("Organize your services"),
         "applyFilters": MessageLookupByLibrary.simpleMessage("Apply Filters"),
         "calculator": MessageLookupByLibrary.simpleMessage("Calculator"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "cantDeleteServiceType": MessageLookupByLibrary.simpleMessage(
-            "The service type can\'t be deleted because it is being used"),
         "clipperCut": MessageLookupByLibrary.simpleMessage("Clipper cut"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmAction": MessageLookupByLibrary.simpleMessage("Confirm Action"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
-        "credentialIsInvalid":
-            MessageLookupByLibrary.simpleMessage("The credential is invalid"),
+        "createAccount":
+            MessageLookupByLibrary.simpleMessage("Create an Account"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "defaultValue": MessageLookupByLibrary.simpleMessage("Default Value"),
@@ -65,14 +67,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Discount percentage"),
         "discounts": MessageLookupByLibrary.simpleMessage("Discounts"),
+        "doesntHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Doesn\'t have an account? "),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editService": MessageLookupByLibrary.simpleMessage("Edit Service"),
         "editServiceType": MessageLookupByLibrary.simpleMessage("Edit Type"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
-        "emailIsInvalid": MessageLookupByLibrary.simpleMessage(
-            "Email is invalid or badly formatted"),
-        "emailWasNotFound": MessageLookupByLibrary.simpleMessage(
-            "Email was not found, please create an account"),
         "errorToAddService":
             MessageLookupByLibrary.simpleMessage("Error to add service"),
         "errorToAddServiceType":
@@ -91,11 +91,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to update service"),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
             "Error to update service type"),
+        "errorUnknowError": MessageLookupByLibrary.simpleMessage(
+            "An unknown exception occurred"),
         "field": MessageLookupByLibrary.simpleMessage("Field"),
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtering by last month"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot your password?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "fromTo": m1,
         "googleSignIn":
@@ -103,8 +107,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "hi": m2,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inUse": m3,
-        "incorrectEmailOrPassword":
-            MessageLookupByLibrary.simpleMessage("Incorrect email or password"),
         "invalidNumber": MessageLookupByLibrary.simpleMessage(
             "Please, inform a valid number"),
         "invalidProperty": m4,
@@ -112,15 +114,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lastMonth": MessageLookupByLibrary.simpleMessage("Last Month"),
         "lastServices": MessageLookupByLibrary.simpleMessage("Last services"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
-        "linkHasBeenUsed": MessageLookupByLibrary.simpleMessage(
-            "The link has already been used"),
-        "linkHasExpired":
-            MessageLookupByLibrary.simpleMessage("The link has expired"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logoutConfirmation": MessageLookupByLibrary.simpleMessage(
             "Do you really want to logout?"),
-        "methodNotAllowed": MessageLookupByLibrary.simpleMessage(
-            "Method not allowed. Please try another account or contact support for help"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "myBalance": MessageLookupByLibrary.simpleMessage("My balance"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -144,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Calculate the\nearnings from "),
         "onboardingTitle2":
             MessageLookupByLibrary.simpleMessage("your\nservices"),
+        "or": MessageLookupByLibrary.simpleMessage("or"),
         "orderAlphabetical":
             MessageLookupByLibrary.simpleMessage("Alphabetical"),
         "orderBy": MessageLookupByLibrary.simpleMessage("Order by"),
@@ -155,8 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lowest to highest"),
         "orderValueDesc":
             MessageLookupByLibrary.simpleMessage("Highest to lowest"),
-        "passwordIsWeak": MessageLookupByLibrary.simpleMessage(
-            "Password is too weak. Please, try a different one"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "period": MessageLookupByLibrary.simpleMessage("Period"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -183,8 +179,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "success":
             MessageLookupByLibrary.simpleMessage("Action done successfully"),
-        "thereIsAnotherAccount": MessageLookupByLibrary.simpleMessage(
-            "There is already an account with this credential"),
         "thisService": MessageLookupByLibrary.simpleMessage("this service"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "total": MessageLookupByLibrary.simpleMessage("Total value"),
@@ -231,14 +225,20 @@ class MessageLookup extends MessageLookupByLibrary {
             "These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month."),
         "tourServicesListTitle":
             MessageLookupByLibrary.simpleMessage("Services"),
-        "unknowError": MessageLookupByLibrary.simpleMessage(
-            "An unknown exception occurred"),
-        "userHasBeenDisabled": MessageLookupByLibrary.simpleMessage(
-            "This user has been disabled. Please contact support for help"),
-        "verificationCodeIsInvalid": MessageLookupByLibrary.simpleMessage(
-            "The verification code entered is invalid"),
-        "verificationIdIsInvalid": MessageLookupByLibrary.simpleMessage(
-            "The verification ID entered is invalid"),
+        "userTermsAlert1": MessageLookupByLibrary.simpleMessage(
+            "By continuing, you agree to Kazi\'s "),
+        "userTermsAlert2":
+            MessageLookupByLibrary.simpleMessage("Terms of Service "),
+        "userTermsAlert3": MessageLookupByLibrary.simpleMessage(
+            "and confirm that you have read our "),
+        "userTermsAlert4":
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "validatorConfirmPassword":
+            MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "validatorEmail": MessageLookupByLibrary.simpleMessage(
+            "Email is invalid or badly formatted"),
+        "validatorPassword": MessageLookupByLibrary.simpleMessage(
+            "Your password must have a minimum of 8 characters and a maximum of 16"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
         "wouldYouLikeDelete": m7,
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")

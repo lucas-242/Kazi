@@ -57,7 +57,7 @@ final _router = GoRouter(
     GoRoute(
       path: AppRouter.login,
       pageBuilder: (context, state) =>
-          _customTransition(state, const LoginPage()),
+          _customTransition(state, const LoginLandingPage()),
     ),
     ShellRoute(
       builder: (context, state, child) => AppShell(

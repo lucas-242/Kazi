@@ -21,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly = false,
     this.textFormKey,
     this.maxLines,
+    this.obscureText = false,
   }) : super(key: key);
 
   final TextInputType keyboardType;
@@ -32,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? iconRight;
   final String? initialValue;
   final bool readOnly;
+  final bool obscureText;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -51,6 +53,7 @@ class CustomTextFormField extends StatelessWidget {
       textCapitalization: textCapitalization,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
+      obscureText: obscureText,
       readOnly: readOnly,
       onChanged: onChanged,
       onTap: onTap,

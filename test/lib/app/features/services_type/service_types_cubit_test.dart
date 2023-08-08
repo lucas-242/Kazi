@@ -120,7 +120,7 @@ void main() {
         ),
         ServiceTypesState(
           userId: authService.user!.uid,
-          callbackMessage: AppLocalizations.current.unknowError,
+          callbackMessage: AppLocalizations.current.errorUnknowError,
           status: BaseStateStatus.error,
         )
       ],

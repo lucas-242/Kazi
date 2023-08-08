@@ -125,7 +125,7 @@ void main() {
       act: (cubit) => cubit.onInit(),
       expect: () => [
         HomeState(
-          callbackMessage: AppLocalizations.current.unknowError,
+          callbackMessage: AppLocalizations.current.errorUnknowError,
           status: BaseStateStatus.error,
         )
       ],

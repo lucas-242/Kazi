@@ -4,15 +4,13 @@ import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
-import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 
 part 'service_types_state.dart';
 
-class ServiceTypesCubit extends Cubit<ServiceTypesState>
-    with BaseCubit, FormValidator {
+class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
   ServiceTypesCubit(this._serviceTypeRepository, this._authService)
       : super(
           ServiceTypesState(

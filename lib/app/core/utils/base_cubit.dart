@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import '../l10n/generated/l10n.dart';
 
 import '../errors/errors.dart';
+import '../l10n/generated/l10n.dart';
 import 'base_state.dart';
 
 mixin BaseCubit<T extends BaseState> on Cubit<T> {
@@ -14,7 +14,7 @@ mixin BaseCubit<T extends BaseState> on Cubit<T> {
 
   void unexpectedError(Object exception) {
     emit(state.copyWith(
-      callbackMessage: AppLocalizations.current.unknowError,
+      callbackMessage: AppLocalizations.current.errorUnknowError,
       status: BaseStateStatus.error,
     ) as T);
   }
