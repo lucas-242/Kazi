@@ -1,34 +1,14 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/errors/errors.dart';
-import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
 
 class HttpApiService implements ApiService {
-  HttpApiService(this._localStorage);
+  HttpApiService(this._client);
 
-  final LocalStorage _localStorage;
-
-  String? get jwtToken => _localStorage.get<String>(AppKeys.jwtStorage);
-
-  String? get refreshToken =>
-      _localStorage.get<String>(AppKeys.refreshTokenStorage);
-
-  Map<String, String> get _headers {
-    final t = jwtToken;
-    final Map<String, String> response = {
-      'content-type': 'application/json',
-    };
-
-    if (t != null) {
-      response.putIfAbsent('Authorization', () => 'Bearer $t');
-    }
-
-    return response;
-  }
+  final http.Client _client;
 
   @override
   Future<ApiResponse> delete(
@@ -36,9 +16,8 @@ class HttpApiService implements ApiService {
     Object? body,
     Map<String, String>? parameters,
   }) async =>
-      http
-          .delete(_getUri(url, parameters),
-              body: jsonEncode(body), headers: _headers)
+      _client
+          .delete(_getUri(url, parameters), body: jsonEncode(body))
           .then((response) => _convertHttpResponse(response));
 
   ApiResponse _convertHttpResponse(
@@ -56,8 +35,8 @@ class HttpApiService implements ApiService {
     String url, {
     Map<String, String>? parameters,
   }) async =>
-      http
-          .get(_getUri(url, parameters), headers: _headers)
+      _client
+          .get(_getUri(url, parameters))
           .then((response) => _convertHttpResponse(response));
 
   Uri _getUri(String url, Map<String, String>? parameters) {
@@ -92,9 +71,8 @@ class HttpApiService implements ApiService {
     Object? body,
     Map<String, String>? parameters,
   }) async =>
-      http
-          .patch(_getUri(url, parameters),
-              body: jsonEncode(body), headers: _headers)
+      _client
+          .patch(_getUri(url, parameters), body: jsonEncode(body))
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -103,9 +81,8 @@ class HttpApiService implements ApiService {
     Object? body,
     Map<String, String>? parameters,
   }) async =>
-      http
-          .post(_getUri(url, parameters),
-              body: jsonEncode(body), headers: _headers)
+      _client
+          .post(_getUri(url, parameters), body: jsonEncode(body))
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -114,9 +91,8 @@ class HttpApiService implements ApiService {
     Object? body,
     Map<String, String>? parameters,
   }) async =>
-      http
-          .put(_getUri(url, parameters),
-              body: jsonEncode(body), headers: _headers)
+      _client
+          .put(_getUri(url, parameters), body: jsonEncode(body))
           .then((response) => _convertHttpResponse(response));
 
   @override
