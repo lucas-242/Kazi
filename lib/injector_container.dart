@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/repositories/service_type_repository/kazi_api/kazi_api_service_type_repository.dart';
@@ -6,6 +5,7 @@ import 'package:kazi/app/repositories/services_repository/kazi_api/kazi_api_serv
 import 'package:kazi/app/services/api_service/api_service.dart';
 import 'package:kazi/app/services/api_service/http/http_api_service.dart';
 import 'package:kazi/app/services/api_service/http/http_kazi_client.dart';
+import 'package:kazi/app/services/api_service/kazi_client.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/kazi_api_auth_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
@@ -21,15 +21,10 @@ import 'app/services/time_service/time_service.dart';
 final serviceLocator = GetIt.instance;
 
 Future<void> initInjectorContainer() async {
-  _initExternal();
-  _initStorages();
-  _initServices();
-  _initRepositories();
-}
-
-Future<void> _initExternal() async {
-  serviceLocator
-      .registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+  await _initStorages();
+  await _initNetwork();
+  await _initRepositories();
+  await _initServices();
 }
 
 Future<void> _initStorages() async {
@@ -38,16 +33,29 @@ Future<void> _initStorages() async {
   );
 }
 
+Future<void> _initNetwork() async {
+  serviceLocator.registerSingleton<KaziClient>(
+    HttpKaziClient(serviceLocator.get<LocalStorage>()),
+  );
+
+  serviceLocator.registerSingleton<ApiService>(
+    HttpApiService(serviceLocator.get<KaziClient>()),
+  );
+}
+
+Future<void> _initRepositories() async {
+  serviceLocator.registerFactory<ServicesRepository>(
+    () => KaziApiServicesRepository(serviceLocator.get<ApiService>()),
+  );
+
+  serviceLocator.registerFactory<ServiceTypeRepository>(
+    () => KaziApiServiceTypeRepository(serviceLocator.get<ApiService>()),
+  );
+}
+
 Future<void> _initServices() async {
   serviceLocator.registerSingleton<TimeService>(LocalTimeService());
   serviceLocator.registerSingleton<LogService>(LocalLogService());
-
-  serviceLocator.registerFactory<HttpKaziClient>(
-    () => HttpKaziClient(serviceLocator.get<LocalStorage>()),
-  );
-  serviceLocator.registerSingleton<ApiService>(
-    HttpApiService(serviceLocator.get<HttpKaziClient>()),
-  );
 
   serviceLocator.registerSingleton<AuthService>(
     KaziApiAuthService(
@@ -59,15 +67,5 @@ Future<void> _initServices() async {
 
   serviceLocator.registerFactory<ServicesService>(
     () => LocalServicesService(serviceLocator.get<TimeService>()),
-  );
-}
-
-Future<void> _initRepositories() async {
-  serviceLocator.registerFactory<ServicesRepository>(
-    () => KaziApiServicesRepository(serviceLocator.get<ApiService>()),
-  );
-
-  serviceLocator.registerFactory<ServiceTypeRepository>(
-    () => KaziApiServiceTypeRepository(serviceLocator.get<ApiService>()),
   );
 }

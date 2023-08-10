@@ -3,21 +3,22 @@ import 'package:http/http.dart' as http;
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
 import 'package:kazi/app/services/api_service/http/http_api_service.dart';
+import 'package:kazi/app/services/api_service/http/http_kazi_client.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'http_api_service_test.mocks.dart';
 
-@GenerateMocks([http.Client])
+@GenerateMocks([HttpKaziClient])
 void main() {
   late ApiService apiService;
-  late MockClient client;
+  late MockHttpKaziClient client;
   const successStatus = 200;
   const errorStatus = 400;
   const body = '{a: "aaa"}';
 
   setUp(() async {
-    client = MockClient();
+    client = MockHttpKaziClient();
     apiService = HttpApiService(client);
   });
 
@@ -46,11 +47,8 @@ void main() {
       expect(response.status, errorStatus);
     });
 
-    test('Should throw ClientError when url is empty', () async {
-      when(client.get(any))
-          .thenAnswer((_) async => http.Response(body, successStatus));
-
-      expect(await apiService.get(''), isA<ClientError>());
+    test('Should throw ClientError when url is empty', () {
+      expect(() => apiService.get(''), throwsA(isA<ClientError>()));
     });
   });
 

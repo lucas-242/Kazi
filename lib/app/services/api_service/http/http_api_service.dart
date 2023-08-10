@@ -4,9 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
+import 'package:kazi/app/services/api_service/kazi_client.dart';
 
 class HttpApiService implements ApiService {
-  HttpApiService(this._client);
+  HttpApiService(KaziClient client) : _client = client as http.Client;
 
   final http.Client _client;
 
