@@ -5,7 +5,7 @@ import 'package:kazi/app/repositories/service_type_repository/kazi_api/kazi_api_
 import 'package:kazi/app/repositories/services_repository/kazi_api/kazi_api_services_repository.dart';
 import 'package:kazi/app/services/api_service/api_service.dart';
 import 'package:kazi/app/services/api_service/http/http_api_service.dart';
-import 'package:kazi/app/services/api_service/http/kazi_client.dart';
+import 'package:kazi/app/services/api_service/http/http_kazi_client.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/kazi_api_auth_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
@@ -42,11 +42,11 @@ Future<void> _initServices() async {
   serviceLocator.registerSingleton<TimeService>(LocalTimeService());
   serviceLocator.registerSingleton<LogService>(LocalLogService());
 
-  serviceLocator.registerFactory<KaziClient>(
-    () => KaziClient(serviceLocator.get<LocalStorage>()),
+  serviceLocator.registerFactory<HttpKaziClient>(
+    () => HttpKaziClient(serviceLocator.get<LocalStorage>()),
   );
   serviceLocator.registerSingleton<ApiService>(
-    HttpApiService(serviceLocator.get<KaziClient>()),
+    HttpApiService(serviceLocator.get<HttpKaziClient>()),
   );
 
   serviceLocator.registerSingleton<AuthService>(
