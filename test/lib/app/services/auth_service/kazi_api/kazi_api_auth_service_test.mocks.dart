@@ -5,9 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:kazi/app/core/connection/http/http_kazi_connection.dart' as _i3;
 import 'package:kazi/app/models/api_response.dart' as _i2;
-import 'package:kazi/app/services/api_service/http/http_api_service.dart'
-    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -31,11 +30,12 @@ class _FakeApiResponse_0 extends _i1.SmartFake implements _i2.ApiResponse {
         );
 }
 
-/// A class which mocks [HttpApiService].
+/// A class which mocks [HttpKaziConnection].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHttpApiService extends _i1.Mock implements _i3.HttpApiService {
-  MockHttpApiService() {
+class MockHttpKaziConnection extends _i1.Mock
+    implements _i3.HttpKaziConnection {
+  MockHttpKaziConnection() {
     _i1.throwOnMissingStub(this);
   }
 

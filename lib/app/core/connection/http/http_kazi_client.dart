@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
+import 'package:kazi/app/core/connection/kazi_client.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
-import 'package:kazi/app/services/api_service/kazi_client.dart';
 
 class HttpKaziClient extends http.BaseClient implements KaziClient {
   HttpKaziClient(this._localStorage);

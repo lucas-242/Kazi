@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:kazi/app/core/connection/kazi_client.dart';
+import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/models/api_response.dart';
-import 'package:kazi/app/services/api_service/api_service.dart';
-import 'package:kazi/app/services/api_service/kazi_client.dart';
 
-class HttpApiService implements ApiService {
-  HttpApiService(KaziClient client) : _client = client as http.Client;
+class HttpKaziConnection implements KaziConnection {
+  HttpKaziConnection(KaziClient client) : _client = client as http.Client;
 
   final http.Client _client;
 
@@ -43,7 +43,7 @@ class HttpApiService implements ApiService {
   Uri _getUri(String url, Map<String, String>? parameters) {
     if (url.isEmpty) {
       throw ClientError('No url informed to the current request',
-          trace: 'Throwed by _getUri on HttpApiService');
+          trace: 'Throwed by _getUri on KaziConnection');
     }
 
     if (parameters == null || parameters.isEmpty) {

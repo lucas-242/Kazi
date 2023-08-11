@@ -12,9 +12,9 @@
 // import '../../../../../utils/test_matchers.dart';
 // import 'firebase_service_type_repository_test.mocks.dart';
 
-// @GenerateMocks([HttpApiService])
+// @GenerateMocks([KaziConnection])
 // void main() {
-//   late MockHttpApiService apiService;
+//   late MockKaziConnection apiService;
 //   late KaziApiServiceTypeRepository repository;
 
 //   setUpAll(() {
@@ -22,7 +22,7 @@
 //   });
 
 //   setUp(() async {
-//     apiService = MockHttpApiService();
+//     apiService = MockKaziConnection();
 //     repository = KaziApiServiceTypeRepository(apiService);
 //   });
 

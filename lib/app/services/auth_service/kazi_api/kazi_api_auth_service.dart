@@ -1,8 +1,8 @@
+import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/app_user.dart';
-import 'package:kazi/app/services/api_service/api_service.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
@@ -10,15 +10,15 @@ import 'package:kazi/app/services/time_service/time_service.dart';
 
 final class KaziApiAuthService extends AuthService {
   KaziApiAuthService({
-    required ApiService apiService,
+    required KaziConnection connection,
     required LocalStorage localStorage,
     required TimeService timeService,
-  })  : _apiService = apiService,
+  })  : _connection = connection,
         _localStorage = localStorage,
         _timeService = timeService;
 
   final String url = '${Environment.instance.kaziApiUrl}auth';
-  final ApiService _apiService;
+  final KaziConnection _connection;
   final LocalStorage _localStorage;
   final TimeService _timeService;
 
@@ -26,10 +26,10 @@ final class KaziApiAuthService extends AuthService {
 
   Future<void> refreshSession({String? refreshToken}) async {
     try {
-      final response = await _apiService.post('refreshToken',
+      final response = await _connection.post('refreshToken',
           body: refreshToken ?? _userData?.refreshToken);
 
-      _apiService.handleResponse(response);
+      _connection.handleResponse(response);
 
       final authResponse = AuthResponse.fromJson(response.json);
 
@@ -80,11 +80,11 @@ final class KaziApiAuthService extends AuthService {
 
   @override
   Future<bool> signInWithPassword(String email, String password) async {
-    final response = await _apiService.post(
+    final response = await _connection.post(
       url,
       body: {'email': email, 'password': password},
     );
-    _apiService.handleResponse(response);
+    _connection.handleResponse(response);
 
     final authResponse = AuthResponse.fromJson(response.json);
     _setUserData(authResponse);

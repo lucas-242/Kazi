@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/connection/http/http_kazi_client.dart';
+import 'package:kazi/app/core/connection/kazi_client.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
-import 'package:kazi/app/services/api_service/http/http_kazi_client.dart';
-import 'package:kazi/app/services/api_service/kazi_client.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'http_kazi_client.test.mocks.dart';
+import 'http_kazi_client_test.mocks.dart';
 
 @GenerateMocks([LocalStorage])
 void main() {

@@ -1,6 +1,6 @@
 import 'package:kazi/app/models/api_response.dart';
 
-abstract interface class ApiService {
+abstract interface class KaziConnection {
   Future<ApiResponse> get(
     String url, {
     Map<String, String>? parameters,

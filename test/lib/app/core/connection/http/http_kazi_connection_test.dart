@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:kazi/app/core/connection/http/http_kazi_client.dart';
+import 'package:kazi/app/core/connection/http/http_kazi_connection.dart';
+import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/errors/errors.dart';
-import 'package:kazi/app/services/api_service/api_service.dart';
-import 'package:kazi/app/services/api_service/http/http_api_service.dart';
-import 'package:kazi/app/services/api_service/http/http_kazi_client.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'http_api_service_test.mocks.dart';
+import 'http_kazi_connection_test.mocks.dart';
 
 @GenerateMocks([HttpKaziClient])
 void main() {
-  late ApiService apiService;
+  late KaziConnection kaziConnection;
   late MockHttpKaziClient client;
   const successStatus = 200;
   const errorStatus = 400;
@@ -19,7 +19,7 @@ void main() {
 
   setUp(() async {
     client = MockHttpKaziClient();
-    apiService = HttpApiService(client);
+    kaziConnection = HttpKaziConnection(client);
   });
 
   group('GET', () {
@@ -27,7 +27,7 @@ void main() {
       when(client.get(any))
           .thenAnswer((_) async => http.Response(body, successStatus));
 
-      final response = await apiService.get(
+      final response = await kaziConnection.get(
         'posts',
         parameters: {
           'param1': '1',
@@ -43,12 +43,12 @@ void main() {
       when(client.get(any))
           .thenAnswer((_) async => http.Response('', errorStatus));
 
-      final response = await apiService.get('posts');
+      final response = await kaziConnection.get('posts');
       expect(response.status, errorStatus);
     });
 
     test('Should throw ClientError when url is empty', () {
-      expect(() => apiService.get(''), throwsA(isA<ClientError>()));
+      expect(() => kaziConnection.get(''), throwsA(isA<ClientError>()));
     });
   });
 
@@ -57,7 +57,7 @@ void main() {
       when(client.put(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response(body, successStatus));
 
-      final response = await apiService.put(
+      final response = await kaziConnection.put(
         'posts/1',
         body: body,
       );
@@ -69,7 +69,7 @@ void main() {
       when(client.put(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response('', errorStatus));
 
-      final response = await apiService.put(
+      final response = await kaziConnection.put(
         'posts/1',
         body: body,
       );
@@ -82,7 +82,7 @@ void main() {
       when(client.patch(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response(body, successStatus));
 
-      final response = await apiService.patch(
+      final response = await kaziConnection.patch(
         'posts/1',
         body: body,
       );
@@ -95,7 +95,7 @@ void main() {
       when(client.patch(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response('', status));
 
-      final response = await apiService.patch(
+      final response = await kaziConnection.patch(
         'posts/',
         body: body,
       );
@@ -108,7 +108,7 @@ void main() {
       when(client.post(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response(body, successStatus));
 
-      final response = await apiService.post('posts/', body: body);
+      final response = await kaziConnection.post('posts/', body: body);
       expect(response.body, body);
       expect(response.status, successStatus);
     });
@@ -117,7 +117,7 @@ void main() {
       when(client.post(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response('', errorStatus));
 
-      final response = await apiService.post(
+      final response = await kaziConnection.post(
         'posts/1',
         body: body,
       );
@@ -130,7 +130,7 @@ void main() {
       when(client.delete(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response('', successStatus));
 
-      final response = await apiService.delete('posts/1');
+      final response = await kaziConnection.delete('posts/1');
       expect(response.status, successStatus);
     });
 
@@ -138,7 +138,7 @@ void main() {
       when(client.delete(any, body: anyNamed('body')))
           .thenAnswer((_) async => http.Response('', errorStatus));
 
-      final response = await apiService.delete('posts/1');
+      final response = await kaziConnection.delete('posts/1');
       expect(response.status, errorStatus);
     });
   });

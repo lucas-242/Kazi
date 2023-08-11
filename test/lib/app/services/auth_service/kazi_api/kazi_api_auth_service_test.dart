@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/connection/http/http_kazi_connection.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
-import 'package:kazi/app/services/api_service/http/http_api_service.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/kazi_api_auth_service.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
@@ -17,41 +17,6 @@ import '../../../../../utils/test_helper.dart';
 import '../../../../../utils/test_matchers.dart';
 import 'kazi_api_auth_service_test.mocks.dart';
 
-// class MockApiService extends Mock implements HttpApiService {
-//   MockApiService({this.isSignedIn = false});
-//   final bool isSignedIn;
-
-//   @override
-//   Future<ApiResponse> get(
-//     String? url, {
-//     Map<String, String>? parameters,
-//   });
-//   @override
-//   Future<ApiResponse> post(
-//     String? url, {
-//     Object? body,
-//     Map<String, String>? parameters,
-//   });
-//   @override
-//   Future<ApiResponse> put(
-//     String? url, {
-//     Object? body,
-//     Map<String, String>? parameters,
-//   });
-//   @override
-//   Future<ApiResponse> patch(
-//     String? url, {
-//     Object? body,
-//     Map<String, String>? parameters,
-//   });
-//   @override
-//   Future<ApiResponse> delete(
-//     String? url, {
-//     Object? body,
-//     Map<String, String>? parameters,
-//   });
-// }
-
 final _authResponseMock = AuthResponse(
   authExpires:
       DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
@@ -62,9 +27,9 @@ final _authResponseMock = AuthResponse(
   userName: 'Sr. Test',
 );
 
-@GenerateMocks([HttpApiService])
+@GenerateMocks([HttpKaziConnection])
 void main() {
-  late MockHttpApiService apiService;
+  late MockHttpKaziConnection connection;
   late LocalStorage localStorage;
   late TimeService timeService;
   late KaziApiAuthService authService;
@@ -77,10 +42,10 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     final sharedPreferences = await SharedPreferences.getInstance();
     localStorage = SharedPreferencesLocalStorage(sharedPreferences);
-    apiService = MockHttpApiService();
+    connection = MockHttpKaziConnection();
     timeService = LocalTimeService();
     authService = KaziApiAuthService(
-      apiService: apiService,
+      connection: connection,
       localStorage: localStorage,
       timeService: timeService,
     );
@@ -88,7 +53,7 @@ void main() {
 
   group('Sign in with password', () {
     test('Should return true when sign in with password', (() async {
-      when(apiService.post(any, body: anyNamed('body'))).thenAnswer((_) async =>
+      when(connection.post(any, body: anyNamed('body'))).thenAnswer((_) async =>
           ApiResponse(
               status: 200, body: jsonEncode(_authResponseMock.toJson())));
 
@@ -99,11 +64,11 @@ void main() {
     }));
 
     test('Should throw Error for any error that occurs', (() async {
-      when(apiService.post(any, body: anyNamed('body'))).thenAnswer((_) async =>
+      when(connection.post(any, body: anyNamed('body'))).thenAnswer((_) async =>
           ApiResponse(
               status: 500, body: _authResponseMock.toJson().toString()));
 
-      when(apiService.handleResponse(any)).thenThrow(ExternalError('error'));
+      when(connection.handleResponse(any)).thenThrow(ExternalError('error'));
 
       expect(authService.signInWithPassword('email', 'password'),
           ErrorWithMessage<AppError>('error'));
