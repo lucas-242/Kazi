@@ -44,19 +44,20 @@ class _SignUpFormState extends State<SignUpForm> {
               AppLocalizations.current.name,
             ),
           ),
+          AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _emailKey,
             labelText: AppLocalizations.current.email,
             keyboardType: TextInputType.emailAddress,
             validator: (value) => FormValidator.validateEmailField(value),
           ),
-          AppSizeConstants.smallVerticalSpacer,
+          AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _passwordKey,
             labelText: AppLocalizations.current.password,
             validator: (value) => FormValidator.validatePasswordField(value),
           ),
-          AppSizeConstants.smallVerticalSpacer,
+          AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _confirmPasswordKey,
             labelText: AppLocalizations.current.confirmPassword,
@@ -66,7 +67,7 @@ class _SignUpFormState extends State<SignUpForm> {
               cubit.state.password,
             ),
           ),
-          AppSizeConstants.smallVerticalSpacer,
+          AppSizeConstants.largeVerticalSpacer,
           PillButton(
             onTap: widget.onTapSignUp,
             child: Text(AppLocalizations.current.signUp),

@@ -6,6 +6,7 @@ import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/features/home/home.dart';
 import 'package:kazi/app/features/initial/intial.dart';
 import 'package:kazi/app/features/login/login.dart';
+import 'package:kazi/app/features/login/login_landing/pages/privacy_policy_page.dart';
 import 'package:kazi/app/features/profile/profile.dart';
 import 'package:kazi/app/features/service_types/service_types.dart';
 import 'package:kazi/app/features/services/services.dart';
@@ -35,6 +36,7 @@ abstract class AppRouter {
 
   static String add = 'add';
   static String type = 'type';
+  static String privacyPolicy = 'privacy-policy';
 }
 
 final _router = GoRouter(
@@ -55,10 +57,10 @@ final _router = GoRouter(
           _customTransition(state, const OnboardingPage()),
     ),
     GoRoute(
-      path: AppRouter.login,
-      pageBuilder: (context, state) =>
-          _customTransition(state, const LoginLandingPage()),
-    ),
+        path: AppRouter.login,
+        pageBuilder: (context, state) =>
+            _customTransition(state, const LoginLandingPage()),
+        routes: [_privacyPolicy]),
     ShellRoute(
       builder: (context, state, child) => AppShell(
         params: state.extra != null
@@ -112,6 +114,12 @@ final _router = GoRouter(
       ],
     ),
   ],
+);
+
+final _privacyPolicy = GoRoute(
+  path: AppRouter.privacyPolicy,
+  pageBuilder: (context, state) =>
+      _customTransition(state, const PrivacyPolicyPage()),
 );
 
 final _serviceDetails = GoRoute(

@@ -4,10 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/login.dart';
 import 'package:kazi/app/features/login/login_form/cubit/login_form_cubit.dart';
+import 'package:kazi/app/features/login/login_landing/widgets/login_sign_in_changer.dart';
+import 'package:kazi/app/features/login/login_landing/widgets/login_terms_policies.dart';
 
 class LoginLandingPage extends StatefulWidget {
   const LoginLandingPage({super.key});
@@ -63,61 +64,13 @@ class _LoginLandingPageState extends State<LoginLandingPage> {
                         ),
                       ],
                     ),
-                    const SignInForm(),
                     AppSizeConstants.mediumVerticalSpacer,
-                    Text(AppLocalizations.current.or.toUpperCase()),
-                    AppSizeConstants.mediumVerticalSpacer,
-                    PillButton(
-                      onTap: () =>
-                          context.read<LoginFormCubit>().onSignInWithGoogle(),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            AppAssets.google,
-                            height: 18,
-                            colorFilter: const ColorFilter.mode(
-                              AppColors.white,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                          AppSizeConstants.smallHorizontalSpacer,
-                          Text(AppLocalizations.current.googleSignIn),
-                        ],
-                      ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: AppLocalizations.current.userTermsAlert1,
-                        children: [
-                          TextSpan(
-                            text: AppLocalizations.current.userTermsAlert2,
-                            style: context.bodyMedium!
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          TextSpan(
-                              text: AppLocalizations.current.userTermsAlert3),
-                          TextSpan(
-                            text: AppLocalizations.current.userTermsAlert4,
-                            style: context.bodyMedium!
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ),
-                    AppSizeConstants.mediumVerticalSpacer,
-                    RichText(
-                      text: TextSpan(
-                        text: AppLocalizations.current.alreadyHasAccont,
-                        children: [
-                          TextSpan(
-                            text: AppLocalizations.current.signIn,
-                            style: context.bodyMedium!
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ),
+                    if (state.isSigningIn)
+                      const SignInForm()
+                    else
+                      SignUpForm(onTapSignUp: () {}),
+                    const LoginTermsPolicies(),
+                    const LoginSignInChanger(),
                   ],
                 ),
               ),

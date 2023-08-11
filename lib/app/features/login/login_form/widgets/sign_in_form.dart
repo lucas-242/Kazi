@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
-import 'package:kazi/app/core/themes/settings/app_size_constants.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
@@ -37,7 +38,7 @@ class _SignInFormState extends State<SignInForm> {
             onChanged: (email) => cubit.onChangeEmail(email),
             validator: (value) => FormValidator.validateEmailField(value),
           ),
-          AppSizeConstants.smallVerticalSpacer,
+          AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _passwordKey,
             labelText: AppLocalizations.current.password,
@@ -46,14 +47,42 @@ class _SignInFormState extends State<SignInForm> {
             validator: (value) => FormValidator.validatePasswordField(value),
           ),
           AppSizeConstants.smallVerticalSpacer,
-          TextButton(
-            onPressed: () => context.navigateTo(AppPage.login),
-            child: Text(AppLocalizations.current.forgotPassword),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: MaterialButton(
+              padding: EdgeInsets.zero,
+              onPressed: () => context.navigateTo(AppPage.login),
+              child: Text(
+                AppLocalizations.current.forgotPassword,
+                style: context.bodyMedium,
+              ),
+            ),
           ),
           AppSizeConstants.smallVerticalSpacer,
           PillButton(
             onTap: cubit.onSignInWithPassword,
             child: Text(AppLocalizations.current.signIn),
+          ),
+          AppSizeConstants.smallVerticalSpacer,
+          Text(AppLocalizations.current.or.toUpperCase()),
+          AppSizeConstants.smallVerticalSpacer,
+          PillButton(
+            onTap: () => context.read<LoginFormCubit>().onSignInWithGoogle(),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  AppAssets.google,
+                  height: 18,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                AppSizeConstants.smallHorizontalSpacer,
+                Text(AppLocalizations.current.googleSignIn),
+              ],
+            ),
           ),
         ],
       ),

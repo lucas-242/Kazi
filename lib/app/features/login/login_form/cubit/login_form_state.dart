@@ -12,7 +12,7 @@ sealed class LoginFormState extends Equatable {
   final bool isSigningIn;
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [email, password, isSigningIn];
 }
 
 final class LoginFormInitialState extends LoginFormState {
