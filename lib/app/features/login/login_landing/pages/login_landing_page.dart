@@ -6,7 +6,6 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/login.dart';
-import 'package:kazi/app/features/login/login_form/cubit/login_form_cubit.dart';
 import 'package:kazi/app/features/login/login_landing/widgets/login_sign_in_changer.dart';
 import 'package:kazi/app/features/login/login_landing/widgets/login_terms_policies.dart';
 
@@ -21,12 +20,12 @@ class _LoginLandingPageState extends State<LoginLandingPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginFormCubit(),
-      child: BlocConsumer<LoginFormCubit, LoginFormState>(
+      create: (_) => LoginCubit(),
+      child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state is LoginFormSuccessState) {
+          if (state is LoginSuccessState) {
             context.navigateTo(AppPage.onboarding);
-          } else if (state is LoginFormErrorState) {
+          } else if (state is LoginErrorState) {
             getCustomSnackBar(context, message: state.message);
           }
         },

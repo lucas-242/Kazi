@@ -5,7 +5,7 @@ import 'package:kazi/app/core/themes/settings/app_size_constants.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
-import 'package:kazi/app/features/login/login_form/cubit/login_form_cubit.dart';
+import 'package:kazi/app/features/login/cubit/login_cubit.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -28,7 +28,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<LoginFormCubit>();
+    final cubit = context.read<LoginCubit>();
 
     return Form(
       key: _formKey,

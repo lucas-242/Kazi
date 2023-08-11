@@ -1,7 +1,7 @@
-part of 'login_form_cubit.dart';
+part of 'login_cubit.dart';
 
-sealed class LoginFormState extends Equatable {
-  const LoginFormState({
+sealed class LoginState extends Equatable {
+  const LoginState({
     required this.email,
     required this.password,
     required this.isSigningIn,
@@ -15,29 +15,29 @@ sealed class LoginFormState extends Equatable {
   List<Object> get props => [email, password, isSigningIn];
 }
 
-final class LoginFormInitialState extends LoginFormState {
-  const LoginFormInitialState({
+final class LoginInitialState extends LoginState {
+  const LoginInitialState({
     super.email = '',
     super.password = '',
     super.isSigningIn = true,
   });
 }
 
-final class LoginFormLoadingState extends LoginFormState {
-  const LoginFormLoadingState({
+final class LoginLoadingState extends LoginState {
+  const LoginLoadingState({
     super.email = '',
     super.password = '',
     super.isSigningIn = true,
   });
 }
 
-final class LoginFormSuccessState extends LoginFormState {
-  const LoginFormSuccessState({super.isSigningIn = true})
+final class LoginSuccessState extends LoginState {
+  const LoginSuccessState({super.isSigningIn = true})
       : super(email: '', password: '');
 }
 
-final class LoginFormErrorState extends LoginFormState {
-  const LoginFormErrorState({
+final class LoginErrorState extends LoginState {
+  const LoginErrorState({
     required this.message,
     super.email = '',
     super.isSigningIn = true,

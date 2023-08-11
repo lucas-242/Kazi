@@ -7,7 +7,7 @@ import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
-import 'package:kazi/app/features/login/login_form/cubit/login_form_cubit.dart';
+import 'package:kazi/app/features/login/cubit/login_cubit.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -25,7 +25,7 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<LoginFormCubit>();
+    final cubit = context.read<LoginCubit>();
 
     return Form(
       key: _formKey,
@@ -67,7 +67,7 @@ class _SignInFormState extends State<SignInForm> {
           Text(AppLocalizations.current.or.toUpperCase()),
           AppSizeConstants.smallVerticalSpacer,
           PillButton(
-            onTap: () => context.read<LoginFormCubit>().onSignInWithGoogle(),
+            onTap: () => context.read<LoginCubit>().onSignInWithGoogle(),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

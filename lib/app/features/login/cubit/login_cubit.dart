@@ -4,13 +4,13 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/injector_container.dart';
 
-part 'login_form_state.dart';
+part 'login_state.dart';
 
-class LoginFormCubit extends Cubit<LoginFormState> {
-  LoginFormCubit() : super(const LoginFormInitialState());
+class LoginCubit extends Cubit<LoginState> {
+  LoginCubit() : super(const LoginInitialState());
 
   void onChangeEmail(String email) => emit(
-        LoginFormInitialState(
+        LoginInitialState(
           email: email,
           password: state.password,
           isSigningIn: state.isSigningIn,
@@ -18,7 +18,7 @@ class LoginFormCubit extends Cubit<LoginFormState> {
       );
 
   void onChangePassword(String password) => emit(
-        LoginFormInitialState(
+        LoginInitialState(
           email: state.email,
           password: password,
           isSigningIn: state.isSigningIn,
@@ -26,7 +26,7 @@ class LoginFormCubit extends Cubit<LoginFormState> {
       );
 
   void onChangeLoginMethod() => emit(
-        LoginFormInitialState(
+        LoginInitialState(
           email: state.email,
           password: state.password,
           isSigningIn: !state.isSigningIn,
@@ -36,7 +36,7 @@ class LoginFormCubit extends Cubit<LoginFormState> {
   Future<void> onSignUp() async {}
 
   Future<void> onSignInWithGoogle() async {
-    emit(LoginFormLoadingState(
+    emit(LoginLoadingState(
       email: state.email,
       password: state.password,
       isSigningIn: state.isSigningIn,
@@ -48,10 +48,10 @@ class LoginFormCubit extends Cubit<LoginFormState> {
   Future<void> _handleSignInResponse(Future<bool> response) async {
     await response.then((isSignedIn) {
       if (isSignedIn) {
-        return emit(const LoginFormSuccessState());
+        return emit(const LoginSuccessState());
       }
       return emit(
-        LoginFormErrorState(
+        LoginErrorState(
           message: AppLocalizations.current.errorUnknowError,
           email: state.email,
           isSigningIn: state.isSigningIn,
@@ -59,7 +59,7 @@ class LoginFormCubit extends Cubit<LoginFormState> {
       );
     }).catchError(
       (error) => emit(
-        LoginFormErrorState(
+        LoginErrorState(
           message: error.toString(),
           email: state.email,
           isSigningIn: state.isSigningIn,
@@ -69,7 +69,7 @@ class LoginFormCubit extends Cubit<LoginFormState> {
   }
 
   Future<void> onSignInWithPassword() async {
-    emit(LoginFormLoadingState(
+    emit(LoginLoadingState(
       email: state.email,
       password: state.password,
       isSigningIn: !state.isSigningIn,

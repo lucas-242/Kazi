@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/features/login/login_form/cubit/login_form_cubit.dart';
+import 'package:kazi/app/features/login/cubit/login_cubit.dart';
 
 class LoginSignInChanger extends StatelessWidget {
   const LoginSignInChanger({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<LoginFormCubit>();
+    final cubit = context.watch<LoginCubit>();
     final isSigningIn = cubit.state.isSigningIn;
 
     return MaterialButton(
