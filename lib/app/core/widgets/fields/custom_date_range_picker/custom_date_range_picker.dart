@@ -30,7 +30,7 @@ class CustomDateRangePicker extends StatelessWidget {
     return CustomTextFormField(
       labelText: AppLocalizations.current.period,
       keyboardType: TextInputType.datetime,
-      iconRight: Icons.calendar_today,
+      suffixIcon: const Icon(Icons.calendar_today),
       controller: controller,
       readOnly: true,
       onTap: () {

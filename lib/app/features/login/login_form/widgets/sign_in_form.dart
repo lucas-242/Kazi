@@ -25,7 +25,7 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<LoginCubit>();
+    final cubit = context.watch<LoginCubit>();
 
     return Form(
       key: _formKey,
@@ -35,6 +35,7 @@ class _SignInFormState extends State<SignInForm> {
             textFormKey: _emailKey,
             labelText: AppLocalizations.current.email,
             keyboardType: TextInputType.emailAddress,
+            textCapitalization: TextCapitalization.none,
             onChanged: (email) => cubit.onChangeEmail(email),
             validator: (value) => FormValidator.validateEmailField(value),
           ),
@@ -42,9 +43,22 @@ class _SignInFormState extends State<SignInForm> {
           CustomTextFormField(
             textFormKey: _passwordKey,
             labelText: AppLocalizations.current.password,
+            textCapitalization: TextCapitalization.none,
             textInputAction: TextInputAction.done,
+            obscureText: !cubit.state.showPassword,
+            maxLines: 1,
             onChanged: (password) => cubit.onChangePassword(password),
-            validator: (value) => FormValidator.validatePasswordField(value),
+            validator: (value) => FormValidator.validateTextField(
+                value, AppLocalizations.current.password),
+            suffixIcon: IconButton(
+              onPressed: () => cubit.onChangeShowPassword(),
+              icon: Icon(
+                cubit.state.showPassword
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+                color: context.colorsScheme.onBackground,
+              ),
+            ),
           ),
           AppSizeConstants.smallVerticalSpacer,
           Align(
@@ -67,7 +81,7 @@ class _SignInFormState extends State<SignInForm> {
           Text(AppLocalizations.current.or.toUpperCase()),
           AppSizeConstants.smallVerticalSpacer,
           PillButton(
-            onTap: () => context.read<LoginCubit>().onSignInWithGoogle(),
+            onTap: () => cubit.onSignInWithGoogle(),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

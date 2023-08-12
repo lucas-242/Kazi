@@ -9,8 +9,8 @@ class CustomTextFormField extends StatelessWidget {
     this.textInputAction = TextInputAction.next,
     this.textCapitalization = TextCapitalization.sentences,
     required this.labelText,
-    this.iconLeft,
-    this.iconRight,
+    this.prefixIcon,
+    this.suffixIcon,
     this.hintText = '',
     this.initialValue,
     this.validator,
@@ -29,8 +29,8 @@ class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final int? maxLines;
-  final IconData? iconLeft;
-  final IconData? iconRight;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final String? initialValue;
   final bool readOnly;
   final bool obscureText;
@@ -69,18 +69,8 @@ class CustomTextFormField extends StatelessWidget {
         ),
         hintText: hintText,
         hintStyle: context.bodyMedium,
-        prefixIcon: iconLeft != null
-            ? Icon(
-                iconLeft,
-                color: context.colorsScheme.onSurface,
-              )
-            : null,
-        suffixIcon: iconRight != null
-            ? Icon(
-                iconRight,
-                color: context.colorsScheme.onSurface,
-              )
-            : null,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
       ),
     );
   }
