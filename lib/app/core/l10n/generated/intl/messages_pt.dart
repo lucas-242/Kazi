@@ -73,25 +73,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "editServiceType": MessageLookupByLibrary.simpleMessage("Editar Tipo"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "errorToAddService": MessageLookupByLibrary.simpleMessage(
-            "Erro ao efetuar a adição do serviço"),
+            "Erro ao efetuar a adição do serviço."),
         "errorToAddServiceType": MessageLookupByLibrary.simpleMessage(
-            "Erro ao efetuar a adição do tipo de serviço"),
+            "Erro ao efetuar a adição do tipo de serviço."),
         "errorToCountServices": MessageLookupByLibrary.simpleMessage(
-            "Erro ao buscar quantidade de serviços"),
+            "Erro ao buscar quantidade de serviços."),
         "errorToDeleteService": MessageLookupByLibrary.simpleMessage(
-            "Erro ao efetuar a deleção do serviço"),
+            "Erro ao efetuar a deleção do serviço."),
         "errorToDeleteServiceType": MessageLookupByLibrary.simpleMessage(
-            "Erro ao efetuar a deleção do tipo de serviço"),
+            "Erro ao efetuar a deleção do tipo de serviço."),
         "errorToGetServiceTypes": MessageLookupByLibrary.simpleMessage(
-            "Erro ao buscar os tipos de serviços"),
+            "Erro ao buscar os tipos de serviços."),
         "errorToGetServices":
-            MessageLookupByLibrary.simpleMessage("Erro ao buscar os serviços"),
+            MessageLookupByLibrary.simpleMessage("Erro ao buscar os serviços."),
+        "errorToSignIn": MessageLookupByLibrary.simpleMessage(
+            "Erro ao fazer login. Tente novamente mais tarde ou contate o suporte."),
         "errorToUpdateService": MessageLookupByLibrary.simpleMessage(
-            "Erro ao efetuar a edição do serviço"),
+            "Erro ao efetuar a edição do serviço."),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
-            "Erro ao efetuar a edição do tipo de serviço"),
+            "Erro ao efetuar a edição do tipo de serviço."),
         "errorUnknowError": MessageLookupByLibrary.simpleMessage(
-            "Ocorreu um erro desconhecido"),
+            "Ocorreu um erro desconhecido."),
         "field": MessageLookupByLibrary.simpleMessage("Campo"),
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtrando pelo mês passado"),

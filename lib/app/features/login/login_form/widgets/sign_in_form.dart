@@ -25,7 +25,15 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<LoginCubit>();
+    final cubit = context.read<LoginCubit>();
+    final passwordController =
+        TextEditingController(text: cubit.state.password);
+
+    void _onTapSignIn() {
+      if (_formKey.currentState!.validate()) {
+        cubit.onSignInWithPassword();
+      }
+    }
 
     return Form(
       key: _formKey,
@@ -36,12 +44,14 @@ class _SignInFormState extends State<SignInForm> {
             labelText: AppLocalizations.current.email,
             keyboardType: TextInputType.emailAddress,
             textCapitalization: TextCapitalization.none,
+            initialValue: cubit.state.email,
             onChanged: (email) => cubit.onChangeEmail(email),
             validator: (value) => FormValidator.validateEmailField(value),
           ),
           AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _passwordKey,
+            controller: passwordController,
             labelText: AppLocalizations.current.password,
             textCapitalization: TextCapitalization.none,
             textInputAction: TextInputAction.done,
@@ -74,7 +84,7 @@ class _SignInFormState extends State<SignInForm> {
           ),
           AppSizeConstants.smallVerticalSpacer,
           PillButton(
-            onTap: cubit.onSignInWithPassword,
+            onTap: _onTapSignIn,
             child: Text(AppLocalizations.current.signIn),
           ),
           AppSizeConstants.smallVerticalSpacer,

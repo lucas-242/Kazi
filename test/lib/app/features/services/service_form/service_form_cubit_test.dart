@@ -51,7 +51,7 @@ void main() {
         ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
-          status: BaseStateStatus.readyToUserInput,
+          status: BaseStateStatus.initial,
         )
       ],
     );
@@ -69,7 +69,7 @@ void main() {
         ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock,
-          status: BaseStateStatus.readyToUserInput,
+          status: BaseStateStatus.initial,
           service: serviceMock,
         )
       ],

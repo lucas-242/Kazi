@@ -74,25 +74,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "editServiceType": MessageLookupByLibrary.simpleMessage("Edit Type"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "errorToAddService":
-            MessageLookupByLibrary.simpleMessage("Error to add service"),
+            MessageLookupByLibrary.simpleMessage("Error to add service."),
         "errorToAddServiceType":
-            MessageLookupByLibrary.simpleMessage("Error to add service type"),
+            MessageLookupByLibrary.simpleMessage("Error to add service type."),
         "errorToCountServices":
-            MessageLookupByLibrary.simpleMessage("Error to count services"),
+            MessageLookupByLibrary.simpleMessage("Error to count services."),
         "errorToDeleteService":
-            MessageLookupByLibrary.simpleMessage("Error to delete service"),
+            MessageLookupByLibrary.simpleMessage("Error to delete service."),
         "errorToDeleteServiceType": MessageLookupByLibrary.simpleMessage(
-            "Error to delete service type"),
+            "Error to delete service type."),
         "errorToGetServiceTypes":
-            MessageLookupByLibrary.simpleMessage("Error to get service types"),
+            MessageLookupByLibrary.simpleMessage("Error to get service types."),
         "errorToGetServices":
-            MessageLookupByLibrary.simpleMessage("Error to get service"),
+            MessageLookupByLibrary.simpleMessage("Error to get service."),
+        "errorToSignIn": MessageLookupByLibrary.simpleMessage(
+            "Error to sign in. Try again later or contact the support."),
         "errorToUpdateService":
-            MessageLookupByLibrary.simpleMessage("Error to update service"),
+            MessageLookupByLibrary.simpleMessage("Error to update service."),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(
-            "Error to update service type"),
+            "Error to update service type."),
         "errorUnknowError": MessageLookupByLibrary.simpleMessage(
-            "An unknown exception occurred"),
+            "An unknown exception occurred."),
         "field": MessageLookupByLibrary.simpleMessage("Field"),
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtering by last month"),

@@ -29,9 +29,8 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
       emit(state.copyWith(status: BaseStateStatus.loading, service: service));
       final types = await _getServiceTypes();
 
-      final status = types.isEmpty
-          ? BaseStateStatus.noData
-          : BaseStateStatus.readyToUserInput;
+      final status =
+          types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.initial;
 
       emit(ServiceFormState(
         status: status,

@@ -45,7 +45,7 @@ void main() {
         ServiceTypesState(
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
-          status: BaseStateStatus.readyToUserInput,
+          status: BaseStateStatus.initial,
         )
       ],
     );
@@ -80,7 +80,7 @@ void main() {
         ServiceTypesState(
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
-          status: BaseStateStatus.readyToUserInput,
+          status: BaseStateStatus.initial,
         )
       ],
     );

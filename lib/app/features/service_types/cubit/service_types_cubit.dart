@@ -25,9 +25,8 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
     try {
       final types = await _fetchServiceTypes();
 
-      final status = types.isEmpty
-          ? BaseStateStatus.noData
-          : BaseStateStatus.readyToUserInput;
+      final status =
+          types.isEmpty ? BaseStateStatus.noData : BaseStateStatus.initial;
 
       emit(state.copyWith(status: status, serviceTypes: types));
     } on AppError catch (exception) {
@@ -46,9 +45,8 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       final result = await _fetchServiceTypes();
-      final newStatus = result.isEmpty
-          ? BaseStateStatus.noData
-          : BaseStateStatus.readyToUserInput;
+      final newStatus =
+          result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.initial;
 
       emit(state.copyWith(status: newStatus, serviceTypes: result));
     } on AppError catch (exception) {

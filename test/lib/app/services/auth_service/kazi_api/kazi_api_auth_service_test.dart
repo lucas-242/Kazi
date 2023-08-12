@@ -7,6 +7,7 @@ import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/kazi_api_auth_service.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
+import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
 import 'package:mockito/annotations.dart';
@@ -22,9 +23,9 @@ final _authResponseMock = AuthResponse(
       DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
   authToken: 'abc123',
   refreshToken: 'abc123Refresh',
-  userEmail: 'test@test.com',
-  userId: 1,
-  userName: 'Sr. Test',
+  email: 'test@test.com',
+  id: 1,
+  name: 'Sr. Test',
 );
 
 @GenerateMocks([HttpKaziConnection])
@@ -32,6 +33,7 @@ void main() {
   late MockHttpKaziConnection connection;
   late LocalStorage localStorage;
   late TimeService timeService;
+  late LogService logService;
   late KaziApiAuthService authService;
 
   setUpAll(() {
@@ -44,10 +46,12 @@ void main() {
     localStorage = SharedPreferencesLocalStorage(sharedPreferences);
     connection = MockHttpKaziConnection();
     timeService = LocalTimeService();
+    logService = LocalLogService();
     authService = KaziApiAuthService(
       connection: connection,
       localStorage: localStorage,
       timeService: timeService,
+      logService: logService,
     );
   });
 

@@ -62,6 +62,7 @@ Future<void> _initServices() async {
       connection: serviceLocator.get<KaziConnection>(),
       localStorage: serviceLocator.get<LocalStorage>(),
       timeService: serviceLocator.get<TimeService>(),
+      logService: serviceLocator.get<LogService>(),
     ),
   );
 

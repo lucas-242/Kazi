@@ -1,12 +1,13 @@
-import 'package:equatable/equatable.dart';
-
 part of 'login_cubit.dart';
-class LoginState extends Equatable {
-  const LoginState({
-     this.email = '',
-     this.password = '',
-     this.isSigningIn = true,
-     this.showPassword = false,
+
+class LoginState extends BaseState with EquatableMixin {
+  LoginState({
+    required super.status,
+    super.callbackMessage,
+    this.email = '',
+    this.password = '',
+    this.isSigningIn = true,
+    this.showPassword = false,
   });
 
   final String email;
@@ -15,59 +16,25 @@ class LoginState extends Equatable {
   final bool showPassword;
 
   @override
-  List<Object> get props => [email, password, isSigningIn, showPassword];
-
-
-  LoginState copyWith({
-    String? email,
-    String? password,
-    bool? isSigningIn,
-    bool? showPassword,
-  }) {
-    return LoginState (
-      email: email ?? this.email,
-      password: password ?? this.password,
-      isSigningIn: isSigningIn ?? this.isSigningIn,
-      showPassword: showPassword ?? this.showPassword,
-    );
-  }
-}
-
-final class LoginLoadingState extends LoginState {
-  const LoginLoadingState({
-    super.email,
-    super.password,
-    super.isSigningIn = true,
-    super.showPassword = false,
-  });
+  List<Object> get props =>
+      [status, callbackMessage, email, password, isSigningIn, showPassword];
 
   @override
-  LoginLoadingState copyWith({
+  LoginState copyWith({
+    BaseStateStatus? status,
+    String? callbackMessage,
     String? email,
     String? password,
     bool? isSigningIn,
     bool? showPassword,
   }) {
-    return LoginLoadingState (
+    return LoginState(
+      status: status ?? this.status,
+      callbackMessage: callbackMessage ?? this.callbackMessage,
       email: email ?? this.email,
       password: password ?? this.password,
       isSigningIn: isSigningIn ?? this.isSigningIn,
       showPassword: showPassword ?? this.showPassword,
     );
   }
-}
-
-final class LoginSuccessState extends LoginState {
-  const LoginSuccessState();
-}
-
-final class LoginErrorState extends LoginState {
-  const LoginErrorState({
-    required this.message,
-    super.email,
-    super.isSigningIn ,
-    super.showPassword,
-  });
-
-  final String message;
 }

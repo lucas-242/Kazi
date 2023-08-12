@@ -1,7 +1,6 @@
-enum BaseStateStatus { loading, error, success, noData, readyToUserInput }
+enum BaseStateStatus { loading, error, success, noData, initial }
 
 class BaseState {
-
   BaseState({required this.status, this.callbackMessage = ''});
   BaseStateStatus status;
   String callbackMessage;

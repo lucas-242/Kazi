@@ -1,11 +1,14 @@
 import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/environment/environment.dart';
+import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/app_user.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
+import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
 
 final class KaziApiAuthService extends AuthService {
@@ -13,14 +16,17 @@ final class KaziApiAuthService extends AuthService {
     required KaziConnection connection,
     required LocalStorage localStorage,
     required TimeService timeService,
+    required LogService logService,
   })  : _connection = connection,
         _localStorage = localStorage,
-        _timeService = timeService;
+        _timeService = timeService,
+        _logService = logService;
 
   final String url = '${Environment.instance.kaziApiUrl}auth';
   final KaziConnection _connection;
   final LocalStorage _localStorage;
   final TimeService _timeService;
+  final LogService _logService;
 
   UserData? _userData;
 
@@ -36,9 +42,9 @@ final class KaziApiAuthService extends AuthService {
       _setUserData(authResponse);
       _setUser(authResponse);
       await _saveUserDataInLocalStorage();
-    } catch (error) {
-      signOut();
-      rethrow;
+    } catch (error, trace) {
+      _logService.error(error: error, stackTrace: trace);
+      throw ExternalError(AppLocalizations.current.errorUnknowError);
     }
   }
 
@@ -49,17 +55,17 @@ final class KaziApiAuthService extends AuthService {
       authExpireMiliseconds: data.authExpires,
       authToken: data.authToken,
       refreshToken: data.refreshToken,
-      userEmail: data.userEmail,
-      userId: data.userId,
-      userName: data.userName,
+      userEmail: data.email,
+      userId: data.id,
+      userName: data.name,
     );
   }
 
   void _setUser(AuthResponse data) {
     user = AppUser(
-      email: data.userEmail,
-      uid: data.userId.toString(),
-      name: data.userName,
+      email: data.email,
+      uid: data.id.toString(),
+      name: data.name,
     );
   }
 
@@ -80,17 +86,22 @@ final class KaziApiAuthService extends AuthService {
 
   @override
   Future<bool> signInWithPassword(String email, String password) async {
-    final response = await _connection.post(
-      url,
-      body: {'email': email, 'password': password},
-    );
-    _connection.handleResponse(response);
+    try {
+      final response = await _connection.post(
+        '$url/authenticateByEmail',
+        body: {'email': email, 'password': password},
+      );
+      _connection.handleResponse(response);
 
-    final authResponse = AuthResponse.fromJson(response.json);
-    _setUserData(authResponse);
-    _setUser(authResponse);
-    await _saveUserDataInLocalStorage();
-    return true;
+      final authResponse = AuthResponse.fromJson(response.json);
+      _setUserData(authResponse);
+      _setUser(authResponse);
+      await _saveUserDataInLocalStorage();
+      return true;
+    } catch (error, trace) {
+      _logService.error(error: error, stackTrace: trace);
+      throw ExternalError(AppLocalizations.current.errorToSignIn);
+    }
   }
 
   @override

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/features/service_types/widgets/service_type_no_data_navbar.dart';
-import 'package:kazi/app/features/services/service_form/widgets/service_form_content.dart';
-import 'package:kazi/app/features/services/services.dart';
-import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
+import 'package:kazi/app/features/service_types/widgets/service_type_no_data_navbar.dart';
+import 'package:kazi/app/features/services/service_form/widgets/service_form_content.dart';
+import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/models/service.dart';
 
 class ServiceFormPage extends StatefulWidget {
   const ServiceFormPage({super.key, this.service});
@@ -56,7 +56,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
             builder: (context, state) {
               return state.when(
                 onState: (_) {
-                  if (state.status == BaseStateStatus.readyToUserInput) {
+                  if (state.status == BaseStateStatus.initial) {
                     return ServiceFormContent(
                       isCreating: isCreating(widget.service),
                       onConfirm: () => onConfirm(state.service),

@@ -40,7 +40,7 @@ final class DevEnvironment implements Environment {
       );
 
   @override
-  String get kaziApiUrl => 'https://localhost:7250/';
+  String get kaziApiUrl => 'http://192.168.0.232:5005/api/';
 }
 
 final class ProdEnvironment implements Environment {

@@ -330,101 +330,111 @@ class AppLocalizations {
     );
   }
 
-  /// `An unknown exception occurred`
+  /// `An unknown exception occurred.`
   String get errorUnknowError {
     return Intl.message(
-      'An unknown exception occurred',
+      'An unknown exception occurred.',
       name: 'errorUnknowError',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to add service type`
+  /// `Error to add service type.`
   String get errorToAddServiceType {
     return Intl.message(
-      'Error to add service type',
+      'Error to add service type.',
       name: 'errorToAddServiceType',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to delete service type`
+  /// `Error to delete service type.`
   String get errorToDeleteServiceType {
     return Intl.message(
-      'Error to delete service type',
+      'Error to delete service type.',
       name: 'errorToDeleteServiceType',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to get service types`
+  /// `Error to get service types.`
   String get errorToGetServiceTypes {
     return Intl.message(
-      'Error to get service types',
+      'Error to get service types.',
       name: 'errorToGetServiceTypes',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to update service type`
+  /// `Error to update service type.`
   String get errorToUpdateServiceType {
     return Intl.message(
-      'Error to update service type',
+      'Error to update service type.',
       name: 'errorToUpdateServiceType',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to add service`
+  /// `Error to add service.`
   String get errorToAddService {
     return Intl.message(
-      'Error to add service',
+      'Error to add service.',
       name: 'errorToAddService',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to count services`
+  /// `Error to count services.`
   String get errorToCountServices {
     return Intl.message(
-      'Error to count services',
+      'Error to count services.',
       name: 'errorToCountServices',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to delete service`
+  /// `Error to delete service.`
   String get errorToDeleteService {
     return Intl.message(
-      'Error to delete service',
+      'Error to delete service.',
       name: 'errorToDeleteService',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to get service`
+  /// `Error to get service.`
   String get errorToGetServices {
     return Intl.message(
-      'Error to get service',
+      'Error to get service.',
       name: 'errorToGetServices',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error to update service`
+  /// `Error to update service.`
   String get errorToUpdateService {
     return Intl.message(
-      'Error to update service',
+      'Error to update service.',
       name: 'errorToUpdateService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to sign in. Try again later or contact the support.`
+  String get errorToSignIn {
+    return Intl.message(
+      'Error to sign in. Try again later or contact the support.',
+      name: 'errorToSignIn',
       desc: '',
       args: [],
     );
