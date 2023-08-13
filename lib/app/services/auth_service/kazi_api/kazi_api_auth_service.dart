@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/environment/environment.dart';
@@ -10,6 +13,7 @@ import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dar
 import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
+import 'package:rxdart/rxdart.dart';
 
 final class KaziApiAuthService extends AuthService {
   KaziApiAuthService({
@@ -20,7 +24,9 @@ final class KaziApiAuthService extends AuthService {
   })  : _connection = connection,
         _localStorage = localStorage,
         _timeService = timeService,
-        _logService = logService;
+        _logService = logService {
+    _tryAutoSignIn();
+  }
 
   final String url = '${Environment.instance.kaziApiUrl}auth';
   final KaziConnection _connection;
@@ -30,7 +36,48 @@ final class KaziApiAuthService extends AuthService {
 
   UserData? _userData;
 
-  Future<void> refreshSession({String? refreshToken}) async {
+  final _userController = BehaviorSubject<AppUser?>();
+
+  Future<void> _tryAutoSignIn() async {
+    try {
+      final userData = _getUserData();
+
+      if (userData == null) {
+        _userController.sink.add(null);
+        return;
+      }
+
+      _userData = userData;
+      user = AppUser(
+        email: _userData!.userEmail,
+        uid: _userData!.userId.toString(),
+        name: _userData!.userName,
+      );
+      if (_isTokenExpired) {
+        return await refreshSession(_userData!.refreshToken);
+      }
+
+      _userController.sink.add(user);
+    } catch (error, trace) {
+      _logService.error(error: error, stackTrace: trace);
+      await signOut();
+      throw ExternalError(AppLocalizations.current.errorUnknowError);
+    }
+  }
+
+  bool get _isTokenExpired =>
+      _userData!.authExpireDate.isBefore(_timeService.now);
+
+  UserData? _getUserData() {
+    final stringfyUser = _localStorage.get<String>(AppKeys.userData);
+    if (stringfyUser == null) {
+      return null;
+    }
+    final response = UserData.fromJson(jsonDecode(stringfyUser));
+    return response;
+  }
+
+  Future<void> refreshSession(String? refreshToken) async {
     try {
       final response = await _connection.post('refreshToken',
           body: refreshToken ?? _userData?.refreshToken);
@@ -42,8 +89,10 @@ final class KaziApiAuthService extends AuthService {
       _setUserData(authResponse);
       _setUser(authResponse);
       await _saveUserDataInLocalStorage();
+      _userController.sink.add(user);
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
+      await signOut();
       throw ExternalError(AppLocalizations.current.errorUnknowError);
     }
   }
@@ -70,12 +119,13 @@ final class KaziApiAuthService extends AuthService {
   }
 
   Future<void> _saveUserDataInLocalStorage() => _localStorage.set<String>(
-      AppKeys.userData, _userData!.toJson().toString());
+      AppKeys.userData, jsonEncode(_userData!.toJson()));
 
   @override
   Future<void> signOut() async {
     _userData = null;
     user = null;
+    _userController.sink.add(user);
     await _localStorage.remove(AppKeys.userData);
   }
 
@@ -97,6 +147,7 @@ final class KaziApiAuthService extends AuthService {
       _setUserData(authResponse);
       _setUser(authResponse);
       await _saveUserDataInLocalStorage();
+      _userController.sink.add(user);
       return true;
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
@@ -105,18 +156,5 @@ final class KaziApiAuthService extends AuthService {
   }
 
   @override
-  Stream<AppUser?> userChanges() async* {
-    try {
-      if (_isTokenExpired) {
-        await refreshSession();
-      }
-
-      yield user;
-    } catch (error) {
-      yield null;
-    }
-  }
-
-  bool get _isTokenExpired =>
-      _userData!.authExpireDate.isBefore(_timeService.now);
+  Stream<AppUser?> get userChanges => _userController.stream;
 }

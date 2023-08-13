@@ -4,10 +4,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kazi/app/models/app_user.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';
+import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/injector_container.dart';
 
 class SplashPage extends StatefulWidget {
@@ -46,7 +46,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void _listenUser() {
     final auth = serviceLocator<AuthService>();
-    userStream = auth.userChanges().listen(_onUserChange,
+    userStream = auth.userChanges.listen(_onUserChange,
         onError: (_) => context.navigateTo(AppPage.login));
   }
 
@@ -64,16 +64,10 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _checkUser(AppUser? user) async {
     // await _closeAnimation();
     if (user != null) {
-      _setUser(user);
       context.navigateTo(AppPage.onboarding);
     } else {
       context.navigateTo(AppPage.login);
     }
-  }
-
-  void _setUser(AppUser? user) {
-    final auth = serviceLocator<AuthService>();
-    auth.user = user;
   }
 
   // Future<void> _closeAnimation() async {
