@@ -17,7 +17,7 @@ void main() {
     authService = MockAuthService();
     cubit = AppCubit(authService);
 
-    when(authService.userChanges()).thenAnswer((_) => Stream.value(null));
+    when(authService.userChanges).thenAnswer((_) => Stream.value(null));
   });
 
   blocTest(

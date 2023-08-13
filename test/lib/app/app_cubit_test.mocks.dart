@@ -37,6 +37,11 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
         returnValueForMissingStub: null,
       );
   @override
+  _i4.Stream<_i3.AppUser?> get userChanges => (super.noSuchMethod(
+        Invocation.getter(#userChanges),
+        returnValue: _i4.Stream<_i3.AppUser?>.empty(),
+      ) as _i4.Stream<_i3.AppUser?>);
+  @override
   _i4.Future<bool> signInWithPassword(
     String? email,
     String? password,
@@ -68,12 +73,4 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
-  @override
-  _i4.Stream<_i3.AppUser?> userChanges() => (super.noSuchMethod(
-        Invocation.method(
-          #userChanges,
-          [],
-        ),
-        returnValue: _i4.Stream<_i3.AppUser?>.empty(),
-      ) as _i4.Stream<_i3.AppUser?>);
 }
