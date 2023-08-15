@@ -183,6 +183,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   AppSizeConstants.largeVerticalSpacer,
                   CustomTextFormField(
                     textFormKey: _descriptionKey,
+                    maxLines: 4,
                     labelText: AppLocalizations.current.description,
                     initialValue: cubit.state.service.description,
                     onChanged: (value) =>

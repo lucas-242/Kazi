@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editService": MessageLookupByLibrary.simpleMessage("Edit Service"),
         "editServiceType": MessageLookupByLibrary.simpleMessage("Edit Type"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "errorNotFound": MessageLookupByLibrary.simpleMessage("Url not found."),
         "errorToAddService":
             MessageLookupByLibrary.simpleMessage("Error to add service."),
         "errorToAddServiceType":
@@ -89,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to get service."),
         "errorToSignIn": MessageLookupByLibrary.simpleMessage(
             "Error to sign in. Try again later or contact the support."),
+        "errorToSignUp": MessageLookupByLibrary.simpleMessage(
+            "Error to sign up. Try again later or contact the support."),
         "errorToUpdateService":
             MessageLookupByLibrary.simpleMessage("Error to update service."),
         "errorToUpdateServiceType": MessageLookupByLibrary.simpleMessage(

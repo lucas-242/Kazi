@@ -1,3 +1,7 @@
+// ignore: depend_on_referenced_packages
+
+enum UserType { administrator, manager, selfEmployed, employee }
+
 /// Represents the search possibilities for the Services lists
 enum FastSearch { today, week, fortnight, month, lastMonth, custom }
 

@@ -9,5 +9,7 @@ abstract class AuthService {
 
   Future<void> signOut();
 
+  Future<void> signUp(AppUser user);
+
   Stream<AppUser?> get userChanges;
 }

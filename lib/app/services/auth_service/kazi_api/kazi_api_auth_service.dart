@@ -9,7 +9,6 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/app_user.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
-import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
@@ -38,6 +37,9 @@ final class KaziApiAuthService extends AuthService {
 
   final _userController = BehaviorSubject<AppUser?>();
 
+  @override
+  Stream<AppUser?> get userChanges => _userController.stream;
+
   Future<void> _tryAutoSignIn() async {
     try {
       final userData = _getUserData();
@@ -48,10 +50,11 @@ final class KaziApiAuthService extends AuthService {
       }
 
       _userData = userData;
-      user = AppUser(
-        email: _userData!.userEmail,
-        uid: _userData!.userId.toString(),
-        name: _userData!.userName,
+      user = AppUser.fromSignIn(
+        email: _userData!.email,
+        uid: _userData!.id.toString(),
+        name: _userData!.name,
+        userType: _userData!.userType,
       );
       if (_isTokenExpired) {
         return await refreshSession(_userData!.refreshToken);
@@ -66,7 +69,7 @@ final class KaziApiAuthService extends AuthService {
   }
 
   bool get _isTokenExpired =>
-      _userData!.authExpireDate.isBefore(_timeService.now);
+      _userData!.authExpiresDate.isBefore(_timeService.now);
 
   UserData? _getUserData() {
     final stringfyUser = _localStorage.get<String>(AppKeys.userData);
@@ -84,7 +87,7 @@ final class KaziApiAuthService extends AuthService {
 
       _connection.handleResponse(response);
 
-      final authResponse = AuthResponse.fromJson(response.json);
+      final authResponse = UserData.fromJson(response.json);
 
       _setUserData(authResponse);
       _setUser(authResponse);
@@ -97,24 +100,26 @@ final class KaziApiAuthService extends AuthService {
     }
   }
 
-  void _setUserData(AuthResponse data) {
+  void _setUserData(UserData data) {
     _userData = UserData(
-      authExpireDate:
+      authExpiresDate:
           _timeService.now.add(Duration(milliseconds: data.authExpires)),
-      authExpireMiliseconds: data.authExpires,
+      authExpires: data.authExpires,
       authToken: data.authToken,
       refreshToken: data.refreshToken,
-      userEmail: data.email,
-      userId: data.id,
-      userName: data.name,
+      email: data.email,
+      id: data.id,
+      name: data.name,
+      userType: data.userType,
     );
   }
 
-  void _setUser(AuthResponse data) {
-    user = AppUser(
+  void _setUser(UserData data) {
+    user = AppUser.fromSignIn(
       email: data.email,
       uid: data.id.toString(),
       name: data.name,
+      userType: data.userType,
     );
   }
 
@@ -143,7 +148,7 @@ final class KaziApiAuthService extends AuthService {
       );
       _connection.handleResponse(response);
 
-      final authResponse = AuthResponse.fromJson(response.json);
+      final authResponse = UserData.fromJson(response.json);
       _setUserData(authResponse);
       _setUser(authResponse);
       await _saveUserDataInLocalStorage();
@@ -156,5 +161,17 @@ final class KaziApiAuthService extends AuthService {
   }
 
   @override
-  Stream<AppUser?> get userChanges => _userController.stream;
+  Future<void> signUp(AppUser user) async {
+    try {
+      //TODO: Change url to auth/signup
+      final response = await _connection.post(
+        '${Environment.instance.kaziApiUrl}user/',
+        body: user.toJson(),
+      );
+      _connection.handleResponse(response);
+    } catch (error, trace) {
+      _logService.error(error: error, stackTrace: trace);
+      throw ExternalError(AppLocalizations.current.errorToSignUp);
+    }
+  }
 }

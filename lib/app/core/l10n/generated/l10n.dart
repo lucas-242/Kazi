@@ -330,6 +330,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Url not found.`
+  String get errorNotFound {
+    return Intl.message(
+      'Url not found.',
+      name: 'errorNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `An unknown exception occurred.`
   String get errorUnknowError {
     return Intl.message(
@@ -435,6 +445,16 @@ class AppLocalizations {
     return Intl.message(
       'Error to sign in. Try again later or contact the support.',
       name: 'errorToSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to sign up. Try again later or contact the support.`
+  String get errorToSignUp {
+    return Intl.message(
+      'Error to sign up. Try again later or contact the support.',
+      name: 'errorToSignUp',
       desc: '',
       args: [],
     );

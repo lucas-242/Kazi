@@ -44,10 +44,7 @@ class LoginLandingContent extends StatelessWidget {
                 ],
               ),
               AppSizeConstants.mediumVerticalSpacer,
-              if (state.isSigningIn)
-                const SignInForm()
-              else
-                SignUpForm(onTapSignUp: () {}),
+              if (state.isSigningIn) const SignInForm() else const SignUpForm(),
               AppSizeConstants.mediumVerticalSpacer,
               const LoginTermsPolicies(),
               AppSizeConstants.mediumVerticalSpacer,

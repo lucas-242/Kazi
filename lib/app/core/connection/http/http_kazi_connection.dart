@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:kazi/app/core/connection/kazi_client.dart';
 import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/models/api_response.dart';
 
 class HttpKaziConnection implements KaziConnection {
@@ -102,6 +103,11 @@ class HttpKaziConnection implements KaziConnection {
   ) {
     switch (response.status) {
       //TODO: Make a retry
+      case 404:
+        {
+          throw ClientError(
+              response.message ?? AppLocalizations.current.errorNotFound);
+        }
       case 403:
         {
           throw ClientError(response.message ?? '');

@@ -23,8 +23,16 @@ class _LoginLandingPageState extends State<LoginLandingPage> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == BaseStateStatus.success) {
+          if (state.status == BaseStateStatus.success && state.isSigningIn) {
             context.navigateTo(AppPage.onboarding);
+          } else if (state.status == BaseStateStatus.success &&
+              !state.isSigningIn) {
+            context.read<LoginCubit>().onChangeLoginMethod();
+            getCustomSnackBar(
+              context,
+              type: SnackBarType.success,
+              message: state.callbackMessage,
+            );
           } else if (state.status == BaseStateStatus.error) {
             getCustomSnackBar(context, message: state.callbackMessage);
           }

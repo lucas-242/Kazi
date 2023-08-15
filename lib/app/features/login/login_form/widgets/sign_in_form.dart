@@ -23,15 +23,36 @@ class _SignInFormState extends State<SignInForm> {
   final _emailKey = GlobalKey<FormFieldState>();
   final _passwordKey = GlobalKey<FormFieldState>();
 
+  late final TextEditingController passwordController;
+
+  @override
+  void initState() {
+    final cubit = context.read<LoginCubit>();
+    passwordController = TextEditingController(text: cubit.state.password);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<LoginCubit>();
     final passwordController =
         TextEditingController(text: cubit.state.password);
 
-    void _onTapSignIn() {
+    void onTapSignIn() {
       if (_formKey.currentState!.validate()) {
         cubit.onSignInWithPassword();
+      }
+    }
+
+    void resetPassword(LoginState state) {
+      if (state.password.isEmpty && passwordController.text.isNotEmpty) {
+        passwordController.text = '';
       }
     }
 
@@ -49,27 +70,28 @@ class _SignInFormState extends State<SignInForm> {
             validator: (value) => FormValidator.validateEmailField(value),
           ),
           AppSizeConstants.largeVerticalSpacer,
-          CustomTextFormField(
-            textFormKey: _passwordKey,
-            controller: passwordController,
-            labelText: AppLocalizations.current.password,
-            textCapitalization: TextCapitalization.none,
-            textInputAction: TextInputAction.done,
-            obscureText: !cubit.state.showPassword,
-            maxLines: 1,
-            onChanged: (password) => cubit.onChangePassword(password),
-            validator: (value) => FormValidator.validateTextField(
-                value, AppLocalizations.current.password),
-            suffixIcon: IconButton(
-              onPressed: () => cubit.onChangeShowPassword(),
-              icon: Icon(
-                cubit.state.showPassword
-                    ? Icons.visibility
-                    : Icons.visibility_off,
-                color: context.colorsScheme.onBackground,
+          BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+            return CustomTextFormField(
+              textFormKey: _passwordKey,
+              controller: passwordController,
+              labelText: AppLocalizations.current.password,
+              textCapitalization: TextCapitalization.none,
+              textInputAction: TextInputAction.done,
+              obscureText: !cubit.state.showPassword,
+              onChanged: (password) => cubit.onChangePassword(password),
+              validator: (value) => FormValidator.validateTextField(
+                  value, AppLocalizations.current.password),
+              suffixIcon: IconButton(
+                onPressed: () => cubit.onChangeShowPassword(),
+                icon: Icon(
+                  cubit.state.showPassword
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  color: context.colorsScheme.onBackground,
+                ),
               ),
-            ),
-          ),
+            );
+          }),
           AppSizeConstants.smallVerticalSpacer,
           Align(
             alignment: Alignment.centerLeft,
@@ -84,7 +106,7 @@ class _SignInFormState extends State<SignInForm> {
           ),
           AppSizeConstants.smallVerticalSpacer,
           PillButton(
-            onTap: _onTapSignIn,
+            onTap: onTapSignIn,
             child: Text(AppLocalizations.current.signIn),
           ),
           AppSizeConstants.smallVerticalSpacer,

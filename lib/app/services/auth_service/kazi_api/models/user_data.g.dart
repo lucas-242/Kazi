@@ -7,21 +7,29 @@ part of 'user_data.dart';
 // **************************************************************************
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
-      authToken: json['authToken'] as String,
-      authExpireDate: DateTime.parse(json['authExpireDate'] as String),
-      authExpireMiliseconds: json['authExpireMiliseconds'] as int,
+      id: json['id'] as int,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      userType: $enumDecode(_$UserTypeEnumMap, json['userType']),
+      authExpires: json['expires'] as int,
+      authToken: json['authenticationToken'] as String,
       refreshToken: json['refreshToken'] as String,
-      userId: json['userId'] as int,
-      userName: json['userName'] as String,
-      userEmail: json['userEmail'] as String,
+      authExpiresDate: DateTime.parse(json['authExpiresDate'] as String),
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
-      'authToken': instance.authToken,
+      'authenticationToken': instance.authToken,
       'refreshToken': instance.refreshToken,
-      'userId': instance.userId,
-      'userName': instance.userName,
-      'userEmail': instance.userEmail,
-      'authExpireMiliseconds': instance.authExpireMiliseconds,
-      'authExpireDate': instance.authExpireDate.toIso8601String(),
+      'id': instance.id,
+      'name': instance.name,
+      'email': instance.email,
+      'expires': instance.authExpires,
+      'userType': _$UserTypeEnumMap[instance.userType]!,
     };
+
+const _$UserTypeEnumMap = {
+  UserType.administrator: 'administrator',
+  UserType.manager: 'manager',
+  UserType.selfEmployed: 'selfEmployed',
+  UserType.employee: 'employee',
+};

@@ -2,7 +2,7 @@ import 'package:kazi/app/models/app_user.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
 
-final userMock = AppUser(
+final userMock = AppUser.toCreate(
   uid: 'abc123',
   name: 'Jooj',
   email: 'test@test.com',

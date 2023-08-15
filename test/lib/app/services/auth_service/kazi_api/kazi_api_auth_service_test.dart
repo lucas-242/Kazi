@@ -5,8 +5,9 @@ import 'package:kazi/app/core/connection/http/http_kazi_connection.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
+import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/kazi_api_auth_service.dart';
-import 'package:kazi/app/services/auth_service/kazi_api/models/auth_response.dart';
+import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
@@ -18,15 +19,16 @@ import '../../../../../utils/test_helper.dart';
 import '../../../../../utils/test_matchers.dart';
 import 'kazi_api_auth_service_test.mocks.dart';
 
-final _authResponseMock = AuthResponse(
-  authExpires:
-      DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
-  authToken: 'abc123',
-  refreshToken: 'abc123Refresh',
-  email: 'test@test.com',
-  id: 1,
-  name: 'Sr. Test',
-);
+final _authResponseMock = UserData(
+    authExpires:
+        DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
+    authExpiresDate: DateTime.now().add(const Duration(days: 1)),
+    authToken: 'abc123',
+    refreshToken: 'abc123Refresh',
+    email: 'test@test.com',
+    id: 1,
+    name: 'Sr. Test',
+    userType: UserType.selfEmployed);
 
 @GenerateMocks([HttpKaziConnection])
 void main() {

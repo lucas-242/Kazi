@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
+import 'package:kazi/app/models/app_user.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
 
 part 'login_state.dart';
@@ -12,6 +13,8 @@ class LoginCubit extends Cubit<LoginState> {
       : super(LoginState(status: BaseStateStatus.initial));
 
   final AuthService _authService;
+
+  void onChangeName(String name) => emit(state.copyWith(name: name));
 
   void onChangeEmail(String email) => emit(state.copyWith(email: email));
 
@@ -38,30 +41,60 @@ class LoginCubit extends Cubit<LoginState> {
         return emit(state.copyWith(status: BaseStateStatus.success));
       }
 
-      return emit(state.copyWith(
-        status: BaseStateStatus.error,
-        callbackMessage: AppLocalizations.current.errorUnknowError,
-        password: '',
-      ));
+      return _emitUnknowError();
     } on AppError catch (error) {
-      emit(state.copyWith(
+      _emitAppError(error);
+    } catch (error) {
+      _emitUnknowError();
+    }
+  }
+
+  void _emitAppError(AppError error) => emit(state.copyWith(
         status: BaseStateStatus.error,
         callbackMessage: error.message,
         password: '',
       ));
-    } catch (error) {
-      emit(state.copyWith(
+
+  void _emitUnknowError() => emit(state.copyWith(
         status: BaseStateStatus.error,
         callbackMessage: AppLocalizations.current.errorUnknowError,
         password: '',
       ));
-    }
-  }
 
   Future<void> onSignInWithGoogle() async {
     emit(state.copyWith(status: BaseStateStatus.loading));
     await _handleSignInResponse(_authService.signInWithGoogle());
   }
 
-  Future<void> onSignUp() async {}
+  Future<void> onSignUp() async {
+    try {
+      if (!_canSignUp) {
+        return;
+      }
+
+      final user = AppUser.toCreate(
+        name: state.name,
+        email: state.email,
+        password: state.password,
+      );
+
+      await _authService.signUp(user);
+      return emit(state.copyWith(
+        status: BaseStateStatus.success,
+        callbackMessage: AppLocalizations.current.signUpSuccess,
+        name: '',
+        email: '',
+        password: '',
+      ));
+    } on AppError catch (error) {
+      _emitAppError(error);
+    } catch (error) {
+      _emitUnknowError();
+    }
+  }
+
+  bool get _canSignUp =>
+      state.name.isNotEmpty &&
+      state.email.isNotEmpty &&
+      state.password.isNotEmpty;
 }

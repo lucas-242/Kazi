@@ -18,17 +18,20 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.inputFormatters,
     this.onTap,
+    this.onEditingComplete,
     this.readOnly = false,
     this.textFormKey,
-    this.maxLines,
+    this.maxLines = 1,
     this.obscureText = false,
+    this.focusNode,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final String labelText;
   final String hintText;
-  final int? maxLines;
+  final int maxLines;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String? initialValue;
@@ -39,13 +42,17 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final TextCapitalization textCapitalization;
   final Key? textFormKey;
+  final FocusNode? focusNode;
   final void Function(String value)? onChanged;
   final void Function()? onTap;
+  final void Function()? onEditingComplete;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       key: textFormKey,
+      focusNode: focusNode,
       controller: controller,
       initialValue: initialValue,
       validator: validator,
@@ -57,6 +64,8 @@ class CustomTextFormField extends StatelessWidget {
       readOnly: readOnly,
       onChanged: onChanged,
       onTap: onTap,
+      onEditingComplete: onEditingComplete,
+      onFieldSubmitted: onFieldSubmitted,
       maxLines: maxLines,
       style: context.bodyMedium,
       inputFormatters: inputFormatters,
@@ -67,6 +76,7 @@ class CustomTextFormField extends StatelessWidget {
           backgroundColor: context.colorsScheme.background,
           //TODO: CustomPaint here to create a rounded border background
         ),
+        errorMaxLines: 3,
         hintText: hintText,
         hintStyle: context.bodyMedium,
         prefixIcon: prefixIcon,
