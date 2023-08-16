@@ -65,7 +65,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypes: newList,
-          serviceType: ServiceType(userId: _authService.user!.uid)));
+          serviceType: ServiceType.toCreate(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -83,7 +83,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypes: newList,
-          serviceType: ServiceType(userId: _authService.user!.uid)));
+          serviceType: ServiceType.toCreate(userId: _authService.user!.uid)));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -110,7 +110,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
 
   void eraseServiceType() {
     emit(state.copyWith(
-        serviceType: ServiceType(userId: _authService.user!.uid)));
+        serviceType: ServiceType.toCreate(userId: _authService.user!.uid)));
   }
 
   void changeServiceType(ServiceType serviceType) {

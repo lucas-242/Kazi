@@ -34,13 +34,13 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
   void initState() {
     final cubit = context.read<ServiceTypesCubit>();
     _serviceValueController = MoneyMaskedTextController(
-      initialValue: cubit.state.serviceType.defaultValue ?? 0,
+      initialValue: cubit.state.serviceType.defaultValue,
       leftSymbol: NumberFormatHelper.getCurrencySymbol(),
       decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
       thousandSeparator: NumberFormatHelper.getThousandSeparator(),
     );
     _discountController = MoneyMaskedTextController(
-      initialValue: cubit.state.serviceType.discountPercent ?? 0,
+      initialValue: cubit.state.serviceType.discountPercent,
       decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
       thousandSeparator: NumberFormatHelper.getThousandSeparator(),
       rightSymbol: '%',

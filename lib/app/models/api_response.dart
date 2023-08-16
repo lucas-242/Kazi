@@ -13,7 +13,7 @@ class ApiResponse {
   String? message;
   String body;
 
-  Map<String, dynamic> get json => jsonDecode(body);
+  dynamic get json => jsonDecode(body);
 
   void handleStatus({
     Function? status403,

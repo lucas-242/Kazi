@@ -21,7 +21,7 @@ class AppUser {
   AppUser.toCreate({
     this.name = '',
     this.email = '',
-    this.photoUrl = '',
+    this.photoUrl,
     this.uid = '',
     this.password = '',
     this.userType = UserType.selfEmployed,
@@ -30,7 +30,7 @@ class AppUser {
   AppUser.fromSignIn({
     required this.name,
     required this.email,
-    this.photoUrl = '',
+    this.photoUrl,
     required this.uid,
     required this.userType,
   }) : password = '';

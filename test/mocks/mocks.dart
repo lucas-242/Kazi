@@ -9,7 +9,7 @@ final userMock = AppUser.toCreate(
   photoUrl: 'url.com',
 );
 
-final serviceTypeMock = ServiceType(
+final serviceTypeMock = ServiceType.toCreate(
   userId: userMock.uid,
   name: 'test',
   discountPercent: 50,
@@ -29,8 +29,8 @@ final serviceMock = Service(
   date: DateTime(2022),
   type: serviceTypeMock,
   userId: userMock.uid,
-  discountPercent: serviceTypeMock.discountPercent!,
-  value: serviceTypeMock.defaultValue!,
+  discountPercent: serviceTypeMock.discountPercent,
+  value: serviceTypeMock.defaultValue,
   typeId: 'aaa1',
 );
 

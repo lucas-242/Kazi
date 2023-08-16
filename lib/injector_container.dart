@@ -22,9 +22,9 @@ final serviceLocator = GetIt.instance;
 
 Future<void> initInjectorContainer() async {
   await _initStorages();
-  await _initNetwork();
-  await _initRepositories();
-  await _initServices();
+  _initNetwork();
+  _initRepositories();
+  _initServices();
 }
 
 Future<void> _initStorages() async {
@@ -33,7 +33,7 @@ Future<void> _initStorages() async {
   );
 }
 
-Future<void> _initNetwork() async {
+void _initNetwork() {
   serviceLocator.registerSingleton<KaziClient>(
     HttpKaziClient(serviceLocator.get<LocalStorage>()),
   );
@@ -43,23 +43,27 @@ Future<void> _initNetwork() async {
   );
 }
 
-Future<void> _initRepositories() async {
+void _initRepositories() {
   serviceLocator.registerFactory<ServicesRepository>(
     () => KaziApiServicesRepository(serviceLocator.get<KaziConnection>()),
   );
 
   serviceLocator.registerFactory<ServiceTypeRepository>(
-    () => KaziApiServiceTypeRepository(serviceLocator.get<KaziConnection>()),
+    () => KaziApiServiceTypeRepository(
+      serviceLocator.get<KaziConnection>(),
+      serviceLocator.get<LogService>(),
+    ),
   );
 }
 
-Future<void> _initServices() async {
+void _initServices() {
   serviceLocator.registerSingleton<TimeService>(LocalTimeService());
   serviceLocator.registerSingleton<LogService>(LocalLogService());
 
   serviceLocator.registerSingleton<AuthService>(
     KaziApiAuthService(
       connection: serviceLocator.get<KaziConnection>(),
+      client: serviceLocator.get<KaziClient>(),
       localStorage: serviceLocator.get<LocalStorage>(),
       timeService: serviceLocator.get<TimeService>(),
       logService: serviceLocator.get<LogService>(),

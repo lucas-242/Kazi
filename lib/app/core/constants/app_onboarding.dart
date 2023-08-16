@@ -26,7 +26,7 @@ abstract class AppOnboarding {
   static final stepTwelve = GlobalKey();
   static final stepThirteen = GlobalKey();
 
-  static final _defaultServiceType = ServiceType(
+  static final _defaultServiceType = ServiceType.toCreate(
     userId: 'aaaaa',
     name: AppLocalizations.current.clipperCut,
     defaultValue: 30,

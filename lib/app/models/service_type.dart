@@ -7,21 +7,34 @@ part 'service_type.g.dart';
 @JsonSerializable()
 class ServiceType extends Equatable {
   const ServiceType({
-    this.id = '',
-    this.name = '',
-    this.defaultValue,
-    this.discountPercent,
+    required this.id,
+    required this.name,
     required this.userId,
+    required this.defaultValue,
+    required this.discountPercent,
   });
+
+  const ServiceType.toCreate({
+    this.name = '',
+    this.defaultValue = 0,
+    this.discountPercent = 0,
+    required this.userId,
+  }) : id = '';
 
   factory ServiceType.fromJson(Map<String, dynamic> json) =>
       _$ServiceTypeFromJson(json);
 
+  @JsonKey(fromJson: _idFromJson)
   final String id;
   final String name;
-  final double? defaultValue;
-  final double? discountPercent;
+  @JsonKey(name: 'value')
+  final double defaultValue;
+  @JsonKey(name: 'discountValue')
+  final double discountPercent;
+  @JsonKey(fromJson: _idFromJson)
   final String userId;
+
+  static String _idFromJson(int value) => value.toString();
 
   Map<String, dynamic> toJson() => _$ServiceTypeToJson(this);
 

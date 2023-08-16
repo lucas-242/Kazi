@@ -115,7 +115,7 @@ class HttpKaziConnection implements KaziConnection {
       case 401:
         {
           //TODO: Refresh token
-          throw ClientError(response.message ?? '');
+          throw ClientError(response.message ?? 'Token is Expired');
         }
       case 400:
         {

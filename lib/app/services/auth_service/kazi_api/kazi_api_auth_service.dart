@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:kazi/app/core/connection/kazi_client.dart';
 import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/environment/environment.dart';
@@ -20,10 +21,12 @@ final class KaziApiAuthService extends AuthService {
     required LocalStorage localStorage,
     required TimeService timeService,
     required LogService logService,
+    required KaziClient client,
   })  : _connection = connection,
         _localStorage = localStorage,
         _timeService = timeService,
-        _logService = logService {
+        _logService = logService,
+        _client = client {
     _tryAutoSignIn();
   }
 
@@ -32,6 +35,7 @@ final class KaziApiAuthService extends AuthService {
   final LocalStorage _localStorage;
   final TimeService _timeService;
   final LogService _logService;
+  final KaziClient _client;
 
   UserData? _userData;
 
@@ -42,7 +46,7 @@ final class KaziApiAuthService extends AuthService {
 
   Future<void> _tryAutoSignIn() async {
     try {
-      final userData = _getUserData();
+      final userData = _getUserDataFromStorage();
 
       if (userData == null) {
         _userController.sink.add(null);
@@ -71,7 +75,7 @@ final class KaziApiAuthService extends AuthService {
   bool get _isTokenExpired =>
       _userData!.authExpiresDate.isBefore(_timeService.now);
 
-  UserData? _getUserData() {
+  UserData? _getUserDataFromStorage() {
     final stringfyUser = _localStorage.get<String>(AppKeys.userData);
     if (stringfyUser == null) {
       return null;
@@ -131,6 +135,7 @@ final class KaziApiAuthService extends AuthService {
     _userData = null;
     user = null;
     _userController.sink.add(user);
+    _client.reset();
     await _localStorage.remove(AppKeys.userData);
   }
 

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/connection/http/http_kazi_client.dart';
 import 'package:kazi/app/core/connection/http/http_kazi_connection.dart';
+import 'package:kazi/app/core/connection/kazi_client.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
@@ -32,6 +34,7 @@ final _authResponseMock = UserData(
 
 @GenerateMocks([HttpKaziConnection])
 void main() {
+  late KaziClient client;
   late MockHttpKaziConnection connection;
   late LocalStorage localStorage;
   late TimeService timeService;
@@ -46,15 +49,16 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     final sharedPreferences = await SharedPreferences.getInstance();
     localStorage = SharedPreferencesLocalStorage(sharedPreferences);
+    client = HttpKaziClient(localStorage);
     connection = MockHttpKaziConnection();
     timeService = LocalTimeService();
     logService = LocalLogService();
     authService = KaziApiAuthService(
-      connection: connection,
-      localStorage: localStorage,
-      timeService: timeService,
-      logService: logService,
-    );
+        connection: connection,
+        localStorage: localStorage,
+        timeService: timeService,
+        logService: logService,
+        client: client);
   });
 
   group('Sign in with password', () {
