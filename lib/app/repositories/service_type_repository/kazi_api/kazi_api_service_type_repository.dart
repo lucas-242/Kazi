@@ -71,7 +71,10 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
   @override
   Future<void> update(ServiceType serviceType) async {
     try {
-      final response = await _connection.put(url, body: serviceType.toJson());
+      final response = await _connection.put(
+        '$url/${serviceType.id}',
+        body: serviceType.toJson(withId: true),
+      );
       _connection.handleResponse(response);
     } catch (error, trace) {
       _logService.error(

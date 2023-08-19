@@ -48,13 +48,13 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
               cubit.state.serviceType.id.isEmpty
                   ? BackAndPill(
                       text: AppLocalizations.current.newServiceType,
-                      onTapBack: () => onTapBack(),
+                      onTapBack: onTapBack,
                     )
                   : BackAndPill(
                       text: AppLocalizations.current.editServiceType,
                       pillText: AppLocalizations.current.delete,
                       backgroundColor: context.colorsScheme.error,
-                      onTapBack: () => onTapBack(),
+                      onTapBack: onTapBack,
                       onTapPill: () =>
                           cubit.deleteServiceType(cubit.state.serviceType),
                     ),

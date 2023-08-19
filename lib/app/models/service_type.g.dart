@@ -13,12 +13,3 @@ ServiceType _$ServiceTypeFromJson(Map<String, dynamic> json) => ServiceType(
       defaultValue: (json['value'] as num).toDouble(),
       discountPercent: (json['discountValue'] as num).toDouble(),
     );
-
-Map<String, dynamic> _$ServiceTypeToJson(ServiceType instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'value': instance.defaultValue,
-      'discountValue': instance.discountPercent,
-      'userId': instance.userId,
-    };

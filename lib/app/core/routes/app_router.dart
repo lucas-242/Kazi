@@ -65,9 +65,7 @@ final _router = GoRouter(
       builder: (context, state, child) => AppShell(
         params: state.extra != null
             ? (state.extra as RouteParams)
-            : RouteParams(
-                lastPage: AppPage.home,
-              ),
+            : const RouteParams(lastPage: AppPage.home),
         child: child,
       ),
       routes: [

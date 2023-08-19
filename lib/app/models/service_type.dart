@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'service_type.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class ServiceType extends Equatable {
   const ServiceType({
     required this.id,
@@ -36,7 +36,20 @@ class ServiceType extends Equatable {
 
   static String _idFromJson(int value) => value.toString();
 
-  Map<String, dynamic> toJson() => _$ServiceTypeToJson(this);
+  Map<String, dynamic> toJson({bool withId = false}) {
+    final json = {
+      'name': name,
+      'value': defaultValue,
+      'discountValue': discountPercent,
+      'userId': int.parse(userId),
+    };
+
+    if (withId) {
+      json.addEntries([MapEntry('id', int.parse(id))]);
+    }
+
+    return json;
+  }
 
   ServiceType copyWith({
     String? id,
