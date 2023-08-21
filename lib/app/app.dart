@@ -33,7 +33,6 @@ class _AppState extends State<App> {
         BlocProvider<HomeCubit>(
           create: (_) => HomeCubit(
             serviceLocator.get<ServicesRepository>(),
-            serviceLocator.get<ServiceTypeRepository>(),
             serviceLocator.get<ServicesService>(),
           ),
         ),
@@ -47,7 +46,6 @@ class _AppState extends State<App> {
         BlocProvider<ServiceLandingCubit>(
           create: (_) => ServiceLandingCubit(
             serviceLocator.get<ServicesRepository>(),
-            serviceLocator.get<ServiceTypeRepository>(),
             serviceLocator.get<ServicesService>(),
           ),
         ),

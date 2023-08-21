@@ -1,15 +1,9 @@
 import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_group_by_date.dart';
-import 'package:kazi/app/models/service_type.dart';
 
 abstract class ServicesService {
   DateTime get now;
-
-  List<Service> addServiceTypeToServices(
-    List<Service> services,
-    List<ServiceType> serviceTypes,
-  );
 
   List<Service> orderServices(List<Service> services, OrderBy orderBy);
 

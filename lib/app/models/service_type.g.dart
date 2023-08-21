@@ -7,9 +7,9 @@ part of 'service_type.dart';
 // **************************************************************************
 
 ServiceType _$ServiceTypeFromJson(Map<String, dynamic> json) => ServiceType(
-      id: ServiceType._idFromJson(json['id'] as int),
+      id: json['id'] as int,
       name: json['name'] as String,
-      userId: ServiceType._idFromJson(json['userId'] as int),
+      userId: json['userId'] as int,
       defaultValue: (json['value'] as num).toDouble(),
       discountPercent: (json['discountValue'] as num).toDouble(),
     );

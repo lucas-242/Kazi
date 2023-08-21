@@ -11,7 +11,7 @@ class ServiceTypesState extends BaseState with EquatableMixin {
         serviceTypes = serviceTypeList ?? [];
   List<ServiceType> serviceTypes;
   ServiceType serviceType;
-  String userId;
+  int userId;
 
   @override
   ServiceTypesState copyWith({

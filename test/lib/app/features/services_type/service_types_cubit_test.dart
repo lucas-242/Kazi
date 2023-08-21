@@ -192,7 +192,7 @@ void main() {
     late List<ServiceType> serviceTypeList;
 
     setUp(() {
-      serviceTypeToDelete = serviceTypeMock.copyWith(id: '123456');
+      serviceTypeToDelete = serviceTypeMock.copyWith(id: 1);
       serviceTypeList = serviceTypesMock..add(serviceTypeToDelete);
     });
 

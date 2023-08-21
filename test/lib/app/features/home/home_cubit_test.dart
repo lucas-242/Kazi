@@ -21,7 +21,6 @@ import 'home_cubit_test.mocks.dart';
 
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
 void main() {
-  late MockServiceTypeRepository serviceTypeRepository;
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
   late TimeService timeService;
@@ -31,7 +30,6 @@ void main() {
   TestHelper.loadAppLocalizations();
 
   setUp(() {
-    serviceTypeRepository = MockServiceTypeRepository();
     servicesRepository = MockServicesRepository();
     authService = MockAuthService();
     timeService = LocalTimeService();
@@ -39,15 +37,11 @@ void main() {
 
     when(authService.user).thenReturn(userMock);
 
-    when(serviceTypeRepository.get())
-        .thenAnswer((_) async => serviceTypesWithIdsMock);
-
     when(servicesRepository.get(any, any))
-        .thenAnswer((_) async => servicesWithTypeIdMock);
+        .thenAnswer((_) async => servicesWithTypesMock);
 
     cubit = HomeCubit(
       servicesRepository,
-      serviceTypeRepository,
       servicesService,
     );
   });
@@ -103,10 +97,6 @@ void main() {
       'emits HomeState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
       build: () => cubit,
       seed: () => HomeState(status: BaseStateStatus.noData),
-      setUp: () {
-        when(serviceTypeRepository.get()).thenThrow(
-            ExternalError(AppLocalizations.current.errorToGetServiceTypes));
-      },
       act: (cubit) => cubit.onInit(),
       expect: () => [
         HomeState(
@@ -119,9 +109,6 @@ void main() {
     blocTest(
       'emits HomeState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
-      setUp: () {
-        when(serviceTypeRepository.get()).thenThrow(Exception());
-      },
       act: (cubit) => cubit.onInit(),
       expect: () => [
         HomeState(

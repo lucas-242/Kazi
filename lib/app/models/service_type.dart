@@ -19,44 +19,40 @@ class ServiceType extends Equatable {
     this.defaultValue = 0,
     this.discountPercent = 0,
     required this.userId,
-  }) : id = '';
+  }) : id = 0;
 
   factory ServiceType.fromJson(Map<String, dynamic> json) =>
       _$ServiceTypeFromJson(json);
 
-  @JsonKey(fromJson: _idFromJson)
-  final String id;
+  final int id;
   final String name;
   @JsonKey(name: 'value')
   final double defaultValue;
   @JsonKey(name: 'discountValue')
   final double discountPercent;
-  @JsonKey(fromJson: _idFromJson)
-  final String userId;
-
-  static String _idFromJson(int value) => value.toString();
+  final int userId;
 
   Map<String, dynamic> toJson({bool withId = false}) {
     final json = {
       'name': name,
       'value': defaultValue,
       'discountValue': discountPercent,
-      'userId': int.parse(userId),
+      'userId': userId,
     };
 
     if (withId) {
-      json.addEntries([MapEntry('id', int.parse(id))]);
+      json.addEntries([MapEntry('id', id)]);
     }
 
     return json;
   }
 
   ServiceType copyWith({
-    String? id,
+    int? id,
     String? name,
     double? defaultValue,
     double? discountPercent,
-    String? userId,
+    int? userId,
   }) {
     return ServiceType(
       id: id ?? this.id,

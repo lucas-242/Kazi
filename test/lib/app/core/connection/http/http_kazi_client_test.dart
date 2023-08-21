@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kazi/app/core/connection/http/http_kazi_client.dart';
 import 'package:kazi/app/core/connection/kazi_client.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
+import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -11,15 +15,24 @@ import 'http_kazi_client_test.mocks.dart';
 void main() {
   late KaziClient client;
   late MockLocalStorage localStorage;
-  const token = 'abcd123';
+  const token = 'abc123456789';
+  final user = jsonEncode(UserData(
+          id: 1,
+          name: 'Test',
+          email: 'test@test.com',
+          userType: UserType.selfEmployed,
+          authExpires: DateTime.now(),
+          authToken: token,
+          refreshToken: 'abc12345')
+      .toJson());
 
-  setUpAll(() async {
+  setUp(() {
     localStorage = MockLocalStorage();
     client = HttpKaziClient(localStorage);
   });
 
   test(('Should return userAccesToken'), () {
-    when(localStorage.get<String>(any)).thenAnswer((_) => token);
+    when(localStorage.get<String>(any)).thenAnswer((_) => user);
 
     expect(client.userAccessToken, isNotNull);
     expect(client.userAccessToken, token);

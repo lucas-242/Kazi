@@ -45,7 +45,10 @@ void _initNetwork() {
 
 void _initRepositories() {
   serviceLocator.registerFactory<ServicesRepository>(
-    () => KaziApiServicesRepository(serviceLocator.get<KaziConnection>()),
+    () => KaziApiServicesRepository(
+      serviceLocator.get<KaziConnection>(),
+      serviceLocator.get<LogService>(),
+    ),
   );
 
   serviceLocator.registerFactory<ServiceTypeRepository>(

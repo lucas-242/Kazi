@@ -68,13 +68,13 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
       state.copyWith(
         status: BaseStateStatus.success,
         quantity: 1,
-        service: Service(userId: _authService.user!.uid),
+        service: Service.toCreate(employeeId: _authService.user!.uid),
       ),
     );
   }
 
   void _checkServiceValidity() {
-    if (state.service.typeId.isEmpty) {
+    if (state.service.serviceTypeId == 0) {
       throw ClientError(
         AppLocalizations.current
             .requiredProperty(AppLocalizations.current.serviceType),
@@ -110,7 +110,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
     emit(
       state.copyWith(
         service: state.service.copyWith(
-          typeId: dropdownItem.value,
+          serviceTypeId: dropdownItem.value,
           value: defaultValue,
           discountPercent: discountValue,
         ),
@@ -118,13 +118,13 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
     );
   }
 
-  double? _getDefaultValueToService(String serviceTypeId) {
+  double? _getDefaultValueToService(int serviceTypeId) {
     final serviceType =
         state.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
     return serviceType.defaultValue;
   }
 
-  double? _getDefaultDiscountToService(String serviceTypeId) {
+  double? _getDefaultDiscountToService(int serviceTypeId) {
     final serviceType =
         state.serviceTypes.firstWhere((st) => st.id == serviceTypeId);
     return serviceType.discountPercent;
@@ -145,6 +145,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
   }
 
   void onChangeServiceDate(DateTime? value) {
-    emit(state.copyWith(service: state.service.copyWith(date: value)));
+    emit(state.copyWith(
+        service: state.service.copyWith(scheduledToStartAt: value)));
   }
 }

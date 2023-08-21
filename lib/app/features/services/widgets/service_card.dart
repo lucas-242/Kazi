@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
-
-import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/number_format_helper.dart';
+import 'package:kazi/app/models/service.dart';
 
 class ServiceCard extends StatelessWidget {
   const ServiceCard({
@@ -21,9 +20,9 @@ class ServiceCard extends StatelessWidget {
       onTap: onTap,
       child: ListTile(
         contentPadding: EdgeInsets.zero,
-        title: Text('${service.type?.name}', style: context.titleSmall),
+        title: Text('${service.serviceType?.name}', style: context.titleSmall),
         subtitle: Text(
-          DateFormat.yMd().format(service.date).normalizeDate(),
+          DateFormat.yMd().format(service.scheduledToStartAt).normalizeDate(),
           style: context.labelSmall,
         ),
         trailing: Row(

@@ -19,7 +19,7 @@ class ServiceFormPage extends StatefulWidget {
 }
 
 class _ServiceFormPageState extends State<ServiceFormPage> {
-  bool isCreating(Service? service) => service?.id.isEmpty ?? true;
+  bool isCreating(Service? service) => service?.id == 0 ? true : false;
 
   @override
   void initState() {

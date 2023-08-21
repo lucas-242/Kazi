@@ -22,9 +22,7 @@ import '../../../../../utils/test_matchers.dart';
 import 'kazi_api_auth_service_test.mocks.dart';
 
 final _authResponseMock = UserData(
-    authExpires:
-        DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
-    authExpiresDate: DateTime.now().add(const Duration(days: 1)),
+    authExpires: DateTime.now().add(const Duration(days: 1)),
     authToken: 'abc123',
     refreshToken: 'abc123Refresh',
     email: 'test@test.com',

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_group_by_date.dart';
@@ -6,7 +7,6 @@ import 'package:kazi/app/services/services_service/local/local_services_service.
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 
 import '../../../../mocks/mocks.dart';
 
@@ -110,13 +110,13 @@ void main() {
 
     setUpAll(() {
       services = [
-        serviceMock.copyWith(date: DateTime(2022, 12, 7)),
-        serviceMock.copyWith(date: DateTime(2022, 12, 13)),
-        serviceMock.copyWith(date: DateTime(2023)),
-        serviceMock.copyWith(date: DateTime(2022, 12, 31)),
-        serviceMock.copyWith(date: DateTime(2022, 12, 7)),
-        serviceMock.copyWith(date: DateTime(2023)),
-        serviceMock.copyWith(date: DateTime(2022, 12, 13)),
+        serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 7)),
+        serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 13)),
+        serviceMock.copyWith(scheduledToStartAt: DateTime(2023)),
+        serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 31)),
+        serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 7)),
+        serviceMock.copyWith(scheduledToStartAt: DateTime(2023)),
+        serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 13)),
       ];
 
       expected = [
@@ -124,28 +124,28 @@ void main() {
           isExpanded: true,
           date: DateTime(2023),
           services: [
-            serviceMock.copyWith(date: DateTime(2023)),
-            serviceMock.copyWith(date: DateTime(2023)),
+            serviceMock.copyWith(scheduledToStartAt: DateTime(2023)),
+            serviceMock.copyWith(scheduledToStartAt: DateTime(2023)),
           ],
         ),
         ServicesGroupByDate(
           date: DateTime(2022, 12, 31),
           services: [
-            serviceMock.copyWith(date: DateTime(2022, 12, 31)),
+            serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 31)),
           ],
         ),
         ServicesGroupByDate(
           date: DateTime(2022, 12, 13),
           services: [
-            serviceMock.copyWith(date: DateTime(2022, 12, 13)),
-            serviceMock.copyWith(date: DateTime(2022, 12, 13)),
+            serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 13)),
+            serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 13)),
           ],
         ),
         ServicesGroupByDate(
           date: DateTime(2022, 12, 7),
           services: [
-            serviceMock.copyWith(date: DateTime(2022, 12, 7)),
-            serviceMock.copyWith(date: DateTime(2022, 12, 7)),
+            serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 7)),
+            serviceMock.copyWith(scheduledToStartAt: DateTime(2022, 12, 7)),
           ],
         ),
       ];

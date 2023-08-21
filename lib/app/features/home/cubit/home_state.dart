@@ -1,7 +1,6 @@
 part of 'home_cubit.dart';
 
 class HomeState extends BaseState with EquatableMixin {
-
   HomeState({
     required super.status,
     List<Service>? services,
@@ -21,7 +20,7 @@ class HomeState extends BaseState with EquatableMixin {
   }
 
   double get totalDiscounted {
-    return services.fold<double>(0, (a, b) => a + b.valueDiscounted);
+    return services.fold<double>(0, (a, b) => a + b.discountValue);
   }
 
   @override

@@ -10,7 +10,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser._(
       name: json['name'] as String,
       email: json['email'] as String,
       photoUrl: json['photoUrl'] as String?,
-      uid: json['uid'] as String,
+      uid: json['uid'] as int,
       password: json['password'] as String,
       userType: $enumDecodeNullable(_$UserTypeEnumMap, json['userType']) ??
           UserType.selfEmployed,

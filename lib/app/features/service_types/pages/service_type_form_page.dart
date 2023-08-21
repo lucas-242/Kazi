@@ -22,7 +22,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
     final cubit = context.read<ServiceTypesCubit>();
 
     void onConfirm() {
-      if (cubit.state.serviceType.id.isEmpty) {
+      if (cubit.state.serviceType.id == 0) {
         cubit.addServiceType();
       } else {
         cubit.updateServiceType();
@@ -45,7 +45,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              cubit.state.serviceType.id.isEmpty
+              cubit.state.serviceType.id == 0
                   ? BackAndPill(
                       text: AppLocalizations.current.newServiceType,
                       onTapBack: onTapBack,

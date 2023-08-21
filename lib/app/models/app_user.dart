@@ -22,7 +22,7 @@ class AppUser {
     this.name = '',
     this.email = '',
     this.photoUrl,
-    this.uid = '',
+    this.uid = 0,
     this.password = '',
     this.userType = UserType.selfEmployed,
   });
@@ -38,7 +38,7 @@ class AppUser {
   final String name;
   final String email;
   final String? photoUrl;
-  final String uid;
+  final int uid;
   final String password;
   final UserType userType;
 
@@ -50,7 +50,7 @@ class AppUser {
     String? name,
     String? email,
     String? photoUrl,
-    String? uid,
+    int? uid,
     String? password,
     UserType? userType,
   }) {

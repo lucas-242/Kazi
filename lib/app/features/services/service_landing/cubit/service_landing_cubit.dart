@@ -5,8 +5,6 @@ import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/models/service.dart';
-import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/repositories/services_repository/services_repository.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 
@@ -15,7 +13,6 @@ part 'service_landing_state.dart';
 class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   ServiceLandingCubit(
     this._serviceProvidedRepository,
-    this._serviceTypeRepository,
     this._servicesService,
   ) : super(ServiceLandingState(
           status: BaseStateStatus.loading,
@@ -23,7 +20,6 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
           endDate: _servicesService.now,
         ));
   final ServicesRepository _serviceProvidedRepository;
-  final ServiceTypeRepository _serviceTypeRepository;
   final ServicesService _servicesService;
 
   Future<void> onInit() async {
@@ -52,11 +48,8 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     DateTime? endDate,
   ]) async {
     try {
-      final types = await _getServiceTypes();
-      var services =
-          _servicesService.addServiceTypeToServices(fetchResult, types);
-      services =
-          _servicesService.orderServices(services, state.selectedOrderBy);
+      final services =
+          _servicesService.orderServices(fetchResult, state.selectedOrderBy);
 
       final newStatus = fetchResult.isEmpty
           ? BaseStateStatus.noData
@@ -72,11 +65,6 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     } catch (exception) {
       unexpectedError(exception);
     }
-  }
-
-  Future<List<ServiceType>> _getServiceTypes() async {
-    final result = await _serviceTypeRepository.get();
-    return result;
   }
 
   Future<void> onRefresh() async {

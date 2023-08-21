@@ -16,7 +16,7 @@ class HttpKaziConnection implements KaziConnection {
   Future<ApiResponse> delete(
     String url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) async =>
       _client
           .delete(_getUri(url, parameters), body: jsonEncode(body))
@@ -35,13 +35,13 @@ class HttpKaziConnection implements KaziConnection {
   @override
   Future<ApiResponse> get(
     String url, {
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) async =>
       _client
           .get(_getUri(url, parameters))
           .then((response) => _convertHttpResponse(response));
 
-  Uri _getUri(String url, Map<String, String>? parameters) {
+  Uri _getUri(String url, Map<String, dynamic>? parameters) {
     if (url.isEmpty) {
       throw ClientError('No url informed to the current request',
           trace: 'Throwed by _getUri on KaziConnection');
@@ -54,11 +54,13 @@ class HttpKaziConnection implements KaziConnection {
     return Uri.parse(url + _handleParameters(parameters));
   }
 
-  String _handleParameters(Map<String, String> parameters) {
+  String _handleParameters(Map<String, dynamic> parameters) {
     var url = '?';
 
     for (final param in parameters.entries) {
-      url += '${param.key}=${param.value}&';
+      if (param.value != null) {
+        url += '${param.key}=${param.value.toString()}&';
+      }
     }
 
     //*Removes last &
@@ -71,7 +73,7 @@ class HttpKaziConnection implements KaziConnection {
   Future<ApiResponse> patch(
     String url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) async =>
       _client
           .patch(_getUri(url, parameters), body: jsonEncode(body))
@@ -81,7 +83,7 @@ class HttpKaziConnection implements KaziConnection {
   Future<ApiResponse> post(
     String url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) async =>
       _client
           .post(_getUri(url, parameters), body: jsonEncode(body))
@@ -91,7 +93,7 @@ class HttpKaziConnection implements KaziConnection {
   Future<ApiResponse> put(
     String url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) async =>
       _client
           .put(_getUri(url, parameters), body: jsonEncode(body))

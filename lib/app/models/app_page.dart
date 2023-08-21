@@ -27,7 +27,7 @@ enum AppPage {
     return home;
   }
 
-  static String getRoute(AppPage page, {String id = ''}) {
+  static String getRoute(AppPage page, {int id = 0}) {
     switch (page) {
       case AppPage.home:
         return '${AppRouter.home}/$id';

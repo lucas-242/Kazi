@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/app/core/errors/errors.dart';
 
 class ErrorWithMessage<T extends AppError> extends CustomMatcher {
   ErrorWithMessage(this.message)
@@ -23,7 +23,7 @@ class IsTheSameServiceType extends Matcher {
 
     final isEquals = (checkEqualsId
             ? serviceType.id == compareObject.id
-            : serviceType.id.isNotEmpty) &&
+            : serviceType.id != 0) &&
         serviceType.name == compareObject.name &&
         serviceType.discountPercent == compareObject.discountPercent &&
         serviceType.defaultValue == compareObject.defaultValue &&
@@ -47,15 +47,14 @@ class IsTheSameService extends Matcher {
   bool matches(Object? item, Map matchState) {
     final service = item as Service;
 
-    final isEquals = (checkEqualsId
-            ? service.id == compareObject.id
-            : service.id.isNotEmpty) &&
-        service.description == compareObject.description &&
-        service.discountPercent == compareObject.discountPercent &&
-        service.value == compareObject.value &&
-        service.date == compareObject.date &&
-        service.typeId == compareObject.typeId &&
-        service.userId == compareObject.userId;
+    final isEquals =
+        (checkEqualsId ? service.id == compareObject.id : service.id != 0) &&
+            service.description == compareObject.description &&
+            service.discountValue == compareObject.discountValue &&
+            service.value == compareObject.value &&
+            service.scheduledToStartAt == compareObject.scheduledToStartAt &&
+            service.serviceTypeId == compareObject.serviceTypeId &&
+            service.employeeId == compareObject.employeeId;
 
     return isEquals;
   }

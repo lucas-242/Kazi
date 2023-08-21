@@ -29,7 +29,7 @@ extension RoutesExtensions on BuildContext {
   }
 
   void _navigate(AppPage page, RouteParams params) =>
-      go(AppPage.getRoute(page, id: params.service?.id ?? ''), extra: params);
+      go(AppPage.getRoute(page, id: params.service?.id ?? 0), extra: params);
 
   AppPage get currentPage => read<AppCubit>().state;
 

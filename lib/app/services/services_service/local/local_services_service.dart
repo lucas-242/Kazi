@@ -1,10 +1,9 @@
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_group_by_date.dart';
-import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 
 class LocalServicesService extends ServicesService {
   LocalServicesService(this._timeService);
@@ -12,22 +11,6 @@ class LocalServicesService extends ServicesService {
   final TimeService _timeService;
   @override
   DateTime get now => _timeService.now;
-
-  @override
-  List<Service> addServiceTypeToServices(
-      List<Service> services, List<ServiceType> serviceTypes) {
-    final result = <Service>[];
-    for (var service in services) {
-      result.add(_fillServiceWithServiceType(service, serviceTypes));
-    }
-    return result;
-  }
-
-  Service _fillServiceWithServiceType(
-      Service service, List<ServiceType> serviceTypes) {
-    return service.copyWith(
-        type: serviceTypes.firstWhere((st) => st.id == service.typeId));
-  }
 
   @override
   List<Service> orderServices(List<Service> services, OrderBy orderBy) {
@@ -88,9 +71,11 @@ class LocalServicesService extends ServicesService {
   }
 
   int _compareAlphabetical(Service a, Service b) =>
-      a.type!.name.compareTo(b.type!.name);
-  int _compareDateAsc(Service a, Service b) => a.date.compareTo(b.date);
-  int _compareDateDesc(Service a, Service b) => b.date.compareTo(a.date);
+      a.serviceType!.name.compareTo(b.serviceType!.name);
+  int _compareDateAsc(Service a, Service b) =>
+      a.scheduledToStartAt.compareTo(b.scheduledToStartAt);
+  int _compareDateDesc(Service a, Service b) =>
+      b.scheduledToStartAt.compareTo(a.scheduledToStartAt);
   int _compareValueAsc(Service a, Service b) => a.value.compareTo(b.value);
   int _compareValueDesc(Service a, Service b) => b.value.compareTo(a.value);
 
@@ -103,7 +88,8 @@ class LocalServicesService extends ServicesService {
     final dates = _getServicesDates(services);
 
     for (var date in dates) {
-      final servicesOnDate = services.where((s) => s.date == date).toList();
+      final servicesOnDate =
+          services.where((s) => s.scheduledToStartAt == date).toList();
       if (servicesOnDate.isNotEmpty) {
         result.add(ServicesGroupByDate(
           date: date,
@@ -119,7 +105,7 @@ class LocalServicesService extends ServicesService {
   }
 
   List<DateTime> _getServicesDates(List<Service> services) {
-    final dates = services.map((s) => s.date).toSet().toList();
+    final dates = services.map((s) => s.scheduledToStartAt).toSet().toList();
     final yesterday = now.copyWith(day: now.day - 1);
 
     //* Remove today and yesterday from middle of the list to add them on top

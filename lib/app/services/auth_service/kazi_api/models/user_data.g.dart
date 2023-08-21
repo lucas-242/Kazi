@@ -11,10 +11,9 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       name: json['name'] as String,
       email: json['email'] as String,
       userType: $enumDecode(_$UserTypeEnumMap, json['userType']),
-      authExpires: json['expires'] as int,
+      authExpires: DateTime.parse(json['expires'] as String),
       authToken: json['authenticationToken'] as String,
       refreshToken: json['refreshToken'] as String,
-      authExpiresDate: DateTime.parse(json['authExpiresDate'] as String),
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
@@ -23,7 +22,7 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
-      'expires': instance.authExpires,
+      'expires': instance.authExpires.toIso8601String(),
       'userType': _$UserTypeEnumMap[instance.userType]!,
     };
 

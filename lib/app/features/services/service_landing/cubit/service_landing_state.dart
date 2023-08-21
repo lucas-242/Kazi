@@ -1,7 +1,6 @@
 part of 'service_landing_cubit.dart';
 
 class ServiceLandingState extends BaseState with EquatableMixin {
-
   ServiceLandingState({
     required super.status,
     List<Service>? services,
@@ -25,7 +24,7 @@ class ServiceLandingState extends BaseState with EquatableMixin {
       services.fold<double>(0, (a, b) => a + b.valueWithDiscount);
 
   double get totalDiscounted =>
-      services.fold<double>(0, (a, b) => a + b.valueDiscounted);
+      services.fold<double>(0, (a, b) => a + b.discountValue);
 
   @override
   ServiceLandingState copyWith({

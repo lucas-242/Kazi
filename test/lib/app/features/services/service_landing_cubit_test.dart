@@ -23,7 +23,6 @@ import 'service_landing_cubit_test.mocks.dart';
 
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
 void main() {
-  late MockServiceTypeRepository serviceTypeRepository;
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;
   late LocalTimeService timeService;
@@ -33,22 +32,17 @@ void main() {
   TestHelper.loadAppLocalizations();
 
   setUp(() {
-    serviceTypeRepository = MockServiceTypeRepository();
     servicesRepository = MockServicesRepository();
-    timeService = LocalTimeService(serviceMock.date);
+    timeService = LocalTimeService(serviceMock.scheduledToStartAt);
     servicesService = LocalServicesService(timeService);
     authService = MockAuthService();
 
     when(authService.user).thenReturn(userMock);
 
-    when(serviceTypeRepository.get())
-        .thenAnswer((_) async => serviceTypesWithIdsMock);
-
     when(servicesRepository.get(any, any))
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
-    cubit = ServiceLandingCubit(
-        servicesRepository, serviceTypeRepository, servicesService);
+    cubit = ServiceLandingCubit(servicesRepository, servicesService);
   });
 
   group('Call onInit function', () {
@@ -119,10 +113,6 @@ void main() {
         startDate: servicesService.now,
         endDate: servicesService.now,
       ),
-      setUp: () {
-        when(serviceTypeRepository.get()).thenThrow(
-            ExternalError(AppLocalizations.current.errorToGetServiceTypes));
-      },
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceLandingState(
@@ -137,9 +127,6 @@ void main() {
     blocTest(
       'emits ServiceLandingState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
-      setUp: () {
-        when(serviceTypeRepository.get()).thenThrow(Exception());
-      },
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceLandingState(
@@ -158,7 +145,7 @@ void main() {
     late List<Service> resultList;
 
     setUp(() {
-      serviceToDelete = serviceMock.copyWith(id: '123456', typeId: '1');
+      serviceToDelete = serviceMock.copyWith(id: 1, serviceTypeId: 1);
       serviceList = List.from(servicesWithTypeIdMock)..add(serviceToDelete);
       resultList = List.from(servicesWithTypesMock);
       resultList =
@@ -260,7 +247,6 @@ void main() {
       'emits ServiceLandingState with new services with different selectedFastSearch and didFiltersChange when call onApplyFilters with FastSearch',
       build: () => ServiceLandingCubit(
         servicesRepository,
-        serviceTypeRepository,
         LocalServicesService(localTimeService),
       ),
       setUp: () {

@@ -30,7 +30,7 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
   }
 
   @override
-  Future<void> delete(String id) async {
+  Future<void> delete(int id) async {
     try {
       final response = await _connection.delete('$url/$id');
       _connection.handleResponse(response);

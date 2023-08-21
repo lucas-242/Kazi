@@ -127,7 +127,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
   void changeServiceTypeDiscountPercent(double value) => emit(state.copyWith(
       serviceType: state.serviceType.copyWith(discountPercent: value)));
 
-  void _checkServiceValidity([String? idToExclude]) {
+  void _checkServiceValidity([int? idToExclude]) {
     if (state.serviceType.name.isEmpty) {
       throw ClientError(
           AppLocalizations.current

@@ -27,20 +27,20 @@ abstract class AppOnboarding {
   static final stepThirteen = GlobalKey();
 
   static final _defaultServiceType = ServiceType.toCreate(
-    userId: 'aaaaa',
+    userId: 1,
     name: AppLocalizations.current.clipperCut,
     defaultValue: 30,
     discountPercent: 5,
   );
-  static final _defaultService = Service(
-    userId: 'aaaaa',
+  static final _defaultService = Service.toCreate(
+    employeeId: 1,
     value: 30,
-    discountPercent: 5,
-    type: _defaultServiceType,
+    discountValue: 5,
+    serviceType: _defaultServiceType,
   );
 
   static final _defaultService2 = _defaultService.copyWith(
-    type: _defaultServiceType.copyWith(
+    serviceType: _defaultServiceType.copyWith(
       defaultValue: 20,
       name: AppLocalizations.current.clipperCut,
     ),

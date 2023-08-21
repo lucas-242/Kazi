@@ -43,7 +43,7 @@ class MockHttpKaziConnection extends _i1.Mock
   _i4.Future<_i2.ApiResponse> delete(
     String? url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -69,7 +69,7 @@ class MockHttpKaziConnection extends _i1.Mock
   @override
   _i4.Future<_i2.ApiResponse> get(
     String? url, {
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -90,7 +90,7 @@ class MockHttpKaziConnection extends _i1.Mock
   _i4.Future<_i2.ApiResponse> patch(
     String? url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -117,7 +117,7 @@ class MockHttpKaziConnection extends _i1.Mock
   _i4.Future<_i2.ApiResponse> post(
     String? url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -144,7 +144,7 @@ class MockHttpKaziConnection extends _i1.Mock
   _i4.Future<_i2.ApiResponse> put(
     String? url, {
     Object? body,
-    Map<String, String>? parameters,
+    Map<String, dynamic>? parameters,
   }) =>
       (super.noSuchMethod(
         Invocation.method(

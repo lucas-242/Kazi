@@ -56,7 +56,7 @@ final class KaziApiAuthService extends AuthService {
       _userData = userData;
       user = AppUser.fromSignIn(
         email: _userData!.email,
-        uid: _userData!.id.toString(),
+        uid: _userData!.id,
         name: _userData!.name,
         userType: _userData!.userType,
       );
@@ -73,7 +73,7 @@ final class KaziApiAuthService extends AuthService {
   }
 
   bool get _isTokenExpired =>
-      _userData!.authExpiresDate.isBefore(_timeService.now);
+      _userData!.authExpires.isBefore(_timeService.nowWithTime);
 
   UserData? _getUserDataFromStorage() {
     final stringfyUser = _localStorage.get<String>(AppKeys.userData);
@@ -106,8 +106,6 @@ final class KaziApiAuthService extends AuthService {
 
   void _setUserData(UserData data) {
     _userData = UserData(
-      authExpiresDate:
-          _timeService.now.add(Duration(milliseconds: data.authExpires)),
       authExpires: data.authExpires,
       authToken: data.authToken,
       refreshToken: data.refreshToken,
@@ -121,7 +119,7 @@ final class KaziApiAuthService extends AuthService {
   void _setUser(UserData data) {
     user = AppUser.fromSignIn(
       email: data.email,
-      uid: data.id.toString(),
+      uid: data.id,
       name: data.name,
       userType: data.userType,
     );

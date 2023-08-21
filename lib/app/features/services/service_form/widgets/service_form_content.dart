@@ -47,7 +47,9 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
       text: cubit.state.quantity.toString(),
     );
     _dateController = MaskedTextController(
-      text: DateFormat.yMd().format(cubit.state.service.date).normalizeDate(),
+      text: DateFormat.yMd()
+          .format(cubit.state.service.scheduledToStartAt)
+          .normalizeDate(),
       mask: '00/00/0000',
     );
     _valueController = MoneyMaskedTextController(
@@ -57,7 +59,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
       thousandSeparator: NumberFormatHelper.getThousandSeparator(),
     );
     _discountController = MoneyMaskedTextController(
-      initialValue: cubit.state.service.discountPercent,
+      initialValue: cubit.state.service.discountValue,
       decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
       thousandSeparator: NumberFormatHelper.getThousandSeparator(),
       rightSymbol: '%',
@@ -71,7 +73,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
     if (data != null) {
       cubit.onChangeServiceType(data);
       _valueController.updateValue(cubit.state.service.value);
-      _discountController.updateValue(cubit.state.service.discountPercent);
+      _discountController.updateValue(cubit.state.service.discountValue);
     }
   }
 

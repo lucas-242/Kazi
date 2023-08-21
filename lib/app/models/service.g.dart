@@ -6,27 +6,24 @@ part of 'service.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Service _$ServiceFromJson(Map<String, dynamic> json) => Service(
-      id: json['id'] as String? ?? '',
+Service _$ServiceFromJson(Map<String, dynamic> json) => Service._(
+      id: json['id'] as int,
       description: json['description'] as String?,
-      value: (json['value'] as num?)?.toDouble() ?? 0,
-      discountPercent: (json['discountPercent'] as num?)?.toDouble() ?? 0,
-      type: json['type'] == null
+      value: (json['value'] as num).toDouble(),
+      discountValue: (json['discountValue'] as num).toDouble(),
+      serviceType: json['serviceType'] == null
           ? null
-          : ServiceType.fromJson(json['type'] as Map<String, dynamic>),
-      typeId: json['typeId'] as String? ?? '',
-      date:
-          json['date'] == null ? null : DateTime.parse(json['date'] as String),
-      userId: json['userId'] as String,
+          : ServiceType.fromJson(json['serviceType'] as Map<String, dynamic>),
+      serviceTypeId: json['serviceTypeId'] as int,
+      scheduledToStartAt: DateTime.parse(json['scheduledToStartAt'] as String),
+      scheduledToEndAt: DateTime.parse(json['scheduledToEndAt'] as String),
+      startedAt: json['startedAt'] == null
+          ? null
+          : DateTime.parse(json['startedAt'] as String),
+      endedAt: json['endedAt'] == null
+          ? null
+          : DateTime.parse(json['endedAt'] as String),
+      employeeId: json['employeeId'] as int,
+      scheduledBy: json['scheduledBy'] as int,
+      customerId: json['customerId'] as int?,
     );
-
-Map<String, dynamic> _$ServiceToJson(Service instance) => <String, dynamic>{
-      'id': instance.id,
-      'description': instance.description,
-      'value': instance.value,
-      'discountPercent': instance.discountPercent,
-      'type': instance.type,
-      'typeId': instance.typeId,
-      'date': instance.date.toIso8601String(),
-      'userId': instance.userId,
-    };

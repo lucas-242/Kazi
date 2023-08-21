@@ -231,7 +231,7 @@ void main() {
     const newValue = 99.0;
     const newDescription = 'new description';
     final newDateTime = DateTime.now();
-    final newServiceType = serviceTypeMock.copyWith(id: 'abc');
+    final newServiceType = serviceTypeMock.copyWith(id: 1);
     final newDropdownItem =
         DropdownItem(value: newServiceType.id, label: newServiceType.name);
 
@@ -246,7 +246,9 @@ void main() {
       expect: () => [
         ServiceFormState(
           userId: authService.user!.uid,
-          service: Service(userId: authService.user!.uid, date: newDateTime),
+          service: Service.toCreate(
+              employeeId: authService.user!.uid,
+              scheduledToStartAt: newDateTime),
           status: BaseStateStatus.noData,
         )
       ],
@@ -320,7 +322,7 @@ void main() {
         ServiceFormState(
           userId: authService.user!.uid,
           serviceTypes: serviceTypesMock..add(newServiceType),
-          service: serviceMock.copyWith(typeId: newDropdownItem.value),
+          service: serviceMock.copyWith(serviceTypeId: newDropdownItem.value),
           status: BaseStateStatus.noData,
         )
       ],

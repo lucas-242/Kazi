@@ -1,7 +1,6 @@
 import 'package:kazi/app/services/time_service/time_service.dart';
 
 class LocalTimeService implements TimeService {
-
   LocalTimeService([DateTime? currentDate])
       : _currentDate = currentDate ?? DateTime.now();
   final DateTime _currentDate;
@@ -9,6 +8,9 @@ class LocalTimeService implements TimeService {
   @override
   DateTime get now =>
       DateTime(_currentDate.year, _currentDate.month, _currentDate.day);
+
+  @override
+  DateTime get nowWithTime => _currentDate;
 
   @override
   bool isRangeInLastMonth(DateTime start, DateTime end) =>
