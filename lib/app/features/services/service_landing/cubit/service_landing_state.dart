@@ -24,7 +24,7 @@ class ServiceLandingState extends BaseState with EquatableMixin {
       services.fold<double>(0, (a, b) => a + b.valueWithDiscount);
 
   double get totalDiscounted =>
-      services.fold<double>(0, (a, b) => a + b.discountValue);
+      services.fold<double>(0, (a, b) => a + b.valueDiscounted);
 
   @override
   ServiceLandingState copyWith({

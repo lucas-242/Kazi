@@ -94,22 +94,13 @@ void main() {
     );
 
     blocTest(
-      'emits HomeState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
-      build: () => cubit,
-      seed: () => HomeState(status: BaseStateStatus.noData),
-      act: (cubit) => cubit.onInit(),
-      expect: () => [
-        HomeState(
-          callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
-          status: BaseStateStatus.error,
-        )
-      ],
-    );
-
-    blocTest(
       'emits HomeState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
+      setUp: () {
+        when(servicesRepository.get(any, any)).thenThrow(
+            ExternalError(AppLocalizations.current.errorUnknowError));
+      },
       expect: () => [
         HomeState(
           callbackMessage: AppLocalizations.current.errorUnknowError,

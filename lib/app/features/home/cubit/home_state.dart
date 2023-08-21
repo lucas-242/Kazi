@@ -20,7 +20,7 @@ class HomeState extends BaseState with EquatableMixin {
   }
 
   double get totalDiscounted {
-    return services.fold<double>(0, (a, b) => a + b.discountValue);
+    return services.fold<double>(0, (a, b) => a + b.valueDiscounted);
   }
 
   @override

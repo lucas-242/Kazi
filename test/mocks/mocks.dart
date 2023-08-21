@@ -29,8 +29,7 @@ final serviceMock = Service.toCreate(
   scheduledToStartAt: DateTime(2022),
   serviceType: serviceTypeMock,
   employeeId: userMock.uid,
-  discountValue: serviceTypeMock.defaultValue -
-      (serviceTypeMock.defaultValue * serviceTypeMock.discountPercent / 100),
+  discountPercent: serviceTypeMock.discountPercent,
   value: serviceTypeMock.defaultValue,
   serviceTypeId: 1,
 );

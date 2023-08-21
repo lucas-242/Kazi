@@ -12,7 +12,7 @@ class Service extends Equatable {
     required this.id,
     required this.description,
     required this.value,
-    required this.discountValue,
+    required this.discountPercent,
     required this.serviceType,
     required this.serviceTypeId,
     required this.scheduledToStartAt,
@@ -27,7 +27,7 @@ class Service extends Equatable {
   Service.toCreate({
     this.description,
     this.value = 0,
-    this.discountValue = 0,
+    this.discountPercent = 0,
     this.serviceType,
     this.serviceTypeId = 0,
     DateTime? scheduledToStartAt,
@@ -50,7 +50,8 @@ class Service extends Equatable {
   final int id;
   final String? description;
   final double value;
-  final double discountValue;
+  @JsonKey(name: 'discountValue')
+  final double discountPercent;
   final ServiceType? serviceType;
   final int serviceTypeId;
   final DateTime scheduledToStartAt;
@@ -61,7 +62,9 @@ class Service extends Equatable {
   final int scheduledBy;
   final int? customerId;
 
-  double get valueWithDiscount => value - discountValue;
+  double get valueDiscounted => value * discountPercent / 100;
+
+  double get valueWithDiscount => value - valueDiscounted;
 
   Service copyWith({
     int? id,
@@ -82,7 +85,7 @@ class Service extends Equatable {
       id: id ?? this.id,
       description: description ?? this.description,
       value: value ?? this.value,
-      discountValue: discountPercent ?? discountValue,
+      discountPercent: discountPercent ?? this.discountPercent,
       serviceType: serviceType ?? serviceType,
       serviceTypeId: serviceTypeId ?? this.serviceTypeId,
       scheduledToStartAt: scheduledToStartAt ?? this.scheduledToStartAt,
@@ -100,7 +103,7 @@ class Service extends Equatable {
         id,
         description,
         value,
-        discountValue,
+        discountPercent,
         serviceType,
         serviceTypeId,
         employeeId,
@@ -114,7 +117,7 @@ class Service extends Equatable {
     final json = {
       'description': description,
       'value': value,
-      'discountPercent': discountValue,
+      'discountPercent': discountPercent,
       'serviceType': serviceType,
       'serviceTypeId': serviceTypeId,
       'scheduledToStartAt': scheduledToStartAt.toIso8601String(),

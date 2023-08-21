@@ -35,7 +35,7 @@ abstract class AppOnboarding {
   static final _defaultService = Service.toCreate(
     employeeId: 1,
     value: 30,
-    discountValue: 5,
+    discountPercent: 5,
     serviceType: _defaultServiceType,
   );
 

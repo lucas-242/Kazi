@@ -50,7 +50,7 @@ class IsTheSameService extends Matcher {
     final isEquals =
         (checkEqualsId ? service.id == compareObject.id : service.id != 0) &&
             service.description == compareObject.description &&
-            service.discountValue == compareObject.discountValue &&
+            service.discountPercent == compareObject.discountPercent &&
             service.value == compareObject.value &&
             service.scheduledToStartAt == compareObject.scheduledToStartAt &&
             service.serviceTypeId == compareObject.serviceTypeId &&

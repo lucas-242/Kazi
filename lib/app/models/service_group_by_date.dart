@@ -27,7 +27,7 @@ class ServicesGroupByDate extends Equatable {
       services.fold<double>(0, (a, b) => a + b.valueWithDiscount);
 
   double get totalDiscounted =>
-      services.fold<double>(0, (a, b) => a + b.discountValue);
+      services.fold<double>(0, (a, b) => a + b.discountPercent);
 
   ServicesGroupByDate copyWith({
     DateTime? date,

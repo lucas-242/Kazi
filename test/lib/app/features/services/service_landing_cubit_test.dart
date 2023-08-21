@@ -40,7 +40,7 @@ void main() {
     when(authService.user).thenReturn(userMock);
 
     when(servicesRepository.get(any, any))
-        .thenAnswer((_) async => servicesWithTypeIdMock);
+        .thenAnswer((_) async => servicesWithTypesMock);
 
     cubit = ServiceLandingCubit(servicesRepository, servicesService);
   });
@@ -106,28 +106,13 @@ void main() {
     );
 
     blocTest(
-      'emits ServiceLandingState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
-      build: () => cubit,
-      seed: () => ServiceLandingState(
-        status: BaseStateStatus.noData,
-        startDate: servicesService.now,
-        endDate: servicesService.now,
-      ),
-      act: (cubit) => cubit.onInit(),
-      expect: () => [
-        ServiceLandingState(
-          callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
-          status: BaseStateStatus.error,
-          startDate: servicesService.now,
-          endDate: servicesService.now,
-        )
-      ],
-    );
-
-    blocTest(
       'emits ServiceLandingState with status error and callbackMessage = unknowError when call onInit',
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
+      setUp: () {
+        when(servicesRepository.get(any, any)).thenThrow(
+            ExternalError(AppLocalizations.current.errorUnknowError));
+      },
       expect: () => [
         ServiceLandingState(
           callbackMessage: AppLocalizations.current.errorUnknowError,

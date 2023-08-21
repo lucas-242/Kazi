@@ -59,7 +59,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
       thousandSeparator: NumberFormatHelper.getThousandSeparator(),
     );
     _discountController = MoneyMaskedTextController(
-      initialValue: cubit.state.service.discountValue,
+      initialValue: cubit.state.service.discountPercent,
       decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
       thousandSeparator: NumberFormatHelper.getThousandSeparator(),
       rightSymbol: '%',
@@ -73,7 +73,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
     if (data != null) {
       cubit.onChangeServiceType(data);
       _valueController.updateValue(cubit.state.service.value);
-      _discountController.updateValue(cubit.state.service.discountValue);
+      _discountController.updateValue(cubit.state.service.discountPercent);
     }
   }
 

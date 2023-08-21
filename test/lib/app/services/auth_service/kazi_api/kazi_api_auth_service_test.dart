@@ -5,6 +5,7 @@ import 'package:kazi/app/core/connection/http/http_kazi_client.dart';
 import 'package:kazi/app/core/connection/http/http_kazi_connection.dart';
 import 'package:kazi/app/core/connection/kazi_client.dart';
 import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/models/enums.dart';
@@ -71,15 +72,14 @@ void main() {
       expect(authService.user, isNotNull);
     }));
 
-    test('Should throw Error for any error that occurs', (() async {
-      when(connection.post(any, body: anyNamed('body'))).thenAnswer((_) async =>
-          ApiResponse(
-              status: 500, body: _authResponseMock.toJson().toString()));
+    test('Should throw Error for any error that occurs', (() {
+      when(connection.post(any, body: anyNamed('body')))
+          .thenThrow(ArgumentError());
 
-      when(connection.handleResponse(any)).thenThrow(ExternalError('error'));
-
-      expect(authService.signInWithPassword('email', 'password'),
-          ErrorWithMessage<AppError>('error'));
+      expect(
+          () => authService.signInWithPassword('email', 'password'),
+          ErrorWithMessage<ExternalError>(
+              AppLocalizations.current.errorToSignIn));
     }));
   });
 
