@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/features/home/home.dart';
-import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/number_format_helper.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
+import 'package:kazi/app/features/home/home.dart';
+import 'package:kazi/app/features/services/services.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({
@@ -24,8 +24,8 @@ class HomeContent extends StatelessWidget {
         children: [
           InfoCard(
             key: AppOnboarding.stepOne,
-            title: NumberFormatHelper.formatCurrency(
-                context, state.totalWithDiscount),
+            title:
+                NumberFormatHelper.formatCurrency(context, state.totalBalance),
             subtitle: AppLocalizations.current.myBalance,
             icon: AppAssets.services,
             color: AppColors.green,

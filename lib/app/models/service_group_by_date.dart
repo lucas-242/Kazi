@@ -21,14 +21,6 @@ class ServicesGroupByDate extends Equatable {
   @JsonKey(includeFromJson: false, includeToJson: true)
   final bool isExpanded;
 
-  double get totalValue => services.fold<double>(0, (a, b) => a + b.value);
-
-  double get totalWithDiscount =>
-      services.fold<double>(0, (a, b) => a + b.valueWithDiscount);
-
-  double get totalDiscounted =>
-      services.fold<double>(0, (a, b) => a + b.discountPercent);
-
   ServicesGroupByDate copyWith({
     DateTime? date,
     List<Service>? services,

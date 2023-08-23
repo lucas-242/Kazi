@@ -81,7 +81,7 @@ class ServiceDetailsPage extends StatelessWidget {
                       leftText: AppLocalizations.current.myBalance,
                       rightText: NumberFormatHelper.formatCurrency(
                         context,
-                        service.valueWithDiscount,
+                        service.finalValue,
                       ),
                       rightTextStyle:
                           context.titleSmall!.copyWith(color: AppColors.green),

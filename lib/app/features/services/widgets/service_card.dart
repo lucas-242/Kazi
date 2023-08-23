@@ -29,8 +29,7 @@ class ServiceCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              NumberFormatHelper.formatCurrency(
-                  context, service.valueWithDiscount),
+              NumberFormatHelper.formatCurrency(context, service.finalValue),
               style: context.titleSmall!.copyWith(color: AppColors.green),
             ),
             AppSizeConstants.largeHorizontalSpacer,

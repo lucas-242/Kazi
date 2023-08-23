@@ -62,9 +62,8 @@ class Service extends Equatable {
   final int scheduledBy;
   final int? customerId;
 
-  double get valueDiscounted => value * discountPercent / 100;
-
-  double get valueWithDiscount => value - valueDiscounted;
+  double get discountValue => value * discountPercent / 100;
+  double get finalValue => value - discountValue;
 
   Service copyWith({
     int? id,
@@ -106,11 +105,13 @@ class Service extends Equatable {
         discountPercent,
         serviceType,
         serviceTypeId,
-        employeeId,
         scheduledToStartAt,
         scheduledToEndAt,
         startedAt,
         endedAt,
+        employeeId,
+        customerId,
+        scheduledBy,
       ];
 
   Map<String, dynamic> toJson({bool withId = false}) {
@@ -118,7 +119,6 @@ class Service extends Equatable {
       'description': description,
       'value': value,
       'discountPercent': discountPercent,
-      'serviceType': serviceType,
       'serviceTypeId': serviceTypeId,
       'scheduledToStartAt': scheduledToStartAt.toIso8601String(),
       'scheduledToEndAt': scheduledToEndAt.toIso8601String(),

@@ -11,17 +11,13 @@ class HomeState extends BaseState with EquatableMixin {
   List<Service> services;
   OrderBy selectedOrderBy;
 
-  double get totalValue {
-    return services.fold<double>(0, (a, b) => a + b.value);
-  }
+  double get totalBalance =>
+      services.fold<double>(0, (a, b) => a + b.finalValue);
 
-  double get totalWithDiscount {
-    return services.fold<double>(0, (a, b) => a + b.valueWithDiscount);
-  }
+  double get totalDiscounted =>
+      services.fold<double>(0, (a, b) => a + b.discountValue);
 
-  double get totalDiscounted {
-    return services.fold<double>(0, (a, b) => a + b.valueDiscounted);
-  }
+  double get totalValue => services.fold<double>(0, (a, b) => a + b.value);
 
   @override
   HomeState copyWith({

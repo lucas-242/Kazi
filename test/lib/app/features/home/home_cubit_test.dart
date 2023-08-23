@@ -143,7 +143,7 @@ void main() {
         selectedOrderBy: OrderBy.dateDesc,
       );
 
-      expect(state.totalWithDiscount, 105);
+      expect(state.totalBalance, 105);
     });
 
     test('totalDiscounted should be 105', () {
