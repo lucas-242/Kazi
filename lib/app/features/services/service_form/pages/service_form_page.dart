@@ -19,7 +19,8 @@ class ServiceFormPage extends StatefulWidget {
 }
 
 class _ServiceFormPageState extends State<ServiceFormPage> {
-  bool isCreating(Service? service) => service?.id == 0 ? true : false;
+  bool isCreating(Service? service) =>
+      service == null || service.id == 0 ? true : false;
 
   @override
   void initState() {
@@ -43,7 +44,9 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
             if (state.status == BaseStateStatus.success) {
-              context.read<ServiceLandingCubit>().onChangeServices();
+              context
+                  .read<ServiceLandingCubit>()
+                  .onChangeServices(state.newServices);
               context.back();
             } else if (state.status == BaseStateStatus.error) {
               getCustomSnackBar(
@@ -56,14 +59,10 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
             builder: (context, state) {
               return state.when(
                 onState: (_) {
-                  if (state.status == BaseStateStatus.initial) {
-                    return ServiceFormContent(
-                      isCreating: isCreating(widget.service),
-                      onConfirm: () => onConfirm(state.service),
-                    );
-                  }
-
-                  return const Loading();
+                  return ServiceFormContent(
+                    isCreating: isCreating(widget.service),
+                    onConfirm: () => onConfirm(state.service),
+                  );
                 },
                 onLoading: () => const Loading(),
                 onNoData: () => NoData(

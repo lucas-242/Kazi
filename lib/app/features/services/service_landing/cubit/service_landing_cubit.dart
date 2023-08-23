@@ -162,10 +162,16 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     emit(state.copyWith(services: services, selectedOrderBy: orderBy));
   }
 
-  Future<void> onChangeServices() async {
+  Future<void> onChangeServices(List<Service>? newServices) async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final result = await _getServices(state.startDate, state.endDate);
+      List<Service> result;
+      if (newServices != null) {
+        result = List.from(state.services)..addAll(newServices);
+      } else {
+        result = await _getServices(state.startDate, state.endDate);
+      }
+
       _handleGetServices(result);
     } on AppError catch (exception) {
       onAppError(exception);

@@ -4,14 +4,18 @@ class ServiceFormState extends BaseState with EquatableMixin {
   ServiceFormState({
     required super.status,
     Service? service,
+    List<Service>? newServices,
     required this.userId,
     super.callbackMessage,
     List<ServiceType>? serviceTypes,
     int? quantity,
   })  : service = service ?? Service.toCreate(employeeId: userId),
+        newServices = newServices ?? [],
         serviceTypes = serviceTypes ?? [],
         quantity = quantity ?? 1;
+
   Service service;
+  List<Service> newServices;
   List<ServiceType> serviceTypes;
   int quantity;
   int userId;
@@ -26,10 +30,15 @@ class ServiceFormState extends BaseState with EquatableMixin {
   }
 
   DropdownItem? get selectedDropdownItem {
-    if (service.serviceType == null) return null;
+    if (service.serviceTypeId == 0) return null;
 
     final result = DropdownItem(
-        value: service.serviceType!.id, label: service.serviceType!.name);
+      value: service.serviceTypeId,
+      label: serviceTypes
+          .where((s) => s.id == service.serviceTypeId)
+          .firstOrNull
+          ?.name,
+    );
 
     return result;
   }
@@ -39,6 +48,7 @@ class ServiceFormState extends BaseState with EquatableMixin {
     BaseStateStatus? status,
     String? callbackMessage,
     Service? service,
+    List<Service>? newServices,
     List<ServiceType>? serviceTypes,
     int? quantity,
   }) {
@@ -46,6 +56,7 @@ class ServiceFormState extends BaseState with EquatableMixin {
       status: status ?? this.status,
       callbackMessage: callbackMessage ?? this.callbackMessage,
       service: service ?? this.service,
+      newServices: newServices ?? this.newServices,
       serviceTypes: serviceTypes ?? this.serviceTypes,
       quantity: quantity ?? this.quantity,
       userId: userId,

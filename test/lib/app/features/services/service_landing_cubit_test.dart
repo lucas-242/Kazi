@@ -261,7 +261,7 @@ void main() {
     blocTest(
       'emits ServiceLandingState with new services and status success when call onChangeServices',
       build: () => cubit,
-      act: (cubit) => [cubit.onChangeServices()],
+      act: (cubit) => [cubit.onChangeServices(servicesWithTypesMock)],
       expect: () => [
         ServiceLandingState(
           status: BaseStateStatus.loading,

@@ -16,7 +16,6 @@ class KaziApiServicesRepository extends ServicesRepository {
   @override
   Future<List<Service>> add(Service service, [int quantity = 1]) async {
     try {
-      //TODO: Convert percent to value
       final response = await _connection.post(
         url,
         parameters: {'quantity': quantity},
@@ -75,6 +74,7 @@ class KaziApiServicesRepository extends ServicesRepository {
       final response = await _connection.get(url, parameters: {
         'ScheduledToStartAt': startDate,
         'ScheduledToEndAt': endDate,
+        'PageSize': 999
       });
       _connection.handleResponse(response);
       if (response.body.isEmpty) {

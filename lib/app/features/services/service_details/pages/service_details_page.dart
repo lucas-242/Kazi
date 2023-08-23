@@ -96,7 +96,7 @@ class ServiceDetailsPage extends StatelessWidget {
                       leftText: AppLocalizations.current.discount,
                       rightText: NumberFormatHelper.formatCurrency(
                         context,
-                        service.discountPercent,
+                        service.discountValue,
                       ),
                       rightTextStyle:
                           context.titleSmall!.copyWith(color: AppColors.orange),

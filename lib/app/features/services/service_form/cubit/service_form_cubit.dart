@@ -54,23 +54,19 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
     try {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await _servicesRepository.add(state.service, state.quantity);
-      cleanState();
+      final newServices =
+          await _servicesRepository.add(state.service, state.quantity);
+      emit(state.copyWith(
+        status: BaseStateStatus.success,
+        quantity: 1,
+        newServices: newServices,
+        service: Service.toCreate(employeeId: _authService.user!.uid),
+      ));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
     }
-  }
-
-  void cleanState() {
-    emit(
-      state.copyWith(
-        status: BaseStateStatus.success,
-        quantity: 1,
-        service: Service.toCreate(employeeId: _authService.user!.uid),
-      ),
-    );
   }
 
   void _checkServiceValidity() {
@@ -88,7 +84,11 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
       _checkServiceValidity();
       emit(state.copyWith(status: BaseStateStatus.loading));
       await _servicesRepository.update(state.service);
-      cleanState();
+      emit(state.copyWith(
+        status: BaseStateStatus.success,
+        quantity: 1,
+        service: Service.toCreate(employeeId: _authService.user!.uid),
+      ));
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -146,6 +146,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
 
   void onChangeServiceDate(DateTime? value) {
     emit(state.copyWith(
-        service: state.service.copyWith(scheduledToStartAt: value)));
+        service: state.service
+            .copyWith(scheduledToStartAt: value, scheduledToEndAt: value)));
   }
 }

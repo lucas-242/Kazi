@@ -118,7 +118,7 @@ class Service extends Equatable {
     final json = {
       'description': description,
       'value': value,
-      'discountPercent': discountPercent,
+      'discountValue': discountPercent,
       'serviceTypeId': serviceTypeId,
       'scheduledToStartAt': scheduledToStartAt.toIso8601String(),
       'scheduledToEndAt': scheduledToEndAt.toIso8601String(),
