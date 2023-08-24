@@ -3,9 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
-import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/data/repositories/services_repository/services_repository.dart';
+import 'package:kazi/app/models/enums/fast_search.dart';
+import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
-import 'package:kazi/app/repositories/services_repository/services_repository.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 
 part 'service_landing_state.dart';

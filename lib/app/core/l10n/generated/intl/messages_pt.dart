@@ -88,6 +88,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Erro ao buscar os tipos de serviços."),
         "errorToGetServices":
             MessageLookupByLibrary.simpleMessage("Erro ao buscar os serviços."),
+        "errorToResetPassword":
+            MessageLookupByLibrary.simpleMessage("Erro ao redefinir senha."),
+        "errorToSendEmail":
+            MessageLookupByLibrary.simpleMessage("Erro ao enviar email."),
         "errorToSignIn": MessageLookupByLibrary.simpleMessage(
             "Erro ao fazer login. Tente novamente mais tarde ou contate o suporte."),
         "errorToSignUp": MessageLookupByLibrary.simpleMessage(
@@ -105,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "finish": MessageLookupByLibrary.simpleMessage("Finalizar"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
+        "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
+            "Um email com as intruções para redefinir a senha foi enviado para o email informado."),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
         "fromTo": m1,
         "googleSignIn":

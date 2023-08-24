@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:kazi/app/core/connection/http/http_kazi_client.dart';
-import 'package:kazi/app/core/connection/http/http_kazi_connection.dart';
-import 'package:kazi/app/core/connection/kazi_connection.dart';
+import 'package:kazi/app/data/connection/http/http_kazi_client.dart';
+import 'package:kazi/app/data/connection/http/http_kazi_connection.dart';
+import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

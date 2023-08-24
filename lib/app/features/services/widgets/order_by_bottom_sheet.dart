@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/models/enums.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
+import 'package:kazi/app/models/enums/order_by.dart';
 
 class OrderByBottomSheet extends StatelessWidget {
   const OrderByBottomSheet({

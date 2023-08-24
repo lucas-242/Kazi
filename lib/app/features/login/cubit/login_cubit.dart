@@ -97,4 +97,21 @@ class LoginCubit extends Cubit<LoginState> {
       state.name.isNotEmpty &&
       state.email.isNotEmpty &&
       state.password.isNotEmpty;
+
+  Future<void> onForgotPassword() async {
+    try {
+      await _authService.forgotPassword(state.email);
+      return emit(state.copyWith(
+        status: BaseStateStatus.success,
+        callbackMessage: AppLocalizations.current.forgotPasswordEmailSent,
+        name: '',
+        email: '',
+        password: '',
+      ));
+    } on AppError catch (error) {
+      _emitAppError(error);
+    } catch (error) {
+      _emitUnknowError();
+    }
+  }
 }

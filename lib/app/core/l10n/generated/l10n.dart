@@ -460,6 +460,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Error to reset password.`
+  String get errorToResetPassword {
+    return Intl.message(
+      'Error to reset password.',
+      name: 'errorToResetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error to send email.`
+  String get errorToSendEmail {
+    return Intl.message(
+      'Error to send email.',
+      name: 'errorToSendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Field`
   String get field {
     return Intl.message(
@@ -505,6 +525,16 @@ class AppLocalizations {
     return Intl.message(
       'Forgot your password?',
       name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An email with istructions to reset password was sent to the informed address.`
+  String get forgotPasswordEmailSent {
+    return Intl.message(
+      'An email with istructions to reset password was sent to the informed address.',
+      name: 'forgotPasswordEmailSent',
       desc: '',
       args: [],
     );

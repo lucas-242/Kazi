@@ -1,6 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/models/enums/user_type.dart';
 
 part 'app_user.g.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:kazi/app/core/connection/kazi_client.dart';
-import 'package:kazi/app/core/connection/kazi_connection.dart';
+import 'package:kazi/app/data/connection/kazi_client.dart';
+import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/models/api_response.dart';

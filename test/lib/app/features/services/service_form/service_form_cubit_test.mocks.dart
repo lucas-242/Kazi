@@ -5,13 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart'
+    as _i3;
+import 'package:kazi/app/data/repositories/services_repository/services_repository.dart'
+    as _i5;
 import 'package:kazi/app/models/app_user.dart' as _i8;
 import 'package:kazi/app/models/service.dart' as _i6;
 import 'package:kazi/app/models/service_type.dart' as _i2;
-import 'package:kazi/app/repositories/service_type_repository/service_type_repository.dart'
-    as _i3;
-import 'package:kazi/app/repositories/services_repository/services_repository.dart'
-    as _i5;
 import 'package:kazi/app/services/auth_service/auth_service.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 

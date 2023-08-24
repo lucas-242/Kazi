@@ -6,11 +6,10 @@ import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/features/home/home.dart';
 import 'package:kazi/app/features/initial/intial.dart';
 import 'package:kazi/app/features/login/login.dart';
-import 'package:kazi/app/features/login/login_landing/pages/privacy_policy_page.dart';
 import 'package:kazi/app/features/profile/profile.dart';
 import 'package:kazi/app/features/service_types/service_types.dart';
 import 'package:kazi/app/features/services/services.dart';
-import 'package:kazi/app/models/app_page.dart';
+import 'package:kazi/app/models/enums/app_page.dart';
 import 'package:kazi/app/models/route_params.dart';
 import 'package:kazi/injector_container.dart';
 
@@ -27,6 +26,8 @@ abstract class AppRouter {
   static String onboarding = '/onboarding';
   static String home = '/home';
   static String login = '/login';
+  static String loginPrivacyPolicy = '$login/privacy-policy';
+  static String loginForgotPassword = '$login/forgot-password';
   static String services = '/services';
   static String addServices = '$services/$add';
   static String servicesType = '$services/$type';
@@ -37,6 +38,7 @@ abstract class AppRouter {
   static String add = 'add';
   static String type = 'type';
   static String privacyPolicy = 'privacy-policy';
+  static String forgotPassword = 'forgot-password';
 }
 
 final _router = GoRouter(
@@ -60,7 +62,7 @@ final _router = GoRouter(
         path: AppRouter.login,
         pageBuilder: (context, state) =>
             _customTransition(state, const LoginLandingPage()),
-        routes: [_privacyPolicy]),
+        routes: [_privacyPolicy, _forgotPassword]),
     ShellRoute(
       builder: (context, state, child) => AppShell(
         params: state.extra != null
@@ -118,6 +120,12 @@ final _privacyPolicy = GoRoute(
   path: AppRouter.privacyPolicy,
   pageBuilder: (context, state) =>
       _customTransition(state, const PrivacyPolicyPage()),
+);
+
+final _forgotPassword = GoRoute(
+  path: AppRouter.forgotPassword,
+  pageBuilder: (context, state) =>
+      _customTransition(state, const ForgotPasswordPage()),
 );
 
 final _serviceDetails = GoRoute(

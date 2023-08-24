@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:kazi/app/models/app_page.dart';
+import 'package:kazi/app/models/enums/app_page.dart';
 
 import 'services/auth_service/auth_service.dart';
 

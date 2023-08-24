@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
@@ -50,12 +49,6 @@ class _SignInFormState extends State<SignInForm> {
       }
     }
 
-    void resetPassword(LoginState state) {
-      if (state.password.isEmpty && passwordController.text.isNotEmpty) {
-        passwordController.text = '';
-      }
-    }
-
     return Form(
       key: _formKey,
       child: Column(
@@ -97,7 +90,7 @@ class _SignInFormState extends State<SignInForm> {
             alignment: Alignment.centerLeft,
             child: MaterialButton(
               padding: EdgeInsets.zero,
-              onPressed: () => context.navigateTo(AppPage.login),
+              onPressed: () => context.navigateTo(AppPage.forgotPassword),
               child: Text(
                 AppLocalizations.current.forgotPassword,
                 style: context.bodyMedium,
@@ -109,27 +102,27 @@ class _SignInFormState extends State<SignInForm> {
             onTap: onTapSignIn,
             child: Text(AppLocalizations.current.signIn),
           ),
-          AppSizeConstants.smallVerticalSpacer,
-          Text(AppLocalizations.current.or.toUpperCase()),
-          AppSizeConstants.smallVerticalSpacer,
-          PillButton(
-            onTap: () => cubit.onSignInWithGoogle(),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(
-                  AppAssets.google,
-                  height: 18,
-                  colorFilter: const ColorFilter.mode(
-                    AppColors.white,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                AppSizeConstants.smallHorizontalSpacer,
-                Text(AppLocalizations.current.googleSignIn),
-              ],
-            ),
-          ),
+          // AppSizeConstants.smallVerticalSpacer,
+          // Text(AppLocalizations.current.or.toUpperCase()),
+          // AppSizeConstants.smallVerticalSpacer,
+          // PillButton(
+          //   onTap: () => cubit.onSignInWithGoogle(),
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       SvgPicture.asset(
+          //         AppAssets.google,
+          //         height: 18,
+          //         colorFilter: const ColorFilter.mode(
+          //           AppColors.white,
+          //           BlendMode.srcIn,
+          //         ),
+          //       ),
+          //       AppSizeConstants.smallHorizontalSpacer,
+          //       Text(AppLocalizations.current.googleSignIn),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

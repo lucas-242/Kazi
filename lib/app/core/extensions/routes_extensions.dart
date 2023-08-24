@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_cubit.dart';
-import 'package:kazi/app/models/app_page.dart';
+import 'package:kazi/app/models/enums/app_page.dart';
 import 'package:kazi/app/models/route_params.dart';
 import 'package:kazi/app/models/service.dart';
 
-export 'package:kazi/app/models/app_page.dart';
+export 'package:kazi/app/models/enums/app_page.dart';
 
 extension RoutesExtensions on BuildContext {
   void navigateTo(

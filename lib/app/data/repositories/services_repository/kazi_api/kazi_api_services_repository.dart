@@ -1,4 +1,4 @@
-import 'package:kazi/app/core/connection/kazi_connection.dart';
+import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kazi/app/core/connection/http/http_kazi_client.dart';
-import 'package:kazi/app/core/connection/kazi_client.dart';
+import 'package:kazi/app/data/connection/http/http_kazi_client.dart';
+import 'package:kazi/app/data/connection/kazi_client.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
-import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/models/enums/user_type.dart';
 import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

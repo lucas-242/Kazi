@@ -8,7 +8,7 @@ import 'dart:convert' as _i5;
 import 'dart:typed_data' as _i6;
 
 import 'package:http/http.dart' as _i2;
-import 'package:kazi/app/core/connection/http/http_kazi_client.dart' as _i3;
+import 'package:kazi/app/data/connection/http/http_kazi_client.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

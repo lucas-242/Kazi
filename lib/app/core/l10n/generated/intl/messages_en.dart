@@ -88,6 +88,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error to get service types."),
         "errorToGetServices":
             MessageLookupByLibrary.simpleMessage("Error to get service."),
+        "errorToResetPassword":
+            MessageLookupByLibrary.simpleMessage("Error to reset password."),
+        "errorToSendEmail":
+            MessageLookupByLibrary.simpleMessage("Error to send email."),
         "errorToSignIn": MessageLookupByLibrary.simpleMessage(
             "Error to sign in. Try again later or contact the support."),
         "errorToSignUp": MessageLookupByLibrary.simpleMessage(
@@ -105,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),
+        "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
+            "An email with istructions to reset password was sent to the informed address."),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "fromTo": m1,
         "googleSignIn":

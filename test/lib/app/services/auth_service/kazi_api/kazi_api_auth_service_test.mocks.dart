@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:kazi/app/core/connection/http/http_kazi_connection.dart' as _i3;
+import 'package:kazi/app/data/connection/http/http_kazi_connection.dart' as _i3;
 import 'package:kazi/app/models/api_response.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 

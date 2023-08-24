@@ -1,5 +1,6 @@
 import 'package:kazi/app/core/extensions/extensions.dart';
-import 'package:kazi/app/models/enums.dart';
+import 'package:kazi/app/models/enums/fast_search.dart';
+import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_group_by_date.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';

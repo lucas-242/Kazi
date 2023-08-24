@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:kazi/app/core/connection/kazi_client.dart';
-import 'package:kazi/app/core/connection/kazi_connection.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/data/connection/kazi_client.dart';
+import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/app_user.dart';
 import 'package:kazi/app/services/auth_service/auth_service.dart';
@@ -139,6 +139,7 @@ final class KaziApiAuthService extends AuthService {
 
   @override
   Future<bool> signInWithGoogle() {
+    // TODO: implement signInWithGoogle
     throw UnimplementedError();
   }
 
@@ -175,6 +176,34 @@ final class KaziApiAuthService extends AuthService {
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
       throw ExternalError(AppLocalizations.current.errorToSignUp);
+    }
+  }
+
+  @override
+  Future<void> forgotPassword(String email) async {
+    try {
+      final response = await _connection.post(
+        '${Environment.instance.kaziApiUrl}/forgot-password',
+        body: email,
+      );
+      _connection.handleResponse(response);
+    } catch (error, trace) {
+      _logService.error(error: error, stackTrace: trace);
+      throw ExternalError(AppLocalizations.current.errorToSendEmail);
+    }
+  }
+
+  @override
+  Future<void> resetPassword(String password) async {
+    try {
+      final response = await _connection.post(
+        '${Environment.instance.kaziApiUrl}/reset-password',
+        body: password,
+      );
+      _connection.handleResponse(response);
+    } catch (error, trace) {
+      _logService.error(error: error, stackTrace: trace);
+      throw ExternalError(AppLocalizations.current.errorToResetPassword);
     }
   }
 }

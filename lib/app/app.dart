@@ -11,8 +11,8 @@ import 'app_cubit.dart';
 import 'core/l10n/generated/l10n.dart';
 import 'core/themes/settings/theme_settings.dart';
 import 'features/home/cubit/home_cubit.dart';
-import 'repositories/service_type_repository/service_type_repository.dart';
-import 'repositories/services_repository/services_repository.dart';
+import 'data/repositories/service_type_repository/service_type_repository.dart';
+import 'data/repositories/services_repository/services_repository.dart';
 import 'services/auth_service/auth_service.dart';
 
 class App extends StatefulWidget {

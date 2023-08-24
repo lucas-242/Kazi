@@ -11,5 +11,9 @@ abstract class AuthService {
 
   Future<void> signUp(AppUser user);
 
+  Future<void> forgotPassword(String email);
+
+  Future<void> resetPassword(String password);
+
   Stream<AppUser?> get userChanges;
 }
