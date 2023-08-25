@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/models/app_user.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 
 part 'login_state.dart';
 
@@ -12,7 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this._authService)
       : super(LoginState(status: BaseStateStatus.initial));
 
-  final AuthService _authService;
+  final Auth _authService;
 
   void onChangeName(String name) => emit(state.copyWith(name: name));
 

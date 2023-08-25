@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/injector_container.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = serviceLocator.get<AuthService>().user;
+    final user = serviceLocator.get<Auth>().user;
 
     return AppBar(
       toolbarHeight: preferredSize.height,

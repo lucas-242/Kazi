@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/login.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/injector_container.dart';
 
 class LoginLandingPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _LoginLandingPageState extends State<LoginLandingPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginCubit(serviceLocator<AuthService>()),
+      create: (_) => LoginCubit(serviceLocator<Auth>()),
       child: BlocConsumer<LoginCubit, LoginState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {

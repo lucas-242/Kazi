@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
@@ -7,7 +8,6 @@ import 'package:kazi/app/core/widgets/texts/row_text/row_text.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/features/profile/widgets/options.dart';
 import 'package:kazi/app/models/app_user.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
 import 'package:kazi/injector_container.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,10 +15,10 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUser user = serviceLocator.get<AuthService>().user!;
+    final AppUser user = serviceLocator.get<Auth>().user!;
 
     Future<void> onSignOut() async {
-      await serviceLocator.get<AuthService>().signOut();
+      await serviceLocator.get<Auth>().signOut();
       //TODO: Move showOnboardingStorage to the userData
       await serviceLocator
           .get<LocalStorage>()

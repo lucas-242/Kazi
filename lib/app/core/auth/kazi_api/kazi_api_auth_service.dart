@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:kazi/app/core/auth/auth.dart';
+import 'package:kazi/app/core/auth/kazi_api/models/user_data.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
@@ -9,13 +11,11 @@ import 'package:kazi/app/data/connection/kazi_client.dart';
 import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/app_user.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
-import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
 import 'package:rxdart/rxdart.dart';
 
-final class KaziApiAuthService extends AuthService {
+final class KaziApiAuthService extends Auth {
   KaziApiAuthService({
     required KaziConnection connection,
     required LocalStorage localStorage,

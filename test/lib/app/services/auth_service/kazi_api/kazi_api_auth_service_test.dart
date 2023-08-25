@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/auth/kazi_api/kazi_api_auth_service.dart';
+import 'package:kazi/app/core/auth/kazi_api/models/user_data.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/data/connection/http/http_kazi_client.dart';
@@ -9,8 +11,6 @@ import 'package:kazi/app/data/connection/kazi_client.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/models/enums/user_type.dart';
-import 'package:kazi/app/services/auth_service/kazi_api/kazi_api_auth_service.dart';
-import 'package:kazi/app/services/auth_service/kazi_api/models/user_data.dart';
 import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';

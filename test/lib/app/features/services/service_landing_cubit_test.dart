@@ -11,7 +11,7 @@ import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/enums/fast_search.dart';
 import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
-import 'package:kazi/app/services/auth_service/auth_service.dart';
+import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/services/services_service/local/local_services_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
@@ -22,7 +22,7 @@ import '../../../../mocks/mocks.dart';
 import '../../../../utils/test_helper.dart';
 import 'service_landing_cubit_test.mocks.dart';
 
-@GenerateMocks([ServiceTypeRepository, ServicesRepository, AuthService])
+@GenerateMocks([ServiceTypeRepository, ServicesRepository, Auth])
 void main() {
   late MockServicesRepository servicesRepository;
   late MockAuthService authService;

@@ -1,6 +1,6 @@
 import 'package:kazi/app/models/app_user.dart';
 
-abstract class AuthService {
+abstract class Auth {
   AppUser? user;
 
   Future<bool> signInWithPassword(String email, String password);

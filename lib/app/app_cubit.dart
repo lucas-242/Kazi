@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:kazi/app/models/enums/app_page.dart';
 
-import 'services/auth_service/auth_service.dart';
+import 'core/auth/auth.dart';
 
 class AppCubit extends Cubit<AppPage> {
   AppCubit(this._authService) : super(AppPage.home);
-  final AuthService _authService;
+  final Auth _authService;
 
   void changePage(AppPage newPage) => emit(newPage);
 

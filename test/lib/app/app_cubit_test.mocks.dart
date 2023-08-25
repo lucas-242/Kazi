@@ -5,8 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:kazi/app/core/auth/auth.dart' as _i2;
 import 'package:kazi/app/models/app_user.dart' as _i3;
-import 'package:kazi/app/services/auth_service/auth_service.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -23,7 +23,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [AuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i2.AuthService {
+class MockAuthService extends _i1.Mock implements _i2.Auth {
   MockAuthService() {
     _i1.throwOnMissingStub(this);
   }

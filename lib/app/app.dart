@@ -8,12 +8,12 @@ import 'package:kazi/app/services/services_service/services_service.dart';
 
 import '/injector_container.dart';
 import 'app_cubit.dart';
+import 'core/auth/auth.dart';
 import 'core/l10n/generated/l10n.dart';
 import 'core/themes/settings/theme_settings.dart';
-import 'features/home/cubit/home_cubit.dart';
 import 'data/repositories/service_type_repository/service_type_repository.dart';
 import 'data/repositories/services_repository/services_repository.dart';
-import 'services/auth_service/auth_service.dart';
+import 'features/home/cubit/home_cubit.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -28,7 +28,7 @@ class _AppState extends State<App> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AppCubit>(
-          create: (_) => AppCubit(serviceLocator.get<AuthService>()),
+          create: (_) => AppCubit(serviceLocator.get<Auth>()),
         ),
         BlocProvider<HomeCubit>(
           create: (_) => HomeCubit(
@@ -40,7 +40,7 @@ class _AppState extends State<App> {
           create: (_) => ServiceFormCubit(
             serviceLocator.get<ServicesRepository>(),
             serviceLocator.get<ServiceTypeRepository>(),
-            serviceLocator.get<AuthService>(),
+            serviceLocator.get<Auth>(),
           ),
         ),
         BlocProvider<ServiceLandingCubit>(
@@ -52,7 +52,7 @@ class _AppState extends State<App> {
         BlocProvider<ServiceTypesCubit>(
           create: (context) => ServiceTypesCubit(
             serviceLocator.get<ServiceTypeRepository>(),
-            serviceLocator.get<AuthService>(),
+            serviceLocator.get<Auth>(),
           ),
         ),
       ],
