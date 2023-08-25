@@ -1,11 +1,13 @@
-import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/user.dart';
 
 abstract class AuthRepository {
-  Future<AppUser> signInWithPassword(String email, String password);
+  Future<User> signInWithPassword(String email, String password);
 
-  Future<AppUser> signInWithGoogle();
+  Future<User> signInWithGoogle();
 
-  Future<void> signUp(AppUser user);
+  Future<void> signUp(User user);
+
+  Future<User> refreshSession(String? refreshToken);
 
   Future<void> forgotPassword(String email);
 

@@ -19,7 +19,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
     this._serviceTypeRepository,
     this._authService,
   ) : super(ServiceFormState(
-            status: BaseStateStatus.loading, userId: _authService.user!.uid));
+            status: BaseStateStatus.loading, userId: _authService.user!.id));
   final ServicesRepository _servicesRepository;
   final ServiceTypeRepository _serviceTypeRepository;
   final Auth _authService;
@@ -34,7 +34,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
 
       emit(ServiceFormState(
         status: status,
-        userId: _authService.user!.uid,
+        userId: _authService.user!.id,
         serviceTypes: types,
         service: service,
       ));
@@ -60,7 +60,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
         status: BaseStateStatus.success,
         quantity: 1,
         newServices: newServices,
-        service: Service.toCreate(employeeId: _authService.user!.uid),
+        service: Service.toCreate(employeeId: _authService.user!.id),
       ));
     } on AppError catch (exception) {
       onAppError(exception);
@@ -87,7 +87,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
       emit(state.copyWith(
         status: BaseStateStatus.success,
         quantity: 1,
-        service: Service.toCreate(employeeId: _authService.user!.uid),
+        service: Service.toCreate(employeeId: _authService.user!.id),
       ));
     } on AppError catch (exception) {
       onAppError(exception);

@@ -1,16 +1,16 @@
-import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/user.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/service_type.dart';
 
-final userMock = AppUser.toCreate(
-  uid: 1,
+final userMock = User.toCreate(
+  id: 1,
   name: 'Jooj',
   email: 'test@test.com',
   photoUrl: 'url.com',
 );
 
 final serviceTypeMock = ServiceType.toCreate(
-  userId: userMock.uid,
+  userId: userMock.id,
   name: 'test',
   discountPercent: 50,
   defaultValue: 35,
@@ -28,7 +28,7 @@ final serviceTypesMock = [
 final serviceMock = Service.toCreate(
   scheduledToStartAt: DateTime(2022),
   serviceType: serviceTypeMock,
-  employeeId: userMock.uid,
+  employeeId: userMock.id,
   discountPercent: serviceTypeMock.discountPercent,
   value: serviceTypeMock.defaultValue,
   serviceTypeId: 1,

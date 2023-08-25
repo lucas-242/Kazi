@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:kazi/app/core/auth/kazi_api/models/user_data.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/data/connection/kazi_client.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
+import 'package:kazi/app/models/user.dart';
 
 class HttpKaziClient extends http.BaseClient implements KaziClient {
   HttpKaziClient(this._localStorage);
@@ -27,7 +27,7 @@ class HttpKaziClient extends http.BaseClient implements KaziClient {
     if (stringfyUser == null) {
       return null;
     }
-    final response = UserData.fromJson(jsonDecode(stringfyUser));
+    final response = User.fromJson(jsonDecode(stringfyUser));
     return response.authToken;
   }
 

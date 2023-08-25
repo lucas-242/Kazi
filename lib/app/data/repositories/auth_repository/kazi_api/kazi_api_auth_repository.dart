@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:kazi/app/core/auth/kazi_api/models/user_data.dart';
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/data/repositories/auth_repository/auth_repository.dart';
-import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/user.dart';
 import 'package:kazi/app/services/log_service/log_service.dart';
 
 final class KaziApiAuthRepository extends AuthRepository {
@@ -20,37 +19,29 @@ final class KaziApiAuthRepository extends AuthRepository {
   final KaziConnection _connection;
   final LogService _logService;
 
-  Future<AppUser> refreshSession(String? refreshToken) async {
+  @override
+  Future<User> refreshSession(String? refreshToken) async {
     try {
       final response =
           await _connection.post('refreshToken', body: refreshToken);
 
       _connection.handleResponse(response);
 
-      final authResponse = UserData.fromJson(response.json);
-
-      return _convertToAppUser(authResponse);
+      return User.fromJson(response.json);
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
       throw ExternalError(AppLocalizations.current.errorUnknowError);
     }
   }
 
-  AppUser _convertToAppUser(UserData data) => AppUser.fromSignIn(
-        email: data.email,
-        uid: data.id,
-        name: data.name,
-        userType: data.userType,
-      );
-
   @override
-  Future<AppUser> signInWithGoogle() {
+  Future<User> signInWithGoogle() {
     // TODO: implement signInWithGoogle
     throw UnimplementedError();
   }
 
   @override
-  Future<AppUser> signInWithPassword(String email, String password) async {
+  Future<User> signInWithPassword(String email, String password) async {
     try {
       final response = await _connection.post(
         '$url/authenticateByEmail',
@@ -58,8 +49,7 @@ final class KaziApiAuthRepository extends AuthRepository {
       );
       _connection.handleResponse(response);
 
-      final authResponse = UserData.fromJson(response.json);
-      return _convertToAppUser(authResponse);
+      return User.fromJson(response.json);
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
       throw ExternalError(AppLocalizations.current.errorToSignIn);
@@ -67,7 +57,7 @@ final class KaziApiAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<void> signUp(AppUser user) async {
+  Future<void> signUp(User user) async {
     try {
       //TODO: Change url to auth/signup
       final response = await _connection.post(

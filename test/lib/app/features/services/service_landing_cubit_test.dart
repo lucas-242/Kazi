@@ -2,6 +2,7 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
@@ -11,7 +12,6 @@ import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/enums/fast_search.dart';
 import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
-import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/services/services_service/local/local_services_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
@@ -25,7 +25,7 @@ import 'service_landing_cubit_test.mocks.dart';
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, Auth])
 void main() {
   late MockServicesRepository servicesRepository;
-  late MockAuthService authService;
+  late MockAuth authService;
   late LocalTimeService timeService;
   late ServicesService servicesService;
   late ServiceLandingCubit cubit;
@@ -36,7 +36,7 @@ void main() {
     servicesRepository = MockServicesRepository();
     timeService = LocalTimeService(serviceMock.scheduledToStartAt);
     servicesService = LocalServicesService(timeService);
-    authService = MockAuthService();
+    authService = MockAuth();
 
     when(authService.user).thenReturn(userMock);
 

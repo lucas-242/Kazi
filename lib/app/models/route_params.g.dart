@@ -30,5 +30,6 @@ const _$AppPageEnumMap = {
   AppPage.servicesType: 'servicesType',
   AppPage.addServiceType: 'addServiceType',
   AppPage.login: 'login',
+  AppPage.forgotPassword: 'forgotPassword',
   AppPage.privacyPolicy: 'privacyPolicy',
 };

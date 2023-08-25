@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:kazi/app/core/auth/auth.dart' as _i2;
-import 'package:kazi/app/models/app_user.dart' as _i3;
+import 'package:kazi/app/models/user.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -20,16 +20,16 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [AuthService].
+/// A class which mocks [Auth].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i2.Auth {
-  MockAuthService() {
+class MockAuth extends _i1.Mock implements _i2.Auth {
+  MockAuth() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  set user(_i3.AppUser? _user) => super.noSuchMethod(
+  set user(_i3.User? _user) => super.noSuchMethod(
         Invocation.setter(
           #user,
           _user,
@@ -37,10 +37,10 @@ class MockAuthService extends _i1.Mock implements _i2.Auth {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Stream<_i3.AppUser?> get userChanges => (super.noSuchMethod(
+  _i4.Stream<_i3.User?> get userChanges => (super.noSuchMethod(
         Invocation.getter(#userChanges),
-        returnValue: _i4.Stream<_i3.AppUser?>.empty(),
-      ) as _i4.Stream<_i3.AppUser?>);
+        returnValue: _i4.Stream<_i3.User?>.empty(),
+      ) as _i4.Stream<_i3.User?>);
   @override
   _i4.Future<bool> signInWithPassword(
     String? email,
@@ -74,10 +74,28 @@ class MockAuthService extends _i1.Mock implements _i2.Auth {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> signUp(_i3.AppUser? user) => (super.noSuchMethod(
+  _i4.Future<void> signUp(_i3.User? user) => (super.noSuchMethod(
         Invocation.method(
           #signUp,
           [user],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> forgotPassword(String? email) => (super.noSuchMethod(
+        Invocation.method(
+          #forgotPassword,
+          [email],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> resetPassword(String? password) => (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [password],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),

@@ -1,7 +1,7 @@
-import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/user.dart';
 
 abstract class Auth {
-  AppUser? user;
+  User? user;
 
   Future<bool> signInWithPassword(String email, String password);
 
@@ -9,11 +9,11 @@ abstract class Auth {
 
   Future<void> signOut();
 
-  Future<void> signUp(AppUser user);
+  Future<void> signUp(User user);
 
   Future<void> forgotPassword(String email);
 
   Future<void> resetPassword(String password);
 
-  Stream<AppUser?> get userChanges;
+  Stream<User?> get userChanges;
 }

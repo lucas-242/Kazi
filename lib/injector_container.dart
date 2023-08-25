@@ -1,19 +1,21 @@
 import 'package:get_it/get_it.dart';
+import 'package:kazi/app/core/auth/kazi_api/kazi_api_auth.dart';
 import 'package:kazi/app/data/connection/http/http_kazi_client.dart';
 import 'package:kazi/app/data/connection/http/http_kazi_connection.dart';
 import 'package:kazi/app/data/connection/kazi_client.dart';
 import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
+import 'package:kazi/app/data/repositories/auth_repository/auth_repository.dart';
+import 'package:kazi/app/data/repositories/auth_repository/kazi_api/kazi_api_auth_repository.dart';
 import 'package:kazi/app/data/repositories/service_type_repository/kazi_api/kazi_api_service_type_repository.dart';
 import 'package:kazi/app/data/repositories/services_repository/kazi_api/kazi_api_services_repository.dart';
-import 'package:kazi/app/core/auth/kazi_api/kazi_api_auth_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'app/core/auth/auth.dart';
 import 'app/data/repositories/service_type_repository/service_type_repository.dart';
 import 'app/data/repositories/services_repository/services_repository.dart';
-import 'app/core/auth/auth.dart';
 import 'app/services/log_service/log_service.dart';
 import 'app/services/services_service/local/local_services_service.dart';
 import 'app/services/time_service/time_service.dart';
@@ -44,6 +46,13 @@ void _initNetwork() {
 }
 
 void _initRepositories() {
+  serviceLocator.registerFactory<AuthRepository>(
+    () => KaziApiAuthRepository(
+      connection: serviceLocator.get<KaziConnection>(),
+      logService: serviceLocator.get<LogService>(),
+    ),
+  );
+
   serviceLocator.registerFactory<ServicesRepository>(
     () => KaziApiServicesRepository(
       serviceLocator.get<KaziConnection>(),
@@ -64,8 +73,8 @@ void _initServices() {
   serviceLocator.registerSingleton<LogService>(LocalLogService());
 
   serviceLocator.registerSingleton<Auth>(
-    KaziApiAuthService(
-      connection: serviceLocator.get<KaziConnection>(),
+    KaziApiAuth(
+      authRepository: serviceLocator.get<AuthRepository>(),
       client: serviceLocator.get<KaziClient>(),
       localStorage: serviceLocator.get<LocalStorage>(),
       timeService: serviceLocator.get<TimeService>(),

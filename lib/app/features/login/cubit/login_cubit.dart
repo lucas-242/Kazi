@@ -4,7 +4,7 @@ import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
-import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/user.dart';
 
 part 'login_state.dart';
 
@@ -72,7 +72,7 @@ class LoginCubit extends Cubit<LoginState> {
         return;
       }
 
-      final user = AppUser.toCreate(
+      final user = User.toCreate(
         name: state.name,
         email: state.email,
         password: state.password,

@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/user.dart';
 import 'package:kazi/injector_container.dart';
 
 class SplashPage extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
   final minimumSplashTime = const Duration(milliseconds: 3500);
   final delayToInitAnimation = const Duration(milliseconds: 1000);
 
-  late StreamSubscription<AppUser?> userStream;
+  late StreamSubscription<User?> userStream;
   late Timer timer;
 
   bool showText = false;
@@ -50,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
         onError: (_) => context.navigateTo(AppPage.login));
   }
 
-  Future<void> _onUserChange(AppUser? user) async {
+  Future<void> _onUserChange(User? user) async {
     if (canNavigate) {
       _checkUser(user);
     } else {
@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
-  Future<void> _checkUser(AppUser? user) async {
+  Future<void> _checkUser(User? user) async {
     // await _closeAnimation();
     if (user != null) {
       context.navigateTo(AppPage.onboarding);

@@ -11,10 +11,10 @@ import 'app_cubit_test.mocks.dart';
 @GenerateMocks([Auth])
 void main() {
   late AppCubit cubit;
-  late MockAuthService authService;
+  late MockAuth authService;
 
   setUp(() {
-    authService = MockAuthService();
+    authService = MockAuth();
     cubit = AppCubit(authService);
 
     when(authService.userChanges).thenAnswer((_) => Stream.value(null));

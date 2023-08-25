@@ -22,7 +22,7 @@ import 'home_cubit_test.mocks.dart';
 @GenerateMocks([ServiceTypeRepository, ServicesRepository, Auth])
 void main() {
   late MockServicesRepository servicesRepository;
-  late MockAuthService authService;
+  late MockAuth authService;
   late TimeService timeService;
   late ServicesService servicesService;
   late HomeCubit cubit;
@@ -31,7 +31,7 @@ void main() {
 
   setUp(() {
     servicesRepository = MockServicesRepository();
-    authService = MockAuthService();
+    authService = MockAuth();
     timeService = LocalTimeService();
     servicesService = LocalServicesService(timeService);
 

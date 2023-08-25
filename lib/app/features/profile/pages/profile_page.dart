@@ -7,7 +7,7 @@ import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/core/widgets/texts/row_text/row_text.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/features/profile/widgets/options.dart';
-import 'package:kazi/app/models/app_user.dart';
+import 'package:kazi/app/models/user.dart';
 import 'package:kazi/injector_container.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUser user = serviceLocator.get<Auth>().user!;
+    final User user = serviceLocator.get<Auth>().user!;
 
     Future<void> onSignOut() async {
       await serviceLocator.get<Auth>().signOut();

@@ -20,7 +20,7 @@ import 'service_form_cubit_test.mocks.dart';
 void main() {
   late MockServiceTypeRepository serviceTypeRepository;
   late MockServicesRepository servicesRepository;
-  late MockAuthService authService;
+  late MockAuth authService;
   late ServiceFormCubit cubit;
 
   TestHelper.loadAppLocalizations();
@@ -28,7 +28,7 @@ void main() {
   setUp(() {
     serviceTypeRepository = MockServiceTypeRepository();
     servicesRepository = MockServicesRepository();
-    authService = MockAuthService();
+    authService = MockAuth();
 
     when(authService.user).thenReturn(userMock);
 
@@ -45,11 +45,11 @@ void main() {
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           status: BaseStateStatus.loading,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.initial,
         )
@@ -62,12 +62,12 @@ void main() {
       act: (cubit) => cubit.onInit(serviceMock),
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           status: BaseStateStatus.loading,
           service: serviceMock,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.initial,
           service: serviceMock,
@@ -84,11 +84,11 @@ void main() {
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           status: BaseStateStatus.loading,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           status: BaseStateStatus.noData,
         )
       ],
@@ -98,7 +98,7 @@ void main() {
       'emits ServiceFormState with status error and callbackMessage = errorToGetServiceTypes when call onInit',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         status: BaseStateStatus.noData,
       ),
       setUp: () {
@@ -108,11 +108,11 @@ void main() {
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           status: BaseStateStatus.loading,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
         )
@@ -128,11 +128,11 @@ void main() {
       act: (cubit) => cubit.onInit(),
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           status: BaseStateStatus.loading,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           callbackMessage: AppLocalizations.current.errorUnknowError,
           status: BaseStateStatus.error,
         )
@@ -152,7 +152,7 @@ void main() {
       'emits ServiceFormState with status success when call addService',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         serviceTypes: serviceTypesMock,
         status: BaseStateStatus.success,
       ),
@@ -163,27 +163,27 @@ void main() {
       ],
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           service: serviceMock,
           status: BaseStateStatus.success,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           quantity: quantityServices,
           service: serviceMock,
           status: BaseStateStatus.success,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           quantity: quantityServices,
           service: serviceMock,
           status: BaseStateStatus.loading,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.success,
         )
@@ -196,7 +196,7 @@ void main() {
       'emits ServiceFormState with status success when call updateService',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         serviceTypes: serviceTypesMock,
         status: BaseStateStatus.success,
       ),
@@ -206,19 +206,19 @@ void main() {
       ],
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           service: serviceMock,
           status: BaseStateStatus.success,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           service: serviceMock,
           status: BaseStateStatus.loading,
         ),
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.success,
         )
@@ -239,16 +239,18 @@ void main() {
       'emits ServiceFormState with new service with different date when call onChangeServiceDate',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         status: BaseStateStatus.noData,
       ),
       act: (cubit) => [cubit.onChangeServiceDate(newDateTime)],
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           service: Service.toCreate(
-              employeeId: authService.user!.uid,
-              scheduledToStartAt: newDateTime),
+            employeeId: authService.user!.id,
+            scheduledToStartAt: newDateTime,
+            scheduledToEndAt: newDateTime,
+          ),
           status: BaseStateStatus.noData,
         )
       ],
@@ -258,14 +260,14 @@ void main() {
       'emits ServiceFormState with new service with different description when call onChangeServiceDescription',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         service: serviceMock,
         status: BaseStateStatus.noData,
       ),
       act: (cubit) => [cubit.onChangeServiceDescription(newDescription)],
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           service: serviceMock.copyWith(description: newDescription),
           status: BaseStateStatus.noData,
         )
@@ -276,14 +278,14 @@ void main() {
       'emits ServiceFormState with new service with different value when call onChangeServiceValue',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         service: serviceMock,
         status: BaseStateStatus.noData,
       ),
       act: (cubit) => [cubit.onChangeServiceValue(newValue)],
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           service: serviceMock.copyWith(value: newValue),
           status: BaseStateStatus.noData,
         )
@@ -294,14 +296,14 @@ void main() {
       'emits ServiceFormState with new service with different discountPercent when call onChangeServiceDiscount',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         service: serviceMock,
         status: BaseStateStatus.noData,
       ),
       act: (cubit) => [cubit.onChangeServiceDiscount(newDiscountPercent)],
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           service: serviceMock.copyWith(discountPercent: newDiscountPercent),
           status: BaseStateStatus.noData,
         )
@@ -312,7 +314,7 @@ void main() {
       'emits ServiceFormState with new service with different discountPercent when call onChangeServiceType',
       build: () => cubit,
       seed: () => ServiceFormState(
-        userId: authService.user!.uid,
+        userId: authService.user!.id,
         serviceTypes: serviceTypesMock..add(newServiceType),
         service: serviceMock,
         status: BaseStateStatus.noData,
@@ -320,7 +322,7 @@ void main() {
       act: (cubit) => [cubit.onChangeServiceType(newDropdownItem)],
       expect: () => [
         ServiceFormState(
-          userId: authService.user!.uid,
+          userId: authService.user!.id,
           serviceTypes: serviceTypesMock..add(newServiceType),
           service: serviceMock.copyWith(serviceTypeId: newDropdownItem.value),
           status: BaseStateStatus.noData,
