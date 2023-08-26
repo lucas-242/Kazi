@@ -91,6 +91,7 @@
   "search": "Busca",
   "selectServiceType": "Selecione o tipo de serviço",
   "service": "Serviço",
+  "serviceDeleted" : "Serviço deletado com sucesso",
   "serviceValue": "Valor do Serviço",
   "services": "Serviços",
   "serviceType": "Tipo de Serviço",

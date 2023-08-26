@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 
 enum SnackBarType { success, error }
 
@@ -9,10 +10,10 @@ ScaffoldFeatureController getCustomSnackBar(
   Key? key,
 }) {
   final colors = Theme.of(context).colorScheme;
-  final textColor = type == SnackBarType.error ? colors.error : colors.primary;
-  final backgroudColor = type == SnackBarType.error
-      ? colors.errorContainer
-      : colors.primaryContainer;
+  final textColor =
+      type == SnackBarType.error ? colors.error : colors.onBackground;
+  final backgroudColor =
+      type == SnackBarType.error ? colors.errorContainer : AppColors.green;
 
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

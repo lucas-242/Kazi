@@ -108,6 +108,7 @@
   "search": "Search",
   "selectServiceType": "Select the service type",
   "service" : "Service",
+  "serviceDeleted" : "Service deleted successfully",
   "serviceValue" : "Service Value",
   "services" : "Services",
   "serviceType": "Service Type",

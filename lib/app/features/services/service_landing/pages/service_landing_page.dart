@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
-import 'package:kazi/app/features/services/service_landing/widgets/service_landing_content.dart';
-import 'package:kazi/app/features/services/service_landing/widgets/service_navbar.dart';
-import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
+import 'package:kazi/app/features/services/service_landing/widgets/service_landing_content.dart';
+import 'package:kazi/app/features/services/service_landing/widgets/service_navbar.dart';
+import 'package:kazi/app/features/services/services.dart';
 
 class ServiceLandingPage extends StatefulWidget {
   const ServiceLandingPage({super.key, this.showOnboarding = false});
@@ -41,12 +41,21 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
       padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
       onRefresh: () => context.read<ServiceLandingCubit>().onRefresh(),
       child: BlocListener<ServiceLandingCubit, ServiceLandingState>(
-        listenWhen: (previous, current) => previous.status != current.status,
+        listenWhen: (previous, current) =>
+            current.callbackMessage.isNotEmpty ||
+            previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.error) {
             getCustomSnackBar(
               context,
               message: state.callbackMessage,
+            );
+          } else if (state.status == BaseStateStatus.success &&
+              state.callbackMessage.isNotEmpty) {
+            getCustomSnackBar(
+              context,
+              message: state.callbackMessage,
+              type: SnackBarType.success,
             );
           }
         },

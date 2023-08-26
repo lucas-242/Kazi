@@ -177,6 +177,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Select the service type"),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
+        "serviceDeleted": MessageLookupByLibrary.simpleMessage(
+            "Service deleted successfully"),
         "serviceType": MessageLookupByLibrary.simpleMessage("Service Type"),
         "serviceTypes": MessageLookupByLibrary.simpleMessage("Service Types"),
         "serviceValue": MessageLookupByLibrary.simpleMessage("Service Value"),

@@ -970,6 +970,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Service deleted successfully`
+  String get serviceDeleted {
+    return Intl.message(
+      'Service deleted successfully',
+      name: 'serviceDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Service Value`
   String get serviceValue {
     return Intl.message(
