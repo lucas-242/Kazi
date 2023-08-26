@@ -61,24 +61,18 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     DateTime? startDate,
     DateTime? endDate,
   }) async {
-    try {
-      final services =
-          _servicesService.orderServices(result, state.selectedOrderBy);
+    final services =
+        _servicesService.orderServices(result, state.selectedOrderBy);
 
-      final newStatus =
-          result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
-      emit(state.copyWith(
-        status: newStatus,
-        services: services,
-        startDate: startDate,
-        endDate: endDate,
-        callbackMessage: callbackMessage ?? '',
-      ));
-    } on AppError catch (exception) {
-      onAppError(exception);
-    } catch (exception) {
-      unexpectedError(exception);
-    }
+    final newStatus =
+        result.isEmpty ? BaseStateStatus.noData : BaseStateStatus.success;
+    emit(state.copyWith(
+      status: newStatus,
+      services: services,
+      startDate: startDate,
+      endDate: endDate,
+      callbackMessage: callbackMessage ?? '',
+    ));
   }
 
   Future<void> onRefresh() async {
@@ -190,12 +184,11 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
       List<Service> result;
-      if (newServices != null) {
-        result = List.from(state.services)..addAll(newServices);
-      } else {
+      if (newServices == null) {
         result = await _getServices(state.startDate, state.endDate);
+      } else {
+        result = List.from(state.services)..addAll(newServices);
       }
-
       _handleGetServices(result: result);
     } on AppError catch (exception) {
       onAppError(exception);

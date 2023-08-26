@@ -4,18 +4,17 @@ class ServiceFormState extends BaseState with EquatableMixin {
   ServiceFormState({
     required super.status,
     Service? service,
-    List<Service>? newServices,
+    this.newServices,
     required this.userId,
     super.callbackMessage,
     List<ServiceType>? serviceTypes,
     int? quantity,
   })  : service = service ?? Service.toCreate(employeeId: userId),
-        newServices = newServices ?? [],
         serviceTypes = serviceTypes ?? [],
         quantity = quantity ?? 1;
 
   Service service;
-  List<Service> newServices;
+  List<Service>? newServices;
   List<ServiceType> serviceTypes;
   int quantity;
   int userId;

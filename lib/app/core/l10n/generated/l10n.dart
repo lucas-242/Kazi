@@ -970,11 +970,31 @@ class AppLocalizations {
     );
   }
 
+  /// `Service added successfully`
+  String get serviceAdded {
+    return Intl.message(
+      'Service added successfully',
+      name: 'serviceAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Service deleted successfully`
   String get serviceDeleted {
     return Intl.message(
       'Service deleted successfully',
       name: 'serviceDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service updated successfully`
+  String get serviceUpdated {
+    return Intl.message(
+      'Service updated successfully',
+      name: 'serviceUpdated',
       desc: '',
       args: [],
     );

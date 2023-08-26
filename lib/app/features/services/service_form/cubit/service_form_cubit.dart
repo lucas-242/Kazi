@@ -61,6 +61,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
         quantity: 1,
         newServices: newServices,
         service: Service.toCreate(employeeId: _authService.user!.id),
+        callbackMessage: AppLocalizations.current.serviceAdded,
       ));
     } on AppError catch (exception) {
       onAppError(exception);
@@ -88,6 +89,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
         status: BaseStateStatus.success,
         quantity: 1,
         service: Service.toCreate(employeeId: _authService.user!.id),
+        callbackMessage: AppLocalizations.current.serviceUpdated,
       ));
     } on AppError catch (exception) {
       onAppError(exception);

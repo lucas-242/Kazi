@@ -186,6 +186,7 @@ void main() {
           userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.success,
+          callbackMessage: AppLocalizations.current.serviceAdded,
         )
       ],
     );
@@ -221,6 +222,7 @@ void main() {
           userId: authService.user!.id,
           serviceTypes: serviceTypesMock,
           status: BaseStateStatus.success,
+          callbackMessage: AppLocalizations.current.serviceUpdated,
         )
       ],
     );

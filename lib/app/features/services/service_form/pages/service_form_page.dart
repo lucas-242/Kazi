@@ -47,6 +47,11 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
               context
                   .read<ServiceLandingCubit>()
                   .onChangeServices(state.newServices);
+              getCustomSnackBar(
+                context,
+                message: state.callbackMessage,
+                type: SnackBarType.success,
+              );
               context.back();
             } else if (state.status == BaseStateStatus.error) {
               getCustomSnackBar(
