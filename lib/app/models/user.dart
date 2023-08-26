@@ -46,6 +46,7 @@ class User {
   final String email;
   final String? photoUrl;
   final int id;
+  @JsonKey(defaultValue: '')
   final String password;
   final UserType userType;
   @JsonKey(name: 'authenticationToken')

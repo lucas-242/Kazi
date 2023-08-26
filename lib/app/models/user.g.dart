@@ -11,7 +11,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User._(
       email: json['email'] as String,
       photoUrl: json['photoUrl'] as String?,
       id: json['id'] as int,
-      password: json['password'] as String,
+      password: json['password'] as String? ?? '',
       userType: $enumDecode(_$UserTypeEnumMap, json['userType']),
       authToken: json['authenticationToken'] as String,
       refreshToken: json['refreshToken'] as String,
