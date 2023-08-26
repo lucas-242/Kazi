@@ -4,8 +4,10 @@ import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/data/repositories/services_repository/services_repository.dart';
+import 'package:kazi/app/models/enums/fast_search.dart';
 import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/services_filter.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 
 part 'home_state.dart';
@@ -31,8 +33,8 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
   }
 
   Future<List<Service>> _getServices() async {
-    final today = _servicesService.now;
-    final result = await _servicesRepository.get(today);
+    final result = await _servicesRepository
+        .get(const ServicesFilter(fastSearch: FastSearch.today));
     return result;
   }
 

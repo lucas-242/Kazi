@@ -1,8 +1,9 @@
-import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/services_filter.dart';
 import 'package:kazi/app/services/log_service/log_service.dart';
 
 import '../services_repository.dart';
@@ -69,13 +70,10 @@ class KaziApiServicesRepository extends ServicesRepository {
   }
 
   @override
-  Future<List<Service>> get(DateTime startDate, [DateTime? endDate]) async {
+  Future<List<Service>> get(ServicesFilter servicesFilter) async {
     try {
-      final response = await _connection.get(url, parameters: {
-        'ScheduledToStartAt': startDate,
-        'ScheduledToEndAt': endDate,
-        'PageSize': 999
-      });
+      final response =
+          await _connection.get(url, parameters: servicesFilter.toJson());
       _connection.handleResponse(response);
       if (response.body.isEmpty) {
         return [];

@@ -28,10 +28,10 @@ enum AppPage {
     return home;
   }
 
-  static String getRoute(AppPage page, {int id = 0}) {
+  static String getRoute(AppPage page, {int? id}) {
     switch (page) {
       case AppPage.home:
-        return '${AppRouter.home}/$id';
+        return AppRouter.home;
       case AppPage.services:
         return AppRouter.services;
       case AppPage.addServices:

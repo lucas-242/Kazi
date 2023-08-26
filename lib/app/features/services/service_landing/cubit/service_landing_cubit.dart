@@ -8,6 +8,7 @@ import 'package:kazi/app/data/repositories/services_repository/services_reposito
 import 'package:kazi/app/models/enums/fast_search.dart';
 import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
+import 'package:kazi/app/models/services_filter.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 
 part 'service_landing_state.dart';
@@ -44,7 +45,13 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
 
   Future<List<Service>> _getServices(
       DateTime startDate, DateTime endDate) async {
-    final result = await _serviceProvidedRepository.get(startDate, endDate);
+    final result = await _serviceProvidedRepository.get(
+      ServicesFilter(
+        scheduledToStartAt: startDate,
+        scheduledToEndAt: endDate,
+        pageSize: 9999,
+      ),
+    );
     return result;
   }
 

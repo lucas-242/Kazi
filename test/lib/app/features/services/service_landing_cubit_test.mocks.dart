@@ -5,14 +5,15 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:kazi/app/core/auth/auth.dart' as _i7;
+import 'package:kazi/app/core/auth/auth.dart' as _i8;
 import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart'
     as _i3;
 import 'package:kazi/app/data/repositories/services_repository/services_repository.dart'
     as _i5;
 import 'package:kazi/app/models/service.dart' as _i6;
 import 'package:kazi/app/models/service_type.dart' as _i2;
-import 'package:kazi/app/models/user.dart' as _i8;
+import 'package:kazi/app/models/services_filter.dart' as _i7;
+import 'package:kazi/app/models/user.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -123,17 +124,11 @@ class MockServicesRepository extends _i1.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<List<_i6.Service>> get(
-    DateTime? startDate, [
-    DateTime? endDate,
-  ]) =>
+  _i4.Future<List<_i6.Service>> get(_i7.ServicesFilter? servicesFilter) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
-          [
-            startDate,
-            endDate,
-          ],
+          [servicesFilter],
         ),
         returnValue: _i4.Future<List<_i6.Service>>.value(<_i6.Service>[]),
       ) as _i4.Future<List<_i6.Service>>);
@@ -151,13 +146,13 @@ class MockServicesRepository extends _i1.Mock
 /// A class which mocks [Auth].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuth extends _i1.Mock implements _i7.Auth {
+class MockAuth extends _i1.Mock implements _i8.Auth {
   MockAuth() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  set user(_i8.User? _user) => super.noSuchMethod(
+  set user(_i9.User? _user) => super.noSuchMethod(
         Invocation.setter(
           #user,
           _user,
@@ -165,10 +160,10 @@ class MockAuth extends _i1.Mock implements _i7.Auth {
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Stream<_i8.User?> get userChanges => (super.noSuchMethod(
+  _i4.Stream<_i9.User?> get userChanges => (super.noSuchMethod(
         Invocation.getter(#userChanges),
-        returnValue: _i4.Stream<_i8.User?>.empty(),
-      ) as _i4.Stream<_i8.User?>);
+        returnValue: _i4.Stream<_i9.User?>.empty(),
+      ) as _i4.Stream<_i9.User?>);
   @override
   _i4.Future<bool> signInWithPassword(
     String? email,
@@ -202,7 +197,7 @@ class MockAuth extends _i1.Mock implements _i7.Auth {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> signUp(_i8.User? user) => (super.noSuchMethod(
+  _i4.Future<void> signUp(_i9.User? user) => (super.noSuchMethod(
         Invocation.method(
           #signUp,
           [user],
