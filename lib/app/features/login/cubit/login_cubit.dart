@@ -9,10 +9,9 @@ import 'package:kazi/app/models/user.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._authService)
-      : super(LoginState(status: BaseStateStatus.initial));
+  LoginCubit(this._auth) : super(LoginState(status: BaseStateStatus.initial));
 
-  final Auth _authService;
+  final Auth _auth;
 
   void onChangeName(String name) => emit(state.copyWith(name: name));
 
@@ -21,16 +20,22 @@ class LoginCubit extends Cubit<LoginState> {
   void onChangePassword(String password) =>
       emit(state.copyWith(password: password));
 
+  void onChangeCurrentPassword(String password) =>
+      emit(state.copyWith(currentPassword: password));
+
   void onChangeLoginMethod() =>
       emit(state.copyWith(isSigningIn: !state.isSigningIn));
 
   void onChangeShowPassword() =>
       emit(state.copyWith(showPassword: !state.showPassword));
 
+  void onChangeResetPasswordToken(String? token) =>
+      emit(state.copyWith(resetPasswordToken: token));
+
   Future<void> onSignInWithPassword() async {
     emit(state.copyWith(status: BaseStateStatus.loading));
     await _handleSignInResponse(
-        _authService.signInWithPassword(state.email, state.password));
+        _auth.signInWithPassword(state.email, state.password));
   }
 
   Future<void> _handleSignInResponse(Future<bool> response) async {
@@ -38,7 +43,7 @@ class LoginCubit extends Cubit<LoginState> {
       final isSignedIn = await response;
 
       if (isSignedIn) {
-        return emit(state.copyWith(status: BaseStateStatus.success));
+        return _emitSuccess('');
       }
 
       return _emitUnknowError();
@@ -53,17 +58,19 @@ class LoginCubit extends Cubit<LoginState> {
         status: BaseStateStatus.error,
         callbackMessage: error.message,
         password: '',
+        currentPassword: '',
       ));
 
   void _emitUnknowError() => emit(state.copyWith(
         status: BaseStateStatus.error,
         callbackMessage: AppLocalizations.current.errorUnknowError,
         password: '',
+        currentPassword: '',
       ));
 
   Future<void> onSignInWithGoogle() async {
     emit(state.copyWith(status: BaseStateStatus.loading));
-    await _handleSignInResponse(_authService.signInWithGoogle());
+    await _handleSignInResponse(_auth.signInWithGoogle());
   }
 
   Future<void> onSignUp() async {
@@ -78,14 +85,8 @@ class LoginCubit extends Cubit<LoginState> {
         password: state.password,
       );
 
-      await _authService.signUp(user);
-      return emit(state.copyWith(
-        status: BaseStateStatus.success,
-        callbackMessage: AppLocalizations.current.signUpSuccess,
-        name: '',
-        email: '',
-        password: '',
-      ));
+      await _auth.signUp(user);
+      return _emitSuccess(AppLocalizations.current.signUpSuccess);
     } on AppError catch (error) {
       _emitAppError(error);
     } catch (error) {
@@ -98,16 +99,31 @@ class LoginCubit extends Cubit<LoginState> {
       state.email.isNotEmpty &&
       state.password.isNotEmpty;
 
-  Future<void> onForgotPassword() async {
-    try {
-      await _authService.forgotPassword(state.email);
-      return emit(state.copyWith(
+  void _emitSuccess(String message) => emit(state.copyWith(
         status: BaseStateStatus.success,
-        callbackMessage: AppLocalizations.current.forgotPasswordEmailSent,
+        callbackMessage: message,
         name: '',
         email: '',
         password: '',
+        currentPassword: '',
       ));
+
+  Future<void> onForgotPassword() async {
+    try {
+      await _auth.forgotPassword(state.email);
+      return _emitSuccess(AppLocalizations.current.forgotPasswordEmailSent);
+    } on AppError catch (error) {
+      _emitAppError(error);
+    } catch (error) {
+      _emitUnknowError();
+    }
+  }
+
+  Future<void> onResetPassword() async {
+    //TODO: Change AndroidManifest with right domain and create assetLinks.json
+    try {
+      await _auth.resetPassword(state.password);
+      return _emitSuccess(AppLocalizations.current.resetedPassword);
     } on AppError catch (error) {
       _emitAppError(error);
     } catch (error) {

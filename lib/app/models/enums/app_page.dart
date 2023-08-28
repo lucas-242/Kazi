@@ -12,7 +12,8 @@ enum AppPage {
   addServiceType(7),
   login(10),
   forgotPassword(11),
-  privacyPolicy(12);
+  resetPassword(12),
+  privacyPolicy(13);
 
   const AppPage(this.value);
 
@@ -52,6 +53,8 @@ enum AppPage {
         return AppRouter.onboarding;
       case AppPage.forgotPassword:
         return AppRouter.loginForgotPassword;
+      case AppPage.resetPassword:
+        return AppRouter.loginResetPassword;
       case AppPage.privacyPolicy:
         return AppRouter.loginPrivacyPolicy;
     }

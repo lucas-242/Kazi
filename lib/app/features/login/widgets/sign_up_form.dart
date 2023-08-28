@@ -5,7 +5,7 @@ import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
-import 'package:kazi/app/features/login/cubit/login_cubit.dart';
+import 'package:kazi/app/features/login/login.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -49,7 +49,7 @@ class _SignUpFormState extends State<SignUpForm> {
       }
     }
 
-    void resetPasswords(LoginState state) {
+    void clearPasswordFields(LoginState state) {
       if (state.password.isEmpty && passwordController.text.isNotEmpty) {
         passwordController.text = '';
         confirmPasswordController.text = '';
@@ -85,7 +85,7 @@ class _SignUpFormState extends State<SignUpForm> {
           AppSizeConstants.largeVerticalSpacer,
           BlocBuilder<LoginCubit, LoginState>(
             builder: (context, state) {
-              resetPasswords(state);
+              clearPasswordFields(state);
               return Column(
                 children: [
                   CustomTextFormField(

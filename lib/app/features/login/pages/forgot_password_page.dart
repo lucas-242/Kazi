@@ -44,7 +44,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           AppSizeConstants.smallVerticalSpacer,
           PillButton(
             onTap: onTapSubmit,
-            child: Text(AppLocalizations.current.signIn),
+            child: Text(AppLocalizations.current.send),
           ),
         ],
       ),

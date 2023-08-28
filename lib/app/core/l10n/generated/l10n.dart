@@ -190,6 +190,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Current Password`
+  String get currentPassword {
+    return Intl.message(
+      'Current Password',
+      name: 'currentPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Date`
   String get date {
     return Intl.message(
@@ -680,6 +690,16 @@ class AppLocalizations {
     );
   }
 
+  /// `New Password`
+  String get newPassword {
+    return Intl.message(
+      'New Password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `New service`
   String get newService {
     return Intl.message(
@@ -910,6 +930,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Reset Password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset Password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reseted successfully`
+  String get resetedPassword {
+    return Intl.message(
+      'Password reseted successfully',
+      name: 'resetedPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save`
   String get save {
     return Intl.message(
@@ -955,6 +995,16 @@ class AppLocalizations {
     return Intl.message(
       'Select the service type',
       name: 'selectServiceType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get send {
+    return Intl.message(
+      'Send',
+      name: 'send',
       desc: '',
       args: [],
     );

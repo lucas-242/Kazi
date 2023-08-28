@@ -26,8 +26,9 @@ abstract class AppRouter {
   static String onboarding = '/onboarding';
   static String home = '/home';
   static String login = '/login';
-  static String loginPrivacyPolicy = '$login/privacy-policy';
-  static String loginForgotPassword = '$login/forgot-password';
+  static String loginPrivacyPolicy = '$login/$privacyPolicy';
+  static String loginForgotPassword = '$login/$forgotPassword';
+  static String loginResetPassword = '$login/$resetPassword';
   static String services = '/services';
   static String addServices = '$services/$add';
   static String servicesType = '$services/$type';
@@ -39,6 +40,7 @@ abstract class AppRouter {
   static String type = 'type';
   static String privacyPolicy = 'privacy-policy';
   static String forgotPassword = 'forgot-password';
+  static String resetPassword = 'reset-password';
 }
 
 final _router = GoRouter(
@@ -62,7 +64,7 @@ final _router = GoRouter(
         path: AppRouter.login,
         pageBuilder: (context, state) =>
             _customTransition(state, const LoginLandingPage()),
-        routes: [_privacyPolicy, _forgotPassword]),
+        routes: [_privacyPolicy, _forgotPassword, _resetPassword]),
     ShellRoute(
       builder: (context, state, child) => AppShell(
         params: state.extra != null
@@ -126,6 +128,14 @@ final _forgotPassword = GoRoute(
   path: AppRouter.forgotPassword,
   pageBuilder: (context, state) =>
       _customTransition(state, const ForgotPasswordPage()),
+);
+
+final _resetPassword = GoRoute(
+  path: AppRouter.resetPassword,
+  pageBuilder: (context, state) => _customTransition(
+    state,
+    ResetPasswordPage(resetPasswordToken: state.queryParameters['token']),
+  ),
 );
 
 final _serviceDetails = GoRoute(

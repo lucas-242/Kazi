@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirme a Senha"),
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Crie uma Conta"),
+        "currentPassword": MessageLookupByLibrary.simpleMessage("Senha Atual"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Modo escuro"),
         "date": MessageLookupByLibrary.simpleMessage("Data"),
         "defaultValue": MessageLookupByLibrary.simpleMessage("Valor padrão"),
@@ -132,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "month": MessageLookupByLibrary.simpleMessage("Mês"),
         "myBalance": MessageLookupByLibrary.simpleMessage("Meu saldo"),
         "name": MessageLookupByLibrary.simpleMessage("Nome"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("Nova Senha"),
         "newService": MessageLookupByLibrary.simpleMessage("Novo Serviço"),
         "newServiceType":
             MessageLookupByLibrary.simpleMessage("Novo Tipo de Serviço"),
@@ -172,12 +174,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeFilters":
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
         "requiredProperty": m6,
+        "resetPassword":
+            MessageLookupByLibrary.simpleMessage("Redefinir Senha"),
+        "resetedPassword": MessageLookupByLibrary.simpleMessage(
+            "Senha redefinida com sucesso"),
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
         "saveService": MessageLookupByLibrary.simpleMessage("Salvar Serviço"),
         "saveType": MessageLookupByLibrary.simpleMessage("Salvar Tipo"),
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
+        "send": MessageLookupByLibrary.simpleMessage("Enviar"),
         "service": MessageLookupByLibrary.simpleMessage("Serviço"),
         "serviceAdded": MessageLookupByLibrary.simpleMessage(
             "Serviço adicionado com sucesso"),

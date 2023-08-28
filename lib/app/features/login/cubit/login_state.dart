@@ -7,6 +7,8 @@ class LoginState extends BaseState with EquatableMixin {
     this.name = '',
     this.email = '',
     this.password = '',
+    this.currentPassword = '',
+    this.resetPasswordToken,
     this.isSigningIn = true,
     this.showPassword = false,
   });
@@ -14,6 +16,8 @@ class LoginState extends BaseState with EquatableMixin {
   final String name;
   final String email;
   final String password;
+  final String currentPassword;
+  final String? resetPasswordToken;
   final bool isSigningIn;
   final bool showPassword;
 
@@ -24,6 +28,8 @@ class LoginState extends BaseState with EquatableMixin {
         name,
         email,
         password,
+        currentPassword,
+        resetPasswordToken,
         isSigningIn,
         showPassword,
       ];
@@ -35,6 +41,8 @@ class LoginState extends BaseState with EquatableMixin {
     String? name,
     String? email,
     String? password,
+    String? currentPassword,
+    String? resetPasswordToken,
     bool? isSigningIn,
     bool? showPassword,
   }) {
@@ -44,6 +52,8 @@ class LoginState extends BaseState with EquatableMixin {
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
+      currentPassword: currentPassword ?? this.currentPassword,
+      resetPasswordToken: resetPasswordToken ?? this.resetPasswordToken,
       isSigningIn: isSigningIn ?? this.isSigningIn,
       showPassword: showPassword ?? this.showPassword,
     );

@@ -6,7 +6,7 @@ import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
-import 'package:kazi/app/features/login/cubit/login_cubit.dart';
+import 'package:kazi/app/features/login/login.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
