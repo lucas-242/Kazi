@@ -940,6 +940,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Enter your email and we'll send instructions to reset your password to your inbox.`
+  String get resetPasswordInfo {
+    return Intl.message(
+      'Enter your email and we\'ll send instructions to reset your password to your inbox.',
+      name: 'resetPasswordInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password reseted successfully`
   String get resetedPassword {
     return Intl.message(

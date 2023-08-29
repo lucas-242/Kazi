@@ -176,6 +176,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requiredProperty": m6,
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Redefinir Senha"),
+        "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
+            "Informe seu email para que possamos enviar para sua caixa de mensagens as instruções para redefinição de senha."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Senha redefinida com sucesso"),
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),

@@ -88,6 +88,7 @@
   "quantity": "Quantidade",
   "removeFilters": "Remover filtros",
   "resetPassword": "Redefinir Senha",
+  "resetPasswordInfo": "Informe seu email para que possamos enviar para sua caixa de mensagens as instruções para redefinição de senha.",
   "resetedPassword": "Senha redefinida com sucesso",
   "save": "Salvar",
   "saveType": "Salvar Tipo",

@@ -187,7 +187,7 @@ abstract class ThemeSettings {
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) {
     const borderRadius = BorderRadius.all(Radius.circular(6.0));
     return InputDecorationTheme(
-      floatingLabelBehavior: FloatingLabelBehavior.always,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
       filled: true,
       fillColor: colors.surface,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),

@@ -73,11 +73,9 @@ class CustomTextFormField extends StatelessWidget {
         labelText: labelText,
         labelStyle: context.labelLarge!.copyWith(
           color: context.colorsScheme.onSurface,
-          backgroundColor: context.colorsScheme.background,
-          //TODO: CustomPaint here to create a rounded border background
         ),
         errorMaxLines: 3,
-        hintText: hintText,
+        hintText: hintText.isEmpty ? labelText : null,
         hintStyle: context.bodyMedium,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,

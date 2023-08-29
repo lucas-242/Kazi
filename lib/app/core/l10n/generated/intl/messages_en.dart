@@ -174,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
         "requiredProperty": m6,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
+            "Enter your email and we\'ll send instructions to reset your password to your inbox."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Password reseted successfully"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),

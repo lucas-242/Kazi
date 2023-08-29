@@ -105,6 +105,7 @@
   "quantity": "Quantity",
   "removeFilters": "Remove filters",
   "resetPassword": "Reset Password",
+  "resetPasswordInfo": "Enter your email and we'll send instructions to reset your password to your inbox.",
   "resetedPassword": "Password reseted successfully",
   "save": "Save",
   "saveType": "Save Type",
