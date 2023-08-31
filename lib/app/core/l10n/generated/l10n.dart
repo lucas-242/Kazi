@@ -190,6 +190,16 @@ class AppLocalizations {
     );
   }
 
+  /// `guimaraeslucas242@gmail.com`
+  String get contactEmail {
+    return Intl.message(
+      'guimaraeslucas242@gmail.com',
+      name: 'contactEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Current Password`
   String get currentPassword {
     return Intl.message(
@@ -337,6 +347,16 @@ class AppLocalizations {
       name: 'email',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Could not launch {url}`
+  String errorLaunchUrl(String url) {
+    return Intl.message(
+      'Could not launch $url',
+      name: 'errorLaunchUrl',
+      desc: '',
+      args: [url],
     );
   }
 
@@ -905,6 +925,256 @@ class AppLocalizations {
     return Intl.message(
       'Phone',
       name: 'phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Police`
+  String get privacyPolice {
+    return Intl.message(
+      'Privacy Police',
+      name: 'privacyPolice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lucas Guimarães built the Kazi app as an Ad Supported app. This SERVICE is provided by Lucas Guimarães at no cost and is intended for use as is.\nThis page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.\nIf you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.\nThe terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Kazi unless otherwise defined in this Privacy Policy.`
+  String get privacyPoliceStart {
+    return Intl.message(
+      'Lucas Guimarães built the Kazi app as an Ad Supported app. This SERVICE is provided by Lucas Guimarães at no cost and is intended for use as is.\nThis page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.\nIf you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.\nThe terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Kazi unless otherwise defined in this Privacy Policy.',
+      name: 'privacyPoliceStart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to Name, Email Address. The information that I request will be retained on your device and is not collected by me in any way.\nThe app does use third-party services that may collect information used to identify you.\nLink to the privacy policy of third-party service providers used by the app:\n`
+  String get privacyPoliceInformation {
+    return Intl.message(
+      'For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to Name, Email Address. The information that I request will be retained on your device and is not collected by me in any way.\nThe app does use third-party services that may collect information used to identify you.\nLink to the privacy policy of third-party service providers used by the app:\n',
+      name: 'privacyPoliceInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Google Play Services;\n`
+  String get privacyPoliceInformation1 {
+    return Intl.message(
+      'Google Play Services;\n',
+      name: 'privacyPoliceInformation1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AdMob;\n`
+  String get privacyPoliceInformation2 {
+    return Intl.message(
+      'AdMob;\n',
+      name: 'privacyPoliceInformation2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Google Analytics for Firebase;\n`
+  String get privacyPoliceInformation3 {
+    return Intl.message(
+      'Google Analytics for Firebase;\n',
+      name: 'privacyPoliceInformation3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Firebase Crashlytics.\n`
+  String get privacyPoliceInformation4 {
+    return Intl.message(
+      'Firebase Crashlytics.\n',
+      name: 'privacyPoliceInformation4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Information Collection and Use`
+  String get privacyPoliceInformationTitle {
+    return Intl.message(
+      'Information Collection and Use',
+      name: 'privacyPoliceInformationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.`
+  String get privacyPoliceLogData {
+    return Intl.message(
+      'I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.',
+      name: 'privacyPoliceLogData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log Data`
+  String get privacyPoliceLogDataTitle {
+    return Intl.message(
+      'Log Data',
+      name: 'privacyPoliceLogDataTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.\nThis Service does not use these “cookies” explicitly. However, the app may use third-party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.`
+  String get privacyPoliceCookies {
+    return Intl.message(
+      'Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device\'s internal memory.\nThis Service does not use these “cookies” explicitly. However, the app may use third-party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.',
+      name: 'privacyPoliceCookies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cookies`
+  String get privacyPoliceCookiesTitle {
+    return Intl.message(
+      'Cookies',
+      name: 'privacyPoliceCookiesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I may employ third-party companies and individuals due to the following reasons:\n\nTo facilitate our Service;\nTo provide the Service on our behalf;\nTo perform Service-related services; or\nTo assist us in analyzing how our Service is used.\nI want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.`
+  String get privacyPoliceServices {
+    return Intl.message(
+      'I may employ third-party companies and individuals due to the following reasons:\n\nTo facilitate our Service;\nTo provide the Service on our behalf;\nTo perform Service-related services; or\nTo assist us in analyzing how our Service is used.\nI want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.',
+      name: 'privacyPoliceServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Providers`
+  String get privacyPoliceServicesTitle {
+    return Intl.message(
+      'Service Providers',
+      name: 'privacyPoliceServicesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.`
+  String get privacyPoliceSecurity {
+    return Intl.message(
+      'I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.',
+      name: 'privacyPoliceSecurity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security`
+  String get privacyPoliceSecurityTitle {
+    return Intl.message(
+      'Security',
+      name: 'privacyPoliceSecurityTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.`
+  String get pricayPoliceLinks {
+    return Intl.message(
+      'This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.',
+      name: 'pricayPoliceLinks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Links to Other Sites`
+  String get pricayPoliceLinksTitle {
+    return Intl.message(
+      'Links to Other Sites',
+      name: 'pricayPoliceLinksTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13 years of age. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do the necessary actions.`
+  String get privacyPoliceChildren {
+    return Intl.message(
+      'These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13 years of age. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do the necessary actions.',
+      name: 'privacyPoliceChildren',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Children’s Privacy`
+  String get privacyPoliceChildrenTitle {
+    return Intl.message(
+      'Children’s Privacy',
+      name: 'privacyPoliceChildrenTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.\nThis policy is effective as of 2023-05-26.`
+  String get privacyPoliceChanges {
+    return Intl.message(
+      'I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.\nThis policy is effective as of 2023-05-26.',
+      name: 'privacyPoliceChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Changes to This Privacy Policy`
+  String get privacyPoliceChangesTitle {
+    return Intl.message(
+      'Changes to This Privacy Policy',
+      name: 'privacyPoliceChangesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at `
+  String get privacyPoliceContact {
+    return Intl.message(
+      'If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at ',
+      name: 'privacyPoliceContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Us`
+  String get privacyPoliceContactTitle {
+    return Intl.message(
+      'Contact Us',
+      name: 'privacyPoliceContactTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This privacy policy page was created at privacypolicytemplate.net and modified/generated by App Privacy Policy Generator`
+  String get privacyPoliceEnd {
+    return Intl.message(
+      'This privacy policy page was created at privacypolicytemplate.net and modified/generated by App Privacy Policy Generator',
+      name: 'privacyPoliceEnd',
       desc: '',
       args: [],
     );

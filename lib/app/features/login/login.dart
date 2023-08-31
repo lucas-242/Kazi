@@ -8,3 +8,4 @@ export 'widgets/login_sign_in_changer.dart';
 export 'widgets/login_terms_policies.dart';
 export 'widgets/sign_in_form.dart';
 export 'widgets/sign_up_form.dart';
+export 'widgets/text_button_link.dart';

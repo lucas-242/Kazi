@@ -22,19 +22,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(property) => "${property} já existe";
 
-  static String m1(start, end) => "De ${start} até ${end}";
+  static String m1(url) => "Could not launch ${url}";
 
-  static String m2(person) => "Olá, ${person}!";
+  static String m2(start, end) => "De ${start} até ${end}";
 
-  static String m3(property) => "${property} está em uso";
+  static String m3(person) => "Olá, ${person}!";
 
-  static String m4(property) => "${property} inválido";
+  static String m4(property) => "${property} está em uso";
 
-  static String m5(property) => "${property} está vazio";
+  static String m5(property) => "${property} inválido";
 
-  static String m6(property) => "${property} precisa ser preenchido";
+  static String m6(property) => "${property} está vazio";
 
-  static String m7(item) => "Gostaria de deletar ${item}?";
+  static String m7(property) => "${property} precisa ser preenchido";
+
+  static String m8(item) => "Gostaria de deletar ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -54,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmAction": MessageLookupByLibrary.simpleMessage("Confirmar Ação"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirme a Senha"),
+        "contactEmail":
+            MessageLookupByLibrary.simpleMessage("guimaraeslucas242@gmail.com"),
         "create": MessageLookupByLibrary.simpleMessage("Criar"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Crie uma Conta"),
         "currentPassword": MessageLookupByLibrary.simpleMessage("Senha Atual"),
@@ -73,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editService": MessageLookupByLibrary.simpleMessage("Editar Serviço"),
         "editServiceType": MessageLookupByLibrary.simpleMessage("Editar Tipo"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "errorLaunchUrl": m1,
         "errorNotFound":
             MessageLookupByLibrary.simpleMessage("SEndereço não encontrado."),
         "errorToAddService": MessageLookupByLibrary.simpleMessage(
@@ -115,16 +120,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotYourPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
-        "fromTo": m1,
+        "fromTo": m2,
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Login com Google"),
-        "hi": m2,
+        "hi": m3,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "inUse": m3,
+        "inUse": m4,
         "invalidNumber": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe um número válido"),
-        "invalidProperty": m4,
-        "isEmpty": m5,
+        "invalidProperty": m5,
+        "isEmpty": m6,
         "lastMonth": MessageLookupByLibrary.simpleMessage("Mês Passado"),
         "lastServices":
             MessageLookupByLibrary.simpleMessage("Últimos serviços"),
@@ -171,11 +176,61 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Senha"),
         "period": MessageLookupByLibrary.simpleMessage("Período"),
         "phone": MessageLookupByLibrary.simpleMessage("Telefone"),
+        "pricayPoliceLinks": MessageLookupByLibrary.simpleMessage(
+            "Este Serviço pode conter links para outros sites. Se você clicar em um link de terceiros, será direcionado para esse site. Observe que esses sites externos não são operados por mim. Portanto, aconselho fortemente que você revise a Política de Privacidade desses sites. Não tenho controle e não assumo nenhuma responsabilidade pelo conteúdo, políticas de privacidade ou práticas de sites ou serviços de terceiros."),
+        "pricayPoliceLinksTitle":
+            MessageLookupByLibrary.simpleMessage("Links para outros sites"),
+        "privacyPolice":
+            MessageLookupByLibrary.simpleMessage("Política de Privacidade"),
+        "privacyPoliceChanges": MessageLookupByLibrary.simpleMessage(
+            "Posso atualizar nossa Política de Privacidade de tempos em tempos. Assim, você é aconselhado a revisar esta página periodicamente para quaisquer alterações. Vou notificá-lo sobre quaisquer alterações, publicando a nova Política de Privacidade nesta página.\nEsta política é efetiva a partir de 2023-05-26"),
+        "privacyPoliceChangesTitle": MessageLookupByLibrary.simpleMessage(
+            "Mudanças nesta Política de Privacidade"),
+        "privacyPoliceChildren": MessageLookupByLibrary.simpleMessage(
+            "Esses Serviços não se dirigem a menores de 13 anos. Não coleto intencionalmente informações de identificação pessoal de crianças menores de 13 anos. No caso de eu descobrir que uma criança menor de 13 anos me forneceu informações pessoais, eu as excluo imediatamente de nossos servidores. Se você é pai ou responsável e está ciente de que seu filho nos forneceu informações pessoais, entre em contato comigo para que eu possa tomar as medidas necessárias."),
+        "privacyPoliceChildrenTitle":
+            MessageLookupByLibrary.simpleMessage("Privacidade das crianças"),
+        "privacyPoliceContact": MessageLookupByLibrary.simpleMessage(
+            "Se tiver alguma dúvida ou sugestão sobre a minha Política de Privacidade, não hesite em contactar-me em "),
+        "privacyPoliceContactTitle":
+            MessageLookupByLibrary.simpleMessage("Contate-nos"),
+        "privacyPoliceCookies": MessageLookupByLibrary.simpleMessage(
+            "Cookies são arquivos com uma pequena quantidade de dados que são comumente usados como identificadores únicos anônimos. Estes são enviados para o seu navegador a partir dos sites que você visita e são armazenados na memória interna do seu dispositivo.\nEste Serviço não usa esses “cookies” explicitamente. No entanto, o aplicativo pode usar código e bibliotecas de terceiros que usam “cookies” para coletar informações e melhorar seus serviços. Você tem a opção de aceitar ou recusar esses cookies e saber quando um cookie está sendo enviado ao seu dispositivo. Se você optar por recusar nossos cookies, talvez não consiga usar algumas partes deste Serviço."),
+        "privacyPoliceCookiesTitle":
+            MessageLookupByLibrary.simpleMessage("Cookies"),
+        "privacyPoliceEnd": MessageLookupByLibrary.simpleMessage(
+            "Esta página de política de privacidade foi criada em privacypolicytemplate.net e modificada/gerada pelo App Privacy Policy Generator."),
+        "privacyPoliceInformation": MessageLookupByLibrary.simpleMessage(
+            "Para uma melhor experiência, ao usar nosso Serviço, posso exigir que você nos forneça certas informações de identificação pessoal, incluindo, entre outras, Nome, Endereço de e-mail. As informações que solicito serão mantidas em seu dispositivo e não serão coletadas por mim de forma alguma.\nO aplicativo usa serviços de terceiros que podem coletar informações usadas para identificá-lo.\nLink para a política de privacidade de provedores de serviços terceirizados usados pelo app:\n"),
+        "privacyPoliceInformation1":
+            MessageLookupByLibrary.simpleMessage("Serviços do Google Play;\n"),
+        "privacyPoliceInformation2":
+            MessageLookupByLibrary.simpleMessage("AdMob;\n"),
+        "privacyPoliceInformation3": MessageLookupByLibrary.simpleMessage(
+            "Google Analytics para Firebase;\n"),
+        "privacyPoliceInformation4":
+            MessageLookupByLibrary.simpleMessage("Firebase Crashlytics.\n"),
+        "privacyPoliceInformationTitle":
+            MessageLookupByLibrary.simpleMessage("Coleta e uso de informações"),
+        "privacyPoliceLogData": MessageLookupByLibrary.simpleMessage(
+            "Quero informar que sempre que você usa meu Serviço, em caso de erro no aplicativo, eu coleto dados e informações (através de produtos de terceiros) em seu telefone chamado Log Data. Esses dados de registro podem incluir informações como endereço de protocolo de Internet (\"IP\") do dispositivo, nome do dispositivo, versão do sistema operacional, configuração do aplicativo ao utilizar meu serviço, hora e data de uso do serviço e outras estatísticas."),
+        "privacyPoliceLogDataTitle":
+            MessageLookupByLibrary.simpleMessage("Dados de registro"),
+        "privacyPoliceSecurity": MessageLookupByLibrary.simpleMessage(
+            "Eu valorizo sua confiança em nos fornecer suas informações pessoais, portanto, estamos nos esforçando para usar meios comercialmente aceitáveis de protegê-las. Mas lembre-se que nenhum método de transmissão pela internet, ou método de armazenamento eletrônico é 100% seguro e confiável, e não posso garantir sua segurança absoluta."),
+        "privacyPoliceSecurityTitle":
+            MessageLookupByLibrary.simpleMessage("Segurança"),
+        "privacyPoliceServices": MessageLookupByLibrary.simpleMessage(
+            "Posso contratar empresas e indivíduos terceirizados pelos seguintes motivos:\n\nPara facilitar nosso Serviço;\nPara fornecer o Serviço em nosso nome;\nPara realizar serviços relacionados ao Serviço; ou\nPara nos ajudar a analisar como nosso Serviço é usado.\n\nDesejo informar aos usuários deste Serviço que esses terceiros têm acesso às suas Informações Pessoais. O motivo é realizar as tarefas atribuídas a eles em nosso nome. No entanto, eles são obrigados a não divulgar ou usar as informações para qualquer outra finalidade."),
+        "privacyPoliceServicesTitle":
+            MessageLookupByLibrary.simpleMessage("Provedores de Serviço"),
+        "privacyPoliceStart": MessageLookupByLibrary.simpleMessage(
+            "Lucas Guimarães criou o aplicativo Kazi como um aplicativo suportado por anúncios. Este SERVIÇO é fornecido pela Lucas Guimarães sem custos e destina-se a ser utilizado tal como está.\nEsta página é usada para informar os visitantes sobre minhas políticas de coleta, uso e divulgação de informações pessoais, caso alguém decida usar meu serviço.\nSe você optar por usar meu serviço, concorda com a coleta e o uso de informações relacionadas a esta política. As Informações Pessoais que eu coleto são usadas para fornecer e melhorar o Serviço. Não usarei ou compartilharei suas informações com ninguém, exceto conforme descrito nesta Política de Privacidade.\nOs termos usados nesta Política de Privacidade têm os mesmos significados que em nossos Termos e Condições, que podem ser acessados no Kazi, a menos que definido de outra forma nesta Política de Privacidade."),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
         "removeFilters":
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
-        "requiredProperty": m6,
+        "requiredProperty": m7,
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Redefinir Senha"),
         "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
@@ -271,7 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validatorPassword": MessageLookupByLibrary.simpleMessage(
             "Sua senha deve ter no mínimo 8 caracteres e no máximo 16"),
         "week": MessageLookupByLibrary.simpleMessage("Semana"),
-        "wouldYouLikeDelete": m7,
+        "wouldYouLikeDelete": m8,
         "yesterday": MessageLookupByLibrary.simpleMessage("Ontem")
       };
 }
