@@ -19,7 +19,6 @@ class ProfilePage extends StatelessWidget {
 
     Future<void> onSignOut() async {
       await serviceLocator.get<Auth>().signOut();
-      //TODO: Move showOnboardingStorage to the userData
       await serviceLocator
           .get<LocalStorage>()
           .remove(AppKeys.showOnboardingStorage);

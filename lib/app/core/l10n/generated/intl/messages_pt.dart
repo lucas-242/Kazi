@@ -109,9 +109,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
         "finish": MessageLookupByLibrary.simpleMessage("Finalizar"),
         "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
+            MessageLookupByLibrary.simpleMessage("Recuperar Senha"),
         "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
-            "Um email com as intruções para redefinir a senha foi enviado para o email informado."),
+            "O link para redefinir a senha foi enviado para o seu email."),
+        "forgotYourPassword":
+            MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
         "fromTo": m1,
         "googleSignIn":
@@ -177,7 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Redefinir Senha"),
         "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
-            "Informe seu email para que possamos enviar para sua caixa de mensagens as instruções para redefinição de senha."),
+            "Informe seu email para receber o link para redefinir sua senha."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Senha redefinida com sucesso"),
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),

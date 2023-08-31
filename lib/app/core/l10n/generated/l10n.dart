@@ -531,19 +531,29 @@ class AppLocalizations {
   }
 
   /// `Forgot your password?`
-  String get forgotPassword {
+  String get forgotYourPassword {
     return Intl.message(
       'Forgot your password?',
+      name: 'forgotYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password`
+  String get forgotPassword {
+    return Intl.message(
+      'Forgot Password',
       name: 'forgotPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `An email with istructions to reset password was sent to the informed address.`
+  /// `A link to reset your password was sent to your email address.`
   String get forgotPasswordEmailSent {
     return Intl.message(
-      'An email with istructions to reset password was sent to the informed address.',
+      'A link to reset your password was sent to your email address.',
       name: 'forgotPasswordEmailSent',
       desc: '',
       args: [],
@@ -940,10 +950,10 @@ class AppLocalizations {
     );
   }
 
-  /// `Enter your email and we'll send instructions to reset your password to your inbox.`
+  /// `Please, enter your email address to receive a link to reset your password.`
   String get resetPasswordInfo {
     return Intl.message(
-      'Enter your email and we\'ll send instructions to reset your password to your inbox.',
+      'Please, enter your email address to receive a link to reset your password.',
       name: 'resetPasswordInfo',
       desc: '',
       args: [],

@@ -92,7 +92,7 @@ class _SignInFormState extends State<SignInForm> {
               padding: EdgeInsets.zero,
               onPressed: () => context.navigateTo(AppPage.forgotPassword),
               child: Text(
-                AppLocalizations.current.forgotPassword,
+                AppLocalizations.current.forgotYourPassword,
                 style: context.bodyMedium,
               ),
             ),

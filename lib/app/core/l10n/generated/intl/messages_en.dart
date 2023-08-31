@@ -110,9 +110,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("Forgot your password?"),
+            MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
-            "An email with istructions to reset password was sent to the informed address."),
+            "A link to reset your password was sent to your email address."),
+        "forgotYourPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot your password?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
         "fromTo": m1,
         "googleSignIn":
@@ -175,7 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "requiredProperty": m6,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
-            "Enter your email and we\'ll send instructions to reset your password to your inbox."),
+            "Please, enter your email address to receive a link to reset your password."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Password reseted successfully"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),

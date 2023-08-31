@@ -37,11 +37,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == BaseStateStatus.success && state.isSigningIn) {
-            context.navigateTo(AppPage.onboarding);
-          } else if (state.status == BaseStateStatus.success &&
-              !state.isSigningIn) {
-            context.read<LoginCubit>().onChangeLoginMethod();
+          if (state.status == BaseStateStatus.success) {
+            context.navigateTo(AppPage.login);
             getCustomSnackBar(
               context,
               type: SnackBarType.success,
@@ -56,45 +53,54 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
           return Scaffold(
             backgroundColor: context.colorsScheme.primary,
-            body: state.when(
-              onState: (_) => SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 140,
-                    bottom: 100,
-                    left: AppSizeConstants.hugeSpace,
-                    right: AppSizeConstants.hugeSpace,
-                  ),
+            body: CustomSafeArea(
+              child: state.when(
+                onState: (_) => SingleChildScrollView(
                   child: Column(
                     children: [
-                      Text(
-                        AppLocalizations.current.resetPassword,
-                        style: context.titleMedium,
+                      BackAndPill(
+                        text: AppLocalizations.current.forgotPassword,
                       ),
                       AppSizeConstants.mediumVerticalSpacer,
-                      Text(
-                        AppLocalizations.current.resetPasswordInfo,
-                        style: context.titleSmall,
+                      const Icon(
+                        Icons.password,
+                        size: 280,
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
-                      Form(
-                        key: _formKey,
+                      AppSizeConstants.mediumVerticalSpacer,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: AppSizeConstants.hugeSpace,
+                          right: AppSizeConstants.hugeSpace,
+                        ),
                         child: Column(
                           children: [
-                            CustomTextFormField(
-                              textFormKey: _emailKey,
-                              labelText: AppLocalizations.current.email,
-                              keyboardType: TextInputType.emailAddress,
-                              textCapitalization: TextCapitalization.none,
-                              initialValue: cubit.state.email,
-                              onChanged: (email) => cubit.onChangeEmail(email),
-                              validator: (value) =>
-                                  FormValidator.validateEmailField(value),
+                            Text(
+                              AppLocalizations.current.resetPasswordInfo,
+                              style: context.titleSmall,
                             ),
-                            AppSizeConstants.mediumVerticalSpacer,
-                            PillButton(
-                              onTap: onTapSubmit,
-                              child: Text(AppLocalizations.current.send),
+                            AppSizeConstants.largeVerticalSpacer,
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  CustomTextFormField(
+                                    textFormKey: _emailKey,
+                                    labelText: AppLocalizations.current.email,
+                                    keyboardType: TextInputType.emailAddress,
+                                    textCapitalization: TextCapitalization.none,
+                                    initialValue: cubit.state.email,
+                                    onChanged: (email) =>
+                                        cubit.onChangeEmail(email),
+                                    validator: (value) =>
+                                        FormValidator.validateEmailField(value),
+                                  ),
+                                  AppSizeConstants.mediumVerticalSpacer,
+                                  PillButton(
+                                    onTap: onTapSubmit,
+                                    child: Text(AppLocalizations.current.send),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -102,9 +108,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ],
                   ),
                 ),
-              ),
-              onLoading: () => Loading(
-                color: context.colorsScheme.onBackground,
+                onLoading: () => Loading(
+                  color: context.colorsScheme.onBackground,
+                ),
               ),
             ),
           );
