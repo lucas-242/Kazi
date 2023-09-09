@@ -74,7 +74,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         child: Column(
                           children: [
                             Text(
-                              AppLocalizations.current.resetPasswordInfo,
+                              AppLocalizations.current.forgotPasswordInfo,
                               style: context.titleSmall,
                             ),
                             AppSizeConstants.largeVerticalSpacer,

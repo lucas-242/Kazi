@@ -24,7 +24,7 @@ class Options extends StatelessWidget {
           child: Divider(),
         ),
         OptionButton(
-          onTap: () => context.navigateTo(AppPage.resetPassword),
+          onTap: () => context.navigateTo(AppPage.profileResetPassword),
           text: AppLocalizations.current.resetPassword,
         ),
         const Padding(

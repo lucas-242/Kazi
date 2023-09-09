@@ -580,6 +580,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Please, enter your email address to receive a link to reset your password.`
+  String get forgotPasswordInfo {
+    return Intl.message(
+      'Please, enter your email address to receive a link to reset your password.',
+      name: 'forgotPasswordInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fortnight`
   String get fortnight {
     return Intl.message(
@@ -1220,10 +1230,10 @@ class AppLocalizations {
     );
   }
 
-  /// `Please, enter your email address to receive a link to reset your password.`
+  /// `Please, enter your current password and your new password.`
   String get resetPasswordInfo {
     return Intl.message(
-      'Please, enter your email address to receive a link to reset your password.',
+      'Please, enter your current password and your new password.',
       name: 'resetPasswordInfo',
       desc: '',
       args: [],

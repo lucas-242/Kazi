@@ -118,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
             "A link to reset your password was sent to your email address."),
+        "forgotPasswordInfo": MessageLookupByLibrary.simpleMessage(
+            "Please, enter your email address to receive a link to reset your password."),
         "forgotYourPassword":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
@@ -231,7 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "requiredProperty": m7,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
-            "Please, enter your email address to receive a link to reset your password."),
+            "Please, enter your current password and your new password."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Password reseted successfully"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),

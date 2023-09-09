@@ -117,6 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Recuperar Senha"),
         "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
             "O link para redefinir a senha foi enviado para o seu email."),
+        "forgotPasswordInfo": MessageLookupByLibrary.simpleMessage(
+            "Informe seu email para receber o link para redefinir sua senha."),
         "forgotYourPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
@@ -234,7 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Redefinir Senha"),
         "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
-            "Informe seu email para receber o link para redefinir sua senha."),
+            "Preencha o campo com sua senha atual e os campos para sua nova senha."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Senha redefinida com sucesso"),
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),

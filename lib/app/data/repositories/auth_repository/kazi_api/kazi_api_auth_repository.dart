@@ -84,11 +84,34 @@ final class KaziApiAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<void> resetPassword(String password) async {
+  Future<void> changePassword(
+    String currentPassword,
+    String newPassword,
+  ) async {
     try {
       final response = await _connection.post(
-        '${Environment.instance.kaziApiUrl}/reset-password',
-        body: password,
+        '$url/changePassword',
+        body: {
+          'currentPassword': currentPassword,
+          'newPassword': newPassword,
+        },
+      );
+      _connection.handleResponse(response);
+    } catch (error, trace) {
+      _logService.error(error: error, stackTrace: trace);
+      throw ExternalError(AppLocalizations.current.errorToResetPassword);
+    }
+  }
+
+  @override
+  Future<void> resetPassword(String token, String newPassword) async {
+    try {
+      final response = await _connection.post(
+        '$url/changePassword',
+        body: {
+          'token': token,
+          'newPassword': newPassword,
+        },
       );
       _connection.handleResponse(response);
     } catch (error, trace) {

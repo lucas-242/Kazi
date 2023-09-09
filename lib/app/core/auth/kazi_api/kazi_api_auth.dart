@@ -139,6 +139,11 @@ final class KaziApiAuth extends Auth {
       _authRepository.forgotPassword(email);
 
   @override
-  Future<void> resetPassword(String password) async =>
-      _authRepository.resetPassword(password);
+  Future<void> resetPassword(String token, String newPassword) async =>
+      _authRepository.resetPassword(token, newPassword);
+
+  @override
+  Future<void> changePassword(
+          String currentPassword, String newPassword) async =>
+      _authRepository.changePassword(currentPassword, newPassword);
 }

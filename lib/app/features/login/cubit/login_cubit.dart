@@ -120,11 +120,25 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> onResetPassword() async {
+  Future<void> onResetPassword(String token) async {
     //TODO: Change AndroidManifest with right domain and create assetLinks.json
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      await _auth.resetPassword(state.password);
+      await _auth.resetPassword(token, state.password);
+      await _auth.signOut();
+      return _emitSuccess(AppLocalizations.current.resetedPassword);
+    } on AppError catch (error) {
+      _emitAppError(error);
+    } catch (error) {
+      _emitUnknowError();
+    }
+  }
+
+  Future<void> onResetPasswordWithoutToken() async {
+    try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
+      await _auth.changePassword(state.currentPassword, state.password);
+      await _auth.signOut();
       return _emitSuccess(AppLocalizations.current.resetedPassword);
     } on AppError catch (error) {
       _emitAppError(error);

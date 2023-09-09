@@ -35,6 +35,7 @@ abstract class AppRouter {
   static String addServiceType = '$servicesType/$add';
   static String calculator = '/calculator';
   static String profile = '/profile';
+  static String profileResetPassword = '$profile/$resetPassword';
 
   static String add = 'add';
   static String type = 'type';
@@ -111,7 +112,7 @@ final _router = GoRouter(
         GoRoute(
           path: AppRouter.profile,
           builder: (context, state) => const ProfilePage(),
-          routes: [_addService],
+          routes: [_addService, _resetPassword],
         ),
       ],
     ),
