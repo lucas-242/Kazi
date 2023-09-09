@@ -25,13 +25,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    void onTapSubmit() {
-      final cubit = context.read<LoginCubit>();
-      if (_formKey.currentState!.validate()) {
-        cubit.onForgotPassword();
-      }
-    }
-
     return BlocProvider(
       create: (_) => LoginCubit(serviceLocator<Auth>()),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -50,6 +43,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         },
         builder: (context, state) {
           final cubit = context.read<LoginCubit>();
+
+          void onTapSubmit() {
+            if (_formKey.currentState!.validate()) {
+              cubit.onForgotPassword();
+            }
+          }
 
           return Scaffold(
             backgroundColor: context.colorsScheme.primary,

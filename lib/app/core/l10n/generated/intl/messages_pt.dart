@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "errorLaunchUrl": m1,
         "errorNotFound":
-            MessageLookupByLibrary.simpleMessage("SEndereço não encontrado."),
+            MessageLookupByLibrary.simpleMessage("Endereço não encontrado."),
         "errorToAddService": MessageLookupByLibrary.simpleMessage(
             "Erro ao efetuar a adição do serviço."),
         "errorToAddServiceType": MessageLookupByLibrary.simpleMessage(

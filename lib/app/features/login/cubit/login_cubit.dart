@@ -110,6 +110,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> onForgotPassword() async {
     try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
       await _auth.forgotPassword(state.email);
       return _emitSuccess(AppLocalizations.current.forgotPasswordEmailSent);
     } on AppError catch (error) {
@@ -122,6 +123,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> onResetPassword() async {
     //TODO: Change AndroidManifest with right domain and create assetLinks.json
     try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
       await _auth.resetPassword(state.password);
       return _emitSuccess(AppLocalizations.current.resetedPassword);
     } on AppError catch (error) {

@@ -30,7 +30,7 @@
   "editServiceType": "Editar Tipo",
   "email": "Email",
   "errorLaunchUrl": "Could not launch {url}",
-  "errorNotFound": "SEndereço não encontrado.",
+  "errorNotFound": "Endereço não encontrado.",
   "errorUnknowError": "Ocorreu um erro desconhecido.",
   "errorToAddServiceType": "Erro ao efetuar a adição do tipo de serviço.",
   "errorToDeleteServiceType": "Erro ao efetuar a deleção do tipo de serviço.",

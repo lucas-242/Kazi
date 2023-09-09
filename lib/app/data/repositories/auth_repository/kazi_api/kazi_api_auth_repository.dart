@@ -74,10 +74,8 @@ final class KaziApiAuthRepository extends AuthRepository {
   @override
   Future<void> forgotPassword(String email) async {
     try {
-      final response = await _connection.post(
-        '${Environment.instance.kaziApiUrl}/forgot-password',
-        body: email,
-      );
+      final response =
+          await _connection.get('$url/sendResetPasswordLink/$email');
       _connection.handleResponse(response);
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
