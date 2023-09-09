@@ -269,10 +269,33 @@ class MockAuthRepository extends _i1.Mock implements _i6.AuthRepository {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> resetPassword(String? password) => (super.noSuchMethod(
+  _i5.Future<void> resetPassword(
+    String? token,
+    String? newPassword,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
-          [password],
+          [
+            token,
+            newPassword,
+          ],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> changePassword(
+    String? currentPassword,
+    String? newPassword,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changePassword,
+          [
+            currentPassword,
+            newPassword,
+          ],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

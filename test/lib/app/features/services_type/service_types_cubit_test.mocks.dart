@@ -215,10 +215,33 @@ class MockAuth extends _i1.Mock implements _i8.Auth {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> resetPassword(String? password) => (super.noSuchMethod(
+  _i4.Future<void> resetPassword(
+    String? token,
+    String? newPassword,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
-          [password],
+          [
+            token,
+            newPassword,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> changePassword(
+    String? currentPassword,
+    String? newPassword,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changePassword,
+          [
+            currentPassword,
+            newPassword,
+          ],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
