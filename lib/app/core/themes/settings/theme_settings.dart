@@ -55,6 +55,7 @@ abstract class ThemeSettings {
       bottomNavigationBarTheme: _bottomNavigationBarTheme(colors),
       bottomSheetTheme: _bottomSheetTheme(colors),
       floatingActionButtonTheme: _floatingActionButtonTheme(colors),
+      outlinedButtonTheme: _outlinedButtonTheme(colors),
       dividerTheme: _dividerTheme(colors),
       navigationRailTheme: _navigationRailTheme(colors),
       tabBarTheme: _tabBarTheme(colors),
@@ -165,9 +166,17 @@ abstract class ThemeSettings {
     );
   }
 
+  static OutlinedButtonThemeData _outlinedButtonTheme(ColorScheme colors) =>
+      OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: AppColors.black),
+        ),
+      );
+
   static DividerThemeData _dividerTheme(ColorScheme colors) {
     return const DividerThemeData(
       color: AppColors.lightGrey,
+      thickness: 1,
       indent: 0,
       endIndent: 0,
       space: 0,

@@ -39,10 +39,13 @@ class _LoginLandingPageState extends State<LoginLandingPage> {
         },
         builder: (context, state) => Scaffold(
           backgroundColor: context.colorsScheme.primary,
-          body: state.when(
-            onState: (_) => LoginLandingContent(state: state),
-            onLoading: () => Loading(
-              color: context.colorsScheme.onBackground,
+          body: CustomSafeArea(
+            padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
+            child: state.when(
+              onState: (_) => LoginLandingContent(state: state),
+              onLoading: () => Loading(
+                color: context.colorsScheme.onBackground,
+              ),
             ),
           ),
         ),

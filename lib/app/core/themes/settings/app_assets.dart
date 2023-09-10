@@ -4,6 +4,7 @@ abstract class AppAssets {
   static const String google = 'assets/svgs/google.svg';
   static const String home = 'assets/svgs/home.svg';
   static const String logo = 'assets/svgs/logo.svg';
+  static const String logoExtended = 'assets/svgs/logo_extended.svg';
   static const String logoName = 'assets/svgs/logo_name.svg';
   static const String noData = 'assets/images/no_data.png';
   static const String onboarding = 'assets/images/onboarding.png';

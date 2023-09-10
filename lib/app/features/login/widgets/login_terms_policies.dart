@@ -14,17 +14,22 @@ class LoginTermsPolicies extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: AppLocalizations.current.userTermsAlert1,
+            style: context.bodyMedium,
             children: [
               TextSpan(
                 text: AppLocalizations.current.userTermsAlert2,
-                style:
-                    context.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
+                style: context.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.orange,
+                ),
               ),
               TextSpan(text: AppLocalizations.current.userTermsAlert3),
               TextSpan(
                 text: AppLocalizations.current.userTermsAlert4,
-                style:
-                    context.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
+                style: context.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.orange,
+                ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => context.navigateTo(AppPage.privacyPolicy),
               ),

@@ -12,23 +12,34 @@ class LoginSignInChanger extends StatelessWidget {
     final cubit = context.watch<LoginCubit>();
     final isSigningIn = cubit.state.isSigningIn;
 
-    return MaterialButton(
-      onPressed: () => cubit.onChangeLoginMethod(),
-      child: RichText(
-        text: TextSpan(
-          text: isSigningIn
-              ? AppLocalizations.current.doesntHaveAccount
-              : AppLocalizations.current.alreadyHasAccont,
-          children: [
-            TextSpan(
+    return Column(
+      children: [
+        const Divider(),
+        AppSizeConstants.mediumVerticalSpacer,
+        MaterialButton(
+          onPressed: () => cubit.onChangeLoginMethod(),
+          child: RichText(
+            text: TextSpan(
               text: isSigningIn
-                  ? AppLocalizations.current.signUp
-                  : AppLocalizations.current.signIn,
-              style: context.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
+                  ? AppLocalizations.current.doesntHaveAccount
+                  : AppLocalizations.current.alreadyHasAccont,
+              style: context.bodyMedium,
+              children: [
+                TextSpan(
+                  text: isSigningIn
+                      ? AppLocalizations.current.signUp
+                      : AppLocalizations.current.signIn,
+                  style: context.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.orange,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        AppSizeConstants.mediumVerticalSpacer,
+      ],
     );
   }
 }

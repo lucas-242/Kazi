@@ -310,7 +310,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tourServicesListTitle":
             MessageLookupByLibrary.simpleMessage("Services"),
         "userTermsAlert1": MessageLookupByLibrary.simpleMessage(
-            "By continuing, you agree to Kazi\'s "),
+            "By continuing, you agree to the "),
         "userTermsAlert2":
             MessageLookupByLibrary.simpleMessage("Terms of Service "),
         "userTermsAlert3": MessageLookupByLibrary.simpleMessage(

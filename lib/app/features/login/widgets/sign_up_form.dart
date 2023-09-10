@@ -137,8 +137,12 @@ class _SignUpFormState extends State<SignUpForm> {
           AppSizeConstants.largeVerticalSpacer,
           PillButton(
             onTap: onTapSignUp,
+            fillWidth: true,
             child: Text(AppLocalizations.current.signUp),
           ),
+          AppSizeConstants.largeVerticalSpacer,
+          const LoginTermsPolicies(),
+          AppSizeConstants.largeVerticalSpacer,
         ],
       ),
     );

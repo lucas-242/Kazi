@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
@@ -62,7 +63,7 @@ class _SignInFormState extends State<SignInForm> {
             onChanged: (email) => cubit.onChangeEmail(email),
             validator: (value) => FormValidator.validateEmailField(value),
           ),
-          AppSizeConstants.largeVerticalSpacer,
+          AppSizeConstants.bigVerticalSpacer,
           BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
             return CustomTextFormField(
               textFormKey: _passwordKey,
@@ -85,7 +86,7 @@ class _SignInFormState extends State<SignInForm> {
               ),
             );
           }),
-          AppSizeConstants.smallVerticalSpacer,
+          AppSizeConstants.largeVerticalSpacer,
           Align(
             alignment: Alignment.centerLeft,
             child: MaterialButton(
@@ -93,36 +94,47 @@ class _SignInFormState extends State<SignInForm> {
               onPressed: () => context.navigateTo(AppPage.forgotPassword),
               child: Text(
                 AppLocalizations.current.forgotYourPassword,
-                style: context.bodyMedium,
+                style: context.titleSmall,
               ),
             ),
           ),
-          AppSizeConstants.smallVerticalSpacer,
+          AppSizeConstants.largeVerticalSpacer,
           PillButton(
             onTap: onTapSignIn,
+            fillWidth: true,
             child: Text(AppLocalizations.current.signIn),
           ),
-          // AppSizeConstants.smallVerticalSpacer,
-          // Text(AppLocalizations.current.or.toUpperCase()),
-          // AppSizeConstants.smallVerticalSpacer,
-          // PillButton(
-          //   onTap: () => cubit.onSignInWithGoogle(),
-          //   child: Row(
-          //     mainAxisSize: MainAxisSize.min,
-          //     children: [
-          //       SvgPicture.asset(
-          //         AppAssets.google,
-          //         height: 18,
-          //         colorFilter: const ColorFilter.mode(
-          //           AppColors.white,
-          //           BlendMode.srcIn,
-          //         ),
-          //       ),
-          //       AppSizeConstants.smallHorizontalSpacer,
-          //       Text(AppLocalizations.current.googleSignIn),
-          //     ],
-          //   ),
-          // ),
+          AppSizeConstants.mediumVerticalSpacer,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Expanded(child: Divider(color: AppColors.lightGrey)),
+              AppSizeConstants.smallHorizontalSpacer,
+              Text(AppLocalizations.current.or, style: context.bodyMedium),
+              AppSizeConstants.smallHorizontalSpacer,
+              const Expanded(child: Divider(color: AppColors.lightGrey)),
+            ],
+          ),
+          AppSizeConstants.mediumVerticalSpacer,
+          PillButton(
+            onTap: () => cubit.onSignInWithGoogle(),
+            backgroundColor: AppColors.white,
+            foregroundColor: AppColors.black,
+            fillWidth: true,
+            outlinedButton: true,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  AppAssets.google,
+                  height: 18,
+                ),
+                AppSizeConstants.smallHorizontalSpacer,
+                Text(AppLocalizations.current.googleSignIn),
+              ],
+            ),
+          ),
+          AppSizeConstants.largeVerticalSpacer,
         ],
       ),
     );

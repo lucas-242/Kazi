@@ -1720,10 +1720,10 @@ class AppLocalizations {
     );
   }
 
-  /// `By continuing, you agree to Kazi's `
+  /// `By continuing, you agree to the `
   String get userTermsAlert1 {
     return Intl.message(
-      'By continuing, you agree to Kazi\'s ',
+      'By continuing, you agree to the ',
       name: 'userTermsAlert1',
       desc: '',
       args: [],

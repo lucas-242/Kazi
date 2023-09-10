@@ -8,35 +8,51 @@ class PillButton extends StatelessWidget {
     required this.child,
     this.backgroundColor,
     this.foregroundColor,
+    this.fillWidth = false,
+    this.outlinedButton = false,
   });
   final VoidCallback? onTap;
   final Widget child;
   final Color? backgroundColor;
   final Color? foregroundColor;
+  final bool fillWidth;
+  final bool outlinedButton;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      key: key,
-      onPressed: onTap,
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        )),
-        minimumSize: MaterialStateProperty.all<Size>(const Size(5, 35)),
-        backgroundColor: MaterialStateProperty.all<Color>(
-          backgroundColor != null
-              ? backgroundColor!
-              : context.colorsScheme.onSurface,
-        ),
-        foregroundColor: MaterialStateProperty.all<Color>(
-          foregroundColor != null
-              ? foregroundColor!
-              : context.colorsScheme.background,
-        ),
+    final ButtonStyle buttonStyle = ButtonStyle(
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
+      )),
+      minimumSize: MaterialStateProperty.all<Size>(
+        fillWidth ? const Size.fromHeight(45) : const Size(5, 40),
       ),
-      child: child,
+      backgroundColor: MaterialStateProperty.all<Color>(
+        backgroundColor != null
+            ? backgroundColor!
+            : context.colorsScheme.onSurface,
+      ),
+      foregroundColor: MaterialStateProperty.all<Color>(
+        foregroundColor != null
+            ? foregroundColor!
+            : context.colorsScheme.background,
+      ),
+      textStyle: MaterialStateProperty.all<TextStyle>(context.titleSmall!),
     );
+
+    return outlinedButton
+        ? OutlinedButton(
+            key: key,
+            onPressed: onTap,
+            style: buttonStyle,
+            child: child,
+          )
+        : ElevatedButton(
+            key: key,
+            onPressed: onTap,
+            style: buttonStyle,
+            child: child,
+          );
   }
 }
