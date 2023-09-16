@@ -52,7 +52,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 message: state.callbackMessage,
                 type: SnackBarType.success,
               );
-              context.back();
+              context.navigateBack();
             } else if (state.status == BaseStateStatus.error) {
               getCustomSnackBar(
                 context,

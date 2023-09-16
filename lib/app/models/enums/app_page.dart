@@ -14,7 +14,8 @@ enum AppPage {
   forgotPassword(11),
   resetPassword(12),
   profileResetPassword(12),
-  privacyPolicy(13);
+  privacyPolicy(13),
+  privacyPolicyWebView(14);
 
   const AppPage(this.value);
 
@@ -60,6 +61,8 @@ enum AppPage {
         return AppRouter.profileResetPassword;
       case AppPage.privacyPolicy:
         return AppRouter.loginPrivacyPolicy;
+      case AppPage.privacyPolicyWebView:
+        return AppRouter.loginPrivacyPolicyWebView;
     }
   }
 }

@@ -46,20 +46,25 @@ class LoginLandingContent extends StatelessWidget {
                     ),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        state.isSigningIn
-                            ? AppLocalizations.current.signIn
-                            : AppLocalizations.current.signUp,
-                        style: context.headlineMedium,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            state.isSigningIn
+                                ? AppLocalizations.current.signIn
+                                : AppLocalizations.current.signUp,
+                            style: context.headlineMedium,
+                          ),
+                          AppSizeConstants.bigVerticalSpacer,
+                          if (state.isSigningIn)
+                            const SignInForm()
+                          else
+                            const SignUpForm(),
+                          AppSizeConstants.mediumVerticalSpacer,
+                        ],
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
-                      if (state.isSigningIn)
-                        const SignInForm()
-                      else
-                        const SignUpForm(),
-                      AppSizeConstants.mediumVerticalSpacer,
                       const LoginSignInChanger(),
                     ],
                   ),

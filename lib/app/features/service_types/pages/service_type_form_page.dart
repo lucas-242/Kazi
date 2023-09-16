@@ -31,7 +31,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
 
     void onTapBack() {
       cubit.eraseServiceType();
-      context.back();
+      context.navigateBack();
     }
 
     return BlocProvider.value(
@@ -64,7 +64,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
                     previous.status != current.status,
                 listener: (context, state) {
                   if (state.status == BaseStateStatus.success) {
-                    context.back();
+                    context.navigateBack();
                   }
                 },
                 child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(

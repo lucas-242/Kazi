@@ -970,40 +970,40 @@ class AppLocalizations {
     );
   }
 
-  /// `Google Play Services;\n`
+  /// `Google Play Services`
   String get privacyPoliceInformation1 {
     return Intl.message(
-      'Google Play Services;\n',
+      'Google Play Services',
       name: 'privacyPoliceInformation1',
       desc: '',
       args: [],
     );
   }
 
-  /// `AdMob;\n`
+  /// `AdMob`
   String get privacyPoliceInformation2 {
     return Intl.message(
-      'AdMob;\n',
+      'AdMob',
       name: 'privacyPoliceInformation2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Google Analytics for Firebase;\n`
+  /// `Google Analytics`
   String get privacyPoliceInformation3 {
     return Intl.message(
-      'Google Analytics for Firebase;\n',
+      'Google Analytics',
       name: 'privacyPoliceInformation3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Firebase Crashlytics.\n`
+  /// `Firebase Crashlytics`
   String get privacyPoliceInformation4 {
     return Intl.message(
-      'Firebase Crashlytics.\n',
+      'Firebase Crashlytics',
       name: 'privacyPoliceInformation4',
       desc: '',
       args: [],

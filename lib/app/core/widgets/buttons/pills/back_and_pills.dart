@@ -24,7 +24,8 @@ class BackAndPills extends StatelessWidget {
         Row(
           children: [
             CircularButton(
-              onTap: () => onTapBack != null ? onTapBack!() : context.back(),
+              onTap: () =>
+                  onTapBack != null ? onTapBack!() : context.navigateBack(),
               child: const Icon(Icons.chevron_left),
             ),
             AppSizeConstants.smallHorizontalSpacer,

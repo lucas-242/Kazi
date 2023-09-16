@@ -18,6 +18,14 @@ abstract interface class Environment {
   String get adCalendarServiceListKey;
   String get adHomeServiceListKey;
   String get kaziApiUrl;
+  static String get policiesGooglePlayUrl =>
+      'https://www.google.com/policies/privacy/';
+  static String get policiesAdMobUrl =>
+      'https://support.google.com/admob/answer/6128543?hl=en';
+  static String get policiesFirebaseAnalyticsUrl =>
+      'https://www.google.com/analytics/terms/';
+  static String get policiesFirebaseCrashlyticsUrl =>
+      'https://firebase.google.com/support/privacy/';
 }
 
 final class DevEnvironment implements Environment {

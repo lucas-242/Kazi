@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/app/core/environment/environment.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/core/utils/url_laucher_helper.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/widgets/text_button_link.dart';
@@ -12,6 +13,18 @@ class PrivacyPolicyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Column(
+          children: [
+            AppSizeConstants.mediumVerticalSpacer,
+            BackAndPill(text: AppLocalizations.current.privacyPolice),
+          ],
+        ),
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.background,
+        titleSpacing: AppSizeConstants.largeSpace,
+      ),
       body: CustomSafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -19,8 +32,6 @@ class PrivacyPolicyPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BackAndPill(text: AppLocalizations.current.privacyPolice),
-                AppSizeConstants.mediumVerticalSpacer,
                 Text(AppLocalizations.current.privacyPoliceStart),
                 AppSizeConstants.smallVerticalSpacer,
                 Text(
@@ -30,28 +41,52 @@ class PrivacyPolicyPage extends StatelessWidget {
                 AppSizeConstants.smallVerticalSpacer,
                 Text(AppLocalizations.current.privacyPoliceInformation),
                 TextButtonLink(
-                  onPressed: () => UrlLauncherHelper.launch(
-                      'https://www.google.com/policies/privacy/'),
-                  child:
-                      Text(AppLocalizations.current.privacyPoliceInformation1),
+                  onPressed: () => context.navigateTo(
+                    AppPage.privacyPolicyWebView,
+                    objects: {
+                      'title':
+                          AppLocalizations.current.privacyPoliceInformation1,
+                      'url': Environment.policiesGooglePlayUrl
+                    },
+                  ),
+                  child: Text(
+                      '${AppLocalizations.current.privacyPoliceInformation1};'),
                 ),
                 TextButtonLink(
-                  onPressed: () => UrlLauncherHelper.launch(
-                      'https://support.google.com/admob/answer/6128543?hl=en'),
-                  child:
-                      Text(AppLocalizations.current.privacyPoliceInformation2),
+                  onPressed: () => context.navigateTo(
+                    AppPage.privacyPolicyWebView,
+                    objects: {
+                      'title':
+                          AppLocalizations.current.privacyPoliceInformation2,
+                      'url': Environment.policiesAdMobUrl
+                    },
+                  ),
+                  child: Text(
+                      '${AppLocalizations.current.privacyPoliceInformation2};'),
                 ),
                 TextButtonLink(
-                  onPressed: () => UrlLauncherHelper.launch(
-                      'https://firebase.google.com/policies/analytics'),
-                  child:
-                      Text(AppLocalizations.current.privacyPoliceInformation3),
+                  onPressed: () => context.navigateTo(
+                    AppPage.privacyPolicyWebView,
+                    objects: {
+                      'title':
+                          AppLocalizations.current.privacyPoliceInformation3,
+                      'url': Environment.policiesFirebaseAnalyticsUrl
+                    },
+                  ),
+                  child: Text(
+                      '${AppLocalizations.current.privacyPoliceInformation3};'),
                 ),
                 TextButtonLink(
-                  onPressed: () => UrlLauncherHelper.launch(
-                      'https://firebase.google.com/support/privacy/'),
-                  child:
-                      Text(AppLocalizations.current.privacyPoliceInformation4),
+                  onPressed: () => context.navigateTo(
+                    AppPage.privacyPolicyWebView,
+                    objects: {
+                      'title':
+                          AppLocalizations.current.privacyPoliceInformation4,
+                      'url': Environment.policiesFirebaseCrashlyticsUrl
+                    },
+                  ),
+                  child: Text(
+                      '${AppLocalizations.current.privacyPoliceInformation4}.'),
                 ),
                 AppSizeConstants.smallVerticalSpacer,
                 Text(

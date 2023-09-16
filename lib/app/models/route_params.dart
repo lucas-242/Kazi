@@ -10,6 +10,7 @@ class RouteParams {
   const RouteParams({
     required this.lastPage,
     this.service,
+    this.objects,
   });
 
   factory RouteParams.fromJson(Map<String, dynamic> json) =>
@@ -17,6 +18,7 @@ class RouteParams {
 
   final AppPage lastPage;
   final Service? service;
+  final Map<String, dynamic>? objects;
 
   Map<String, dynamic> toJson() => _$RouteParamsToJson(this);
 }

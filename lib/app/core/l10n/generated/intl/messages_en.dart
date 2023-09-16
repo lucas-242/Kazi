@@ -204,13 +204,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPoliceInformation": MessageLookupByLibrary.simpleMessage(
             "For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to Name, Email Address. The information that I request will be retained on your device and is not collected by me in any way.\nThe app does use third-party services that may collect information used to identify you.\nLink to the privacy policy of third-party service providers used by the app:\n"),
         "privacyPoliceInformation1":
-            MessageLookupByLibrary.simpleMessage("Google Play Services;\n"),
+            MessageLookupByLibrary.simpleMessage("Google Play Services"),
         "privacyPoliceInformation2":
-            MessageLookupByLibrary.simpleMessage("AdMob;\n"),
-        "privacyPoliceInformation3": MessageLookupByLibrary.simpleMessage(
-            "Google Analytics for Firebase;\n"),
+            MessageLookupByLibrary.simpleMessage("AdMob"),
+        "privacyPoliceInformation3":
+            MessageLookupByLibrary.simpleMessage("Google Analytics"),
         "privacyPoliceInformation4":
-            MessageLookupByLibrary.simpleMessage("Firebase Crashlytics.\n"),
+            MessageLookupByLibrary.simpleMessage("Firebase Crashlytics"),
         "privacyPoliceInformationTitle": MessageLookupByLibrary.simpleMessage(
             "Information Collection and Use"),
         "privacyPoliceLogData": MessageLookupByLibrary.simpleMessage(

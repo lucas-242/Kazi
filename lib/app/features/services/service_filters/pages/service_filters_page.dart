@@ -71,7 +71,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
 
     Future<void> onApplyFilters(BuildContext context) async {
       final state = context.read<ServiceFiltersCubit>().state;
-      context.back();
+      context.navigateBack();
       await serviceLandingcubit.onApplyFilters(
         state.fastSearch,
         state.startDate,
@@ -80,7 +80,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     }
 
     Future<void> onCleanFilters() async {
-      context.back();
+      context.navigateBack();
       await serviceLandingcubit.onCleanFilters();
     }
 

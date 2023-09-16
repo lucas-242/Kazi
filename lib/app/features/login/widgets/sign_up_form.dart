@@ -134,15 +134,15 @@ class _SignUpFormState extends State<SignUpForm> {
               );
             },
           ),
-          AppSizeConstants.largeVerticalSpacer,
+          AppSizeConstants.bigVerticalSpacer,
           PillButton(
             onTap: onTapSignUp,
             fillWidth: true,
             child: Text(AppLocalizations.current.signUp),
           ),
-          AppSizeConstants.largeVerticalSpacer,
+          AppSizeConstants.bigVerticalSpacer,
           const LoginTermsPolicies(),
-          AppSizeConstants.largeVerticalSpacer,
+          AppSizeConstants.bigVerticalSpacer,
         ],
       ),
     );

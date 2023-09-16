@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/texts/texts.dart';
+import 'package:kazi/app/features/services/services.dart';
 
 class ServiceNavbar extends StatelessWidget {
   const ServiceNavbar({
@@ -33,7 +33,7 @@ class ServiceNavbar extends StatelessWidget {
               builder: (context) => OrderByBottomSheet(
                 selectedOption: serviceCubit.state.selectedOrderBy,
                 onPressed: (orderBy) {
-                  context.back();
+                  context.navigateBack();
                   serviceCubit.onChangeOrderBy(orderBy);
                 },
               ),

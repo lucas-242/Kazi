@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_shell.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
+import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/features/home/home.dart';
 import 'package:kazi/app/features/initial/intial.dart';
@@ -27,6 +28,7 @@ abstract class AppRouter {
   static String home = '/home';
   static String login = '/login';
   static String loginPrivacyPolicy = '$login/$privacyPolicy';
+  static String loginPrivacyPolicyWebView = '$login/$privacyPolicy/$webView';
   static String loginForgotPassword = '$login/$forgotPassword';
   static String loginResetPassword = '$login/$resetPassword';
   static String services = '/services';
@@ -42,6 +44,7 @@ abstract class AppRouter {
   static String privacyPolicy = 'privacy-policy';
   static String forgotPassword = 'forgot-password';
   static String resetPassword = 'reset-password';
+  static String webView = 'web-view';
 }
 
 final _router = GoRouter(
@@ -123,7 +126,29 @@ final _privacyPolicy = GoRoute(
   path: AppRouter.privacyPolicy,
   pageBuilder: (context, state) =>
       _customTransition(state, const PrivacyPolicyPage()),
+  routes: [
+    GoRoute(
+      path: AppRouter.webView,
+      pageBuilder: _navigateToPrivacyPoliceWebView,
+    )
+  ],
 );
+
+Page<dynamic> _navigateToPrivacyPoliceWebView(
+    BuildContext context, GoRouterState state) {
+  try {
+    var title = 'Error';
+    var url = '';
+    if (state.extra != null) {
+      final params = (state.extra as RouteParams);
+      title = params.objects!['title'];
+      url = params.objects!['url'];
+    }
+    return _customTransition(state, WebView(title: title, url: url));
+  } catch (error) {
+    return _customTransition(state, const PrivacyPolicyPage());
+  }
+}
 
 final _forgotPassword = GoRoute(
   path: AppRouter.forgotPassword,

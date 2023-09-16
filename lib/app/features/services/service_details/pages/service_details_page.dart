@@ -18,7 +18,7 @@ class ServiceDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<void> onDelete(Service service) async {
-      context.back();
+      context.navigateBack();
       final cubit = context.read<ServiceLandingCubit>();
       await cubit
           .deleteService(service)
@@ -32,7 +32,7 @@ class ServiceDetailsPage extends StatelessWidget {
           message: AppLocalizations.current
               .wouldYouLikeDelete(AppLocalizations.current.thisService),
           confirmText: AppLocalizations.current.delete,
-          onCancel: () => context.back(),
+          onCancel: () => context.navigateBack(),
           onConfirm: () => onDelete(service),
         ),
       );
