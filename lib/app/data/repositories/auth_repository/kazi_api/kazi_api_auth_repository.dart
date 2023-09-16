@@ -25,7 +25,7 @@ final class KaziApiAuthRepository extends AuthRepository {
       final response =
           await _connection.post('refreshToken', body: refreshToken);
 
-      _connection.handleResponse(response);
+      response.handleStatus();
 
       return User.fromJson(response.json);
     } catch (error, trace) {
@@ -47,7 +47,7 @@ final class KaziApiAuthRepository extends AuthRepository {
         '$url/authenticateByEmail',
         body: {'email': email, 'password': password},
       );
-      _connection.handleResponse(response);
+      response.handleStatus();
 
       return User.fromJson(response.json);
     } catch (error, trace) {
@@ -59,12 +59,11 @@ final class KaziApiAuthRepository extends AuthRepository {
   @override
   Future<void> signUp(User user) async {
     try {
-      //TODO: Change url to auth/signup
       final response = await _connection.post(
-        '${Environment.instance.kaziApiUrl}user/',
+        '$url/signup/',
         body: user.toJson(),
       );
-      _connection.handleResponse(response);
+      response.handleStatus();
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
       throw ExternalError(AppLocalizations.current.errorToSignUp);
@@ -76,7 +75,7 @@ final class KaziApiAuthRepository extends AuthRepository {
     try {
       final response =
           await _connection.get('$url/sendResetPasswordLink/$email');
-      _connection.handleResponse(response);
+      response.handleStatus();
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
       throw ExternalError(AppLocalizations.current.errorToSendEmail);
@@ -96,7 +95,7 @@ final class KaziApiAuthRepository extends AuthRepository {
           'newPassword': newPassword,
         },
       );
-      _connection.handleResponse(response);
+      response.handleStatus();
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
       throw ExternalError(AppLocalizations.current.errorToResetPassword);
@@ -113,7 +112,7 @@ final class KaziApiAuthRepository extends AuthRepository {
           'newPassword': newPassword,
         },
       );
-      _connection.handleResponse(response);
+      response.handleStatus();
     } catch (error, trace) {
       _logService.error(error: error, stackTrace: trace);
       throw ExternalError(AppLocalizations.current.errorToResetPassword);

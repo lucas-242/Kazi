@@ -179,14 +179,6 @@ class MockKaziConnection extends _i1.Mock implements _i4.KaziConnection {
           ),
         )),
       ) as _i5.Future<_i2.ApiResponse>);
-  @override
-  void handleResponse(_i2.ApiResponse? response) => super.noSuchMethod(
-        Invocation.method(
-          #handleResponse,
-          [response],
-        ),
-        returnValueForMissingStub: null,
-      );
 }
 
 /// A class which mocks [AuthRepository].

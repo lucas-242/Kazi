@@ -166,12 +166,4 @@ class MockKaziConnection extends _i1.Mock implements _i3.KaziConnection {
           ),
         )),
       ) as _i4.Future<_i2.ApiResponse>);
-  @override
-  void handleResponse(_i2.ApiResponse? response) => super.noSuchMethod(
-        Invocation.method(
-          #handleResponse,
-          [response],
-        ),
-        returnValueForMissingStub: null,
-      );
 }

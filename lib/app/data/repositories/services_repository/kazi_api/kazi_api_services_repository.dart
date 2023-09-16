@@ -22,7 +22,7 @@ class KaziApiServicesRepository extends ServicesRepository {
         parameters: {'quantity': quantity},
         body: service.toJson(),
       );
-      _connection.handleResponse(response);
+      response.handleStatus();
 
       return List<Service>.from(
           (response.json as Iterable).map((e) => Service.fromJson(e)));
@@ -40,7 +40,7 @@ class KaziApiServicesRepository extends ServicesRepository {
   Future<void> delete(int id) async {
     try {
       final response = await _connection.delete('$url/$id');
-      _connection.handleResponse(response);
+      response.handleStatus();
     } catch (error, trace) {
       _logService.error(
         error: error,
@@ -58,7 +58,7 @@ class KaziApiServicesRepository extends ServicesRepository {
         '$url/${service.id}',
         body: service.toJson(withId: true),
       );
-      _connection.handleResponse(response);
+      response.handleStatus();
     } catch (error, trace) {
       _logService.error(
         error: error,
@@ -74,7 +74,7 @@ class KaziApiServicesRepository extends ServicesRepository {
     try {
       final response =
           await _connection.get(url, parameters: servicesFilter.toJson());
-      _connection.handleResponse(response);
+      response.handleStatus();
       if (response.body.isEmpty) {
         return [];
       }
@@ -99,7 +99,7 @@ class KaziApiServicesRepository extends ServicesRepository {
   //       'ScheduledToStartAt': startDate,
   //       'ScheduledToEndAt': endDate,
   //     });
-  //     _connection.handleResponse(response);
+  //     response.handleStatus();
   //     return List<ServicesGroupByDate>.from((response.json as Iterable)
   //         .map((e) => ServicesGroupByDate.fromJson(e)));
   //   } catch (error, trace) {

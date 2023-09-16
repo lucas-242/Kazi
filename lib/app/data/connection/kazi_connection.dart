@@ -29,6 +29,4 @@ abstract interface class KaziConnection {
     Object? body,
     Map<String, dynamic>? parameters,
   });
-
-  void handleResponse(ApiResponse response);
 }
