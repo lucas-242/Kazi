@@ -5,7 +5,7 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/texts/texts.dart';
-import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 
 class ServiceNavbar extends StatelessWidget {
   const ServiceNavbar({

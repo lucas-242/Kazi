@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/models/route_params.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
+import 'package:kazi/app/models/route_params.dart';
 
 import 'app_cubit.dart';
 import 'core/l10n/generated/l10n.dart';
@@ -12,11 +12,9 @@ import 'core/l10n/generated/l10n.dart';
 class AppShell extends StatefulWidget {
   const AppShell({
     Key? key,
-    required this.child,
     required this.params,
   }) : super(key: key);
 
-  final Widget child;
   final RouteParams params;
 
   @override
@@ -40,7 +38,7 @@ class _AppShellState extends State<AppShell> {
   void _listenUser() {
     userStream = context.read<AppCubit>().userSignOut().listen((userSignOut) {
       if (userSignOut) {
-        context.navigateTo(AppPage.login);
+        context.navigateTo(AppPage.signIn);
       }
     });
   }
@@ -57,7 +55,7 @@ class _AppShellState extends State<AppShell> {
 
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: widget.child,
+      body: const RouterOutlet(),
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: CustomBottomNavigation(
         currentPage: context.watch<AppCubit>().state.value,

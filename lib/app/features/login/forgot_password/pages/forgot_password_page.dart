@@ -10,7 +10,6 @@ import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/forgot_password/cubit/forgot_password_cubit.dart';
-import 'package:kazi/app/features/login/login.dart';
 import 'package:kazi/injector_container.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -35,59 +34,57 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     return BlocProvider(
       create: (_) => ForgotPasswordCubit(serviceLocator<Auth>()),
-      child: LoginScaffold(
-        child: Column(
-          children: [
-            Text(
-              AppLocalizations.current.forgotPasswordInfo,
-              style: context.titleSmall,
-            ),
-            AppSizeConstants.bigVerticalSpacer,
-            BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
-              listener: (context, state) {
-                if (state.status == BaseStateStatus.success) {
-                  getCustomSnackBar(
-                    context,
-                    type: SnackBarType.success,
-                    message: state.callbackMessage,
-                  );
-                  context.navigateTo(AppPage.signIn);
-                } else if (state.status == BaseStateStatus.error) {
-                  getCustomSnackBar(context, message: state.callbackMessage);
-                }
-              },
-              builder: (context, state) {
-                final cubit = context.read<ForgotPasswordCubit>();
-                return state.when(
-                  onLoading: () => const Loading(),
-                  onState: (_) => Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        CustomTextFormField(
-                          textFormKey: _emailKey,
-                          labelText: AppLocalizations.current.email,
-                          keyboardType: TextInputType.emailAddress,
-                          textCapitalization: TextCapitalization.none,
-                          initialValue: cubit.state.email,
-                          onChanged: (email) => cubit.onChangeEmail(email),
-                          validator: (value) =>
-                              FormValidator.validateEmailField(value),
-                        ),
-                        AppSizeConstants.bigVerticalSpacer,
-                        PillButton(
-                          onTap: onTapSubmit,
-                          fillWidth: true,
-                          child: Text(AppLocalizations.current.sendEmail),
-                        ),
-                      ],
-                    ),
-                  ),
+      child: Column(
+        children: [
+          Text(
+            AppLocalizations.current.forgotPasswordInfo,
+            style: context.titleSmall,
+          ),
+          AppSizeConstants.bigVerticalSpacer,
+          BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+            listener: (context, state) {
+              if (state.status == BaseStateStatus.success) {
+                getCustomSnackBar(
+                  context,
+                  type: SnackBarType.success,
+                  message: state.callbackMessage,
                 );
-              },
-            ),
-          ],
-        ),
+                context.navigateTo(AppPage.signIn);
+              } else if (state.status == BaseStateStatus.error) {
+                getCustomSnackBar(context, message: state.callbackMessage);
+              }
+            },
+            builder: (context, state) {
+              final cubit = context.read<ForgotPasswordCubit>();
+              return state.when(
+                onLoading: () => const Loading(),
+                onState: (_) => Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      CustomTextFormField(
+                        textFormKey: _emailKey,
+                        labelText: AppLocalizations.current.email,
+                        keyboardType: TextInputType.emailAddress,
+                        textCapitalization: TextCapitalization.none,
+                        initialValue: cubit.state.email,
+                        onChanged: (email) => cubit.onChangeEmail(email),
+                        validator: (value) =>
+                            FormValidator.validateEmailField(value),
+                      ),
+                      AppSizeConstants.bigVerticalSpacer,
+                      PillButton(
+                        onTap: onTapSubmit,
+                        fillWidth: true,
+                        child: Text(AppLocalizations.current.sendEmail),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

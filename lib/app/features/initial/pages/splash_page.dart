@@ -47,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
   void _listenUser() {
     final auth = serviceLocator<Auth>();
     userStream = auth.userChanges.listen(_onUserChange,
-        onError: (_) => context.navigateTo(AppPage.login));
+        onError: (_) => context.navigateTo(AppPage.signIn));
   }
 
   Future<void> _onUserChange(User? user) async {

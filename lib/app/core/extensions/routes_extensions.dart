@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_modular/flutter_modular.dart'
+    hide ModularWatchExtension;
 import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/models/enums/app_page.dart';
 import 'package:kazi/app/models/route_params.dart';
@@ -22,7 +23,7 @@ extension RoutesExtensions on BuildContext {
     cubit.changePage(page);
 
     if (shouldPop) {
-      pop();
+      Modular.to.pop();
     } else {
       _navigate(
         page,
@@ -32,13 +33,14 @@ extension RoutesExtensions on BuildContext {
   }
 
   void _navigate(AppPage page, RouteParams params) =>
-      go(AppPage.getRoute(page, id: params.service?.id), extra: params);
+      Modular.to.navigate(AppPage.getRoute(page, id: params.service?.id),
+          arguments: params);
 
   void navigateBack({RouteParams? params}) {
     if (params?.lastPage != null) {
       return _backToLastPage(params!);
     }
-    pop();
+    Modular.to.pop();
   }
 
   void _backToLastPage(RouteParams params) {
@@ -47,6 +49,4 @@ extension RoutesExtensions on BuildContext {
       RouteParams(lastPage: params.lastPage),
     );
   }
-
-  void navigatePush(AppPage page) => push(AppPage.getRoute(page));
 }

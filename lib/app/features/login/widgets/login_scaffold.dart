@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 
 class LoginScaffold extends StatelessWidget {
-  const LoginScaffold({super.key, required this.child});
-  final Widget child;
+  const LoginScaffold({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CustomSafeArea(
+    return Scaffold(
+      backgroundColor: AppColors.primary,
+      body: CustomSafeArea(
         padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
         child: CustomScrollView(
           slivers: [
@@ -46,7 +47,7 @@ class LoginScaffold extends StatelessWidget {
                           topRight: Radius.circular(30),
                         ),
                       ),
-                      child: child,
+                      child: const RouterOutlet(),
                       // child: Column(
                       //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       //   children: [

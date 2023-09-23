@@ -10,7 +10,7 @@ import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/utils/number_format_helper.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
-import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
 
 class ServiceFormContent extends StatefulWidget {

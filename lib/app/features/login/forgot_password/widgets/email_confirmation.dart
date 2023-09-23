@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/features/login/login.dart';
+import 'package:kazi/app/features/login/login_module.dart';
 
 class EmailConfirmation extends StatelessWidget {
   const EmailConfirmation({super.key, required this.email});

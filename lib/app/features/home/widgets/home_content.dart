@@ -5,8 +5,8 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/number_format_helper.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
-import 'package:kazi/app/features/home/home.dart';
-import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/features/home/home_module.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({

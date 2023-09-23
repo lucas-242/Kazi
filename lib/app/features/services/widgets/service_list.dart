@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';

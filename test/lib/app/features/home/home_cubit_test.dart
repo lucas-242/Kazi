@@ -6,7 +6,7 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/data/repositories/services_repository/services_repository.dart';
-import 'package:kazi/app/features/home/home.dart';
+import 'package:kazi/app/features/home/home_module.dart';
 import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/services/services_service/local/local_services_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';

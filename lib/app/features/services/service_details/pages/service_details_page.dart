@@ -8,7 +8,7 @@ import 'package:kazi/app/core/utils/number_format_helper.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/core/widgets/texts/row_text/row_text.dart';
-import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 import 'package:kazi/app/models/service.dart';
 
 class ServiceDetailsPage extends StatelessWidget {

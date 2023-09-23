@@ -10,7 +10,7 @@ import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/services/service_landing/widgets/service_landing_content.dart';
 import 'package:kazi/app/features/services/service_landing/widgets/service_navbar.dart';
-import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 
 class ServiceLandingPage extends StatefulWidget {
   const ServiceLandingPage({super.key, this.showOnboarding = false});

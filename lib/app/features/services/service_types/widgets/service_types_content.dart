@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/features/service_types/service_types.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
+import 'package:kazi/app/features/services/service_types/service_types.dart';
 
 class ServiceTypesContent extends StatelessWidget {
   const ServiceTypesContent({super.key});

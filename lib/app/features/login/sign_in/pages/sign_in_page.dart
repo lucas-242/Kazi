@@ -10,7 +10,6 @@ import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/features/login/login.dart';
 import 'package:kazi/app/features/login/sign_in/cubit/sign_in_cubit.dart';
 import 'package:kazi/injector_container.dart';
 
@@ -53,113 +52,111 @@ class _SignInPageState extends State<SignInPage> {
 
     return BlocProvider(
       create: (_) => SignInCubit(serviceLocator<Auth>()),
-      child: LoginScaffold(
-        child: BlocConsumer<SignInCubit, SignInState>(
-          listener: (context, state) {
-            if (state.status == BaseStateStatus.success) {
-              context.navigateTo(AppPage.onboarding);
-            } else if (state.status == BaseStateStatus.error) {
-              getCustomSnackBar(context, message: state.callbackMessage);
-            }
-          },
-          builder: (context, state) {
-            final cubit = context.read<SignInCubit>();
-            return state.when(
-              onLoading: () => const Loading(),
-              onState: (_) => Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    CustomTextFormField(
-                      textFormKey: _emailKey,
-                      labelText: AppLocalizations.current.email,
-                      keyboardType: TextInputType.emailAddress,
-                      textCapitalization: TextCapitalization.none,
-                      initialValue: cubit.state.email,
-                      onChanged: (email) => cubit.onChangeEmail(email),
-                      validator: (value) =>
-                          FormValidator.validateEmailField(value),
-                    ),
-                    AppSizeConstants.bigVerticalSpacer,
-                    CustomTextFormField(
-                      textFormKey: _passwordKey,
-                      controller: passwordController,
-                      labelText: AppLocalizations.current.password,
-                      textCapitalization: TextCapitalization.none,
-                      textInputAction: TextInputAction.done,
-                      obscureText: !cubit.state.showPassword,
-                      onChanged: (password) => cubit.onChangePassword(password),
-                      validator: (value) => FormValidator.validateTextField(
-                          value, AppLocalizations.current.password),
-                      suffixIcon: IconButton(
-                        onPressed: () => cubit.onChangeShowPassword(),
-                        icon: Icon(
-                          cubit.state.showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: context.colorsScheme.onBackground,
-                        ),
+      child: BlocConsumer<SignInCubit, SignInState>(
+        listener: (context, state) {
+          if (state.status == BaseStateStatus.success) {
+            context.navigateTo(AppPage.onboarding);
+          } else if (state.status == BaseStateStatus.error) {
+            getCustomSnackBar(context, message: state.callbackMessage);
+          }
+        },
+        builder: (context, state) {
+          final cubit = context.read<SignInCubit>();
+          return state.when(
+            onLoading: () => const Loading(),
+            onState: (_) => Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  CustomTextFormField(
+                    textFormKey: _emailKey,
+                    labelText: AppLocalizations.current.email,
+                    keyboardType: TextInputType.emailAddress,
+                    textCapitalization: TextCapitalization.none,
+                    initialValue: cubit.state.email,
+                    onChanged: (email) => cubit.onChangeEmail(email),
+                    validator: (value) =>
+                        FormValidator.validateEmailField(value),
+                  ),
+                  AppSizeConstants.bigVerticalSpacer,
+                  CustomTextFormField(
+                    textFormKey: _passwordKey,
+                    controller: passwordController,
+                    labelText: AppLocalizations.current.password,
+                    textCapitalization: TextCapitalization.none,
+                    textInputAction: TextInputAction.done,
+                    obscureText: !cubit.state.showPassword,
+                    onChanged: (password) => cubit.onChangePassword(password),
+                    validator: (value) => FormValidator.validateTextField(
+                        value, AppLocalizations.current.password),
+                    suffixIcon: IconButton(
+                      onPressed: () => cubit.onChangeShowPassword(),
+                      icon: Icon(
+                        cubit.state.showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: context.colorsScheme.onBackground,
                       ),
                     ),
-                    AppSizeConstants.largeVerticalSpacer,
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: MaterialButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () =>
-                            context.navigateTo(AppPage.forgotPassword),
-                        child: Text(
-                          AppLocalizations.current.forgotYourPassword,
-                          style: context.titleSmall,
-                        ),
+                  ),
+                  AppSizeConstants.largeVerticalSpacer,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: MaterialButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () =>
+                          context.navigateTo(AppPage.forgotPassword),
+                      child: Text(
+                        AppLocalizations.current.forgotYourPassword,
+                        style: context.titleSmall,
                       ),
                     ),
-                    AppSizeConstants.largeVerticalSpacer,
-                    PillButton(
-                      onTap: onTapSignIn,
-                      fillWidth: true,
-                      child: Text(AppLocalizations.current.signIn),
-                    ),
-                    AppSizeConstants.mediumVerticalSpacer,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                  AppSizeConstants.largeVerticalSpacer,
+                  PillButton(
+                    onTap: onTapSignIn,
+                    fillWidth: true,
+                    child: Text(AppLocalizations.current.signIn),
+                  ),
+                  AppSizeConstants.mediumVerticalSpacer,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                          child: Divider(color: AppColors.lightGrey)),
+                      AppSizeConstants.smallHorizontalSpacer,
+                      Text(AppLocalizations.current.or,
+                          style: context.bodyMedium),
+                      AppSizeConstants.smallHorizontalSpacer,
+                      const Expanded(
+                          child: Divider(color: AppColors.lightGrey)),
+                    ],
+                  ),
+                  AppSizeConstants.mediumVerticalSpacer,
+                  PillButton(
+                    onTap: () => cubit.onSignInWithGoogle(),
+                    backgroundColor: AppColors.white,
+                    foregroundColor: AppColors.black,
+                    fillWidth: true,
+                    outlinedButton: true,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Expanded(
-                            child: Divider(color: AppColors.lightGrey)),
+                        SvgPicture.asset(
+                          AppAssets.google,
+                          height: 18,
+                        ),
                         AppSizeConstants.smallHorizontalSpacer,
-                        Text(AppLocalizations.current.or,
-                            style: context.bodyMedium),
-                        AppSizeConstants.smallHorizontalSpacer,
-                        const Expanded(
-                            child: Divider(color: AppColors.lightGrey)),
+                        Text(AppLocalizations.current.googleSignIn),
                       ],
                     ),
-                    AppSizeConstants.mediumVerticalSpacer,
-                    PillButton(
-                      onTap: () => cubit.onSignInWithGoogle(),
-                      backgroundColor: AppColors.white,
-                      foregroundColor: AppColors.black,
-                      fillWidth: true,
-                      outlinedButton: true,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            AppAssets.google,
-                            height: 18,
-                          ),
-                          AppSizeConstants.smallHorizontalSpacer,
-                          Text(AppLocalizations.current.googleSignIn),
-                        ],
-                      ),
-                    ),
-                    AppSizeConstants.largeVerticalSpacer,
-                  ],
-                ),
+                  ),
+                  AppSizeConstants.largeVerticalSpacer,
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

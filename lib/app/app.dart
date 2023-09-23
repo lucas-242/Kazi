@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:kazi/app/core/routes/app_router.dart';
-import 'package:kazi/app/features/service_types/service_types.dart';
-import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/features/services/service_types/cubit/service_types_cubit.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 
 import '/injector_container.dart';
@@ -15,16 +16,13 @@ import 'data/repositories/service_type_repository/service_type_repository.dart';
 import 'data/repositories/services_repository/services_repository.dart';
 import 'features/home/cubit/home_cubit.dart';
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  @override
   Widget build(BuildContext context) {
+    Modular.setInitialRoute(AppRouter.splash);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<AppCubit>(
@@ -68,7 +66,7 @@ class _AppState extends State<App> {
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.delegate.supportedLocales,
-        routerConfig: AppRouter.router,
+        routerConfig: Modular.routerConfig,
       ),
     );
   }

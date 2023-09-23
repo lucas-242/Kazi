@@ -6,7 +6,6 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/data/repositories/services_repository/services_repository.dart';
-import 'package:kazi/app/features/service_types/service_types.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/features/service_types/widgets/service_type_no_data_navbar.dart';
-import 'package:kazi/app/features/service_types/widgets/service_types_content.dart';
+import 'package:kazi/app/features/services/service_types/widgets/service_type_no_data_navbar.dart';
+import 'package:kazi/app/features/services/service_types/widgets/service_types_content.dart';
 
 import '../service_types.dart';
 

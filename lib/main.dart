@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:kazi/app/app_module.dart';
 
 import 'app/app.dart';
 import 'app/core/constants/ad_keys.dart';
@@ -15,12 +17,15 @@ Future<void> main() async {
       RequestConfiguration(testDeviceIds: AdKeys.testDeviceIds);
   MobileAds.instance.updateRequestConfiguration(configuration);
   await initInjectorContainer();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
+
   serviceLocator
       .get<LogService>()
       .flow('Environment: ${Environment.environmentValue}');
-  runApp(const App());
+
+  return runApp(ModularApp(module: AppModule(), child: const App()));
 }
