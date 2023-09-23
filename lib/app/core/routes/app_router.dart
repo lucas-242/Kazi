@@ -27,10 +27,12 @@ abstract class AppRouter {
   static String onboarding = '/onboarding';
   static String home = '/home';
   static String login = '/login';
+  static String loginForgotPassword = '$login/$forgotPassword';
   static String loginPrivacyPolicy = '$login/$privacyPolicy';
   static String loginPrivacyPolicyWebView = '$login/$privacyPolicy/$webView';
-  static String loginForgotPassword = '$login/$forgotPassword';
   static String loginResetPassword = '$login/$resetPassword';
+  static String loginSignIn = '$login/$signIn';
+  static String loginSignUp = '$login/$signUp';
   static String services = '/services';
   static String addServices = '$services/$add';
   static String servicesType = '$services/$type';
@@ -42,18 +44,38 @@ abstract class AppRouter {
   static String add = 'add';
   static String type = 'type';
   static String privacyPolicy = 'privacy-policy';
+  static String signIn = 'sign-in';
+  static String signUp = 'sign-up';
   static String forgotPassword = 'forgot-password';
   static String resetPassword = 'reset-password';
   static String webView = 'web-view';
 }
 
+final mainNavigatorKey = GlobalKey<NavigatorState>();
+final loginNavigatorKey = GlobalKey<NavigatorState>();
+final bottomNavigatorKey = GlobalKey<NavigatorState>();
+
 final _router = GoRouter(
   initialLocation: AppRouter.initial,
+  navigatorKey: mainNavigatorKey,
   routes: [
     GoRoute(
       path: AppRouter.initial,
       pageBuilder: (context, state) =>
           _customTransition(state, const SplashPage()),
+      routes: [
+        ShellRoute(
+          navigatorKey: loginNavigatorKey,
+          builder: (context, state, child) => LoginScaffold(child: child),
+          routes: [
+            _signIn,
+            // _signUp,
+            // _forgotPassword,
+            // _privacyPolicy,
+            // _resetPassword,
+          ],
+        ),
+      ],
     ),
     GoRoute(
       path: AppRouter.onboarding,
@@ -64,12 +86,25 @@ final _router = GoRouter(
       pageBuilder: (context, state) =>
           _customTransition(state, const OnboardingPage()),
     ),
-    GoRoute(
-        path: AppRouter.login,
-        pageBuilder: (context, state) =>
-            _customTransition(state, const LoginLandingPage()),
-        routes: [_privacyPolicy, _forgotPassword, _resetPassword]),
+    // GoRoute(
+    //   path: AppRouter.login,
+    //   redirect: (context, state) => AppRouter.loginSignIn,
+    //   routes: [
+    //     ShellRoute(
+    //       navigatorKey: loginNavigatorKey,
+    //       builder: (context, state, child) => LoginScaffold(child: child),
+    //       routes: [
+    //         _signIn,
+    //         // _signUp,
+    //         // _forgotPassword,
+    //         // _privacyPolicy,
+    //         // _resetPassword,
+    //       ],
+    //     ),
+    //   ],
+    // ),
     ShellRoute(
+      navigatorKey: bottomNavigatorKey,
       builder: (context, state, child) => AppShell(
         params: state.extra != null
             ? (state.extra as RouteParams)
@@ -123,7 +158,7 @@ final _router = GoRouter(
 );
 
 final _privacyPolicy = GoRoute(
-  path: AppRouter.privacyPolicy,
+  path: AppRouter.loginPrivacyPolicy,
   pageBuilder: (context, state) =>
       _customTransition(state, const PrivacyPolicyPage()),
   routes: [
@@ -150,18 +185,28 @@ Page<dynamic> _navigateToPrivacyPoliceWebView(
   }
 }
 
-final _forgotPassword = GoRoute(
-  path: AppRouter.forgotPassword,
-  pageBuilder: (context, state) =>
-      _customTransition(state, const ForgotPasswordPage()),
-);
-
 final _resetPassword = GoRoute(
   path: AppRouter.resetPassword,
   pageBuilder: (context, state) => _customTransition(
     state,
     ResetPasswordPage(resetPasswordToken: state.queryParameters['token']),
   ),
+);
+
+final _signIn = GoRoute(
+  path: AppRouter.signIn,
+  pageBuilder: (context, state) => _customTransition(state, const SignInPage()),
+);
+
+final _forgotPassword = GoRoute(
+  path: AppRouter.loginForgotPassword,
+  pageBuilder: (context, state) =>
+      _customTransition(state, const ForgotPasswordPage()),
+);
+
+final _signUp = GoRoute(
+  path: AppRouter.loginSignUp,
+  pageBuilder: (context, state) => _customTransition(state, const SignUpPage()),
 );
 
 final _serviceDetails = GoRoute(

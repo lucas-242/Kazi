@@ -69,6 +69,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "details": MessageLookupByLibrary.simpleMessage("Details"),
+        "didntReceiveAnything":
+            MessageLookupByLibrary.simpleMessage("Didn\'t receive anything? "),
         "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Discount percentage"),
@@ -116,8 +118,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
-        "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
-            "A link to reset your password was sent to your email address."),
+        "forgotPasswordConfirmation1":
+            MessageLookupByLibrary.simpleMessage("We have sent an email to "),
+        "forgotPasswordConfirmation2": MessageLookupByLibrary.simpleMessage(
+            "to recover your password. Once you receive the email, follow the link provided to sign in."),
         "forgotPasswordInfo": MessageLookupByLibrary.simpleMessage(
             "Please, enter your email address to receive a link to reset your password."),
         "forgotYourPassword":
@@ -231,6 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
         "requiredProperty": m7,
+        "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
             "Please, enter your current password and your new password."),
@@ -242,7 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Select the service type"),
-        "send": MessageLookupByLibrary.simpleMessage("Send"),
+        "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
         "serviceAdded":
             MessageLookupByLibrary.simpleMessage("Service added successfully"),

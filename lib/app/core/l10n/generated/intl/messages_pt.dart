@@ -67,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Deletar"),
         "description": MessageLookupByLibrary.simpleMessage("Descrição"),
         "details": MessageLookupByLibrary.simpleMessage("Detalhes"),
+        "didntReceiveAnything":
+            MessageLookupByLibrary.simpleMessage("Não recebeu nada? "),
         "discount": MessageLookupByLibrary.simpleMessage("Desconto"),
         "discountPercentage":
             MessageLookupByLibrary.simpleMessage("Porcentagem do desconto"),
@@ -115,8 +117,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "finish": MessageLookupByLibrary.simpleMessage("Finalizar"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Recuperar Senha"),
-        "forgotPasswordEmailSent": MessageLookupByLibrary.simpleMessage(
-            "O link para redefinir a senha foi enviado para o seu email."),
+        "forgotPasswordConfirmation1":
+            MessageLookupByLibrary.simpleMessage("Nós enviamos um email para "),
+        "forgotPasswordConfirmation2": MessageLookupByLibrary.simpleMessage(
+            "para recuperar sua senha. Depois de receber o e-mail, siga o link fornecido para fazer login."),
         "forgotPasswordInfo": MessageLookupByLibrary.simpleMessage(
             "Informe seu email para receber o link para redefinir sua senha."),
         "forgotYourPassword":
@@ -205,13 +209,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPoliceInformation": MessageLookupByLibrary.simpleMessage(
             "Para uma melhor experiência, ao usar nosso Serviço, posso exigir que você nos forneça certas informações de identificação pessoal, incluindo, entre outras, Nome, Endereço de e-mail. As informações que solicito serão mantidas em seu dispositivo e não serão coletadas por mim de forma alguma.\nO aplicativo usa serviços de terceiros que podem coletar informações usadas para identificá-lo.\nLink para a política de privacidade de provedores de serviços terceirizados usados pelo app:\n"),
         "privacyPoliceInformation1":
-            MessageLookupByLibrary.simpleMessage("Serviços do Google Play;\n"),
+            MessageLookupByLibrary.simpleMessage("Serviços do Google Play"),
         "privacyPoliceInformation2":
-            MessageLookupByLibrary.simpleMessage("AdMob;\n"),
-        "privacyPoliceInformation3": MessageLookupByLibrary.simpleMessage(
-            "Google Analytics para Firebase;\n"),
+            MessageLookupByLibrary.simpleMessage("AdMob"),
+        "privacyPoliceInformation3":
+            MessageLookupByLibrary.simpleMessage("Google Analytics"),
         "privacyPoliceInformation4":
-            MessageLookupByLibrary.simpleMessage("Firebase Crashlytics.\n"),
+            MessageLookupByLibrary.simpleMessage("Firebase Crashlytics"),
         "privacyPoliceInformationTitle":
             MessageLookupByLibrary.simpleMessage("Coleta e uso de informações"),
         "privacyPoliceLogData": MessageLookupByLibrary.simpleMessage(
@@ -233,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeFilters":
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
         "requiredProperty": m7,
+        "resendEmail": MessageLookupByLibrary.simpleMessage("Reenviar Email"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Redefinir Senha"),
         "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
@@ -245,7 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Busca"),
         "selectServiceType":
             MessageLookupByLibrary.simpleMessage("Selecione o tipo de serviço"),
-        "send": MessageLookupByLibrary.simpleMessage("Enviar"),
+        "sendEmail": MessageLookupByLibrary.simpleMessage("Enviar Email"),
         "service": MessageLookupByLibrary.simpleMessage("Serviço"),
         "serviceAdded": MessageLookupByLibrary.simpleMessage(
             "Serviço adicionado com sucesso"),

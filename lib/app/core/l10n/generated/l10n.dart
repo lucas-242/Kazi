@@ -270,6 +270,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Didn't receive anything? `
+  String get didntReceiveAnything {
+    return Intl.message(
+      'Didn\'t receive anything? ',
+      name: 'didntReceiveAnything',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Discount percentage`
   String get discountPercentage {
     return Intl.message(
@@ -570,21 +580,31 @@ class AppLocalizations {
     );
   }
 
-  /// `A link to reset your password was sent to your email address.`
-  String get forgotPasswordEmailSent {
-    return Intl.message(
-      'A link to reset your password was sent to your email address.',
-      name: 'forgotPasswordEmailSent',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Please, enter your email address to receive a link to reset your password.`
   String get forgotPasswordInfo {
     return Intl.message(
       'Please, enter your email address to receive a link to reset your password.',
       name: 'forgotPasswordInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We have sent an email to `
+  String get forgotPasswordConfirmation1 {
+    return Intl.message(
+      'We have sent an email to ',
+      name: 'forgotPasswordConfirmation1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `to recover your password. Once you receive the email, follow the link provided to sign in.`
+  String get forgotPasswordConfirmation2 {
+    return Intl.message(
+      'to recover your password. Once you receive the email, follow the link provided to sign in.',
+      name: 'forgotPasswordConfirmation2',
       desc: '',
       args: [],
     );
@@ -1220,6 +1240,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Resend Email`
+  String get resendEmail {
+    return Intl.message(
+      'Resend Email',
+      name: 'resendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reset Password`
   String get resetPassword {
     return Intl.message(
@@ -1300,11 +1330,11 @@ class AppLocalizations {
     );
   }
 
-  /// `Send`
-  String get send {
+  /// `Send Email`
+  String get sendEmail {
     return Intl.message(
-      'Send',
-      name: 'send',
+      'Send Email',
+      name: 'sendEmail',
       desc: '',
       args: [],
     );

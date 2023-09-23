@@ -6,8 +6,8 @@ import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/features/login/login.dart';
-import 'package:kazi/app/features/login/widgets/reset_password_form.dart';
+import 'package:kazi/app/features/login/reset_password/cubit/reset_password_cubit.dart';
+import 'package:kazi/app/features/login/reset_password/widgets/reset_password_form.dart';
 import 'package:kazi/injector_container.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -25,8 +25,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginCubit(serviceLocator<Auth>()),
-      child: BlocConsumer<LoginCubit, LoginState>(
+      create: (_) => ResetPasswordCubit(serviceLocator<Auth>()),
+      child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.success) {
@@ -77,9 +77,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   ],
                 ),
               ),
-              onLoading: () => Loading(
-                color: context.colorsScheme.onBackground,
-              ),
+              onLoading: () => const Loading(),
             ),
           ),
         ),

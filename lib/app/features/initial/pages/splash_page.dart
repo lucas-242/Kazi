@@ -66,7 +66,7 @@ class _SplashPageState extends State<SplashPage> {
     if (user != null) {
       context.navigateTo(AppPage.onboarding);
     } else {
-      context.navigateTo(AppPage.login);
+      context.navigateTo(AppPage.signIn);
     }
   }
 

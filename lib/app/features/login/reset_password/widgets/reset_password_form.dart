@@ -5,7 +5,7 @@ import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
-import 'package:kazi/app/features/login/login.dart';
+import 'package:kazi/app/features/login/reset_password/cubit/reset_password_cubit.dart';
 
 class ResetPasswordForm extends StatefulWidget {
   const ResetPasswordForm({
@@ -28,7 +28,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<LoginCubit>();
+    final cubit = context.read<ResetPasswordCubit>();
 
     void onTapSubmit() {
       if (_formKey.currentState!.validate()) {

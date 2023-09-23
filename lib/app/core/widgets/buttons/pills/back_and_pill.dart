@@ -39,7 +39,7 @@ class BackAndPill extends StatelessWidget {
               visible: text != null,
               child: Text(
                 text ?? '',
-                style: context.titleMedium,
+                style: context.headlineMedium,
               ),
             )
           ],
