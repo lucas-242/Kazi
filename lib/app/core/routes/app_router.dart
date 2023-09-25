@@ -18,12 +18,11 @@ abstract class AppRouter {
   static String addServices = '$services/$add';
   static String servicesType = '$services/$type';
   static String addServiceType = '$servicesType/$add';
-  static String calculator = '/calculator';
   static String profile = '/profile';
   static String profileResetPassword = '$profile/$resetPassword';
 
   static String add = 'add';
-  static String type = 'type';
+  static String type = '/type';
   static String privacyPolicy = '/privacy-policy';
   static String signIn = '/sign-in';
   static String signUp = '/sign-up';

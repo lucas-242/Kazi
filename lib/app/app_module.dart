@@ -6,6 +6,7 @@ import 'package:kazi/app/features/home/home_module.dart';
 import 'package:kazi/app/features/initial/intial.dart';
 import 'package:kazi/app/features/login/login_module.dart';
 import 'package:kazi/app/features/profile/profile.dart';
+import 'package:kazi/app/features/services/services_module.dart';
 import 'package:kazi/app/models/route_params.dart';
 import 'package:kazi/app/models/service.dart';
 
@@ -27,7 +28,7 @@ class AppModule extends Module {
       ),
       children: [
         ModuleRoute(AppRouter.home, module: HomeModule()),
-        // ModuleRoute(AppRouter.services, module: ServicesModule()),
+        ModuleRoute(AppRouter.services, module: ServicesModule()),
         ModuleRoute(AppRouter.profile, module: ProfileModule()),
       ],
     );

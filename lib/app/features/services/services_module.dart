@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:kazi/app/core/routes/app_router.dart';
-import 'package:kazi/app/features/services/service_types/pages/service_type_form_page.dart';
-import 'package:kazi/app/features/services/service_types/pages/service_types_page.dart';
 import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/models/route_params.dart';
+
+import 'service_types/pages/service_types_page.dart';
 
 export 'service_details/service_details.dart';
 export 'service_filters/service_filters.dart';
@@ -20,18 +23,23 @@ class ServicesModule extends Module {
     r.child(
       AppRouter.initial,
       child: (_) => const ServiceLandingPage(),
+    );
+    r.child(AppRouter.addServices, child: (_) => const ServiceFormPage());
+    //TODO: Pass it to the cubit
+    r.child(
+      ':id',
+      child: (_) => ServiceDetailsPage(
+        service:
+            RouteParams.fromJson(jsonDecode(r.args.queryParams['service']!))
+                .service!,
+      ),
+    );
+    r.child(
+      AppRouter.type,
+      child: (_) => const ServiceTypesPage(),
       children: [
-        ChildRoute(
-          AppRouter.type,
-          child: (_) => const ServiceTypesPage(),
-          children: [
-            ChildRoute(AppRouter.type,
-                child: (_) => const ServiceTypeFormPage())
-          ],
-        ),
         ChildRoute(':id', child: (_) => const ServiceFormPage()),
       ],
     );
-    r.child(AppRouter.addServices, child: (_) => const ServiceFormPage());
   }
 }
