@@ -10,6 +10,7 @@ import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
+import 'package:kazi/app/features/login/login_module.dart';
 import 'package:kazi/app/features/login/sign_in/cubit/sign_in_cubit.dart';
 import 'package:kazi/injector_container.dart';
 
@@ -104,8 +105,7 @@ class _SignInPageState extends State<SignInPage> {
                     alignment: Alignment.centerLeft,
                     child: MaterialButton(
                       padding: EdgeInsets.zero,
-                      onPressed: () =>
-                          context.navigateTo(AppPage.forgotPassword),
+                      onPressed: () => context.navigateTo(AppPage.profile),
                       child: Text(
                         AppLocalizations.current.forgotYourPassword,
                         style: context.titleSmall,
@@ -152,6 +152,10 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   AppSizeConstants.largeVerticalSpacer,
+                  const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: LoginSignInChanger(),
+                  ),
                 ],
               ),
             ),

@@ -156,6 +156,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   AppSizeConstants.bigVerticalSpacer,
                   const LoginTermsPolicies(),
                   AppSizeConstants.bigVerticalSpacer,
+                  const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: LoginSignInChanger(),
+                  ),
                 ],
               ),
             ),

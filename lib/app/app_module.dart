@@ -5,8 +5,7 @@ import 'package:kazi/app/core/routes/app_router.dart';
 import 'package:kazi/app/features/home/home_module.dart';
 import 'package:kazi/app/features/initial/intial.dart';
 import 'package:kazi/app/features/login/login_module.dart';
-import 'package:kazi/app/features/profile/profile.dart';
-import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/features/profile/profile_module.dart';
 import 'package:kazi/app/models/route_params.dart';
 import 'package:kazi/app/models/service.dart';
 
@@ -15,7 +14,8 @@ class AppModule extends Module {
   void routes(r) {
     r.child(AppRouter.splash, child: (_) => const SplashPage());
     r.child(AppRouter.onboarding, child: (_) => const OnboardingPage());
-    r.module(AppRouter.login, module: LoginModule());
+    // r.module(AppRouter.login, module: LoginModule());
+
     r.child(
       AppRouter.initial,
       //TODO: Validate Params in appShell
@@ -27,8 +27,28 @@ class AppModule extends Module {
         ),
       ),
       children: [
+        ChildRoute(
+          AppRouter.login,
+          child: (context) => const LoginShell(),
+          children: [
+            ChildRoute(AppRouter.signIn,
+                child: (context) => const SignInPage()),
+            ChildRoute(AppRouter.signUp,
+                child: (context) => const SignUpPage()),
+            ChildRoute(AppRouter.resetPassword,
+                child: (context) => const ResetPasswordPage()),
+            ChildRoute(
+              AppRouter.forgotPassword,
+              child: (context) => const ForgotPasswordPage(),
+            ),
+            ChildRoute(
+              AppRouter.privacyPolicy,
+              child: (context) => const PrivacyPolicyPage(),
+            ),
+          ],
+        ),
         ModuleRoute(AppRouter.home, module: HomeModule()),
-        ModuleRoute(AppRouter.services, module: ServicesModule()),
+        // ModuleRoute(AppRouter.services, module: ServicesModule()),
         ModuleRoute(AppRouter.profile, module: ProfileModule()),
       ],
     );

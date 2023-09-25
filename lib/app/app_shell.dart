@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart'
+    hide ModularWatchExtension;
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/models/route_params.dart';

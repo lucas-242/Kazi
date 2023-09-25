@@ -26,7 +26,6 @@ const _$AppPageEnumMap = {
   AppPage.home: 'home',
   AppPage.services: 'services',
   AppPage.serviceDetails: 'serviceDetails',
-  AppPage.calculator: 'calculator',
   AppPage.profile: 'profile',
   AppPage.addServices: 'addServices',
   AppPage.servicesType: 'servicesType',

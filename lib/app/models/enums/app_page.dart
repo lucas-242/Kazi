@@ -5,11 +5,10 @@ enum AppPage {
   home(0),
   services(1),
   serviceDetails(1),
-  calculator(2),
-  profile(3),
-  addServices(4),
-  servicesType(6),
-  addServiceType(7),
+  profile(2),
+  addServices(3),
+  servicesType(4),
+  addServiceType(5),
   signIn(10),
   signUp(11),
   forgotPassword(12),
@@ -35,15 +34,13 @@ enum AppPage {
   static String getRoute(AppPage page, {int? id}) {
     switch (page) {
       case AppPage.home:
-        return AppRouter.home;
+        return '${AppRouter.home}/';
       case AppPage.services:
         return AppRouter.services;
       case AppPage.addServices:
         return AppRouter.addServices;
-      case AppPage.calculator:
-        return AppRouter.calculator;
       case AppPage.profile:
-        return AppRouter.profile;
+        return '${AppRouter.profile}/';
       case AppPage.serviceDetails:
         return '${AppRouter.services}/$id';
       case AppPage.servicesType:

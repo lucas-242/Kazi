@@ -35,8 +35,8 @@ class LoginSignInChanger extends StatelessWidget {
         MaterialButton(
           onPressed: () => chooseFromPage(
             currentPage,
-            onSignIn: () => context.navigateTo(AppPage.signIn),
-            onSignUp: () => context.navigateTo(AppPage.signUp),
+            onSignIn: () => context.navigateTo(AppPage.signUp),
+            onSignUp: () => context.navigateTo(AppPage.signIn),
           ),
           child: RichText(
             text: TextSpan(

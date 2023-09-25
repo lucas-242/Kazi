@@ -107,6 +107,7 @@ final class KaziApiAuth extends Auth {
     _userController.sink.add(user);
     _client.reset();
     await _localStorage.remove(AppKeys.userData);
+    await _localStorage.remove(AppKeys.showOnboardingStorage);
   }
 
   @override

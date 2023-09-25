@@ -7,7 +7,7 @@ export 'pages/privacy_policy_page.dart';
 export 'pages/reset_password_page.dart';
 export 'sign_in/pages/sign_in_page.dart';
 export 'sign_up/pages/sign_up_page.dart';
-export 'widgets/login_scaffold.dart';
+export 'widgets/login_shell.dart';
 export 'widgets/login_sign_in_changer.dart';
 export 'widgets/login_terms_policies.dart';
 export 'widgets/text_button_link.dart';
@@ -17,7 +17,7 @@ class LoginModule extends Module {
   void routes(r) {
     r.child(
       AppRouter.initial,
-      child: (context) => const LoginScaffold(),
+      child: (context) => const LoginShell(),
       children: [
         ChildRoute(AppRouter.signIn, child: (context) => const SignInPage()),
         ChildRoute(AppRouter.signUp, child: (context) => const SignUpPage()),
