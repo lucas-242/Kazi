@@ -82,6 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorLaunchUrl": m1,
         "errorNotFound":
             MessageLookupByLibrary.simpleMessage("Endereço não encontrado."),
+        "errorTimeout": MessageLookupByLibrary.simpleMessage(
+            "O Servidor demorou a responder. Tente novamente mais tarde ou entre em contato conosco."),
         "errorToAddService": MessageLookupByLibrary.simpleMessage(
             "Erro ao efetuar a adição do serviço."),
         "errorToAddServiceType": MessageLookupByLibrary.simpleMessage(
@@ -120,7 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPasswordConfirmation1":
             MessageLookupByLibrary.simpleMessage("Nós enviamos um email para "),
         "forgotPasswordConfirmation2": MessageLookupByLibrary.simpleMessage(
-            "para recuperar sua senha. Depois de receber o e-mail, siga o link fornecido para fazer login."),
+            " para recuperar sua senha. Depois de receber o e-mail, siga o link fornecido para fazer login."),
         "forgotPasswordInfo": MessageLookupByLibrary.simpleMessage(
             "Informe seu email para receber o link para redefinir sua senha."),
         "forgotYourPassword":

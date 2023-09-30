@@ -10,6 +10,7 @@ class HttpKaziConnection implements KaziConnection {
   HttpKaziConnection(KaziClient client) : _client = client as http.Client;
 
   final http.Client _client;
+  final _timeout = const Duration(seconds: 20);
 
   @override
   Future<ApiResponse> delete(
@@ -19,6 +20,7 @@ class HttpKaziConnection implements KaziConnection {
   }) async =>
       _client
           .delete(_getUri(url, parameters), body: jsonEncode(body))
+          .timeout(_timeout, onTimeout: () => http.Response('Error', 408))
           .then((response) => _convertHttpResponse(response));
 
   ApiResponse _convertHttpResponse(
@@ -38,6 +40,7 @@ class HttpKaziConnection implements KaziConnection {
   }) async =>
       _client
           .get(_getUri(url, parameters))
+          .timeout(_timeout, onTimeout: () => http.Response('Error', 408))
           .then((response) => _convertHttpResponse(response));
 
   Uri _getUri(String url, Map<String, dynamic>? parameters) {
@@ -76,6 +79,7 @@ class HttpKaziConnection implements KaziConnection {
   }) async =>
       _client
           .patch(_getUri(url, parameters), body: jsonEncode(body))
+          .timeout(_timeout, onTimeout: () => http.Response('Error', 408))
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -86,6 +90,7 @@ class HttpKaziConnection implements KaziConnection {
   }) async =>
       _client
           .post(_getUri(url, parameters), body: jsonEncode(body))
+          .timeout(_timeout, onTimeout: () => http.Response('Error', 408))
           .then((response) => _convertHttpResponse(response));
 
   @override
@@ -96,5 +101,6 @@ class HttpKaziConnection implements KaziConnection {
   }) async =>
       _client
           .put(_getUri(url, parameters), body: jsonEncode(body))
+          .timeout(_timeout, onTimeout: () => http.Response('Error', 408))
           .then((response) => _convertHttpResponse(response));
 }

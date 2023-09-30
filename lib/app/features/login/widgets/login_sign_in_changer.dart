@@ -4,6 +4,7 @@ import 'package:kazi/app/app_cubit.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
+import 'package:kazi/app/features/login/forgot_password/cubit/forgot_password_cubit.dart';
 
 class LoginSignInChanger extends StatelessWidget {
   const LoginSignInChanger({
@@ -37,6 +38,8 @@ class LoginSignInChanger extends StatelessWidget {
             currentPage,
             onSignIn: () => context.navigateTo(AppPage.signUp),
             onSignUp: () => context.navigateTo(AppPage.signIn),
+            onEmailConfirmation: () =>
+                context.read<ForgotPasswordCubit>().onForgotPassword(),
           ),
           child: RichText(
             text: TextSpan(

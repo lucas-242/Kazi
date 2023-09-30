@@ -30,6 +30,8 @@ class SignUpCubit extends Cubit<SignUpState> with BaseCubit {
         return;
       }
 
+      emit(state.copyWith(status: BaseStateStatus.loading));
+
       final user = User.toCreate(
         name: state.name,
         email: state.email,

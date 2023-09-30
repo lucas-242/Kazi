@@ -39,6 +39,7 @@
     }
   },
   "errorNotFound": "Url not found.",
+  "errorTimeout": "The server took a long time to respond. Please try again later or contact us.",
   "errorUnknowError": "An unknown exception occurred.",
   "errorToAddServiceType": "Error to add service type.",
   "errorToDeleteServiceType": "Error to delete service type.",
@@ -61,7 +62,7 @@
   "forgotPassword": "Forgot Password",  
   "forgotPasswordInfo": "Please, enter your email address to receive a link to reset your password.",
   "forgotPasswordConfirmation1": "We have sent an email to ",
-  "forgotPasswordConfirmation2": "to recover your password. Once you receive the email, follow the link provided to sign in.",
+  "forgotPasswordConfirmation2": " to recover your password. Once you receive the email, follow the link provided to sign in.",
   "fortnight": "Fortnight",
   "fromTo": "From {start} to {end}",
   "@fromTo": {

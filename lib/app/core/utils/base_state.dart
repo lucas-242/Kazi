@@ -7,6 +7,7 @@ class BaseState {
 
   T when<T>({
     required T Function(BaseState state) onState,
+    T Function(BaseState state)? onInitial,
     T Function(BaseState error)? onError,
     T Function()? onLoading,
     T Function()? onNoData,
@@ -18,6 +19,8 @@ class BaseState {
         return onNoData != null ? onNoData() : onState(this);
       case BaseStateStatus.error:
         return onError != null ? onError(this) : onState(this);
+      case BaseStateStatus.initial:
+        return onInitial != null ? onInitial(this) : onState(this);
       default:
         return onState(this);
     }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
+import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/features/login/login_module.dart';
 
 class EmailConfirmation extends StatelessWidget {
@@ -13,29 +15,38 @@ class EmailConfirmation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SvgPicture.asset(AppAssets.email),
-        AppSizeConstants.bigVerticalSpacer,
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            text: AppLocalizations.current.forgotPasswordConfirmation1,
-            style: context.bodyMedium,
-            children: [
-              TextSpan(
-                text: email,
-                style: context.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.orange,
-                ),
+        Column(
+          children: [
+            BackAndPill(
+              onTapBack: () => context.navigateTo(AppPage.signIn),
+              text: AppLocalizations.current.forgotPassword,
+            ),
+            AppSizeConstants.largeVerticalSpacer,
+            SvgPicture.asset(AppAssets.email),
+            AppSizeConstants.bigVerticalSpacer,
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: AppLocalizations.current.forgotPasswordConfirmation1,
+                style: context.bodyMedium,
+                children: [
+                  TextSpan(
+                    text: email,
+                    style: context.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.orange,
+                    ),
+                  ),
+                  TextSpan(
+                    text: AppLocalizations.current.forgotPasswordConfirmation2,
+                  ),
+                ],
               ),
-              TextSpan(
-                text: AppLocalizations.current.forgotPasswordConfirmation2,
-              ),
-            ],
-          ),
+            ),
+            AppSizeConstants.bigVerticalSpacer,
+            const LoginSignInChanger(),
+          ],
         ),
-        AppSizeConstants.bigVerticalSpacer,
-        const LoginSignInChanger(),
       ],
     );
   }

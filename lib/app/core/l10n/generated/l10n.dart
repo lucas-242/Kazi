@@ -380,6 +380,16 @@ class AppLocalizations {
     );
   }
 
+  /// `The server took a long time to respond. Please try again later or contact us.`
+  String get errorTimeout {
+    return Intl.message(
+      'The server took a long time to respond. Please try again later or contact us.',
+      name: 'errorTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `An unknown exception occurred.`
   String get errorUnknowError {
     return Intl.message(
@@ -600,10 +610,10 @@ class AppLocalizations {
     );
   }
 
-  /// `to recover your password. Once you receive the email, follow the link provided to sign in.`
+  /// ` to recover your password. Once you receive the email, follow the link provided to sign in.`
   String get forgotPasswordConfirmation2 {
     return Intl.message(
-      'to recover your password. Once you receive the email, follow the link provided to sign in.',
+      ' to recover your password. Once you receive the email, follow the link provided to sign in.',
       name: 'forgotPasswordConfirmation2',
       desc: '',
       args: [],

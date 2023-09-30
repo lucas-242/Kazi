@@ -17,6 +17,7 @@ class ApiResponse {
   dynamic get json => jsonDecode(body);
 
   void handleStatus({
+    Function? status408,
     Function? status404,
     Function? status403,
     Function? status401,
@@ -52,6 +53,13 @@ class ApiResponse {
           }
           throw ClientError(
               message ?? AppLocalizations.current.errorUnknowError);
+        }
+      case 408:
+        {
+          if (status408 != null) {
+            status408();
+          }
+          throw TimeoutError(message ?? AppLocalizations.current.errorTimeout);
         }
       case 500:
         {

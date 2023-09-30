@@ -3,8 +3,8 @@ import 'package:kazi/app/core/routes/app_router.dart';
 import 'package:kazi/app/features/login/login_module.dart';
 
 export 'forgot_password/pages/forgot_password_page.dart';
-export 'pages/privacy_policy_page.dart';
 export 'pages/reset_password_page.dart';
+export 'privacy_police/pages/privacy_policy_page.dart';
 export 'sign_in/pages/sign_in_page.dart';
 export 'sign_up/pages/sign_up_page.dart';
 export 'widgets/login_shell.dart';

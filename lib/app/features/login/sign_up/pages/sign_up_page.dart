@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/auth/auth.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
@@ -47,25 +48,31 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    void onTapSignUp() {
-      final cubit = context.read<SignUpCubit>();
+    void onTapSignUp(SignUpCubit cubit) {
       if (_formKey.currentState!.validate()) {
         cubit.onSignUp();
       }
     }
 
-    void clearPasswordFields(SignUpState state) {
-      if (state.password.isEmpty && passwordController.text.isNotEmpty) {
-        passwordController.text = '';
-        confirmPasswordController.text = '';
-      }
+    void clearPasswordFields() {
+      passwordController.text = '';
+      confirmPasswordController.text = '';
     }
 
     return BlocProvider(
       create: (_) => SignUpCubit(serviceLocator<Auth>()),
       child: BlocConsumer<SignUpCubit, SignUpState>(
+        listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
-          if (state.status == BaseStateStatus.error) {
+          if (state.status == BaseStateStatus.success) {
+            getCustomSnackBar(
+              context,
+              message: state.callbackMessage,
+              type: SnackBarType.success,
+            );
+            context.navigateTo(AppPage.signIn);
+          } else if (state.status == BaseStateStatus.error) {
+            clearPasswordFields();
             getCustomSnackBar(context, message: state.callbackMessage);
           }
         },
@@ -76,33 +83,40 @@ class _SignUpPageState extends State<SignUpPage> {
             onState: (_) => Form(
               key: _formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomTextFormField(
-                    textFormKey: _nameKey,
-                    labelText: AppLocalizations.current.name,
-                    keyboardType: TextInputType.name,
-                    textCapitalization: TextCapitalization.words,
-                    initialValue: state.name,
-                    validator: (value) => FormValidator.validateTextField(
-                      value,
-                      AppLocalizations.current.name,
-                    ),
-                    onChanged: (value) => cubit.onChangeName(value),
-                  ),
-                  AppSizeConstants.largeVerticalSpacer,
-                  CustomTextFormField(
-                    textFormKey: _emailKey,
-                    labelText: AppLocalizations.current.email,
-                    keyboardType: TextInputType.emailAddress,
-                    textCapitalization: TextCapitalization.none,
-                    initialValue: state.email,
-                    validator: (value) =>
-                        FormValidator.validateEmailField(value),
-                    onChanged: (value) => cubit.onChangeEmail(value),
-                  ),
-                  AppSizeConstants.largeVerticalSpacer,
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        AppLocalizations.current.signUp,
+                        style: context.headlineMedium,
+                      ),
+                      AppSizeConstants.bigVerticalSpacer,
+                      CustomTextFormField(
+                        textFormKey: _nameKey,
+                        labelText: AppLocalizations.current.name,
+                        keyboardType: TextInputType.name,
+                        textCapitalization: TextCapitalization.words,
+                        initialValue: state.name,
+                        validator: (value) => FormValidator.validateTextField(
+                          value,
+                          AppLocalizations.current.name,
+                        ),
+                        onChanged: (value) => cubit.onChangeName(value),
+                      ),
+                      AppSizeConstants.largeVerticalSpacer,
+                      CustomTextFormField(
+                        textFormKey: _emailKey,
+                        labelText: AppLocalizations.current.email,
+                        keyboardType: TextInputType.emailAddress,
+                        textCapitalization: TextCapitalization.none,
+                        initialValue: state.email,
+                        validator: (value) =>
+                            FormValidator.validateEmailField(value),
+                        onChanged: (value) => cubit.onChangeEmail(value),
+                      ),
+                      AppSizeConstants.largeVerticalSpacer,
                       CustomTextFormField(
                         textFormKey: _passwordKey,
                         controller: passwordController,
@@ -145,21 +159,18 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
+                      AppSizeConstants.bigVerticalSpacer,
+                      PillButton(
+                        onTap: () => onTapSignUp(cubit),
+                        fillWidth: true,
+                        child: Text(AppLocalizations.current.signUp),
+                      ),
+                      AppSizeConstants.bigVerticalSpacer,
+                      const LoginTermsPolicies(),
+                      AppSizeConstants.bigVerticalSpacer,
                     ],
                   ),
-                  AppSizeConstants.bigVerticalSpacer,
-                  PillButton(
-                    onTap: onTapSignUp,
-                    fillWidth: true,
-                    child: Text(AppLocalizations.current.signUp),
-                  ),
-                  AppSizeConstants.bigVerticalSpacer,
-                  const LoginTermsPolicies(),
-                  AppSizeConstants.bigVerticalSpacer,
-                  const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: LoginSignInChanger(),
-                  ),
+                  const LoginSignInChanger(),
                 ],
               ),
             ),
