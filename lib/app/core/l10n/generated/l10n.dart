@@ -130,6 +130,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Clipper cut`
   String get clipperCut {
     return Intl.message(
@@ -1260,26 +1270,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Reset Password`
-  String get resetPassword {
-    return Intl.message(
-      'Reset Password',
-      name: 'resetPassword',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please, enter your current password and your new password.`
-  String get resetPasswordInfo {
-    return Intl.message(
-      'Please, enter your current password and your new password.',
-      name: 'resetPasswordInfo',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Password reseted successfully`
   String get resetedPassword {
     return Intl.message(
@@ -1755,6 +1745,16 @@ class AppLocalizations {
     return Intl.message(
       'This information will help you to easily register the services you will perform. You can give a name, such as "Lashes - Brazilian Volume", fill in the default value, and if applicable, the percentage that is normally deducted from this service.',
       name: 'tourServiceTypesDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Password`
+  String get updatePassword {
+    return Intl.message(
+      'Update Password',
+      name: 'updatePassword',
       desc: '',
       args: [],
     );

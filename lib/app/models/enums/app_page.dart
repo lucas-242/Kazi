@@ -38,15 +38,15 @@ enum AppPage {
       case AppPage.services:
         return AppRouter.services;
       case AppPage.addServices:
-        return AppRouter.addServices;
+        return AppRouter.services + AppRouter.add;
       case AppPage.profile:
         return '${AppRouter.profile}/';
       case AppPage.serviceDetails:
         return '${AppRouter.services}/$id';
       case AppPage.servicesType:
-        return AppRouter.servicesType;
+        return AppRouter.services + AppRouter.type;
       case AppPage.addServiceType:
-        return AppRouter.addServiceType;
+        return AppRouter.services + AppRouter.type + AppRouter.add;
       case AppPage.onboarding:
         return AppRouter.onboarding;
       case AppPage.signIn:
@@ -58,7 +58,7 @@ enum AppPage {
       case AppPage.resetPassword:
         return AppRouter.login + AppRouter.resetPassword;
       case AppPage.profileResetPassword:
-        return AppRouter.profileResetPassword;
+        return AppRouter.profile + AppRouter.resetPassword;
       case AppPage.privacyPolicy:
         return AppRouter.login + AppRouter.privacyPolicy;
       case AppPage.privacyPolicyWebView:

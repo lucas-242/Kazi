@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/auth/auth.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
@@ -20,10 +21,20 @@ class ResetPasswordPage extends StatefulWidget {
 }
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  final _currentPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
   bool get _isFromProfilePage => widget.resetPasswordToken == null;
 
   @override
   Widget build(BuildContext context) {
+    void clearPasswordFields() {
+      _currentPasswordController.text = '';
+      _newPasswordController.text = '';
+      _confirmPasswordController.text = '';
+    }
+
     return BlocProvider(
       create: (_) => ResetPasswordCubit(serviceLocator<Auth>()),
       child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
@@ -35,51 +46,33 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               type: SnackBarType.success,
               message: state.callbackMessage,
             );
+            context.navigateTo(AppPage.signIn);
           } else if (state.status == BaseStateStatus.error) {
             getCustomSnackBar(context, message: state.callbackMessage);
+            clearPasswordFields();
           }
         },
-        builder: (context, state) => Scaffold(
-          backgroundColor: _isFromProfilePage
-              ? context.colorsScheme.background
-              : context.colorsScheme.primary,
-          body: CustomSafeArea(
-            child: state.when(
-              onState: (_) => SingleChildScrollView(
-                child: Column(
-                  children: [
-                    BackAndPill(
-                      text: AppLocalizations.current.resetPassword,
-                    ),
-                    Icon(
-                      Icons.password,
-                      size: _isFromProfilePage ? 210 : 280,
-                    ),
-                    AppSizeConstants.mediumVerticalSpacer,
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: AppSizeConstants.hugeSpace,
-                        right: AppSizeConstants.hugeSpace,
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            AppLocalizations.current.resetPasswordInfo,
-                            style: context.titleSmall,
-                          ),
-                          AppSizeConstants.largeVerticalSpacer,
-                          ResetPasswordForm(
-                            resetPasswordToken: widget.resetPasswordToken,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+        builder: (context, state) => state.when(
+          onState: (_) => SingleChildScrollView(
+            child: Column(
+              children: [
+                BackAndPill(
+                  onTapBack: () => _isFromProfilePage
+                      ? context.navigateBack()
+                      : context.navigateTo(AppPage.signIn),
+                  text: AppLocalizations.current.changePassword,
                 ),
-              ),
-              onLoading: () => const Loading(),
+                AppSizeConstants.largeVerticalSpacer,
+                ResetPasswordForm(
+                  resetPasswordToken: widget.resetPasswordToken,
+                  confirmPasswordController: _confirmPasswordController,
+                  currentPasswordController: _currentPasswordController,
+                  newPasswordController: _newPasswordController,
+                ),
+              ],
             ),
           ),
+          onLoading: () => const Loading(),
         ),
       ),
     );

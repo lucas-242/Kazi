@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "calculator": MessageLookupByLibrary.simpleMessage("Calculadora"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendário"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
+        "changePassword": MessageLookupByLibrary.simpleMessage("Alterar Senha"),
         "clipperCut": MessageLookupByLibrary.simpleMessage("Corte na máquina"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmar"),
         "confirmAction": MessageLookupByLibrary.simpleMessage("Confirmar Ação"),
@@ -240,10 +241,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
         "requiredProperty": m7,
         "resendEmail": MessageLookupByLibrary.simpleMessage("Reenviar Email"),
-        "resetPassword":
-            MessageLookupByLibrary.simpleMessage("Redefinir Senha"),
-        "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
-            "Preencha o campo com sua senha atual e os campos para sua nova senha."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Senha redefinida com sucesso"),
         "save": MessageLookupByLibrary.simpleMessage("Salvar"),
@@ -320,6 +317,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Esses são todos os serviços que realizou em um determinado período de tempo. Por padrão você verá todos os serviços desse mês."),
         "tourServicesListTitle":
             MessageLookupByLibrary.simpleMessage("Serviços"),
+        "updatePassword":
+            MessageLookupByLibrary.simpleMessage("Altualizar Senha"),
         "userTermsAlert1": MessageLookupByLibrary.simpleMessage(
             "Ao continuar, você concorda com os "),
         "userTermsAlert2":

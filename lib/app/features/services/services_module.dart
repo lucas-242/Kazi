@@ -24,8 +24,8 @@ class ServicesModule extends Module {
       AppRouter.initial,
       child: (_) => const ServiceLandingPage(),
     );
-    r.child(AppRouter.addServices, child: (_) => const ServiceFormPage());
-    //TODO: Pass it to the cubit
+    r.child(AppRouter.add, child: (_) => const ServiceFormPage());
+    //TODO: Pass id to the cubit
     r.child(
       ':id',
       child: (_) => ServiceDetailsPage(

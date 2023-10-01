@@ -11,8 +11,15 @@ class ResetPasswordForm extends StatefulWidget {
   const ResetPasswordForm({
     super.key,
     this.resetPasswordToken,
+    required this.currentPasswordController,
+    required this.newPasswordController,
+    required this.confirmPasswordController,
   });
+
   final String? resetPasswordToken;
+  final TextEditingController currentPasswordController;
+  final TextEditingController newPasswordController;
+  final TextEditingController confirmPasswordController;
 
   @override
   State<ResetPasswordForm> createState() => _ResetPasswordFormState();
@@ -107,7 +114,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
           AppSizeConstants.mediumVerticalSpacer,
           PillButton(
             onTap: onTapSubmit,
-            child: Text(AppLocalizations.current.resetPassword),
+            child: Text(AppLocalizations.current.updatePassword),
           ),
         ],
       ),

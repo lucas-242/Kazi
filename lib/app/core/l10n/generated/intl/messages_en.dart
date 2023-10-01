@@ -51,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calculator": MessageLookupByLibrary.simpleMessage("Calculator"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Change Password"),
         "clipperCut": MessageLookupByLibrary.simpleMessage("Clipper cut"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmAction": MessageLookupByLibrary.simpleMessage("Confirm Action"),
@@ -238,9 +240,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
         "requiredProperty": m7,
         "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
-        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
-        "resetPasswordInfo": MessageLookupByLibrary.simpleMessage(
-            "Please, enter your current password and your new password."),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Password reseted successfully"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
@@ -316,6 +315,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "These are all the jobs you\'ve provided in a given period of time. By default you will see all the services for the current month."),
         "tourServicesListTitle":
             MessageLookupByLibrary.simpleMessage("Services"),
+        "updatePassword":
+            MessageLookupByLibrary.simpleMessage("Update Password"),
         "userTermsAlert1": MessageLookupByLibrary.simpleMessage(
             "By continuing, you agree to the "),
         "userTermsAlert2":
