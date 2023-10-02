@@ -52,27 +52,30 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
       child: Column(
         children: [
           if (_isFromProfilePage)
-            CustomTextFormField(
-              textFormKey: _currentPasswordKey,
-              labelText: AppLocalizations.current.currentPassword,
-              textCapitalization: TextCapitalization.none,
-              obscureText: !cubit.state.showPassword,
-              validator: (value) => FormValidator.validateTextField(
-                value,
-                AppLocalizations.current.currentPassword,
-              ),
-              onChanged: (value) => cubit.onChangeCurrentPassword(value),
-              suffixIcon: IconButton(
-                onPressed: () => cubit.onChangeShowPassword(),
-                icon: Icon(
-                  cubit.state.showPassword
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  color: context.colorsScheme.onBackground,
+            Padding(
+              padding:
+                  const EdgeInsets.only(bottom: AppSizeConstants.imenseSpace),
+              child: CustomTextFormField(
+                textFormKey: _currentPasswordKey,
+                labelText: AppLocalizations.current.currentPassword,
+                textCapitalization: TextCapitalization.none,
+                obscureText: !cubit.state.showPassword,
+                validator: (value) => FormValidator.validateTextField(
+                  value,
+                  AppLocalizations.current.currentPassword,
+                ),
+                onChanged: (value) => cubit.onChangeCurrentPassword(value),
+                suffixIcon: IconButton(
+                  onPressed: () => cubit.onChangeShowPassword(),
+                  icon: Icon(
+                    cubit.state.showPassword
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: context.colorsScheme.onBackground,
+                  ),
                 ),
               ),
             ),
-          AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
             textFormKey: _newPasswordKey,
             labelText: AppLocalizations.current.newPassword,

@@ -15,7 +15,8 @@ extension RoutesExtensions on BuildContext {
   void navigateTo(
     AppPage page, {
     Service? service,
-    Map<String, dynamic>? objects,
+    String? token,
+    WebViewParams? webViewParams,
     bool shouldPop = false,
   }) {
     final cubit = read<AppCubit>();
@@ -27,7 +28,12 @@ extension RoutesExtensions on BuildContext {
     } else {
       _navigate(
         page,
-        RouteParams(lastPage: lastPage, service: service, objects: objects),
+        RouteParams(
+          lastPage: lastPage,
+          service: service,
+          token: token,
+          webViewParams: webViewParams,
+        ),
       );
     }
   }
@@ -38,15 +44,15 @@ extension RoutesExtensions on BuildContext {
 
   void navigateBack({RouteParams? params}) {
     if (params?.lastPage != null) {
-      return _backToLastPage(params!);
+      return _navigate(
+        params!.lastPage!,
+        RouteParams(lastPage: params.lastPage),
+      );
     }
     Modular.to.pop();
   }
+}
 
-  void _backToLastPage(RouteParams params) {
-    _navigate(
-      params.lastPage,
-      RouteParams(lastPage: params.lastPage),
-    );
-  }
+extension RouterManagerExtensions on RouteManager {
+  RouteParams get routeParams => args.data as RouteParams;
 }

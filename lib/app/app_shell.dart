@@ -88,7 +88,7 @@ class _AppShellState extends State<AppShell> {
     final cubit = context.read<AppCubit>();
     if (cubit.state == AppPage.addServices) {
       // context.navigateTo(AppPage.services);
-      cubit.changePage(widget.params.lastPage);
+      cubit.changePage(widget.params.lastPage ?? AppPage.home);
       context.navigateBack(params: widget.params);
     } else {
       context.navigateTo(AppPage.addServices);

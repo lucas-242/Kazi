@@ -5,6 +5,7 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/features/login/widgets/text_button_link.dart';
+import 'package:kazi/app/models/route_params.dart';
 
 class PrivacyPolicyPage extends StatelessWidget {
   const PrivacyPolicyPage({super.key});
@@ -48,10 +49,10 @@ class PrivacyPolicyPage extends StatelessWidget {
               TextButtonLink(
                 onPressed: () => context.navigateTo(
                   AppPage.privacyPolicyWebView,
-                  objects: {
-                    'title': AppLocalizations.current.privacyPoliceInformation1,
-                    'url': Environment.policiesGooglePlayUrl
-                  },
+                  webViewParams: WebViewParams(
+                    AppLocalizations.current.privacyPoliceInformation1,
+                    Environment.policiesGooglePlayUrl,
+                  ),
                 ),
                 child: Text(
                     '${AppLocalizations.current.privacyPoliceInformation1};'),
@@ -59,10 +60,10 @@ class PrivacyPolicyPage extends StatelessWidget {
               TextButtonLink(
                 onPressed: () => context.navigateTo(
                   AppPage.privacyPolicyWebView,
-                  objects: {
-                    'title': AppLocalizations.current.privacyPoliceInformation2,
-                    'url': Environment.policiesAdMobUrl
-                  },
+                  webViewParams: WebViewParams(
+                    AppLocalizations.current.privacyPoliceInformation2,
+                    Environment.policiesAdMobUrl,
+                  ),
                 ),
                 child: Text(
                     '${AppLocalizations.current.privacyPoliceInformation2};'),
@@ -70,10 +71,10 @@ class PrivacyPolicyPage extends StatelessWidget {
               TextButtonLink(
                 onPressed: () => context.navigateTo(
                   AppPage.privacyPolicyWebView,
-                  objects: {
-                    'title': AppLocalizations.current.privacyPoliceInformation3,
-                    'url': Environment.policiesFirebaseAnalyticsUrl
-                  },
+                  webViewParams: WebViewParams(
+                    AppLocalizations.current.privacyPoliceInformation3,
+                    Environment.policiesFirebaseAnalyticsUrl,
+                  ),
                 ),
                 child: Text(
                     '${AppLocalizations.current.privacyPoliceInformation3};'),
@@ -81,10 +82,10 @@ class PrivacyPolicyPage extends StatelessWidget {
               TextButtonLink(
                 onPressed: () => context.navigateTo(
                   AppPage.privacyPolicyWebView,
-                  objects: {
-                    'title': AppLocalizations.current.privacyPoliceInformation4,
-                    'url': Environment.policiesFirebaseCrashlyticsUrl
-                  },
+                  webViewParams: WebViewParams(
+                    AppLocalizations.current.privacyPoliceInformation4,
+                    Environment.policiesFirebaseCrashlyticsUrl,
+                  ),
                 ),
                 child: Text(
                     '${AppLocalizations.current.privacyPoliceInformation4}.'),

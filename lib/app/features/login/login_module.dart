@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/routes/app_router.dart';
 import 'package:kazi/app/features/login/login_module.dart';
 
@@ -21,8 +22,12 @@ class LoginModule extends Module {
       children: [
         ChildRoute(AppRouter.signIn, child: (context) => const SignInPage()),
         ChildRoute(AppRouter.signUp, child: (context) => const SignUpPage()),
-        ChildRoute(AppRouter.resetPassword,
-            child: (context) => const ResetPasswordPage()),
+        ChildRoute(
+          AppRouter.resetPassword,
+          child: (context) => ResetPasswordPage(
+            resetPasswordToken: r.routeParams.token,
+          ),
+        ),
         ChildRoute(
           AppRouter.forgotPassword,
           child: (context) => const ForgotPasswordPage(),

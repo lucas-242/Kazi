@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/routes/app_router.dart';
 import 'package:kazi/app/features/services/services_module.dart';
-import 'package:kazi/app/models/route_params.dart';
+import 'package:kazi/app/models/service.dart';
 
 import 'service_types/pages/service_types_page.dart';
 
@@ -25,13 +24,10 @@ class ServicesModule extends Module {
       child: (_) => const ServiceLandingPage(),
     );
     r.child(AppRouter.add, child: (_) => const ServiceFormPage());
-    //TODO: Pass id to the cubit
     r.child(
       ':id',
-      child: (_) => ServiceDetailsPage(
-        service:
-            RouteParams.fromJson(jsonDecode(r.args.queryParams['service']!))
-                .service!,
+      child: (context) => ServiceDetailsPage(
+        service: r.routeParams.service ?? Service.toCreate(employeeId: 123),
       ),
     );
     r.child(
