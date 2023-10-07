@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_shell.dart';
 import 'package:kazi/app/core/routes/app_routes.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
+import 'package:kazi/app/core/widgets/reset_password/pages/reset_password_page.dart';
 import 'package:kazi/app/features/home/home.dart';
 import 'package:kazi/app/features/initial/intial.dart';
 import 'package:kazi/app/features/login/login.dart';
@@ -87,8 +88,7 @@ abstract class AppRouterConfig {
             path: AppRoutes.resetPassword,
             pageBuilder: (context, state) => _customTransition(
               state,
-              ResetPasswordPage(
-                  resetPasswordToken: state.uri.queryParameters['token']),
+              const ResetPasswordPage(),
             ),
           ),
         ],

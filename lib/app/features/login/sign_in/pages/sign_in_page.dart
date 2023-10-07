@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
@@ -127,39 +126,40 @@ class _SignInPageState extends State<SignInPage> {
                         fillWidth: true,
                         child: Text(AppLocalizations.current.signIn),
                       ),
-                      AppSizeConstants.mediumVerticalSpacer,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Expanded(
-                              child: Divider(color: AppColors.lightGrey)),
-                          AppSizeConstants.smallHorizontalSpacer,
-                          Text(AppLocalizations.current.or,
-                              style: context.bodyMedium),
-                          AppSizeConstants.smallHorizontalSpacer,
-                          const Expanded(
-                              child: Divider(color: AppColors.lightGrey)),
-                        ],
-                      ),
-                      AppSizeConstants.mediumVerticalSpacer,
-                      PillButton(
-                        onTap: () => cubit.onSignInWithGoogle(),
-                        backgroundColor: AppColors.white,
-                        foregroundColor: AppColors.black,
-                        fillWidth: true,
-                        outlinedButton: true,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset(
-                              AppAssets.google,
-                              height: 18,
-                            ),
-                            AppSizeConstants.smallHorizontalSpacer,
-                            Text(AppLocalizations.current.googleSignIn),
-                          ],
-                        ),
-                      ),
+                      //* Uncomment to show login with Google
+                      // AppSizeConstants.mediumVerticalSpacer,
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     const Expanded(
+                      //         child: Divider(color: AppColors.lightGrey)),
+                      //     AppSizeConstants.smallHorizontalSpacer,
+                      //     Text(AppLocalizations.current.or,
+                      //         style: context.bodyMedium),
+                      //     AppSizeConstants.smallHorizontalSpacer,
+                      //     const Expanded(
+                      //         child: Divider(color: AppColors.lightGrey)),
+                      //   ],
+                      // ),
+                      // AppSizeConstants.mediumVerticalSpacer,
+                      // PillButton(
+                      //   onTap: () => cubit.onSignInWithGoogle(),
+                      //   backgroundColor: AppColors.white,
+                      //   foregroundColor: AppColors.black,
+                      //   fillWidth: true,
+                      //   outlinedButton: true,
+                      //   child: Row(
+                      //     mainAxisSize: MainAxisSize.min,
+                      //     children: [
+                      //       SvgPicture.asset(
+                      //         AppAssets.google,
+                      //         height: 18,
+                      //       ),
+                      //       AppSizeConstants.smallHorizontalSpacer,
+                      //       Text(AppLocalizations.current.googleSignIn),
+                      //     ],
+                      //   ),
+                      // ),
                       AppSizeConstants.largeVerticalSpacer,
                     ],
                   ),

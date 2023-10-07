@@ -6,8 +6,8 @@ import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/features/login/reset_password/cubit/reset_password_cubit.dart';
-import 'package:kazi/app/features/login/reset_password/widgets/reset_password_form.dart';
+import 'package:kazi/app/core/widgets/reset_password/cubit/reset_password_cubit.dart';
+import 'package:kazi/app/core/widgets/reset_password/widgets/reset_password_form.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key, this.resetPasswordToken});
@@ -52,25 +52,34 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         },
         builder: (context, state) => state.when(
           onState: (_) => SingleChildScrollView(
-            child: Column(
-              children: [
-                BackAndPill(
-                  onTapBack: () => _isFromProfilePage
-                      ? context.navigateBack()
-                      : context.navigateTo(AppPages.signIn),
-                  text: AppLocalizations.current.changePassword,
-                ),
-                AppSizeConstants.largeVerticalSpacer,
-                ResetPasswordForm(
-                  resetPasswordToken: widget.resetPasswordToken,
-                  confirmPasswordController: _confirmPasswordController,
-                  currentPasswordController: _currentPasswordController,
-                  newPasswordController: _newPasswordController,
-                ),
-              ],
+            child: Padding(
+              padding: _isFromProfilePage
+                  ? const EdgeInsets.only(
+                      left: AppSizeConstants.largeSpace,
+                      right: AppSizeConstants.largeSpace,
+                      top: AppSizeConstants.largeSpace,
+                    )
+                  : EdgeInsets.zero,
+              child: Column(
+                children: [
+                  BackAndPill(
+                    onTapBack: () => _isFromProfilePage
+                        ? context.navigateBack()
+                        : context.navigateTo(AppPages.signIn),
+                    text: AppLocalizations.current.changePassword,
+                  ),
+                  AppSizeConstants.largeVerticalSpacer,
+                  ResetPasswordForm(
+                    resetPasswordToken: widget.resetPasswordToken,
+                    confirmPasswordController: _confirmPasswordController,
+                    currentPasswordController: _currentPasswordController,
+                    newPasswordController: _newPasswordController,
+                  ),
+                ],
+              ),
             ),
           ),
-          onLoading: () => const Loading(height: 0),
+          onLoading: () => Loading(height: _isFromProfilePage ? null : 0),
         ),
       ),
     );
