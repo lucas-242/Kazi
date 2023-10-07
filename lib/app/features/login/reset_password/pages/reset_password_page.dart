@@ -70,7 +70,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ],
             ),
           ),
-          onLoading: () => const Loading(),
+          onLoading: () => const Loading(height: 0),
         ),
       ),
     );

@@ -97,7 +97,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                 keyboardType: TextInputType.number,
                 onChanged: (value) => cubit.changeServiceTypeDiscountPercent(
                     _discountController.numberValue),
-                validator: (value) => FormValidator.validateNumberField(
+                validator: (value) => FormValidator.validatePercentField(
                   _discountController.numberValue.toString(),
                   AppLocalizations.current.discountPercentage,
                 ),

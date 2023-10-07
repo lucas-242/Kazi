@@ -8,16 +8,25 @@ import 'package:kazi/app/features/services/service_types/widgets/service_types_c
 
 import '../service_types.dart';
 
-class ServiceTypesPage extends StatelessWidget {
+class ServiceTypesPage extends StatefulWidget {
   const ServiceTypesPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    context.read<ServiceTypesCubit>().onInit();
+  State<ServiceTypesPage> createState() => _ServiceTypesPageState();
+}
 
+class _ServiceTypesPageState extends State<ServiceTypesPage> {
+  @override
+  void initState() {
+    context.read<ServiceTypesCubit>().onInit();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return CustomSafeArea(
       onRefresh: () => context.read<ServiceTypesCubit>().getServiceTypes(),
-      child: BlocListener<ServiceTypesCubit, ServiceTypesState>(
+      child: BlocConsumer<ServiceTypesCubit, ServiceTypesState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.error) {
@@ -27,19 +36,17 @@ class ServiceTypesPage extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(
-          buildWhen: (previous, current) => previous.status != current.status,
-          builder: (context, state) {
-            return state.when(
-              onState: (_) => const ServiceTypesContent(),
-              onLoading: () => const Loading(),
-              onNoData: () => NoData(
-                message: AppLocalizations.current.noServiceTypes,
-                navbar: const ServiceTypeNoDataNavbar(),
-              ),
-            );
-          },
-        ),
+        buildWhen: (previous, current) => previous.status != current.status,
+        builder: (context, state) {
+          return state.when(
+            onState: (_) => const ServiceTypesContent(),
+            onLoading: () => const Loading(),
+            onNoData: () => NoData(
+              message: AppLocalizations.current.noServiceTypes,
+              navbar: const ServiceTypeNoDataNavbar(),
+            ),
+          );
+        },
       ),
     );
   }

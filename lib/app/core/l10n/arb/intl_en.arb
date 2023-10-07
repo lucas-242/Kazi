@@ -229,6 +229,7 @@
   },
   "invalidNumber": "Please, inform a valid number",
   "numberLesserThanZero": "Please, inform a number equal or greater than 0",
+  "numberBiggerThan100": "Please, inform a number equal or lesser than 100",
   "inUse": "{property} is being used",
   "@inUse": {
     "placeholders": {

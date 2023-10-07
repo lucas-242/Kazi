@@ -162,6 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Parece que você não registrou nenhum serviço, clique no botão acima para registrar um novo.\n\nLembre-se, aqui você verá os serviços realizados hoje. Para visualizar outras datas, vá para a tela de serviços."),
         "noServicesHome": MessageLookupByLibrary.simpleMessage(
             "Parece que você não registrou nenhum serviço para hoje, clique no botão acima para registrar um novo.\n\nLembre-se, por padrão são exibidos os serviços que você realizou nesse mês. Tente alterar os filtros acima para visualizar datas diferentes."),
+        "numberBiggerThan100": MessageLookupByLibrary.simpleMessage(
+            "Por favor, informe um número menor ou igual a 100"),
         "numberLesserThanZero": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe um número maior ou igual a zero"),
         "onboardingSubtitle": MessageLookupByLibrary.simpleMessage(

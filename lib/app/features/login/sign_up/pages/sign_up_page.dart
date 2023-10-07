@@ -77,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
         builder: (context, state) {
           final cubit = context.read<SignUpCubit>();
           return state.when(
-            onLoading: () => const Loading(),
+            onLoading: () => const Loading(height: 0),
             onState: (_) => Form(
               key: _formKey,
               child: Column(

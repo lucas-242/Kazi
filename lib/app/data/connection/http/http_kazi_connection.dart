@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/data/connection/kazi_client.dart';
@@ -10,7 +11,8 @@ class HttpKaziConnection implements KaziConnection {
   HttpKaziConnection(KaziClient client) : _client = client as http.Client;
 
   final http.Client _client;
-  final _timeout = const Duration(seconds: 20);
+  final _timeout =
+      kDebugMode ? const Duration(minutes: 10) : const Duration(seconds: 20);
 
   @override
   Future<ApiResponse> delete(

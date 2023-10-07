@@ -27,7 +27,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         },
         builder: (context, state) {
           return state.when(
-            onLoading: () => const Loading(),
+            onLoading: () => const Loading(height: 0),
             onInitial: (_) => const ForgotPasswordForm(),
             onState: (_) => EmailConfirmation(email: state.email),
           );

@@ -64,4 +64,20 @@ abstract class FormValidator {
       fieldValue != password
           ? AppLocalizations.current.validatorConfirmPassword
           : null;
+
+  static String? validatePercentField(String? fieldValue, String fieldName) {
+    String? error = validateNumberField(fieldValue, fieldName);
+
+    if (error != null) {
+      return error;
+    }
+
+    final convertedValue = double.tryParse(fieldValue!);
+
+    if (convertedValue == null || convertedValue > 100) {
+      error = AppLocalizations.current.numberBiggerThan100;
+    }
+
+    return error;
+  }
 }

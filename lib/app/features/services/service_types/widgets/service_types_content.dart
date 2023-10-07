@@ -13,6 +13,7 @@ class ServiceTypesContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ServiceTypesCubit>();
     return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

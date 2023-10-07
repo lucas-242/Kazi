@@ -1900,6 +1900,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Please, inform a number equal or lesser than 100`
+  String get numberBiggerThan100 {
+    return Intl.message(
+      'Please, inform a number equal or lesser than 100',
+      name: 'numberBiggerThan100',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{property} is being used`
   String inUse(String property) {
     return Intl.message(

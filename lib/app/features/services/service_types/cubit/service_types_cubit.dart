@@ -15,7 +15,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
       : super(
           ServiceTypesState(
             userId: _authService.user!.id,
-            status: BaseStateStatus.loading,
+            status: BaseStateStatus.initial,
           ),
         );
   final ServiceTypeRepository _serviceTypeRepository;
@@ -23,6 +23,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
 
   Future<void> onInit() async {
     try {
+      emit(state.copyWith(status: BaseStateStatus.loading));
       final types = await _fetchServiceTypes();
 
       final status =
@@ -70,6 +71,24 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
+    }
+  }
+
+  void _checkServiceValidity([int? idToExclude]) {
+    if (state.serviceType.name.isEmpty) {
+      throw ClientError(
+          AppLocalizations.current
+              .requiredProperty(AppLocalizations.current.serviceType),
+          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
+    }
+    if (state.serviceTypes
+        .where((type) => type.id != idToExclude)
+        .map((e) => e.name)
+        .contains(state.serviceType.name)) {
+      throw ClientError(
+          AppLocalizations.current
+              .alreadyExists(AppLocalizations.current.serviceType),
+          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
     }
   }
 
@@ -126,22 +145,4 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
 
   void changeServiceTypeDiscountPercent(double value) => emit(state.copyWith(
       serviceType: state.serviceType.copyWith(discountPercent: value)));
-
-  void _checkServiceValidity([int? idToExclude]) {
-    if (state.serviceType.name.isEmpty) {
-      throw ClientError(
-          AppLocalizations.current
-              .requiredProperty(AppLocalizations.current.serviceType),
-          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
-    }
-    if (state.serviceTypes
-        .where((type) => type.id != idToExclude)
-        .map((e) => e.name)
-        .contains(state.serviceType.name)) {
-      throw ClientError(
-          AppLocalizations.current
-              .alreadyExists(AppLocalizations.current.serviceType),
-          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
-    }
-  }
 }

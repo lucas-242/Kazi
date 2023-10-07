@@ -59,7 +59,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
                           cubit.deleteServiceType(cubit.state.serviceType),
                     ),
               AppSizeConstants.bigVerticalSpacer,
-              BlocListener<ServiceTypesCubit, ServiceTypesState>(
+              BlocConsumer<ServiceTypesCubit, ServiceTypesState>(
                 listenWhen: (previous, current) =>
                     previous.status != current.status,
                 listener: (context, state) {
@@ -67,10 +67,11 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
                     context.navigateBack();
                   }
                 },
-                child: BlocBuilder<ServiceTypesCubit, ServiceTypesState>(
-                  builder: (context, state) => ServiceTypeFormContent(
+                builder: (context, state) => state.when(
+                  onState: (_) => ServiceTypeFormContent(
                     onConfirm: onConfirm,
                   ),
+                  onLoading: () => const Loading(expanded: true),
                 ),
               ),
             ],
