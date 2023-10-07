@@ -13,14 +13,14 @@ import 'package:kazi/app/models/route_params.dart';
 import 'app_pages.dart';
 
 abstract class AppRouterConfig {
-  static GoRouter init() => GoRouter(
-        initialLocation: AppRoutes.initial,
-        routes: [
-          ..._initialRoutes,
-          _appShellRoutes,
-          _loginShellRoutes,
-        ],
-      );
+  static final router = GoRouter(
+    initialLocation: AppRoutes.initial,
+    routes: [
+      ..._initialRoutes,
+      _appShellRoutes,
+      _loginShellRoutes,
+    ],
+  );
 
   static final _initialRoutes = [
     GoRoute(

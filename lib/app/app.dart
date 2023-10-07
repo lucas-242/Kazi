@@ -62,7 +62,7 @@ class App extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.delegate.supportedLocales,
-        routerConfig: AppRouterConfig.init(),
+        routerConfig: AppRouterConfig.router,
       ),
     );
   }
