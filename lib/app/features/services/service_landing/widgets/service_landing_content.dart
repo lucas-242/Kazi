@@ -7,11 +7,11 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/features/services/service_landing/widgets/info_list.dart';
 import 'package:kazi/app/features/services/service_landing/widgets/service_navbar.dart';
-import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/enums/fast_search.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/service_locator.dart';
 
 class ServiceLandingContent extends StatelessWidget {
   const ServiceLandingContent({
@@ -70,7 +70,7 @@ class ServiceLandingContent extends StatelessWidget {
   }
 
   Widget _getServiceList() {
-    final servicesService = serviceLocator<ServicesService>();
+    final servicesService = ServiceLocator.get<ServicesService>();
 
     if (_showLastMonthServices()) {
       return ServiceList(
@@ -98,9 +98,9 @@ class ServiceLandingContent extends StatelessWidget {
 
   bool _showLastMonthServices() =>
       state.fastSearch == FastSearch.lastMonth ||
-      serviceLocator<TimeService>()
+      ServiceLocator.get<TimeService>()
           .isRangeInLastMonth(state.startDate, state.endDate);
 
-  bool _showServicesAreNotInCurrentMonth() => !serviceLocator<TimeService>()
+  bool _showServicesAreNotInCurrentMonth() => !ServiceLocator.get<TimeService>()
       .isRangeInThisMonth(state.startDate, state.endDate);
 }

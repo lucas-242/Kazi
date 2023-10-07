@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart'
-    hide ModularWatchExtension;
-import 'package:kazi/app/core/extensions/extensions.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/models/route_params.dart';
 
@@ -15,9 +13,11 @@ class AppShell extends StatefulWidget {
   const AppShell({
     Key? key,
     required this.params,
+    required this.child,
   }) : super(key: key);
 
   final RouteParams params;
+  final Widget child;
 
   @override
   State<AppShell> createState() => _AppShellState();
@@ -40,7 +40,7 @@ class _AppShellState extends State<AppShell> {
   void _listenUser() {
     userStream = context.read<AppCubit>().userSignOut().listen((userSignOut) {
       if (userSignOut) {
-        context.navigateTo(AppPage.signIn);
+        context.navigateTo(AppPages.signIn);
       }
     });
   }
@@ -57,10 +57,10 @@ class _AppShellState extends State<AppShell> {
 
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: const RouterOutlet(),
+      body: widget.child,
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: CustomBottomNavigation(
-        currentPage: context.watch<AppCubit>().state.value,
+        currentPage: cubit.state.value,
         onTap: (index) => _onTapBottomItem(index, context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -76,7 +76,7 @@ class _AppShellState extends State<AppShell> {
             onPressed: _onTapFloatingActionButton,
             tooltip: AppLocalizations.current.newService,
             child: Icon(
-              cubit.state == AppPage.addServices ? Icons.close : Icons.add,
+              cubit.state == AppPages.addServices ? Icons.close : Icons.add,
             ),
           ),
         ),
@@ -86,17 +86,17 @@ class _AppShellState extends State<AppShell> {
 
   void _onTapFloatingActionButton() {
     final cubit = context.read<AppCubit>();
-    if (cubit.state == AppPage.addServices) {
+    if (cubit.state == AppPages.addServices) {
       // context.navigateTo(AppPage.services);
-      cubit.changePage(widget.params.lastPage ?? AppPage.home);
+      cubit.changePage(widget.params.lastPage ?? AppPages.home);
       context.navigateBack(params: widget.params);
     } else {
-      context.navigateTo(AppPage.addServices);
+      context.navigateTo(AppPages.addServices);
     }
   }
 
   void _onTapBottomItem(int index, BuildContext context) {
-    final page = AppPage.fromIndex(index);
+    final page = AppPages.fromIndex(index);
     context.navigateTo(page);
   }
 }

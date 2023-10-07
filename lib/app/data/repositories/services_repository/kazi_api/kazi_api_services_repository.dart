@@ -1,17 +1,16 @@
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/log_utils.dart';
 import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/services_filter.dart';
-import 'package:kazi/app/services/log_service/log_service.dart';
 
 import '../services_repository.dart';
 
 class KaziApiServicesRepository extends ServicesRepository {
-  KaziApiServicesRepository(this._connection, this._logService);
+  KaziApiServicesRepository(this._connection);
   final KaziConnection _connection;
-  final LogService _logService;
   final String url = '${Environment.instance.kaziApiUrl}service';
 
   @override
@@ -27,11 +26,7 @@ class KaziApiServicesRepository extends ServicesRepository {
       return List<Service>.from(
           (response.json as Iterable).map((e) => Service.fromJson(e)));
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToAddService,
-      );
+      Log.error(error, trace, AppLocalizations.current.errorToAddService);
       throw ExternalError(AppLocalizations.current.errorToAddService);
     }
   }
@@ -42,11 +37,7 @@ class KaziApiServicesRepository extends ServicesRepository {
       final response = await _connection.delete('$url/$id');
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToDeleteService,
-      );
+      Log.error(error, trace, AppLocalizations.current.errorToDeleteService);
       throw ExternalError(AppLocalizations.current.errorToDeleteService);
     }
   }
@@ -60,11 +51,7 @@ class KaziApiServicesRepository extends ServicesRepository {
       );
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToUpdateService,
-      );
+      Log.error(error, trace, AppLocalizations.current.errorToUpdateService);
       throw ExternalError(AppLocalizations.current.errorToUpdateService);
     }
   }
@@ -82,11 +69,7 @@ class KaziApiServicesRepository extends ServicesRepository {
       return List<Service>.from(
           (response.json as Iterable).map((e) => Service.fromJson(e)));
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToGetServices,
-      );
+      Log.error(error, trace, AppLocalizations.current.errorToGetServices);
       throw ExternalError(AppLocalizations.current.errorToGetServices);
     }
   }
@@ -103,10 +86,10 @@ class KaziApiServicesRepository extends ServicesRepository {
   //     return List<ServicesGroupByDate>.from((response.json as Iterable)
   //         .map((e) => ServicesGroupByDate.fromJson(e)));
   //   } catch (error, trace) {
-  //     _logService.error(
-  //       error: error,
-  //       stackTrace: trace,
-  //       message: AppLocalizations.current.errorToGetServices,
+  //     Log.error(
+  //       error,
+  //        trace,
+  //        AppLocalizations.current.errorToGetServices
   //     );
   //     throw ExternalError(AppLocalizations.current.errorToGetServices);
   //   }

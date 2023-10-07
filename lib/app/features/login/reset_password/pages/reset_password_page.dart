@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/core/auth/auth.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/reset_password/cubit/reset_password_cubit.dart';
 import 'package:kazi/app/features/login/reset_password/widgets/reset_password_form.dart';
-import 'package:kazi/injector_container.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key, this.resetPasswordToken});
@@ -36,7 +34,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     }
 
     return BlocProvider(
-      create: (_) => ResetPasswordCubit(serviceLocator<Auth>()),
+      create: (_) => ResetPasswordCubit(),
       child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
@@ -46,7 +44,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               type: SnackBarType.success,
               message: state.callbackMessage,
             );
-            context.navigateTo(AppPage.signIn);
+            context.navigateTo(AppPages.signIn);
           } else if (state.status == BaseStateStatus.error) {
             getCustomSnackBar(context, message: state.callbackMessage);
             clearPasswordFields();
@@ -59,7 +57,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 BackAndPill(
                   onTapBack: () => _isFromProfilePage
                       ? context.navigateBack()
-                      : context.navigateTo(AppPage.signIn),
+                      : context.navigateTo(AppPages.signIn),
                   text: AppLocalizations.current.changePassword,
                 ),
                 AppSizeConstants.largeVerticalSpacer,

@@ -5,14 +5,15 @@ import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
+import 'package:kazi/service_locator.dart';
 
 part 'forgot_password_state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> with BaseCubit {
-  ForgotPasswordCubit(this._auth)
+  ForgotPasswordCubit()
       : super(ForgotPasswordState(status: BaseStateStatus.initial));
 
-  final Auth _auth;
+  final _auth = ServiceLocator.get<Auth>();
 
   void onChangeEmail(String email) => emit(state.copyWith(email: email));
 

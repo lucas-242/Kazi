@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/core/utils/number_format_helper.dart';
+import 'package:kazi/app/core/utils/number_format_utils.dart';
 import 'package:kazi/app/models/service.dart';
 
 class ServiceCard extends StatelessWidget {
@@ -29,7 +29,7 @@ class ServiceCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              NumberFormatHelper.formatCurrency(context, service.finalValue),
+              NumberFormatUtils.formatCurrency(context, service.finalValue),
               style: context.titleSmall!.copyWith(color: AppColors.green),
             ),
             AppSizeConstants.largeHorizontalSpacer,

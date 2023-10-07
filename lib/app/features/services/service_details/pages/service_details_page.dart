@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/core/utils/number_format_helper.dart';
+import 'package:kazi/app/core/utils/number_format_utils.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/core/widgets/texts/row_text/row_text.dart';
-import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/service.dart';
 
 class ServiceDetailsPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class ServiceDetailsPage extends StatelessWidget {
       final cubit = context.read<ServiceLandingCubit>();
       await cubit
           .deleteService(service)
-          .then((_) => context.navigateTo(AppPage.services));
+          .then((_) => context.navigateTo(AppPages.services));
     }
 
     void onTapDelete() {
@@ -46,8 +47,8 @@ class ServiceDetailsPage extends StatelessWidget {
               text: AppLocalizations.current.details,
               pills: [
                 PillButton(
-                  onTap: () =>
-                      context.navigateTo(AppPage.addServices, service: service),
+                  onTap: () => context.navigateTo(AppPages.addServices,
+                      service: service),
                   child: Text(AppLocalizations.current.edit),
                 ),
                 AppSizeConstants.tinyHorizontalSpacer,
@@ -79,7 +80,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     AppSizeConstants.bigVerticalSpacer,
                     RowText(
                       leftText: AppLocalizations.current.myBalance,
-                      rightText: NumberFormatHelper.formatCurrency(
+                      rightText: NumberFormatUtils.formatCurrency(
                         context,
                         service.finalValue,
                       ),
@@ -94,7 +95,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     ),
                     RowText(
                       leftText: AppLocalizations.current.discount,
-                      rightText: NumberFormatHelper.formatCurrency(
+                      rightText: NumberFormatUtils.formatCurrency(
                         context,
                         service.discountValue,
                       ),
@@ -109,7 +110,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     ),
                     RowText(
                       leftText: AppLocalizations.current.totalReceived,
-                      rightText: NumberFormatHelper.formatCurrency(
+                      rightText: NumberFormatUtils.formatCurrency(
                         context,
                         service.value,
                       ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/features/home/home_module.dart';
+import 'package:kazi/app/features/home/home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           PillButton(
                             onTap: () =>
-                                context.navigateTo(AppPage.addServices),
+                                context.navigateTo(AppPages.addServices),
                             child: Text(AppLocalizations.current.newService),
                           )
                         ],

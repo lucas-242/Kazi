@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/core/utils/number_format_helper.dart';
+import 'package:kazi/app/core/utils/number_format_utils.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
+import 'package:kazi/app/models/service_type.dart';
 
 class ServiceTypeCard extends StatelessWidget {
   const ServiceTypeCard({
@@ -20,15 +20,14 @@ class ServiceTypeCard extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       title: Text(serviceType.name, style: context.titleSmall),
       subtitle: Text(
-        '${NumberFormatHelper.formatPercent(serviceType.discountPercent)} ${AppLocalizations.current.discount.toLowerCase()}',
+        '${NumberFormatUtils.formatPercent(serviceType.discountPercent)} ${AppLocalizations.current.discount.toLowerCase()}',
         style: context.labelSmall,
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            NumberFormatHelper.formatCurrency(
-                context, serviceType.defaultValue),
+            NumberFormatUtils.formatCurrency(context, serviceType.defaultValue),
             style: context.titleSmall,
           ),
           AppSizeConstants.largeHorizontalSpacer,

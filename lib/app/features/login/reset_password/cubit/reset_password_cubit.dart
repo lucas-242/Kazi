@@ -5,14 +5,15 @@ import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
+import 'package:kazi/service_locator.dart';
 
 part 'reset_password_state.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> with BaseCubit {
-  ResetPasswordCubit(this._auth)
+  ResetPasswordCubit()
       : super(ResetPasswordState(status: BaseStateStatus.initial));
 
-  final Auth _auth;
+  final _auth = ServiceLocator.get<Auth>();
 
   void onChangePassword(String password) =>
       emit(state.copyWith(password: password));

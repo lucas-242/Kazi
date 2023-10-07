@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:kazi/app/features/login/forgot_password/widgets/email_confirmation.dart';
 import 'package:kazi/app/features/login/forgot_password/widgets/forgot_password_form.dart';
-import 'package:kazi/injector_container.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -19,7 +17,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ForgotPasswordCubit(serviceLocator<Auth>()),
+      create: (_) => ForgotPasswordCubit(),
       child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {

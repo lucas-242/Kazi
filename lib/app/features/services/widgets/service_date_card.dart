@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kazi/app/features/services/services_module.dart';
-import 'package:kazi/app/models/service_group_by_date.dart';
-import 'package:kazi/app/services/time_service/time_service.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/animation/expanded_section/expanded_section.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/texts/texts.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/models/service_group_by_date.dart';
+import 'package:kazi/app/services/time_service/time_service.dart';
+import 'package:kazi/service_locator.dart';
 
 class ServiceDateCard extends StatelessWidget {
   const ServiceDateCard({
@@ -21,7 +21,7 @@ class ServiceDateCard extends StatelessWidget {
   final VoidCallback onTap;
 
   String getTextDate(DateTime date) {
-    final today = serviceLocator.get<TimeService>().now;
+    final today = ServiceLocator.get<TimeService>().now;
 
     if (date == today) {
       return AppLocalizations.current.today;

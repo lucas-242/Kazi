@@ -5,13 +5,14 @@ import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
+import 'package:kazi/service_locator.dart';
 
 part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> with BaseCubit {
-  SignInCubit(this._auth) : super(SignInState(status: BaseStateStatus.initial));
+  SignInCubit() : super(SignInState(status: BaseStateStatus.initial));
 
-  final Auth _auth;
+  final _auth = ServiceLocator.get<Auth>();
 
   void onChangeEmail(String email) => emit(state.copyWith(email: email));
 

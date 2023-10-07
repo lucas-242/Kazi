@@ -9,7 +9,6 @@ import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:kazi/app/models/enums/user_type.dart';
 import 'package:kazi/app/models/user.dart';
-import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
 import 'package:mockito/annotations.dart';
@@ -34,7 +33,6 @@ void main() {
   late KaziClient client;
   late LocalStorage localStorage;
   late TimeService timeService;
-  late LogService logService;
   late MockAuthRepository authRepository;
   late KaziApiAuth authService;
 
@@ -49,12 +47,10 @@ void main() {
     client = HttpKaziClient(localStorage);
     authRepository = MockAuthRepository();
     timeService = LocalTimeService();
-    logService = LocalLogService();
     authService = KaziApiAuth(
       authRepository: authRepository,
       localStorage: localStorage,
       timeService: timeService,
-      logService: logService,
       client: client,
     );
   });

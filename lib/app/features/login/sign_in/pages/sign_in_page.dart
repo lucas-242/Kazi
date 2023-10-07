@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kazi/app/core/auth/auth.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/features/login/login_module.dart';
+import 'package:kazi/app/features/login/login.dart';
 import 'package:kazi/app/features/login/sign_in/cubit/sign_in_cubit.dart';
-import 'package:kazi/injector_container.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({
@@ -51,12 +49,12 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     return BlocProvider(
-      create: (_) => SignInCubit(serviceLocator<Auth>()),
+      create: (_) => SignInCubit(),
       child: BlocConsumer<SignInCubit, SignInState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.success) {
-            context.navigateTo(AppPage.onboarding);
+            context.navigateTo(AppPages.onboarding);
           } else if (state.status == BaseStateStatus.error) {
             getCustomSnackBar(context, message: state.callbackMessage);
           }
@@ -116,7 +114,7 @@ class _SignInPageState extends State<SignInPage> {
                         child: MaterialButton(
                           padding: EdgeInsets.zero,
                           onPressed: () =>
-                              context.navigateTo(AppPage.forgotPassword),
+                              context.navigateTo(AppPages.forgotPassword),
                           child: Text(
                             AppLocalizations.current.forgotYourPassword,
                             style: context.titleSmall,

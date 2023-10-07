@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
-import 'package:kazi/app/features/login/login_module.dart';
+import 'package:kazi/app/features/login/login.dart';
 
 class EmailConfirmation extends StatelessWidget {
   const EmailConfirmation({super.key, required this.email});
@@ -18,7 +18,7 @@ class EmailConfirmation extends StatelessWidget {
         Column(
           children: [
             BackAndPill(
-              onTapBack: () => context.navigateTo(AppPage.signIn),
+              onTapBack: () => context.navigateTo(AppPages.signIn),
               text: AppLocalizations.current.forgotPassword,
             ),
             AppSizeConstants.largeVerticalSpacer,

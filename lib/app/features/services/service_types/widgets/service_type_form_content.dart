@@ -5,7 +5,7 @@ import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
-import 'package:kazi/app/core/utils/number_format_helper.dart';
+import 'package:kazi/app/core/utils/number_format_utils.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
 
@@ -35,14 +35,14 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
     final cubit = context.read<ServiceTypesCubit>();
     _serviceValueController = MoneyMaskedTextController(
       initialValue: cubit.state.serviceType.defaultValue,
-      leftSymbol: NumberFormatHelper.getCurrencySymbol(),
-      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
-      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+      leftSymbol: NumberFormatUtils.getCurrencySymbol(),
+      decimalSeparator: NumberFormatUtils.getDecimalSeparator(),
+      thousandSeparator: NumberFormatUtils.getThousandSeparator(),
     );
     _discountController = MoneyMaskedTextController(
       initialValue: cubit.state.serviceType.discountPercent,
-      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
-      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+      decimalSeparator: NumberFormatUtils.getDecimalSeparator(),
+      thousandSeparator: NumberFormatUtils.getThousandSeparator(),
       rightSymbol: '%',
       precision: 1,
     );

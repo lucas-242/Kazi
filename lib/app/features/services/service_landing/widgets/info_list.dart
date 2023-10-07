@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/features/services/widgets/info_card.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/app/core/utils/number_format_helper.dart';
+import 'package:kazi/app/core/utils/number_format_utils.dart';
+import 'package:kazi/app/features/services/widgets/info_card.dart';
 
 class InfoList extends StatelessWidget {
   const InfoList(
@@ -25,7 +25,7 @@ class InfoList extends StatelessWidget {
       ),
       children: [
         InfoCard(
-          title: NumberFormatHelper.formatCurrency(context, totalWithDiscount),
+          title: NumberFormatUtils.formatCurrency(context, totalWithDiscount),
           subtitle: AppLocalizations.current.myBalance,
           icon: AppAssets.services,
           color: AppColors.green,
@@ -33,7 +33,7 @@ class InfoList extends StatelessWidget {
         ),
         AppSizeConstants.smallHorizontalSpacer,
         InfoCard(
-          title: NumberFormatHelper.formatCurrency(context, totalDiscounted),
+          title: NumberFormatUtils.formatCurrency(context, totalDiscounted),
           subtitle: AppLocalizations.current.discounts,
           icon: AppAssets.fire,
           color: AppColors.orange,
@@ -41,7 +41,7 @@ class InfoList extends StatelessWidget {
         ),
         AppSizeConstants.smallHorizontalSpacer,
         InfoCard(
-          title: NumberFormatHelper.formatCurrency(context, totalValue),
+          title: NumberFormatUtils.formatCurrency(context, totalValue),
           subtitle: AppLocalizations.current.totalReceived,
           icon: AppAssets.rocket,
           color: AppColors.blue,

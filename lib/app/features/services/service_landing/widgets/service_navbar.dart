@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/texts/texts.dart';
-import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/features/services/services.dart';
 
 class ServiceNavbar extends StatelessWidget {
   const ServiceNavbar({
@@ -62,7 +62,7 @@ class ServiceNavbar extends StatelessWidget {
           ),
           AppSizeConstants.smallHorizontalSpacer,
           PillButton(
-            onTap: () => context.navigateTo(AppPage.addServices),
+            onTap: () => context.navigateTo(AppPages.addServices),
             child: Text(AppLocalizations.current.newService),
           )
         ],

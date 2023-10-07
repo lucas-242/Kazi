@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/features/profile/widgets/option_button.dart';
 
@@ -15,7 +15,7 @@ class Options extends StatelessWidget {
       key: AppOnboarding.stepSix,
       children: [
         OptionButton(
-          onTap: () => context.navigateTo(AppPage.servicesType),
+          onTap: () => context.navigateTo(AppPages.servicesType),
           text: AppLocalizations.current.serviceTypes,
         ),
         const Padding(
@@ -24,7 +24,7 @@ class Options extends StatelessWidget {
           child: Divider(),
         ),
         OptionButton(
-          onTap: () => context.navigateTo(AppPage.profileResetPassword),
+          onTap: () => context.navigateTo(AppPages.profileResetPassword),
           text: AppLocalizations.current.changePassword,
         ),
         const Padding(

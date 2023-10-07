@@ -1,14 +1,12 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kazi/app/core/auth/auth.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/models/user.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/service_locator.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -45,9 +43,9 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _listenUser() {
-    final auth = serviceLocator<Auth>();
+    final auth = ServiceLocator.get<Auth>();
     userStream = auth.userChanges.listen(_onUserChange,
-        onError: (_) => context.navigateTo(AppPage.signIn));
+        onError: (_) => context.navigateTo(AppPages.signIn));
   }
 
   Future<void> _onUserChange(User? user) async {
@@ -64,10 +62,14 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _checkUser(User? user) async {
     // await _closeAnimation();
     if (user != null) {
-      context.navigateTo(AppPage.onboarding);
-    } else {
-      context.navigateTo(AppPage.signIn);
+      if (context.showOnboarding) {
+        return context.navigateTo(AppPages.onboarding);
+      }
+
+      return context.navigateTo(AppPages.home);
     }
+
+    return context.navigateTo(AppPages.signIn);
   }
 
   // Future<void> _closeAnimation() async {

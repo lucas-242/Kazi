@@ -6,13 +6,14 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/models/user.dart';
+import 'package:kazi/service_locator.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> with BaseCubit {
-  SignUpCubit(this._auth) : super(SignUpState(status: BaseStateStatus.initial));
+  SignUpCubit() : super(SignUpState(status: BaseStateStatus.initial));
 
-  final Auth _auth;
+  final _auth = ServiceLocator.get<Auth>();
 
   void onChangeName(String name) => emit(state.copyWith(name: name));
 

@@ -6,7 +6,7 @@ import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/data/repositories/services_repository/services_repository.dart';
-import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:mockito/annotations.dart';

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/core/auth/auth.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/features/login/login_module.dart';
+import 'package:kazi/app/features/login/login.dart';
 import 'package:kazi/app/features/login/sign_up/cubit/sign_up_cubit.dart';
-import 'package:kazi/injector_container.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({
@@ -60,7 +58,7 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
     return BlocProvider(
-      create: (_) => SignUpCubit(serviceLocator<Auth>()),
+      create: (_) => SignUpCubit(),
       child: BlocConsumer<SignUpCubit, SignUpState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
@@ -70,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
               message: state.callbackMessage,
               type: SnackBarType.success,
             );
-            context.navigateTo(AppPage.signIn);
+            context.navigateTo(AppPages.signIn);
           } else if (state.status == BaseStateStatus.error) {
             clearPasswordFields();
             getCustomSnackBar(context, message: state.callbackMessage);

@@ -5,11 +5,11 @@ import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/log_utils.dart';
 import 'package:kazi/app/data/connection/kazi_client.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:kazi/app/models/user.dart';
-import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:kazi/app/services/time_service/time_service.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -18,12 +18,10 @@ final class KaziApiAuth extends Auth {
     required AuthRepository authRepository,
     required LocalStorage localStorage,
     required TimeService timeService,
-    required LogService logService,
     required KaziClient client,
   })  : _authRepository = authRepository,
         _localStorage = localStorage,
         _timeService = timeService,
-        _logService = logService,
         _client = client {
     _tryAutoSignIn();
   }
@@ -31,7 +29,6 @@ final class KaziApiAuth extends Auth {
   final AuthRepository _authRepository;
   final LocalStorage _localStorage;
   final TimeService _timeService;
-  final LogService _logService;
   final KaziClient _client;
 
   final _userController = BehaviorSubject<User?>();
@@ -58,7 +55,7 @@ final class KaziApiAuth extends Auth {
 
       _userController.sink.add(response);
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       await signOut();
       throw ExternalError(AppLocalizations.current.errorUnknowError);
     }
@@ -80,7 +77,7 @@ final class KaziApiAuth extends Auth {
       await _saveUserInLocalStorage();
       _userController.sink.add(user);
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       await signOut();
       throw ExternalError(AppLocalizations.current.errorUnknowError);
     }
@@ -127,7 +124,7 @@ final class KaziApiAuth extends Auth {
       _userController.sink.add(user);
       return true;
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       throw ExternalError(AppLocalizations.current.errorToSignIn);
     }
   }

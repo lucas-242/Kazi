@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
+import 'package:kazi/app/core/routes/routes_extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/circular_button/circular_button.dart';
 

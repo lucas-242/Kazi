@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
@@ -33,7 +33,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     return Column(
       children: [
         BackAndPill(
-          onTapBack: () => context.navigateTo(AppPage.signIn),
+          onTapBack: () => context.navigateTo(AppPages.signIn),
           text: AppLocalizations.current.forgotPassword,
         ),
         AppSizeConstants.largeVerticalSpacer,

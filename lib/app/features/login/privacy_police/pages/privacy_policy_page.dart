@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/app/core/environment/environment.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/features/login/widgets/text_button_link.dart';
@@ -16,7 +16,7 @@ class PrivacyPolicyPage extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         leading: CircularButton(
-          onTap: () => context.navigateTo(AppPage.signUp),
+          onTap: () => context.navigateTo(AppPages.signUp),
           child: const Icon(Icons.chevron_left),
         ),
         title: Padding(
@@ -48,7 +48,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               Text(AppLocalizations.current.privacyPoliceInformation),
               TextButtonLink(
                 onPressed: () => context.navigateTo(
-                  AppPage.privacyPolicyWebView,
+                  AppPages.privacyPolicyWebView,
                   webViewParams: WebViewParams(
                     AppLocalizations.current.privacyPoliceInformation1,
                     Environment.policiesGooglePlayUrl,
@@ -59,7 +59,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               TextButtonLink(
                 onPressed: () => context.navigateTo(
-                  AppPage.privacyPolicyWebView,
+                  AppPages.privacyPolicyWebView,
                   webViewParams: WebViewParams(
                     AppLocalizations.current.privacyPoliceInformation2,
                     Environment.policiesAdMobUrl,
@@ -70,7 +70,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               TextButtonLink(
                 onPressed: () => context.navigateTo(
-                  AppPage.privacyPolicyWebView,
+                  AppPages.privacyPolicyWebView,
                   webViewParams: WebViewParams(
                     AppLocalizations.current.privacyPoliceInformation3,
                     Environment.policiesFirebaseAnalyticsUrl,
@@ -81,7 +81,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               TextButtonLink(
                 onPressed: () => context.navigateTo(
-                  AppPage.privacyPolicyWebView,
+                  AppPages.privacyPolicyWebView,
                   webViewParams: WebViewParams(
                     AppLocalizations.current.privacyPoliceInformation4,
                     Environment.policiesFirebaseCrashlyticsUrl,

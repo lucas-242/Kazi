@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/features/services/service_types/service_types.dart';
@@ -19,8 +19,8 @@ class ServiceTypesContent extends StatelessWidget {
           BackAndPill(
             text: AppLocalizations.current.serviceTypes,
             pillText: AppLocalizations.current.newType,
-            onTapPill: () => context.navigateTo(AppPage.addServiceType),
-            onTapBack: () => context.navigateTo(AppPage.profile),
+            onTapPill: () => context.navigateTo(AppPages.addServiceType),
+            onTapBack: () => context.navigateTo(AppPages.profile),
           ),
           AppSizeConstants.bigVerticalSpacer,
           Card(
@@ -39,7 +39,7 @@ class ServiceTypesContent extends StatelessWidget {
                   serviceType: cubit.state.serviceTypes[index],
                   onTapEdit: (serviceType) {
                     cubit.changeServiceType(serviceType);
-                    context.navigateTo(AppPage.addServiceType);
+                    context.navigateTo(AppPages.addServiceType);
                   },
                 ),
                 separatorBuilder: (context, index) => const Divider(),

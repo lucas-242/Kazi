@@ -1,13 +1,10 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:kazi/app/services/log_service/log_service.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/app/core/utils/log_utils.dart';
 
-abstract class AdHelper {
+abstract class AdUtils {
   static BannerAd? getBannerAd(String adUnitId) {
     if (adUnitId.isEmpty) {
-      serviceLocator
-          .get<LogService>()
-          .error(error: 'Can\'t load banner ad - AdUnitId is empty.');
+      Log.error('Can\'t load banner ad - AdUnitId is empty.');
       return null;
     }
 
@@ -24,7 +21,7 @@ abstract class AdHelper {
       size: size,
       listener: BannerAdListener(
         onAdFailedToLoad: (ad, error) {
-          serviceLocator.get<LogService>().error(error: error);
+          Log.error(error);
           ad.dispose();
         },
       ),

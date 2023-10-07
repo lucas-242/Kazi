@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 
 class LoginShell extends StatelessWidget {
-  const LoginShell({super.key});
+  const LoginShell({super.key, required this.child});
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class LoginShell extends StatelessWidget {
                           topRight: Radius.circular(30),
                         ),
                       ),
-                      child: const RouterOutlet(),
+                      child: child,
                     ),
                   ),
                 ],

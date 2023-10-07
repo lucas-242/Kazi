@@ -3,21 +3,18 @@ import 'dart:async';
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/log_utils.dart';
 import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/data/repositories/auth_repository/auth_repository.dart';
 import 'package:kazi/app/models/user.dart';
-import 'package:kazi/app/services/log_service/log_service.dart';
 
 final class KaziApiAuthRepository extends AuthRepository {
   KaziApiAuthRepository({
     required KaziConnection connection,
-    required LogService logService,
-  })  : _connection = connection,
-        _logService = logService;
+  }) : _connection = connection;
 
   final String url = '${Environment.instance.kaziApiUrl}auth';
   final KaziConnection _connection;
-  final LogService _logService;
 
   @override
   Future<User> refreshSession(String? refreshToken) async {
@@ -29,7 +26,7 @@ final class KaziApiAuthRepository extends AuthRepository {
 
       return User.fromJson(response.json);
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       throw ExternalError(AppLocalizations.current.errorUnknowError);
     }
   }
@@ -51,7 +48,7 @@ final class KaziApiAuthRepository extends AuthRepository {
 
       return User.fromJson(response.json);
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       throw ExternalError(AppLocalizations.current.errorToSignIn);
     }
   }
@@ -65,7 +62,7 @@ final class KaziApiAuthRepository extends AuthRepository {
       );
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       throw ExternalError(AppLocalizations.current.errorToSignUp);
     }
   }
@@ -77,7 +74,7 @@ final class KaziApiAuthRepository extends AuthRepository {
           await _connection.get('$url/sendResetPasswordLink/$email');
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       throw ExternalError(AppLocalizations.current.errorToSendEmail);
     }
   }
@@ -97,7 +94,7 @@ final class KaziApiAuthRepository extends AuthRepository {
       );
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       throw ExternalError(AppLocalizations.current.errorToResetPassword);
     }
   }
@@ -114,7 +111,7 @@ final class KaziApiAuthRepository extends AuthRepository {
       );
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(error: error, stackTrace: trace);
+      Log.error(error, trace);
       throw ExternalError(AppLocalizations.current.errorToResetPassword);
     }
   }

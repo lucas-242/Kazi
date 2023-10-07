@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart'
-    hide ModularWatchExtension;
+import 'package:go_router/go_router.dart';
 import 'package:kazi/app/app_cubit.dart';
-import 'package:kazi/app/models/enums/app_page.dart';
+import 'package:kazi/app/core/constants/app_keys.dart';
+import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/models/route_params.dart';
 import 'package:kazi/app/models/service.dart';
+import 'package:kazi/service_locator.dart';
 
-export 'package:kazi/app/models/enums/app_page.dart';
+import 'app_pages.dart';
 
 extension RoutesExtensions on BuildContext {
-  AppPage get currentPage => read<AppCubit>().state;
+  AppPages get currentPage => read<AppCubit>().state;
+
+  bool get showOnboarding =>
+      ServiceLocator.get<LocalStorage>()
+          .get<bool>(AppKeys.showOnboardingStorage) ??
+      true;
 
   void navigateTo(
-    AppPage page, {
+    AppPages page, {
     Service? service,
     String? token,
     WebViewParams? webViewParams,
@@ -24,7 +30,7 @@ extension RoutesExtensions on BuildContext {
     cubit.changePage(page);
 
     if (shouldPop) {
-      Modular.to.pop();
+      pop();
     } else {
       _navigate(
         page,
@@ -38,9 +44,8 @@ extension RoutesExtensions on BuildContext {
     }
   }
 
-  void _navigate(AppPage page, RouteParams params) =>
-      Modular.to.navigate(AppPage.getRoute(page, id: params.service?.id),
-          arguments: params);
+  void _navigate(AppPages page, RouteParams params) =>
+      go(AppPages.getRoute(page, id: params.service?.id), extra: params);
 
   void navigateBack({RouteParams? params}) {
     if (params?.lastPage != null) {
@@ -49,10 +54,6 @@ extension RoutesExtensions on BuildContext {
         RouteParams(lastPage: params.lastPage),
       );
     }
-    Modular.to.pop();
+    pop();
   }
-}
-
-extension RouterManagerExtensions on RouteManager {
-  RouteParams get routeParams => args.data as RouteParams;
 }

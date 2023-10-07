@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
-import 'package:kazi/app/core/extensions/routes_extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/extensions/theme_extension.dart';
 import 'package:kazi/app/core/themes/extensions/typography_extension.dart';
 import 'package:kazi/app/core/themes/settings/app_assets.dart';
@@ -49,7 +49,7 @@ class OnboardingPage extends StatelessWidget {
                     iconSize: 54,
                     onTap: () {
                       AppOnboarding.onCompleteOnboarding(context);
-                      context.navigateTo(AppPage.home);
+                      context.navigateTo(AppPages.home);
                     },
                     child: const Icon(Icons.chevron_right),
                   ),

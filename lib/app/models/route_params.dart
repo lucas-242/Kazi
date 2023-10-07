@@ -1,4 +1,4 @@
-import 'package:kazi/app/models/enums/app_page.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/models/service.dart';
 
 class RouteParams {
@@ -9,7 +9,7 @@ class RouteParams {
     this.webViewParams,
   });
 
-  final AppPage? lastPage;
+  final AppPages? lastPage;
   final Service? service;
   final String? token;
   final WebViewParams? webViewParams;

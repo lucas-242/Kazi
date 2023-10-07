@@ -5,12 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/form_validator.dart';
-import 'package:kazi/app/core/utils/number_format_helper.dart';
+import 'package:kazi/app/core/utils/number_format_utils.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
-import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
 
 class ServiceFormContent extends StatefulWidget {
@@ -54,14 +55,14 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
     );
     _valueController = MoneyMaskedTextController(
       initialValue: cubit.state.service.value,
-      leftSymbol: NumberFormatHelper.getCurrencySymbol(),
-      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
-      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+      leftSymbol: NumberFormatUtils.getCurrencySymbol(),
+      decimalSeparator: NumberFormatUtils.getDecimalSeparator(),
+      thousandSeparator: NumberFormatUtils.getThousandSeparator(),
     );
     _discountController = MoneyMaskedTextController(
       initialValue: cubit.state.service.discountPercent,
-      decimalSeparator: NumberFormatHelper.getDecimalSeparator(),
-      thousandSeparator: NumberFormatHelper.getThousandSeparator(),
+      decimalSeparator: NumberFormatUtils.getDecimalSeparator(),
+      thousandSeparator: NumberFormatUtils.getThousandSeparator(),
       rightSymbol: '%',
       precision: 1,
     );
@@ -102,7 +103,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 ? AppLocalizations.current.newService
                 : AppLocalizations.current.editService,
             onTapBack: () =>
-                context.navigateTo(AppPage.services, shouldPop: true),
+                context.navigateTo(AppPages.services, shouldPop: true),
           ),
         ),
         AppSizeConstants.largeVerticalSpacer,

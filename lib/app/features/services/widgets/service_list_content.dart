@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/app/core/constants/app_keys.dart';
+import 'package:kazi/app/core/constants/app_onboarding.dart';
+import 'package:kazi/app/core/routes/routes.dart';
+import 'package:kazi/app/core/widgets/ads/ad_block.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/features/services/widgets/service_card.dart';
 import 'package:kazi/app/models/service.dart';
-import 'package:kazi/app/core/constants/app_keys.dart';
-import 'package:kazi/app/core/constants/app_onboarding.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
-import 'package:kazi/app/core/widgets/ads/ad_block.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/service_locator.dart';
 
 class ServiceListContent extends StatelessWidget {
   const ServiceListContent({
@@ -18,16 +18,15 @@ class ServiceListContent extends StatelessWidget {
   final bool canScroll;
 
   void _onTap(BuildContext context, Service service) => context.navigateTo(
-        context.currentPage == AppPage.home
-            ? AppPage.home
-            : AppPage.serviceDetails,
+        context.currentPage == AppPages.home
+            ? AppPages.home
+            : AppPages.serviceDetails,
         service: service,
       );
 
   @override
   Widget build(BuildContext context) {
-    final showOnboarding = serviceLocator
-            .get<LocalStorage>()
+    final showOnboarding = ServiceLocator.get<LocalStorage>()
             .get<bool>(AppKeys.showOnboardingStorage) ??
         true;
 

@@ -6,17 +6,16 @@ import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/core/widgets/texts/row_text/row_text.dart';
 import 'package:kazi/app/features/profile/widgets/options.dart';
 import 'package:kazi/app/models/user.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/service_locator.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final User user = serviceLocator.get<Auth>().user!;
-    final User user = User.toCreate(name: 'jooj');
+    final User user = ServiceLocator.get<Auth>().user!;
 
-    Future<void> onSignOut() async => serviceLocator.get<Auth>().signOut();
+    Future<void> onSignOut() async => ServiceLocator.get<Auth>().signOut();
 
     return CustomSafeArea(
       child: SingleChildScrollView(

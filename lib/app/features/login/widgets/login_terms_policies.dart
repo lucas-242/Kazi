@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 
 class LoginTermsPolicies extends StatelessWidget {
@@ -30,7 +30,7 @@ class LoginTermsPolicies extends StatelessWidget {
               color: AppColors.orange,
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => context.navigateTo(AppPage.privacyPolicy),
+              ..onTap = () => context.navigateTo(AppPages.privacyPolicy),
           ),
         ],
       ),

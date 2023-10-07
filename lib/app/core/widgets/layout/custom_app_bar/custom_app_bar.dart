@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kazi/app/core/auth/auth.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
-import 'package:kazi/app/core/extensions/extensions.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/service_locator.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = serviceLocator.get<Auth>().user;
+    final user = ServiceLocator.get<Auth>().user;
 
     return AppBar(
       toolbarHeight: preferredSize.height,
@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           AppSizeConstants.smallHorizontalSpacer,
           TextButton(
             key: AppOnboarding.stepFive,
-            onPressed: () => context.navigateTo(AppPage.profile),
+            onPressed: () => context.navigateTo(AppPages.profile),
             child: SizedBox(
               width: 48.0,
               height: 48.0,

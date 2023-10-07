@@ -1,15 +1,14 @@
 import 'package:kazi/app/core/environment/environment.dart';
 import 'package:kazi/app/core/errors/errors.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/log_utils.dart';
 import 'package:kazi/app/data/connection/kazi_connection.dart';
 import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/app/services/log_service/log_service.dart';
 
 final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
-  KaziApiServiceTypeRepository(this._connection, this._logService);
+  KaziApiServiceTypeRepository(this._connection);
   final KaziConnection _connection;
-  final LogService _logService;
   final String url = '${Environment.instance.kaziApiUrl}servicetype';
 
   @override
@@ -20,11 +19,7 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
 
       return ServiceType.fromJson(response.json);
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToAddServiceType,
-      );
+      Log.error(error, trace, AppLocalizations.current.errorToAddServiceType);
       throw ExternalError(AppLocalizations.current.errorToAddServiceType);
     }
   }
@@ -35,11 +30,8 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
       final response = await _connection.delete('$url/$id');
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToDeleteServiceType,
-      );
+      Log.error(
+          error, trace, AppLocalizations.current.errorToDeleteServiceType);
       throw ExternalError(AppLocalizations.current.errorToDeleteServiceType);
     }
   }
@@ -53,17 +45,10 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
       return List<ServiceType>.from(
           (response.json as Iterable).map((e) => ServiceType.fromJson(e)));
     } on AppError catch (error, trace) {
-      _logService.error(
-          error: error,
-          stackTrace: trace,
-          message: AppLocalizations.current.errorToGetServiceTypes);
+      Log.error(error, trace, AppLocalizations.current.errorToGetServiceTypes);
       rethrow;
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToGetServiceTypes,
-      );
+      Log.error(error, trace, AppLocalizations.current.errorToGetServiceTypes);
       throw ExternalError(AppLocalizations.current.errorToGetServiceTypes);
     }
   }
@@ -77,11 +62,8 @@ final class KaziApiServiceTypeRepository implements ServiceTypeRepository {
       );
       response.handleStatus();
     } catch (error, trace) {
-      _logService.error(
-        error: error,
-        stackTrace: trace,
-        message: AppLocalizations.current.errorToUpdateServiceType,
-      );
+      Log.error(
+          error, trace, AppLocalizations.current.errorToUpdateServiceType);
       throw ExternalError(AppLocalizations.current.errorToUpdateServiceType);
     }
   }

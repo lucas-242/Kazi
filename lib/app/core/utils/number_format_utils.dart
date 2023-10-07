@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/number_symbols_data.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 
-abstract class NumberFormatHelper {
+abstract class NumberFormatUtils {
   static String formatCurrency(BuildContext context,
       [num? value, Locale? locale]) {
     final stringLocale = locale != null

@@ -8,7 +8,6 @@ import 'package:kazi/app/data/repositories/auth_repository/kazi_api/kazi_api_aut
 import 'package:kazi/app/models/api_response.dart';
 import 'package:kazi/app/models/enums/user_type.dart';
 import 'package:kazi/app/models/user.dart';
-import 'package:kazi/app/services/log_service/log_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,7 +30,6 @@ final _authResponseMock = User.fromSignIn(
 void main() {
   late KaziApiAuthRepository authRepository;
   late MockKaziConnection connection;
-  late LogService logService;
 
   setUpAll(() {
     TestHelper.loadAppLocalizations();
@@ -39,10 +37,8 @@ void main() {
 
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
-    logService = LocalLogService();
     connection = MockKaziConnection();
-    authRepository =
-        KaziApiAuthRepository(connection: connection, logService: logService);
+    authRepository = KaziApiAuthRepository(connection: connection);
   });
 
   group('Sign in with password', () {

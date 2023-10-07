@@ -3,16 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
 import 'package:kazi/app/core/widgets/texts/texts.dart';
 import 'package:kazi/app/features/services/service_filters/cubit/service_filters_cubit.dart';
 import 'package:kazi/app/features/services/service_landing/widgets/selectable_pill_button.dart';
-import 'package:kazi/app/features/services/services_module.dart';
+import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/enums/fast_search.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
-import 'package:kazi/injector_container.dart';
+import 'package:kazi/service_locator.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
   const FiltersBottomSheet({
@@ -89,7 +90,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
         startDate: initialStartDate,
         endDate: initialEndDate,
         fastSearch: initialFastSearch,
-        servicesService: serviceLocator.get<ServicesService>(),
+        servicesService: ServiceLocator.get<ServicesService>(),
       ),
       child: Builder(
         builder: (context) {
