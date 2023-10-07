@@ -98,10 +98,13 @@ abstract class AppRouterConfig {
 
   static final _addService = GoRoute(
     path: AppRoutes.add,
-    pageBuilder: (context, state) => _customTransition(
-      state,
-      ServiceFormPage(service: (state.extra as RouteParams).service),
-    ),
+    pageBuilder: (context, state) {
+      final params = state.extra as RouteParams;
+      return _customTransition(
+        state,
+        ServiceFormPage(service: params.service, lastPage: params.lastPage),
+      );
+    },
   );
 
   static final _serviceDetails = GoRoute(

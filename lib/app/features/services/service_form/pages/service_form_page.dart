@@ -10,9 +10,10 @@ import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/service.dart';
 
 class ServiceFormPage extends StatefulWidget {
-  const ServiceFormPage({super.key, this.service});
+  const ServiceFormPage({super.key, this.service, this.lastPage});
 
   final Service? service;
+  final AppPages? lastPage;
 
   @override
   State<ServiceFormPage> createState() => _ServiceFormPageState();
@@ -38,9 +39,13 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomSafeArea(
-      child: SingleChildScrollView(
-        child: BlocListener<ServiceFormCubit, ServiceFormState>(
+    return WillPopScope(
+      onWillPop: () async {
+        context.floatingActionNavigation(widget.lastPage);
+        return false;
+      },
+      child: CustomSafeArea(
+        child: BlocConsumer<ServiceFormCubit, ServiceFormState>(
           listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
             if (state.status == BaseStateStatus.success) {
@@ -60,23 +65,21 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
               );
             }
           },
-          child: BlocBuilder<ServiceFormCubit, ServiceFormState>(
-            builder: (context, state) {
-              return state.when(
-                onState: (_) {
-                  return ServiceFormContent(
-                    isCreating: isCreating(widget.service),
-                    onConfirm: () => onConfirm(state.service),
-                  );
-                },
-                onLoading: () => const Loading(),
-                onNoData: () => NoData(
-                  message: AppLocalizations.current.noServiceTypes,
-                  navbar: const ServiceTypeNoDataNavbar(),
-                ),
-              );
-            },
-          ),
+          builder: (context, state) {
+            return state.when(
+              onState: (_) {
+                return ServiceFormContent(
+                  isCreating: isCreating(widget.service),
+                  onConfirm: () => onConfirm(state.service),
+                );
+              },
+              onLoading: () => const Loading(),
+              onNoData: () => NoData(
+                message: AppLocalizations.current.noServiceTypes,
+                navbar: const ServiceTypeNoDataNavbar(),
+              ),
+            );
+          },
         ),
       ),
     );

@@ -56,4 +56,15 @@ extension RoutesExtensions on BuildContext {
     }
     pop();
   }
+
+  void floatingActionNavigation(AppPages? lastPage) {
+    final cubit = read<AppCubit>();
+    if (cubit.state == AppPages.addServices) {
+      // context.navigateTo(AppPage.services);
+      cubit.changePage(lastPage ?? AppPages.services);
+      navigateBack(params: RouteParams(lastPage: lastPage));
+    } else {
+      navigateTo(AppPages.addServices);
+    }
+  }
 }

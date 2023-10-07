@@ -137,6 +137,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hi": m3,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inUse": m4,
+        "invalidIntNumber": MessageLookupByLibrary.simpleMessage(
+            "Please, inform a valid integer number"),
         "invalidNumber": MessageLookupByLibrary.simpleMessage(
             "Please, inform a valid number"),
         "invalidProperty": m5,

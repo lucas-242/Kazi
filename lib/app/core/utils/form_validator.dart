@@ -80,4 +80,22 @@ abstract class FormValidator {
 
     return error;
   }
+
+  static String? validateQuantityField(String? fieldValue, String fieldName) {
+    String? error;
+
+    if (fieldValue == null || fieldValue.isEmpty) {
+      return error;
+    }
+
+    final convertedValue = int.tryParse(fieldValue);
+
+    if (convertedValue == null) {
+      error = AppLocalizations.current.invalidIntNumber;
+    } else if (convertedValue < 0) {
+      error = AppLocalizations.current.numberLesserThanZero;
+    }
+
+    return error;
+  }
 }

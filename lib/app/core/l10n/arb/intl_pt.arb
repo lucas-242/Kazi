@@ -193,6 +193,7 @@
   "isEmpty": "{property} está vazio",
   "inUse": "{property} está em uso",
   "invalidNumber": "Por favor, informe um número válido",
+  "invalidIntNumber": "Por favor, informe um número inteiro válido",
   "numberLesserThanZero": "Por favor, informe um número maior ou igual a zero",
   "numberBiggerThan100": "Por favor, informe um número menor ou igual a 100",
   "invalidProperty": "{property} inválido",

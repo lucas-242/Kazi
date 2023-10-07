@@ -1890,6 +1890,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Please, inform a valid integer number`
+  String get invalidIntNumber {
+    return Intl.message(
+      'Please, inform a valid integer number',
+      name: 'invalidIntNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please, inform a number equal or greater than 0`
   String get numberLesserThanZero {
     return Intl.message(

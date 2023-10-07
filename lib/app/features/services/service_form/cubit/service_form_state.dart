@@ -11,7 +11,7 @@ class ServiceFormState extends BaseState with EquatableMixin {
     int? quantity,
   })  : service = service ?? Service.toCreate(employeeId: userId),
         serviceTypes = serviceTypes ?? [],
-        quantity = quantity ?? 1;
+        quantity = quantity == null || quantity == 0 ? 1 : quantity;
 
   Service service;
   List<Service>? newServices;

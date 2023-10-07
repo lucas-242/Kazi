@@ -57,7 +57,12 @@ class _AppShellState extends State<AppShell> {
 
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: widget.child,
+      body: WillPopScope(
+        //TODO: Add bottom sheet to ask if the user wants to leave
+        onWillPop: () async => false,
+        child: widget.child,
+      ),
+      //TODO: Create a bottomNavigationBar with floatActionButton to remove this property and avoid hide fields with keyboard
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: CustomBottomNavigation(
         currentPage: cubit.state.value,
@@ -73,7 +78,8 @@ class _AppShellState extends State<AppShell> {
             shape: BoxShape.circle,
           ),
           child: FloatingActionButton(
-            onPressed: _onTapFloatingActionButton,
+            onPressed: () =>
+                context.floatingActionNavigation(widget.params.lastPage),
             tooltip: AppLocalizations.current.newService,
             child: Icon(
               cubit.state == AppPages.addServices ? Icons.close : Icons.add,
@@ -82,17 +88,6 @@ class _AppShellState extends State<AppShell> {
         ),
       ),
     );
-  }
-
-  void _onTapFloatingActionButton() {
-    final cubit = context.read<AppCubit>();
-    if (cubit.state == AppPages.addServices) {
-      // context.navigateTo(AppPage.services);
-      cubit.changePage(widget.params.lastPage ?? AppPages.home);
-      context.navigateBack(params: widget.params);
-    } else {
-      context.navigateTo(AppPages.addServices);
-    }
   }
 
   void _onTapBottomItem(int index, BuildContext context) {
