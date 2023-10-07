@@ -22,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly = false,
     this.textFormKey,
     this.maxLines = 1,
+    this.maxLength,
     this.obscureText = false,
     this.focusNode,
     this.onFieldSubmitted,
@@ -32,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final int maxLines;
+  final int? maxLength;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String? initialValue;
@@ -66,10 +68,12 @@ class CustomTextFormField extends StatelessWidget {
       onTap: onTap,
       onEditingComplete: onEditingComplete,
       onFieldSubmitted: onFieldSubmitted,
+      maxLength: maxLength,
       maxLines: maxLines,
       style: context.bodyMedium,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
+        counter: AppSizeConstants.emptyWidget,
         labelText: labelText,
         labelStyle: context.labelLarge!.copyWith(
           color: context.colorsScheme.onSurface,

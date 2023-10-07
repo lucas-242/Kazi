@@ -49,10 +49,7 @@ extension RoutesExtensions on BuildContext {
 
   void navigateBack({RouteParams? params}) {
     if (params?.lastPage != null) {
-      return _navigate(
-        params!.lastPage!,
-        RouteParams(lastPage: params.lastPage),
-      );
+      return _navigate(params!.lastPage!, params);
     }
     pop();
   }
@@ -60,9 +57,14 @@ extension RoutesExtensions on BuildContext {
   void floatingActionNavigation(AppPages? lastPage) {
     final cubit = read<AppCubit>();
     if (cubit.state == AppPages.addServices) {
-      // context.navigateTo(AppPage.services);
-      cubit.changePage(lastPage ?? AppPages.services);
-      navigateBack(params: RouteParams(lastPage: lastPage));
+      //* Avoid navigate to a dynamic route. Maybe could change it in the future to load data everytime the user move to a dynamic route.
+      if (lastPage != AppPages.home) {
+        cubit.changePage(AppPages.services);
+        navigateTo(AppPages.services);
+      } else {
+        cubit.changePage(AppPages.home);
+        navigateTo(AppPages.home);
+      }
     } else {
       navigateTo(AppPages.addServices);
     }

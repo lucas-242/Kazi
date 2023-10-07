@@ -184,6 +184,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                       textFormKey: _descriptionKey,
                       labelText: AppLocalizations.current.description,
                       initialValue: cubit.state.service.description,
+                      maxLength: 255,
                       onChanged: (value) =>
                           cubit.onChangeServiceDescription(value),
                     ),

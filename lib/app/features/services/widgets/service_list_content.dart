@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/widgets/ads/ad_block.dart';
-import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/features/services/widgets/service_card.dart';
 import 'package:kazi/app/models/service.dart';
-import 'package:kazi/service_locator.dart';
 
 class ServiceListContent extends StatelessWidget {
   const ServiceListContent({
@@ -26,10 +23,6 @@ class ServiceListContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final showOnboarding = ServiceLocator.get<LocalStorage>()
-            .get<bool>(AppKeys.showOnboardingStorage) ??
-        true;
-
     return ListView.separated(
       shrinkWrap: true,
       physics: canScroll
@@ -47,7 +40,9 @@ class ServiceListContent extends StatelessWidget {
         }
 
         return ServiceCard(
-          key: showOnboarding && index == 1 ? AppOnboarding.stepEleven : null,
+          key: context.showOnboarding && index == 1
+              ? AppOnboarding.stepEleven
+              : null,
           service: services[index],
           onTap: () => _onTap(context, services[index]),
         );

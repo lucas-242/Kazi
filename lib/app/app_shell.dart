@@ -62,6 +62,7 @@ class _AppShellState extends State<AppShell> {
         onWillPop: () async => false,
         child: widget.child,
       ),
+      //TODO: Create a new toaster
       //TODO: Create a bottomNavigationBar with floatActionButton to remove this property and avoid hide fields with keyboard
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: CustomBottomNavigation(
