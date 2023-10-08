@@ -29,14 +29,6 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
     super.initState();
   }
 
-  void onConfirm(Service service) {
-    if (isCreating(service)) {
-      context.read<ServiceFormCubit>().addService();
-    } else {
-      context.read<ServiceFormCubit>().updateService();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -57,7 +49,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 message: state.callbackMessage,
                 type: SnackBarType.success,
               );
-              context.navigateBack();
+              context.floatingActionNavigation(widget.lastPage);
             } else if (state.status == BaseStateStatus.error) {
               getCustomSnackBar(
                 context,
@@ -83,5 +75,13 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
         ),
       ),
     );
+  }
+
+  void onConfirm(Service service) {
+    if (isCreating(service)) {
+      context.read<ServiceFormCubit>().addService();
+    } else {
+      context.read<ServiceFormCubit>().updateService();
+    }
   }
 }

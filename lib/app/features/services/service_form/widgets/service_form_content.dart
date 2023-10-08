@@ -65,27 +65,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
     super.initState();
   }
 
-  void _onChangedDropdownItem(DropdownItem? data) {
-    final cubit = context.read<ServiceFormCubit>();
-    if (data != null) {
-      cubit.onChangeServiceType(data);
-      _valueController.updateValue(cubit.state.service.value);
-      _discountController.updateValue(cubit.state.service.discountPercent);
-    }
-  }
-
-  void _onChangeDate(DateTime date) {
-    final cubit = context.read<ServiceFormCubit>();
-    cubit.onChangeServiceDate(date);
-    _dateController.text = DateFormat.yMd().format(date).normalizeDate();
-  }
-
-  void _onConfirm() {
-    if (_formKey.currentState!.validate()) {
-      widget.onConfirm();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ServiceFormCubit>();
@@ -202,5 +181,26 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
         ],
       ),
     );
+  }
+
+  void _onChangedDropdownItem(DropdownItem? data) {
+    final cubit = context.read<ServiceFormCubit>();
+    if (data != null) {
+      cubit.onChangeServiceType(data);
+      _valueController.updateValue(cubit.state.service.value);
+      _discountController.updateValue(cubit.state.service.discountPercent);
+    }
+  }
+
+  void _onChangeDate(DateTime date) {
+    final cubit = context.read<ServiceFormCubit>();
+    cubit.onChangeServiceDate(date);
+    _dateController.text = DateFormat.yMd().format(date).normalizeDate();
+  }
+
+  void _onConfirm() {
+    if (_formKey.currentState!.validate()) {
+      widget.onConfirm();
+    }
   }
 }
