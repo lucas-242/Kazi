@@ -14,5 +14,6 @@ abstract class ServicesService {
   List<ServicesGroupByDate> groupServicesByDate(
       List<Service> services, OrderBy orderBy);
 
-  Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch);
+  (DateTime start, DateTime end) getRangeDateByFastSearch(
+      FastSearch fastSearch);
 }

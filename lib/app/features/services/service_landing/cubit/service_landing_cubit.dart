@@ -10,26 +10,25 @@ import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/services_filter.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
+import 'package:kazi/service_locator.dart';
 
 part 'service_landing_state.dart';
 
 class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
-  ServiceLandingCubit(
-    this._serviceProvidedRepository,
-    this._servicesService,
-  ) : super(ServiceLandingState(
+  ServiceLandingCubit()
+      : super(ServiceLandingState(
           status: BaseStateStatus.loading,
-          startDate: _servicesService.now,
-          endDate: _servicesService.now,
+          startDate: ServiceLocator.get<ServicesService>().now,
+          endDate: ServiceLocator.get<ServicesService>().now,
         ));
-  final ServicesRepository _serviceProvidedRepository;
-  final ServicesService _servicesService;
+  final _serviceProvidedRepository = ServiceLocator.get<ServicesRepository>();
+  final _servicesService = ServiceLocator.get<ServicesService>();
 
   Future<void> onInit() async {
     try {
-      final range = _servicesService.getRangeDateByFastSearch(state.fastSearch);
-      final startDate = range['startDate']!;
-      final endDate = range['endDate']!;
+      final dates = _servicesService.getRangeDateByFastSearch(state.fastSearch);
+      final startDate = dates.$1;
+      final endDate = dates.$2;
       final result = await _getServices(startDate, endDate);
       _handleGetServices(
         result: result,
@@ -78,9 +77,9 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   Future<void> onRefresh() async {
     try {
       emit(state.copyWith(status: BaseStateStatus.loading));
-      final range = _servicesService.getRangeDateByFastSearch(state.fastSearch);
-      final startDate = range['startDate']!;
-      final endDate = range['endDate']!;
+      final dates = _servicesService.getRangeDateByFastSearch(state.fastSearch);
+      final startDate = dates.$1;
+      final endDate = dates.$2;
       final result = await _getServices(startDate, endDate);
       _handleGetServices(
         result: result,
@@ -126,16 +125,18 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
     try {
       if (fastSearch == state.fastSearch) return;
 
-      final range = _servicesService.getRangeDateByFastSearch(fastSearch);
+      final dates = _servicesService.getRangeDateByFastSearch(fastSearch);
+      final startDate = dates.$1;
+      final endDate = dates.$2;
 
       emit(state.copyWith(
         status: BaseStateStatus.loading,
         fastSearch: fastSearch,
-        startDate: range['startDate']!,
-        endDate: range['endDate']!,
+        startDate: startDate,
+        endDate: endDate,
         didFiltersChange: true,
       ));
-      final result = await _getServices(range['startDate']!, range['endDate']!);
+      final result = await _getServices(startDate, endDate);
       _handleGetServices(result: result);
     } on AppError catch (exception) {
       onAppError(exception);

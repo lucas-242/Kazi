@@ -12,7 +12,6 @@ class ServicesFilter extends Equatable {
   const ServicesFilter({
     this.scheduledToStartAt,
     this.scheduledToEndAt,
-    this.fastSearch = FastSearch.month,
     this.orderBy = OrderBy.dateDesc,
     this.isActive = true,
     this.pageSize = 10,
@@ -21,7 +20,6 @@ class ServicesFilter extends Equatable {
 
   final DateTime? scheduledToStartAt;
   final DateTime? scheduledToEndAt;
-  final FastSearch? fastSearch;
   final OrderBy? orderBy;
   final bool? isActive;
   final int pageSize;
@@ -31,7 +29,6 @@ class ServicesFilter extends Equatable {
   List<Object?> get props => [
         scheduledToStartAt,
         scheduledToEndAt,
-        fastSearch,
         orderBy,
         isActive,
         pageSize,

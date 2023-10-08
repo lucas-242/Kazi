@@ -31,10 +31,10 @@ class ServiceFiltersCubit extends Cubit<ServiceFiltersState> {
   }
 
   void onChangeFastSearch(FastSearch fastSearch) {
-    final range = _servicesService.getRangeDateByFastSearch(fastSearch);
+    final dates = _servicesService.getRangeDateByFastSearch(fastSearch);
     emit(ServiceFiltersState(
-      startDate: range['startDate']!,
-      endDate: range['endDate']!,
+      startDate: dates.$1,
+      endDate: dates.$2,
       fastSearch: fastSearch,
       didFiltersChange: true,
     ));

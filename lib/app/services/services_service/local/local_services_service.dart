@@ -139,7 +139,8 @@ class LocalServicesService extends ServicesService {
   }
 
   @override
-  Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch) {
+  (DateTime start, DateTime end) getRangeDateByFastSearch(
+      FastSearch fastSearch) {
     DateTime startDate;
     DateTime endDate;
     switch (fastSearch) {
@@ -169,9 +170,6 @@ class LocalServicesService extends ServicesService {
         endDate = now;
         break;
     }
-    return {
-      'startDate': startDate.firstHourOfDay,
-      'endDate': endDate.lastHourOfDay,
-    };
+    return (startDate.firstHourOfDay, endDate.lastHourOfDay);
   }
 }
