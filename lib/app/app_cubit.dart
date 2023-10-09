@@ -1,12 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:kazi/app/core/routes/routes.dart';
-import 'package:kazi/service_locator.dart';
 
 import 'core/auth/auth.dart';
 
 class AppCubit extends Cubit<AppPages> {
-  AppCubit() : super(AppPages.home);
-  final _authService = ServiceLocator.get<Auth>();
+  AppCubit(this._authService) : super(AppPages.home);
+  final Auth _authService;
 
   void changePage(AppPages newPage) => emit(newPage);
 

@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     authService = MockAuth();
-    cubit = AppCubit();
+    cubit = AppCubit(authService);
 
     when(authService.userChanges).thenAnswer((_) => Stream.value(null));
   });

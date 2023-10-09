@@ -9,14 +9,15 @@ import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/services_filter.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
-import 'package:kazi/service_locator.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> with BaseCubit {
-  HomeCubit() : super(HomeState(status: BaseStateStatus.loading));
-  final _servicesRepository = ServiceLocator.get<ServicesRepository>();
-  final _servicesService = ServiceLocator.get<ServicesService>();
+  HomeCubit(this._servicesRepository, this._servicesService)
+      : super(HomeState(status: BaseStateStatus.loading));
+
+  final ServicesRepository _servicesRepository;
+  final ServicesService _servicesService;
 
   Future<void> onInit() async {
     try {

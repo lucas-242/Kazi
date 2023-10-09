@@ -21,10 +21,8 @@ void main() {
   });
 
   group('Get range date by FastSearch', () {
-    Map<String, DateTime> getExpected(DateTime startDate, DateTime endDate) => {
-          'startDate': startDate,
-          'endDate': endDate,
-        };
+    (DateTime, DateTime) getExpected(DateTime startDate, DateTime endDate) =>
+        (startDate, endDate);
 
     test('Should get range for Last Month', () {
       final result =

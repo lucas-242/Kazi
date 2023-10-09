@@ -15,14 +15,14 @@ import 'package:kazi/service_locator.dart';
 part 'service_landing_state.dart';
 
 class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
-  ServiceLandingCubit()
+  ServiceLandingCubit(this._serviceProvidedRepository, this._servicesService)
       : super(ServiceLandingState(
           status: BaseStateStatus.loading,
           startDate: ServiceLocator.get<ServicesService>().now,
           endDate: ServiceLocator.get<ServicesService>().now,
         ));
-  final _serviceProvidedRepository = ServiceLocator.get<ServicesRepository>();
-  final _servicesService = ServiceLocator.get<ServicesService>();
+  final ServicesRepository _serviceProvidedRepository;
+  final ServicesService _servicesService;
 
   Future<void> onInit() async {
     try {

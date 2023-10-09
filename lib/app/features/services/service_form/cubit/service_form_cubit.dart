@@ -15,14 +15,17 @@ import 'package:kazi/service_locator.dart';
 part 'service_form_state.dart';
 
 class ServiceFormCubit extends Cubit<ServiceFormState> with BaseCubit {
-  ServiceFormCubit()
-      : super(ServiceFormState(
+  ServiceFormCubit(
+    this._servicesRepository,
+    this._serviceTypeRepository,
+    this._authService,
+  ) : super(ServiceFormState(
           status: BaseStateStatus.loading,
           userId: ServiceLocator.get<Auth>().user!.id,
         ));
-  final _servicesRepository = ServiceLocator.get<ServicesRepository>();
-  final _serviceTypeRepository = ServiceLocator.get<ServiceTypeRepository>();
-  final _authService = ServiceLocator.get<Auth>();
+  final ServicesRepository _servicesRepository;
+  final ServiceTypeRepository _serviceTypeRepository;
+  final Auth _authService;
 
   Future<void> onInit([Service? service]) async {
     try {

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kazi/app/models/enums/fast_search.dart';
 
 import 'enums/order_by.dart';
 
