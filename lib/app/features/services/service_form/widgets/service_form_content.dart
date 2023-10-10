@@ -19,9 +19,11 @@ class ServiceFormContent extends StatefulWidget {
     super.key,
     required this.onConfirm,
     this.isCreating = true,
+    this.lastPage,
   });
   final Function() onConfirm;
   final bool isCreating;
+  final AppPages? lastPage;
 
   @override
   State<ServiceFormContent> createState() => _ServiceFormContentState();
@@ -75,12 +77,13 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
           Padding(
             padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
             child: BackAndPill(
-              text: widget.isCreating
-                  ? AppLocalizations.current.newService
-                  : AppLocalizations.current.editService,
-              onTapBack: () =>
-                  context.navigateTo(AppPages.services, shouldPop: true),
-            ),
+                text: widget.isCreating
+                    ? AppLocalizations.current.newService
+                    : AppLocalizations.current.editService,
+                onTapBack: () =>
+                    context.floatingActionNavigation(widget.lastPage)
+                // context.navigateTo(AppPages.services, shouldPop: true),
+                ),
           ),
           AppSizeConstants.largeVerticalSpacer,
           Form(

@@ -51,7 +51,6 @@ abstract class AppRouterConfig {
           // HomePage(showOnboarding: AppRouter.showOnboarding),
           const HomePage(),
         ),
-        routes: [_addService, _serviceDetails],
       ),
       GoRoute(
         path: AppRoutes.services,
@@ -75,15 +74,32 @@ abstract class AppRouterConfig {
               ),
             ],
           ),
-          _addService,
-          _serviceDetails,
+          GoRoute(
+            path: AppRoutes.add,
+            pageBuilder: (context, state) {
+              final params = state.extra as RouteParams;
+              return _customTransition(
+                state,
+                ServiceFormPage(
+                    service: params.service, lastPage: params.lastPage),
+              );
+            },
+          ),
+          GoRoute(
+            path: ':serviceId',
+            pageBuilder: (context, state) => _customTransition(
+              state,
+              ServiceDetailsPage(
+                service: (state.extra as RouteParams).service!,
+              ),
+            ),
+          ),
         ],
       ),
       GoRoute(
         path: AppRoutes.profile,
         builder: (context, state) => const ProfilePage(),
         routes: [
-          _addService,
           GoRoute(
             path: AppRoutes.resetPassword,
             pageBuilder: (context, state) => _customTransition(
@@ -94,27 +110,6 @@ abstract class AppRouterConfig {
         ],
       ),
     ],
-  );
-
-  static final _addService = GoRoute(
-    path: AppRoutes.add,
-    pageBuilder: (context, state) {
-      final params = state.extra as RouteParams;
-      return _customTransition(
-        state,
-        ServiceFormPage(service: params.service, lastPage: params.lastPage),
-      );
-    },
-  );
-
-  static final _serviceDetails = GoRoute(
-    path: ':serviceId',
-    pageBuilder: (context, state) => _customTransition(
-      state,
-      ServiceDetailsPage(
-        service: (state.extra as RouteParams).service!,
-      ),
-    ),
   );
 
   static final _loginShellRoutes = ShellRoute(

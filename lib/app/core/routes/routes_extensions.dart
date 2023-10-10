@@ -47,6 +47,16 @@ extension RoutesExtensions on BuildContext {
   void _navigate(AppPages page, RouteParams params) =>
       go(AppPages.getRoute(page, id: params.service?.id), extra: params);
 
+  void pushTo(AppPages page, {Service? service}) {
+    final lastPage = read<AppCubit>().state;
+
+    final params = RouteParams(
+      lastPage: lastPage,
+      service: service,
+    );
+    push(AppPages.getRoute(page, id: params.service?.id), extra: params);
+  }
+
   void navigateBack({RouteParams? params}) {
     if (params?.lastPage != null) {
       return _navigate(params!.lastPage!, params);

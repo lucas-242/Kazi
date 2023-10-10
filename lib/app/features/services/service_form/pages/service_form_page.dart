@@ -10,7 +10,11 @@ import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/service.dart';
 
 class ServiceFormPage extends StatefulWidget {
-  const ServiceFormPage({super.key, this.service, this.lastPage});
+  const ServiceFormPage({
+    super.key,
+    this.service,
+    required this.lastPage,
+  });
 
   final Service? service;
   final AppPages? lastPage;
@@ -61,6 +65,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
             return state.when(
               onState: (_) {
                 return ServiceFormContent(
+                  lastPage: widget.lastPage,
                   isCreating: isCreating(widget.service),
                   onConfirm: () => onConfirm(state.service),
                 );
