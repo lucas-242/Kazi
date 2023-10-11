@@ -24,9 +24,7 @@ class ServiceTypeFormContent extends StatefulWidget {
 
 class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
   final _formKey = GlobalKey<FormState>();
-  final _nameKey = GlobalKey<FormFieldState>();
-  final _serviceValueKey = GlobalKey<FormFieldState>();
-  final _discountKey = GlobalKey<FormFieldState>();
+
   late final MoneyMaskedTextController _serviceValueController;
   late final MoneyMaskedTextController _discountController;
 
@@ -67,7 +65,6 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
             key: AppOnboarding.stepSeven,
             children: [
               CustomTextFormField(
-                textFormKey: _nameKey,
                 labelText: AppLocalizations.current.name,
                 initialValue: cubit.state.serviceType.name,
                 onChanged: (value) => cubit.changeServiceTypeName(value),
@@ -78,7 +75,6 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
               ),
               AppSizeConstants.largeVerticalSpacer,
               CustomTextFormField(
-                textFormKey: _serviceValueKey,
                 labelText: AppLocalizations.current.serviceValue,
                 controller: _serviceValueController,
                 keyboardType: TextInputType.number,
@@ -91,7 +87,6 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
               ),
               AppSizeConstants.largeVerticalSpacer,
               CustomTextFormField(
-                textFormKey: _discountKey,
                 controller: _discountController,
                 labelText: AppLocalizations.current.discountPercentage,
                 keyboardType: TextInputType.number,

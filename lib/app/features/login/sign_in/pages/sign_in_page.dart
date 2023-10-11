@@ -22,8 +22,6 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailKey = GlobalKey<FormFieldState>();
-  final _passwordKey = GlobalKey<FormFieldState>();
 
   late final TextEditingController passwordController;
 
@@ -76,7 +74,6 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       AppSizeConstants.bigVerticalSpacer,
                       CustomTextFormField(
-                        textFormKey: _emailKey,
                         labelText: AppLocalizations.current.email,
                         keyboardType: TextInputType.emailAddress,
                         textCapitalization: TextCapitalization.none,
@@ -87,7 +84,6 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       AppSizeConstants.bigVerticalSpacer,
                       CustomTextFormField(
-                        textFormKey: _passwordKey,
                         controller: passwordController,
                         labelText: AppLocalizations.current.password,
                         textCapitalization: TextCapitalization.none,

@@ -10,11 +10,9 @@ import 'package:kazi/app/features/services/services.dart';
 class ServiceNavbar extends StatelessWidget {
   const ServiceNavbar({
     super.key,
-    required this.dateKey,
     required this.dateController,
   });
 
-  final GlobalKey<FormFieldState<dynamic>> dateKey;
   final TextEditingController dateController;
 
   @override
@@ -50,10 +48,8 @@ class ServiceNavbar extends StatelessWidget {
               context: context,
               useRootNavigator: true,
               isScrollControlled: true,
-              builder: (context) => FiltersBottomSheet(
-                dateKey: dateKey,
-                dateController: dateController,
-              ),
+              builder: (context) =>
+                  FiltersBottomSheet(dateController: dateController),
             ),
             child: const Icon(Icons.filter_list_alt, size: 18),
           ),

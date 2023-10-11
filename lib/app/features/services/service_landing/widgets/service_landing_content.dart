@@ -16,12 +16,10 @@ import 'package:kazi/service_locator.dart';
 class ServiceLandingContent extends StatelessWidget {
   const ServiceLandingContent({
     super.key,
-    required this.dateKey,
     required this.dateController,
     required this.state,
   });
   final ServiceLandingState state;
-  final GlobalKey<FormFieldState> dateKey;
   final MaskedTextController dateController;
 
   @override
@@ -41,10 +39,7 @@ class ServiceLandingContent extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSizeConstants.largeSpace,
                 ),
-                child: ServiceNavbar(
-                  dateKey: dateKey,
-                  dateController: dateController,
-                ),
+                child: ServiceNavbar(dateController: dateController),
               ),
               AppSizeConstants.mediumVerticalSpacer,
               SizedBox(

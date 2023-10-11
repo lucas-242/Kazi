@@ -18,10 +18,8 @@ import 'package:kazi/service_locator.dart';
 class FiltersBottomSheet extends StatefulWidget {
   const FiltersBottomSheet({
     Key? key,
-    required this.dateKey,
     required this.dateController,
   }) : super(key: key);
-  final GlobalKey<FormFieldState> dateKey;
   final TextEditingController dateController;
 
   @override
@@ -115,7 +113,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     ),
                     AppSizeConstants.bigVerticalSpacer,
                     CustomDateRangePicker(
-                      fieldKey: widget.dateKey,
                       controller: widget.dateController,
                       startDate: initialStartDate,
                       endDate: initialEndDate,

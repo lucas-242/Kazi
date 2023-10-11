@@ -22,10 +22,6 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
-  final _nameKey = GlobalKey<FormFieldState>();
-  final _emailKey = GlobalKey<FormFieldState>();
-  final _passwordKey = GlobalKey<FormFieldState>();
-  final _confirmPasswordKey = GlobalKey<FormFieldState>();
 
   late final TextEditingController passwordController;
   late final TextEditingController confirmPasswordController;
@@ -92,7 +88,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       AppSizeConstants.bigVerticalSpacer,
                       CustomTextFormField(
-                        textFormKey: _nameKey,
                         labelText: AppLocalizations.current.name,
                         keyboardType: TextInputType.name,
                         textCapitalization: TextCapitalization.words,
@@ -105,7 +100,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       AppSizeConstants.largeVerticalSpacer,
                       CustomTextFormField(
-                        textFormKey: _emailKey,
                         labelText: AppLocalizations.current.email,
                         keyboardType: TextInputType.emailAddress,
                         textCapitalization: TextCapitalization.none,
@@ -116,7 +110,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       AppSizeConstants.largeVerticalSpacer,
                       CustomTextFormField(
-                        textFormKey: _passwordKey,
                         controller: passwordController,
                         labelText: AppLocalizations.current.password,
                         textCapitalization: TextCapitalization.none,
@@ -136,7 +129,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       AppSizeConstants.largeVerticalSpacer,
                       CustomTextFormField(
-                        textFormKey: _confirmPasswordKey,
                         controller: confirmPasswordController,
                         labelText: AppLocalizations.current.confirmPassword,
                         textCapitalization: TextCapitalization.none,

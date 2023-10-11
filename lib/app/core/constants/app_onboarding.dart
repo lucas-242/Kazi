@@ -12,19 +12,19 @@ import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/service_locator.dart';
 
 abstract class AppOnboarding {
-  static final stepOne = GlobalKey();
-  static final stepTwo = GlobalKey();
-  static final stepThree = GlobalKey();
-  static final stepFour = GlobalKey();
-  static final stepFive = GlobalKey();
-  static final stepSix = GlobalKey();
-  static final stepSeven = GlobalKey();
-  static final stepEight = GlobalKey();
-  static final stepNine = GlobalKey();
-  static final stepTen = GlobalKey();
-  static final stepEleven = GlobalKey();
-  static final stepTwelve = GlobalKey();
-  static final stepThirteen = GlobalKey();
+  static final stepOne = GlobalKey(debugLabel: 'Onboarding step 1');
+  static final stepTwo = GlobalKey(debugLabel: 'Onboarding step 2');
+  static final stepThree = GlobalKey(debugLabel: 'Onboarding step 3');
+  static final stepFour = GlobalKey(debugLabel: 'Onboarding step 4');
+  static final stepFive = GlobalKey(debugLabel: 'Onboarding step 5');
+  static final stepSix = GlobalKey(debugLabel: 'Onboarding step 6');
+  static final stepSeven = GlobalKey(debugLabel: 'Onboarding step 7');
+  static final stepEight = GlobalKey(debugLabel: 'Onboarding step 8');
+  static final stepNine = GlobalKey(debugLabel: 'Onboarding step 9');
+  static final stepTen = GlobalKey(debugLabel: 'Onboarding step 10');
+  static final stepEleven = GlobalKey(debugLabel: 'Onboarding step 11');
+  static final stepTwelve = GlobalKey(debugLabel: 'Onboarding step 12');
+  static final stepThirteen = GlobalKey(debugLabel: 'Onboarding step 13');
 
   static final _defaultServiceType = ServiceType.toCreate(
     userId: 1,

@@ -29,12 +29,6 @@ class ServiceFormContent extends StatefulWidget {
 
 class _ServiceFormContentState extends State<ServiceFormContent> {
   final _formKey = GlobalKey<FormState>();
-  final _descriptionKey = GlobalKey<FormFieldState>();
-  final _dateKey = GlobalKey<FormFieldState>();
-  final _dropdownKey = GlobalKey<FormFieldState>();
-  final _valueKey = GlobalKey<FormFieldState>();
-  final _quantityKey = GlobalKey<FormFieldState>();
-  final _discountKey = GlobalKey<FormFieldState>();
 
   late final MoneyMaskedTextController _valueController;
   late final MoneyMaskedTextController _discountController;
@@ -89,7 +83,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   key: AppOnboarding.stepTwelve,
                   children: [
                     CustomDropdown(
-                      key: _dropdownKey,
                       label: AppLocalizations.current.serviceType,
                       hint: AppLocalizations.current.selectServiceType,
                       items: cubit.state.dropdownItems,
@@ -102,7 +95,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                     ),
                     AppSizeConstants.largeVerticalSpacer,
                     CustomTextFormField(
-                      textFormKey: _valueKey,
                       controller: _valueController,
                       labelText: AppLocalizations.current.total,
                       keyboardType: TextInputType.number,
@@ -115,7 +107,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                     ),
                     AppSizeConstants.largeVerticalSpacer,
                     CustomTextFormField(
-                      textFormKey: _discountKey,
                       controller: _discountController,
                       labelText: AppLocalizations.current.discountPercentage,
                       keyboardType: TextInputType.number,
@@ -134,7 +125,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   children: [
                     CustomDatePicker(
                       label: AppLocalizations.current.date,
-                      fieldKey: _dateKey,
                       controller: _dateController,
                       onChange: _onChangeDate,
                       validator: (value) => FormValidator.validateTextField(
@@ -145,7 +135,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                         children: [
                           AppSizeConstants.largeVerticalSpacer,
                           CustomTextFormField(
-                            textFormKey: _quantityKey,
                             labelText: AppLocalizations.current.quantity,
                             keyboardType: TextInputType.number,
                             onChanged: (value) =>
@@ -158,7 +147,6 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                       ),
                     AppSizeConstants.largeVerticalSpacer,
                     CustomTextFormField(
-                      textFormKey: _descriptionKey,
                       labelText: AppLocalizations.current.description,
                       initialValue: cubit.state.service.description,
                       maxLength: 255,

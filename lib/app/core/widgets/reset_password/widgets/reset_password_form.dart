@@ -27,9 +27,6 @@ class ResetPasswordForm extends StatefulWidget {
 
 class _ResetPasswordFormState extends State<ResetPasswordForm> {
   final _formKey = GlobalKey<FormState>();
-  final _currentPasswordKey = GlobalKey<FormFieldState>();
-  final _newPasswordKey = GlobalKey<FormFieldState>();
-  final _confirmPasswordKey = GlobalKey<FormFieldState>();
 
   bool get _isFromProfilePage => widget.resetPasswordToken == null;
 
@@ -56,7 +53,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
               padding:
                   const EdgeInsets.only(bottom: AppSizeConstants.imenseSpace),
               child: CustomTextFormField(
-                textFormKey: _currentPasswordKey,
                 labelText: AppLocalizations.current.currentPassword,
                 textCapitalization: TextCapitalization.none,
                 obscureText: !cubit.state.showPassword,
@@ -77,7 +73,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
               ),
             ),
           CustomTextFormField(
-            textFormKey: _newPasswordKey,
             labelText: AppLocalizations.current.newPassword,
             textCapitalization: TextCapitalization.none,
             obscureText: !cubit.state.showPassword,
@@ -95,7 +90,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
           ),
           AppSizeConstants.largeVerticalSpacer,
           CustomTextFormField(
-            textFormKey: _confirmPasswordKey,
             labelText: AppLocalizations.current.confirmPassword,
             textCapitalization: TextCapitalization.none,
             textInputAction: TextInputAction.done,

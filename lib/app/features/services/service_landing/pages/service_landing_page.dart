@@ -22,7 +22,6 @@ class ServiceLandingPage extends StatefulWidget {
 }
 
 class _ServiceLandingPageState extends State<ServiceLandingPage> {
-  final dateKey = GlobalKey<FormFieldState>();
   final dateController = MaskedTextController(
       text: 'dd/MM/yyyy - dd/MM/yyyy', mask: '00/00/0000 - 00/00/0000');
 
@@ -63,7 +62,6 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
             ? ServiceLandingContent(
                 state: AppOnboarding.servicesState,
                 dateController: dateController,
-                dateKey: dateKey,
               )
             : BlocBuilder<ServiceLandingCubit, ServiceLandingState>(
                 builder: (context, state) {
@@ -71,7 +69,6 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
                     onState: (_) => ServiceLandingContent(
                       state: state,
                       dateController: dateController,
-                      dateKey: dateKey,
                     ),
                     onLoading: () => const Padding(
                       padding: EdgeInsets.symmetric(
@@ -83,10 +80,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
                           horizontal: AppSizeConstants.largeSpace),
                       child: NoData(
                         message: AppLocalizations.current.noServices,
-                        navbar: ServiceNavbar(
-                          dateKey: dateKey,
-                          dateController: dateController,
-                        ),
+                        navbar: ServiceNavbar(dateController: dateController),
                       ),
                     ),
                   );

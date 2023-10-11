@@ -17,7 +17,6 @@ class ForgotPasswordForm extends StatefulWidget {
 
 class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   final _formKey = GlobalKey<FormState>();
-  final _emailKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,6 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           child: Column(
             children: [
               CustomTextFormField(
-                textFormKey: _emailKey,
                 labelText: AppLocalizations.current.email,
                 keyboardType: TextInputType.emailAddress,
                 textCapitalization: TextCapitalization.none,
