@@ -17,7 +17,7 @@ part 'service_landing_state.dart';
 class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   ServiceLandingCubit(this._serviceProvidedRepository, this._servicesService)
       : super(ServiceLandingState(
-          status: BaseStateStatus.loading,
+          status: BaseStateStatus.initial,
           startDate: ServiceLocator.get<ServicesService>().now,
           endDate: ServiceLocator.get<ServicesService>().now,
         ));

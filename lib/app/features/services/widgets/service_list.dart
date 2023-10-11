@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kazi/app/features/services/services.dart';
-import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/themes/themes.dart';
+import 'package:kazi/app/features/services/services.dart';
+import 'package:kazi/app/models/service.dart';
 
 class ServiceList extends StatelessWidget {
   const ServiceList({
@@ -23,8 +23,6 @@ class ServiceList extends StatelessWidget {
     return Card(
       child: Padding(
         padding: EdgeInsets.only(
-          left: AppSizeConstants.largeSpace,
-          right: AppSizeConstants.largeSpace,
           top: title == null
               ? AppSizeConstants.tinySpace
               : AppSizeConstants.largeSpace,

@@ -18,8 +18,11 @@ class ServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      splashColor: AppColors.lightGrey,
+      highlightColor: AppColors.lightGrey,
       child: ListTile(
-        contentPadding: EdgeInsets.zero,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: AppSizeConstants.largeSpace),
         title: Text('${service.serviceType?.name}', style: context.titleSmall),
         subtitle: Text(
           DateFormat.yMd().format(service.scheduledToStartAt).normalizeDate(),
