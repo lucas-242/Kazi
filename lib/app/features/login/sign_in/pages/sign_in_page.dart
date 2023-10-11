@@ -45,6 +45,10 @@ class _SignInPageState extends State<SignInPage> {
       }
     }
 
+    void clearPasswordField() {
+      passwordController.text = '';
+    }
+
     return BlocProvider(
       create: (_) => SignInCubit(),
       child: BlocConsumer<SignInCubit, SignInState>(
@@ -53,6 +57,7 @@ class _SignInPageState extends State<SignInPage> {
           if (state.status == BaseStateStatus.success) {
             context.navigateTo(AppPages.onboarding);
           } else if (state.status == BaseStateStatus.error) {
+            clearPasswordField();
             getCustomSnackBar(context, message: state.callbackMessage);
           }
         },
