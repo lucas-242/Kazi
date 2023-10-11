@@ -54,8 +54,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           PillButton(
-                            onTap: () =>
-                                context.navigateTo(AppPages.addServices),
+                            onTap: () => context.navigateToAddServices(),
                             child: Text(AppLocalizations.current.newService),
                           )
                         ],

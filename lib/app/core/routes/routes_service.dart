@@ -17,8 +17,6 @@ class RoutesService {
   static AppPages? get activeRoute => _currentPage;
   static bool get isPushed => _isPushed;
 
-  static RouteParams? params;
-
   static void navigateTo(
     BuildContext context,
     AppPages page, {
@@ -68,43 +66,53 @@ class RoutesService {
     );
 
     _changeCubitAppPage(context, page);
-    _router.push(
-      AppPages.getRoute(page, id: params.service?.id),
-      extra: params,
-    );
+    _push(page, params);
   }
 
-  static void navigateBack() {
+  static void _push(AppPages page, [RouteParams? params]) => _router.push(
+        AppPages.getRoute(page, id: params?.service?.id),
+        extra: params,
+      );
+
+  static void navigateBack(BuildContext context) {
     if (_lastPage == null) {
       return;
     }
 
+    final newPage = _lastPage!;
+
+    _changeCubitAppPage(context, newPage);
+
     if (_isPushed) {
-      _setRoutes(_lastPage!);
+      _setRoutes(newPage);
       return _router.pop();
     }
 
-    _setRoutes(_lastPage!);
-    _navigate(_lastPage!);
+    _setRoutes(newPage);
+    _navigate(newPage);
   }
 
-  static void floatingActionNavigation(BuildContext context) {
+  static void navigateToAddServices(BuildContext context, [Service? service]) {
     var newPage = AppPages.addServices;
     _isPushed = true;
 
     if (_currentPage == AppPages.addServices) {
-      //* Avoid navigate to a dynamic route. Maybe could change it in the future to load data everytime the user move to a dynamic route.
       _isPushed = false;
-      newPage = _getRouteToFloatingAction();
+      newPage = _getLastPageFromAddServicesPage();
     }
 
     _lastPage = _currentPage;
     _currentPage = newPage;
 
+    final params = RouteParams(service: service);
+
     _changeCubitAppPage(context, newPage);
-    navigateTo(context, newPage);
+    _push(newPage, params);
   }
 
-  static AppPages _getRouteToFloatingAction() =>
-      _currentPage == AppPages.home ? AppPages.home : AppPages.services;
+  /// Used to avoid navigate to a dynamic route.
+  ///
+  /// TODO: Change it in the future to load data everytime the user move to a dynamic route.
+  static AppPages _getLastPageFromAddServicesPage() =>
+      _lastPage == AppPages.home ? AppPages.home : AppPages.services;
 }

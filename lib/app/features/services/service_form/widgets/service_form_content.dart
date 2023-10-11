@@ -78,7 +78,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 text: widget.isCreating
                     ? AppLocalizations.current.newService
                     : AppLocalizations.current.editService,
-                onTapBack: () => context.floatingActionNavigation()),
+                onTapBack: () => context.navigateToAddServices()),
           ),
           AppSizeConstants.largeVerticalSpacer,
           Form(

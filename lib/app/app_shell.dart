@@ -76,7 +76,7 @@ class _AppShellState extends State<AppShell> {
             shape: BoxShape.circle,
           ),
           child: FloatingActionButton(
-            onPressed: () => context.floatingActionNavigation(),
+            onPressed: () => context.navigateToAddServices(),
             tooltip: AppLocalizations.current.newService,
             child: Icon(
               cubit.state == AppPages.addServices ? Icons.close : Icons.add,

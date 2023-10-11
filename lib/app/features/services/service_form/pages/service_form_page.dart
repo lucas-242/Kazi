@@ -35,7 +35,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.floatingActionNavigation();
+        context.navigateToAddServices();
         return false;
       },
       child: CustomSafeArea(
@@ -51,7 +51,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 message: state.callbackMessage,
                 type: SnackBarType.success,
               );
-              context.floatingActionNavigation();
+              context.navigateToAddServices();
             } else if (state.status == BaseStateStatus.error) {
               getCustomSnackBar(
                 context,

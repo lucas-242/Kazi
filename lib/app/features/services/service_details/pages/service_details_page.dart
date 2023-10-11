@@ -51,8 +51,7 @@ class ServiceDetailsPage extends StatelessWidget {
                   text: AppLocalizations.current.details,
                   pills: [
                     PillButton(
-                      onTap: () => context.navigateTo(AppPages.addServices,
-                          service: service),
+                      onTap: () => context.navigateToAddServices(service),
                       child: Text(AppLocalizations.current.edit),
                     ),
                     AppSizeConstants.tinyHorizontalSpacer,

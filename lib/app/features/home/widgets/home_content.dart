@@ -49,7 +49,7 @@ class HomeContent extends StatelessWidget {
           TitleAndPill(
             title: AppLocalizations.current.lastServices,
             pillText: AppLocalizations.current.newService,
-            onTap: () => context.pushTo(AppPages.addServices),
+            onTap: () => context.navigateToAddServices(),
           ),
           AppSizeConstants.largeVerticalSpacer,
           SizedBox(

@@ -59,7 +59,7 @@ class ServiceNavbar extends StatelessWidget {
           ),
           AppSizeConstants.smallHorizontalSpacer,
           PillButton(
-            onTap: () => context.navigateTo(AppPages.addServices),
+            onTap: () => context.navigateToAddServices(),
             child: Text(AppLocalizations.current.newService),
           )
         ],

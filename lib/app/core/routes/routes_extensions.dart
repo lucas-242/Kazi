@@ -40,8 +40,8 @@ extension RoutesExtensions on BuildContext {
         webViewParams: webViewParams,
       );
 
-  void navigateBack() => RoutesService.navigateBack();
+  void navigateBack() => RoutesService.navigateBack(this);
 
-  void floatingActionNavigation() =>
-      RoutesService.floatingActionNavigation(this);
+  void navigateToAddServices([Service? service]) =>
+      RoutesService.navigateToAddServices(this, service);
 }
