@@ -11,9 +11,7 @@ import 'package:kazi/app/features/profile/profile.dart';
 import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/route_params.dart';
 
-import 'app_pages.dart';
-
-abstract class AppRouterConfig {
+abstract class RoutesConfig {
   static final router = GoRouter(
     initialLocation: AppRoutes.initial,
     routes: [
@@ -37,12 +35,7 @@ abstract class AppRouterConfig {
   ];
 
   static final _appShellRoutes = ShellRoute(
-    builder: (context, state, child) => AppShell(
-      params: state.extra != null
-          ? (state.extra as RouteParams)
-          : const RouteParams(lastPage: AppPages.home),
-      child: child,
-    ),
+    builder: (context, state, child) => AppShell(child: child),
     routes: [
       GoRoute(
         path: AppRoutes.home,
@@ -80,8 +73,7 @@ abstract class AppRouterConfig {
               final params = state.extra as RouteParams;
               return _customTransition(
                 state,
-                ServiceFormPage(
-                    service: params.service, lastPage: params.lastPage),
+                ServiceFormPage(service: params.service),
               );
             },
           ),

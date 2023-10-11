@@ -13,11 +13,9 @@ class ServiceFormPage extends StatefulWidget {
   const ServiceFormPage({
     super.key,
     this.service,
-    required this.lastPage,
   });
 
   final Service? service;
-  final AppPages? lastPage;
 
   @override
   State<ServiceFormPage> createState() => _ServiceFormPageState();
@@ -37,7 +35,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.floatingActionNavigation(widget.lastPage);
+        context.floatingActionNavigation();
         return false;
       },
       child: CustomSafeArea(
@@ -53,7 +51,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 message: state.callbackMessage,
                 type: SnackBarType.success,
               );
-              context.floatingActionNavigation(widget.lastPage);
+              context.floatingActionNavigation();
             } else if (state.status == BaseStateStatus.error) {
               getCustomSnackBar(
                 context,
@@ -65,7 +63,6 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
             return state.when(
               onState: (_) {
                 return ServiceFormContent(
-                  lastPage: widget.lastPage,
                   isCreating: isCreating(widget.service),
                   onConfirm: () => onConfirm(state.service),
                 );

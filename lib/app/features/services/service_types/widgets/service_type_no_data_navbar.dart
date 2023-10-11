@@ -16,7 +16,7 @@ class ServiceTypeNoDataNavbar extends StatelessWidget {
       child: TextWithTrailing(
         text: AppLocalizations.current.serviceTypes,
         trailing: PillButton(
-          onTap: () => context.navigateTo(AppPages.addServiceType),
+          onTap: () => context.pushTo(AppPages.addServiceType),
           child: Text(AppLocalizations.current.newType),
         ),
       ),

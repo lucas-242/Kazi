@@ -112,8 +112,8 @@ class _SignInPageState extends State<SignInPage> {
                         alignment: Alignment.centerLeft,
                         child: MaterialButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () =>
-                              context.navigateTo(AppPages.forgotPassword),
+                          onPressed: () => RoutesService.navigateTo(
+                              context, AppPages.forgotPassword),
                           child: Text(
                             AppLocalizations.current.forgotYourPassword,
                             style: context.titleSmall,

@@ -55,10 +55,7 @@ class ServiceNavbar extends StatelessWidget {
                 dateController: dateController,
               ),
             ),
-            child: const Icon(
-              Icons.filter_list_alt,
-              size: 18,
-            ),
+            child: const Icon(Icons.filter_list_alt, size: 18),
           ),
           AppSizeConstants.smallHorizontalSpacer,
           PillButton(

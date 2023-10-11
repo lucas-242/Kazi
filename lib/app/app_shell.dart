@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
-import 'package:kazi/app/models/route_params.dart';
 
 import 'app_cubit.dart';
 import 'core/l10n/generated/l10n.dart';
@@ -12,11 +11,9 @@ import 'core/l10n/generated/l10n.dart';
 class AppShell extends StatefulWidget {
   const AppShell({
     Key? key,
-    required this.params,
     required this.child,
   }) : super(key: key);
 
-  final RouteParams params;
   final Widget child;
 
   @override
@@ -79,8 +76,7 @@ class _AppShellState extends State<AppShell> {
             shape: BoxShape.circle,
           ),
           child: FloatingActionButton(
-            onPressed: () =>
-                context.floatingActionNavigation(widget.params.lastPage),
+            onPressed: () => context.floatingActionNavigation(),
             tooltip: AppLocalizations.current.newService,
             child: Icon(
               cubit.state == AppPages.addServices ? Icons.close : Icons.add,

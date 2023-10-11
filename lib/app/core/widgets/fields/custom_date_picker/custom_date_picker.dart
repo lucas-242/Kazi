@@ -6,7 +6,7 @@ import 'package:kazi/app/core/widgets/fields/fields.dart';
 class CustomDatePicker extends StatelessWidget {
   CustomDatePicker({
     Key? key,
-    required this.fieldKey,
+    this.fieldKey,
     required this.controller,
     required this.onChange,
     DateTime? initialDate,
@@ -14,7 +14,7 @@ class CustomDatePicker extends StatelessWidget {
     this.validator,
   })  : initialDate = initialDate ?? DateTime.now(),
         super(key: key);
-  final GlobalKey<FormFieldState> fieldKey;
+  final GlobalKey<FormFieldState>? fieldKey;
   final MaskedTextController controller;
   final void Function(DateTime) onChange;
   final String label;
