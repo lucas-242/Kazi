@@ -23,7 +23,7 @@ class ServiceDateCard extends StatelessWidget {
   String getTextDate(DateTime date) {
     final today = ServiceLocator.get<TimeService>().now;
 
-    if (date == today) {
+    if (date.calculateDifference(today) == 0) {
       return AppLocalizations.current.today;
     } else if (date.calculateDifference(today) == -1) {
       return AppLocalizations.current.yesterday;
