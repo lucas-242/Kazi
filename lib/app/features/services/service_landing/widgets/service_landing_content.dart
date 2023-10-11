@@ -18,9 +18,11 @@ class ServiceLandingContent extends StatelessWidget {
     super.key,
     required this.dateController,
     required this.state,
+    this.isOnboarding = false,
   });
   final ServiceLandingState state;
   final MaskedTextController dateController;
+  final bool isOnboarding;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class ServiceLandingContent extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Column(
-            key: AppOnboarding.stepTen,
+            key: isOnboarding ? AppOnboarding.stepTen : null,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -54,7 +56,7 @@ class ServiceLandingContent extends StatelessWidget {
           ),
           AppSizeConstants.mediumVerticalSpacer,
           Padding(
-            key: AppOnboarding.stepNine,
+            key: isOnboarding ? AppOnboarding.stepNine : null,
             padding: const EdgeInsets.symmetric(
                 horizontal: AppSizeConstants.largeSpace),
             child: _getServiceList(),

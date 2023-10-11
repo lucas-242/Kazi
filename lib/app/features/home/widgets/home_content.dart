@@ -12,9 +12,11 @@ class HomeContent extends StatelessWidget {
   const HomeContent({
     super.key,
     required this.state,
+    this.isOnboarding = false,
   });
 
   final HomeState state;
+  final bool isOnboarding;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class HomeContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InfoCard(
-            key: AppOnboarding.stepOne,
+            key: isOnboarding ? AppOnboarding.stepOne : null,
             title:
                 NumberFormatUtils.formatCurrency(context, state.totalBalance),
             subtitle: AppLocalizations.current.myBalance,
@@ -31,7 +33,7 @@ class HomeContent extends StatelessWidget {
             color: AppColors.green,
           ),
           InfoCard(
-            key: AppOnboarding.stepTwo,
+            key: isOnboarding ? AppOnboarding.stepTwo : null,
             title: NumberFormatUtils.formatCurrency(
                 context, state.totalDiscounted),
             subtitle: AppLocalizations.current.discounts,
@@ -39,7 +41,7 @@ class HomeContent extends StatelessWidget {
             color: AppColors.orange,
           ),
           InfoCard(
-            key: AppOnboarding.stepThree,
+            key: isOnboarding ? AppOnboarding.stepThree : null,
             title: NumberFormatUtils.formatCurrency(context, state.totalValue),
             subtitle: AppLocalizations.current.totalReceived,
             icon: AppAssets.rocket,
@@ -53,7 +55,7 @@ class HomeContent extends StatelessWidget {
           ),
           AppSizeConstants.largeVerticalSpacer,
           SizedBox(
-            key: AppOnboarding.stepFour,
+            key: isOnboarding ? AppOnboarding.stepFour : null,
             height: 245,
             child: ServiceList(
               services: state.services,

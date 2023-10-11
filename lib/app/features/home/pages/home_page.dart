@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           }
         },
         child: widget.showOnboarding
-            ? HomeContent(state: AppOnboarding.homeState)
+            ? HomeContent(state: AppOnboarding.homeState, isOnboarding: true)
             : BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   return state.when(
