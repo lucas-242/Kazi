@@ -65,6 +65,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 return ServiceFormContent(
                   isCreating: isCreating(widget.service),
                   onConfirm: () => onConfirm(state.service),
+                  showOnboarding: context.showOnboarding,
                 );
               },
               onLoading: () => const Loading(),

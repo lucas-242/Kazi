@@ -19,18 +19,18 @@ class ServiceLandingContent extends StatelessWidget {
     super.key,
     required this.dateController,
     required this.state,
-    this.isOnboarding = false,
+    this.showOnboarding = false,
   });
   final ServiceLandingState state;
   final MaskedTextController dateController;
-  final bool isOnboarding;
+  final bool showOnboarding;
 
   @override
   Widget build(BuildContext context) {
     return CustomSingleScrollView(
       children: [
         Column(
-          key: isOnboarding ? AppOnboarding.stepTen : null,
+          key: showOnboarding ? AppOnboarding.stepTen : null,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -53,7 +53,7 @@ class ServiceLandingContent extends StatelessWidget {
         ),
         AppSizeConstants.mediumVerticalSpacer,
         Padding(
-          key: isOnboarding ? AppOnboarding.stepNine : null,
+          key: showOnboarding ? AppOnboarding.stepNine : null,
           padding: const EdgeInsets.symmetric(
               horizontal: AppSizeConstants.largeSpace),
           child: _getServiceList(),

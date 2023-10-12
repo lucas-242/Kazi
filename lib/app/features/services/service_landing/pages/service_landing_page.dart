@@ -62,7 +62,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
             ? ServiceLandingContent(
                 state: AppOnboarding.servicesState,
                 dateController: dateController,
-                isOnboarding: true,
+                showOnboarding: true,
               )
             : BlocBuilder<ServiceLandingCubit, ServiceLandingState>(
                 builder: (context, state) {

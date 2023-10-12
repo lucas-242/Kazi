@@ -13,25 +13,25 @@ class HomeContent extends StatelessWidget {
   const HomeContent({
     super.key,
     required this.state,
-    this.isOnboarding = false,
+    this.showOnboarding = false,
   });
 
   final HomeState state;
-  final bool isOnboarding;
+  final bool showOnboarding;
 
   @override
   Widget build(BuildContext context) {
     return CustomSingleScrollView(
       children: [
         InfoCard(
-          key: isOnboarding ? AppOnboarding.stepOne : null,
+          key: showOnboarding ? AppOnboarding.stepOne : null,
           title: NumberFormatUtils.formatCurrency(context, state.totalBalance),
           subtitle: AppLocalizations.current.myBalance,
           icon: AppAssets.services,
           color: AppColors.green,
         ),
         InfoCard(
-          key: isOnboarding ? AppOnboarding.stepTwo : null,
+          key: showOnboarding ? AppOnboarding.stepTwo : null,
           title:
               NumberFormatUtils.formatCurrency(context, state.totalDiscounted),
           subtitle: AppLocalizations.current.discounts,
@@ -39,7 +39,7 @@ class HomeContent extends StatelessWidget {
           color: AppColors.orange,
         ),
         InfoCard(
-          key: isOnboarding ? AppOnboarding.stepThree : null,
+          key: showOnboarding ? AppOnboarding.stepThree : null,
           title: NumberFormatUtils.formatCurrency(context, state.totalValue),
           subtitle: AppLocalizations.current.totalReceived,
           icon: AppAssets.rocket,
@@ -53,7 +53,7 @@ class HomeContent extends StatelessWidget {
         ),
         AppSizeConstants.largeVerticalSpacer,
         SizedBox(
-          key: isOnboarding ? AppOnboarding.stepFour : null,
+          key: showOnboarding ? AppOnboarding.stepFour : null,
           height: 245,
           child: ServiceList(
             services: state.services,

@@ -16,12 +16,14 @@ import 'package:kazi/app/models/dropdown_item.dart';
 
 class ServiceFormContent extends StatefulWidget {
   const ServiceFormContent({
-    super.key,
+    Key? key,
     required this.onConfirm,
     this.isCreating = true,
-  });
+    this.showOnboarding = false,
+  }) : super(key: key);
   final Function() onConfirm;
   final bool isCreating;
+  final bool showOnboarding;
 
   @override
   State<ServiceFormContent> createState() => _ServiceFormContentState();
