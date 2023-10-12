@@ -344,6 +344,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sua senha deve ter no mínimo 8 caracteres e no máximo 16"),
         "week": MessageLookupByLibrary.simpleMessage("Semana"),
         "wouldYouLikeDelete": m9,
-        "yesterday": MessageLookupByLibrary.simpleMessage("Ontem")
+        "yesterday": MessageLookupByLibrary.simpleMessage("Ontem"),
+        "yourEarnings": MessageLookupByLibrary.simpleMessage("Seus Ganhos Hoje")
       };
 }

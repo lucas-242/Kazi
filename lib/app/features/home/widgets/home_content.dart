@@ -23,6 +23,11 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomSingleScrollView(
       children: [
+        Text(
+          AppLocalizations.current.yourEarnings,
+          style: context.titleMedium,
+        ),
+        AppSizeConstants.largeVerticalSpacer,
         InfoCard(
           key: showOnboarding ? AppOnboarding.stepOne : null,
           title: NumberFormatUtils.formatCurrency(context, state.totalBalance),
@@ -54,7 +59,7 @@ class HomeContent extends StatelessWidget {
         AppSizeConstants.largeVerticalSpacer,
         SizedBox(
           key: showOnboarding ? AppOnboarding.stepFour : null,
-          height: 245,
+          height: 200,
           child: ServiceList(
             services: state.services,
             expandList: true,

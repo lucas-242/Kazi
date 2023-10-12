@@ -342,6 +342,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your password must have a minimum of 8 characters and a maximum of 16"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
         "wouldYouLikeDelete": m9,
-        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")
+        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
+        "yourEarnings":
+            MessageLookupByLibrary.simpleMessage("Your Earnings Today")
       };
 }

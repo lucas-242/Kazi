@@ -1860,6 +1860,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Your Earnings Today`
+  String get yourEarnings {
+    return Intl.message(
+      'Your Earnings Today',
+      name: 'yourEarnings',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Week`
   String get week {
     return Intl.message(

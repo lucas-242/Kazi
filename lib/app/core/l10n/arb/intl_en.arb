@@ -214,6 +214,7 @@
   "validatorEmail": "Email is invalid or badly formatted",
   "validatorPassword": "Your password must have a minimum of 8 characters and a maximum of 16",
   "yesterday": "Yesterday",
+  "yourEarnings": "Your Earnings Today",
   "week": "Week",
   "wouldYouLikeDelete": "Would you like to delete {item}?",
   "@wouldYouLikeDelete": {

@@ -182,6 +182,7 @@
   "validatorEmail": "Email inválido",
   "validatorPassword": "Sua senha deve ter no mínimo 8 caracteres e no máximo 16",
   "yesterday": "Ontem",
+  "yourEarnings": "Seus Ganhos Hoje",
   "week": "Semana",
   "wouldYouLikeDelete": "Gostaria de deletar {item}?",
   "@wouldYouLikeDelete": {
