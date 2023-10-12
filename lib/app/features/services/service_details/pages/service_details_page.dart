@@ -24,114 +24,112 @@ class ServiceDetailsPage extends StatelessWidget {
         return false;
       },
       child: CustomSafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              BackAndPills(
-                text: AppLocalizations.current.details,
-                pills: [
-                  PillButton(
-                    onTap: () => context.navigateToAddServices(service),
-                    child: Text(AppLocalizations.current.edit),
-                  ),
-                  AppSizeConstants.tinyHorizontalSpacer,
-                  PillButton(
-                    backgroundColor: context.colorsScheme.error,
-                    onTap: () => onTapDelete(context),
-                    child: Text(AppLocalizations.current.delete),
-                  ),
-                ],
-              ),
-              AppSizeConstants.largeVerticalSpacer,
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${service.serviceType?.name}',
-                        style: context.titleMedium,
+        child: CustomSingleScrollView(
+          children: [
+            BackAndPills(
+              text: AppLocalizations.current.details,
+              pills: [
+                PillButton(
+                  onTap: () => context.navigateToAddServices(service),
+                  child: Text(AppLocalizations.current.edit),
+                ),
+                AppSizeConstants.tinyHorizontalSpacer,
+                PillButton(
+                  backgroundColor: context.colorsScheme.error,
+                  onTap: () => onTapDelete(context),
+                  child: Text(AppLocalizations.current.delete),
+                ),
+              ],
+            ),
+            AppSizeConstants.largeVerticalSpacer,
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${service.serviceType?.name}',
+                      style: context.titleMedium,
+                    ),
+                    AppSizeConstants.smallVerticalSpacer,
+                    Text(
+                      DateFormat.yMd()
+                          .format(service.scheduledToStartAt)
+                          .normalizeDate(),
+                      style: context.labelMedium,
+                    ),
+                    AppSizeConstants.bigVerticalSpacer,
+                    RowText(
+                      leftText: AppLocalizations.current.myBalance,
+                      rightText: NumberFormatUtils.formatCurrency(
+                        context,
+                        service.finalValue,
                       ),
-                      AppSizeConstants.smallVerticalSpacer,
-                      Text(
-                        DateFormat.yMd()
-                            .format(service.scheduledToStartAt)
-                            .normalizeDate(),
-                        style: context.labelMedium,
+                      rightTextStyle:
+                          context.titleSmall!.copyWith(color: AppColors.green),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: AppSizeConstants.largeSpace,
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
-                      RowText(
-                        leftText: AppLocalizations.current.myBalance,
-                        rightText: NumberFormatUtils.formatCurrency(
-                          context,
-                          service.finalValue,
-                        ),
-                        rightTextStyle: context.titleSmall!
-                            .copyWith(color: AppColors.green),
+                      child: Divider(),
+                    ),
+                    RowText(
+                      leftText: AppLocalizations.current.discount,
+                      rightText: NumberFormatUtils.formatCurrency(
+                        context,
+                        service.discountValue,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: AppSizeConstants.largeSpace,
-                        ),
-                        child: Divider(),
+                      rightTextStyle:
+                          context.titleSmall!.copyWith(color: AppColors.orange),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: AppSizeConstants.largeSpace,
                       ),
-                      RowText(
-                        leftText: AppLocalizations.current.discount,
-                        rightText: NumberFormatUtils.formatCurrency(
-                          context,
-                          service.discountValue,
-                        ),
-                        rightTextStyle: context.titleSmall!
-                            .copyWith(color: AppColors.orange),
+                      child: Divider(),
+                    ),
+                    RowText(
+                      leftText: AppLocalizations.current.totalReceived,
+                      rightText: NumberFormatUtils.formatCurrency(
+                        context,
+                        service.value,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: AppSizeConstants.largeSpace,
-                        ),
-                        child: Divider(),
-                      ),
-                      RowText(
-                        leftText: AppLocalizations.current.totalReceived,
-                        rightText: NumberFormatUtils.formatCurrency(
-                          context,
-                          service.value,
-                        ),
-                      ),
-                      service.description?.isNotEmpty ?? false
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: AppSizeConstants.largeSpace,
+                    ),
+                    service.description?.isNotEmpty ?? false
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: AppSizeConstants.largeSpace,
+                                ),
+                                child: Divider(),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.current.description,
+                                    style: context.titleSmall,
                                   ),
-                                  child: Divider(),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.current.description,
-                                      style: context.titleSmall,
-                                    ),
-                                    AppSizeConstants.smallVerticalSpacer,
-                                    Text(
-                                      service.description!,
-                                      style: context.bodySmall,
-                                    )
-                                  ],
-                                ),
-                                AppSizeConstants.smallVerticalSpacer,
-                              ],
-                            )
-                          : AppSizeConstants.smallVerticalSpacer,
-                    ],
-                  ),
+                                  AppSizeConstants.smallVerticalSpacer,
+                                  Text(
+                                    service.description!,
+                                    style: context.bodySmall,
+                                  )
+                                ],
+                              ),
+                              AppSizeConstants.smallVerticalSpacer,
+                            ],
+                          )
+                        : AppSizeConstants.smallVerticalSpacer,
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -18,52 +18,54 @@ class ProfilePage extends StatelessWidget {
     Future<void> onSignOut() async => ServiceLocator.get<Auth>().signOut();
 
     return CustomSafeArea(
-      child: SingleChildScrollView(
-        child: Card(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: AppSizeConstants.largeSpace,
-                  right: AppSizeConstants.largeSpace,
-                  top: AppSizeConstants.largeSpace,
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 120.0,
-                      height: 120.0,
-                      child: CircleAvatar(
-                        backgroundImage: user.photoUrl != null
-                            ? NetworkImage(user.photoUrl!)
-                            : null,
-                        backgroundColor: AppColors.white,
-                        child: user.photoUrl == null
-                            ? Text(
-                                '🦆',
-                                style:
-                                    context.cardTitle!.copyWith(fontSize: 80),
-                              )
-                            : null,
+      child: CustomSingleScrollView(
+        children: [
+          Card(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: AppSizeConstants.largeSpace,
+                    right: AppSizeConstants.largeSpace,
+                    top: AppSizeConstants.largeSpace,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 120.0,
+                        height: 120.0,
+                        child: CircleAvatar(
+                          backgroundImage: user.photoUrl != null
+                              ? NetworkImage(user.photoUrl!)
+                              : null,
+                          backgroundColor: AppColors.white,
+                          child: user.photoUrl == null
+                              ? Text(
+                                  '🦆',
+                                  style:
+                                      context.cardTitle!.copyWith(fontSize: 80),
+                                )
+                              : null,
+                        ),
                       ),
-                    ),
-                    AppSizeConstants.largeVerticalSpacer,
-                    Text(user.name, style: context.titleMedium),
-                    AppSizeConstants.bigVerticalSpacer,
-                    RowText(
-                      leftText: AppLocalizations.current.email,
-                      rightText: user.email,
-                      rightTextStyle: context.bodyMedium,
-                    ),
-                    AppSizeConstants.largeVerticalSpacer,
-                    const Divider(),
-                  ],
+                      AppSizeConstants.largeVerticalSpacer,
+                      Text(user.name, style: context.titleMedium),
+                      AppSizeConstants.bigVerticalSpacer,
+                      RowText(
+                        leftText: AppLocalizations.current.email,
+                        rightText: user.email,
+                        rightTextStyle: context.bodyMedium,
+                      ),
+                      AppSizeConstants.largeVerticalSpacer,
+                      const Divider(),
+                    ],
+                  ),
                 ),
-              ),
-              Options(onSignOut: onSignOut),
-            ],
+                Options(onSignOut: onSignOut),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -11,6 +11,7 @@ import 'package:kazi/app/core/utils/form_validator.dart';
 import 'package:kazi/app/core/utils/number_format_utils.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/fields/fields.dart';
+import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/services/services.dart';
 import 'package:kazi/app/models/dropdown_item.dart';
 
@@ -64,110 +65,107 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ServiceFormCubit>();
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
-            child: BackAndPill(
-                text: widget.isCreating
-                    ? AppLocalizations.current.newService
-                    : AppLocalizations.current.editService,
-                onTapBack: () => context.navigateToAddServices()),
+    return CustomSingleScrollView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
+          child: BackAndPill(
+              text: widget.isCreating
+                  ? AppLocalizations.current.newService
+                  : AppLocalizations.current.editService,
+              onTapBack: () => context.navigateToAddServices()),
+        ),
+        AppSizeConstants.largeVerticalSpacer,
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Column(
+                key: AppOnboarding.stepTwelve,
+                children: [
+                  CustomDropdown(
+                    label: AppLocalizations.current.serviceType,
+                    hint: AppLocalizations.current.selectServiceType,
+                    items: cubit.state.dropdownItems,
+                    selectedItem: cubit.state.selectedDropdownItem,
+                    onChanged: _onChangedDropdownItem,
+                    validator: (value) => FormValidator.validateDropdownField(
+                      value,
+                      AppLocalizations.current.serviceType,
+                    ),
+                  ),
+                  AppSizeConstants.largeVerticalSpacer,
+                  CustomTextFormField(
+                    controller: _valueController,
+                    labelText: AppLocalizations.current.total,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => cubit
+                        .onChangeServiceValue(_valueController.numberValue),
+                    validator: (value) => FormValidator.validateNumberField(
+                      _valueController.numberValue.toString(),
+                      AppLocalizations.current.total,
+                    ),
+                  ),
+                  AppSizeConstants.largeVerticalSpacer,
+                  CustomTextFormField(
+                    controller: _discountController,
+                    labelText: AppLocalizations.current.discountPercentage,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => cubit.onChangeServiceDiscount(
+                        _discountController.numberValue),
+                    validator: (value) => FormValidator.validateNumberField(
+                      _discountController.numberValue.toString(),
+                      AppLocalizations.current.discountPercentage,
+                    ),
+                  ),
+                ],
+              ),
+              AppSizeConstants.largeVerticalSpacer,
+              Column(
+                key: AppOnboarding.stepThirteen,
+                children: [
+                  CustomDatePicker(
+                    label: AppLocalizations.current.date,
+                    controller: _dateController,
+                    onChange: _onChangeDate,
+                    validator: (value) => FormValidator.validateTextField(
+                        value, AppLocalizations.current.date),
+                  ),
+                  if (widget.isCreating)
+                    Column(
+                      children: [
+                        AppSizeConstants.largeVerticalSpacer,
+                        CustomTextFormField(
+                          labelText: AppLocalizations.current.quantity,
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) =>
+                              cubit.onChangeServicesQuantity(value),
+                          validator: (value) =>
+                              FormValidator.validateQuantityField(
+                                  value, AppLocalizations.current.quantity),
+                        ),
+                      ],
+                    ),
+                  AppSizeConstants.largeVerticalSpacer,
+                  CustomTextFormField(
+                    labelText: AppLocalizations.current.description,
+                    initialValue: cubit.state.service.description,
+                    maxLength: 255,
+                    onChanged: (value) =>
+                        cubit.onChangeServiceDescription(value),
+                  ),
+                ],
+              ),
+              AppSizeConstants.bigVerticalSpacer,
+              PillButton(
+                onTap: _onConfirm,
+                child: Text(AppLocalizations.current.saveService),
+              ),
+              AppSizeConstants.bigVerticalSpacer,
+            ],
           ),
-          AppSizeConstants.largeVerticalSpacer,
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Column(
-                  key: AppOnboarding.stepTwelve,
-                  children: [
-                    CustomDropdown(
-                      label: AppLocalizations.current.serviceType,
-                      hint: AppLocalizations.current.selectServiceType,
-                      items: cubit.state.dropdownItems,
-                      selectedItem: cubit.state.selectedDropdownItem,
-                      onChanged: _onChangedDropdownItem,
-                      validator: (value) => FormValidator.validateDropdownField(
-                        value,
-                        AppLocalizations.current.serviceType,
-                      ),
-                    ),
-                    AppSizeConstants.largeVerticalSpacer,
-                    CustomTextFormField(
-                      controller: _valueController,
-                      labelText: AppLocalizations.current.total,
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) => cubit
-                          .onChangeServiceValue(_valueController.numberValue),
-                      validator: (value) => FormValidator.validateNumberField(
-                        _valueController.numberValue.toString(),
-                        AppLocalizations.current.total,
-                      ),
-                    ),
-                    AppSizeConstants.largeVerticalSpacer,
-                    CustomTextFormField(
-                      controller: _discountController,
-                      labelText: AppLocalizations.current.discountPercentage,
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) => cubit.onChangeServiceDiscount(
-                          _discountController.numberValue),
-                      validator: (value) => FormValidator.validateNumberField(
-                        _discountController.numberValue.toString(),
-                        AppLocalizations.current.discountPercentage,
-                      ),
-                    ),
-                  ],
-                ),
-                AppSizeConstants.largeVerticalSpacer,
-                Column(
-                  key: AppOnboarding.stepThirteen,
-                  children: [
-                    CustomDatePicker(
-                      label: AppLocalizations.current.date,
-                      controller: _dateController,
-                      onChange: _onChangeDate,
-                      validator: (value) => FormValidator.validateTextField(
-                          value, AppLocalizations.current.date),
-                    ),
-                    if (widget.isCreating)
-                      Column(
-                        children: [
-                          AppSizeConstants.largeVerticalSpacer,
-                          CustomTextFormField(
-                            labelText: AppLocalizations.current.quantity,
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) =>
-                                cubit.onChangeServicesQuantity(value),
-                            validator: (value) =>
-                                FormValidator.validateQuantityField(
-                                    value, AppLocalizations.current.quantity),
-                          ),
-                        ],
-                      ),
-                    AppSizeConstants.largeVerticalSpacer,
-                    CustomTextFormField(
-                      labelText: AppLocalizations.current.description,
-                      initialValue: cubit.state.service.description,
-                      maxLength: 255,
-                      onChanged: (value) =>
-                          cubit.onChangeServiceDescription(value),
-                    ),
-                  ],
-                ),
-                AppSizeConstants.bigVerticalSpacer,
-                PillButton(
-                  onTap: _onConfirm,
-                  child: Text(AppLocalizations.current.saveService),
-                ),
-                AppSizeConstants.bigVerticalSpacer,
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
