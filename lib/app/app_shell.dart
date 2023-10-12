@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/routes/routes.dart';
+import 'package:kazi/app/core/themes/extensions/theme_extension.dart';
+import 'package:kazi/app/core/themes/settings/app_size_constants.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 
 import 'app_cubit.dart';
-import 'core/l10n/generated/l10n.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({
@@ -50,40 +51,35 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<AppCubit>();
+    final state = context.read<AppCubit>().state;
 
     return Scaffold(
       appBar: const CustomAppBar(),
       body: WillPopScope(
         //TODO: Add bottom sheet to ask if the user wants to leave
         onWillPop: () async => false,
-        child: widget.child,
-      ),
-      //TODO: Create a new toaster
-      //TODO: Create a bottomNavigationBar with floatActionButton to remove this property and avoid hide fields with keyboard
-      resizeToAvoidBottomInset: false,
-      bottomNavigationBar: CustomBottomNavigation(
-        currentPage: cubit.state.value,
-        onTap: (index) => _onTapBottomItem(index, context),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Align(
-        alignment: Alignment.bottomCenter,
-        heightFactor: 1.5,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 4),
-            shape: BoxShape.circle,
-          ),
-          child: FloatingActionButton(
-            onPressed: () => context.navigateToAddServices(),
-            tooltip: AppLocalizations.current.newService,
-            child: Icon(
-              cubit.state == AppPages.addServices ? Icons.close : Icons.add,
+        child: Stack(
+          children: [
+            SizedBox(
+                height: context.height - AppSizeConstants.bottomAppBarHeight,
+                child: widget.child),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: CustomBottomNavigation(
+                currentPage: state,
+                onTap: (index) => _onTapBottomItem(index, context),
+                onTapFloatButton: context.navigateToAddServices,
+              ),
             ),
-          ),
+          ],
         ),
       ),
+      //TODO: Create a new toaster
+      resizeToAvoidBottomInset: true,
+      // bottomNavigationBar: CustomBottomNavigation(
+      //   currentPage: context.read<AppCubit>().state,
+      //   onTap: (index) => _onTapBottomItem(index, context),
+      // ),
     );
   }
 

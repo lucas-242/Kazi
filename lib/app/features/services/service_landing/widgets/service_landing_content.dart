@@ -5,6 +5,7 @@ import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/extensions/extensions.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/themes/themes.dart';
+import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/services/service_landing/widgets/info_list.dart';
 import 'package:kazi/app/features/services/service_landing/widgets/service_navbar.dart';
 import 'package:kazi/app/features/services/services.dart';
@@ -26,43 +27,38 @@ class ServiceLandingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Column(
-            key: isOnboarding ? AppOnboarding.stepTen : null,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizeConstants.largeSpace,
-                ),
-                child: ServiceNavbar(dateController: dateController),
+    return CustomSingleScrollView(
+      children: [
+        Column(
+          key: isOnboarding ? AppOnboarding.stepTen : null,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSizeConstants.largeSpace,
               ),
-              AppSizeConstants.mediumVerticalSpacer,
-              SizedBox(
-                height: 105,
-                child: InfoList(
-                  totalValue: state.totalValue,
-                  totalDiscounted: state.totalDiscounted,
-                  totalWithDiscount: state.totalWithDiscount,
-                ),
+              child: ServiceNavbar(dateController: dateController),
+            ),
+            AppSizeConstants.mediumVerticalSpacer,
+            SizedBox(
+              height: 105,
+              child: InfoList(
+                totalValue: state.totalValue,
+                totalDiscounted: state.totalDiscounted,
+                totalWithDiscount: state.totalWithDiscount,
               ),
-            ],
-          ),
-          AppSizeConstants.mediumVerticalSpacer,
-          Padding(
-            key: isOnboarding ? AppOnboarding.stepNine : null,
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSizeConstants.largeSpace),
-            child: _getServiceList(),
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+        AppSizeConstants.mediumVerticalSpacer,
+        Padding(
+          key: isOnboarding ? AppOnboarding.stepNine : null,
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppSizeConstants.largeSpace),
+          child: _getServiceList(),
+        ),
+      ],
     );
   }
 

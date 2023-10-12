@@ -23,7 +23,7 @@ class InfoCard extends StatelessWidget {
     return Card(
       color: color,
       child: SizedBox(
-        height: 98,
+        height: 92,
         width: width,
         child: Padding(
           padding: const EdgeInsets.all(20.0),

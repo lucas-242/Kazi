@@ -31,4 +31,7 @@ abstract class AppSizeConstants {
   static const emptyWidget = SizedBox.shrink();
 
   static const logoHeight = 50.0;
+  static const bottomAppBarHeight = 100.0;
+
+  static const bottomAppSpacer = SizedBox(height: bottomAppBarHeight);
 }
