@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/routes/routes.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/ads/ad_block.dart';
 import 'package:kazi/app/features/services/widgets/service_card.dart';
 import 'package:kazi/app/models/service.dart';
@@ -45,7 +46,10 @@ class ServiceListContent extends StatelessWidget {
           onTap: () => _onTap(context, services[index]),
         );
       },
-      separatorBuilder: (context, index) => const Divider(),
+      separatorBuilder: (context, index) => const Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppSizeConstants.largeSpace),
+        child: Divider(),
+      ),
     );
   }
 }

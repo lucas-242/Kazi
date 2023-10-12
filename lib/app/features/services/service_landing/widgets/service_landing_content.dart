@@ -51,49 +51,51 @@ class ServiceLandingContent extends StatelessWidget {
             ),
           ],
         ),
+        if (state.didFiltersChange)
+          Padding(
+            padding: const EdgeInsets.only(
+              left: AppSizeConstants.largeSpace,
+              right: AppSizeConstants.largeSpace,
+              top: AppSizeConstants.mediumSpace,
+            ),
+            child: Text(title, style: context.titleSmall),
+          ),
         AppSizeConstants.mediumVerticalSpacer,
         Padding(
           key: showOnboarding ? AppOnboarding.stepNine : null,
           padding: const EdgeInsets.symmetric(
               horizontal: AppSizeConstants.largeSpace),
-          child: _getServiceList(),
+          child: state.services.isNotEmpty
+              ? ServiceListByDate(
+                  servicesByDateList:
+                      ServiceLocator.get<ServicesService>().groupServicesByDate(
+                    state.services,
+                    state.selectedOrderBy,
+                  ),
+                )
+              : AppSizeConstants.emptyWidget,
         ),
       ],
     );
   }
 
-  Widget _getServiceList() {
-    final servicesService = ServiceLocator.get<ServicesService>();
-
-    if (_showLastMonthServices()) {
-      return ServiceList(
-        title: AppLocalizations.current.filteringLastMonth,
-        services: state.services,
-      );
-    }
-    if (_showServicesAreNotInCurrentMonth()) {
-      return ServiceList(
-        title: AppLocalizations.current.fromTo(
-          DateFormat.yMd().format(state.startDate).normalizeDate(),
-          DateFormat.yMd().format(state.endDate).normalizeDate(),
-        ),
-        services: state.services,
-      );
+  String get title {
+    if (_showingLastMonthServices) {
+      return AppLocalizations.current.filteringLastMonth;
     }
 
-    return ServiceListByDate(
-      servicesByDateList: servicesService.groupServicesByDate(
-        state.services,
-        state.selectedOrderBy,
-      ),
+    if (state.fastSearch == FastSearch.today) {
+      return AppLocalizations.current.filteringToday;
+    }
+
+    return AppLocalizations.current.filteringFromTo(
+      DateFormat.yMd().format(state.startDate).normalizeDate(),
+      DateFormat.yMd().format(state.endDate).normalizeDate(),
     );
   }
 
-  bool _showLastMonthServices() =>
+  bool get _showingLastMonthServices =>
       state.fastSearch == FastSearch.lastMonth ||
       ServiceLocator.get<TimeService>()
           .isRangeInLastMonth(state.startDate, state.endDate);
-
-  bool _showServicesAreNotInCurrentMonth() => !ServiceLocator.get<TimeService>()
-      .isRangeInThisMonth(state.startDate, state.endDate);
 }

@@ -51,6 +51,8 @@
   "field": "Campo",
   "filters": "Filtros",
   "filteringLastMonth": "Filtrando pelo mês passado",
+  "filteringToday": "Filtrando por hoje",
+  "filteringFromTo": "Fitrando de {start} até {end}",
   "finish": "Finalizar",
   "forgotYourPassword": "Esqueceu sua senha?",
   "forgotPassword": "Recuperar Senha",

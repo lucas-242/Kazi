@@ -24,19 +24,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(url) => "Could not launch ${url}";
 
-  static String m2(start, end) => "From ${start} to ${end}";
+  static String m2(start, end) => "Filtering from ${start} to ${end}";
 
-  static String m3(person) => "Hi, ${person}!";
+  static String m3(start, end) => "From ${start} to ${end}";
 
-  static String m4(property) => "${property} is being used";
+  static String m4(person) => "Hi, ${person}!";
 
-  static String m5(property) => "${property} is invalid";
+  static String m5(property) => "${property} is being used";
 
-  static String m6(property) => "${property} is Empty";
+  static String m6(property) => "${property} is invalid";
 
-  static String m7(property) => "${property} is required";
+  static String m7(property) => "${property} is Empty";
 
-  static String m8(item) => "Would you like to delete ${item}?";
+  static String m8(property) => "${property} is required";
+
+  static String m9(item) => "Would you like to delete ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -116,8 +118,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorUnknowError": MessageLookupByLibrary.simpleMessage(
             "An unknown exception occurred."),
         "field": MessageLookupByLibrary.simpleMessage("Field"),
+        "filteringFromTo": m2,
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtering by last month"),
+        "filteringToday":
+            MessageLookupByLibrary.simpleMessage("Filtering by today"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "finish": MessageLookupByLibrary.simpleMessage("Finish"),
         "forgotPassword":
@@ -131,18 +136,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotYourPassword":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Fortnight"),
-        "fromTo": m2,
+        "fromTo": m3,
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Sign in with Google"),
-        "hi": m3,
+        "hi": m4,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "inUse": m4,
+        "inUse": m5,
         "invalidIntNumber": MessageLookupByLibrary.simpleMessage(
             "Please, inform a valid integer number"),
         "invalidNumber": MessageLookupByLibrary.simpleMessage(
             "Please, inform a valid number"),
-        "invalidProperty": m5,
-        "isEmpty": m6,
+        "invalidProperty": m6,
+        "isEmpty": m7,
         "lastMonth": MessageLookupByLibrary.simpleMessage("Last Month"),
         "lastServices": MessageLookupByLibrary.simpleMessage("Last services"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
@@ -242,7 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "removeFilters": MessageLookupByLibrary.simpleMessage("Remove filters"),
-        "requiredProperty": m7,
+        "requiredProperty": m8,
         "resendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Password reseted successfully"),
@@ -336,7 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validatorPassword": MessageLookupByLibrary.simpleMessage(
             "Your password must have a minimum of 8 characters and a maximum of 16"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
-        "wouldYouLikeDelete": m8,
+        "wouldYouLikeDelete": m9,
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")
       };
 }

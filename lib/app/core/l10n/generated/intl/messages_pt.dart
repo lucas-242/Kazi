@@ -24,19 +24,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(url) => "Could not launch ${url}";
 
-  static String m2(start, end) => "De ${start} até ${end}";
+  static String m2(start, end) => "Fitrando de ${start} até ${end}";
 
-  static String m3(person) => "Olá, ${person}!";
+  static String m3(start, end) => "De ${start} até ${end}";
 
-  static String m4(property) => "${property} está em uso";
+  static String m4(person) => "Olá, ${person}!";
 
-  static String m5(property) => "${property} inválido";
+  static String m5(property) => "${property} está em uso";
 
-  static String m6(property) => "${property} está vazio";
+  static String m6(property) => "${property} inválido";
 
-  static String m7(property) => "${property} precisa ser preenchido";
+  static String m7(property) => "${property} está vazio";
 
-  static String m8(item) => "Gostaria de deletar ${item}?";
+  static String m8(property) => "${property} precisa ser preenchido";
+
+  static String m9(item) => "Gostaria de deletar ${item}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -114,8 +116,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorUnknowError": MessageLookupByLibrary.simpleMessage(
             "Ocorreu um erro desconhecido."),
         "field": MessageLookupByLibrary.simpleMessage("Campo"),
+        "filteringFromTo": m2,
         "filteringLastMonth":
             MessageLookupByLibrary.simpleMessage("Filtrando pelo mês passado"),
+        "filteringToday":
+            MessageLookupByLibrary.simpleMessage("Filtrando por hoje"),
         "filters": MessageLookupByLibrary.simpleMessage("Filtros"),
         "finish": MessageLookupByLibrary.simpleMessage("Finalizar"),
         "forgotPassword":
@@ -129,18 +134,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotYourPassword":
             MessageLookupByLibrary.simpleMessage("Esqueceu sua senha?"),
         "fortnight": MessageLookupByLibrary.simpleMessage("Quinzena"),
-        "fromTo": m2,
+        "fromTo": m3,
         "googleSignIn":
             MessageLookupByLibrary.simpleMessage("Login com Google"),
-        "hi": m3,
+        "hi": m4,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "inUse": m4,
+        "inUse": m5,
         "invalidIntNumber": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe um número inteiro válido"),
         "invalidNumber": MessageLookupByLibrary.simpleMessage(
             "Por favor, informe um número válido"),
-        "invalidProperty": m5,
-        "isEmpty": m6,
+        "invalidProperty": m6,
+        "isEmpty": m7,
         "lastMonth": MessageLookupByLibrary.simpleMessage("Mês Passado"),
         "lastServices":
             MessageLookupByLibrary.simpleMessage("Últimos serviços"),
@@ -243,7 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quantity": MessageLookupByLibrary.simpleMessage("Quantidade"),
         "removeFilters":
             MessageLookupByLibrary.simpleMessage("Remover filtros"),
-        "requiredProperty": m7,
+        "requiredProperty": m8,
         "resendEmail": MessageLookupByLibrary.simpleMessage("Reenviar Email"),
         "resetedPassword": MessageLookupByLibrary.simpleMessage(
             "Senha redefinida com sucesso"),
@@ -338,7 +343,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validatorPassword": MessageLookupByLibrary.simpleMessage(
             "Sua senha deve ter no mínimo 8 caracteres e no máximo 16"),
         "week": MessageLookupByLibrary.simpleMessage("Semana"),
-        "wouldYouLikeDelete": m8,
+        "wouldYouLikeDelete": m9,
         "yesterday": MessageLookupByLibrary.simpleMessage("Ontem")
       };
 }

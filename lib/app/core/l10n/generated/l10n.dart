@@ -570,6 +570,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Filtering by today`
+  String get filteringToday {
+    return Intl.message(
+      'Filtering by today',
+      name: 'filteringToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filtering from {start} to {end}`
+  String filteringFromTo(String start, String end) {
+    return Intl.message(
+      'Filtering from $start to $end',
+      name: 'filteringFromTo',
+      desc: '',
+      args: [start, end],
+    );
+  }
+
   /// `Finish`
   String get finish {
     return Intl.message(

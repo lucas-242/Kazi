@@ -14,6 +14,7 @@ class NoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomSingleScrollView(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (navbar != null) navbar!,
         if (navbar != null) SizedBox(height: context.height * 0.12),

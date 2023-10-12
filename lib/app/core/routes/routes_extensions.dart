@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kazi/app/core/constants/app_keys.dart';
 import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
@@ -44,4 +45,6 @@ extension RoutesExtensions on BuildContext {
 
   void navigateToAddServices([Service? service]) =>
       RoutesService.navigateToAddServices(this, service);
+
+  void closeModal() => pop();
 }

@@ -58,6 +58,18 @@
   "field": "Field",
   "filters": "Filters",
   "filteringLastMonth": "Filtering by last month",
+  "filteringToday": "Filtering by today",
+  "filteringFromTo": "Filtering from {start} to {end}",
+  "@filteringFromTo": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
   "finish": "Finish",
   "forgotYourPassword": "Forgot your password?",
   "forgotPassword": "Forgot Password",
