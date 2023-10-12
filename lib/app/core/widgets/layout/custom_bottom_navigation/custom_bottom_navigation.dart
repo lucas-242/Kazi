@@ -12,11 +12,11 @@ class CustomBottomNavigation extends StatelessWidget {
     Key? key,
     required this.currentPage,
     required this.onTap,
-    required this.onTapFloatButton,
+    required this.onTapFloatingButton,
   }) : super(key: key);
   final AppPages currentPage;
   final void Function(int) onTap;
-  final VoidCallback onTapFloatButton;
+  final VoidCallback onTapFloatingButton;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,14 @@ class CustomBottomNavigation extends StatelessWidget {
         ),
         Center(
           heightFactor: 1.45,
-          child: FloatingActionButton(
-            onPressed: onTapFloatButton,
-            tooltip: AppLocalizations.current.newService,
-            child: Icon(
-              currentPage == AppPages.addServices ? Icons.close : Icons.add,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 12),
+            child: FloatingActionButton(
+              onPressed: onTapFloatingButton,
+              tooltip: AppLocalizations.current.newService,
+              child: Icon(
+                currentPage == AppPages.addServices ? Icons.close : Icons.add,
+              ),
             ),
           ),
         ),
@@ -45,13 +48,16 @@ class CustomBottomNavigation extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 BottomNavigationButton(
-                  onTap: () => onTap(0),
+                  onTap: () => onTap(AppPages.home.value),
                   icon: AppAssets.home,
                   label: 'Home',
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                   isSelected: currentPage == AppPages.home,
                 ),
+                AppSizeConstants.emptyWidget,
                 BottomNavigationButton(
-                  onTap: () => onTap(1),
+                  onTap: () => onTap(AppPages.services.value),
                   icon: AppAssets.services,
                   label: AppLocalizations.current.services.capitalize(),
                   isSelected: currentPage == AppPages.services,

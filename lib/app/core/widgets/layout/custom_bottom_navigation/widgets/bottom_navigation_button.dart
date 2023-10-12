@@ -9,7 +9,7 @@ class BottomNavigationButton extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.isSelected,
-    this.padding = EdgeInsets.zero,
+    this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
     this.onboardingKey,
     this.onboardingTitle,
     this.onboardingDescription,
@@ -40,32 +40,32 @@ class BottomNavigationButton extends StatelessWidget {
 
     final fontWeight = isSelected ? FontWeight.w500 : FontWeight.w400;
 
-    return Expanded(
+    return TextButton(
+      onPressed: onTap,
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+      ),
       child: Padding(
         padding: padding,
-        child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: onTap,
-          child: Column(
-            key: onboardingKey,
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                icon,
-                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+        child: Column(
+          key: onboardingKey,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              icon,
+              colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+            ),
+            AppSizeConstants.tinyVerticalSpacer,
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontSize: 12,
+                fontWeight: fontWeight,
               ),
-              AppSizeConstants.tinyVerticalSpacer,
-              Text(
-                label,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
-                  fontWeight: fontWeight,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

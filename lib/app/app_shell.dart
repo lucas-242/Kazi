@@ -68,7 +68,7 @@ class _AppShellState extends State<AppShell> {
               child: CustomBottomNavigation(
                 currentPage: state,
                 onTap: (index) => _onTapBottomItem(index, context),
-                onTapFloatButton: context.navigateToAddServices,
+                onTapFloatingButton: context.navigateToAddServices,
               ),
             ),
           ],
