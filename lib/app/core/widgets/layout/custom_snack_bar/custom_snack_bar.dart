@@ -3,26 +3,40 @@ import 'package:kazi/app/core/themes/themes.dart';
 
 enum SnackBarType { success, error }
 
-ScaffoldFeatureController getCustomSnackBar(
-  BuildContext context, {
-  required String message,
+void showCustomSnackBar(
+  BuildContext context,
+  String message, {
+  bool horizontalMargin = true,
   SnackBarType type = SnackBarType.error,
-  Key? key,
 }) {
-  final colors = Theme.of(context).colorScheme;
-  final textColor =
-      type == SnackBarType.error ? colors.error : colors.onBackground;
-  final backgroudColor =
-      type == SnackBarType.error ? colors.errorContainer : AppColors.green;
+  final finalHorizontalBorder =
+      horizontalMargin ? AppSizeConstants.largeSpace : 0.0;
+  final backgroundColor =
+      type == SnackBarType.error ? AppColors.red : AppColors.green;
 
-  return ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      key: key,
-      content: Text(
-        message,
-        style: TextStyle(color: textColor),
+  final OverlayEntry overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      bottom: AppSizeConstants.bottomAppBarHeight + AppSizeConstants.tinySpace,
+      left: finalHorizontalBorder,
+      right: finalHorizontalBorder,
+      child: Material(
+        elevation: 3,
+        borderRadius: BorderRadius.circular(8),
+        color: backgroundColor,
+        child: Padding(
+          padding: const EdgeInsets.all(AppSizeConstants.mediumSpace),
+          child: Text(
+            message,
+            style: context.titleSmall!.copyWith(color: AppColors.white),
+          ),
+        ),
       ),
-      backgroundColor: backgroudColor,
     ),
   );
+
+  Overlay.of(context).insert(overlayEntry);
+
+  Future.delayed(const Duration(seconds: 5)).then((value) {
+    overlayEntry.remove();
+  });
 }

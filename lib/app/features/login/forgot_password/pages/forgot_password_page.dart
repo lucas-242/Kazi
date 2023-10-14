@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 import 'package:kazi/app/features/login/forgot_password/cubit/forgot_password_cubit.dart';
@@ -22,7 +23,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.error) {
-            getCustomSnackBar(context, message: state.callbackMessage);
+            context.showSnackBar(state.callbackMessage,
+                horizontalMargin: false);
           }
         },
         builder: (context, state) {

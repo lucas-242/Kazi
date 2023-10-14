@@ -39,14 +39,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.success) {
-            getCustomSnackBar(
-              context,
+            context.showSnackBar(
+              state.callbackMessage,
               type: SnackBarType.success,
-              message: state.callbackMessage,
+              horizontalMargin: _isFromProfilePage,
             );
             context.navigateTo(AppPages.signIn);
           } else if (state.status == BaseStateStatus.error) {
-            getCustomSnackBar(context, message: state.callbackMessage);
+            context.showSnackBar(
+              state.callbackMessage,
+              horizontalMargin: _isFromProfilePage,
+            );
             clearPasswordFields();
           }
         },

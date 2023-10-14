@@ -74,12 +74,7 @@ class _AppShellState extends State<AppShell> {
           ],
         ),
       ),
-      //TODO: Create a new toaster
       resizeToAvoidBottomInset: true,
-      // bottomNavigationBar: CustomBottomNavigation(
-      //   currentPage: context.read<AppCubit>().state,
-      //   onTap: (index) => _onTapBottomItem(index, context),
-      // ),
     );
   }
 

@@ -59,15 +59,16 @@ class _SignUpPageState extends State<SignUpPage> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.success) {
-            getCustomSnackBar(
-              context,
-              message: state.callbackMessage,
+            context.showSnackBar(
+              state.callbackMessage,
               type: SnackBarType.success,
+              horizontalMargin: false,
             );
             context.navigateTo(AppPages.signIn);
           } else if (state.status == BaseStateStatus.error) {
             clearPasswordFields();
-            getCustomSnackBar(context, message: state.callbackMessage);
+            context.showSnackBar(state.callbackMessage,
+                horizontalMargin: false);
           }
         },
         builder: (context, state) {

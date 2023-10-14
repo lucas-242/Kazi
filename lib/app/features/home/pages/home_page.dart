@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/routes/routes.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
@@ -35,9 +36,9 @@ class _HomePageState extends State<HomePage> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.error) {
-            getCustomSnackBar(
-              context,
-              message: state.callbackMessage,
+            context.showSnackBar(
+              state.callbackMessage,
+              type: SnackBarType.success,
             );
           }
         },

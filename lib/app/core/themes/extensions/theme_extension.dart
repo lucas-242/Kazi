@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/app/core/widgets/layout/custom_snack_bar/custom_snack_bar.dart';
+
+export 'package:kazi/app/core/widgets/layout/custom_snack_bar/custom_snack_bar.dart'
+    hide showCustomSnackBar;
 
 extension ThemeExtension on BuildContext {
   MediaQueryData get _mediaQuery => MediaQuery.of(this);
@@ -7,7 +11,12 @@ extension ThemeExtension on BuildContext {
 
   double get width => _mediaQuery.size.width;
   double get height => _mediaQuery.size.height;
-  double get topBarHeight => _mediaQuery.padding.top + kToolbarHeight;
 
-  bool get isKeyboardOpen => _mediaQuery.viewInsets.bottom > 0;
+  void showSnackBar(
+    String message, {
+    SnackBarType type = SnackBarType.error,
+    bool horizontalMargin = true,
+  }) =>
+      showCustomSnackBar(this, message,
+          horizontalMargin: horizontalMargin, type: type);
 }

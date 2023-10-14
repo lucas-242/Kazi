@@ -58,7 +58,8 @@ class _SignInPageState extends State<SignInPage> {
             context.navigateTo(AppPages.onboarding);
           } else if (state.status == BaseStateStatus.error) {
             clearPasswordField();
-            getCustomSnackBar(context, message: state.callbackMessage);
+            context.showSnackBar(state.callbackMessage,
+                horizontalMargin: false);
           }
         },
         builder: (context, state) {

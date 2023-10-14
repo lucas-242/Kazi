@@ -45,17 +45,13 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
             previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.error) {
-            getCustomSnackBar(
-              context,
-              message: state.callbackMessage,
+            context.showSnackBar(
+              state.callbackMessage,
+              type: SnackBarType.success,
             );
           } else if (state.status == BaseStateStatus.success &&
               state.callbackMessage.isNotEmpty) {
-            getCustomSnackBar(
-              context,
-              message: state.callbackMessage,
-              type: SnackBarType.success,
-            );
+            context.showSnackBar(state.callbackMessage);
           }
         },
         child: widget.showOnboarding
