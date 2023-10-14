@@ -46,5 +46,5 @@ extension RoutesExtensions on BuildContext {
   void navigateToAddServices([Service? service]) =>
       RoutesService.navigateToAddServices(this, service);
 
-  void closeModal() => pop();
+  void closeModal<T extends Object>([T? result]) => pop(result);
 }

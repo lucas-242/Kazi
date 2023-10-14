@@ -13,8 +13,10 @@ class LoginShell extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: WillPopScope(
-        //TODO: Add bottom sheet to ask if the user wants to leave
-        onWillPop: () async => false,
+        onWillPop: () async {
+          final shouldPop = await context.showLeftBottomSheet();
+          return shouldPop ?? false;
+        },
         child: CustomSafeArea(
           padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
           child: CustomScrollView(

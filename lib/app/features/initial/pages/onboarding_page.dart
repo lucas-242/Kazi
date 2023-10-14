@@ -16,8 +16,10 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.colorsScheme.surface,
       body: WillPopScope(
-        //TODO: Add bottom sheet to ask if the user wants to leave
-        onWillPop: () async => false,
+        onWillPop: () async {
+          final shouldPop = await context.showLeftBottomSheet();
+          return shouldPop ?? false;
+        },
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(

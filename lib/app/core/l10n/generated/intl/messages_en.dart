@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appSubtitle":
             MessageLookupByLibrary.simpleMessage("Organize your services"),
         "applyFilters": MessageLookupByLibrary.simpleMessage("Apply Filters"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
         "calculator": MessageLookupByLibrary.simpleMessage("Calculator"),
         "calendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -117,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error to update service type."),
         "errorUnknowError": MessageLookupByLibrary.simpleMessage(
             "An unknown exception occurred."),
+        "exit": MessageLookupByLibrary.simpleMessage("Exit"),
         "field": MessageLookupByLibrary.simpleMessage("Field"),
         "filteringFromTo": m2,
         "filteringLastMonth":
@@ -150,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "isEmpty": m7,
         "lastMonth": MessageLookupByLibrary.simpleMessage("Last Month"),
         "lastServices": MessageLookupByLibrary.simpleMessage("Last services"),
+        "leaveApp": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to leave the app?"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logoutConfirmation": MessageLookupByLibrary.simpleMessage(

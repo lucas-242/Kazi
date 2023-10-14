@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/app/core/widgets/layout/custom_snack_bar/custom_snack_bar.dart';
+import 'package:kazi/app/core/widgets/layout/leave_bottom_sheet/leave_bottom_sheet.dart';
 
 export 'package:kazi/app/core/widgets/layout/custom_snack_bar/custom_snack_bar.dart'
     hide showCustomSnackBar;
@@ -19,4 +20,10 @@ extension ThemeExtension on BuildContext {
   }) =>
       showCustomSnackBar(this, message,
           horizontalMargin: horizontalMargin, type: type);
+
+  Future<bool?> showLeftBottomSheet() => showModalBottomSheet<bool>(
+        context: this,
+        useRootNavigator: true,
+        builder: (context) => const LeaveBottomSheet(),
+      );
 }

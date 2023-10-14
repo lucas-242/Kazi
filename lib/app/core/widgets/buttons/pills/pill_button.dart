@@ -10,12 +10,14 @@ class PillButton extends StatelessWidget {
     this.foregroundColor,
     this.fillWidth = false,
     this.outlinedButton = false,
+    this.width,
   });
   final VoidCallback? onTap;
   final Widget child;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final bool fillWidth;
+  final double? width;
   final bool outlinedButton;
 
   @override
@@ -26,7 +28,11 @@ class PillButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
       )),
       minimumSize: MaterialStateProperty.all<Size>(
-        fillWidth ? const Size.fromHeight(45) : const Size(5, 40),
+        fillWidth
+            ? const Size.fromHeight(45)
+            : width != null
+                ? Size(width!, 40)
+                : const Size(5, 40),
       ),
       backgroundColor: MaterialStateProperty.all<Color>(
         backgroundColor != null

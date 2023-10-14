@@ -56,8 +56,10 @@ class _AppShellState extends State<AppShell> {
     return Scaffold(
       appBar: const CustomAppBar(),
       body: WillPopScope(
-        //TODO: Add bottom sheet to ask if the user wants to leave
-        onWillPop: () async => false,
+        onWillPop: () async {
+          final shouldPop = await context.showLeftBottomSheet();
+          return shouldPop ?? false;
+        },
         child: Stack(
           children: [
             SizedBox(

@@ -100,6 +100,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Calculator`
   String get calculator {
     return Intl.message(
@@ -540,6 +550,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Exit`
+  String get exit {
+    return Intl.message(
+      'Exit',
+      name: 'exit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Field`
   String get field {
     return Intl.message(
@@ -715,6 +735,16 @@ class AppLocalizations {
     return Intl.message(
       'Last services',
       name: 'lastServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to leave the app?`
+  String get leaveApp {
+    return Intl.message(
+      'Do you really want to leave the app?',
+      name: 'leaveApp',
       desc: '',
       args: [],
     );
