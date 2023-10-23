@@ -73,7 +73,7 @@ class CustomTextFormField extends StatelessWidget {
       style: context.bodyMedium,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
-        counter: AppSizeConstants.emptyWidget,
+        counterText: '',
         labelText: labelText,
         labelStyle: context.labelLarge!.copyWith(
           color: context.colorsScheme.onSurface,

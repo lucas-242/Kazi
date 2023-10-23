@@ -11,6 +11,7 @@ class LoginShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.primary,
       body: WillPopScope(
         onWillPop: () async {
@@ -36,27 +37,20 @@ class LoginShell extends StatelessWidget {
               ),
               SliverFillRemaining(
                 hasScrollBody: false,
-                child: Column(
-                  children: [
-                    AppSizeConstants.largeVerticalSpacer,
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          top: AppSizeConstants.bigSpace,
-                          left: AppSizeConstants.bigSpace,
-                          right: AppSizeConstants.bigSpace,
-                        ),
-                        decoration: const BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
-                          ),
-                        ),
-                        child: child,
-                      ),
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    top: AppSizeConstants.bigSpace,
+                    left: AppSizeConstants.bigSpace,
+                    right: AppSizeConstants.bigSpace,
+                  ),
+                  decoration: const BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
-                  ],
+                  ),
+                  child: child,
                 ),
               ),
             ],
