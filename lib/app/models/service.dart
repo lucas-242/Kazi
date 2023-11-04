@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 
 import 'service_type.dart';
@@ -50,7 +49,6 @@ class Service extends Equatable {
   final int id;
   final String? description;
   final double value;
-  @JsonKey(name: 'discountValue')
   final double discountPercent;
   final ServiceType? serviceType;
   final int serviceTypeId;
@@ -118,7 +116,7 @@ class Service extends Equatable {
     final json = {
       'description': description,
       'value': value,
-      'discountValue': discountPercent,
+      'discountPercent': discountPercent,
       'serviceTypeId': serviceTypeId,
       'scheduledToStartAt': scheduledToStartAt.toIso8601String(),
       'scheduledToEndAt': scheduledToEndAt.toIso8601String(),

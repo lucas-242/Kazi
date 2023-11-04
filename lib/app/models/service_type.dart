@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 
 part 'service_type.g.dart';
@@ -26,17 +25,15 @@ class ServiceType extends Equatable {
 
   final int id;
   final String name;
-  @JsonKey(name: 'value')
   final double defaultValue;
-  @JsonKey(name: 'discountValue')
   final double discountPercent;
   final int userId;
 
   Map<String, dynamic> toJson({bool withId = false}) {
     final json = {
       'name': name,
-      'value': defaultValue,
-      'discountValue': discountPercent,
+      'defaultValue': defaultValue,
+      'discountPercent': discountPercent,
       'userId': userId,
     };
 

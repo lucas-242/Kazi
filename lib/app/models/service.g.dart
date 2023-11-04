@@ -10,7 +10,7 @@ Service _$ServiceFromJson(Map<String, dynamic> json) => Service._(
       id: json['id'] as int,
       description: json['description'] as String?,
       value: (json['value'] as num).toDouble(),
-      discountPercent: (json['discountValue'] as num).toDouble(),
+      discountPercent: (json['discountPercent'] as num).toDouble(),
       serviceType: json['serviceType'] == null
           ? null
           : ServiceType.fromJson(json['serviceType'] as Map<String, dynamic>),
