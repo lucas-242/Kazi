@@ -7,7 +7,6 @@ import 'package:kazi/app/core/utils/base_cubit.dart';
 import 'package:kazi/app/core/utils/base_state.dart';
 import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart';
 import 'package:kazi/app/models/service_type.dart';
-import 'package:kazi/service_locator.dart';
 
 part 'service_types_state.dart';
 
@@ -15,7 +14,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState> with BaseCubit {
   ServiceTypesCubit(this._serviceTypeRepository, this._authService)
       : super(
           ServiceTypesState(
-            userId: ServiceLocator.get<Auth>().user!.id,
+            userId: _authService.user!.id,
             status: BaseStateStatus.initial,
           ),
         );

@@ -10,7 +10,6 @@ import 'package:kazi/app/models/enums/order_by.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/models/services_filter.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
-import 'package:kazi/service_locator.dart';
 
 part 'service_landing_state.dart';
 
@@ -18,8 +17,8 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   ServiceLandingCubit(this._serviceProvidedRepository, this._servicesService)
       : super(ServiceLandingState(
           status: BaseStateStatus.initial,
-          startDate: ServiceLocator.get<ServicesService>().now,
-          endDate: ServiceLocator.get<ServicesService>().now,
+          startDate: _servicesService.now,
+          endDate: _servicesService.now,
         ));
   final ServicesRepository _serviceProvidedRepository;
   final ServicesService _servicesService;

@@ -44,6 +44,10 @@ void main() {
       expect: () => [
         ServiceTypesState(
           userId: authService.user!.id,
+          status: BaseStateStatus.loading,
+        ),
+        ServiceTypesState(
+          userId: authService.user!.id,
           serviceTypeList: serviceTypesMock,
           status: BaseStateStatus.initial,
         )
@@ -58,6 +62,10 @@ void main() {
       build: () => cubit,
       act: (cubit) => cubit.onInit(),
       expect: () => [
+        ServiceTypesState(
+          userId: authService.user!.id,
+          status: BaseStateStatus.loading,
+        ),
         ServiceTypesState(
           userId: authService.user!.id,
           serviceTypeList: [],
