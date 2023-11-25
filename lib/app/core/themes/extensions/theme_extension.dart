@@ -16,10 +16,16 @@ extension ThemeExtension on BuildContext {
   void showSnackBar(
     String message, {
     SnackBarType type = SnackBarType.error,
+    bool hasBottomNavigation = true,
     bool horizontalMargin = true,
   }) =>
-      showCustomSnackBar(this, message,
-          horizontalMargin: horizontalMargin, type: type);
+      showCustomSnackBar(
+        this,
+        message,
+        horizontalMargin: horizontalMargin,
+        hasBottomNavigation: hasBottomNavigation,
+        type: type,
+      );
 
   Future<bool?> showLeftBottomSheet() => showModalBottomSheet<bool>(
         context: this,

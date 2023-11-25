@@ -23,14 +23,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == BaseStateStatus.error) {
-            context.showSnackBar(state.callbackMessage,
-                horizontalMargin: false);
+            context.showSnackBar(
+              state.callbackMessage,
+              hasBottomNavigation: false,
+              horizontalMargin: false,
+            );
           }
         },
         builder: (context, state) {
           return state.when(
             onLoading: () => const Loading(height: 0),
             onInitial: (_) => const ForgotPasswordForm(),
+            onError: (_) => const ForgotPasswordForm(),
             onState: (_) => EmailConfirmation(email: state.email),
           );
         },

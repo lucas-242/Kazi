@@ -6,6 +6,7 @@ enum SnackBarType { success, error }
 void showCustomSnackBar(
   BuildContext context,
   String message, {
+  bool hasBottomNavigation = true,
   bool horizontalMargin = true,
   SnackBarType type = SnackBarType.error,
 }) {
@@ -16,7 +17,8 @@ void showCustomSnackBar(
 
   final OverlayEntry overlayEntry = OverlayEntry(
     builder: (context) => Positioned(
-      bottom: AppSizeConstants.bottomAppBarHeight + AppSizeConstants.tinySpace,
+      bottom: (hasBottomNavigation ? AppSizeConstants.bottomAppBarHeight : 0) +
+          AppSizeConstants.tinySpace,
       left: finalHorizontalBorder,
       right: finalHorizontalBorder,
       child: Material(
