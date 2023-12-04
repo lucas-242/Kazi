@@ -27,7 +27,10 @@ class LeaveBottomSheet extends StatelessWidget {
                 ),
                 AppSizeConstants.bigHorizontalSpacer,
                 PillButton(
-                  onTap: () => context.closeModal(true),
+                  onTap: () {
+                    context.closeModal(true);
+                    context.navigateBack();
+                  },
                   backgroundColor: context.colorsScheme.error,
                   width: 75,
                   child: Text(AppLocalizations.current.exit),

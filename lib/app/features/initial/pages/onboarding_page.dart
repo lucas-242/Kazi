@@ -15,11 +15,8 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colorsScheme.surface,
-      body: WillPopScope(
-        onWillPop: () async {
-          final shouldPop = await context.showLeftBottomSheet();
-          return shouldPop ?? false;
-        },
+      body: PopScope(
+        onPopInvoked: (_) => context.showLeftBottomSheet(),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(

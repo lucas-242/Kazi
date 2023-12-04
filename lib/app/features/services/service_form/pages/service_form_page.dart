@@ -34,11 +34,9 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        context.navigateToAddServices();
-        return false;
-      },
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => context.navigateToAddServices(),
       child: CustomSafeArea(
         child: BlocConsumer<ServiceFormCubit, ServiceFormState>(
           listenWhen: (previous, current) => previous.status != current.status,

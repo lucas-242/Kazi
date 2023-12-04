@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kazi/app/core/routes/routes.dart';
 import 'package:kazi/app/core/themes/extensions/theme_extension.dart';
 import 'package:kazi/app/core/themes/settings/app_size_constants.dart';
@@ -55,11 +56,10 @@ class _AppShellState extends State<AppShell> {
 
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: WillPopScope(
-        onWillPop: () async {
-          final shouldPop = await context.showLeftBottomSheet();
-          return shouldPop ?? false;
-        },
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (_) =>
+            context.showLeftBottomSheet().then((shouldPop) => context.pop),
         child: Stack(
           children: [
             SizedBox(

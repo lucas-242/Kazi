@@ -18,11 +18,9 @@ class ServiceDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        context.navigateBack();
-        return false;
-      },
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => context.navigateBack(),
       child: CustomSafeArea(
         child: CustomSingleScrollView(
           children: [

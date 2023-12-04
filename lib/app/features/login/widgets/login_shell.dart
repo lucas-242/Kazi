@@ -13,11 +13,9 @@ class LoginShell extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.primary,
-      body: WillPopScope(
-        onWillPop: () async {
-          final shouldPop = await context.showLeftBottomSheet();
-          return shouldPop ?? false;
-        },
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (_) => context.showLeftBottomSheet(),
         child: CustomSafeArea(
           padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
           child: CustomScrollView(

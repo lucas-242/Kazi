@@ -36,11 +36,8 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
 
     return BlocProvider.value(
       value: cubit,
-      child: WillPopScope(
-        onWillPop: () async {
-          cubit.eraseServiceType();
-          return true;
-        },
+      child: PopScope(
+        onPopInvoked: (_) => cubit.eraseServiceType(),
         child: CustomSafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
