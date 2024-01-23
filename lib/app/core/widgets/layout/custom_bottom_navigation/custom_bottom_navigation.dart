@@ -7,10 +7,10 @@ import 'package:kazi/app/core/widgets/layout/custom_bottom_navigation/widgets/bo
 
 class CustomBottomNavigation extends StatelessWidget {
   const CustomBottomNavigation({
-    Key? key,
+    super.key,
     this.currentPage = 0,
     required this.onTap,
-  }) : super(key: key);
+  });
   final int currentPage;
   final void Function(int) onTap;
 

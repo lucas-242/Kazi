@@ -1,5 +1,5 @@
-import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesLocalStorage implements LocalStorage {

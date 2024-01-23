@@ -6,7 +6,7 @@ import 'package:kazi/app/models/dropdown_item.dart';
 
 class CustomDropdown extends StatelessWidget {
   const CustomDropdown({
-    Key? key,
+    super.key,
     required this.label,
     required this.hint,
     this.selectedItem,
@@ -15,7 +15,7 @@ class CustomDropdown extends StatelessWidget {
     this.onChanged,
     this.showSeach = false,
     this.searchHint,
-  }) : super(key: key);
+  });
   final String label;
   final String hint;
   final DropdownItem? selectedItem;

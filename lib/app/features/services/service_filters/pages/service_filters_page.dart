@@ -17,10 +17,10 @@ import 'package:kazi/service_locator.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
   const FiltersBottomSheet({
-    Key? key,
+    super.key,
     required this.dateKey,
     required this.dateController,
-  }) : super(key: key);
+  });
   final GlobalKey<FormFieldState> dateKey;
   final TextEditingController dateController;
 

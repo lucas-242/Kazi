@@ -4,7 +4,7 @@ import 'package:kazi/app/core/themes/themes.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
-    Key? key,
+    super.key,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     this.textCapitalization = TextCapitalization.sentences,
@@ -25,7 +25,7 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.focusNode,
     this.onFieldSubmitted,
-  }) : super(key: key);
+  });
 
   final TextInputType keyboardType;
   final TextInputAction textInputAction;

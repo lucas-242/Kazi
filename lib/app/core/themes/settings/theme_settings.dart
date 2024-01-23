@@ -38,7 +38,6 @@ abstract class ThemeSettings {
       inputDecorationTheme: _inputDecorationTheme(colors),
       textTheme: _textTheme(colors),
       scaffoldBackgroundColor: colors.background,
-      useMaterial3: false,
     );
   }
 
@@ -63,7 +62,6 @@ abstract class ThemeSettings {
       inputDecorationTheme: _inputDecorationTheme(colors),
       textTheme: _textTheme(colors),
       scaffoldBackgroundColor: colors.background,
-      useMaterial3: false,
     );
   }
 

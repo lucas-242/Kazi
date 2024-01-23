@@ -11,10 +11,10 @@ import 'core/l10n/generated/l10n.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({
-    Key? key,
+    super.key,
     required this.params,
     required this.child,
-  }) : super(key: key);
+  });
 
   final RouteParams params;
   final Widget child;

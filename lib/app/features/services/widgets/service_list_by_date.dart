@@ -5,9 +5,9 @@ import 'package:kazi/app/core/themes/themes.dart';
 
 class ServiceListByDate extends StatefulWidget {
   const ServiceListByDate({
-    Key? key,
+    super.key,
     required this.servicesByDateList,
-  }) : super(key: key);
+  });
 
   final List<ServicesGroupByDate> servicesByDateList;
 
