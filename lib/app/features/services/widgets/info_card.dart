@@ -47,8 +47,8 @@ class InfoCard extends StatelessWidget {
               SvgPicture.asset(
                 icon,
                 height: 35,
-                colorFilter: ColorFilter.mode(
-                  context.colorsScheme.background,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.white,
                   BlendMode.srcIn,
                 ),
               )

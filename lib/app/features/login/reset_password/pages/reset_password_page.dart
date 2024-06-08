@@ -60,7 +60,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       : context.navigateTo(AppPages.signIn),
                   text: AppLocalizations.current.changePassword,
                 ),
-                AppSizeConstants.largeVerticalSpacer,
+                AppSpacings.verticalLg,
                 ResetPasswordForm(
                   resetPasswordToken: widget.resetPasswordToken,
                   confirmPasswordController: _confirmPasswordController,

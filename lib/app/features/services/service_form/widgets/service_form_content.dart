@@ -97,7 +97,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
+          padding: const EdgeInsets.only(left: AppInsets.sm),
           child: BackAndPill(
             text: widget.isCreating
                 ? AppLocalizations.current.newService
@@ -106,7 +106,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                 context.navigateTo(AppPages.services, shouldPop: true),
           ),
         ),
-        AppSizeConstants.largeVerticalSpacer,
+        AppSpacings.verticalLg,
         Form(
           key: _formKey,
           child: Column(
@@ -126,7 +126,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                       AppLocalizations.current.serviceType,
                     ),
                   ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                   CustomTextFormField(
                     textFormKey: _valueKey,
                     controller: _valueController,
@@ -139,7 +139,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                       AppLocalizations.current.total,
                     ),
                   ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                   CustomTextFormField(
                     textFormKey: _discountKey,
                     controller: _discountController,
@@ -154,7 +154,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   ),
                 ],
               ),
-              AppSizeConstants.largeVerticalSpacer,
+              AppSpacings.verticalLg,
               Column(
                 key: AppOnboarding.stepThirteen,
                 children: [
@@ -169,7 +169,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   if (widget.isCreating)
                     Column(
                       children: [
-                        AppSizeConstants.largeVerticalSpacer,
+                        AppSpacings.verticalLg,
                         CustomTextFormField(
                           textFormKey: _quantityKey,
                           controller: _quantityController,
@@ -183,7 +183,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                         ),
                       ],
                     ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                   CustomTextFormField(
                     textFormKey: _descriptionKey,
                     maxLines: 4,
@@ -194,12 +194,12 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   ),
                 ],
               ),
-              AppSizeConstants.bigVerticalSpacer,
+              AppSpacings.verticalXLg,
               PillButton(
                 onTap: _onConfirm,
                 child: Text(AppLocalizations.current.saveService),
               ),
-              AppSizeConstants.bigVerticalSpacer,
+              AppSpacings.verticalXLg,
             ],
           ),
         ),

@@ -75,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
                         AppLocalizations.current.signIn,
                         style: context.headlineMedium,
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       CustomTextFormField(
                         textFormKey: _emailKey,
                         labelText: AppLocalizations.current.email,
@@ -86,7 +86,7 @@ class _SignInPageState extends State<SignInPage> {
                         validator: (value) =>
                             FormValidator.validateEmailField(value),
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       CustomTextFormField(
                         textFormKey: _passwordKey,
                         controller: passwordController,
@@ -104,11 +104,11 @@ class _SignInPageState extends State<SignInPage> {
                             cubit.state.showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: context.colorsScheme.onBackground,
+                            color: AppColors.black,
                           ),
                         ),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       Align(
                         alignment: Alignment.centerLeft,
                         child: MaterialButton(
@@ -121,27 +121,27 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       PillButton(
                         onTap: () => onTapSignIn(cubit),
                         fillWidth: true,
                         child: Text(AppLocalizations.current.signIn),
                       ),
-                      AppSizeConstants.mediumVerticalSpacer,
+                      AppSpacings.verticalMd,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Expanded(
                               child: Divider(color: AppColors.lightGrey)),
-                          AppSizeConstants.smallHorizontalSpacer,
+                          AppSpacings.horizontalSm,
                           Text(AppLocalizations.current.or,
                               style: context.bodyMedium),
-                          AppSizeConstants.smallHorizontalSpacer,
+                          AppSpacings.horizontalSm,
                           const Expanded(
                               child: Divider(color: AppColors.lightGrey)),
                         ],
                       ),
-                      AppSizeConstants.mediumVerticalSpacer,
+                      AppSpacings.verticalMd,
                       PillButton(
                         onTap: () => cubit.onSignInWithGoogle(),
                         backgroundColor: AppColors.white,
@@ -155,12 +155,12 @@ class _SignInPageState extends State<SignInPage> {
                               AppAssets.google,
                               height: 18,
                             ),
-                            AppSizeConstants.smallHorizontalSpacer,
+                            AppSpacings.horizontalSm,
                             Text(AppLocalizations.current.googleSignIn),
                           ],
                         ),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                     ],
                   ),
                   const LoginSignInChanger(),

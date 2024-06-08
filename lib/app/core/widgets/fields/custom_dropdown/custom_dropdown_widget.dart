@@ -49,12 +49,12 @@ class CustomDropdown extends StatelessWidget {
       dropdownBuilder: (_, item) => DropdownInput(item: item, hint: hint),
       dropdownDecoratorProps:
           DropdownInputDecorator(labelText: label).build(context),
-      dropdownButtonProps: DropdownButtonProps(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSizeConstants.mediumSpace,
+      dropdownButtonProps: const DropdownButtonProps(
+        padding: EdgeInsets.symmetric(
+          horizontal: AppInsets.md,
         ),
-        color: context.colorsScheme.onBackground,
-        icon: const Icon(Icons.keyboard_arrow_down_outlined),
+        color: AppColors.black,
+        icon: Icon(Icons.keyboard_arrow_down_outlined),
       ),
     );
   }
@@ -85,8 +85,7 @@ class DropdownInputDecorator extends DropDownDecoratorProps {
         labelText: labelText,
         hintStyle: context.bodyMedium,
         labelStyle: context.bodyMedium,
-        contentPadding:
-            const EdgeInsets.only(left: AppSizeConstants.mediumSpace),
+        contentPadding: const EdgeInsets.only(left: AppInsets.md),
         border: const OutlineInputBorder(),
       ),
     );
@@ -110,8 +109,8 @@ class PopupItem extends StatelessWidget {
           : context.colorsScheme.primary.withOpacity(0.08),
       child: ListTile(
         contentPadding: const EdgeInsets.only(
-          left: AppSizeConstants.mediumSpace,
-          right: AppSizeConstants.largeSpace,
+          left: AppInsets.md,
+          right: AppInsets.lg,
         ),
         title: Text(item.label, style: context.bodyMedium),
       ),
@@ -126,8 +125,8 @@ class DropdownEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: AppSizeConstants.mediumSpace,
-        horizontal: AppSizeConstants.mediumSpace,
+        vertical: AppInsets.md,
+        horizontal: AppInsets.md,
       ),
       child: Text(
         AppLocalizations.current.noResults,

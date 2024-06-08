@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/core/constants/app_onboarding.dart';
 import 'package:kazi/app/core/l10n/generated/l10n.dart';
 import 'package:kazi/app/core/routes/routes.dart';
-import 'package:kazi/app/core/themes/extensions/theme_extension.dart';
-import 'package:kazi/app/core/themes/extensions/typography_extension.dart';
-import 'package:kazi/app/core/themes/settings/app_assets.dart';
-import 'package:kazi/app/core/themes/settings/app_size_constants.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -18,7 +15,7 @@ class OnboardingPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(AppSizeConstants.hugeSpace),
+            padding: const EdgeInsets.all(AppInsets.xxLg),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38,12 +35,12 @@ class OnboardingPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                AppSizeConstants.smallVerticalSpacer,
+                AppSpacings.verticalSm,
                 Text(
                   AppLocalizations.current.onboardingSubtitle,
                   style: context.headlineSmall,
                 ),
-                AppSizeConstants.hugeVerticalSpacer,
+                AppSpacings.verticalXxLg,
                 Center(
                   child: CircularButton(
                     iconSize: 54,

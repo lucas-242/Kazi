@@ -45,13 +45,13 @@ class HomeContent extends StatelessWidget {
             icon: AppAssets.rocket,
             color: AppColors.blue,
           ),
-          AppSizeConstants.smallVerticalSpacer,
+          AppSpacings.verticalSm,
           TitleAndPill(
             title: AppLocalizations.current.lastServices,
             pillText: AppLocalizations.current.newService,
             onTap: () => context.navigateTo(AppPages.addServices),
           ),
-          AppSizeConstants.largeVerticalSpacer,
+          AppSpacings.verticalLg,
           SizedBox(
             key: AppOnboarding.stepFour,
             height: 245,

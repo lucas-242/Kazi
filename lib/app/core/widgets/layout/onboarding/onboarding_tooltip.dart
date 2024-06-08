@@ -34,10 +34,10 @@
 //         children: [
 //           Padding(
 //             padding: const EdgeInsets.only(
-//               top: AppSizeConstants.largeSpace,
-//               bottom: AppSizeConstants.smallSpace,
-//               left: AppSizeConstants.largeSpace,
-//               right: AppSizeConstants.largeSpace,
+//               top: AppInsets.largeSpace,
+//               bottom: AppInsets.smallSpace,
+//               left: AppInsets.largeSpace,
+//               right: AppInsets.largeSpace,
 //             ),
 //             child: Row(
 //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,23 +52,23 @@
 //           ),
 //           Padding(
 //             padding: const EdgeInsets.symmetric(
-//                 horizontal: AppSizeConstants.largeSpace),
+//                 horizontal: AppInsets.largeSpace),
 //             child: Text(
 //               description,
 //               style: context.bodyMedium,
 //             ),
 //           ),
-//           AppSizeConstants.mediumVerticalSpacer,
+//           AppInsets.mediumVerticalSpacer,
 //           const Divider(
 //             color: AppColors.lightGrey,
 //             thickness: 0.9,
 //           ),
-//           AppSizeConstants.mediumVerticalSpacer,
+//           AppInsets.mediumVerticalSpacer,
 //           Padding(
 //             padding: const EdgeInsets.only(
-//               bottom: AppSizeConstants.mediumSpace,
-//               left: AppSizeConstants.largeSpace,
-//               right: AppSizeConstants.largeSpace,
+//               bottom: AppInsets.mediumSpace,
+//               left: AppInsets.largeSpace,
+//               right: AppInsets.largeSpace,
 //             ),
 //             child: Row(
 //               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -76,7 +76,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                   AppLocalizations.current.name,
                 ),
               ),
-              AppSizeConstants.largeVerticalSpacer,
+              AppSpacings.verticalLg,
               CustomTextFormField(
                 textFormKey: _serviceValueKey,
                 labelText: AppLocalizations.current.serviceValue,
@@ -89,7 +89,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                   AppLocalizations.current.serviceValue,
                 ),
               ),
-              AppSizeConstants.largeVerticalSpacer,
+              AppSpacings.verticalLg,
               CustomTextFormField(
                 textFormKey: _discountKey,
                 controller: _discountController,
@@ -104,7 +104,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
               ),
             ],
           ),
-          AppSizeConstants.bigVerticalSpacer,
+          AppSpacings.verticalXLg,
           PillButton(
             onTap: onConfirm,
             child: Text(AppLocalizations.current.saveType),

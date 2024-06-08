@@ -90,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         AppLocalizations.current.signUp,
                         style: context.headlineMedium,
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       CustomTextFormField(
                         textFormKey: _nameKey,
                         labelText: AppLocalizations.current.name,
@@ -103,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         onChanged: (value) => cubit.onChangeName(value),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       CustomTextFormField(
                         textFormKey: _emailKey,
                         labelText: AppLocalizations.current.email,
@@ -114,7 +114,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             FormValidator.validateEmailField(value),
                         onChanged: (value) => cubit.onChangeEmail(value),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       CustomTextFormField(
                         textFormKey: _passwordKey,
                         controller: passwordController,
@@ -130,11 +130,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             state.showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: context.colorsScheme.onBackground,
+                            color: AppColors.black,
                           ),
                         ),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       CustomTextFormField(
                         textFormKey: _confirmPasswordKey,
                         controller: confirmPasswordController,
@@ -153,19 +153,19 @@ class _SignUpPageState extends State<SignUpPage> {
                             state.showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: context.colorsScheme.onBackground,
+                            color: context.colorsScheme.onSurface,
                           ),
                         ),
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       PillButton(
                         onTap: () => onTapSignUp(cubit),
                         fillWidth: true,
                         child: Text(AppLocalizations.current.signUp),
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       const LoginTermsPolicies(),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                     ],
                   ),
                   const LoginSignInChanger(),

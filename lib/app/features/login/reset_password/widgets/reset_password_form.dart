@@ -53,8 +53,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
         children: [
           if (_isFromProfilePage)
             Padding(
-              padding:
-                  const EdgeInsets.only(bottom: AppSizeConstants.imenseSpace),
+              padding: const EdgeInsets.only(bottom: AppInsets.xxxLg),
               child: CustomTextFormField(
                 textFormKey: _currentPasswordKey,
                 labelText: AppLocalizations.current.currentPassword,
@@ -71,7 +70,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                     cubit.state.showPassword
                         ? Icons.visibility
                         : Icons.visibility_off,
-                    color: context.colorsScheme.onBackground,
+                    color: AppColors.black,
                   ),
                 ),
               ),
@@ -89,11 +88,11 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                 cubit.state.showPassword
                     ? Icons.visibility
                     : Icons.visibility_off,
-                color: context.colorsScheme.onBackground,
+                color: context.colorsScheme.onSurface,
               ),
             ),
           ),
-          AppSizeConstants.largeVerticalSpacer,
+          AppSpacings.verticalLg,
           CustomTextFormField(
             textFormKey: _confirmPasswordKey,
             labelText: AppLocalizations.current.confirmPassword,
@@ -110,11 +109,11 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                 cubit.state.showPassword
                     ? Icons.visibility
                     : Icons.visibility_off,
-                color: context.colorsScheme.onBackground,
+                color: context.colorsScheme.onSurface,
               ),
             ),
           ),
-          AppSizeConstants.mediumVerticalSpacer,
+          AppSpacings.verticalMd,
           PillButton(
             onTap: onTapSubmit,
             child: Text(AppLocalizations.current.updatePassword),

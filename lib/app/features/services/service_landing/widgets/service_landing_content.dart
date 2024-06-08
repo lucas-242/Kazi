@@ -39,14 +39,14 @@ class ServiceLandingContent extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizeConstants.largeSpace,
+                  horizontal: AppInsets.lg,
                 ),
                 child: ServiceNavbar(
                   dateKey: dateKey,
                   dateController: dateController,
                 ),
               ),
-              AppSizeConstants.mediumVerticalSpacer,
+              AppSpacings.verticalMd,
               SizedBox(
                 height: 105,
                 child: InfoList(
@@ -57,11 +57,10 @@ class ServiceLandingContent extends StatelessWidget {
               ),
             ],
           ),
-          AppSizeConstants.mediumVerticalSpacer,
+          AppSpacings.verticalMd,
           Padding(
             key: AppOnboarding.stepNine,
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSizeConstants.largeSpace),
+            padding: const EdgeInsets.symmetric(horizontal: AppInsets.lg),
             child: _getServiceList(),
           ),
         ],

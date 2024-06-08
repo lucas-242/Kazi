@@ -19,8 +19,7 @@ class Options extends StatelessWidget {
           text: AppLocalizations.current.serviceTypes,
         ),
         const Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: AppSizeConstants.largeSpace),
+          padding: EdgeInsets.symmetric(horizontal: AppInsets.lg),
           child: Divider(),
         ),
         OptionButton(
@@ -28,8 +27,7 @@ class Options extends StatelessWidget {
           text: AppLocalizations.current.changePassword,
         ),
         const Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: AppSizeConstants.largeSpace),
+          padding: EdgeInsets.symmetric(horizontal: AppInsets.lg),
           child: Divider(),
         ),
         OptionButton(

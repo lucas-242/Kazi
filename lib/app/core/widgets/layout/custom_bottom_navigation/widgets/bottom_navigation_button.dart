@@ -55,7 +55,7 @@ class BottomNavigationButton extends StatelessWidget {
                 icon,
                 colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
               ),
-              AppSizeConstants.tinyVerticalSpacer,
+              AppSpacings.verticalXs,
               Text(
                 label,
                 style: TextStyle(

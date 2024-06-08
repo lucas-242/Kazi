@@ -24,9 +24,9 @@ class ProfilePage extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                  left: AppSizeConstants.largeSpace,
-                  right: AppSizeConstants.largeSpace,
-                  top: AppSizeConstants.largeSpace,
+                  left: AppInsets.lg,
+                  right: AppInsets.lg,
+                  top: AppInsets.lg,
                 ),
                 child: Column(
                   children: [
@@ -47,15 +47,15 @@ class ProfilePage extends StatelessWidget {
                             : null,
                       ),
                     ),
-                    AppSizeConstants.largeVerticalSpacer,
+                    AppSpacings.verticalLg,
                     Text(user.name, style: context.titleMedium),
-                    AppSizeConstants.bigVerticalSpacer,
+                    AppSpacings.verticalXLg,
                     RowText(
                       leftText: AppLocalizations.current.email,
                       rightText: user.email,
                       rightTextStyle: context.bodyMedium,
                     ),
-                    AppSizeConstants.largeVerticalSpacer,
+                    AppSpacings.verticalLg,
                     const Divider(),
                   ],
                 ),

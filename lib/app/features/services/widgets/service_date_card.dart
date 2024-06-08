@@ -38,11 +38,10 @@ class ServiceDateCard extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(
-              left: AppSizeConstants.largeSpace,
-              right: AppSizeConstants.largeSpace,
-              top: AppSizeConstants.largeSpace,
-              bottom:
-                  !servicesByDate.isExpanded ? AppSizeConstants.largeSpace : 0,
+              left: AppInsets.lg,
+              right: AppInsets.lg,
+              top: AppInsets.lg,
+              bottom: !servicesByDate.isExpanded ? AppInsets.lg : 0,
             ),
             child: TextWithTrailing(
               text: getTextDate(servicesByDate.date),

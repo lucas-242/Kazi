@@ -99,7 +99,7 @@ class _SplashPageState extends State<SplashPage> {
             ),
             AnimatedContainer(
               duration: containerAnimationDuration,
-              height: AppSizeConstants.logoHeight,
+              height: AppSizings.logoHeight,
               width: showText ? context.width * 0.19 : 0,
               child: Center(
                 child: AnimatedOpacity(

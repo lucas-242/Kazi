@@ -32,7 +32,7 @@ class ServiceCard extends StatelessWidget {
               NumberFormatUtils.formatCurrency(context, service.finalValue),
               style: context.titleSmall!.copyWith(color: AppColors.green),
             ),
-            AppSizeConstants.largeHorizontalSpacer,
+            AppSpacings.horizontalLg,
             const Icon(
               Icons.chevron_right,
               color: AppColors.grey,

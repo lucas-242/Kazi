@@ -28,7 +28,7 @@ class BackAndPills extends StatelessWidget {
                   onTapBack != null ? onTapBack!() : context.navigateBack(),
               child: const Icon(Icons.chevron_left),
             ),
-            AppSizeConstants.smallHorizontalSpacer,
+            AppSpacings.horizontalSm,
             Visibility(
               visible: text != null,
               child: Text(

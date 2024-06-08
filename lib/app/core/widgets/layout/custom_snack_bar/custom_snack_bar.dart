@@ -10,8 +10,7 @@ ScaffoldFeatureController getCustomSnackBar(
   Key? key,
 }) {
   final colors = Theme.of(context).colorScheme;
-  final textColor =
-      type == SnackBarType.error ? colors.error : colors.onBackground;
+  final textColor = type == SnackBarType.error ? colors.error : AppColors.black;
   final backgroudColor =
       type == SnackBarType.error ? colors.errorContainer : AppColors.green;
 

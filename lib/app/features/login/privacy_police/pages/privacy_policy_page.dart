@@ -21,7 +21,7 @@ class PrivacyPolicyPage extends StatelessWidget {
         ),
         title: Padding(
           padding: const EdgeInsets.only(
-            bottom: AppSizeConstants.mediumSpace,
+            bottom: AppInsets.md,
           ),
           child: Text(
             AppLocalizations.current.privacyPolice,
@@ -34,17 +34,17 @@ class PrivacyPolicyPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: AppSizeConstants.largeSpace),
+          padding: const EdgeInsets.only(bottom: AppInsets.lg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(AppLocalizations.current.privacyPoliceStart),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceInformationTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceInformation),
               TextButtonLink(
                 onPressed: () => context.navigateTo(
@@ -90,61 +90,61 @@ class PrivacyPolicyPage extends StatelessWidget {
                 child: Text(
                     '${AppLocalizations.current.privacyPoliceInformation4}.'),
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceLogDataTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceLogData),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceCookiesTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceCookies),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceServicesTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceServices),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceSecurityTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceSecurity),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.pricayPoliceLinksTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.pricayPoliceLinks),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceChildrenTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceChildren),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceChangesTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceChanges),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(
                 AppLocalizations.current.privacyPoliceContactTitle,
                 style: context.headlineMedium,
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               RichText(
                 text: TextSpan(
                   text: AppLocalizations.current.privacyPoliceContact,
@@ -159,7 +159,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                   ],
                 ),
               ),
-              AppSizeConstants.smallVerticalSpacer,
+              AppSpacings.verticalSm,
               Text(AppLocalizations.current.privacyPoliceEnd),
             ],
           ),

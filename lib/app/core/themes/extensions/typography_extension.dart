@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 
 extension TypographyExtension on BuildContext {
   ThemeData get _theme => Theme.of(this);
@@ -7,13 +8,13 @@ extension TypographyExtension on BuildContext {
   ColorScheme get _colors => _theme.colorScheme;
 
   TextStyle? get cardTitle => GoogleFonts.outfit(
-        color: _colors.background,
+        color: AppColors.white,
         fontWeight: FontWeight.w500,
         fontSize: 22,
       );
 
   TextStyle? get cardSubtitle => GoogleFonts.outfit(
-        color: _colors.background,
+        color: AppColors.white,
         fontWeight: FontWeight.w500,
         fontSize: 16,
       );

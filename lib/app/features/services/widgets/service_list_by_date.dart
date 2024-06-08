@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/features/services/widgets/service_date_card.dart';
 import 'package:kazi/app/models/service_group_by_date.dart';
-import 'package:kazi/app/core/themes/themes.dart';
 
 class ServiceListByDate extends StatefulWidget {
   const ServiceListByDate({
@@ -35,8 +35,7 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
           onTap: () => onTap(servicesByDate, index),
         );
       },
-      separatorBuilder: (context, index) =>
-          AppSizeConstants.smallVerticalSpacer,
+      separatorBuilder: (context, index) => AppSpacings.verticalSm,
     );
   }
 }

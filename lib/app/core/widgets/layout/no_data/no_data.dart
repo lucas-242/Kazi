@@ -18,8 +18,7 @@ class NoData extends StatelessWidget {
         if (navbar != null) SizedBox(height: context.height * 0.12),
         Image.asset(AppAssets.noData),
         Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: AppSizeConstants.largeSpace),
+          padding: const EdgeInsets.symmetric(horizontal: AppInsets.lg),
           child: Text(
             message,
             style: context.headlineSmall,

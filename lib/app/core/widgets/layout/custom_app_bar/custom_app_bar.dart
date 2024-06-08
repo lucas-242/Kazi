@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       foregroundColor: context.colorsScheme.onSurface,
       title: Row(
         children: [
-          AppSizeConstants.smallHorizontalSpacer,
+          AppSpacings.horizontalSm,
           TextButton(
             key: AppOnboarding.stepFive,
             onPressed: () => context.navigateTo(AppPages.profile),
@@ -51,7 +51,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          AppSizeConstants.smallHorizontalSpacer,
+          AppSpacings.horizontalSm,
           Text(
             user?.shortName ?? '',
             style: context.appBarTitle,

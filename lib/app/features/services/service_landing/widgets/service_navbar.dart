@@ -43,7 +43,7 @@ class ServiceNavbar extends StatelessWidget {
               size: 18,
             ),
           ),
-          AppSizeConstants.smallHorizontalSpacer,
+          AppSpacings.horizontalSm,
           CircularButton(
             showCircularIndicator: serviceCubit.state.didFiltersChange,
             onTap: () => showModalBottomSheet(
@@ -60,7 +60,7 @@ class ServiceNavbar extends StatelessWidget {
               size: 18,
             ),
           ),
-          AppSizeConstants.smallHorizontalSpacer,
+          AppSpacings.horizontalSm,
           PillButton(
             onTap: () => context.navigateTo(AppPages.addServices),
             child: Text(AppLocalizations.current.newService),

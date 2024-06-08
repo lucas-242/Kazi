@@ -26,15 +26,15 @@ class WebView extends StatelessWidget {
       appBar: AppBar(
         title: Column(
           children: [
-            AppSizeConstants.mediumVerticalSpacer,
+            AppSpacings.verticalMd,
             BackAndPill(text: title),
-            AppSizeConstants.mediumVerticalSpacer,
+            AppSpacings.verticalMd,
           ],
         ),
         centerTitle: false,
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.background,
-        titleSpacing: AppSizeConstants.largeSpace,
+        titleSpacing: AppInsets.lg,
       ),
       body: WebViewWidget(controller: controller),
     );
