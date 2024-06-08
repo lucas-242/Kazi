@@ -11,8 +11,7 @@ class ServiceTypeNoDataNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: AppSizeConstants.smallSpace),
+      padding: const EdgeInsets.symmetric(horizontal: AppInsets.sm),
       child: TextWithTrailing(
         text: AppLocalizations.current.serviceTypes,
         trailing: PillButton(

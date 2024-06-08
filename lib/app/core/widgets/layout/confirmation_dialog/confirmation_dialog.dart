@@ -6,14 +6,14 @@ import 'package:kazi/app/core/widgets/buttons/buttons.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   const ConfirmationDialog({
-    Key? key,
+    super.key,
     required this.onConfirm,
     required this.onCancel,
     this.title,
     required this.message,
     this.cancelText,
     this.confirmText,
-  }) : super(key: key);
+  });
   final VoidCallback onCancel;
   final VoidCallback onConfirm;
   final String? title;

@@ -21,14 +21,14 @@ class ServiceTypesContent extends StatelessWidget {
           onTapPill: () => context.navigateTo(AppPages.addServiceType),
           onTapBack: () => context.navigateTo(AppPages.profile),
         ),
-        AppSizeConstants.bigVerticalSpacer,
+        AppSpacings.verticalXxLg,
         Card(
           child: Padding(
             padding: const EdgeInsets.only(
-              left: AppSizeConstants.largeSpace,
-              right: AppSizeConstants.largeSpace,
-              top: AppSizeConstants.tinySpace,
-              bottom: AppSizeConstants.mediumSpace,
+              left: AppInsets.lg,
+              right: AppInsets.lg,
+              top: AppInsets.xs,
+              bottom: AppInsets.md,
             ),
             child: ListView.separated(
               shrinkWrap: true,

@@ -12,11 +12,11 @@ class LeaveBottomSheet extends StatelessWidget {
     return SizedBox(
       height: context.height * 0.17,
       child: Padding(
-        padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
+        padding: const EdgeInsets.all(AppInsets.lg),
         child: Column(
           children: [
             Text(AppLocalizations.current.leaveApp, style: context.titleMedium),
-            AppSizeConstants.largeVerticalSpacer,
+            AppSpacings.verticalLg,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -25,7 +25,7 @@ class LeaveBottomSheet extends StatelessWidget {
                   width: 75,
                   child: Text(AppLocalizations.current.back),
                 ),
-                AppSizeConstants.bigHorizontalSpacer,
+                AppSpacings.horizontalXLg,
                 PillButton(
                   onTap: () {
                     context.closeModal(true);

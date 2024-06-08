@@ -27,7 +27,7 @@ class HomeContent extends StatelessWidget {
           AppLocalizations.current.yourEarnings,
           style: context.titleMedium,
         ),
-        AppSizeConstants.largeVerticalSpacer,
+        AppSpacings.verticalLg,
         InfoCard(
           key: showOnboarding ? AppOnboarding.stepOne : null,
           title: NumberFormatUtils.formatCurrency(context, state.totalBalance),
@@ -50,13 +50,13 @@ class HomeContent extends StatelessWidget {
           icon: AppAssets.rocket,
           color: AppColors.blue,
         ),
-        AppSizeConstants.smallVerticalSpacer,
+        AppSpacings.verticalSm,
         TitleAndPill(
           title: AppLocalizations.current.lastServices,
           pillText: AppLocalizations.current.newService,
           onTap: () => context.navigateToAddServices(),
         ),
-        AppSizeConstants.largeVerticalSpacer,
+        AppSpacings.verticalLg,
         SizedBox(
           key: showOnboarding ? AppOnboarding.stepFour : null,
           height: 200,

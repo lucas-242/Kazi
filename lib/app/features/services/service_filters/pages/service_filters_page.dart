@@ -17,9 +17,9 @@ import 'package:kazi/service_locator.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
   const FiltersBottomSheet({
-    Key? key,
+    super.key,
     required this.dateController,
-  }) : super(key: key);
+  });
   final TextEditingController dateController;
 
   @override
@@ -96,10 +96,10 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                  top: AppSizeConstants.bigSpace,
-                  left: AppSizeConstants.bigSpace,
-                  right: AppSizeConstants.bigSpace,
-                  bottom: AppSizeConstants.imenseSpace,
+                  top: AppInsets.xLg,
+                  left: AppInsets.xLg,
+                  right: AppInsets.xLg,
+                  bottom: AppInsets.xxxLg,
                 ),
                 child: Column(
                   children: [
@@ -111,21 +111,21 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         child: Text(AppLocalizations.current.removeFilters),
                       ),
                     ),
-                    AppSizeConstants.bigVerticalSpacer,
+                    AppSpacings.verticalXLg,
                     CustomDateRangePicker(
                       controller: widget.dateController,
                       startDate: initialStartDate,
                       endDate: initialEndDate,
                       onChange: (range) => onChangeDate(context, range),
                     ),
-                    AppSizeConstants.bigVerticalSpacer,
+                    AppSpacings.verticalXLg,
                     BlocBuilder<ServiceFiltersCubit, ServiceFiltersState>(
                       builder: (context, state) {
                         final cubit = context.read<ServiceFiltersCubit>();
                         return SizedBox(
                           width: double.infinity,
                           child: Wrap(
-                            spacing: AppSizeConstants.mediumSpace,
+                            spacing: AppInsets.md,
                             children: [
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
@@ -167,7 +167,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                         );
                       },
                     ),
-                    AppSizeConstants.imenseVerticalSpacer,
+                    AppSpacings.verticalXxxLg,
                     PillButton(
                       onTap: () => onApplyFilters(context),
                       child: Text(AppLocalizations.current.applyFilters),

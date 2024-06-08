@@ -20,7 +20,7 @@ class CustomSingleScrollView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ...children,
-          AppSizeConstants.bottomAppSpacer,
+          const SizedBox(height: AppSizings.bottomAppBarHeight),
         ],
       ),
     );

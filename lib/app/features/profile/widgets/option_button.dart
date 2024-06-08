@@ -18,7 +18,7 @@ class OptionButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
+        padding: const EdgeInsets.all(AppInsets.lg),
         child: TextWithTrailing(
           text: text,
           textStyle: textStyle ?? context.titleSmall,

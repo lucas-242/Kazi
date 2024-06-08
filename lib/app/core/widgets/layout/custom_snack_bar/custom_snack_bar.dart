@@ -10,15 +10,14 @@ void showCustomSnackBar(
   bool horizontalMargin = true,
   SnackBarType type = SnackBarType.error,
 }) {
-  final finalHorizontalBorder =
-      horizontalMargin ? AppSizeConstants.largeSpace : 0.0;
+  final finalHorizontalBorder = horizontalMargin ? AppInsets.lg : 0.0;
   final backgroundColor =
       type == SnackBarType.error ? AppColors.red : AppColors.green;
 
   final OverlayEntry overlayEntry = OverlayEntry(
     builder: (context) => Positioned(
-      bottom: (hasBottomNavigation ? AppSizeConstants.bottomAppBarHeight : 0) +
-          AppSizeConstants.tinySpace,
+      bottom: (hasBottomNavigation ? AppSizings.bottomAppBarHeight : 0) +
+          AppInsets.xs,
       left: finalHorizontalBorder,
       right: finalHorizontalBorder,
       child: Material(
@@ -26,7 +25,7 @@ void showCustomSnackBar(
         borderRadius: BorderRadius.circular(8),
         color: backgroundColor,
         child: Padding(
-          padding: const EdgeInsets.all(AppSizeConstants.mediumSpace),
+          padding: const EdgeInsets.all(AppInsets.md),
           child: Text(
             message,
             style: context.titleSmall!.copyWith(color: AppColors.white),

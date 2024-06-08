@@ -35,12 +35,12 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           onTapBack: () => context.navigateTo(AppPages.signIn),
           text: AppLocalizations.current.forgotPassword,
         ),
-        AppSizeConstants.largeVerticalSpacer,
+        AppSpacings.verticalLg,
         Text(
           AppLocalizations.current.forgotPasswordInfo,
           style: context.titleSmall,
         ),
-        AppSizeConstants.bigVerticalSpacer,
+        AppSpacings.verticalXLg,
         Form(
           key: _formKey,
           child: Column(
@@ -53,7 +53,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 onChanged: (email) => cubit.onChangeEmail(email),
                 validator: (value) => FormValidator.validateEmailField(value),
               ),
-              AppSizeConstants.bigVerticalSpacer,
+              AppSpacings.verticalXLg,
               PillButton(
                 onTap: onTapSubmit,
                 fillWidth: true,

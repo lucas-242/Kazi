@@ -21,9 +21,9 @@ class EmailConfirmation extends StatelessWidget {
               onTapBack: () => context.navigateTo(AppPages.signIn),
               text: AppLocalizations.current.forgotPassword,
             ),
-            AppSizeConstants.largeVerticalSpacer,
+            AppSpacings.verticalLg,
             SvgPicture.asset(AppAssets.email),
-            AppSizeConstants.bigVerticalSpacer,
+            AppSpacings.verticalXLg,
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -43,7 +43,7 @@ class EmailConfirmation extends StatelessWidget {
                 ],
               ),
             ),
-            AppSizeConstants.bigVerticalSpacer,
+            AppSpacings.verticalXLg,
             const LoginSignInChanger(),
           ],
         ),

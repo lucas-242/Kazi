@@ -33,7 +33,7 @@ class LoginSignInChanger extends StatelessWidget {
     return Column(
       children: [
         const Divider(),
-        AppSizeConstants.mediumVerticalSpacer,
+        AppSpacings.verticalMd,
         MaterialButton(
           onPressed: () => chooseFromPage(
             currentPage,
@@ -70,7 +70,7 @@ class LoginSignInChanger extends StatelessWidget {
             ),
           ),
         ),
-        AppSizeConstants.mediumVerticalSpacer,
+        AppSpacings.verticalMd,
       ],
     );
   }

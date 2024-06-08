@@ -21,8 +21,7 @@ class ServiceCard extends StatelessWidget {
       splashColor: AppColors.lightGrey,
       highlightColor: AppColors.lightGrey,
       child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: AppSizeConstants.largeSpace),
+        contentPadding: const EdgeInsets.symmetric(horizontal: AppInsets.lg),
         title: Text('${service.serviceType?.name}', style: context.titleSmall),
         subtitle: Text(
           DateFormat.yMd().format(service.scheduledToStartAt).normalizeDate(),
@@ -35,7 +34,7 @@ class ServiceCard extends StatelessWidget {
               NumberFormatUtils.formatCurrency(context, service.finalValue),
               style: context.titleSmall!.copyWith(color: AppColors.green),
             ),
-            AppSizeConstants.largeHorizontalSpacer,
+            AppSpacings.horizontalLg,
             const Icon(
               Icons.chevron_right,
               color: AppColors.grey,

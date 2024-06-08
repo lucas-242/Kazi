@@ -20,8 +20,8 @@ class InfoList extends StatelessWidget {
     return ListView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.only(
-        left: AppSizeConstants.largeSpace,
-        right: AppSizeConstants.largeSpace,
+        left: AppInsets.lg,
+        right: AppInsets.lg,
       ),
       children: [
         InfoCard(
@@ -31,7 +31,7 @@ class InfoList extends StatelessWidget {
           color: AppColors.green,
           width: cardWidth,
         ),
-        AppSizeConstants.smallHorizontalSpacer,
+        AppSpacings.horizontalSm,
         InfoCard(
           title: NumberFormatUtils.formatCurrency(context, totalDiscounted),
           subtitle: AppLocalizations.current.discounts,
@@ -39,7 +39,7 @@ class InfoList extends StatelessWidget {
           color: AppColors.orange,
           width: cardWidth,
         ),
-        AppSizeConstants.smallHorizontalSpacer,
+        AppSpacings.horizontalSm,
         InfoCard(
           title: NumberFormatUtils.formatCurrency(context, totalValue),
           subtitle: AppLocalizations.current.totalReceived,

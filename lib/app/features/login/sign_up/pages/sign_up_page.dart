@@ -87,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         AppLocalizations.current.signUp,
                         style: context.headlineMedium,
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       CustomTextFormField(
                         labelText: AppLocalizations.current.name,
                         keyboardType: TextInputType.name,
@@ -99,7 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         onChanged: (value) => cubit.onChangeName(value),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       CustomTextFormField(
                         labelText: AppLocalizations.current.email,
                         keyboardType: TextInputType.emailAddress,
@@ -109,7 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             FormValidator.validateEmailField(value),
                         onChanged: (value) => cubit.onChangeEmail(value),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       CustomTextFormField(
                         controller: passwordController,
                         labelText: AppLocalizations.current.password,
@@ -124,11 +124,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             state.showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: context.colorsScheme.onBackground,
+                            color: AppColors.black,
                           ),
                         ),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       CustomTextFormField(
                         controller: confirmPasswordController,
                         labelText: AppLocalizations.current.confirmPassword,
@@ -146,19 +146,19 @@ class _SignUpPageState extends State<SignUpPage> {
                             state.showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: context.colorsScheme.onBackground,
+                            color: context.colorsScheme.onSurface,
                           ),
                         ),
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       PillButton(
                         onTap: () => onTapSignUp(cubit),
                         fillWidth: true,
                         child: Text(AppLocalizations.current.signUp),
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       const LoginTermsPolicies(),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                     ],
                   ),
                   const LoginSignInChanger(),

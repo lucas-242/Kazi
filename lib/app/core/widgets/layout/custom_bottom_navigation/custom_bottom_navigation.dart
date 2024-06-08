@@ -9,11 +9,11 @@ import 'package:kazi/app/core/widgets/layout/custom_bottom_navigation/widgets/bo
 
 class CustomBottomNavigation extends StatelessWidget {
   const CustomBottomNavigation({
-    Key? key,
+    super.key,
     required this.currentPage,
     required this.onTap,
     required this.onTapFloatingButton,
-  }) : super(key: key);
+  });
   final AppPages currentPage;
   final void Function(int) onTap;
   final VoidCallback onTapFloatingButton;
@@ -24,7 +24,7 @@ class CustomBottomNavigation extends StatelessWidget {
       children: [
         CustomPaint(
           painter: BottomNavigationPainter(),
-          size: Size(context.width, AppSizeConstants.bottomAppBarHeight),
+          size: Size(context.width, AppSizings.bottomAppBarHeight),
         ),
         Center(
           heightFactor: 1.45,
@@ -41,9 +41,9 @@ class CustomBottomNavigation extends StatelessWidget {
         ),
         SizedBox(
           width: context.width,
-          height: AppSizeConstants.bottomAppBarHeight,
+          height: AppSizings.bottomAppBarHeight,
           child: Padding(
-            padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
+            padding: const EdgeInsets.only(top: AppInsets.lg),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -55,7 +55,7 @@ class CustomBottomNavigation extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                   isSelected: currentPage == AppPages.home,
                 ),
-                AppSizeConstants.emptyWidget,
+                const SizedBox.shrink(),
                 BottomNavigationButton(
                   onTap: () => onTap(AppPages.services.value),
                   icon: AppAssets.services,

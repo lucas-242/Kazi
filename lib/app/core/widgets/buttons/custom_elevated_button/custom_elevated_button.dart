@@ -3,14 +3,14 @@ import 'package:kazi/app/core/themes/themes.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.text,
     this.backgroundColor,
     this.foregroundColor,
     this.width,
     this.height,
-  }) : super(key: key);
+  });
   final VoidCallback onTap;
   final String text;
   final Color? backgroundColor;
@@ -24,13 +24,13 @@ class CustomElevatedButton extends StatelessWidget {
       key: key,
       onPressed: onTap,
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all<Size>(Size(
+        minimumSize: WidgetStateProperty.all<Size>(Size(
             width ?? context.width * 0.7, height ?? context.height * 0.067)),
         backgroundColor: backgroundColor != null
-            ? MaterialStateProperty.all<Color>(backgroundColor!)
+            ? WidgetStateProperty.all<Color>(backgroundColor!)
             : null,
         foregroundColor: foregroundColor != null
-            ? MaterialStateProperty.all<Color>(foregroundColor!)
+            ? WidgetStateProperty.all<Color>(foregroundColor!)
             : null,
       ),
       child: Text(text),

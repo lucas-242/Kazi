@@ -17,11 +17,11 @@ import 'package:kazi/app/models/dropdown_item.dart';
 
 class ServiceFormContent extends StatefulWidget {
   const ServiceFormContent({
-    Key? key,
+    super.key,
     required this.onConfirm,
     this.isCreating = true,
     this.showOnboarding = false,
-  }) : super(key: key);
+  });
   final Function() onConfirm;
   final bool isCreating;
   final bool showOnboarding;
@@ -68,14 +68,14 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
     return CustomSingleScrollView(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: AppSizeConstants.smallSpace),
+          padding: const EdgeInsets.only(left: AppInsets.sm),
           child: BackAndPill(
               text: widget.isCreating
                   ? AppLocalizations.current.newService
                   : AppLocalizations.current.editService,
               onTapBack: () => context.navigateToAddServices()),
         ),
-        AppSizeConstants.largeVerticalSpacer,
+        AppSpacings.verticalLg,
         Form(
           key: _formKey,
           child: Column(
@@ -94,7 +94,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                       AppLocalizations.current.serviceType,
                     ),
                   ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                   CustomTextFormField(
                     controller: _valueController,
                     labelText: AppLocalizations.current.total,
@@ -106,7 +106,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                       AppLocalizations.current.total,
                     ),
                   ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                   CustomTextFormField(
                     controller: _discountController,
                     labelText: AppLocalizations.current.discountPercentage,
@@ -120,7 +120,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   ),
                 ],
               ),
-              AppSizeConstants.largeVerticalSpacer,
+              AppSpacings.verticalLg,
               Column(
                 key: AppOnboarding.stepThirteen,
                 children: [
@@ -134,7 +134,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   if (widget.isCreating)
                     Column(
                       children: [
-                        AppSizeConstants.largeVerticalSpacer,
+                        AppSpacings.verticalLg,
                         CustomTextFormField(
                           labelText: AppLocalizations.current.quantity,
                           keyboardType: TextInputType.number,
@@ -146,7 +146,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                         ),
                       ],
                     ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                   CustomTextFormField(
                     labelText: AppLocalizations.current.description,
                     initialValue: cubit.state.service.description,
@@ -156,12 +156,12 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                   ),
                 ],
               ),
-              AppSizeConstants.bigVerticalSpacer,
+              AppSpacings.verticalXLg,
               PillButton(
                 onTap: _onConfirm,
                 child: Text(AppLocalizations.current.saveService),
               ),
-              AppSizeConstants.bigVerticalSpacer,
+              AppSpacings.verticalXLg,
             ],
           ),
         ),

@@ -16,9 +16,9 @@ class PaddingWrap extends StatelessWidget {
     return Padding(
       padding: padding ??
           const EdgeInsets.only(
-            left: AppSizeConstants.largeSpace,
-            right: AppSizeConstants.largeSpace,
-            top: AppSizeConstants.largeSpace,
+            left: AppInsets.lg,
+            right: AppInsets.lg,
+            top: AppInsets.lg,
           ),
       child: child,
     );

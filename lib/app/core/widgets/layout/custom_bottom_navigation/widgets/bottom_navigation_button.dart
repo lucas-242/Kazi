@@ -9,7 +9,10 @@ class BottomNavigationButton extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.isSelected,
-    this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+    this.padding = const EdgeInsets.symmetric(
+      vertical: AppInsets.xs,
+      horizontal: AppInsets.md,
+    ),
     this.onboardingKey,
     this.onboardingTitle,
     this.onboardingDescription,
@@ -43,7 +46,7 @@ class BottomNavigationButton extends StatelessWidget {
     return TextButton(
       onPressed: onTap,
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
       ),
       child: Padding(
         padding: padding,
@@ -56,7 +59,7 @@ class BottomNavigationButton extends StatelessWidget {
               icon,
               colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
             ),
-            AppSizeConstants.tinyVerticalSpacer,
+            AppSpacings.verticalXs,
             Text(
               label,
               style: TextStyle(

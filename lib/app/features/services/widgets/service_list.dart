@@ -23,10 +23,10 @@ class ServiceList extends StatelessWidget {
     return Card(
       child: Padding(
         padding: EdgeInsets.only(
-          top: title == null
-              ? AppSizeConstants.tinySpace
-              : AppSizeConstants.largeSpace,
-          bottom: AppSizeConstants.mediumSpace,
+          left: AppInsets.lg,
+          right: AppInsets.lg,
+          top: title == null ? AppInsets.xs : AppInsets.lg,
+          bottom: AppInsets.md,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,7 @@ class ServiceList extends StatelessWidget {
                     title!.capitalize(),
                     style: context.titleSmall,
                   ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                 ],
               ),
             expandList

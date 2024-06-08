@@ -34,7 +34,7 @@ class BackAndPill extends StatelessWidget {
                   onTapBack != null ? onTapBack!() : context.navigateBack(),
               child: const Icon(Icons.chevron_left),
             ),
-            AppSizeConstants.smallHorizontalSpacer,
+            AppSpacings.horizontalSm,
             Visibility(
               visible: text != null,
               child: Text(
@@ -49,7 +49,7 @@ class BackAndPill extends StatelessWidget {
           child: PillButton(
             onTap: onTapPill,
             backgroundColor: backgroundColor ?? context.colorsScheme.onSurface,
-            foregroundColor: foregroundColor ?? context.colorsScheme.background,
+            foregroundColor: foregroundColor ?? AppColors.white,
             child: Text(pillText ?? ''),
           ),
         ),

@@ -31,7 +31,7 @@ class ServiceDetailsPage extends StatelessWidget {
                   onTap: () => context.navigateToAddServices(service),
                   child: Text(AppLocalizations.current.edit),
                 ),
-                AppSizeConstants.tinyHorizontalSpacer,
+                AppSpacings.horizontalXs,
                 PillButton(
                   backgroundColor: context.colorsScheme.error,
                   onTap: () => onTapDelete(context),
@@ -39,10 +39,10 @@ class ServiceDetailsPage extends StatelessWidget {
                 ),
               ],
             ),
-            AppSizeConstants.largeVerticalSpacer,
+            AppSpacings.verticalLg,
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(AppSizeConstants.largeSpace),
+                padding: const EdgeInsets.all(AppInsets.lg),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -50,14 +50,14 @@ class ServiceDetailsPage extends StatelessWidget {
                       '${service.serviceType?.name}',
                       style: context.titleMedium,
                     ),
-                    AppSizeConstants.smallVerticalSpacer,
+                    AppSpacings.verticalSm,
                     Text(
                       DateFormat.yMd()
                           .format(service.scheduledToStartAt)
                           .normalizeDate(),
                       style: context.labelMedium,
                     ),
-                    AppSizeConstants.bigVerticalSpacer,
+                    AppSpacings.verticalXLg,
                     RowText(
                       leftText: AppLocalizations.current.myBalance,
                       rightText: NumberFormatUtils.formatCurrency(
@@ -69,7 +69,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(
-                        vertical: AppSizeConstants.largeSpace,
+                        vertical: AppInsets.lg,
                       ),
                       child: Divider(),
                     ),
@@ -84,7 +84,7 @@ class ServiceDetailsPage extends StatelessWidget {
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(
-                        vertical: AppSizeConstants.largeSpace,
+                        vertical: AppInsets.lg,
                       ),
                       child: Divider(),
                     ),
@@ -101,7 +101,7 @@ class ServiceDetailsPage extends StatelessWidget {
                             children: [
                               const Padding(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: AppSizeConstants.largeSpace,
+                                  vertical: AppInsets.lg,
                                 ),
                                 child: Divider(),
                               ),
@@ -112,17 +112,17 @@ class ServiceDetailsPage extends StatelessWidget {
                                     AppLocalizations.current.description,
                                     style: context.titleSmall,
                                   ),
-                                  AppSizeConstants.smallVerticalSpacer,
+                                  AppSpacings.verticalSm,
                                   Text(
                                     service.description!,
                                     style: context.bodySmall,
                                   )
                                 ],
                               ),
-                              AppSizeConstants.smallVerticalSpacer,
+                              AppSpacings.verticalSm,
                             ],
                           )
-                        : AppSizeConstants.smallVerticalSpacer,
+                        : AppSpacings.verticalSm,
                   ],
                 ),
               ),

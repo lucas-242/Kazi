@@ -9,7 +9,7 @@ import 'package:kazi/app/models/user.dart';
 import 'package:kazi/service_locator.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -99,7 +99,7 @@ class _SplashPageState extends State<SplashPage> {
             ),
             AnimatedContainer(
               duration: containerAnimationDuration,
-              height: AppSizeConstants.logoHeight,
+              height: AppSizings.logoHeight,
               width: showText ? context.width * 0.19 : 0,
               child: Center(
                 child: AnimatedOpacity(

@@ -47,7 +47,7 @@ class ServiceListContent extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSizeConstants.largeSpace),
+        padding: EdgeInsets.symmetric(horizontal: AppInsets.lg),
         child: Divider(),
       ),
     );

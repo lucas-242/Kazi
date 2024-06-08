@@ -78,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                         AppLocalizations.current.signIn,
                         style: context.headlineMedium,
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       CustomTextFormField(
                         labelText: AppLocalizations.current.email,
                         keyboardType: TextInputType.emailAddress,
@@ -88,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
                         validator: (value) =>
                             FormValidator.validateEmailField(value),
                       ),
-                      AppSizeConstants.bigVerticalSpacer,
+                      AppSpacings.verticalXLg,
                       CustomTextFormField(
                         controller: passwordController,
                         labelText: AppLocalizations.current.password,
@@ -105,11 +105,11 @@ class _SignInPageState extends State<SignInPage> {
                             cubit.state.showPassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: context.colorsScheme.onBackground,
+                            color: AppColors.black,
                           ),
                         ),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       Align(
                         alignment: Alignment.centerLeft,
                         child: MaterialButton(
@@ -122,7 +122,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                       ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                       PillButton(
                         onTap: () => onTapSignIn(cubit),
                         fillWidth: true,
@@ -162,7 +162,7 @@ class _SignInPageState extends State<SignInPage> {
                       //     ],
                       //   ),
                       // ),
-                      AppSizeConstants.largeVerticalSpacer,
+                      AppSpacings.verticalLg,
                     ],
                   ),
                   const LoginSignInChanger(),

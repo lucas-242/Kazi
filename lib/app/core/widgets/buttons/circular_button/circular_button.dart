@@ -3,12 +3,12 @@ import 'package:kazi/app/core/themes/themes.dart';
 
 class CircularButton extends StatelessWidget {
   const CircularButton({
-    Key? key,
+    super.key,
     this.onTap,
     required this.child,
     this.iconSize,
     this.showCircularIndicator = false,
-  }) : super(key: key);
+  });
   final VoidCallback? onTap;
   final Widget child;
   final double? iconSize;

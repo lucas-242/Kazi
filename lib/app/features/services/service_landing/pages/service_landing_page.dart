@@ -37,7 +37,7 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
   @override
   Widget build(BuildContext context) {
     return CustomSafeArea(
-      padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
+      padding: const EdgeInsets.only(top: AppInsets.lg),
       onRefresh: () => context.read<ServiceLandingCubit>().onRefresh(),
       child: BlocListener<ServiceLandingCubit, ServiceLandingState>(
         listenWhen: (previous, current) =>
@@ -68,13 +68,12 @@ class _ServiceLandingPageState extends State<ServiceLandingPage> {
                       dateController: dateController,
                     ),
                     onLoading: () => const Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppSizeConstants.largeSpace),
+                      padding: EdgeInsets.symmetric(horizontal: AppInsets.lg),
                       child: Loading(),
                     ),
                     onNoData: () => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: AppSizeConstants.largeSpace),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: AppInsets.lg),
                       child: NoData(
                         message: AppLocalizations.current.noServices,
                         navbar: ServiceNavbar(dateController: dateController),

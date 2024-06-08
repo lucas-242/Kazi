@@ -55,7 +55,7 @@ class _ServiceTypeFormPageState extends State<ServiceTypeFormPage> {
                       onTapPill: () =>
                           cubit.deleteServiceType(cubit.state.serviceType),
                     ),
-              AppSizeConstants.bigVerticalSpacer,
+              AppSpacings.verticalXLg,
               BlocConsumer<ServiceTypesCubit, ServiceTypesState>(
                 listenWhen: (previous, current) =>
                     previous.status != current.status,

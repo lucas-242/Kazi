@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kazi/app/core/themes/themes.dart';
 
 abstract class ThemeSettings {
@@ -36,8 +35,8 @@ abstract class ThemeSettings {
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
-      textTheme: _textTheme(colors),
-      scaffoldBackgroundColor: colors.background,
+      textTheme: _textTheme(),
+      scaffoldBackgroundColor: colors.surface,
     );
   }
 
@@ -60,8 +59,8 @@ abstract class ThemeSettings {
       tabBarTheme: _tabBarTheme(colors),
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
-      textTheme: _textTheme(colors),
-      scaffoldBackgroundColor: colors.background,
+      textTheme: _textTheme(),
+      scaffoldBackgroundColor: colors.surface,
     );
   }
 
@@ -70,7 +69,6 @@ abstract class ThemeSettings {
       brightness: brightness,
       seedColor: AppColors.primary,
       primary: AppColors.primary,
-      background: AppColors.background,
       surface: AppColors.white,
       onSurface: AppColors.black,
       error: AppColors.red,
@@ -81,7 +79,7 @@ abstract class ThemeSettings {
     return CardTheme(
       elevation: 0,
       shape: defaultShape,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: AppInsets.sm),
       clipBehavior: Clip.antiAlias,
     );
   }
@@ -128,7 +126,7 @@ abstract class ThemeSettings {
       ColorScheme colors) {
     return BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: colors.background,
+      backgroundColor: colors.surface,
       selectedItemColor: colors.primary,
       unselectedItemColor: colors.onPrimaryContainer,
       showSelectedLabels: true,
@@ -197,7 +195,7 @@ abstract class ThemeSettings {
       floatingLabelBehavior: FloatingLabelBehavior.never,
       filled: true,
       fillColor: colors.surface,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: AppInsets.md),
       enabledBorder: OutlineInputBorder(
         borderRadius: borderRadius,
         borderSide: BorderSide(color: colors.onSurface),
@@ -217,67 +215,5 @@ abstract class ThemeSettings {
     );
   }
 
-  static TextTheme _textTheme(ColorScheme colors) {
-    return TextTheme(
-      displayLarge: GoogleFonts.outfit(),
-      displayMedium: GoogleFonts.outfit(),
-      displaySmall: GoogleFonts.outfit(),
-      headlineLarge: GoogleFonts.outfit(
-        color: colors.onSurface,
-        fontWeight: FontWeight.w500,
-        fontSize: 32,
-      ),
-      headlineMedium: GoogleFonts.outfit(
-        color: colors.onSurface,
-        fontWeight: FontWeight.w500,
-        fontSize: 24,
-      ),
-      headlineSmall: GoogleFonts.outfit(
-        color: AppColors.grey,
-        fontWeight: FontWeight.w500,
-        fontSize: 18,
-      ),
-      titleLarge: GoogleFonts.outfit(),
-      titleMedium: GoogleFonts.outfit(
-        color: colors.onSurface,
-        fontWeight: FontWeight.w500,
-        fontSize: 20,
-      ),
-      titleSmall: GoogleFonts.outfit(
-        color: colors.onSurface,
-        fontWeight: FontWeight.w500,
-        fontSize: 16,
-      ),
-      bodyLarge: GoogleFonts.outfit(
-        color: colors.onSurface,
-        fontWeight: FontWeight.w400,
-        fontSize: 18,
-      ),
-      bodyMedium: GoogleFonts.outfit(
-        color: colors.onSurface,
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-      ),
-      bodySmall: GoogleFonts.outfit(
-        color: colors.onSurface,
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-      ),
-      labelLarge: GoogleFonts.outfit(
-        color: AppColors.grey,
-        fontWeight: FontWeight.w400,
-        fontSize: 16,
-      ),
-      labelMedium: GoogleFonts.outfit(
-        color: AppColors.grey,
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-      ),
-      labelSmall: GoogleFonts.outfit(
-        color: AppColors.grey,
-        fontWeight: FontWeight.w400,
-        fontSize: 12,
-      ),
-    );
-  }
+  static TextTheme _textTheme() => AppTextStyles.textTheme;
 }

@@ -36,11 +36,11 @@ class ServiceLandingContent extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppSizeConstants.largeSpace,
+                horizontal: AppInsets.lg,
               ),
               child: ServiceNavbar(dateController: dateController),
             ),
-            AppSizeConstants.mediumVerticalSpacer,
+            AppSpacings.verticalMd,
             SizedBox(
               height: 105,
               child: InfoList(
@@ -54,17 +54,16 @@ class ServiceLandingContent extends StatelessWidget {
         if (state.didFiltersChange)
           Padding(
             padding: const EdgeInsets.only(
-              left: AppSizeConstants.largeSpace,
-              right: AppSizeConstants.largeSpace,
-              top: AppSizeConstants.mediumSpace,
+              left: AppInsets.lg,
+              right: AppInsets.lg,
+              top: AppInsets.md,
             ),
             child: Text(title, style: context.titleSmall),
           ),
-        AppSizeConstants.mediumVerticalSpacer,
+        AppSpacings.verticalMd,
         Padding(
           key: showOnboarding ? AppOnboarding.stepNine : null,
-          padding: const EdgeInsets.symmetric(
-              horizontal: AppSizeConstants.largeSpace),
+          padding: const EdgeInsets.symmetric(horizontal: AppInsets.lg),
           child: state.services.isNotEmpty
               ? ServiceListByDate(
                   servicesByDateList:
@@ -73,7 +72,7 @@ class ServiceLandingContent extends StatelessWidget {
                     state.selectedOrderBy,
                   ),
                 )
-              : AppSizeConstants.emptyWidget,
+              : const SizedBox.shrink(),
         ),
       ],
     );

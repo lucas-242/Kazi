@@ -17,7 +17,7 @@ class LoginShell extends StatelessWidget {
         canPop: false,
         onPopInvoked: (_) => context.showLeftBottomSheet(),
         child: CustomSafeArea(
-          padding: const EdgeInsets.only(top: AppSizeConstants.largeSpace),
+          padding: const EdgeInsets.only(top: AppInsets.lg),
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -28,7 +28,7 @@ class LoginShell extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       AppAssets.logoExtended,
-                      height: AppSizeConstants.logoHeight,
+                      height: AppSizings.logoHeight,
                     ),
                   ],
                 ),
@@ -37,9 +37,9 @@ class LoginShell extends StatelessWidget {
                 hasScrollBody: false,
                 child: Container(
                   padding: const EdgeInsets.only(
-                    top: AppSizeConstants.bigSpace,
-                    left: AppSizeConstants.bigSpace,
-                    right: AppSizeConstants.bigSpace,
+                    top: AppInsets.xLg,
+                    left: AppInsets.xLg,
+                    right: AppInsets.xLg,
                   ),
                   decoration: const BoxDecoration(
                     color: AppColors.white,

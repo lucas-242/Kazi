@@ -30,7 +30,7 @@ class ServiceTypeCard extends StatelessWidget {
             NumberFormatUtils.formatCurrency(context, serviceType.defaultValue),
             style: context.titleSmall,
           ),
-          AppSizeConstants.largeHorizontalSpacer,
+          AppSpacings.horizontalLg,
           CircularButton(
             onTap: () => onTapEdit(serviceType),
             child: const Icon(

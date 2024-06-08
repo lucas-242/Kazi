@@ -23,28 +23,28 @@ class PillButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle buttonStyle = ButtonStyle(
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       )),
-      minimumSize: MaterialStateProperty.all<Size>(
+      minimumSize: WidgetStateProperty.all<Size>(
         fillWidth
             ? const Size.fromHeight(45)
             : width != null
                 ? Size(width!, 40)
                 : const Size(5, 40),
       ),
-      backgroundColor: MaterialStateProperty.all<Color>(
+      backgroundColor: WidgetStateProperty.all<Color>(
         backgroundColor != null
             ? backgroundColor!
             : context.colorsScheme.onSurface,
       ),
-      foregroundColor: MaterialStateProperty.all<Color>(
+      foregroundColor: WidgetStateProperty.all<Color>(
         foregroundColor != null
             ? foregroundColor!
-            : context.colorsScheme.background,
+            : context.colorsScheme.surface,
       ),
-      textStyle: MaterialStateProperty.all<TextStyle>(context.titleSmall!),
+      textStyle: WidgetStateProperty.all<TextStyle>(context.titleSmall!),
     );
 
     return outlinedButton

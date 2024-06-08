@@ -58,9 +58,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             child: Padding(
               padding: _isFromProfilePage
                   ? const EdgeInsets.only(
-                      left: AppSizeConstants.largeSpace,
-                      right: AppSizeConstants.largeSpace,
-                      top: AppSizeConstants.largeSpace,
+                      left: AppInsets.lg,
+                      right: AppInsets.lg,
+                      top: AppInsets.lg,
                     )
                   : EdgeInsets.zero,
               child: Column(
@@ -71,7 +71,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         : context.navigateTo(AppPages.signIn),
                     text: AppLocalizations.current.changePassword,
                   ),
-                  AppSizeConstants.largeVerticalSpacer,
+                  AppSpacings.verticalLg,
                   ResetPasswordForm(
                     resetPasswordToken: widget.resetPasswordToken,
                     confirmPasswordController: _confirmPasswordController,

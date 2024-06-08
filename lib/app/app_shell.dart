@@ -4,17 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi/app/core/routes/routes.dart';
-import 'package:kazi/app/core/themes/extensions/theme_extension.dart';
-import 'package:kazi/app/core/themes/settings/app_size_constants.dart';
+import 'package:kazi/app/core/themes/themes.dart';
 import 'package:kazi/app/core/widgets/layout/layout.dart';
 
 import 'app_cubit.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 
@@ -63,7 +62,7 @@ class _AppShellState extends State<AppShell> {
         child: Stack(
           children: [
             SizedBox(
-                height: context.height - AppSizeConstants.bottomAppBarHeight,
+                height: context.height - AppSizings.bottomAppBarHeight,
                 child: widget.child),
             Align(
               alignment: Alignment.bottomCenter,

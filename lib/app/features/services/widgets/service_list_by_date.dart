@@ -5,9 +5,9 @@ import 'package:kazi/app/models/service_group_by_date.dart';
 
 class ServiceListByDate extends StatefulWidget {
   const ServiceListByDate({
-    Key? key,
+    super.key,
     required this.servicesByDateList,
-  }) : super(key: key);
+  });
 
   final List<ServicesGroupByDate> servicesByDateList;
 
@@ -35,8 +35,7 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
           onTap: () => onTap(servicesByDate, index),
         );
       },
-      separatorBuilder: (context, index) =>
-          AppSizeConstants.smallVerticalSpacer,
+      separatorBuilder: (context, index) => AppSpacings.verticalSm,
     );
   }
 }
