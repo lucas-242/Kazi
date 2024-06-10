@@ -1,0 +1,1 @@
+ C:\\Projetos\\Kazi\\.dart_tool\\flutter_build\\345da13c474f02b1a2b54509c0bf94e2\\native_assets.yaml: 

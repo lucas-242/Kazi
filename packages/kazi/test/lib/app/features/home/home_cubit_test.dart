@@ -1,0 +1,159 @@
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kazi/app/core/auth/auth.dart';
+import 'package:kazi/app/core/errors/errors.dart';
+import 'package:kazi/app/core/l10n/generated/l10n.dart';
+import 'package:kazi/app/core/utils/base_state.dart';
+import 'package:kazi/app/data/repositories/service_type_repository/service_type_repository.dart';
+import 'package:kazi/app/data/repositories/services_repository/services_repository.dart';
+import 'package:kazi/app/features/home/home.dart';
+import 'package:kazi/app/models/enums/order_by.dart';
+import 'package:kazi/app/services/services_service/local/local_services_service.dart';
+import 'package:kazi/app/services/services_service/services_service.dart';
+import 'package:kazi/app/services/time_service/local/local_time_service.dart';
+import 'package:kazi/app/services/time_service/time_service.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import '../../../../mocks/mocks.dart';
+import '../../../../utils/test_helper.dart';
+import 'home_cubit_test.mocks.dart';
+
+@GenerateMocks([ServiceTypeRepository, ServicesRepository, Auth])
+void main() {
+  late MockServicesRepository servicesRepository;
+  late MockAuth authService;
+  late TimeService timeService;
+  late ServicesService servicesService;
+  late HomeCubit cubit;
+
+  TestHelper.loadAppLocalizations();
+
+  setUp(() {
+    servicesRepository = MockServicesRepository();
+    authService = MockAuth();
+    timeService = LocalTimeService();
+    servicesService = LocalServicesService(timeService);
+
+    when(authService.user).thenReturn(userMock);
+
+    when(servicesRepository.get(any))
+        .thenAnswer((_) async => servicesWithTypesMock);
+
+    cubit = HomeCubit(
+      servicesRepository,
+      servicesService,
+    );
+  });
+
+  group('Call onInit function', () {
+    blocTest(
+      'emits HomeState with loaded services ordered by DateDesc and status success when call onInit',
+      build: () => cubit,
+      act: (cubit) => cubit.onInit(),
+      expect: () => [
+        HomeState(
+          status: BaseStateStatus.success,
+          services: servicesService.orderServices(
+            servicesWithTypesMock,
+            OrderBy.dateDesc,
+          ),
+        )
+      ],
+    );
+
+    blocTest(
+      'emits HomeState with empty services and status noData when call onInit',
+      setUp: () {
+        when(servicesRepository.get(any)).thenAnswer((_) async => []);
+      },
+      build: () => cubit,
+      act: (cubit) => cubit.onInit(),
+      expect: () => [
+        HomeState(
+          status: BaseStateStatus.noData,
+        )
+      ],
+    );
+
+    blocTest(
+      'emits HomeState with status error and callbackMessage = errorToGetServices when call onInit',
+      build: () => cubit,
+      seed: () => HomeState(status: BaseStateStatus.noData),
+      setUp: () {
+        when(servicesRepository.get(any)).thenThrow(
+            ExternalError(AppLocalizations.current.errorToGetServices));
+      },
+      act: (cubit) => cubit.onInit(),
+      expect: () => [
+        HomeState(
+          callbackMessage: AppLocalizations.current.errorToGetServices,
+          status: BaseStateStatus.error,
+        )
+      ],
+    );
+
+    blocTest(
+      'emits HomeState with status error and callbackMessage = unknowError when call onInit',
+      build: () => cubit,
+      act: (cubit) => cubit.onInit(),
+      setUp: () {
+        when(servicesRepository.get(any)).thenThrow(
+            ExternalError(AppLocalizations.current.errorUnknowError));
+      },
+      expect: () => [
+        HomeState(
+          callbackMessage: AppLocalizations.current.errorUnknowError,
+          status: BaseStateStatus.error,
+        )
+      ],
+    );
+  });
+
+  group('Call onRefresh function', () {
+    blocTest(
+      'emits HomeState with loaded services and status success when call onRefresh',
+      build: () => cubit,
+      act: (cubit) => cubit.onRefresh(),
+      expect: () => [
+        HomeState(status: BaseStateStatus.loading),
+        HomeState(
+          status: BaseStateStatus.success,
+          services: servicesWithTypesMock,
+        )
+      ],
+    );
+  });
+
+  group('State properties', () {
+    test('totalValue should be 210', () {
+      final state = HomeState(
+        services: servicesWithTypesMock,
+        status: BaseStateStatus.success,
+        selectedOrderBy: OrderBy.dateDesc,
+      );
+
+      expect(state.totalValue, 210);
+    });
+
+    test('totalWithDiscount should be 105', () {
+      final state = HomeState(
+        services: servicesWithTypesMock,
+        status: BaseStateStatus.success,
+        selectedOrderBy: OrderBy.dateDesc,
+      );
+
+      expect(state.totalBalance, 105);
+    });
+
+    test('totalDiscounted should be 105', () {
+      final state = HomeState(
+        services: servicesWithTypesMock,
+        status: BaseStateStatus.success,
+        selectedOrderBy: OrderBy.dateDesc,
+      );
+
+      expect(state.totalDiscounted, 105);
+    });
+  });
+}
