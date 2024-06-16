@@ -536,16 +536,20 @@ packages:
   kazi_core:
     dependency: "direct main"
     description:
-      path: "../kazi_core"
-      relative: true
-    source: path
+      path: "."
+      ref: master
+      resolved-ref: "3e4c4a26eaee8b6ebc04190127706be57655acd3"
+      url: "https://github.com/lucas-242/kazi_core.git"
+    source: git
     version: "0.0.1"
   kazi_design_system:
     dependency: "direct main"
     description:
-      path: "../kazi_design_system"
-      relative: true
-    source: path
+      path: "."
+      ref: master
+      resolved-ref: "87913e1a0363f0681d0bc48892155d6a1cfd65b4"
+      url: "https://github.com/lucas-242/kazi_design_system.git"
+    source: git
     version: "0.0.1"
   leak_tracker:
     dependency: transitive
