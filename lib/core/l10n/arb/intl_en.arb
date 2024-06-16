@@ -1,0 +1,274 @@
+{
+  "add": "Add",
+  "all": "All",
+  "alreadyHasAccont": "Already has an account? ",
+  "applyFilters": "Apply Filters",
+  "appSubtitle": "Organize your services",
+  "back": "Back",
+  "calculator": "Calculator",
+  "calendar": "Calendar",
+  "cancel": "Cancel",
+  "changePassword": "Change Password",
+  "clipperCut": "Clipper cut",
+  "create": "Create",
+  "createAccount": "Create an Account",
+  "confirm": "Confirm",
+  "confirmPassword": "Confirm Password",
+  "confirmAction": "Confirm Action",
+  "contactEmail": "guimaraeslucas242@gmail.com",
+  "currentPassword": "Current Password",
+  "date": "Date",
+  "darkMode": "Dark Mode",
+  "defaultValue": "Default Value",
+  "delete": "Delete",
+  "description": "Description",
+  "details": "Details",
+  "didntReceiveAnything": "Didn't receive anything? ",
+  "discountPercentage": "Discount percentage",
+  "discount": "Discount",
+  "discounts": "Discounts",
+  "doesntHaveAccount": "Doesn't have an account? ",
+  "edit": "Edit",
+  "editService": "Edit Service",
+  "editServiceType": "Edit Type",
+  "email": "Email",
+  "errorLaunchUrl": "Could not launch {url}",
+  "@errorLaunchUrl": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "errorNotFound": "Url not found.",
+  "errorTimeout": "The server took a long time to respond. Please try again later or contact us.",
+  "errorUnknowError": "An unknown exception occurred.",
+  "errorToAddServiceType": "Error to add service type.",
+  "errorToDeleteServiceType": "Error to delete service type.",
+  "errorToGetServiceTypes": "Error to get service types.",
+  "errorToUpdateServiceType": "Error to update service type.",
+  "errorToAddService": "Error to add service.",
+  "errorToCountServices": "Error to count services.",
+  "errorToDeleteService": "Error to delete service.",
+  "errorToGetServices": "Error to get service.",
+  "errorToUpdateService": "Error to update service.",
+  "errorToSignIn": "Error to sign in. Try again later or contact the support.",
+  "errorToSignUp": "Error to sign up. Try again later or contact the support.",
+  "errorToResetPassword": "Error to reset password.",
+  "errorToSendEmail": "Error to send email.",
+  "exit": "Exit",
+  "field": "Field",
+  "filters": "Filters",
+  "filteringLastMonth": "Filtering by last month",
+  "filteringToday": "Filtering by today",
+  "filteringFromTo": "Filtering from {start} to {end}",
+  "@filteringFromTo": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "finish": "Finish",
+  "forgotYourPassword": "Forgot your password?",
+  "forgotPassword": "Forgot Password",
+  "forgotPasswordInfo": "Please, enter your email address to receive a link to reset your password.",
+  "forgotPasswordConfirmation1": "We have sent an email to ",
+  "forgotPasswordConfirmation2": " to recover your password. Once you receive the email, follow the link provided to sign in.",
+  "fortnight": "Fortnight",
+  "fromTo": "From {start} to {end}",
+  "@fromTo": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "googleSignIn": "Sign in with Google",
+  "hi": "Hi, {person}!",
+  "@hi": {
+    "placeholders": {
+      "person": {
+        "type": "String"
+      }
+    }
+  },
+  "home": "Home",
+  "lastMonth": "Last Month",
+  "lastServices": "Last services",
+  "leaveApp": "Do you really want to leave the app?",
+  "lightMode": "Light Mode",
+  "logout": "Logout",
+  "logoutConfirmation": "Do you really want to logout?",
+  "myBalance": "My balance",
+  "month": "Month",
+  "name": "Name",
+  "next": "Next",
+  "newPassword": "New Password",
+  "newService": "New service",
+  "newServiceType": "New Service Type",
+  "newType": "New Type",
+  "noResults": "No results",
+  "noServices": "It seems you don't have any service registered yet, click on the button above to register a new one.\n\nRemember, by default this screen shows the services you made this month. Try changing the filters above to see different dates.",
+  "noServicesHome": "It seems you don't have any service registered today yet, click on the button above to register a new one.\n\nRemember, this screen shows only the services that you made today. Go to the services page to see other dates.",
+  "noServiceTypes": "It seems you don't have any service type registered yet, click on the button above to register a new one.",
+  "onboardingSubtitle": "This smart tool is designed to help you better manage your services.",
+  "onboardingTitle1": "Calculate the\nearnings from ",
+  "onboardingTitle2": "your\nservices",
+  "or": "or",
+  "orderAlphabetical": "Alphabetical",
+  "orderBy": "Order by",
+  "orderDateAsc": "Least current to most current",
+  "orderDateDesc": "Most current to least current",
+  "orderValueAsc": "Lowest to highest",
+  "orderValueDesc": "Highest to lowest",
+  "password": "Password",
+  "period": "Period",
+  "phone": "Phone",
+  "privacyPolice": "Privacy Police",
+  "privacyPoliceStart": "Lucas Guimarães built the Kazi app as an Ad Supported app. This SERVICE is provided by Lucas Guimarães at no cost and is intended for use as is.\nThis page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.\nIf you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.\nThe terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Kazi unless otherwise defined in this Privacy Policy.",
+  "privacyPoliceInformation": "For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to Name, Email Address. The information that I request will be retained on your device and is not collected by me in any way.\nThe app does use third-party services that may collect information used to identify you.\nLink to the privacy policy of third-party service providers used by the app:\n",
+  "privacyPoliceInformation1": "Google Play Services",
+  "privacyPoliceInformation2": "AdMob",
+  "privacyPoliceInformation3": "Google Analytics",
+  "privacyPoliceInformation4": "Firebase Crashlytics",
+  "privacyPoliceInformationTitle": "Information Collection and Use",
+  "privacyPoliceLogData": "I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.",
+  "privacyPoliceLogDataTitle": "Log Data",
+  "privacyPoliceCookies": "Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.\nThis Service does not use these “cookies” explicitly. However, the app may use third-party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.",
+  "privacyPoliceCookiesTitle": "Cookies",
+  "privacyPoliceServices": "I may employ third-party companies and individuals due to the following reasons:\n\nTo facilitate our Service;\nTo provide the Service on our behalf;\nTo perform Service-related services; or\nTo assist us in analyzing how our Service is used.\nI want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.",
+  "privacyPoliceServicesTitle": "Service Providers",
+  "privacyPoliceSecurity": "I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.",
+  "privacyPoliceSecurityTitle": "Security",
+  "pricayPoliceLinks": "This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.",
+  "pricayPoliceLinksTitle": "Links to Other Sites",
+  "privacyPoliceChildren": "These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13 years of age. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do the necessary actions.",
+  "privacyPoliceChildrenTitle": "Children’s Privacy",
+  "privacyPoliceChanges": "I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.\nThis policy is effective as of 2023-05-26.",
+  "privacyPoliceChangesTitle": "Changes to This Privacy Policy",
+  "privacyPoliceContact": "If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at ",
+  "privacyPoliceContactTitle": "Contact Us",
+  "privacyPoliceEnd": "This privacy policy page was created at privacypolicytemplate.net and modified/generated by App Privacy Policy Generator",
+  "profile": "Profile",
+  "quantity": "Quantity",
+  "removeFilters": "Remove filters",
+  "resendEmail": "Resend Email",
+  "resetedPassword": "Password reseted successfully",
+  "save": "Save",
+  "saveType": "Save Type",
+  "saveService": "Save Service",
+  "search": "Search",
+  "selectServiceType": "Select the service type",
+  "sendEmail": "Send Email",
+  "service": "Service",
+  "serviceAdded": "Service added successfully",
+  "serviceDeleted": "Service deleted successfully",
+  "serviceUpdated": "Service updated successfully",
+  "serviceValue": "Service Value",
+  "services": "Services",
+  "serviceType": "Service Type",
+  "serviceTypes": "Service Types",
+  "settings": "Settings",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "signUpSuccess": "Account created successfully",
+  "share": "Share",
+  "skip": "Skip",
+  "success": "Action done successfully",
+  "thisService": "this service",
+  "today": "Today",
+  "total": "Total value",
+  "totalReceived": "Total received",
+  "tourAppBarTitle": "Perfil Area",
+  "tourAppBarDescription": "Here you can register the types of services you perform and log out of your account.",
+  "tourBottomNavigationServicesTitle": "Services Area",
+  "tourBottomNavigationServicesDescription": "In this menu you will find all the services you have performed, and also being able to register a new service.",
+  "tourHomeBalanceTitle": "Balance",
+  "tourHomeBalanceDescription": "Here your daily earnings are displayed, also the total discount and the total received.",
+  "tourHomeServicesTitle": "Daily Services",
+  "tourHomeServicesDescription": "These are the services you performed today.",
+  "tourProfileTitle": "Actions",
+  "tourProfileDescription": "Here you will find some actions available, including the one to register a new type of service. The service type allows you to easily identify a service provided.",
+  "tourServiceDetailsTitle": "Service Details",
+  "tourServiceDetailsDescription": "You can click in the services to see all the information, update or delete it.",
+  "tourServicesForm1Title": "New Service",
+  "tourServicesForm1Description": "To register a new service provided, first select one of the types of service that you previously registered and the values will be filled in automatically according to the data of that type of service. If you wish, you can change the values for that specific service.",
+  "tourServicesForm2Title": "New Service",
+  "tourServicesForm2Description": "Just select the date and the number of services performed, and fill in a description or note if you wish.",
+  "tourServicesInfoTitle": "Services",
+  "tourServicesInfoDescription": "Here you can filter and sort your services and view the balance for the selected period. You can also register performed services.",
+  "tourServicesListTitle": "Services",
+  "tourServicesListDescription": "These are all the jobs you've provided in a given period of time. By default you will see all the services for the current month.",
+  "tourServiceTypesTitle": "Service Type",
+  "tourServiceTypesDescription": "This information will help you to easily register the services you will perform. You can give a name, such as \"Lashes - Brazilian Volume\", fill in the default value, and if applicable, the percentage that is normally deducted from this service.",
+  "updatePassword": "Update Password",
+  "userTermsAlert1": "By continuing, you agree to the ",
+  "userTermsAlert2": "Terms of Service ",
+  "userTermsAlert3": "and confirm that you have read our ",
+  "userTermsAlert4": "Privacy Policy",
+  "validatorConfirmPassword": "Passwords don't match",
+  "validatorEmail": "Email is invalid or badly formatted",
+  "validatorPassword": "Your password must have a minimum of 8 characters and a maximum of 16",
+  "yesterday": "Yesterday",
+  "yourEarnings": "Your Earnings Today",
+  "week": "Week",
+  "wouldYouLikeDelete": "Would you like to delete {item}?",
+  "@wouldYouLikeDelete": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "alreadyExists": "{property} already exists",
+  "@alreadyExists": {
+    "placeholders": {
+      "property": {
+        "type": "String"
+      }
+    }
+  },
+  "isEmpty": "{property} is Empty",
+  "@isEmpty": {
+    "placeholders": {
+      "property": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidNumber": "Please, inform a valid number",
+  "invalidIntNumber": "Please, inform a valid integer number",
+  "numberLesserThanZero": "Please, inform a number equal or greater than 0",
+  "numberBiggerThan100": "Please, inform a number equal or lesser than 100",
+  "inUse": "{property} is being used",
+  "@inUse": {
+    "placeholders": {
+      "property": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidProperty": "{property} is invalid",
+  "@invalidProperty": {
+    "placeholders": {
+      "property": {
+        "type": "String"
+      }
+    }
+  },
+  "requiredProperty": "{property} is required",
+  "@requiredProperty": {
+    "placeholders": {
+      "property": {
+        "type": "String"
+      }
+    }
+  }
+}

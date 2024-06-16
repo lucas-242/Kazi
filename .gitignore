@@ -43,12 +43,13 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+
 # Firebase configs
-/android/app/google-services.json
+/android/google-services.json
 /lib/firebase_options.dart
 
-# Admob keys
-/lib/app/shared/constants/ad_keys.dart
+# keys
+/lib/core/constants/ad_keys.dart
 
 # Act secrets
 /.secrets

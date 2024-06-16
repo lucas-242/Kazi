@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/core/l10n/generated/l10n.dart';
 
 abstract class TestHelper {
   static Future<void> loadAppLocalizations() async {

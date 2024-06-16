@@ -3,7 +3,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude: 
     - '**/*.g.dart'
-    - 'lib/app/shared/l10n/generated/'
+    - 'lib/app/core/l10n/generated/'
 
 linter:
   rules:
@@ -18,8 +18,10 @@ linter:
     prefer_is_not_empty: true
     prefer_single_quotes: true
     sized_box_shrink_expand: true
+    sort_constructors_first: true
+    sort_unnamed_constructors_first: true
     unnecessary_await_in_return: true
     unnecessary_statements: true
     use_colored_box: true
     use_decorated_box: true
-
+    use_key_in_widget_constructors: true
