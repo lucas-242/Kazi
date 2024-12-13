@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/models/service.dart';
-import 'models/firebase_service_model.dart';
-import '../services_repository.dart';
+import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+
+import '../services_repository.dart';
+import 'models/firebase_service_model.dart';
 
 class FirebaseServicesRepository extends ServicesRepository {
   final FirebaseFirestore _firestore;
@@ -101,7 +102,7 @@ class FirebaseServicesRepository extends ServicesRepository {
       }
 
       final result = await query.count().get();
-      return result.count;
+      return result.count ?? 0;
     } catch (exception) {
       throw ExternalError(
         AppLocalizations.current.errorToCountServices,

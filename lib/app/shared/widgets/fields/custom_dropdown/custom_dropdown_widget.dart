@@ -14,7 +14,7 @@ class CustomDropdown extends StatelessWidget {
   final bool showSeach;
   final String? searchHint;
   const CustomDropdown({
-    Key? key,
+    super.key,
     required this.label,
     required this.hint,
     this.selectedItem,
@@ -23,13 +23,13 @@ class CustomDropdown extends StatelessWidget {
     this.onChanged,
     this.showSeach = false,
     this.searchHint,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return DropdownSearch<DropdownItem>(
       selectedItem: selectedItem,
-      items: items,
+      items: (filter, infiniteScrollProps) => items,
       itemAsString: (DropdownItem? u) => u!.label,
       onChanged: onChanged,
       validator: validator,
@@ -40,21 +40,22 @@ class CustomDropdown extends StatelessWidget {
         constraints: const BoxConstraints.tightFor(),
         emptyBuilder: (context, searchEntry) => const DropdownEmpty(),
         //! IsSelected is not working
-        itemBuilder: (context, item, isSelected) => PopupItem(
+        itemBuilder: (context, item, isSelected, _) => PopupItem(
           item: item,
           isSelected: isSelected,
         ),
         searchFieldProps: SearchFieldProps(searchHint).build(context),
       ),
       dropdownBuilder: (_, item) => DropdownInput(item: item, hint: hint),
-      dropdownDecoratorProps:
-          DropdownInputDecorator(labelText: label).build(context),
-      dropdownButtonProps: DropdownButtonProps(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSizeConstants.mediumSpace,
+      decoratorProps: DropdownInputDecorator(labelText: label).build(context),
+      suffixProps: DropdownSuffixProps(
+        dropdownButtonProps: DropdownButtonProps(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSizeConstants.mediumSpace,
+          ),
+          color: context.colorsScheme.onSurface,
+          iconOpened: const Icon(Icons.keyboard_arrow_down_outlined),
         ),
-        color: context.colorsScheme.onBackground,
-        icon: const Icon(Icons.keyboard_arrow_down_outlined),
       ),
     );
   }
@@ -80,7 +81,7 @@ class DropdownInputDecorator extends DropDownDecoratorProps {
 
   DropDownDecoratorProps build(BuildContext context) {
     return DropDownDecoratorProps(
-      dropdownSearchDecoration: InputDecoration(
+      decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
         hintStyle: context.bodyMedium,

@@ -1,6 +1,6 @@
 {
-    "name": "my_services",
-    "short_name": "my_services",
+    "name": "myservices",
+    "short_name": "myservices",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

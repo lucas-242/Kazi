@@ -8,10 +8,10 @@ import 'package:kazi/injector_container.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
-    Key? key,
+    super.key,
     this.showOrderBy = false,
     this.onSelectedOrderBy,
-  }) : super(key: key);
+  });
 
   final bool showOrderBy;
   final VoidCallback? onSelectedOrderBy;

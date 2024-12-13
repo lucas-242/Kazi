@@ -20,20 +20,20 @@ class PillButton extends StatelessWidget {
       key: key,
       onPressed: onTap,
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         )),
-        minimumSize: MaterialStateProperty.all<Size>(const Size(5, 35)),
-        backgroundColor: MaterialStateProperty.all<Color>(
+        minimumSize: WidgetStateProperty.all<Size>(const Size(5, 35)),
+        backgroundColor: WidgetStateProperty.all<Color>(
           backgroundColor != null
               ? backgroundColor!
               : context.colorsScheme.onSurface,
         ),
-        foregroundColor: MaterialStateProperty.all<Color>(
+        foregroundColor: WidgetStateProperty.all<Color>(
           foregroundColor != null
               ? foregroundColor!
-              : context.colorsScheme.background,
+              : context.colorsScheme.surface,
         ),
       ),
       child: child,

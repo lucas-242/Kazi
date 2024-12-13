@@ -1,10 +1,10 @@
 part of 'service_form_cubit.dart';
 
 class ServiceFormState extends BaseState with EquatableMixin {
-  Service service;
-  List<ServiceType> serviceTypes;
-  int quantity;
-  String userId;
+  final Service service;
+  final List<ServiceType> serviceTypes;
+  final int quantity;
+  final String userId;
 
   List<DropdownItem> get dropdownItems {
     final result = serviceTypes
@@ -32,7 +32,7 @@ class ServiceFormState extends BaseState with EquatableMixin {
     List<ServiceType>? serviceTypes,
     int? quantity,
   })  : service = service ?? Service(userId: userId),
-        serviceTypes = serviceTypes ?? [],
+        serviceTypes = serviceTypes ?? const [],
         quantity = quantity ?? 1;
 
   @override

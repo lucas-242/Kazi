@@ -7,13 +7,13 @@ extension TypographyExtension on BuildContext {
   ColorScheme get _colors => _theme.colorScheme;
 
   TextStyle? get cardTitle => GoogleFonts.outfit(
-        color: _colors.background,
+        color: _colors.surface,
         fontWeight: FontWeight.w500,
         fontSize: 22,
       );
 
   TextStyle? get cardSubtitle => GoogleFonts.outfit(
-        color: _colors.background,
+        color: _colors.surface,
         fontWeight: FontWeight.w500,
         fontSize: 16,
       );

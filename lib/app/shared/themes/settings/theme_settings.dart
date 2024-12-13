@@ -37,8 +37,7 @@ abstract class ThemeSettings {
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
       textTheme: _textTheme(colors),
-      scaffoldBackgroundColor: colors.background,
-      useMaterial3: false,
+      scaffoldBackgroundColor: colors.surface,
     );
   }
 
@@ -61,8 +60,7 @@ abstract class ThemeSettings {
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
       textTheme: _textTheme(colors),
-      scaffoldBackgroundColor: colors.background,
-      useMaterial3: false,
+      scaffoldBackgroundColor: colors.surface,
     );
   }
 
@@ -129,7 +127,7 @@ abstract class ThemeSettings {
       ColorScheme colors) {
     return BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: colors.background,
+      backgroundColor: colors.surface,
       selectedItemColor: colors.primary,
       unselectedItemColor: colors.onPrimaryContainer,
       showSelectedLabels: true,

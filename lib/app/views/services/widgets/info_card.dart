@@ -48,7 +48,7 @@ class InfoCard extends StatelessWidget {
                 icon,
                 height: 35,
                 colorFilter: ColorFilter.mode(
-                  context.colorsScheme.background,
+                  context.colorsScheme.surface,
                   BlendMode.srcIn,
                 ),
               )

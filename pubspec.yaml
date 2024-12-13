@@ -7,36 +7,36 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
-  bloc: ^8.1.2
-  cloud_firestore: ^4.7.1
-  dropdown_search: ^5.0.6
-  equatable: ^2.0.5
-  firebase_auth: ^4.6.1
-  firebase_core: ^2.13.0
+  bloc: ^8.1.4
+  cloud_firestore: ^5.5.1
+  dropdown_search: ^6.0.1
+  equatable: ^2.0.7
+  firebase_auth: ^5.3.4
+  firebase_core: ^3.8.1
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.3
+  flutter_bloc: ^8.1.6
   flutter_localizations:
     sdk: flutter
   flutter_masked_text2: ^0.9.1
-  flutter_native_splash: ^2.3.0
-  flutter_svg: ^2.0.6
-  get_it: ^7.2.0
-  go_router: ^7.1.1
-  google_fonts: ^4.0.4
-  google_mobile_ads: ^3.0.0
-  google_sign_in: ^6.1.2
-  intl: ^0.18.0
-  shared_preferences: ^2.1.1
+  flutter_native_splash: ^2.4.3
+  flutter_svg: ^2.0.16
+  get_it: ^8.0.2
+  go_router: ^14.6.2
+  google_fonts: ^6.2.1
+  google_mobile_ads: ^5.2.0
+  google_sign_in: ^6.2.2
+  intl: ^0.19.0
+  shared_preferences: ^2.3.3
 
 dev_dependencies:
-  bloc_test: ^9.1.2
-  build_runner: ^2.4.4
-  fake_cloud_firestore: ^2.4.1
-  flutter_lints: ^2.0.1
+  bloc_test: ^9.1.7
+  build_runner: ^2.4.13
+  fake_cloud_firestore: ^3.1.0
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  mockito: ^5.4.1
+  mockito: ^5.4.4
 
 flutter:
   uses-material-design: true

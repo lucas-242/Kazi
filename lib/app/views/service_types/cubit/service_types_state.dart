@@ -1,9 +1,9 @@
 part of 'service_types_cubit.dart';
 
 class ServiceTypesState extends BaseState with EquatableMixin {
-  List<ServiceType> serviceTypes;
-  ServiceType serviceType;
-  String userId;
+  final List<ServiceType> serviceTypes;
+  final ServiceType serviceType;
+  final String userId;
 
   ServiceTypesState(
       {required this.userId,

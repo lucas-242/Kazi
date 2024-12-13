@@ -18,10 +18,10 @@ class FiltersBottomSheet extends StatefulWidget {
   final GlobalKey<FormFieldState> dateKey;
   final TextEditingController dateController;
   const FiltersBottomSheet({
-    Key? key,
+    super.key,
     required this.dateKey,
     required this.dateController,
-  }) : super(key: key);
+  });
 
   @override
   State<FiltersBottomSheet> createState() => _FiltersBottomSheetState();

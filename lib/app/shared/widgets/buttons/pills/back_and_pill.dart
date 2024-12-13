@@ -49,7 +49,7 @@ class BackAndPill extends StatelessWidget {
           child: PillButton(
             onTap: onTapPill,
             backgroundColor: backgroundColor ?? context.colorsScheme.onSurface,
-            foregroundColor: foregroundColor ?? context.colorsScheme.background,
+            foregroundColor: foregroundColor ?? context.colorsScheme.surface,
             child: Text(pillText ?? ''),
           ),
         ),

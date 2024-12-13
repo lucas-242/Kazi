@@ -12,15 +12,14 @@ class CustomDatePicker extends StatelessWidget {
   final DateTime initialDate;
 
   CustomDatePicker({
-    Key? key,
+    super.key,
     required this.fieldKey,
     required this.controller,
     required this.onChange,
     DateTime? initialDate,
     required this.label,
     this.validator,
-  })  : initialDate = initialDate ?? DateTime.now(),
-        super(key: key);
+  })  : initialDate = initialDate ?? DateTime.now();
 
   @override
   Widget build(BuildContext context) {

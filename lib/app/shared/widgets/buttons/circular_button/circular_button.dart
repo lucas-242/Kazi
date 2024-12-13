@@ -8,12 +8,12 @@ class CircularButton extends StatelessWidget {
   final bool showCircularIndicator;
 
   const CircularButton({
-    Key? key,
+    super.key,
     this.onTap,
     required this.child,
     this.iconSize,
     this.showCircularIndicator = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

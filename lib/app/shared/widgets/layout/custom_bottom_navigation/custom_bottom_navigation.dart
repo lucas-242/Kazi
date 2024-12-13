@@ -9,10 +9,10 @@ class CustomBottomNavigation extends StatelessWidget {
   final int currentPage;
   final void Function(int) onTap;
   const CustomBottomNavigation({
-    Key? key,
+    super.key,
     this.currentPage = 0,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

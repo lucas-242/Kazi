@@ -17,7 +17,7 @@ class FirebaseTestHelper {
 
   Future<int> count() async {
     final query = await database.collection(path).count().get();
-    return query.count;
+    return query.count ?? 0;
   }
 
   Future<T?> get<T>(

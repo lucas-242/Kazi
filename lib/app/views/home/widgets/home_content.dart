@@ -10,9 +10,9 @@ import 'package:kazi/app/views/services/services.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({
-    Key? key,
+    super.key,
     required this.state,
-  }) : super(key: key);
+  });
 
   final HomeState state;
 
