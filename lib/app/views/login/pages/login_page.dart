@@ -18,9 +18,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   void _login() {
     serviceLocator<AuthService>().signInWithGoogle().then((isSignedIn) {
-      if (isSignedIn) context.navigateTo(AppPage.onboarding);
+      if (isSignedIn && mounted) context.navigateTo(AppPage.onboarding);
     }).catchError((error) {
-      getCustomSnackBar(context, message: error.message);
+      if (mounted) getCustomSnackBar(context, message: error.message);
     });
   }
 

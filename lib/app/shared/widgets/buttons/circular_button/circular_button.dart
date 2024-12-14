@@ -29,10 +29,11 @@ class CircularButton extends StatelessWidget {
               foregroundColor: context.colorsScheme.surface,
               backgroundColor: context.colorsScheme.onSurface,
               disabledBackgroundColor:
-                  context.colorsScheme.onSurface.withOpacity(0.12),
-              hoverColor: context.colorsScheme.onSurface.withOpacity(0.08),
-              focusColor: context.colorsScheme.onSurface.withOpacity(0.12),
-              highlightColor: context.colorsScheme.onSurface.withOpacity(0.12),
+                  context.colorsScheme.onSurface.withValues(alpha: .12),
+              hoverColor: context.colorsScheme.onSurface.withValues(alpha: .08),
+              focusColor: context.colorsScheme.onSurface.withValues(alpha: .12),
+              highlightColor:
+                  context.colorsScheme.onSurface.withValues(alpha: .12),
             ),
           ),
           Visibility(

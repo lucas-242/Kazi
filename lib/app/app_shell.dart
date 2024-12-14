@@ -39,7 +39,7 @@ class _AppShellState extends State<AppShell> {
 
   void _listenUser() {
     userStream = context.read<AppCubit>().userSignOut().listen((userSignOut) {
-      if (userSignOut) {
+      if (userSignOut && mounted) {
         context.navigateTo(AppPage.login);
       }
     });

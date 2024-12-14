@@ -20,9 +20,9 @@ class ServiceDetailsPage extends StatelessWidget {
     Future<void> onDelete(Service service) async {
       context.back();
       final cubit = context.read<ServiceLandingCubit>();
-      await cubit
-          .deleteService(service)
-          .then((value) => context.navigateTo(AppPage.services));
+      await cubit.deleteService(service).then((_) {
+        if (context.mounted) context.navigateTo(AppPage.services);
+      });
     }
 
     void onTapDelete() {

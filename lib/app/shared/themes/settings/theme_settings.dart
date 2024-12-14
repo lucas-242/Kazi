@@ -37,6 +37,8 @@ abstract class ThemeSettings {
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
       textTheme: _textTheme(colors),
+      dialogTheme: _dialogTheme(),
+      iconTheme: _iconTheme(),
       scaffoldBackgroundColor: colors.surface,
     );
   }
@@ -60,6 +62,8 @@ abstract class ThemeSettings {
       drawerTheme: _drawerTheme(colors),
       inputDecorationTheme: _inputDecorationTheme(colors),
       textTheme: _textTheme(colors),
+      dialogTheme: _dialogTheme(),
+      iconTheme: _iconTheme(),
       scaffoldBackgroundColor: colors.surface,
     );
   }
@@ -69,8 +73,7 @@ abstract class ThemeSettings {
       brightness: brightness,
       seedColor: AppColors.primary,
       primary: AppColors.primary,
-      background: AppColors.background,
-      surface: AppColors.white,
+      surface: AppColors.background,
       onSurface: AppColors.black,
       error: AppColors.red,
     );
@@ -79,7 +82,8 @@ abstract class ThemeSettings {
   static CardTheme _cardTheme() {
     return CardTheme(
       elevation: 0,
-      shape: defaultShape,
+      color: AppColors.white,
+      surfaceTintColor: AppColors.white,
       margin: const EdgeInsets.only(bottom: 10),
       clipBehavior: Clip.antiAlias,
     );
@@ -94,10 +98,11 @@ abstract class ThemeSettings {
 
   static AppBarTheme _appBarTheme(ColorScheme colors) {
     return AppBarTheme(
-      elevation: 0,
-      backgroundColor: colors.primary,
-      // foregroundColor: colors.onSurface,
-    );
+        elevation: 0,
+        backgroundColor: colors.primary,
+        surfaceTintColor: colors.primary
+        // foregroundColor: colors.onSurface,
+        );
   }
 
   static TabBarTheme _tabBarTheme(ColorScheme colors) {
@@ -140,6 +145,7 @@ abstract class ThemeSettings {
   static BottomSheetThemeData _bottomSheetTheme(ColorScheme colors) {
     return BottomSheetThemeData(
       backgroundColor: colors.surface,
+      surfaceTintColor: colors.surface,
       elevation: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -181,6 +187,18 @@ abstract class ThemeSettings {
       backgroundColor: colors.surface,
     );
   }
+
+  static DialogTheme _dialogTheme() => DialogTheme(
+        backgroundColor: AppColors.white,
+        surfaceTintColor: AppColors.white,
+        elevation: 3,
+        shadowColor: AppColors.black.withValues(alpha: 0.5),
+      );
+
+  static IconThemeData _iconTheme() => const IconThemeData(
+        size: 24,
+        color: AppColors.black,
+      );
 
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) {
     const borderRadius = BorderRadius.all(Radius.circular(6.0));
