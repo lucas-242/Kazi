@@ -5,7 +5,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'app/app.dart';
 import 'app/services/log_service/log_service.dart';
-import 'app/shared/constants/ad_keys.dart';
 import 'app/shared/environment/environment.dart';
 import 'firebase_options.dart';
 import 'injector_container.dart';
@@ -14,9 +13,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   MobileAds.instance.initialize();
-  final configuration =
-      RequestConfiguration(testDeviceIds: AdKeys.testDeviceIds);
-  MobileAds.instance.updateRequestConfiguration(configuration);
   await initInjectorContainer();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
