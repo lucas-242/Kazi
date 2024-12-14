@@ -16,12 +16,13 @@ class ServiceFormState extends BaseState with EquatableMixin {
   }
 
   DropdownItem? get selectedDropdownItem {
-    if (service.type == null) return null;
+    if (service.typeId.isEmpty) return null;
 
-    final result =
-        DropdownItem(value: service.type!.id, label: service.type!.name);
+    final result = dropdownItems.where((x) => x.value == service.typeId);
 
-    return result;
+    if (result.isEmpty) return null;
+
+    return result.first;
   }
 
   ServiceFormState({

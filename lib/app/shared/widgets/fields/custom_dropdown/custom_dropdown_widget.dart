@@ -4,7 +4,7 @@ import 'package:kazi/app/models/dropdown_item.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
-class CustomDropdown extends StatelessWidget {
+class CustomDropdown extends StatefulWidget {
   final String label;
   final String hint;
   final DropdownItem? selectedItem;
@@ -26,28 +26,35 @@ class CustomDropdown extends StatelessWidget {
   });
 
   @override
+  State<CustomDropdown> createState() => _CustomDropdownState();
+}
+
+class _CustomDropdownState extends State<CustomDropdown> {
+  @override
   Widget build(BuildContext context) {
     return DropdownSearch<DropdownItem>(
-      selectedItem: selectedItem,
-      items: (filter, infiniteScrollProps) => items,
+      selectedItem: widget.selectedItem,
+      items: (filter, infiniteScrollProps) => widget.items,
+      compareFn: (item1, item2) => item1.value == item2.value,
       itemAsString: (DropdownItem? u) => u!.label,
-      onChanged: onChanged,
-      validator: validator,
+      onChanged: widget.onChanged,
+      validator: widget.validator,
       autoValidateMode: AutovalidateMode.onUserInteraction,
       popupProps: PopupProps.menu(
-        showSearchBox: showSeach,
+        showSearchBox: widget.showSeach,
         fit: FlexFit.loose,
         constraints: const BoxConstraints.tightFor(),
         emptyBuilder: (context, searchEntry) => const DropdownEmpty(),
-        //! IsSelected is not working
-        itemBuilder: (context, item, isSelected, _) => PopupItem(
+        itemBuilder: (context, item, _, __) => PopupItem(
           item: item,
-          isSelected: isSelected,
+          isSelected: widget.selectedItem == item,
         ),
-        searchFieldProps: SearchFieldProps(searchHint).build(context),
+        searchFieldProps: SearchFieldProps(widget.searchHint).build(context),
       ),
-      dropdownBuilder: (_, item) => DropdownInput(item: item, hint: hint),
-      decoratorProps: DropdownInputDecorator(labelText: label).build(context),
+      dropdownBuilder: (_, item) =>
+          DropdownInput(item: item, hint: widget.hint),
+      decoratorProps:
+          DropdownInputDecorator(labelText: widget.label).build(context),
       suffixProps: DropdownSuffixProps(
         dropdownButtonProps: DropdownButtonProps(
           padding: const EdgeInsets.symmetric(
@@ -106,9 +113,7 @@ class PopupItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: isSelected
-          ? AppColors.lightYellow
-          : context.colorsScheme.primary.withOpacity(0.08),
+      color: isSelected ? AppColors.lightYellow : AppColors.white,
       child: ListTile(
         contentPadding: const EdgeInsets.only(
           left: AppSizeConstants.mediumSpace,
