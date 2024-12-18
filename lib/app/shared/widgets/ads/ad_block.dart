@@ -14,7 +14,9 @@ class AdBlock extends StatelessWidget {
     return Column(
       children: [
         AdWidget(
-          ad: AdHelper.getBannerAd(Environment.instance.adHomeServiceListKey),
+          ad: AdHelper.getBannerAd(
+            Environment.instance.adKeyServiceList,
+          ),
         ),
         const Divider(),
         child

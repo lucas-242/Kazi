@@ -13,47 +13,35 @@ abstract class Environment {
       ? DevEnvironment()
       : ProdEnvironment();
 
-  String get adFinishAddActionKey;
-  String get adCalendarServiceListKey;
-  String get adHomeServiceListKey;
+  String get adKeyServiceCreate;
+  String get adKeyServiceList;
 }
 
 class DevEnvironment extends Environment {
   @override
-  String get adFinishAddActionKey => _checkEnvironmentAdKey(
-        AdKeys.androidFinishAddActionKeyDev,
-        AdKeys.iosFinishAddActionKeyDev,
+  String get adKeyServiceCreate => _checkEnvironmentAdKey(
+        AdKeys.serviceCreateAndroidDebug,
+        AdKeys.serviceCreateIOSDebug,
       );
 
   @override
-  String get adCalendarServiceListKey => _checkEnvironmentAdKey(
-        AdKeys.androidCalendarServiceListKeyDev,
-        AdKeys.iosCalendarServiceListKeyDev,
-      );
-
-  @override
-  String get adHomeServiceListKey => _checkEnvironmentAdKey(
-        AdKeys.androidHomeServiceListKeyDev,
-        AdKeys.iosHomeServiceListKeyDev,
+  String get adKeyServiceList => _checkEnvironmentAdKey(
+        AdKeys.serviceListAndroidDebug,
+        AdKeys.serviceListIOSDebug,
       );
 }
 
 class ProdEnvironment extends Environment {
   @override
-  String get adFinishAddActionKey => _checkEnvironmentAdKey(
-        AdKeys.androidFinishAddActionKeyProd,
-        AdKeys.iosFinishAddActionKeyProd,
+  String get adKeyServiceCreate => _checkEnvironmentAdKey(
+        AdKeys.serviceCreateAndroidProd,
+        AdKeys.serviceCreateIOSProd,
       );
 
   @override
-  String get adCalendarServiceListKey => _checkEnvironmentAdKey(
-      AdKeys.androidCalendarServiceListKeyProd,
-      AdKeys.iosCalendarServiceListKeyProd);
-
-  @override
-  String get adHomeServiceListKey => _checkEnvironmentAdKey(
-        AdKeys.androidHomeServiceListKeyProd,
-        AdKeys.iosHomeServiceListKeyProd,
+  String get adKeyServiceList => _checkEnvironmentAdKey(
+        AdKeys.serviceListAndroidProd,
+        AdKeys.serviceListIOSProd,
       );
 }
 
