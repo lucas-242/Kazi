@@ -1,4 +1,4 @@
-package com.example.my_services
+package com.kazi.kazi
 
 import io.flutter.embedding.android.FlutterActivity
 
