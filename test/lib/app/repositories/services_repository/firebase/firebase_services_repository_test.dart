@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/repositories/services_repository/firebase/firebase_services_repository.dart';
 import 'package:kazi/app/repositories/services_repository/firebase/models/firebase_service_model.dart';
+import 'package:kazi/app/services/crashlytics_service/crashlytics_service.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../../../mocks/mocks.dart';
 import '../../../../../utils/firebase_test_helper.dart';
@@ -15,17 +16,19 @@ import '../../../../../utils/test_helper.dart';
 import '../../../../../utils/test_matchers.dart';
 import 'firebase_services_repository_test.mocks.dart';
 
-@GenerateMocks([FirebaseFirestore])
+@GenerateMocks([FirebaseFirestore, CrashlyticsService])
 void main() {
   late FirebaseFirestore database;
   late FirebaseServicesRepository repository;
   late FirebaseTestHelper firebaseHelper;
+  late MockCrashlyticsService crashlyticsService;
 
   TestHelper.loadAppLocalizations();
 
   setUp(() async {
     database = FakeFirebaseFirestore();
-    repository = FirebaseServicesRepository(database);
+    crashlyticsService = MockCrashlyticsService();
+    repository = FirebaseServicesRepository(database, crashlyticsService);
     firebaseHelper = FirebaseTestHelper(database, repository.path);
   });
 
@@ -46,7 +49,7 @@ void main() {
 
     test('Should throw ExternalError with errorToAddService message', () {
       database = MockFirebaseFirestore();
-      repository = FirebaseServicesRepository(database);
+      repository = FirebaseServicesRepository(database, crashlyticsService);
       when(database.collection(repository.path)).thenThrow(Exception());
 
       expectLater(
@@ -90,7 +93,7 @@ void main() {
     test('Should throw ExternalError with message errorToCountServices',
         () async {
       database = MockFirebaseFirestore();
-      repository = FirebaseServicesRepository(database);
+      repository = FirebaseServicesRepository(database, crashlyticsService);
       when(database.collection(repository.path)).thenThrow(Exception());
 
       expect(
@@ -123,7 +126,7 @@ void main() {
     test('Should throw ExternalError with message errorToDeleteService',
         () async {
       database = MockFirebaseFirestore();
-      repository = FirebaseServicesRepository(database);
+      repository = FirebaseServicesRepository(database, crashlyticsService);
       when(database.collection(repository.path)).thenThrow(Exception());
 
       expect(
@@ -186,7 +189,7 @@ void main() {
     test('Should throw ExternalError with message errorToGetServices',
         () async {
       database = MockFirebaseFirestore();
-      repository = FirebaseServicesRepository(database);
+      repository = FirebaseServicesRepository(database, crashlyticsService);
       when(database.collection(repository.path)).thenThrow(Exception());
 
       expect(
@@ -220,7 +223,7 @@ void main() {
     test('Should throw ExternalError with message errorToUpdateService',
         () async {
       database = MockFirebaseFirestore();
-      repository = FirebaseServicesRepository(database);
+      repository = FirebaseServicesRepository(database, crashlyticsService);
       when(database.collection(repository.path)).thenThrow(Exception());
 
       expect(

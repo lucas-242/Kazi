@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:kazi/app/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
 import 'package:kazi/app/services/auth_service/firebase/firebase_auth_service.dart';
+import 'package:kazi/app/services/crashlytics_service/crashlytics_service.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../../mocks/mocks.dart';
 import '../../../../utils/test_helper.dart';
@@ -59,13 +60,15 @@ class MockGoogleSignInAuthentication extends Mock
 final _userCredential = MockUserCredential();
 final _user = MockUser();
 
-@GenerateMocks([GoogleSignIn, GoogleSignInAccount, UserCredential])
+@GenerateMocks(
+    [GoogleSignIn, GoogleSignInAccount, CrashlyticsService, UserCredential])
 void main() {
   late MockGoogleSignIn googleSignIn;
   late MockGoogleSignInAccount googleSignInAccount;
   late MockGoogleSignInAuthentication googleSignInAuthentication;
   late FirebaseAuthService authService;
   late MockFirebaseAuth firebaseAuth;
+  late MockCrashlyticsService crashlyticsService;
 
   setUpAll(() {
     TestHelper.loadAppLocalizations();
@@ -76,9 +79,11 @@ void main() {
     googleSignInAccount = MockGoogleSignInAccount();
     googleSignInAuthentication = MockGoogleSignInAuthentication();
     firebaseAuth = MockFirebaseAuth();
+    crashlyticsService = MockCrashlyticsService();
     authService = FirebaseAuthService(
       googleSignIn: googleSignIn,
       firebaseAuth: firebaseAuth,
+      crashlyticsService: crashlyticsService,
     );
   });
 
@@ -133,6 +138,7 @@ void main() {
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
         user: userMock,
+        crashlyticsService: crashlyticsService,
       );
 
       expect(authService.user, isNotNull);
@@ -182,6 +188,7 @@ void main() {
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
         user: userMock,
+        crashlyticsService: crashlyticsService,
       );
       final result = authService.userChanges();
 

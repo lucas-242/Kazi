@@ -5,10 +5,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:firebase_auth/firebase_auth.dart' as _i6;
+import 'package:firebase_auth/firebase_auth.dart' as _i7;
 import 'package:google_sign_in/google_sign_in.dart' as _i2;
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart'
     as _i3;
+import 'package:kazi/app/services/crashlytics_service/crashlytics_service.dart'
+    as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 
@@ -202,10 +204,46 @@ class MockGoogleSignInAccount extends _i1.Mock
       ) as _i4.Future<void>);
 }
 
+/// A class which mocks [CrashlyticsService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCrashlyticsService extends _i1.Mock
+    implements _i6.CrashlyticsService {
+  MockCrashlyticsService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  void log(
+    Object? exception,
+    StackTrace? stackTrace,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #log,
+          [
+            exception,
+            stackTrace,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
 /// A class which mocks [UserCredential].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserCredential extends _i1.Mock implements _i6.UserCredential {
+class MockUserCredential extends _i1.Mock implements _i7.UserCredential {
   MockUserCredential() {
     _i1.throwOnMissingStub(this);
   }

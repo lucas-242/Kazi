@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kazi/app/models/service_type.dart';
+import 'package:kazi/app/services/crashlytics_service/crashlytics_service.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
@@ -10,11 +11,13 @@ import '../service_type_repository.dart';
 
 class FirebaseServiceTypeRepository extends ServiceTypeRepository {
   final FirebaseFirestore _firestore;
+  final CrashlyticsService _crashlyticsService;
 
   @visibleForTesting
   String get path => 'serviceTypes';
 
-  FirebaseServiceTypeRepository(FirebaseFirestore firestore)
+  FirebaseServiceTypeRepository(
+      FirebaseFirestore firestore, this._crashlyticsService)
       : _firestore = firestore;
 
   @override
@@ -24,8 +27,9 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
       final document = await _firestore.collection(path).add(data);
       final result = serviceType.copyWith(id: document.id);
       return result;
-    } catch (exception) {
+    } catch (exception, trace) {
       Log.error(exception);
+      _crashlyticsService.log(exception, trace);
       throw ExternalError(AppLocalizations.current.errorToAddServiceType,
           trace: exception.toString());
     }
@@ -35,8 +39,9 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
   Future<void> delete(String id) async {
     try {
       await _firestore.collection(path).doc(id).delete();
-    } catch (exception) {
+    } catch (exception, trace) {
       Log.error(exception);
+      _crashlyticsService.log(exception, trace);
       throw ExternalError(AppLocalizations.current.errorToDeleteServiceType,
           trace: exception.toString());
     }

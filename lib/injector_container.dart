@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kazi/app/data/local_storage/local_storage.dart';
+import 'package:kazi/app/services/crashlytics_service/crashlytics_service.dart';
+import 'package:kazi/app/services/crashlytics_service/firebase/firebase_crashlytics_service.dart';
 import 'package:kazi/app/services/services_service/services_service.dart';
 import 'package:kazi/app/services/time_service/local/local_time_service.dart';
 import 'package:kazi/firebase_options.dart';
@@ -33,19 +34,19 @@ abstract class InjectorContainer {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
 
-    FlutterError.onError = (errorDetails) {
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-    };
-
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
+    final crashlytics =
+        FirebaseCrashlyticsService(FirebaseCrashlytics.instance);
+    await crashlytics.init();
+    serviceLocator.registerSingleton<CrashlyticsService>(crashlytics);
 
     await MobileAds.instance.initialize();
 
     serviceLocator
         .registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+
+    serviceLocator.registerSingleton<AuthService>(
+      FirebaseAuthService(crashlyticsService: serviceLocator.get()),
+    );
   }
 
   static Future<void> _initStorages() async {
@@ -55,7 +56,6 @@ abstract class InjectorContainer {
   }
 
   static Future<void> _initServices() async {
-    serviceLocator.registerSingleton<AuthService>(FirebaseAuthService());
     serviceLocator.registerSingleton<TimeService>(LocalTimeService());
     serviceLocator.registerFactory<ServicesService>(
       () => LocalServicesService(serviceLocator.get<TimeService>()),
@@ -64,11 +64,16 @@ abstract class InjectorContainer {
 
   static void _initRepositories() {
     serviceLocator.registerFactory<ServicesRepository>(
-      () => FirebaseServicesRepository(serviceLocator.get<FirebaseFirestore>()),
+      () => FirebaseServicesRepository(
+        serviceLocator.get<FirebaseFirestore>(),
+        serviceLocator.get<CrashlyticsService>(),
+      ),
     );
     serviceLocator.registerFactory<ServiceTypeRepository>(
       () => FirebaseServiceTypeRepository(
-          serviceLocator.get<FirebaseFirestore>()),
+        serviceLocator.get<FirebaseFirestore>(),
+        serviceLocator.get<CrashlyticsService>(),
+      ),
     );
   }
 }
