@@ -1,22 +1,10 @@
 import 'dart:developer' as developer;
+
 import 'package:kazi/app/shared/errors/errors.dart';
 
 enum LogColor { red, blue, green, yellow }
 
-abstract class LogService {
-  void setUserId(String? userId);
-  void navigation(String message);
-  void info(String message);
-  void flow(String message);
-
-  void error({
-    Object? error,
-    StackTrace? stackTrace,
-    String? message,
-  });
-}
-
-class LocalLogService implements LogService {
+abstract class Log {
   static const _logColors = <LogColor, String>{
     LogColor.red: '31',
     LogColor.blue: '32',
@@ -24,13 +12,7 @@ class LocalLogService implements LogService {
     LogColor.green: '35',
   };
 
-  String? _userId;
-
-  @override
-  void setUserId(String? userId) => _userId = userId;
-
-  @override
-  void navigation(String message) {
+  static void navigation(String message) {
     _log(
       message: message,
       color: LogColor.blue,
@@ -38,8 +20,7 @@ class LocalLogService implements LogService {
     );
   }
 
-  @override
-  void info(String message) {
+  static void info(String message) {
     _log(
       message: message,
       color: LogColor.yellow,
@@ -47,8 +28,7 @@ class LocalLogService implements LogService {
     );
   }
 
-  @override
-  void flow(String message) {
+  static void flow(String message) {
     _log(
       message: message,
       color: LogColor.green,
@@ -56,12 +36,11 @@ class LocalLogService implements LogService {
     );
   }
 
-  @override
-  void error({
-    Object? error,
+  static void error(
+    Object? error, [
     StackTrace? stackTrace,
     String? message,
-  }) {
+  ]) {
     _log(
       type: 'Error',
       message: message,
@@ -70,7 +49,7 @@ class LocalLogService implements LogService {
     );
   }
 
-  void _log({
+  static void _log({
     String? message,
     String type = 'Unknown',
     LogColor color = LogColor.red,
@@ -84,14 +63,14 @@ class LocalLogService implements LogService {
     _logEmptyLine(type, color);
   }
 
-  void _logEmptyLine(String type, LogColor color) {
+  static void _logEmptyLine(String type, LogColor color) {
     developer.log(
       '''\x1B[${_logColors[color]}m.---------------------------------------------------------------\x1B[0m''',
       name: type,
     );
   }
 
-  void _logMessage(String? message, String type, LogColor color) {
+  static void _logMessage(String? message, String type, LogColor color) {
     if (message != null) {
       developer.log(
         '''\x1B[${_logColors[color]}m. Message: $message\x1B[0m''',
@@ -100,7 +79,7 @@ class LocalLogService implements LogService {
     }
   }
 
-  void _logError(Object? error, String type, LogColor color) {
+  static void _logError(Object? error, String type, LogColor color) {
     if (error != null) {
       if (error is AppError) {
         _logAppError(error, type, color);
@@ -110,23 +89,27 @@ class LocalLogService implements LogService {
     }
   }
 
-  void _logAppError(AppError error, String type, LogColor color) {
+  static void _logAppError(AppError error, String type, LogColor color) {
     developer.log(
-      '''\x1B[${_logColors[color]}m. User: ${_userId ?? 'Undetermined Id'} \x1B[0m''',
+      '''\x1B[${_logColors[color]}m.\x1B[0m''',
       name: type,
     );
 
     _logGenericError(error.message, type, color);
   }
 
-  void _logGenericError(String error, String type, LogColor color) {
+  static void _logGenericError(String error, String type, LogColor color) {
     developer.log(
       '''\x1B[${_logColors[color]}m. Error: $error \x1B[0m''',
       name: type,
     );
   }
 
-  void _logStackTrace(StackTrace? stackTrace, String type, LogColor color) {
+  static void _logStackTrace(
+    StackTrace? stackTrace,
+    String type,
+    LogColor color,
+  ) {
     if (stackTrace != null) {
       developer.log(
         '''\x1B[${_logColors[color]}m. StackTrace: ${stackTrace.toString()} \x1B[0m''',

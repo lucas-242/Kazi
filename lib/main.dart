@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:kazi/app/shared/utils/log_utils.dart';
 
 import 'app/app.dart';
-import 'app/services/log_service/log_service.dart';
 import 'app/shared/environment/environment.dart';
 import 'firebase_options.dart';
 import 'injector_container.dart';
@@ -18,8 +18,6 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
-  serviceLocator
-      .get<LogService>()
-      .flow('Environment: ${Environment.environmentValue}');
+  Log.flow('Environment: ${Environment.environmentValue}');
   runApp(const App());
 }

@@ -3,6 +3,7 @@ import 'package:kazi/app/models/service.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/utils/log_utils.dart';
 
 import '../services_repository.dart';
 import 'models/firebase_service_model.dart';
@@ -30,6 +31,7 @@ class FirebaseServicesRepository extends ServicesRepository {
       await batch.commit();
       return result;
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(
         AppLocalizations.current.errorToAddService,
         trace: exception.toString(),
@@ -42,6 +44,7 @@ class FirebaseServicesRepository extends ServicesRepository {
     try {
       await _firestore.collection(path).doc(id).delete();
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(
         AppLocalizations.current.errorToDeleteService,
         trace: exception.toString(),
@@ -55,6 +58,7 @@ class FirebaseServicesRepository extends ServicesRepository {
       final data = FirebaseServiceModel.fromService(service).toMap();
       await _firestore.collection(path).doc(service.id).update(data);
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(
         AppLocalizations.current.errorToUpdateService,
         trace: exception.toString(),
@@ -84,6 +88,7 @@ class FirebaseServicesRepository extends ServicesRepository {
 
       return result;
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(
         AppLocalizations.current.errorToGetServices,
         trace: exception.toString(),
@@ -104,6 +109,7 @@ class FirebaseServicesRepository extends ServicesRepository {
       final result = await query.count().get();
       return result.count ?? 0;
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(
         AppLocalizations.current.errorToCountServices,
         trace: exception.toString(),

@@ -11,7 +11,6 @@ import 'app/repositories/services_repository/firebase/firebase_services_reposito
 import 'app/repositories/services_repository/services_repository.dart';
 import 'app/services/auth_service/auth_service.dart';
 import 'app/services/auth_service/firebase/firebase_auth_service.dart';
-import 'app/services/log_service/log_service.dart';
 import 'app/services/services_service/local/local_services_service.dart';
 import 'app/services/time_service/time_service.dart';
 
@@ -23,7 +22,6 @@ Future<void> initInjectorContainer() async {
 
   serviceLocator.registerSingleton<AuthService>(FirebaseAuthService());
   serviceLocator.registerSingleton<TimeService>(LocalTimeService());
-  serviceLocator.registerSingleton<LogService>(LocalLogService());
   serviceLocator.registerFactory<ServicesService>(
     () => LocalServicesService(serviceLocator.get<TimeService>()),
   );

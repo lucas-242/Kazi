@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/models/service_type.dart';
 import 'package:kazi/app/shared/errors/errors.dart';
+import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/utils/log_utils.dart';
+
 import '../service_type_repository.dart';
 
 class FirebaseServiceTypeRepository extends ServiceTypeRepository {
@@ -23,6 +25,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
       final result = serviceType.copyWith(id: document.id);
       return result;
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(AppLocalizations.current.errorToAddServiceType,
           trace: exception.toString());
     }
@@ -33,6 +36,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
     try {
       await _firestore.collection(path).doc(id).delete();
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(AppLocalizations.current.errorToDeleteServiceType,
           trace: exception.toString());
     }
@@ -53,6 +57,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
 
       return result;
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(AppLocalizations.current.errorToGetServiceTypes,
           trace: exception.toString());
     }
@@ -64,6 +69,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
       final data = serviceType.toMap();
       await _firestore.collection(path).doc(serviceType.id).update(data);
     } catch (exception) {
+      Log.error(exception);
       throw ExternalError(AppLocalizations.current.errorToUpdateServiceType,
           trace: exception.toString());
     }
