@@ -17,7 +17,7 @@ abstract class ServicesService {
   ///
   /// Brings isExpanded property as true if it is grouped by today or yesterday
   List<ServicesGroupByDate> groupServicesByDate(
-      List<Service> services, OrderBy orderBy);
+      List<Service> services, OrderBy orderBy,);
 
   Map<String, DateTime> getRangeDateByFastSearch(FastSearch fastSearch);
 }

@@ -16,16 +16,16 @@ part 'service_form_state.dart';
 
 class ServiceFormCubit extends Cubit<ServiceFormState>
     with BaseCubit, FormValidator {
-  final ServicesRepository _servicesRepository;
-  final ServiceTypeRepository _serviceTypeRepository;
-  final AuthService _authService;
 
   ServiceFormCubit(
     this._servicesRepository,
     this._serviceTypeRepository,
     this._authService,
   ) : super(ServiceFormState(
-            status: BaseStateStatus.loading, userId: _authService.user!.uid));
+            status: BaseStateStatus.loading, userId: _authService.user!.uid,),);
+  final ServicesRepository _servicesRepository;
+  final ServiceTypeRepository _serviceTypeRepository;
+  final AuthService _authService;
 
   Future<void> onInit([Service? service]) async {
     try {
@@ -41,7 +41,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
         userId: _authService.user!.uid,
         serviceTypes: types,
         service: service,
-      ));
+      ),);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -145,7 +145,7 @@ class ServiceFormCubit extends Cubit<ServiceFormState>
 
   void onChangeServiceDiscount(double value) {
     emit(state.copyWith(
-        service: state.service.copyWith(discountPercent: value)));
+        service: state.service.copyWith(discountPercent: value),),);
   }
 
   void onChangeServiceDate(DateTime? value) {

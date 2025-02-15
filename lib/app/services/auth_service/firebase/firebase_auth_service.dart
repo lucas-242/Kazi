@@ -9,9 +9,6 @@ import 'package:kazi/app/shared/utils/log_utils.dart';
 import 'errors/firebase_sign_in_error.dart';
 
 class FirebaseAuthService extends AuthService {
-  final GoogleSignIn googleSignIn;
-  final FirebaseAuth firebaseAuth;
-  final CrashlyticsService crashlyticsService;
 
   FirebaseAuthService({
     GoogleSignIn? googleSignIn,
@@ -22,6 +19,9 @@ class FirebaseAuthService extends AuthService {
         firebaseAuth = firebaseAuth ?? FirebaseAuth.instance {
     this.user = user;
   }
+  final GoogleSignIn googleSignIn;
+  final FirebaseAuth firebaseAuth;
+  final CrashlyticsService crashlyticsService;
 
   @override
   Future<bool> signInWithGoogle() async {
@@ -49,7 +49,7 @@ class FirebaseAuthService extends AuthService {
       Log.error(error.message);
       crashlyticsService.log(error, trace);
       throw FirebaseSignInError.fromCode(
-          error.code, error.stackTrace?.toString());
+          error.code, error.stackTrace?.toString(),);
     } catch (error, trace) {
       Log.error(error);
       crashlyticsService.log(error, trace);
@@ -67,7 +67,7 @@ class FirebaseAuthService extends AuthService {
       Log.error(error.message);
       crashlyticsService.log(error, trace);
       throw FirebaseSignInError.fromCode(
-          error.code, error.stackTrace?.toString());
+          error.code, error.stackTrace?.toString(),);
     } catch (error, trace) {
       Log.error(error);
       crashlyticsService.log(error, trace);

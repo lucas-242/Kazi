@@ -45,7 +45,7 @@ void main() {
         (snapshot, data) => ServiceType.fromMap(data).copyWith(id: snapshot.id),
       );
       expect(serviceTypeAdded,
-          IsTheSameServiceType(response, checkEqualsId: true));
+          IsTheSameServiceType(response, checkEqualsId: true),);
     });
 
     test('Should throw ExternalError with errorToAddServiceType message', () {
@@ -57,7 +57,7 @@ void main() {
       expectLater(
           repository.add(serviceTypeMock),
           ErrorWithMessage<ExternalError>(
-              AppLocalizations.current.errorToAddServiceType));
+              AppLocalizations.current.errorToAddServiceType,),);
     });
   });
 
@@ -66,7 +66,7 @@ void main() {
 
     setUp(() async {
       final response = await firebaseHelper.add(serviceTypeMock.toMap(),
-          (snapshot) => serviceTypeMock.copyWith(id: snapshot.id));
+          (snapshot) => serviceTypeMock.copyWith(id: snapshot.id),);
       serviceTypeId = response.id;
     });
 
@@ -76,7 +76,7 @@ void main() {
       final response = await firebaseHelper.get(
           serviceTypeId,
           (snapshot, data) =>
-              ServiceType.fromMap(data).copyWith(id: snapshot.id));
+              ServiceType.fromMap(data).copyWith(id: snapshot.id),);
 
       expect(response, isNull);
     });
@@ -91,7 +91,7 @@ void main() {
       expect(
           repository.delete(serviceTypeId),
           ErrorWithMessage<ExternalError>(
-              AppLocalizations.current.errorToDeleteServiceType));
+              AppLocalizations.current.errorToDeleteServiceType,),);
     });
   });
 
@@ -101,13 +101,13 @@ void main() {
     setUp(() async {
       for (var i = 0; i < userNumberOfServiceTypes; i++) {
         await firebaseHelper.add(serviceTypeMock.toMap(),
-            (snapshot) => serviceTypeMock.copyWith(id: snapshot.id));
+            (snapshot) => serviceTypeMock.copyWith(id: snapshot.id),);
       }
 
       //Service type to another user
       await firebaseHelper.add(
           serviceTypeMock.copyWith(userId: 'aaaa9999').toMap(),
-          (snapshot) => serviceTypeMock.copyWith(id: snapshot.id));
+          (snapshot) => serviceTypeMock.copyWith(id: snapshot.id),);
     });
 
     test('Should get service types', () async {
@@ -116,7 +116,7 @@ void main() {
       expect(
         response,
         everyElement(predicate(
-            (e) => e is ServiceType && e.userId == serviceTypeMock.userId)),
+            (e) => e is ServiceType && e.userId == serviceTypeMock.userId,),),
       );
     });
 
@@ -130,7 +130,7 @@ void main() {
       expect(
           repository.get(serviceTypeMock.userId),
           ErrorWithMessage<ExternalError>(
-              AppLocalizations.current.errorToGetServiceTypes));
+              AppLocalizations.current.errorToGetServiceTypes,),);
     });
   });
 
@@ -139,7 +139,7 @@ void main() {
 
     setUp(() async {
       final response = await firebaseHelper.add(serviceTypeMock.toMap(),
-          (snapshot) => serviceTypeMock.copyWith(id: snapshot.id));
+          (snapshot) => serviceTypeMock.copyWith(id: snapshot.id),);
       serviceTypeId = response.id;
     });
 
@@ -165,7 +165,7 @@ void main() {
       expect(
           repository.update(serviceTypeMock),
           ErrorWithMessage<ExternalError>(
-              AppLocalizations.current.errorToUpdateServiceType));
+              AppLocalizations.current.errorToUpdateServiceType,),);
     });
   });
 }

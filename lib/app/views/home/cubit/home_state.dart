@@ -1,6 +1,14 @@
 part of 'home_cubit.dart';
 
 class HomeState extends BaseState with EquatableMixin {
+
+  HomeState({
+    required super.status,
+    List<Service>? services,
+    super.callbackMessage,
+    OrderBy? selectedOrderBy,
+  })  : selectedOrderBy = selectedOrderBy ?? OrderBy.dateDesc,
+        services = services ?? const [];
   final List<Service> services;
   final OrderBy selectedOrderBy;
 
@@ -15,14 +23,6 @@ class HomeState extends BaseState with EquatableMixin {
   double get totalDiscounted {
     return services.fold<double>(0, (a, b) => a + b.valueDiscounted);
   }
-
-  HomeState({
-    required super.status,
-    List<Service>? services,
-    super.callbackMessage,
-    OrderBy? selectedOrderBy,
-  })  : selectedOrderBy = selectedOrderBy ?? OrderBy.dateDesc,
-        services = services ?? const [];
 
   @override
   HomeState copyWith({

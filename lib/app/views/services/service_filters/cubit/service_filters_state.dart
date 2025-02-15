@@ -1,10 +1,6 @@
 part of 'service_filters_cubit.dart';
 
 class ServiceFiltersState with EquatableMixin {
-  final DateTime startDate;
-  final DateTime endDate;
-  final FastSearch fastSearch;
-  final bool didFiltersChange;
 
   ServiceFiltersState({
     required this.startDate,
@@ -12,6 +8,10 @@ class ServiceFiltersState with EquatableMixin {
     required this.fastSearch,
     this.didFiltersChange = false,
   });
+  final DateTime startDate;
+  final DateTime endDate;
+  final FastSearch fastSearch;
+  final bool didFiltersChange;
 
   @override
   List<Object?> get props => [startDate, endDate, fastSearch, didFiltersChange];

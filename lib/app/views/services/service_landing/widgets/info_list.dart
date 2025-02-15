@@ -9,7 +9,7 @@ class InfoList extends StatelessWidget {
       {super.key,
       required this.totalValue,
       required this.totalDiscounted,
-      required this.totalWithDiscount});
+      required this.totalWithDiscount,});
   final double totalValue;
   final double totalDiscounted;
   final double totalWithDiscount;

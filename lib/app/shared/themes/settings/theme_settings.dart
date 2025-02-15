@@ -100,7 +100,7 @@ abstract class ThemeSettings {
     return AppBarTheme(
         elevation: 0,
         backgroundColor: colors.primary,
-        surfaceTintColor: colors.primary
+        surfaceTintColor: colors.primary,
         // foregroundColor: colors.onSurface,
         );
   }
@@ -129,7 +129,7 @@ abstract class ThemeSettings {
   }
 
   static BottomNavigationBarThemeData _bottomNavigationBarTheme(
-      ColorScheme colors) {
+      ColorScheme colors,) {
     return BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       backgroundColor: colors.surface,
@@ -157,7 +157,7 @@ abstract class ThemeSettings {
   }
 
   static FloatingActionButtonThemeData _floatingActionButtonTheme(
-      ColorScheme colors) {
+      ColorScheme colors,) {
     return FloatingActionButtonThemeData(
       elevation: 0,
       highlightElevation: 0,

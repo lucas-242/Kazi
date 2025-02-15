@@ -14,9 +14,9 @@ import '../../../../utils/test_matchers.dart';
 import 'firebase_auth_service_firebase_test.mocks.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  final bool isSignedIn;
 
   MockFirebaseAuth({this.isSignedIn = false});
+  final bool isSignedIn;
 
   @override
   Future<UserCredential> signInWithCredential(AuthCredential? credential) =>
@@ -61,7 +61,7 @@ final _userCredential = MockUserCredential();
 final _user = MockUser();
 
 @GenerateMocks(
-    [GoogleSignIn, GoogleSignInAccount, CrashlyticsService, UserCredential])
+    [GoogleSignIn, GoogleSignInAccount, CrashlyticsService, UserCredential],)
 void main() {
   late MockGoogleSignIn googleSignIn;
   late MockGoogleSignInAccount googleSignInAccount;
@@ -98,7 +98,7 @@ void main() {
 
       final isSignedIn = await authService.signInWithGoogle();
       expect(isSignedIn, isTrue);
-    }));
+    }),);
 
     test('Should return false when dismiss sign in with google popup',
         (() async {
@@ -106,7 +106,7 @@ void main() {
 
       final isSignedIn = await authService.signInWithGoogle();
       expect(isSignedIn, isFalse);
-    }));
+    }),);
 
     test(
         'Should throws FirebaseSignInError with invalid credential message when throw FirebaseAuthException',
@@ -117,8 +117,8 @@ void main() {
       expect(
           authService.signInWithGoogle(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.credentialIsInvalid));
-    }));
+              AppLocalizations.current.credentialIsInvalid,),);
+    }),);
     test(
         'Should throws FirebaseSignInError with unknow message when throw Exception',
         (() async {
@@ -127,8 +127,8 @@ void main() {
       expect(
           authService.signInWithGoogle(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.unknowError));
-    }));
+              AppLocalizations.current.unknowError,),);
+    }),);
   });
 
   group('Sign out', () {
@@ -147,7 +147,7 @@ void main() {
       await authService.signOut();
 
       expect(authService.user, null);
-    }));
+    }),);
 
     test(
         'Should throws FirebaseSignInError with emailIsInvalid error message when throw FirebaseAuthException',
@@ -158,8 +158,8 @@ void main() {
       expect(
           authService.signOut(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.emailIsInvalid));
-    }));
+              AppLocalizations.current.emailIsInvalid,),);
+    }),);
 
     test(
         'Should throws FirebaseSignInError with unknowError error message when throw Exception',
@@ -169,8 +169,8 @@ void main() {
       expect(
           authService.signOut(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.unknowError));
-    }));
+              AppLocalizations.current.unknowError,),);
+    }),);
   });
 
   group('Listen user changes', () {

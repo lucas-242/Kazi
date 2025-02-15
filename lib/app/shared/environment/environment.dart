@@ -7,7 +7,7 @@ import '../constants/app_keys.dart';
 
 abstract class Environment {
   static EnvironmentValue get environmentValue => EnvironmentValue.fromString(
-      const String.fromEnvironment(AppKeys.environmentKey))!;
+      const String.fromEnvironment(AppKeys.environmentKey),)!;
 
   static Environment get instance => environmentValue == EnvironmentValue.dev
       ? DevEnvironment()

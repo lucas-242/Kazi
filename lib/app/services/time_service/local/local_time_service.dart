@@ -1,10 +1,10 @@
 import 'package:kazi/app/services/time_service/time_service.dart';
 
 class LocalTimeService implements TimeService {
-  final DateTime _currentDate;
 
   LocalTimeService([DateTime? currentDate])
       : _currentDate = currentDate ?? DateTime.now();
+  final DateTime _currentDate;
 
   @override
   DateTime get now =>

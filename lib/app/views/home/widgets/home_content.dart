@@ -25,7 +25,7 @@ class HomeContent extends StatelessWidget {
           InfoCard(
             key: AppOnboarding.stepOne,
             title: NumberFormatHelper.formatCurrency(
-                context, state.totalWithDiscount),
+                context, state.totalWithDiscount,),
             subtitle: AppLocalizations.current.myBalance,
             icon: AppAssets.services,
             color: AppColors.green,
@@ -33,7 +33,7 @@ class HomeContent extends StatelessWidget {
           InfoCard(
             key: AppOnboarding.stepTwo,
             title: NumberFormatHelper.formatCurrency(
-                context, state.totalDiscounted),
+                context, state.totalDiscounted,),
             subtitle: AppLocalizations.current.discounts,
             icon: AppAssets.fire,
             color: AppColors.orange,

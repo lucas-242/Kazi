@@ -65,7 +65,7 @@ void main() {
             servicesWithTypesMock,
             OrderBy.dateDesc,
           ),
-        )
+        ),
       ],
     );
 
@@ -79,7 +79,7 @@ void main() {
       expect: () => [
         HomeState(
           status: BaseStateStatus.noData,
-        )
+        ),
       ],
     );
 
@@ -89,14 +89,14 @@ void main() {
       seed: () => HomeState(status: BaseStateStatus.noData),
       setUp: () {
         when(servicesRepository.get(any, any, any)).thenThrow(
-            ExternalError(AppLocalizations.current.errorToGetServices));
+            ExternalError(AppLocalizations.current.errorToGetServices),);
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
         HomeState(
           callbackMessage: AppLocalizations.current.errorToGetServices,
           status: BaseStateStatus.error,
-        )
+        ),
       ],
     );
 
@@ -106,14 +106,14 @@ void main() {
       seed: () => HomeState(status: BaseStateStatus.noData),
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(
-            ExternalError(AppLocalizations.current.errorToGetServiceTypes));
+            ExternalError(AppLocalizations.current.errorToGetServiceTypes),);
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
         HomeState(
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
-        )
+        ),
       ],
     );
 
@@ -128,7 +128,7 @@ void main() {
         HomeState(
           callbackMessage: AppLocalizations.current.unknowError,
           status: BaseStateStatus.error,
-        )
+        ),
       ],
     );
   });
@@ -143,7 +143,7 @@ void main() {
         HomeState(
           status: BaseStateStatus.success,
           services: servicesWithTypesMock,
-        )
+        ),
       ],
     );
   });

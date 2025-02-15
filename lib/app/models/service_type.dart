@@ -3,11 +3,6 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class ServiceType extends Equatable {
-  final String id;
-  final String name;
-  final double? defaultValue;
-  final double? discountPercent;
-  final String userId;
 
   const ServiceType({
     this.id = '',
@@ -16,15 +11,6 @@ class ServiceType extends Equatable {
     this.discountPercent,
     required this.userId,
   });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'defaultValue': defaultValue,
-      'discountPercent': discountPercent,
-      'userId': userId,
-    };
-  }
 
   factory ServiceType.fromMap(Map<String, dynamic> map) {
     return ServiceType(
@@ -36,10 +22,24 @@ class ServiceType extends Equatable {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory ServiceType.fromJson(String source) =>
       ServiceType.fromMap(json.decode(source));
+  final String id;
+  final String name;
+  final double? defaultValue;
+  final double? discountPercent;
+  final String userId;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'defaultValue': defaultValue,
+      'discountPercent': discountPercent,
+      'userId': userId,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 
   ServiceType copyWith({
     String? id,

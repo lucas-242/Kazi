@@ -3,7 +3,7 @@ extension DateTimeExtensions on DateTime {
       copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
 
   DateTime get lastHourOfDay => copyWith(
-      hour: 23, minute: 59, second: 59, millisecond: 0, microsecond: 0);
+      hour: 23, minute: 59, second: 59, millisecond: 0, microsecond: 0,);
 
   /// Find the next [weekday]. [weekday] can 0 for Sunday, 1 for Monday, etc. up to 7 for Sunday.
   DateTime nextWeekday(int weekday) {

@@ -5,9 +5,9 @@ import 'package:kazi/app/shared/utils/ad_helper.dart';
 import 'widgets/ad_widget.dart';
 
 class AdBlock extends StatelessWidget {
-  final Widget child;
 
   const AdBlock({super.key, required this.child});
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class AdBlock extends StatelessWidget {
           ),
         ),
         const Divider(),
-        child
+        child,
       ],
     );
   }

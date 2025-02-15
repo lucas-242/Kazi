@@ -10,13 +10,13 @@ import '../services_repository.dart';
 import 'models/firebase_service_model.dart';
 
 class FirebaseServicesRepository extends ServicesRepository {
+
+  FirebaseServicesRepository(
+      FirebaseFirestore firestore, this.crashlyticsService,)
+      : _firestore = firestore;
   final FirebaseFirestore _firestore;
   final CrashlyticsService crashlyticsService;
   String get path => 'services';
-
-  FirebaseServicesRepository(
-      FirebaseFirestore firestore, this.crashlyticsService)
-      : _firestore = firestore;
 
   @override
   Future<List<Service>> add(Service service, [int quantity = 1]) async {
@@ -74,7 +74,7 @@ class FirebaseServicesRepository extends ServicesRepository {
 
   @override
   Future<List<Service>> get(String userId, DateTime startDate,
-      [DateTime? endDate]) async {
+      [DateTime? endDate,]) async {
     try {
       var query = _firestore
           .collection(path)

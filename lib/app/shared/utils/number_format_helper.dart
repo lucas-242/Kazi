@@ -7,18 +7,18 @@ import 'package:kazi/app/shared/extensions/extensions.dart';
 
 abstract class NumberFormatHelper {
   static String formatCurrency(BuildContext context,
-      [num? value, Locale? locale]) {
+      [num? value, Locale? locale,]) {
     final stringLocale = locale != null
         ? '${locale.languageCode}_${locale.countryCode}'
         : getCurrentLocale();
     return NumberFormat.currency(
-            locale: stringLocale, symbol: _getCurrencySymbol(context, locale))
+            locale: stringLocale, symbol: _getCurrencySymbol(context, locale),)
         .format(value ?? 0);
   }
 
   static String _getCurrencySymbol(BuildContext context, Locale? locale) {
     return NumberFormat.simpleCurrency(
-            locale: (locale ?? Localizations.localeOf(context)).toString())
+            locale: (locale ?? Localizations.localeOf(context)).toString(),)
         .currencySymbol;
   }
 
@@ -34,7 +34,7 @@ abstract class NumberFormatHelper {
         ? '${locale.languageCode}_${locale.countryCode}'
         : getCurrentLocale();
     return NumberFormat.decimalPercentPattern(
-            locale: stringLocale, decimalDigits: decimalDigits)
+            locale: stringLocale, decimalDigits: decimalDigits,)
         .format((double.tryParse(valueWithoutZero) ?? 0) / 100);
   }
 

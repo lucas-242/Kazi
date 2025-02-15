@@ -14,10 +14,6 @@ import 'package:kazi/app/shared/utils/base_state.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> with BaseCubit {
-  final ServicesRepository _serviceProvidedRepository;
-  final ServiceTypeRepository _serviceTypeRepository;
-  final AuthService _authService;
-  final ServicesService _servicesService;
 
   HomeCubit(
     this._serviceProvidedRepository,
@@ -25,6 +21,10 @@ class HomeCubit extends Cubit<HomeState> with BaseCubit {
     this._authService,
     this._servicesService,
   ) : super(HomeState(status: BaseStateStatus.loading));
+  final ServicesRepository _serviceProvidedRepository;
+  final ServiceTypeRepository _serviceTypeRepository;
+  final AuthService _authService;
+  final ServicesService _servicesService;
 
   Future<void> onInit() async {
     try {

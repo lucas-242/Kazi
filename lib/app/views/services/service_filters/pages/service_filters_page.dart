@@ -15,13 +15,13 @@ import 'package:kazi/app/views/services/services.dart';
 import 'package:kazi/injector_container.dart';
 
 class FiltersBottomSheet extends StatefulWidget {
-  final GlobalKey<FormFieldState> dateKey;
-  final TextEditingController dateController;
   const FiltersBottomSheet({
     super.key,
     required this.dateKey,
     required this.dateController,
   });
+  final GlobalKey<FormFieldState> dateKey;
+  final TextEditingController dateController;
 
   @override
   State<FiltersBottomSheet> createState() => _FiltersBottomSheetState();
@@ -131,35 +131,35 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             children: [
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
-                                    context, FastSearch.today),
+                                    context, FastSearch.today,),
                                 text: AppLocalizations.current.today,
                                 isSelected:
                                     cubit.state.fastSearch == FastSearch.today,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
-                                    context, FastSearch.week),
+                                    context, FastSearch.week,),
                                 text: AppLocalizations.current.week,
                                 isSelected:
                                     cubit.state.fastSearch == FastSearch.week,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
-                                    context, FastSearch.fortnight),
+                                    context, FastSearch.fortnight,),
                                 text: AppLocalizations.current.fortnight,
                                 isSelected: cubit.state.fastSearch ==
                                     FastSearch.fortnight,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
-                                    context, FastSearch.month),
+                                    context, FastSearch.month,),
                                 text: AppLocalizations.current.month,
                                 isSelected:
                                     cubit.state.fastSearch == FastSearch.month,
                               ),
                               SelectablePillButton(
                                 onTap: () => onChangeFastSearch(
-                                    context, FastSearch.lastMonth),
+                                    context, FastSearch.lastMonth,),
                                 text: AppLocalizations.current.lastMonth,
                                 isSelected: cubit.state.fastSearch ==
                                     FastSearch.lastMonth,

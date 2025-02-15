@@ -32,7 +32,7 @@ abstract class InjectorContainer {
 
   static Future<void> _initGoogle() async {
     await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+        options: DefaultFirebaseOptions.currentPlatform,);
 
     final crashlytics =
         FirebaseCrashlyticsService(FirebaseCrashlytics.instance);

@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class PillButton extends StatelessWidget {
-  final VoidCallback? onTap;
-  final Widget child;
-  final Color? backgroundColor;
-  final Color? foregroundColor;
   const PillButton({
     super.key,
     required this.onTap,
@@ -13,6 +9,10 @@ class PillButton extends StatelessWidget {
     this.backgroundColor,
     this.foregroundColor,
   });
+  final VoidCallback? onTap;
+  final Widget child;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class PillButton extends StatelessWidget {
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
-        )),
+        ),),
         minimumSize: WidgetStateProperty.all<Size>(const Size(5, 35)),
         backgroundColor: WidgetStateProperty.all<Color>(
           backgroundColor != null

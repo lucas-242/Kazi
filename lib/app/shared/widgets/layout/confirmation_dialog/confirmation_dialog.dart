@@ -5,12 +5,6 @@ import 'package:kazi/app/shared/themes/extensions/typography_extension.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 
 class ConfirmationDialog extends StatelessWidget {
-  final VoidCallback onCancel;
-  final VoidCallback onConfirm;
-  final String? title;
-  final String message;
-  final String? cancelText;
-  final String? confirmText;
 
   const ConfirmationDialog({
     super.key,
@@ -21,13 +15,19 @@ class ConfirmationDialog extends StatelessWidget {
     this.cancelText,
     this.confirmText,
   });
+  final VoidCallback onCancel;
+  final VoidCallback onConfirm;
+  final String? title;
+  final String message;
+  final String? cancelText;
+  final String? confirmText;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       key: key ?? const Key('AlertDialog'),
       title: Text(title ?? AppLocalizations.current.confirmAction,
-          style: context.titleMedium),
+          style: context.titleMedium,),
       content: Text(message, style: context.bodyMedium),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       actions: [

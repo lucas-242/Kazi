@@ -51,7 +51,7 @@ class InfoCard extends StatelessWidget {
                   context.colorsScheme.surface,
                   BlendMode.srcIn,
                 ),
-              )
+              ),
             ],
           ),
         ),

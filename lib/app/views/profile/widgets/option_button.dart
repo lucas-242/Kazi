@@ -3,15 +3,15 @@ import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/app/shared/widgets/texts/texts.dart';
 
 class OptionButton extends StatelessWidget {
-  final VoidCallback onTap;
-  final String text;
-  final TextStyle? textStyle;
   const OptionButton({
     super.key,
     required this.onTap,
     required this.text,
     this.textStyle,
   });
+  final VoidCallback onTap;
+  final String text;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {

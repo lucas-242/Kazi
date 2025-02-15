@@ -49,7 +49,7 @@ void main() {
         .thenAnswer((_) async => servicesWithTypeIdMock);
 
     cubit = ServiceLandingCubit(servicesRepository, serviceTypeRepository,
-        authService, servicesService);
+        authService, servicesService,);
   });
 
   group('Call onInit function', () {
@@ -68,7 +68,7 @@ void main() {
           startDate: servicesService.now,
           endDate: servicesService.now
               .copyWith(day: 31, hour: 23, minute: 59, second: 59),
-        )
+        ),
       ],
     );
 
@@ -85,7 +85,7 @@ void main() {
           startDate: servicesService.now,
           endDate: servicesService.now
               .copyWith(day: 31, hour: 23, minute: 59, second: 59),
-        )
+        ),
       ],
     );
 
@@ -99,7 +99,7 @@ void main() {
       ),
       setUp: () {
         when(servicesRepository.get(any, any, any)).thenThrow(
-            ExternalError(AppLocalizations.current.errorToGetServices));
+            ExternalError(AppLocalizations.current.errorToGetServices),);
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
@@ -108,7 +108,7 @@ void main() {
           status: BaseStateStatus.error,
           startDate: servicesService.now,
           endDate: servicesService.now,
-        )
+        ),
       ],
     );
 
@@ -122,7 +122,7 @@ void main() {
       ),
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(
-            ExternalError(AppLocalizations.current.errorToGetServiceTypes));
+            ExternalError(AppLocalizations.current.errorToGetServiceTypes),);
       },
       act: (cubit) => cubit.onInit(),
       expect: () => [
@@ -131,7 +131,7 @@ void main() {
           status: BaseStateStatus.error,
           startDate: servicesService.now,
           endDate: servicesService.now,
-        )
+        ),
       ],
     );
 
@@ -148,7 +148,7 @@ void main() {
           status: BaseStateStatus.error,
           startDate: servicesService.now,
           endDate: servicesService.now,
-        )
+        ),
       ],
     );
   });
@@ -188,7 +188,7 @@ void main() {
           status: BaseStateStatus.success,
           startDate: servicesService.now,
           endDate: servicesService.now,
-        )
+        ),
       ],
     );
   });
@@ -203,7 +203,7 @@ void main() {
         ServiceLandingState(
             status: BaseStateStatus.loading,
             startDate: servicesService.now,
-            endDate: servicesService.now),
+            endDate: servicesService.now,),
         ServiceLandingState(
           status: BaseStateStatus.success,
           services: servicesService.orderServices(
@@ -213,7 +213,7 @@ void main() {
           startDate: servicesService.now,
           endDate: servicesService.now
               .copyWith(day: 31, hour: 23, minute: 59, second: 59),
-        )
+        ),
       ],
     );
   });
@@ -253,7 +253,7 @@ void main() {
           status: BaseStateStatus.success,
           fastSearch: FastSearch.custom,
           didFiltersChange: true,
-        )
+        ),
       ],
     );
 
@@ -263,7 +263,7 @@ void main() {
           servicesRepository,
           serviceTypeRepository,
           authService,
-          LocalServicesService(localTimeService)),
+          LocalServicesService(localTimeService),),
       setUp: () {
         newStartDateTime = DateTime(2022, 12, 1);
         newEndDateTime = DateTime(2022, 12, 15, 23, 59, 59);
@@ -284,7 +284,7 @@ void main() {
           status: BaseStateStatus.success,
           fastSearch: FastSearch.fortnight,
           didFiltersChange: true,
-        )
+        ),
       ],
     );
 
@@ -303,7 +303,7 @@ void main() {
           status: BaseStateStatus.success,
           startDate: servicesService.now,
           endDate: servicesService.now,
-        )
+        ),
       ],
     );
   });
@@ -326,7 +326,7 @@ void main() {
           selectedOrderBy: OrderBy.dateDesc,
           startDate: servicesService.now,
           endDate: servicesService.now,
-        )
+        ),
       ],
     );
   });

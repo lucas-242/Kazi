@@ -14,10 +14,6 @@ import 'package:kazi/app/shared/utils/base_state.dart';
 part 'service_landing_state.dart';
 
 class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
-  final ServicesRepository _serviceProvidedRepository;
-  final ServiceTypeRepository _serviceTypeRepository;
-  final AuthService _authService;
-  final ServicesService _servicesService;
 
   ServiceLandingCubit(
     this._serviceProvidedRepository,
@@ -28,7 +24,11 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
           status: BaseStateStatus.loading,
           startDate: _servicesService.now,
           endDate: _servicesService.now,
-        ));
+        ),);
+  final ServicesRepository _serviceProvidedRepository;
+  final ServiceTypeRepository _serviceTypeRepository;
+  final AuthService _authService;
+  final ServicesService _servicesService;
 
   Future<void> onInit() async {
     try {
@@ -45,9 +45,9 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
   }
 
   Future<List<Service>> _getServices(
-      DateTime startDate, DateTime endDate) async {
+      DateTime startDate, DateTime endDate,) async {
     final result = await _serviceProvidedRepository.get(
-        _authService.user!.uid, startDate, endDate);
+        _authService.user!.uid, startDate, endDate,);
     return result;
   }
 
@@ -71,7 +71,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
         services: services,
         startDate: startDate,
         endDate: endDate,
-      ));
+      ),);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -136,7 +136,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
         startDate: range['startDate']!,
         endDate: range['endDate']!,
         didFiltersChange: true,
-      ));
+      ),);
       final fetchResult =
           await _getServices(range['startDate']!, range['endDate']!);
       _handleGetServices(fetchResult);
@@ -155,7 +155,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
         endDate: endDate,
         fastSearch: FastSearch.custom,
         didFiltersChange: true,
-      ));
+      ),);
       final fetchResult = await _getServices(startDate, endDate);
       _handleGetServices(fetchResult, startDate, endDate);
     } on AppError catch (exception) {
@@ -170,7 +170,7 @@ class ServiceLandingCubit extends Cubit<ServiceLandingState> with BaseCubit {
       status: BaseStateStatus.loading,
       startDate: _servicesService.now,
       endDate: _servicesService.now,
-    ));
+    ),);
     onInit();
   }
 

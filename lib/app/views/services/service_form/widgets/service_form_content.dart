@@ -13,13 +13,13 @@ import 'package:kazi/app/shared/widgets/fields/fields.dart';
 import 'package:kazi/app/views/services/services.dart';
 
 class ServiceFormContent extends StatefulWidget {
-  final Function() onConfirm;
-  final bool isCreating;
   const ServiceFormContent({
     super.key,
     required this.onConfirm,
     this.isCreating = true,
   });
+  final Function() onConfirm;
+  final bool isCreating;
 
   @override
   State<ServiceFormContent> createState() => _ServiceFormContentState();
@@ -142,7 +142,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                     labelText: AppLocalizations.current.discountPercentage,
                     keyboardType: TextInputType.number,
                     onChanged: (value) => cubit.onChangeServiceDiscount(
-                        _discountController.numberValue),
+                        _discountController.numberValue,),
                     validator: (value) => cubit.validateNumberField(
                       _discountController.numberValue.toString(),
                       AppLocalizations.current.discountPercentage,
@@ -160,7 +160,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                     controller: _dateController,
                     onChange: _onChangeDate,
                     validator: (value) => cubit.validateTextField(
-                        value, AppLocalizations.current.date),
+                        value, AppLocalizations.current.date,),
                   ),
                   if (widget.isCreating)
                     Column(
@@ -174,7 +174,7 @@ class _ServiceFormContentState extends State<ServiceFormContent> {
                           onChanged: (value) =>
                               cubit.onChangeServicesQuantity(value),
                           validator: (value) => cubit.validateNumberField(
-                              value, AppLocalizations.current.quantity),
+                              value, AppLocalizations.current.quantity,),
                         ),
                       ],
                     ),

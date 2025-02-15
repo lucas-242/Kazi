@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ExpandedSection extends StatefulWidget {
-  final Widget child;
-  final bool isExpanded;
   const ExpandedSection({
     super.key,
     this.isExpanded = false,
     required this.child,
   });
+  final Widget child;
+  final bool isExpanded;
 
   @override
   State<ExpandedSection> createState() => _ExpandedSectionState();

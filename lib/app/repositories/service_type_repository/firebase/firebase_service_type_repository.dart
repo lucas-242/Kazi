@@ -10,15 +10,15 @@ import 'package:kazi/app/shared/utils/log_utils.dart';
 import '../service_type_repository.dart';
 
 class FirebaseServiceTypeRepository extends ServiceTypeRepository {
+
+  FirebaseServiceTypeRepository(
+      FirebaseFirestore firestore, this._crashlyticsService,)
+      : _firestore = firestore;
   final FirebaseFirestore _firestore;
   final CrashlyticsService _crashlyticsService;
 
   @visibleForTesting
   String get path => 'serviceTypes';
-
-  FirebaseServiceTypeRepository(
-      FirebaseFirestore firestore, this._crashlyticsService)
-      : _firestore = firestore;
 
   @override
   Future<ServiceType> add(ServiceType serviceType) async {
@@ -31,7 +31,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
       Log.error(exception);
       _crashlyticsService.log(exception, trace);
       throw ExternalError(AppLocalizations.current.errorToAddServiceType,
-          trace: exception.toString());
+          trace: exception.toString(),);
     }
   }
 
@@ -43,7 +43,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
       Log.error(exception);
       _crashlyticsService.log(exception, trace);
       throw ExternalError(AppLocalizations.current.errorToDeleteServiceType,
-          trace: exception.toString());
+          trace: exception.toString(),);
     }
   }
 
@@ -64,7 +64,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
     } catch (exception) {
       Log.error(exception);
       throw ExternalError(AppLocalizations.current.errorToGetServiceTypes,
-          trace: exception.toString());
+          trace: exception.toString(),);
     }
   }
 
@@ -76,7 +76,7 @@ class FirebaseServiceTypeRepository extends ServiceTypeRepository {
     } catch (exception) {
       Log.error(exception);
       throw ExternalError(AppLocalizations.current.errorToUpdateServiceType,
-          trace: exception.toString());
+          trace: exception.toString(),);
     }
   }
 }

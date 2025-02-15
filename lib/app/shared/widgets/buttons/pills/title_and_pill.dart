@@ -5,9 +5,6 @@ import 'package:kazi/app/shared/themes/themes.dart';
 import 'pill_button.dart';
 
 class TitleAndPill extends StatelessWidget {
-  final VoidCallback onTap;
-  final String title;
-  final String pillText;
 
   const TitleAndPill({
     super.key,
@@ -15,6 +12,9 @@ class TitleAndPill extends StatelessWidget {
     required this.onTap,
     required this.pillText,
   });
+  final VoidCallback onTap;
+  final String title;
+  final String pillText;
 
   @override
   Widget build(BuildContext context) {

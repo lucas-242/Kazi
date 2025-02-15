@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class CircularButton extends StatelessWidget {
-  final VoidCallback? onTap;
-  final Widget child;
-  final double? iconSize;
-  final bool showCircularIndicator;
 
   const CircularButton({
     super.key,
@@ -14,6 +10,10 @@ class CircularButton extends StatelessWidget {
     this.iconSize,
     this.showCircularIndicator = false,
   });
+  final VoidCallback? onTap;
+  final Widget child;
+  final double? iconSize;
+  final bool showCircularIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class CircularButton extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
