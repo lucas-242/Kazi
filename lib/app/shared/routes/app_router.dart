@@ -133,7 +133,7 @@ final _addService = GoRoute(
 );
 
 CustomTransitionPage<Widget> _customTransition(
-    GoRouterState state, Widget child) {
+    GoRouterState state, Widget child,) {
   final Tween<Offset> bottomUpTween = Tween<Offset>(
     begin: const Offset(0.0, 0.25),
     end: Offset.zero,

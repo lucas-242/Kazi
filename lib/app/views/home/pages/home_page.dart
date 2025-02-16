@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () =>
                                 context.navigateTo(AppPage.addServices),
                             child: Text(AppLocalizations.current.newService),
-                          )
+                          ),
                         ],
                       ),
                     ),

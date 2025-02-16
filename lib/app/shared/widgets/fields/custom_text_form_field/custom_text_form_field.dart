@@ -4,7 +4,7 @@ import 'package:kazi/app/shared/themes/themes.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
-    Key? key,
+    super.key,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     this.textCapitalization = TextCapitalization.sentences,
@@ -21,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly = false,
     this.textFormKey,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
@@ -61,7 +61,7 @@ class CustomTextFormField extends StatelessWidget {
         labelText: labelText,
         labelStyle: context.labelLarge!.copyWith(
           color: context.colorsScheme.onSurface,
-          backgroundColor: context.colorsScheme.background,
+          backgroundColor: context.colorsScheme.surface,
           //TODO: CustomPaint here to create a rounded border background
         ),
         hintText: hintText,

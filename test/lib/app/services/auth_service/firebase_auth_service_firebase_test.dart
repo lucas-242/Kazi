@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:kazi/app/services/auth_service/firebase/errors/firebase_sign_in_error.dart';
 import 'package:kazi/app/services/auth_service/firebase/firebase_auth_service.dart';
+import 'package:kazi/app/services/crashlytics_service/crashlytics_service.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../../mocks/mocks.dart';
 import '../../../../utils/test_helper.dart';
@@ -13,9 +14,9 @@ import '../../../../utils/test_matchers.dart';
 import 'firebase_auth_service_firebase_test.mocks.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  final bool isSignedIn;
 
   MockFirebaseAuth({this.isSignedIn = false});
+  final bool isSignedIn;
 
   @override
   Future<UserCredential> signInWithCredential(AuthCredential? credential) =>
@@ -59,13 +60,15 @@ class MockGoogleSignInAuthentication extends Mock
 final _userCredential = MockUserCredential();
 final _user = MockUser();
 
-@GenerateMocks([GoogleSignIn, GoogleSignInAccount, UserCredential])
+@GenerateMocks(
+    [GoogleSignIn, GoogleSignInAccount, CrashlyticsService, UserCredential],)
 void main() {
   late MockGoogleSignIn googleSignIn;
   late MockGoogleSignInAccount googleSignInAccount;
   late MockGoogleSignInAuthentication googleSignInAuthentication;
   late FirebaseAuthService authService;
   late MockFirebaseAuth firebaseAuth;
+  late MockCrashlyticsService crashlyticsService;
 
   setUpAll(() {
     TestHelper.loadAppLocalizations();
@@ -76,9 +79,11 @@ void main() {
     googleSignInAccount = MockGoogleSignInAccount();
     googleSignInAuthentication = MockGoogleSignInAuthentication();
     firebaseAuth = MockFirebaseAuth();
+    crashlyticsService = MockCrashlyticsService();
     authService = FirebaseAuthService(
       googleSignIn: googleSignIn,
       firebaseAuth: firebaseAuth,
+      crashlyticsService: crashlyticsService,
     );
   });
 
@@ -93,7 +98,7 @@ void main() {
 
       final isSignedIn = await authService.signInWithGoogle();
       expect(isSignedIn, isTrue);
-    }));
+    }),);
 
     test('Should return false when dismiss sign in with google popup',
         (() async {
@@ -101,7 +106,7 @@ void main() {
 
       final isSignedIn = await authService.signInWithGoogle();
       expect(isSignedIn, isFalse);
-    }));
+    }),);
 
     test(
         'Should throws FirebaseSignInError with invalid credential message when throw FirebaseAuthException',
@@ -112,8 +117,8 @@ void main() {
       expect(
           authService.signInWithGoogle(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.credentialIsInvalid));
-    }));
+              AppLocalizations.current.credentialIsInvalid,),);
+    }),);
     test(
         'Should throws FirebaseSignInError with unknow message when throw Exception',
         (() async {
@@ -122,8 +127,8 @@ void main() {
       expect(
           authService.signInWithGoogle(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.unknowError));
-    }));
+              AppLocalizations.current.unknowError,),);
+    }),);
   });
 
   group('Sign out', () {
@@ -133,6 +138,7 @@ void main() {
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
         user: userMock,
+        crashlyticsService: crashlyticsService,
       );
 
       expect(authService.user, isNotNull);
@@ -141,7 +147,7 @@ void main() {
       await authService.signOut();
 
       expect(authService.user, null);
-    }));
+    }),);
 
     test(
         'Should throws FirebaseSignInError with emailIsInvalid error message when throw FirebaseAuthException',
@@ -152,8 +158,8 @@ void main() {
       expect(
           authService.signOut(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.emailIsInvalid));
-    }));
+              AppLocalizations.current.emailIsInvalid,),);
+    }),);
 
     test(
         'Should throws FirebaseSignInError with unknowError error message when throw Exception',
@@ -163,8 +169,8 @@ void main() {
       expect(
           authService.signOut(),
           ErrorWithMessage<FirebaseSignInError>(
-              AppLocalizations.current.unknowError));
-    }));
+              AppLocalizations.current.unknowError,),);
+    }),);
   });
 
   group('Listen user changes', () {
@@ -182,6 +188,7 @@ void main() {
         googleSignIn: googleSignIn,
         firebaseAuth: firebaseAuth,
         user: userMock,
+        crashlyticsService: crashlyticsService,
       );
       final result = authService.userChanges();
 

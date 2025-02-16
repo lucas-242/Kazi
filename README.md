@@ -55,20 +55,16 @@
    6. Create a file named ad_keys.dart in lib/app/shared/constants.
    ```
    $ echo "abstract class AdKeys {
-   static const androidFinishAddActionKeyDev = 'ca-app-pub-3940256099942544/1033173712';
-   static const androidFinishAddActionKeyProd = '';
-   static const iosFinishAddActionKeyDev = 'ca-app-pub-3940256099942544/4411468910';
-   static const iosFinishAddActionKeyProd = '';
+   static const serviceCreateAndroidDebug = 'ca-app-pub-3940256099942544/1033173712';
+   static const serviceCreateAndroidProd = '';
+   static const serviceCreateIOSDebug = 'ca-app-pub-3940256099942544/4411468910';
+   static const serviceCreateIOSProd = '';
 
-   static const androidCalendarServiceListKeyDev = 'ca-app-pub-3940256099942544/6300978111';
-   static const androidCalendarServiceListKeyProd = '';
-   static const iosCalendarServiceListKeyDev = 'ca-app-pub-3940256099942544/2934735716';
-   static const iosCalendarServiceListKeyProd = '';
+   static const serviceListAndroidDebug = 'ca-app-pub-3940256099942544/6300978111';
+   static const serviceListAndroidProd = '';
+   static const serviceListIOSDebug = 'ca-app-pub-3940256099942544/2934735716';
+   static const serviceListIOSProd = '';
 
-   static const androidHomeServiceListKeyDev = 'ca-app-pub-3940256099942544/6300978111';
-   static const androidHomeServiceListKeyProd = '';
-   static const iosHomeServiceListKeyDev = 'ca-app-pub-3940256099942544/2934735716';
-   static const iosHomeServiceListKeyProd = '';
    }" > lib/app/shared/constants/ad_keys.dart
    ```
 

@@ -11,8 +11,8 @@ enum EnvironmentValue {
   dev('dev'),
   prod('prod');
 
-  final String value;
   const EnvironmentValue(this.value);
+  final String value;
 
   static EnvironmentValue? fromString(String value) {
     for (EnvironmentValue environment in EnvironmentValue.values) {

@@ -12,17 +12,17 @@ import 'package:kazi/app/shared/widgets/texts/row_text/row_text.dart';
 import 'package:kazi/app/views/services/services.dart';
 
 class ServiceDetailsPage extends StatelessWidget {
-  final Service service;
   const ServiceDetailsPage({super.key, required this.service});
+  final Service service;
 
   @override
   Widget build(BuildContext context) {
     Future<void> onDelete(Service service) async {
       context.back();
       final cubit = context.read<ServiceLandingCubit>();
-      await cubit
-          .deleteService(service)
-          .then((value) => context.navigateTo(AppPage.services));
+      await cubit.deleteService(service).then((_) {
+        if (context.mounted) context.navigateTo(AppPage.services);
+      });
     }
 
     void onTapDelete() {
@@ -133,7 +133,7 @@ class ServiceDetailsPage extends StatelessWidget {
                                   Text(
                                     service.description!,
                                     style: context.bodySmall,
-                                  )
+                                  ),
                                 ],
                               ),
                               AppSizeConstants.smallVerticalSpacer,

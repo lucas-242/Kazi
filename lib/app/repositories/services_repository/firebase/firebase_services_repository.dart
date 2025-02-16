@@ -1,17 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/models/service.dart';
-import 'models/firebase_service_model.dart';
-import '../services_repository.dart';
+import 'package:kazi/app/services/crashlytics_service/crashlytics_service.dart';
+import 'package:kazi/app/shared/errors/errors.dart';
 import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
+import 'package:kazi/app/shared/utils/log_utils.dart';
+
+import '../services_repository.dart';
+import 'models/firebase_service_model.dart';
 
 class FirebaseServicesRepository extends ServicesRepository {
-  final FirebaseFirestore _firestore;
-  String get path => 'services';
 
-  FirebaseServicesRepository(FirebaseFirestore firestore)
+  FirebaseServicesRepository(
+      FirebaseFirestore firestore, this.crashlyticsService,)
       : _firestore = firestore;
+  final FirebaseFirestore _firestore;
+  final CrashlyticsService crashlyticsService;
+  String get path => 'services';
 
   @override
   Future<List<Service>> add(Service service, [int quantity = 1]) async {
@@ -28,7 +33,9 @@ class FirebaseServicesRepository extends ServicesRepository {
 
       await batch.commit();
       return result;
-    } catch (exception) {
+    } catch (exception, trace) {
+      Log.error(exception);
+      crashlyticsService.log(exception, trace);
       throw ExternalError(
         AppLocalizations.current.errorToAddService,
         trace: exception.toString(),
@@ -40,7 +47,9 @@ class FirebaseServicesRepository extends ServicesRepository {
   Future<void> delete(String id) async {
     try {
       await _firestore.collection(path).doc(id).delete();
-    } catch (exception) {
+    } catch (exception, trace) {
+      Log.error(exception);
+      crashlyticsService.log(exception, trace);
       throw ExternalError(
         AppLocalizations.current.errorToDeleteService,
         trace: exception.toString(),
@@ -53,7 +62,9 @@ class FirebaseServicesRepository extends ServicesRepository {
     try {
       final data = FirebaseServiceModel.fromService(service).toMap();
       await _firestore.collection(path).doc(service.id).update(data);
-    } catch (exception) {
+    } catch (exception, trace) {
+      Log.error(exception);
+      crashlyticsService.log(exception, trace);
       throw ExternalError(
         AppLocalizations.current.errorToUpdateService,
         trace: exception.toString(),
@@ -63,7 +74,7 @@ class FirebaseServicesRepository extends ServicesRepository {
 
   @override
   Future<List<Service>> get(String userId, DateTime startDate,
-      [DateTime? endDate]) async {
+      [DateTime? endDate,]) async {
     try {
       var query = _firestore
           .collection(path)
@@ -82,7 +93,9 @@ class FirebaseServicesRepository extends ServicesRepository {
       }).toList();
 
       return result;
-    } catch (exception) {
+    } catch (exception, trace) {
+      Log.error(exception);
+      crashlyticsService.log(exception, trace);
       throw ExternalError(
         AppLocalizations.current.errorToGetServices,
         trace: exception.toString(),
@@ -101,8 +114,10 @@ class FirebaseServicesRepository extends ServicesRepository {
       }
 
       final result = await query.count().get();
-      return result.count;
-    } catch (exception) {
+      return result.count ?? 0;
+    } catch (exception, trace) {
+      Log.error(exception);
+      crashlyticsService.log(exception, trace);
       throw ExternalError(
         AppLocalizations.current.errorToCountServices,
         trace: exception.toString(),

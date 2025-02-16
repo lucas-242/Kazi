@@ -1,10 +1,21 @@
 part of 'service_form_cubit.dart';
 
 class ServiceFormState extends BaseState with EquatableMixin {
-  Service service;
-  List<ServiceType> serviceTypes;
-  int quantity;
-  String userId;
+
+  ServiceFormState({
+    required super.status,
+    Service? service,
+    required this.userId,
+    super.callbackMessage,
+    List<ServiceType>? serviceTypes,
+    int? quantity,
+  })  : service = service ?? Service(userId: userId),
+        serviceTypes = serviceTypes ?? const [],
+        quantity = quantity ?? 1;
+  final Service service;
+  final List<ServiceType> serviceTypes;
+  final int quantity;
+  final String userId;
 
   List<DropdownItem> get dropdownItems {
     final result = serviceTypes
@@ -16,24 +27,14 @@ class ServiceFormState extends BaseState with EquatableMixin {
   }
 
   DropdownItem? get selectedDropdownItem {
-    if (service.type == null) return null;
+    if (service.typeId.isEmpty) return null;
 
-    final result =
-        DropdownItem(value: service.type!.id, label: service.type!.name);
+    final result = dropdownItems.where((x) => x.value == service.typeId);
 
-    return result;
+    if (result.isEmpty) return null;
+
+    return result.first;
   }
-
-  ServiceFormState({
-    required super.status,
-    Service? service,
-    required this.userId,
-    super.callbackMessage,
-    List<ServiceType>? serviceTypes,
-    int? quantity,
-  })  : service = service ?? Service(userId: userId),
-        serviceTypes = serviceTypes ?? [],
-        quantity = quantity ?? 1;
 
   @override
   ServiceFormState copyWith({

@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class CircularButton extends StatelessWidget {
-  final VoidCallback? onTap;
-  final Widget child;
-  final double? iconSize;
-  final bool showCircularIndicator;
 
   const CircularButton({
-    Key? key,
+    super.key,
     this.onTap,
     required this.child,
     this.iconSize,
     this.showCircularIndicator = false,
-  }) : super(key: key);
+  });
+  final VoidCallback? onTap;
+  final Widget child;
+  final double? iconSize;
+  final bool showCircularIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,11 @@ class CircularButton extends StatelessWidget {
               foregroundColor: context.colorsScheme.surface,
               backgroundColor: context.colorsScheme.onSurface,
               disabledBackgroundColor:
-                  context.colorsScheme.onSurface.withOpacity(0.12),
-              hoverColor: context.colorsScheme.onSurface.withOpacity(0.08),
-              focusColor: context.colorsScheme.onSurface.withOpacity(0.12),
-              highlightColor: context.colorsScheme.onSurface.withOpacity(0.12),
+                  context.colorsScheme.onSurface.withValues(alpha: .12),
+              hoverColor: context.colorsScheme.onSurface.withValues(alpha: .08),
+              focusColor: context.colorsScheme.onSurface.withValues(alpha: .12),
+              highlightColor:
+                  context.colorsScheme.onSurface.withValues(alpha: .12),
             ),
           ),
           Visibility(
@@ -47,7 +48,7 @@ class CircularButton extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

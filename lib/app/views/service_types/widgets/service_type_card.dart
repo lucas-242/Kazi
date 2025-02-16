@@ -6,14 +6,14 @@ import 'package:kazi/app/shared/utils/number_format_helper.dart';
 import 'package:kazi/app/shared/widgets/buttons/buttons.dart';
 
 class ServiceTypeCard extends StatelessWidget {
-  final Function(ServiceType) onTapEdit;
-  final ServiceType serviceType;
 
   const ServiceTypeCard({
     super.key,
     required this.serviceType,
     required this.onTapEdit,
   });
+  final Function(ServiceType) onTapEdit;
+  final ServiceType serviceType;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ServiceTypeCard extends StatelessWidget {
         children: [
           Text(
             NumberFormatHelper.formatCurrency(
-                context, serviceType.defaultValue),
+                context, serviceType.defaultValue,),
             style: context.titleSmall,
           ),
           AppSizeConstants.largeHorizontalSpacer,

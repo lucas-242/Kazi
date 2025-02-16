@@ -4,17 +4,9 @@ import 'package:kazi/app/models/dropdown_item.dart';
 import 'package:kazi/app/shared/l10n/generated/l10n.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
-class CustomDropdown extends StatelessWidget {
-  final String label;
-  final String hint;
-  final DropdownItem? selectedItem;
-  final List<DropdownItem> items;
-  final String? Function(DropdownItem?)? validator;
-  final Function(DropdownItem?)? onChanged;
-  final bool showSeach;
-  final String? searchHint;
+class CustomDropdown extends StatefulWidget {
   const CustomDropdown({
-    Key? key,
+    super.key,
     required this.label,
     required this.hint,
     this.selectedItem,
@@ -23,47 +15,63 @@ class CustomDropdown extends StatelessWidget {
     this.onChanged,
     this.showSeach = false,
     this.searchHint,
-  }) : super(key: key);
+  });
+  final String label;
+  final String hint;
+  final DropdownItem? selectedItem;
+  final List<DropdownItem> items;
+  final String? Function(DropdownItem?)? validator;
+  final Function(DropdownItem?)? onChanged;
+  final bool showSeach;
+  final String? searchHint;
 
+  @override
+  State<CustomDropdown> createState() => _CustomDropdownState();
+}
+
+class _CustomDropdownState extends State<CustomDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownSearch<DropdownItem>(
-      selectedItem: selectedItem,
-      items: items,
+      selectedItem: widget.selectedItem,
+      items: (filter, infiniteScrollProps) => widget.items,
+      compareFn: (item1, item2) => item1.value == item2.value,
       itemAsString: (DropdownItem? u) => u!.label,
-      onChanged: onChanged,
-      validator: validator,
+      onChanged: widget.onChanged,
+      validator: widget.validator,
       autoValidateMode: AutovalidateMode.onUserInteraction,
       popupProps: PopupProps.menu(
-        showSearchBox: showSeach,
+        showSearchBox: widget.showSeach,
         fit: FlexFit.loose,
         constraints: const BoxConstraints.tightFor(),
         emptyBuilder: (context, searchEntry) => const DropdownEmpty(),
-        //! IsSelected is not working
-        itemBuilder: (context, item, isSelected) => PopupItem(
+        itemBuilder: (context, item, _, __) => PopupItem(
           item: item,
-          isSelected: isSelected,
+          isSelected: widget.selectedItem == item,
         ),
-        searchFieldProps: SearchFieldProps(searchHint).build(context),
+        searchFieldProps: SearchFieldProps(widget.searchHint).build(context),
       ),
-      dropdownBuilder: (_, item) => DropdownInput(item: item, hint: hint),
-      dropdownDecoratorProps:
-          DropdownInputDecorator(labelText: label).build(context),
-      dropdownButtonProps: DropdownButtonProps(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSizeConstants.mediumSpace,
+      dropdownBuilder: (_, item) =>
+          DropdownInput(item: item, hint: widget.hint),
+      decoratorProps:
+          DropdownInputDecorator(labelText: widget.label).build(context),
+      suffixProps: DropdownSuffixProps(
+        dropdownButtonProps: DropdownButtonProps(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSizeConstants.mediumSpace,
+          ),
+          color: context.colorsScheme.onSurface,
+          iconOpened: const Icon(Icons.keyboard_arrow_down_outlined),
         ),
-        color: context.colorsScheme.onBackground,
-        icon: const Icon(Icons.keyboard_arrow_down_outlined),
       ),
     );
   }
 }
 
 class DropdownInput extends StatelessWidget {
+  const DropdownInput({super.key, this.item, required this.hint});
   final DropdownItem? item;
   final String hint;
-  const DropdownInput({super.key, this.item, required this.hint});
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +83,12 @@ class DropdownInput extends StatelessWidget {
 }
 
 class DropdownInputDecorator extends DropDownDecoratorProps {
-  final String labelText;
   const DropdownInputDecorator({required this.labelText});
+  final String labelText;
 
   DropDownDecoratorProps build(BuildContext context) {
     return DropDownDecoratorProps(
-      dropdownSearchDecoration: InputDecoration(
+      decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
         hintStyle: context.bodyMedium,
@@ -94,20 +102,18 @@ class DropdownInputDecorator extends DropDownDecoratorProps {
 }
 
 class PopupItem extends StatelessWidget {
-  final DropdownItem item;
-  final bool isSelected;
   const PopupItem({
     super.key,
     required this.item,
     required this.isSelected,
   });
+  final DropdownItem item;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: isSelected
-          ? AppColors.lightYellow
-          : context.colorsScheme.primary.withOpacity(0.08),
+      color: isSelected ? AppColors.lightYellow : AppColors.white,
       child: ListTile(
         contentPadding: const EdgeInsets.only(
           left: AppSizeConstants.mediumSpace,
@@ -138,9 +144,9 @@ class DropdownEmpty extends StatelessWidget {
 }
 
 class SearchFieldProps extends TextFieldProps {
-  final String? searchHint;
 
   const SearchFieldProps(this.searchHint);
+  final String? searchHint;
 
   TextFieldProps build(BuildContext context) {
     return TextFieldProps(

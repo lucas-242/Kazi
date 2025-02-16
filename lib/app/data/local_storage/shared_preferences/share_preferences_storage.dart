@@ -2,9 +2,9 @@ import 'package:kazi/app/data/local_storage/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesStorage implements LocalStorage {
-  late final SharedPreferences _prefs;
 
   SharedPreferencesStorage(this._prefs);
+  late final SharedPreferences _prefs;
 
   @override
   Future<void> remove(String key) => _prefs.remove(key);

@@ -3,9 +3,6 @@ import 'package:kazi/app/shared/extensions/extensions.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class TextWithTrailing extends StatelessWidget {
-  final String text;
-  final Widget trailing;
-  final TextStyle? textStyle;
 
   const TextWithTrailing({
     super.key,
@@ -13,6 +10,9 @@ class TextWithTrailing extends StatelessWidget {
     required this.trailing,
     this.textStyle,
   });
+  final String text;
+  final Widget trailing;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class TextWithTrailing extends StatelessWidget {
           text.capitalize(),
           style: textStyle ?? context.titleMedium,
         ),
-        trailing
+        trailing,
       ],
     );
   }

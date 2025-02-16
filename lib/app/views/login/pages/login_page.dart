@@ -18,9 +18,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   void _login() {
     serviceLocator<AuthService>().signInWithGoogle().then((isSignedIn) {
-      if (isSignedIn) context.navigateTo(AppPage.onboarding);
+      if (isSignedIn && mounted) context.navigateTo(AppPage.onboarding);
     }).catchError((error) {
-      getCustomSnackBar(context, message: error.message);
+      if (mounted) getCustomSnackBar(context, message: error.message);
     });
   }
 
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                         AppAssets.logo,
                         height: AppSizeConstants.logoHeight,
                       ),
-                      Text('Kazi', style: context.loginTitle)
+                      Text('Kazi', style: context.loginTitle),
                     ],
                   ),
                   AppSizeConstants.smallVerticalSpacer,
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text(AppLocalizations.current.googleSignIn),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

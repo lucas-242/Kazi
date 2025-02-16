@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -11,7 +9,7 @@ import 'package:kazi/app/shared/themes/themes.dart';
 import 'package:kazi/injector_container.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -46,8 +44,9 @@ class _SplashPageState extends State<SplashPage> {
 
   void _listenUser() {
     final auth = serviceLocator<AuthService>();
-    userStream = auth.userChanges().listen(_onUserChange,
-        onError: (_) => context.navigateTo(AppPage.login));
+    userStream = auth.userChanges().listen(_onUserChange, onError: (_) {
+      if (mounted) context.navigateTo(AppPage.login);
+    },);
   }
 
   Future<void> _onUserChange(AppUser? user) async {

@@ -1,10 +1,10 @@
 enum BaseStateStatus { loading, error, success, noData, readyToUserInput }
 
 class BaseState {
-  BaseStateStatus status;
-  String callbackMessage;
 
   BaseState({required this.status, this.callbackMessage = ''});
+  final BaseStateStatus status;
+  final String callbackMessage;
 
   T when<T>({
     required T Function(BaseState state) onState,

@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:kazi/app/shared/themes/themes.dart';
 
 class CustomElevatedButton extends StatelessWidget {
+
+  const CustomElevatedButton({
+    super.key,
+    required this.onTap,
+    required this.text,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.width,
+    this.height,
+  });
   final VoidCallback onTap;
   final String text;
   final Color? backgroundColor;
@@ -9,29 +19,19 @@ class CustomElevatedButton extends StatelessWidget {
   final double? width;
   final double? height;
 
-  const CustomElevatedButton({
-    Key? key,
-    required this.onTap,
-    required this.text,
-    this.backgroundColor,
-    this.foregroundColor,
-    this.width,
-    this.height,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       key: key,
       onPressed: onTap,
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all<Size>(Size(
-            width ?? context.width * 0.7, height ?? context.height * 0.067)),
+        minimumSize: WidgetStateProperty.all<Size>(Size(
+            width ?? context.width * 0.7, height ?? context.height * 0.067,),),
         backgroundColor: backgroundColor != null
-            ? MaterialStateProperty.all<Color>(backgroundColor!)
+            ? WidgetStateProperty.all<Color>(backgroundColor!)
             : null,
         foregroundColor: foregroundColor != null
-            ? MaterialStateProperty.all<Color>(foregroundColor!)
+            ? WidgetStateProperty.all<Color>(foregroundColor!)
             : null,
       ),
       child: Text(text),

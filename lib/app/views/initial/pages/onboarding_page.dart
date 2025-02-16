@@ -53,7 +53,7 @@ class OnboardingPage extends StatelessWidget {
                     },
                     child: const Icon(Icons.chevron_right),
                   ),
-                )
+                ),
               ],
             ),
           ),

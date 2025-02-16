@@ -64,7 +64,7 @@ class ServiceNavbar extends StatelessWidget {
           PillButton(
             onTap: () => context.navigateTo(AppPage.addServices),
             child: Text(AppLocalizations.current.newService),
-          )
+          ),
         ],
       ),
     );

@@ -37,7 +37,7 @@ void main() {
         .thenAnswer((_) async => serviceTypeMock);
 
     cubit = ServiceTypesCubit(
-        serviceTypeRepository, servicesRepository, authService);
+        serviceTypeRepository, servicesRepository, authService,);
   });
 
   group('Call onInit function', () {
@@ -50,7 +50,7 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
           status: BaseStateStatus.readyToUserInput,
-        )
+        ),
       ],
     );
 
@@ -66,7 +66,7 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: [],
           status: BaseStateStatus.noData,
-        )
+        ),
       ],
     );
   });
@@ -85,7 +85,7 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
           status: BaseStateStatus.readyToUserInput,
-        )
+        ),
       ],
     );
 
@@ -94,7 +94,7 @@ void main() {
       build: () => cubit,
       setUp: () {
         when(serviceTypeRepository.get(any)).thenThrow(
-            ExternalError(AppLocalizations.current.errorToGetServiceTypes));
+            ExternalError(AppLocalizations.current.errorToGetServiceTypes),);
       },
       act: (cubit) => cubit.getServiceTypes(),
       expect: () => [
@@ -106,7 +106,7 @@ void main() {
           userId: authService.user!.uid,
           callbackMessage: AppLocalizations.current.errorToGetServiceTypes,
           status: BaseStateStatus.error,
-        )
+        ),
       ],
     );
 
@@ -126,7 +126,7 @@ void main() {
           userId: authService.user!.uid,
           callbackMessage: AppLocalizations.current.unknowError,
           status: BaseStateStatus.error,
-        )
+        ),
       ],
     );
   });
@@ -156,7 +156,7 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: [serviceTypeMock],
           status: BaseStateStatus.success,
-        )
+        ),
       ],
     );
   });
@@ -186,7 +186,7 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
           status: BaseStateStatus.success,
-        )
+        ),
       ],
     );
   });
@@ -220,7 +220,7 @@ void main() {
           userId: authService.user!.uid,
           serviceTypeList: serviceTypesMock,
           status: BaseStateStatus.success,
-        )
+        ),
       ],
     );
   });
@@ -243,7 +243,7 @@ void main() {
         ServiceTypesState(
           userId: authService.user!.uid,
           status: BaseStateStatus.noData,
-        )
+        ),
       ],
     );
 
@@ -261,7 +261,7 @@ void main() {
           userId: authService.user!.uid,
           serviceType: serviceTypeMock.copyWith(name: newName),
           status: BaseStateStatus.noData,
-        )
+        ),
       ],
     );
 
@@ -279,7 +279,7 @@ void main() {
           userId: authService.user!.uid,
           serviceType: serviceTypeMock.copyWith(defaultValue: newDefaultValue),
           status: BaseStateStatus.noData,
-        )
+        ),
       ],
     );
 
@@ -299,7 +299,7 @@ void main() {
           serviceType:
               serviceTypeMock.copyWith(discountPercent: newDiscountPercent),
           status: BaseStateStatus.noData,
-        )
+        ),
       ],
     );
   });

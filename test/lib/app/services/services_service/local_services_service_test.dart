@@ -30,7 +30,7 @@ void main() {
           servicesService.getRangeDateByFastSearch(FastSearch.lastMonth);
 
       expect(result,
-          getExpected(DateTime(2022, 12), DateTime(2022, 12, 31, 23, 59, 59)));
+          getExpected(DateTime(2022, 12), DateTime(2022, 12, 31, 23, 59, 59)),);
     });
 
     test('Should get range for Month', () {
@@ -63,7 +63,7 @@ void main() {
     test('Should get range for Last Fortnight', () {
       //HERE servicesService.now.copyWith(day: 17)
       servicesService = LocalServicesService(
-          LocalTimeService(servicesService.now.copyWith(day: 17)));
+          LocalTimeService(servicesService.now.copyWith(day: 17)),);
       final result =
           servicesService.getRangeDateByFastSearch(FastSearch.fortnight);
 

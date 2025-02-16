@@ -15,7 +15,7 @@ class LocalServicesService extends ServicesService {
 
   @override
   List<Service> addServiceTypeToServices(
-      List<Service> services, List<ServiceType> serviceTypes) {
+      List<Service> services, List<ServiceType> serviceTypes,) {
     final result = <Service>[];
     for (var service in services) {
       result.add(_fillServiceWithServiceType(service, serviceTypes));
@@ -24,9 +24,9 @@ class LocalServicesService extends ServicesService {
   }
 
   Service _fillServiceWithServiceType(
-      Service service, List<ServiceType> serviceTypes) {
+      Service service, List<ServiceType> serviceTypes,) {
     return service.copyWith(
-        type: serviceTypes.firstWhere((st) => st.id == service.typeId));
+        type: serviceTypes.firstWhere((st) => st.id == service.typeId),);
   }
 
   @override
@@ -108,7 +108,7 @@ class LocalServicesService extends ServicesService {
         result.add(ServicesGroupByDate(
           date: date,
           services: servicesOnDate,
-        ));
+        ),);
       }
     }
 

@@ -14,18 +14,18 @@ part 'service_types_state.dart';
 
 class ServiceTypesCubit extends Cubit<ServiceTypesState>
     with BaseCubit, FormValidator {
-  final ServiceTypeRepository _serviceTypeRepository;
-  final ServicesRepository _serviceRepository;
-  final AuthService _authService;
 
   ServiceTypesCubit(
-      this._serviceTypeRepository, this._serviceRepository, this._authService)
+      this._serviceTypeRepository, this._serviceRepository, this._authService,)
       : super(
           ServiceTypesState(
             userId: _authService.user!.uid,
             status: BaseStateStatus.loading,
           ),
         );
+  final ServiceTypeRepository _serviceTypeRepository;
+  final ServicesRepository _serviceRepository;
+  final AuthService _authService;
 
   Future<void> onInit() async {
     try {
@@ -73,7 +73,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypes: newList,
-          serviceType: ServiceType(userId: _authService.user!.uid)));
+          serviceType: ServiceType(userId: _authService.user!.uid),),);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -91,7 +91,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
       emit(state.copyWith(
           status: BaseStateStatus.success,
           serviceTypes: newList,
-          serviceType: ServiceType(userId: _authService.user!.uid)));
+          serviceType: ServiceType(userId: _authService.user!.uid),),);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -109,7 +109,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
       emit(state.copyWith(
         status: BaseStateStatus.success,
         serviceTypes: newList,
-      ));
+      ),);
     } on AppError catch (exception) {
       onAppError(exception);
     } catch (exception) {
@@ -119,7 +119,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
 
   void eraseServiceType() {
     emit(state.copyWith(
-        serviceType: ServiceType(userId: _authService.user!.uid)));
+        serviceType: ServiceType(userId: _authService.user!.uid),),);
   }
 
   void changeServiceType(ServiceType serviceType) {
@@ -131,17 +131,17 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
   }
 
   void changeServiceTypeDefaultValue(double value) => emit(state.copyWith(
-      serviceType: state.serviceType.copyWith(defaultValue: value)));
+      serviceType: state.serviceType.copyWith(defaultValue: value),),);
 
   void changeServiceTypeDiscountPercent(double value) => emit(state.copyWith(
-      serviceType: state.serviceType.copyWith(discountPercent: value)));
+      serviceType: state.serviceType.copyWith(discountPercent: value),),);
 
   void _checkServiceValidity([String? idToExclude]) {
     if (state.serviceType.name.isEmpty) {
       throw ClientError(
           AppLocalizations.current
               .requiredProperty(AppLocalizations.current.serviceType),
-          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
+          trace: 'Triggered by _checkServiceValidity on SettingsCubit.',);
     }
     if (state.serviceTypes
         .where((type) => type.id != idToExclude)
@@ -150,7 +150,7 @@ class ServiceTypesCubit extends Cubit<ServiceTypesState>
       throw ClientError(
           AppLocalizations.current
               .alreadyExists(AppLocalizations.current.serviceType),
-          trace: 'Triggered by _checkServiceValidity on SettingsCubit.');
+          trace: 'Triggered by _checkServiceValidity on SettingsCubit.',);
     }
   }
 

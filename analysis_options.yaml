@@ -17,9 +17,13 @@ linter:
     prefer_is_empty: true
     prefer_is_not_empty: true
     prefer_single_quotes: true
+    require_trailing_commas: true
     sized_box_shrink_expand: true
+    sort_constructors_first: true
+    sort_pub_dependencies: true
+    sort_unnamed_constructors_first: true
     unnecessary_await_in_return: true
     unnecessary_statements: true
     use_colored_box: true
     use_decorated_box: true
-
+    use_key_in_widget_constructors: true

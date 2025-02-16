@@ -11,11 +11,11 @@ import 'package:kazi/app/shared/widgets/fields/fields.dart';
 import '../service_types.dart';
 
 class ServiceTypeFormContent extends StatefulWidget {
-  final void Function() onConfirm;
   const ServiceTypeFormContent({
     super.key,
     required this.onConfirm,
   });
+  final void Function() onConfirm;
 
   @override
   State<ServiceTypeFormContent> createState() => _ServiceTypeFormContentState();
@@ -82,7 +82,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                 controller: _serviceValueController,
                 keyboardType: TextInputType.number,
                 onChanged: (value) => cubit.changeServiceTypeDefaultValue(
-                    _serviceValueController.numberValue),
+                    _serviceValueController.numberValue,),
                 validator: (value) => cubit.validateNumberField(
                   _serviceValueController.numberValue.toString(),
                   AppLocalizations.current.serviceValue,
@@ -95,7 +95,7 @@ class _ServiceTypeFormContentState extends State<ServiceTypeFormContent> {
                 labelText: AppLocalizations.current.discountPercentage,
                 keyboardType: TextInputType.number,
                 onChanged: (value) => cubit.changeServiceTypeDiscountPercent(
-                    _discountController.numberValue),
+                    _discountController.numberValue,),
                 validator: (value) => cubit.validateNumberField(
                   _discountController.numberValue.toString(),
                   AppLocalizations.current.discountPercentage,

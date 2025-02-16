@@ -3,14 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'service_type.dart';
 
 class Service extends Equatable {
-  final String id;
-  final String? description;
-  final double value;
-  final double discountPercent;
-  final ServiceType? type;
-  final String typeId;
-  final DateTime date;
-  final String userId;
 
   Service({
     this.id = '',
@@ -23,7 +15,15 @@ class Service extends Equatable {
     required this.userId,
   }) : date = date ??
             DateTime(
-                DateTime.now().year, DateTime.now().month, DateTime.now().day);
+                DateTime.now().year, DateTime.now().month, DateTime.now().day,);
+  final String id;
+  final String? description;
+  final double value;
+  final double discountPercent;
+  final ServiceType? type;
+  final String typeId;
+  final DateTime date;
+  final String userId;
 
   double get valueDiscounted => value * discountPercent / 100;
 
