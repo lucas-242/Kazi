@@ -92,11 +92,8 @@ class _NothingToShow extends ConsumerWidget {
 
     return KaziNoResults(
       message: l10n.noServicesForFilters,
-      action: KaziPillButton(
-        onTap: ref.read(serviceLandingControllerProvider.notifier).onClearFilters,
-        outlinedButton: true,
-        child: Text(l10n.removeFilters),
-      ),
+      actionLabel: l10n.removeFilters,
+      onAction: ref.read(serviceLandingControllerProvider.notifier).onClearFilters,
     );
   }
 }

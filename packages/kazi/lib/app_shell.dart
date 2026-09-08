@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kazi/core/routes/app_pages.dart';
-import 'package:kazi/core/routes/current_screen.dart';
 import 'package:kazi/core/widgets/tap_probe.dart';
 import 'package:kazi/features/app_update/app_update.dart';
 import 'package:kazi/features/dashboard/presenter/controllers/dashboard_controller.dart';
@@ -185,24 +184,15 @@ class _ShellFab extends StatelessWidget {
 
   final int tabIndex;
 
-  AppPage _destination(AppPage? page) => switch ((page, tabIndex)) {
-    (AppPage.serviceCatalog, _) => AppPage.addCatalogItem,
-    (_, _Tab.clients) => AppPage.addClient,
-    _ => AppPage.addServices,
-  };
+  AppPage get _destination =>
+      tabIndex == _Tab.clients ? AppPage.addClient : AppPage.addServices;
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
-
     return HintAnchor(
       hint: OnboardingHint.fab,
       enabled: tabIndex == _Tab.home,
-      child: ListenableBuilder(
-        listenable: router.routerDelegate,
-        builder: (context, _) =>
-            _Fab(destination: _destination(currentAppPage(() => router))),
-      ),
+      child: _Fab(destination: _destination),
     );
   }
 }

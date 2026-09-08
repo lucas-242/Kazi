@@ -3,7 +3,7 @@ import 'package:kazi/core/routes/app_pages.dart';
 import 'package:kazi/core/utils/base_state.dart';
 import 'package:kazi/features/services/presenter/controllers/catalog_controller.dart';
 import 'package:kazi/features/services/presenter/widgets/catalog_content.dart';
-import 'package:kazi/features/services/presenter/widgets/catalog_item_no_data_navbar.dart';
+import 'package:kazi/features/services/presenter/widgets/catalog_nav_bar.dart';
 import 'package:kazi_core/kazi_core.dart'
     hide Service, CatalogItem, CatalogItemRepository;
 import 'package:kazi_core/kazi_core.dart';
@@ -31,20 +31,25 @@ class _ServiceCatalogPageState extends ConsumerState<ServiceCatalogPage> {
     final isEmpty = state.status == BaseStateStatus.noData;
 
     return Scaffold(
+      // The shell's own Scaffold does not resize for the keyboard, so this one
+      // must not either: shrinking only the inner body ends the content a nav
+      // bar's height above the keyboard, with bare background in between. The
+      // search field is at the top, and nothing here needs to move for it.
+      resizeToAvoidBottomInset: false,
       body: KaziSafeArea(
         isScrollView: !isEmpty,
         onRefresh: controller.getCatalogItems,
         child: switch (state.status) {
           BaseStateStatus.loading when state.catalogItems.isEmpty => Column(
             children: const [
-              CatalogItemNoDataNavbar(),
+              CatalogNavBar(),
               KaziSpacings.verticalMd,
               KaziSkeletonList(),
             ],
           ),
           BaseStateStatus.error when state.catalogItems.isEmpty => Column(
             children: [
-              const CatalogItemNoDataNavbar(),
+              const CatalogNavBar(),
               Expanded(
                 child: KaziError(
                   message: state.callbackMessage,
@@ -56,7 +61,7 @@ class _ServiceCatalogPageState extends ConsumerState<ServiceCatalogPage> {
           ),
           BaseStateStatus.noData => Column(
             children: [
-              const CatalogItemNoDataNavbar(),
+              const CatalogNavBar(),
               Expanded(
                 child: KaziEmpty(
                   message: KaziLocalizations.current.noCatalogItems,

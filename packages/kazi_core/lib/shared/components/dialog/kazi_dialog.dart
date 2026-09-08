@@ -16,6 +16,7 @@ class KaziDialog extends StatelessWidget {
     required this.onCancel,
     required this.title,
     required this.message,
+    this.icon,
     this.emphasis,
     this.cancelText,
     this.confirmText,
@@ -25,6 +26,12 @@ class KaziDialog extends StatelessWidget {
   final VoidCallback onConfirm;
   final String title;
   final String message;
+
+  /// A glyph above the title, in a muted disc. For a dialog that **refuses**
+  /// rather than asks: the mark is what tells the reader, before the sentence
+  /// does, that nothing is being decided here. An ordinary confirmation carries
+  /// none.
+  final IconData? icon;
 
   /// A substring of [message] to bold — the name the question is about.
   final String? emphasis;
@@ -48,7 +55,28 @@ class KaziDialog extends StatelessWidget {
 
     return AlertDialog(
       key: key ?? const Key('KaziDialog'),
-      title: Text(title, style: KaziTextStyles.titleMedium),
+      title: icon == null
+          ? Text(title, style: KaziTextStyles.titleMedium)
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(KaziInsets.sm),
+                  decoration: BoxDecoration(
+                    color: colors.danger.surface,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    icon,
+                    size: KaziSizings.iconMd,
+                    color: colors.danger.onSurface,
+                  ),
+                ),
+                KaziSpacings.verticalSm,
+                Text(title, style: KaziTextStyles.titleMedium),
+              ],
+            ),
       content: emphasis == null
           ? Text(message, style: KaziTextStyles.bodyMedium)
           : KaziEmphasizedText(

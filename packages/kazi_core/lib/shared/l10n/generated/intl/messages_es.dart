@@ -153,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m55(period) => "${period} · tu ganancia";
 
   static String m56(count) =>
-      "${Intl.plural(count, one: 'Cambiar el precio aquí vale para los próximos registros. El 1 servicio ya registrado mantiene el valor de su época.', other: 'Cambiar el precio aquí vale para los próximos registros. Los ${count} servicios ya registrados mantienen el valor de su época.')}";
+      "${Intl.plural(count, one: 'Cambiar el precio aquí vale para los próximos registros. El servicio ya registrado mantiene el valor de su época.', other: 'Cambiar el precio aquí vale para los próximos registros. Los ${count} servicios ya registrados mantienen el valor de su época.')}";
 
   static String m57(date) => "Recibido el ${date}";
 
@@ -189,17 +189,20 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m70(name) => "Usar ${name} que ya existe";
 
   static String m71(count) =>
+      "${Intl.plural(count, one: 'usado en 1 servicio', other: 'usado en ${count} servicios')}";
+
+  static String m72(count) =>
       "${Intl.plural(count, one: '1 uso', other: '${count} usos')}";
 
-  static String m72(count) => "Ver archivados · ${count}";
+  static String m73(count) => "Ver archivados · ${count}";
 
-  static String m73(version) => "Versión ${version}";
+  static String m74(version) => "Versión ${version}";
 
-  static String m74(item) => "¿Deseas eliminar ${item}?";
+  static String m75(item) => "¿Deseas eliminar ${item}?";
 
-  static String m75(amount) => "Tu ganancia: ${amount}";
+  static String m76(amount) => "Tu ganancia: ${amount}";
 
-  static String m76(amount) => "${amount} son tuyos";
+  static String m77(amount) => "${amount} son tuyos";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -227,8 +230,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "archivedCatalogItems": MessageLookupByLibrary.simpleMessage(
       "Catálogo archivado",
     ),
+    "archivedCatalogNote": MessageLookupByLibrary.simpleMessage(
+      "Un elemento archivado no aparece al registrar un servicio, pero sigue nombrando los servicios en los que ya se usó.",
+    ),
     "archivedClients": MessageLookupByLibrary.simpleMessage(
       "Clientes archivados",
+    ),
+    "archivedClientsNote": MessageLookupByLibrary.simpleMessage(
+      "Un cliente archivado desaparece de las búsquedas y del formulario, pero sigue en el historial de los servicios ya registrados.",
     ),
     "archivedOn": m3,
     "archivedSectionLabel": MessageLookupByLibrary.simpleMessage("Archivados"),
@@ -276,6 +285,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "catalogAll": MessageLookupByLibrary.simpleMessage("Todos"),
     "catalogItem": MessageLookupByLibrary.simpleMessage("Servicio"),
     "catalogItemArchivedRestorePrompt": m13,
+    "catalogItemDuplicateName": MessageLookupByLibrary.simpleMessage(
+      "Ya existe un elemento con este nombre. Usa otro nombre o edita el que existe.",
+    ),
     "catalogItemFormHint": MessageLookupByLibrary.simpleMessage(
       "El precio y la comisión vienen del catálogo. Puedes cambiarlos solo en este registro.",
     ),
@@ -309,6 +321,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "checklistTitle": MessageLookupByLibrary.simpleMessage(
       "Deja Kazi a tu manera",
     ),
+    "clear": MessageLookupByLibrary.simpleMessage("Limpiar"),
     "clearAll": MessageLookupByLibrary.simpleMessage("Limpiar todo"),
     "client": MessageLookupByLibrary.simpleMessage("Cliente"),
     "clientFormHint": MessageLookupByLibrary.simpleMessage(
@@ -676,6 +689,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "freeLimitClients": m34,
     "freeLimitServices": m35,
     "freePlan": MessageLookupByLibrary.simpleMessage("Gratis"),
+    "freeToDelete": MessageLookupByLibrary.simpleMessage("libre"),
     "fromTo": m36,
     "generated": MessageLookupByLibrary.simpleMessage("Generado"),
     "generatedFromAmount": m37,
@@ -826,6 +840,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noServiceYet": MessageLookupByLibrary.simpleMessage(
       "Ningún servicio todavía",
     ),
+    "noServices": MessageLookupByLibrary.simpleMessage("Ningún servicio"),
     "noServicesForFilters": MessageLookupByLibrary.simpleMessage(
       "Ningún servicio coincide con estos filtros.",
     ),
@@ -845,6 +860,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "nothingFoundFor": m50,
     "nothingFoundForDescription": MessageLookupByLibrary.simpleMessage(
       "Ningún servicio, cliente o ítem del catálogo con ese nombre.",
+    ),
+    "nothingFoundInCatalog": MessageLookupByLibrary.simpleMessage(
+      "Ningún elemento del catálogo con ese nombre.",
     ),
     "numberBiggerThan100": MessageLookupByLibrary.simpleMessage(
       "Por favor, ingresa un número menor o igual a 100",
@@ -1517,6 +1535,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "useExistingClient": m70,
     "usedIn": MessageLookupByLibrary.simpleMessage("Usado en"),
+    "usedInServices": m71,
     "userTermsAlert1": MessageLookupByLibrary.simpleMessage(
       "Al continuar, aceptas los ",
     ),
@@ -1529,7 +1548,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "userTermsAlert4": MessageLookupByLibrary.simpleMessage(
       "Política de privacidad",
     ),
-    "usesCount": m71,
+    "usesCount": m72,
     "validatorConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Las contraseñas no coinciden",
     ),
@@ -1539,25 +1558,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "validatorPassword": MessageLookupByLibrary.simpleMessage(
       "Tu contraseña debe tener al menos 8 caracteres y como máximo 16",
     ),
-    "viewArchived": m72,
+    "viewArchived": m73,
     "week": MessageLookupByLibrary.simpleMessage("7 días"),
     "whatWasDone": MessageLookupByLibrary.simpleMessage("Qué se hizo"),
     "whatsNewSubtitle": MessageLookupByLibrary.simpleMessage(
       "Tres cosas, escritas por nosotros, no descubiertas en medio de una atención.",
     ),
     "whatsNewTitle": MessageLookupByLibrary.simpleMessage("Qué cambió"),
-    "whatsNewVersion": m73,
+    "whatsNewVersion": m74,
     "whatsapp": MessageLookupByLibrary.simpleMessage("WhatsApp"),
     "whoWasServed": MessageLookupByLibrary.simpleMessage("A quién atendiste"),
     "withoutCatalogItem": MessageLookupByLibrary.simpleMessage(
       "Fuera del catálogo",
     ),
     "withoutCommission": MessageLookupByLibrary.simpleMessage("sin comisión"),
-    "wouldYouLikeDelete": m74,
+    "wouldYouLikeDelete": m75,
     "yesterday": MessageLookupByLibrary.simpleMessage("Ayer"),
     "youKeep": MessageLookupByLibrary.simpleMessage("Te queda"),
     "yourEarnings": MessageLookupByLibrary.simpleMessage("Tu ganancia"),
-    "yourEarningsAmount": m75,
-    "yoursFromThis": m76,
+    "yourEarningsAmount": m76,
+    "yoursFromThis": m77,
   };
 }

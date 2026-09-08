@@ -93,7 +93,9 @@
       "Bash(sed -n '/Future<void> save/,/^  }/p' lib/features/clients/presenter/controllers/client_form_controller.dart)",
       "Bash(sed -n '/void dismissDuplicateWarning/,/^  }/p;/Future<void> confirmDuplicate/,/^  }/p' lib/features/clients/presenter/controllers/client_form_controller.dart)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(xargs -n1 basename)",
+      "Bash(git diff *)"
     ],
     "additionalDirectories": [
       "/tmp",

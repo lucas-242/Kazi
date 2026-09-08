@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kazi/core/currency/currency_providers.dart';
 import 'package:kazi/core/routes/app_pages.dart';
+import 'package:kazi/core/widgets/detail_info_row.dart';
 import 'package:kazi/features/clients/domain/models/client_entry.dart';
 import 'package:kazi/features/clients/presenter/widgets/contact_options_sheet.dart';
 import 'package:kazi/features/services/domain/models/service.dart';
@@ -67,39 +68,39 @@ class ClientDetailsContent extends ConsumerWidget {
         _EarningsPanel(client: client, clientSince: clientSince),
         KaziSpacings.verticalSm,
         if (mostGets != null)
-          _InfoRow(
+          DetailInfoRow(
             icon: Icons.local_offer_outlined,
             label: l10n.mostGets,
             value: mostGets,
           ),
         if (user.document.isNotEmpty)
-          _InfoRow(
+          DetailInfoRow(
             icon: Icons.badge_outlined,
             label: l10n.document,
             value: user.document,
           ),
         if (phone.isNotEmpty)
-          _InfoRow(
+          DetailInfoRow(
             icon: Icons.phone_outlined,
             label: l10n.phone,
             value: phone,
             onTap: () => openContactOptions(context, ref, phone),
           ),
         if (user.email.isNotEmpty)
-          _InfoRow(
+          DetailInfoRow(
             icon: Icons.mail_outlined,
             label: l10n.email,
             value: user.email,
             onTap: () => openEmail(context, ref, user.email),
           ),
         if (!ClientBirthDate.isMissing(user.birthDate))
-          _InfoRow(
+          DetailInfoRow(
             icon: Icons.cake_outlined,
             label: l10n.birthDate,
             value: user.birthDate.format().normalizeDate(),
           ),
         if (client.observation.isNotEmpty)
-          _InfoRow(
+          DetailInfoRow(
             icon: Icons.sticky_note_2_outlined,
             label: l10n.observation,
             value: client.observation,
@@ -257,82 +258,6 @@ class _HistoryHeading extends ConsumerWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({
-    required this.icon,
-    required this.label,
-    required this.value,
-    this.onTap,
-  });
-
-  final IconData icon;
-  final String label;
-  final String value;
-
-  /// Set on the phone and email rows only — the two facts here that lead
-  /// somewhere else. The value reads in the brand ink exactly because of this,
-  /// the same signal `KaziTextButton` gives every other link in the app.
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: KaziInsets.xs),
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: colors.card,
-          borderRadius: KaziRadii.smBorder,
-          border: Border.all(color: colors.border),
-        ),
-        child: Material(
-          type: MaterialType.transparency,
-          borderRadius: KaziRadii.smBorder,
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: KaziRadii.smBorder,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: KaziInsets.md,
-                vertical: KaziInsets.sm,
-              ),
-              child: Row(
-                children: [
-                  Icon(icon, size: KaziSizings.iconSm, color: colors.textMuted),
-                  KaziSpacings.horizontalXs,
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      label,
-                      style: KaziTextStyles.bodySmall.copyWith(
-                        color: colors.textMuted,
-                      ),
-                    ),
-                  ),
-                  KaziSpacings.horizontalSm,
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      value,
-                      style: KaziTextStyles.labelLarge.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: onTap == null ? null : colors.brand.text,
-                      ),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -83,6 +83,24 @@ class CatalogController extends _$CatalogController
     state = state.copyWith(filter: filter);
   }
 
+  /// Opens, closes and narrows the search. All three are pure state: the
+  /// catalogue is held whole in memory, so a term costs no query either.
+  void onOpenSearch() {
+    if (state.isSearching) return;
+    state = state.copyWith(isSearching: true, query: '');
+  }
+
+  void onCloseSearch() {
+    if (!state.isSearching) return;
+    state = state.copyWith(isSearching: false, query: '');
+  }
+
+  void onSearch(String query) {
+    final trimmed = query.trim();
+    if (trimmed == state.query) return;
+    state = state.copyWith(query: trimmed);
+  }
+
   Future<void> getCatalogItems() async {
     try {
       state = state.copyWith(status: BaseStateStatus.loading);
@@ -156,7 +174,7 @@ class CatalogController extends _$CatalogController
 
   Future<void> updateCatalogItem() async {
     try {
-      _checkServiceValidity(state.catalogItem.id);
+      _checkServiceValidity();
       state = state.copyWith(status: BaseStateStatus.loading);
       await _catalogItemRepository.update(_withDefaultCurrency());
       final newList = await _fetchCatalogItems();
@@ -251,10 +269,9 @@ class CatalogController extends _$CatalogController
       ? state.catalogItem.copyWith(currency: _defaultCurrency.isoCode)
       : state.catalogItem;
 
-  /// Two catalog items with the same name split one total across two rows, and
-  /// the user reads that as a bug — so the name has to be unique among the
-  /// active items, compared normalized. See core/archiving.md.
-  void _checkServiceValidity([String? idToExclude]) {
+  /// The last line behind the form's own check: the name is unique among the
+  /// active items, so that two rows can never split one total in two.
+  void _checkServiceValidity() {
     if (state.catalogItem.name.isEmpty) {
       throw ClientError(
         KaziLocalizations.current.requiredProperty(
@@ -262,22 +279,9 @@ class CatalogController extends _$CatalogController
         ),
       );
     }
-    if (_activeNamed(state.catalogItem.name, idToExclude) != null) {
-      throw ClientError(
-        KaziLocalizations.current.alreadyExists(
-          KaziLocalizations.current.catalogItem,
-        ),
-      );
+    if (state.nameCollision != null) {
+      throw ClientError(KaziLocalizations.current.catalogItemDuplicateName);
     }
-  }
-
-  CatalogItem? _activeNamed(String name, [String? idToExclude]) {
-    final normalized = name.normalizedName;
-    for (final item in state.activeCatalogItems) {
-      if (item.id == idToExclude) continue;
-      if (item.name.normalizedName == normalized) return item;
-    }
-    return null;
   }
 
   CatalogItem? _archivedNamed(String name) {
@@ -311,12 +315,9 @@ class CatalogController extends _$CatalogController
   /// restoring runs the same uniqueness rule creating does.
   Future<void> restoreCatalogItem(CatalogItem catalogItem) async {
     try {
-      if (_activeNamed(catalogItem.name, catalogItem.id) != null) {
-        throw ClientError(
-          KaziLocalizations.current.alreadyExists(
-            KaziLocalizations.current.catalogItem,
-          ),
-        );
+      if (state.activeNamed(catalogItem.name, excluding: catalogItem.id) !=
+          null) {
+        throw ClientError(KaziLocalizations.current.catalogItemDuplicateName);
       }
 
       await _catalogItemRepository.restore(catalogItem.id);

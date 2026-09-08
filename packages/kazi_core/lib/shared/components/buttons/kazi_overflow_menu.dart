@@ -65,12 +65,17 @@ class KaziOverflowMenu extends StatelessWidget {
                       : colors.text,
                 ),
                 KaziSpacings.horizontalSm,
-                Text(
-                  action.label,
-                  style: KaziTextStyles.labelLarge.copyWith(
-                    color: action.isDestructive
-                        ? colors.danger.onSurface
-                        : colors.text,
+                // A label long enough to overflow wraps instead: the menu is
+                // as wide as its widest entry, and a clipped action is
+                // unreadable rather than merely tight.
+                Flexible(
+                  child: Text(
+                    action.label,
+                    style: KaziTextStyles.labelLarge.copyWith(
+                      color: action.isDestructive
+                          ? colors.danger.onSurface
+                          : colors.text,
+                    ),
                   ),
                 ),
                 if (action.trailing case final String count) ...[

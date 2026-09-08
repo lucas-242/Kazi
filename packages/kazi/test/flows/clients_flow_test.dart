@@ -365,4 +365,29 @@ void main() {
     final written = await app.firestore.collection('clients').get();
     expect(written.docs, hasLength(limit));
   });
+
+  // Same shape as the catalogue: the shell's Scaffold does not resize for the
+  // keyboard, so a nested one that did would leave a band of bare background
+  // between the content and the keyboard.
+  testWidgets('the keyboard opens no band under the content', (tester) async {
+    final app = TestAppHarness();
+    await app.seedClient(name: 'Ana');
+    await app.pump(tester);
+    await openTheTab(tester, app);
+
+    await tester.tap(find.byIcon(Icons.search));
+    await settle(tester);
+
+    final content = find.descendant(
+      of: find.byType(ClientsPage),
+      matching: find.byType(KaziSafeArea),
+    );
+    final before = tester.getRect(content).bottom;
+
+    tester.view.viewInsets = const FakeViewPadding(bottom: 500);
+    addTearDown(tester.view.resetViewInsets);
+    await settle(tester);
+
+    expect(tester.getRect(content).bottom, before);
+  });
 }

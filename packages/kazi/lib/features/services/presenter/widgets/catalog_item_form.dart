@@ -83,6 +83,20 @@ class _CatalogItemFormContentState extends ConsumerState<CatalogItemForm> {
     });
   }
 
+  /// The name is refused, not merely warned about: the summary by type sums by
+  /// item, and two items with one name would split that number in two.
+  String? _validateName(String? value) {
+    final required = FormValidator.validateTextField(
+      value,
+      KaziLocalizations.current.name,
+    );
+    if (required != null) return required;
+
+    return ref.read(catalogControllerProvider).nameCollision == null
+        ? null
+        : KaziLocalizations.current.catalogItemDuplicateName;
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = ref.read(catalogControllerProvider.notifier);
@@ -98,10 +112,7 @@ class _CatalogItemFormContentState extends ConsumerState<CatalogItemForm> {
             label: KaziLocalizations.current.name,
             initialValue: catalogItem.name,
             onChanged: controller.changeCatalogItemName,
-            validator: (value) => FormValidator.validateTextField(
-              value,
-              KaziLocalizations.current.name,
-            ),
+            validator: _validateName,
           ),
           KaziSpacings.verticalXs,
           KaziFieldPicker(

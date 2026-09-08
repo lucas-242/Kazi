@@ -550,7 +550,7 @@
   "usedIn": "Usado em",
   "generatedSoFar": "Gerou até hoje",
   "youKeep": "Fica com você",
-  "priceChangeNote": "{count, plural, one{Mudar o preço aqui vale para os próximos registros. O 1 serviço já lançado continua com o valor da época.} other{Mudar o preço aqui vale para os próximos registros. Os {count} serviços já lançados continuam com o valor da época.}}",
+  "priceChangeNote": "{count, plural, one{Mudar o preço aqui vale para os próximos registros. O serviço já lançado continua com o valor da época.} other{Mudar o preço aqui vale para os próximos registros. Os {count} serviços já lançados continuam com o valor da época.}}",
   "@priceChangeNote": {
     "placeholders": {
       "count": {
@@ -1160,5 +1160,20 @@
       }
     }
   },
-  "errorToVerifyDocument": "Não foi possível verificar se este documento já está cadastrado. Tente novamente."
+  "errorToVerifyDocument": "Não foi possível verificar se este documento já está cadastrado. Tente novamente.",
+  "catalogItemDuplicateName": "Já existe um item com este nome. Use outro nome ou edite o que existe.",
+  "archivedCatalogNote": "Item arquivado não aparece ao registrar um serviço, mas continua nomeando os serviços em que já foi usado.",
+  "archivedClientsNote": "Cliente arquivado some das buscas e do formulário, mas continua no histórico dos serviços que já foram registrados.",
+  "usedInServices": "{count, plural, one{usado em 1 serviço} other{usado em {count} serviços}}",
+  "@usedInServices": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "freeToDelete": "livre",
+  "clear": "Limpar",
+  "nothingFoundInCatalog": "Nenhum item do catálogo com esse nome.",
+  "noServices": "Nenhum serviço"
 }

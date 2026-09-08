@@ -382,14 +382,12 @@ class _StatesSection extends StatelessWidget {
           ),
           const _Caption('Vazio · conta sem dados naquela coleção'),
           KaziNoResults(
+            icon: Icons.search,
             message: 'Nada encontrado para “gel de fibra”',
             description:
                 'Nenhum serviço, cliente ou item do catálogo com esse nome.',
-            action: KaziPillButton(
-              onTap: () {},
-              outlinedButton: true,
-              child: const Text('Criar “gel de fibra” no catálogo'),
-            ),
+            actionLabel: 'Criar “gel de fibra” no catálogo',
+            onAction: () {},
           ),
           const _Caption('Sem resultados · nunca o bloco amarelo'),
           KaziError(

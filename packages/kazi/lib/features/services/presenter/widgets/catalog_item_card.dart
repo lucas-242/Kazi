@@ -91,8 +91,8 @@ class CatalogItemCard extends ConsumerWidget {
                   ],
                 ),
               ),
-              KaziSpacings.horizontalSm,
-              if (!catalogItem.counters.isMissing)
+              if (!catalogItem.counters.isMissing) ...[
+                KaziSpacings.horizontalSm,
                 Text(
                   KaziLocalizations.current.usesCount(
                     catalogItem.counters.count,
@@ -101,8 +101,7 @@ class CatalogItemCard extends ConsumerWidget {
                     color: colors.textMuted,
                   ),
                 ),
-              KaziSpacings.horizontalXs,
-              Icon(Icons.chevron_right, color: colors.textMuted),
+              ],
             ],
           ),
         ),

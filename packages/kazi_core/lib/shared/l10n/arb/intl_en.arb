@@ -585,7 +585,7 @@
   "usedIn": "Used in",
   "generatedSoFar": "Generated so far",
   "youKeep": "You keep",
-  "priceChangeNote": "{count, plural, one{Changing the price here applies to the next records. The 1 service already registered keeps the value of its time.} other{Changing the price here applies to the next records. The {count} services already registered keep the value of their time.}}",
+  "priceChangeNote": "{count, plural, one{Changing the price here applies to the next records. The service already registered keeps the value of its time.} other{Changing the price here applies to the next records. The {count} services already registered keep the value of their time.}}",
   "@priceChangeNote": {
     "placeholders": {
       "count": {
@@ -1228,5 +1228,20 @@
       }
     }
   },
-  "errorToVerifyDocument": "Couldn't check whether this document is already on file. Try again."
+  "errorToVerifyDocument": "Couldn't check whether this document is already on file. Try again.",
+  "catalogItemDuplicateName": "There is already an item with this name. Use another name or edit the one that exists.",
+  "archivedCatalogNote": "An archived item does not show up when you register a service, but it keeps naming the services it was already used in.",
+  "archivedClientsNote": "An archived client disappears from searches and from the form, but stays in the history of the services already registered.",
+  "usedInServices": "{count, plural, one{used in 1 service} other{used in {count} services}}",
+  "@usedInServices": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "freeToDelete": "free",
+  "clear": "Clear",
+  "nothingFoundInCatalog": "No catalog item by that name.",
+  "noServices": "No services"
 }

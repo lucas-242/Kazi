@@ -321,6 +321,32 @@ void main() {
       expect(state().archivedCollision, isNull);
     });
 
+    // What the form reads to raise the error under the field and hold the save
+    // button dark, before anything reaches the repository.
+    test('nameCollision names the active item holding the name', () async {
+      await controller().onInit();
+
+      controller().changeCatalogItemName('  DEPILACAO  ');
+
+      expect(state().nameCollision?.id, 'a');
+    });
+
+    test('an item being edited does not collide with itself', () async {
+      await controller().onInit();
+
+      controller().changeCatalogItem(active);
+
+      expect(state().nameCollision, isNull);
+    });
+
+    test('an archived namesake is not a collision', () async {
+      await controller().onInit();
+
+      controller().changeCatalogItemName('massagem');
+
+      expect(state().nameCollision, isNull);
+    });
+
     test('an unused name still creates', () async {
       await controller().onInit();
       controller().changeCatalogItemName('Corte');
@@ -329,6 +355,55 @@ void main() {
 
       expect(state().archivedCollision, isNull);
       verify(catalogItemRepository.add(any)).called(1);
+    });
+  });
+
+  group('search', () {
+    setUp(() {
+      when(catalogItemRepository.get(any)).thenAnswer(
+        (_) async => [
+          catalogItemMock.copyWith(id: 'a', name: 'Manicure'),
+          catalogItemMock.copyWith(id: 'b', name: 'Pedicure'),
+          catalogItemMock.copyWith(
+            id: 'c',
+            name: 'Blindagem',
+            archivedAt: DateTime(2026, 8, 12),
+          ),
+        ],
+      );
+    });
+
+    test('the term narrows the list, ignoring case and accents', () async {
+      await controller().onInit();
+
+      controller().onSearch('  PEDI  ');
+
+      expect(state().visibleCatalogItems.map((item) => item.id), ['b']);
+      expect(state().isSearchEmpty, isFalse);
+    });
+
+    test('a term matching nothing active is a search-empty, not a filter one', () async {
+      await controller().onInit();
+
+      controller().onSearch('blindagem');
+
+      expect(state().isSearchEmpty, isTrue);
+      expect(state().isFilteredEmpty, isFalse);
+      // The archived item the term did find, offered back rather than
+      // recreated.
+      expect(state().archivedMatching.map((item) => item.id), ['c']);
+    });
+
+    test('closing the search drops the term with it', () async {
+      await controller().onInit();
+      controller().onOpenSearch();
+      controller().onSearch('pedi');
+
+      controller().onCloseSearch();
+
+      expect(state().isSearching, isFalse);
+      expect(state().query, isEmpty);
+      expect(state().visibleCatalogItems, hasLength(2));
     });
   });
 

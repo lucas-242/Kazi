@@ -34,14 +34,16 @@ class _CatalogItemFormPageState extends ConsumerState<CatalogItemFormPage> {
       }
     }
 
-    ref.listen<CatalogState>(catalogControllerProvider, (
-      previous,
-      current,
-    ) {
-      if (previous?.status != current.status &&
-          current.status == BaseStateStatus.success) {
-        KaziNavigator.pop();
-        return;
+    ref.listen<CatalogState>(catalogControllerProvider, (previous, current) {
+      if (previous?.status != current.status) {
+        if (current.status == BaseStateStatus.success) {
+          KaziNavigator.pop();
+          return;
+        }
+        if (current.status == BaseStateStatus.error &&
+            current.callbackMessage.isNotEmpty) {
+          KaziSnackbar.show(context, current.callbackMessage);
+        }
       }
 
       final collision = current.archivedCollision;
@@ -50,8 +52,9 @@ class _CatalogItemFormPageState extends ConsumerState<CatalogItemFormPage> {
           context: context,
           builder: (_) => KaziDialog(
             title: KaziLocalizations.current.restore,
-            message: KaziLocalizations.current
-                .catalogItemArchivedRestorePrompt(collision.name),
+            message: KaziLocalizations.current.catalogItemArchivedRestorePrompt(
+              collision.name,
+            ),
             confirmText: KaziLocalizations.current.restore,
             onCancel: () {
               KaziNavigator.pop();
@@ -82,7 +85,7 @@ class _CatalogItemFormPageState extends ConsumerState<CatalogItemFormPage> {
         body: KaziSafeArea(child: CatalogItemForm(formKey: _formKey)),
         bottomNavigationBar: KaziFormFooter(
           label: KaziLocalizations.current.save,
-          onTap: onConfirm,
+          onTap: state.nameCollision == null ? onConfirm : null,
           child: (button) =>
               TapProbe(target: 'save_service_type', child: button),
         ),

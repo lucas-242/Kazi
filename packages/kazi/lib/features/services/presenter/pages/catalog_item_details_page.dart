@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kazi/core/currency/currency_providers.dart';
 import 'package:kazi/core/routes/app_pages.dart';
 import 'package:kazi/core/utils/base_state.dart';
+import 'package:kazi/core/widgets/detail_info_row.dart';
 import 'package:kazi/features/services/domain/models/catalog_item.dart';
 import 'package:kazi/features/services/presenter/controllers/catalog_controller.dart';
 import 'package:kazi/features/services/presenter/controllers/catalog_state.dart';
@@ -106,7 +107,6 @@ class _CatalogItemDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = context.colors;
     final counters = catalogItem.counters;
     final defaultCurrency = ref.watch(kaziDefaultCurrencyProvider);
     final rateBook =
@@ -127,48 +127,35 @@ class _CatalogItemDetails extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _KeepsPanel(catalogItem: catalogItem, currency: currency),
-        KaziSpacings.verticalMd,
+        KaziSpacings.verticalSm,
         if (!counters.isMissing) ...[
-          _InfoRow(
+          DetailInfoRow(
+            icon: Icons.format_list_bulleted,
             label: KaziLocalizations.current.usedIn,
             value: KaziLocalizations.current.servicesCount(counters.count),
           ),
-          KaziSpacings.verticalMd,
-          _InfoRow(
+          DetailInfoRow(
+            icon: Icons.trending_up,
             label: KaziLocalizations.current.generatedSoFar,
             value: NumberFormatUtils.formatCurrencyIn(
               generated.amount,
               defaultCurrency,
             ),
           ),
-          KaziSpacings.verticalMd,
         ],
-        _InfoRow(
+        DetailInfoRow(
+          icon: Icons.payments_outlined,
           label: KaziLocalizations.current.currency,
           value: '${currency.isoCode} (${currency.symbol})',
         ),
-        KaziSpacings.verticalMd,
-        Row(
-          children: [
-            Text(
-              KaziLocalizations.current.color,
-              style: KaziTextStyles.bodySmall.copyWith(
-                color: colors.textMuted,
-              ),
-            ),
-            KaziSpacings.horizontalSm,
-            KaziColorDot(color: catalogItem.colorAs, size: 18),
-          ],
+        DetailInfoRow.trailing(
+          icon: Icons.palette_outlined,
+          label: KaziLocalizations.current.color,
+          trailing: KaziColorDot(color: catalogItem.colorAs, size: 18),
         ),
         if (counters.count > 0) ...[
-          KaziSpacings.verticalXLg,
-          // Said in text, because the screen would otherwise suggest the
-          // opposite: history is immutable, and editing the price here never
-          // reaches a service already registered.
-          Text(
-            KaziLocalizations.current.priceChangeNote(counters.count),
-            style: KaziTextStyles.labelSmall.copyWith(color: colors.textMuted),
-          ),
+          KaziSpacings.verticalSm,
+          KaziNote(KaziLocalizations.current.priceChangeNote(counters.count)),
         ],
       ],
     );
@@ -233,30 +220,6 @@ class _KeepsPanel extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: KaziTextStyles.bodySmall.copyWith(
-            color: context.colors.textMuted,
-          ),
-        ),
-        KaziSpacings.verticalXs,
-        Text(value, style: KaziTextStyles.bodyMedium),
-      ],
     );
   }
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/core/routes/app_pages.dart';
-import 'package:kazi/core/widgets/sub_nav_bar.dart';
+import 'package:kazi/core/widgets/archived_record_tile.dart';
 import 'package:kazi/features/services/domain/models/catalog_filter.dart';
 import 'package:kazi/features/services/presenter/controllers/catalog_controller.dart';
 import 'package:kazi/features/services/presenter/controllers/catalog_state.dart';
 import 'package:kazi/features/services/presenter/widgets/catalog_item_card.dart';
+import 'package:kazi/features/services/presenter/widgets/catalog_nav_bar.dart';
 import 'package:kazi/features/services/services.dart';
 import 'package:kazi_core/kazi_core.dart'
     hide Service, CatalogItem, CatalogItemRepository;
@@ -20,19 +21,25 @@ class CatalogContent extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _Header(state: state),
+        const CatalogNavBar(),
         KaziSpacings.verticalMd,
-        _FilterChips(state: state),
-        KaziSpacings.verticalMd,
-        if (state.isFilteredEmpty)
+        // A term is its own cut. Leaving the chips under it would offer a
+        // second one over a list the person is already narrowing by hand.
+        if (!state.isSearching) ...[
+          _FilterChips(state: state),
+          KaziSpacings.verticalMd,
+        ],
+        if (state.isSearchEmpty && state.archivedMatching.isNotEmpty)
+          _ArchivedMatches(state: state)
+        else if (state.isSearchEmpty)
+          _SearchEmpty(state: state)
+        else if (state.isFilteredEmpty)
           _FilteredEmpty(state: state)
         else
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: items.length,
-            // A gap, not a rule: a divider between two bordered cards reads as
-            // a third.
             separatorBuilder: (context, index) => KaziSpacings.verticalXs,
             itemBuilder: (context, index) => CatalogItemCard(
               catalogItem: items[index],
@@ -43,47 +50,6 @@ class CatalogContent extends ConsumerWidget {
             ),
           ),
         KaziSpacings.verticalLg,
-      ],
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header({required this.state});
-
-  final CatalogState state;
-
-  @override
-  Widget build(BuildContext context) {
-    return SubNavBar(
-      title: KaziLocalizations.current.catalogItems,
-      showDivider: false,
-      pills: [
-        Text(
-          state.activeCatalogItems.length.toString(),
-          style: KaziTextStyles.tag.copyWith(color: context.colors.textMuted),
-        ),
-        KaziSpacings.horizontalXs,
-        KaziCircularButton.plain(
-          onTap: () => KaziNavigator.push(AppPage.addCatalogItem),
-          semantics: KaziLocalizations.current.add,
-          child: const Icon(Icons.add, size: 18),
-        ),
-        // Same shape as the clients list: the archive is a door used once a
-        // quarter, and it disappears when there is nothing behind it.
-        KaziOverflowMenu(
-          semantics: KaziLocalizations.current.actions,
-          actions: [
-            if (state.archivedCount > 0)
-              KaziOverflowAction(
-                label: KaziLocalizations.current.viewArchived(
-                  state.archivedCount,
-                ),
-                icon: Icons.inventory_2_outlined,
-                onTap: () => KaziNavigator.push(AppPage.archivedCatalogItems),
-              ),
-          ],
-        ),
       ],
     );
   }
@@ -133,13 +99,74 @@ class _FilteredEmpty extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return KaziNoResults(
       message: KaziLocalizations.current.noResults,
-      action: KaziPillButton(
-        onTap: () => ref
-            .read(catalogControllerProvider.notifier)
-            .onChangeFilter(CatalogFilter.all),
-        outlinedButton: true,
-        child: Text(KaziLocalizations.current.removeFilters),
-      ),
+      actionLabel: KaziLocalizations.current.removeFilters,
+      onAction: () => ref
+          .read(catalogControllerProvider.notifier)
+          .onChangeFilter(CatalogFilter.all),
+    );
+  }
+}
+
+/// The term matched nothing active and nothing archived either: it is repeated
+/// back, with the way to create what was looked for.
+class _SearchEmpty extends ConsumerWidget {
+  const _SearchEmpty({required this.state});
+
+  final CatalogState state;
+
+  void _createTyped(WidgetRef ref) {
+    ref.read(catalogControllerProvider.notifier).changeCatalogItemName(
+      state.query,
+    );
+    KaziNavigator.push(AppPage.addCatalogItem);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return KaziNoResults(
+      icon: Icons.search,
+      message: KaziLocalizations.current.nothingFoundFor(state.query),
+      description: KaziLocalizations.current.nothingFoundInCatalog,
+      actionLabel: KaziLocalizations.current.createInCatalog(state.query),
+      onAction: () => _createTyped(ref),
+    );
+  }
+}
+
+/// The term found nothing active, but it did find something put away.
+///
+/// Nothing was found is then the wrong thing to say, and offering to create
+/// what already exists archived is how the catalogue grows a duplicate — so the
+/// archived rows are the whole answer, offering the one thing that resolves it.
+class _ArchivedMatches extends ConsumerWidget {
+  const _ArchivedMatches({required this.state});
+
+  final CatalogState state;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          KaziLocalizations.current.archivedSectionLabel.toUpperCase(),
+          style: KaziTextStyles.tag.copyWith(color: context.colors.textMuted),
+        ),
+        KaziSpacings.verticalXs,
+        // The archive screen's own row, so an item found here reads exactly as
+        // it does there — and offers the same one thing.
+        for (final item in state.archivedMatching) ...[
+          ArchivedRecordTile(
+            name: item.name,
+            subtitle: KaziLocalizations.current.usesCount(item.counters.count),
+            color: item.colorAs,
+            onRestore: () => ref
+                .read(catalogControllerProvider.notifier)
+                .restoreCatalogItem(item),
+          ),
+          KaziSpacings.verticalXs,
+        ],
+      ],
     );
   }
 }

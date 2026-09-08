@@ -36,6 +36,10 @@ class _ClientsPageState extends ConsumerState<ClientsPage> {
     final controller = ref.read(clientsControllerProvider.notifier);
 
     return Scaffold(
+      // The shell's own Scaffold does not resize for the keyboard, so this one
+      // must not either — see `ServiceCatalogPage`, which has the same search
+      // in the same place.
+      resizeToAvoidBottomInset: false,
       body: KaziSafeArea(
         isScrollView: false,
         onRefresh: controller.onRefresh,
@@ -131,13 +135,11 @@ class _SearchBarState extends ConsumerState<_SearchBar> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        KaziCircularButton.plain(
+        KaziBackButton(
           onTap: () {
             _timer?.cancel();
             ref.read(clientsControllerProvider.notifier).onCloseSearch();
           },
-          semantics: KaziLocalizations.current.back,
-          child: const Icon(Icons.arrow_back, size: 18),
         ),
         KaziSpacings.horizontalXs,
         Expanded(
@@ -215,11 +217,8 @@ class _Body extends ConsumerWidget {
       BaseStateStatus.noData when state.query.isNotEmpty => KaziNoResults(
         message: KaziLocalizations.current.nothingFoundFor(state.query),
         scrollable: true,
-        action: KaziPillButton(
-          onTap: () => KaziNavigator.push(AppPage.addClient),
-          outlinedButton: true,
-          child: Text(KaziLocalizations.current.addClient),
-        ),
+        actionLabel: KaziLocalizations.current.addClient,
+        onAction: () => KaziNavigator.push(AppPage.addClient),
       ),
       BaseStateStatus.noData => KaziEmpty(
         message: KaziLocalizations.current.noClientsFound,

@@ -30,13 +30,11 @@ class ServiceSearchContent extends ConsumerWidget {
 
     if (services.isEmpty && clients.isEmpty) {
       return KaziNoResults(
+        icon: Icons.search,
         message: KaziLocalizations.current.nothingFoundFor(term),
         description: KaziLocalizations.current.nothingFoundForDescription,
-        action: KaziPillButton(
-          onTap: () => KaziNavigator.push(AppPage.addCatalogItem),
-          outlinedButton: true,
-          child: Text(KaziLocalizations.current.createInCatalog(term)),
-        ),
+        actionLabel: KaziLocalizations.current.createInCatalog(term),
+        onAction: () => KaziNavigator.push(AppPage.addCatalogItem),
       );
     }
 

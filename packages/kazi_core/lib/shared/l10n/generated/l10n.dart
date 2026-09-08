@@ -2894,12 +2894,12 @@ class KaziLocalizations {
     return Intl.message('You keep', name: 'youKeep', desc: '', args: []);
   }
 
-  /// `{count, plural, one{Changing the price here applies to the next records. The 1 service already registered keeps the value of its time.} other{Changing the price here applies to the next records. The {count} services already registered keep the value of their time.}}`
+  /// `{count, plural, one{Changing the price here applies to the next records. The service already registered keeps the value of its time.} other{Changing the price here applies to the next records. The {count} services already registered keep the value of their time.}}`
   String priceChangeNote(int count) {
     return Intl.plural(
       count,
       one:
-          'Changing the price here applies to the next records. The 1 service already registered keeps the value of its time.',
+          'Changing the price here applies to the next records. The service already registered keeps the value of its time.',
       other:
           'Changing the price here applies to the next records. The $count services already registered keep the value of their time.',
       name: 'priceChangeNote',
@@ -6093,6 +6093,73 @@ class KaziLocalizations {
       desc: '',
       args: [],
     );
+  }
+
+  /// `There is already an item with this name. Use another name or edit the one that exists.`
+  String get catalogItemDuplicateName {
+    return Intl.message(
+      'There is already an item with this name. Use another name or edit the one that exists.',
+      name: 'catalogItemDuplicateName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An archived item does not show up when you register a service, but it keeps naming the services it was already used in.`
+  String get archivedCatalogNote {
+    return Intl.message(
+      'An archived item does not show up when you register a service, but it keeps naming the services it was already used in.',
+      name: 'archivedCatalogNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An archived client disappears from searches and from the form, but stays in the history of the services already registered.`
+  String get archivedClientsNote {
+    return Intl.message(
+      'An archived client disappears from searches and from the form, but stays in the history of the services already registered.',
+      name: 'archivedClientsNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, one{used in 1 service} other{used in {count} services}}`
+  String usedInServices(int count) {
+    return Intl.plural(
+      count,
+      one: 'used in 1 service',
+      other: 'used in $count services',
+      name: 'usedInServices',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `free`
+  String get freeToDelete {
+    return Intl.message('free', name: 'freeToDelete', desc: '', args: []);
+  }
+
+  /// `Clear`
+  String get clear {
+    return Intl.message('Clear', name: 'clear', desc: '', args: []);
+  }
+
+  /// `No catalog item by that name.`
+  String get nothingFoundInCatalog {
+    return Intl.message(
+      'No catalog item by that name.',
+      name: 'nothingFoundInCatalog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No services`
+  String get noServices {
+    return Intl.message('No services', name: 'noServices', desc: '', args: []);
   }
 }
 

@@ -1,110 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:kazi_core/kazi_core.dart';
 
-/// One row of an archive screen, for a client or a catalog item alike.
+/// One row of an archive screen, for a client or a catalog item alike — and for
+/// an archived item a search turned up.
 ///
-/// Carries no rule about who may be deleted: the two archives answer that
-/// differently, so each screen decides [deletable], the [note] under the date
-/// and the [deleteMessage]. See core/archiving.md.
+/// It offers one thing: bringing the record back. Deleting is not here; it
+/// lives in the "delete permanently" section further down the archive screen,
+/// which is the only place in the app where something is erased for good. See
+/// core/archiving.md.
 class ArchivedRecordTile extends StatelessWidget {
   const ArchivedRecordTile({
     super.key,
     required this.name,
-    required this.archivedAt,
-    required this.note,
-    required this.deletable,
-    required this.deleteMessage,
+    required this.subtitle,
     required this.onRestore,
-    required this.onDelete,
-    this.onBlockedDelete,
+    this.color,
   });
 
   final String name;
-  final DateTime? archivedAt;
 
-  /// A line under the archive date, typically the linked-service count.
-  final String? note;
+  /// What it did and when it was put away — "12 services · Archived on 03/08".
+  final String subtitle;
 
-  final bool deletable;
-  final String deleteMessage;
   final VoidCallback onRestore;
-  final Future<void> Function() onDelete;
 
-  /// What a tap does when the record may not be deleted. Given one, the button
-  /// stays on screen and explains itself — a missing button leaves the person
-  /// wondering where it went, where a refusal with a number closes the
-  /// question.
-  final VoidCallback? onBlockedDelete;
-
-  void _confirmDelete(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => KaziDialog(
-        title: KaziLocalizations.current.deleteForeverTitle(name),
-        message: deleteMessage,
-        confirmText: KaziLocalizations.current.deletePermanently,
-        isDestructive: true,
-        onCancel: KaziNavigator.pop,
-        onConfirm: () async {
-          KaziNavigator.pop();
-          await onDelete();
-        },
-      ),
-    );
-  }
+  /// The category colour, on the rows that carry one. Clients have no type, so
+  /// they pass null and get the neutral edge.
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return ListTile(
-      contentPadding: EdgeInsets.all(0),
-      title: Text(name, style: KaziTextStyles.titleSmall),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (archivedAt != null)
-            Text(
-              KaziLocalizations.current.archivedOn(archivedAt!.format()),
-              style: KaziTextStyles.bodySmall.copyWith(color: colors.textMuted),
-            ),
-          if (note != null)
-            Text(
-              note!,
-              style: KaziTextStyles.bodySmall.copyWith(color: colors.textMuted),
-            ),
-        ],
+    return Material(
+      color: colors.card,
+      clipBehavior: Clip.antiAlias,
+      shape: KaziCategoryBorder(
+        color: colors.border,
+        categoryColor: color ?? colors.surfaceStrong,
       ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          KaziCircularButton.plain(
-            semantics: KaziLocalizations.current.restore,
-            onTap: onRestore,
-            child: Icon(
-              Icons.unarchive_outlined,
-              size: 18,
-              color: colors.brand.text,
-            ),
-          ),
-          if (!deletable && onBlockedDelete != null)
-            KaziCircularButton.plain(
-              semantics: KaziLocalizations.current.delete,
-              onTap: onBlockedDelete,
-              foregroundColor: colors.textMuted,
-              child: const Icon(Icons.delete_outline, size: 18),
-            ),
-          if (deletable)
-            KaziCircularButton.plain(
-              semantics: KaziLocalizations.current.delete,
-              onTap: () => _confirmDelete(context),
-              child: Icon(
-                Icons.delete_outline,
-                size: 18,
-                color: colors.danger.onSurface,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: KaziInsets.md,
+          vertical: KaziInsets.sm,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    name,
+                    style: KaziTextStyles.titleSmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  KaziSpacings.verticalXxs,
+                  // Wraps rather than truncates: the line carries two facts,
+                  // and an ellipsis eats the second one whole.
+                  Text(
+                    subtitle,
+                    style: KaziTextStyles.labelSmall.copyWith(
+                      color: colors.textMuted,
+                    ),
+                  ),
+                ],
               ),
             ),
-        ],
+            KaziSpacings.horizontalSm,
+            KaziTextButton(
+              onTap: onRestore,
+              color: colors.brand.text,
+              child: Text(
+                KaziLocalizations.current.restore,
+                style: KaziTextStyles.labelMedium,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
