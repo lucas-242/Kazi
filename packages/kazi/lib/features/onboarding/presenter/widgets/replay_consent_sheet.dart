@@ -19,6 +19,9 @@ class ReplayConsentSheet extends ConsumerWidget {
 
   static bool _askedThisSession = false;
 
+  @visibleForTesting
+  static void resetSessionGuard() => _askedThisSession = false;
+
   static Future<void> askIfNeeded(BuildContext context, WidgetRef ref) async {
     if (_askedThisSession) return;
 
@@ -35,10 +38,9 @@ class ReplayConsentSheet extends ConsumerWidget {
       builder: (_) => const ReplayConsentSheet(),
     );
 
-    if (consented == null) return;
     await ref
         .read(privacyControllerProvider.notifier)
-        .setSessionReplayConsent(consented);
+        .setSessionReplayConsent(consented ?? false);
   }
 
   @override
