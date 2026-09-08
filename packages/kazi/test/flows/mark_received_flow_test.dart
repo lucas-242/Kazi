@@ -145,9 +145,6 @@ void main() {
     final app = await appWithOneService(tester);
     await openTheServicesTab(tester);
 
-    // Re-read per call: the controller is auto-disposed, so holding the
-    // notifier across an await would use a Ref that is already gone — which is
-    // exactly why the screens read it fresh at every tap.
     ServiceReceiptController receipt() =>
         app.container.read(serviceReceiptControllerProvider.notifier);
 

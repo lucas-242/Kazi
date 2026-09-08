@@ -15,6 +15,10 @@ part of 'service_receipt_controller.dart';
 /// on the write echo having landed — `ServicesRepository.get` reads
 /// cache-first — so the list could come back showing the state from before the
 /// tap. An in-memory patch is deterministic and instant.
+///
+/// `keepAlive` because the write is awaited: an auto-disposed writer has no
+/// listener holding it, so the Ref is gone by the time Firestore answers and
+/// every patch below throws.
 
 @ProviderFor(ServiceReceiptController)
 const serviceReceiptControllerProvider = ServiceReceiptControllerProvider._();
@@ -26,6 +30,10 @@ const serviceReceiptControllerProvider = ServiceReceiptControllerProvider._();
 /// on the write echo having landed — `ServicesRepository.get` reads
 /// cache-first — so the list could come back showing the state from before the
 /// tap. An in-memory patch is deterministic and instant.
+///
+/// `keepAlive` because the write is awaited: an auto-disposed writer has no
+/// listener holding it, so the Ref is gone by the time Firestore answers and
+/// every patch below throws.
 final class ServiceReceiptControllerProvider
     extends $NotifierProvider<ServiceReceiptController, void> {
   /// The single place a payment stamp is written.
@@ -35,13 +43,17 @@ final class ServiceReceiptControllerProvider
   /// on the write echo having landed — `ServicesRepository.get` reads
   /// cache-first — so the list could come back showing the state from before the
   /// tap. An in-memory patch is deterministic and instant.
+  ///
+  /// `keepAlive` because the write is awaited: an auto-disposed writer has no
+  /// listener holding it, so the Ref is gone by the time Firestore answers and
+  /// every patch below throws.
   const ServiceReceiptControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'serviceReceiptControllerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -63,7 +75,7 @@ final class ServiceReceiptControllerProvider
 }
 
 String _$serviceReceiptControllerHash() =>
-    r'd7d2ace39ccdb57e7305890685582f4b58210ab5';
+    r'047cd32f460b7b4c927b6761ab027e4c14538acd';
 
 /// The single place a payment stamp is written.
 ///
@@ -72,6 +84,10 @@ String _$serviceReceiptControllerHash() =>
 /// on the write echo having landed — `ServicesRepository.get` reads
 /// cache-first — so the list could come back showing the state from before the
 /// tap. An in-memory patch is deterministic and instant.
+///
+/// `keepAlive` because the write is awaited: an auto-disposed writer has no
+/// listener holding it, so the Ref is gone by the time Firestore answers and
+/// every patch below throws.
 
 abstract class _$ServiceReceiptController extends $Notifier<void> {
   void build();

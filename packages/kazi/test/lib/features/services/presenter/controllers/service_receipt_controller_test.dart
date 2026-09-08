@@ -113,6 +113,23 @@ void main() {
       verify(servicesRepository.setReceivedAt(['a'], null)).called(1);
     });
 
+    /// The write is awaited, and a real Firestore write outlives the frame it
+    /// started in. An auto-disposed writer would be gone by the time it
+    /// answers, and every patch after the await would throw.
+    test('Should survive a write that outlives the frame', () async {
+      when(servicesRepository.setReceivedAt(any, any)).thenAnswer(
+        (_) => Future<void>.delayed(const Duration(milliseconds: 100)),
+      );
+      seedLists([service('a')]);
+
+      await controller().setReceived([service('a')], received: true);
+
+      expect(
+        container.read(serviceLandingControllerProvider).services.single.receivedAt,
+        now,
+      );
+    });
+
     test('Should not write for an empty selection', () async {
       final ids = await controller().setReceived(const [], received: true);
 

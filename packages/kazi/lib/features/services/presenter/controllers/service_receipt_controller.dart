@@ -20,7 +20,11 @@ part 'service_receipt_controller.g.dart';
 /// on the write echo having landed — `ServicesRepository.get` reads
 /// cache-first — so the list could come back showing the state from before the
 /// tap. An in-memory patch is deterministic and instant.
-@riverpod
+///
+/// `keepAlive` because the write is awaited: an auto-disposed writer has no
+/// listener holding it, so the Ref is gone by the time Firestore answers and
+/// every patch below throws.
+@Riverpod(keepAlive: true)
 class ServiceReceiptController extends _$ServiceReceiptController {
   ServicesRepository get _repository => ref.read(servicesRepositoryProvider);
 
