@@ -12,13 +12,14 @@ part 'hint_controller.g.dart';
 /// Decides whether a contextual hint may appear, and remembers that it did.
 ///
 /// Three rules, all from experience with hints that outstay their welcome:
-/// they wait for the opening's interruptions to be over, **at most one per
-/// session** is shown, and "Got it" means never again.
+/// they wait for the opening's interruptions to be over, **only one is up at a
+/// time**, and "Got it" means never again.
 @Riverpod(keepAlive: true)
 class HintController extends _$HintController {
-  /// Reset only by restarting the app, which is what makes "one per session"
-  /// hold across navigation.
-  bool _shownThisSession = false;
+  /// Held from just before a bubble goes up until it comes down — not for the
+  /// rest of the session. Each screen the user reaches can still teach its own
+  /// thing; what the slot prevents is two bubbles at once.
+  bool _isSlotTaken = false;
 
   final _startup = Completer<void>();
 
@@ -41,7 +42,7 @@ class HintController extends _$HintController {
 
   /// Whether [hint] should be shown right now.
   Future<bool> shouldShow(OnboardingHint hint) async {
-    if (_shownThisSession) return false;
+    if (_isSlotTaken) return false;
     if (KaziCoachMark.isShowing) return false;
 
     try {
@@ -55,11 +56,19 @@ class HintController extends _$HintController {
     }
   }
 
-  /// Claims this session's single hint slot. Call immediately before showing,
-  /// so two anchors racing on the same frame cannot both win.
-  void claimSession() => _shownThisSession = true;
+  /// Claims the single hint slot. Call immediately before showing, so two
+  /// anchors racing on the same frame cannot both win.
+  void claimSlot() => _isSlotTaken = true;
+
+  /// Frees the slot, once the bubble is down for any reason.
+  ///
+  /// The anchor that gave it up does not try again until it is mounted or
+  /// revealed afresh, so the next hint belongs to the next screen the user
+  /// reaches rather than to whatever else is on this one.
+  void releaseSlot() => _isSlotTaken = false;
 
   Future<void> markSeen(OnboardingHint hint) async {
+    releaseSlot();
     unawaited(
       _analytics.log(
         AnalyticsEvent.hintDismissed,

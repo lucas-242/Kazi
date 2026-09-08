@@ -40,6 +40,7 @@ class ServiceViewSwitch extends ConsumerWidget {
           Expanded(
             child: HintAnchor(
               hint: OnboardingHint.summary,
+              radius: KaziRadii.xs,
               // Pointless while the summary is open, or with nothing in it.
               enabled: view != ServiceView.summary,
               child: _Segment(

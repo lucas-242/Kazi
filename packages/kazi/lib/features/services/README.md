@@ -236,10 +236,12 @@ Read top down: **what the user earns, then the facts that produced it.**
 
 ### The actions
 
-**Marking received is the footer CTA**, at full width where the thumb already
-is — it is the one thing this screen exists to offer, and the label says which
-way it is about to flip the stamp. A second tap while the write is in flight is
-ignored.
+**Marking received is the footer CTA**, in the same `KaziFormFooter` the forms
+submit from — a rule, then one full-width button where the thumb already is. It
+is the one thing this screen exists to offer, and the label says which way it is
+about to flip the stamp. Undoing it drops the fill for the footer's outlined
+form: an undo that shouts as loudly as the thing it undoes reads as the screen's
+main offer. A second tap while the write is in flight is ignored.
 
 **Deleting lives in the "…"**, never as a button in the body. A full-width
 control at the end of the content gives an action performed once a quarter the

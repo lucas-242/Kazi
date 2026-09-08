@@ -23,7 +23,7 @@ them from stacking live in four different files.
 | [`OnboardingChecklistCard`](../features/onboarding/presenter/widgets/onboarding_checklist_card.dart) | In-place card on the home | `hasResolvedSetup`, not finished, <10 services | Users the setup ran for | Self-removes when finished | `users/{uid}.completedOnboardingSteps` |
 | [`ActiveUserNudges`](../features/onboarding/presenter/widgets/active_user_nudges.dart) → cycle | In-place card on the home | `!settings.hasExplicitBillingCycle` | `active` segment | Dismissible **per session** | `users/{uid}` billing cycle |
 | `ActiveUserNudges` → commission gaps | In-place card on the home | Catalog items with `effectiveCommissionPercent == null` | `active` segment | Dismissible **per session** | The items themselves |
-| [`KaziCoachMark`](../features/onboarding/presenter/widgets/hint_anchor.dart) ×4 | Anchored bubble | First time the anchored widget is on screen | Anyone who has not seen that hint | "Got it" | Local, one key per `OnboardingHint` |
+| [`KaziCoachMark`](../../../kazi_core/lib/shared/components/coach_mark/kazi_coach_mark.dart) ×4 | Anchored bubble | First time the anchored widget is on screen — [see below](#coach-marks) | Anyone who has not seen that hint | "Got it", or retracted when the anchor leaves | Local, one key per `OnboardingHint` |
 | Store review sheet | Native (Play / StoreKit) | ≥20 creation actions + age rules | Once per install | Native | Local — see [in_app_review/README.md](../../../kazi_core/lib/shared/services/in_app_review/README.md) |
 
 The menu is the permanent counterpart to the interrupting versions: Menu ›
@@ -63,6 +63,75 @@ Two orderings are load-bearing:
 for accounts the setup ran for, and the shell chain for everyone else — the
 `active` and `done` segments, which is to say the long-standing users. Both go
 through `askIfNeeded`, a no-op once the question has been answered.
+
+## Coach marks
+
+Four hints, each teaching one thing where that thing actually is. The pieces:
+[`OnboardingHint`](../features/onboarding/domain/models/onboarding_hint.dart)
+is the catalogue (title, body and storage key),
+[`HintAnchor`](../features/onboarding/presenter/widgets/hint_anchor.dart) wraps
+the widget being pointed at and owns every rule below,
+[`HintController`](../features/onboarding/presenter/controllers/hint_controller.dart)
+answers "is this one still owed", and
+[`KaziCoachMark`](../../../kazi_core/lib/shared/components/coach_mark/kazi_coach_mark.dart)
+in kazi_core draws it. Call sites carry nothing but the `HintAnchor` wrapper.
+
+| Hint | Anchored to | Where | Extra condition (`enabled`) |
+|---|---|---|---|
+| `fab` | The shell's floating action button | [`app_shell.dart`](../app_shell.dart) → `_ShellFab` | Home tab only — on any other tab the same button creates something else |
+| `markReceived` | The "mark as received" footer button | [`service_details_page.dart`](../features/services/presenter/pages/service_details_page.dart) | The service is not already received |
+| `filters` | The filter icon button | [`service_navbar.dart`](../features/services/presenter/widgets/service_navbar.dart) | ≥`_hintMinimumServices` services — a history worth filtering |
+| `summary` | The "summary" segment of the view switch | [`service_view_switch.dart`](../features/services/presenter/widgets/service_view_switch.dart) | The summary is not the open view |
+
+Each is shown once per install and remembered in **local storage**, one key per
+value — so signing out (which clears storage) offers them again, on purpose.
+Any tap dismisses the bubble, including one aimed at the screen behind it, and
+a dismissal is what writes the key: a hint can be spent without being read. In
+debug builds, Menu › Debug › **Reset coach marks** clears the four keys with no
+restart and nothing else touched.
+
+### The slot
+
+Only one bubble is up at a time. The slot is claimed the instant before showing
+— synchronously, so two anchors mounting on the same frame cannot both win —
+and freed as soon as it comes down. It is **not** held for the rest of the
+session: the home teaching the FAB must not cost the services tab its own hint
+minutes later.
+
+What differs is the bookkeeping. "Got it" writes the key and the hint never
+returns. Everything else that takes a bubble down — the user changing tab,
+`enabled` flipping, the anchor being disposed — is a **retraction**: the mark
+is hidden and the slot freed, but nothing is written, so the hint is offered
+again the next time its anchor is in front of the user. A hint burned on a
+bubble nobody could act on is a hint the user never gets.
+
+An anchor asks for the slot when it mounts, when it is revealed, and when
+`enabled` turns on — never on a plain rebuild. That is what keeps two hints
+living on the same screen (`filters` and `summary`) from firing one after the
+other: the loser waits for the next visit rather than pouncing on the winner's
+dismissal.
+
+Three things make "in front of the user" true, and none of them is `mounted`:
+
+- **`TickerMode`.** go_router keeps inactive shell branches laid out and
+  measurable, so an anchor on another tab still measures fine. Its ticker mode
+  is what says the user is looking elsewhere.
+- **`ModalRoute.isCurrent`**, for an anchor under a pushed page.
+- **A re-check after every `await`.** `startupSettled` and the storage read both
+  suspend, and the user can change tab in between — the conditions are asked
+  again on the other side, not captured before.
+
+### The mark
+
+It never paints over its anchor: the scrim is a path with the anchor's rounded
+rect subtracted, ringed in `brand.fill`. Filling that shape would hide the very
+thing the bubble is describing. The anchor is re-measured every frame, so the
+ring follows it instead of marking where it used to be.
+
+The ring repeats the anchor's **own** shape, and only the anchor knows it:
+`HintAnchor.radius` defaults to a stadium — right for the FAB, the pill and the
+icon button — and a squarer anchor passes its radius, or it gets ringed as a
+pill it is not.
 
 ## Segments
 
@@ -134,3 +203,5 @@ Consent reaches the SDKs through `bootstrap.dart`: `_startAnalytics` at launch,
 | Update thresholds | `test/lib/features/app_update/...` |
 | Paywall on a blocked creation | `test/flows/freemium_paywall_flow_test.dart` |
 | Setup write order | `test/lib/features/onboarding/.../guided_setup_controller_test.dart` |
+| Coach mark slot, retraction and the uncovered anchor | `test/lib/features/onboarding/.../hint_anchor_test.dart` |
+| Which hint each screen raises, on the real router | `test/flows/coach_mark_flow_test.dart` |

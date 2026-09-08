@@ -188,6 +188,11 @@ class SettingsOptions extends ConsumerWidget {
                 icon: Icons.restart_alt,
               ),
               SettingsOptionButton(
+                onTap: () => _resetCoachMarks(context, ref),
+                text: 'Reset coach marks',
+                icon: Icons.lightbulb_outline,
+              ),
+              SettingsOptionButton(
                 onTap: () => KaziNavigator.push(AppPage.forcedUpdate),
                 text: 'Forced update screen',
                 icon: Icons.system_update,
@@ -253,6 +258,22 @@ class SettingsOptions extends ConsumerWidget {
           'Anyone starting now comes in with their services already in.',
     ),
   ];
+
+  /// The hints alone, with no user document written: each one is owed again
+  /// the next time its anchor is on screen, without a restart.
+  static Future<void> _resetCoachMarks(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    final storage = await ref.read(localStorageProvider.future);
+    for (final hint in OnboardingHint.values) {
+      await storage.remove(hint.storageKey);
+    }
+
+    if (context.mounted) {
+      KaziSnackbar.show(context, 'Coach marks reset.');
+    }
+  }
 
   static Future<void> _resetGuidedSetup(
     BuildContext context,

@@ -38,7 +38,7 @@ void main() {
   /// The receipt toggle is the details screen's footer CTA, and its label is
   /// the contract: it says which way it is about to flip the stamp.
   Finder receiptButton({required bool isReceived}) => find.widgetWithText(
-    KaziPillButton,
+    KaziElevatedButton,
     isReceived
         ? KaziLocalizations.current.unmarkAsReceived
         : KaziLocalizations.current.markAsReceived,

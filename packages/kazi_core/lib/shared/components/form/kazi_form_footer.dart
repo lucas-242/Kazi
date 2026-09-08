@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kazi_core/shared/components/buttons/kazi_elevated_button.dart';
 import 'package:kazi_core/shared/themes/themes.dart';
 
-/// The bar a form is submitted from: a rule, then one full-width button.
+/// The bar a screen's one action is taken from: a rule, then one full-width
+/// button.
 ///
 /// It sits outside the scroll, so the button is reachable without reading to
 /// the end of a form that is taller than the screen. The rule is what makes it
@@ -13,10 +14,16 @@ class KaziFormFooter extends StatelessWidget {
     super.key,
     required this.label,
     required this.onTap,
+    this.isOutlined = false,
     this.child,
   });
 
   final String label;
+
+  /// Drops the fill for an action that undoes rather than commits. Neutral ink
+  /// on purpose: an undo that shouts as loudly as the thing it undoes reads as
+  /// the screen's main offer.
+  final bool isOutlined;
 
   /// Null disables the button. A form mid-write passes null, so a second tap
   /// cannot submit it twice.
@@ -27,12 +34,14 @@ class KaziFormFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final button = KaziElevatedButton.label(
-      onTap: onTap,
-      label: label,
-      backgroundColor: context.colors.money.surface,
-      foregroundColor: context.colors.money.onSurface,
-    );
+    final button = isOutlined
+        ? KaziElevatedButton.outlined(onTap: onTap, label: label)
+        : KaziElevatedButton.label(
+            onTap: onTap,
+            label: label,
+            backgroundColor: context.colors.money.surface,
+            foregroundColor: context.colors.money.onSurface,
+          );
 
     return DecoratedBox(
       decoration: BoxDecoration(

@@ -73,6 +73,8 @@ class WhatsNewPage extends StatelessWidget {
                 child: KaziElevatedButton.label(
                   label: l10n.setupResultCta,
                   onTap: onClose,
+                  backgroundColor: colors.inverse,
+                  foregroundColor: colors.onInverse,
                 ),
               ),
             ],

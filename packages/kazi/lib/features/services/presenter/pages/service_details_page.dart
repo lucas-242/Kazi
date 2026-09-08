@@ -135,30 +135,21 @@ class _ReceiptCtaState extends ConsumerState<_ReceiptCta> {
   Widget build(BuildContext context) {
     final isReceived = widget.service.isReceived;
 
-    return SafeArea(
-      minimum: const EdgeInsets.fromLTRB(
-        KaziInsets.lg,
-        0,
-        KaziInsets.lg,
-        KaziInsets.md,
-      ),
-      child: HintAnchor(
+    return KaziFormFooter(
+      label: isReceived
+          ? KaziLocalizations.current.unmarkAsReceived
+          : KaziLocalizations.current.markAsReceived,
+      isOutlined: isReceived,
+      // Ignored while the write is in flight: a second tap would toggle the
+      // stamp back.
+      onTap: _isSaving ? null : _onTap,
+      child: (button) => HintAnchor(
         hint: OnboardingHint.markReceived,
         // Nothing to explain about marking a service received when it already
         // is.
         enabled: !isReceived,
-        child: KaziPillButton(
-          // Ignored while the write is in flight: a second tap would toggle
-          // the stamp back.
-          onTap: _isSaving ? null : _onTap,
-          fillWidth: true,
-          outlinedButton: isReceived,
-          child: Text(
-            isReceived
-                ? KaziLocalizations.current.unmarkAsReceived
-                : KaziLocalizations.current.markAsReceived,
-          ),
-        ),
+        radius: KaziRadii.sm,
+        child: button,
       ),
     );
   }
