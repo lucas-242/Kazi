@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kazi_core/shared/components/buttons/kazi_pill_button.dart';
+import 'package:kazi_core/shared/components/buttons/kazi_elevated_button.dart';
 import 'package:kazi_core/shared/l10n/generated/l10n.dart';
 import 'package:kazi_core/shared/themes/themes.dart';
 
@@ -62,10 +62,15 @@ class KaziError extends StatelessWidget {
             ),
             if (onRetry case final VoidCallback retry) ...[
               KaziSpacings.verticalXs,
-              KaziPillButton(
+              KaziElevatedButton.outlined(
                 onTap: retry,
-                outlinedButton: true,
-                child: Text(KaziLocalizations.current.tryAgain),
+                label: KaziLocalizations.current.tryAgain,
+                labelStyle: KaziTextStyles.labelLarge,
+                foregroundColor: colors.text,
+                borderColor: colors.borderStrong,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: KaziInsets.lg,
+                ),
               ),
             ],
             if (code case final String support)

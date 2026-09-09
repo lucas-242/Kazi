@@ -68,9 +68,9 @@ class _ServiceCatalogPageState extends ConsumerState<ServiceCatalogPage> {
                   description:
                       KaziLocalizations.current.noCatalogItemsDescription,
                   scrollable: true,
-                  action: KaziPillButton(
+                  action: KaziElevatedButton.label(
                     onTap: () => KaziNavigator.push(AppPage.addCatalogItem),
-                    child: Text(KaziLocalizations.current.newCatalogItem),
+                    label: KaziLocalizations.current.newCatalogItem,
                   ),
                 ),
               ),

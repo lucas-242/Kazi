@@ -53,14 +53,12 @@ class QuickAddSheet extends StatelessWidget {
             KaziSpacings.verticalMd,
             ...children,
             KaziSpacings.verticalLg,
-            KaziPillButton(
+            KaziElevatedButton.label(
               onTap: isSaving ? null : onConfirm,
-              fillWidth: true,
-              child: isSaving
-                  ? KaziLoading(color: context.colors.onInverse)
-                  : Text(
-                      confirmLabel ?? KaziLocalizations.current.createAndUse,
-                    ),
+              width: double.infinity,
+              label: isSaving
+                  ? KaziLocalizations.current.saving
+                  : confirmLabel ?? KaziLocalizations.current.createAndUse,
             ),
           ],
         ),

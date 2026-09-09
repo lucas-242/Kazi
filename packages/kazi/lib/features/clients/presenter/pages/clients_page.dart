@@ -224,9 +224,9 @@ class _Body extends ConsumerWidget {
         message: KaziLocalizations.current.noClientsFound,
         description: KaziLocalizations.current.noClientsDescription,
         scrollable: true,
-        action: KaziPillButton(
+        action: KaziElevatedButton.label(
           onTap: () => KaziNavigator.push(AppPage.addClient),
-          child: Text(KaziLocalizations.current.addClient),
+          label: KaziLocalizations.current.addClient,
         ),
       ),
       _ => _ClientsList(state: state),

@@ -219,7 +219,7 @@ abstract class KaziThemeSettings {
           foregroundColor: kazi.brand.onFill,
           elevation: 0,
           shape: const RoundedRectangleBorder(
-            borderRadius: KaziRadii.fullBorder,
+            borderRadius: KaziRadii.smBorder,
           ),
         ),
       );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kazi_core/shared/components/buttons/kazi_back_button.dart';
-import 'package:kazi_core/shared/components/buttons/kazi_pill_button.dart';
 import 'package:kazi_core/shared/components/status/kazi_loading.dart';
 import 'package:kazi_core/shared/themes/themes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -53,26 +52,15 @@ class _BackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            const KaziBackButton(),
-            KaziSpacings.horizontalSm,
-            Visibility(
-              visible: text != null,
-              child: Text(
-                text ?? '',
-                style: KaziTextStyles.headlineMedium,
-              ),
-            ),
-          ],
-        ),
-        KaziPillButton(
-          onTap: null,
-          backgroundColor: context.colors.inverse,
-          foregroundColor: context.colors.onInverse,
-          child: const Text(''),
+        const KaziBackButton(),
+        KaziSpacings.horizontalSm,
+        Visibility(
+          visible: text != null,
+          child: Text(
+            text ?? '',
+            style: KaziTextStyles.headlineMedium,
+          ),
         ),
       ],
     );

@@ -63,8 +63,6 @@ void main() {
     await settle(tester);
   }
 
-  /// The footer button, matched inside the pill: the screen's title carries
-  /// the same words, and a bare text finder would find both.
   // Matched inside the footer, not by the button's type: the screen's title
   // carries the same words, and the bar owns which button it draws.
   Finder saveButton() => find.descendant(

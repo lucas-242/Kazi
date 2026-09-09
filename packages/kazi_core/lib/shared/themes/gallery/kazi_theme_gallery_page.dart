@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kazi_core/shared/components/buttons/kazi_pill_button.dart';
+import 'package:kazi_core/shared/components/buttons/kazi_elevated_button.dart';
 import 'package:kazi_core/shared/components/status/kazi_empty.dart';
 import 'package:kazi_core/shared/components/status/kazi_error.dart';
 import 'package:kazi_core/shared/components/status/kazi_no_results.dart';
@@ -375,9 +375,9 @@ class _StatesSection extends StatelessWidget {
             message: 'Seus clientes aparecem aqui',
             description:
                 'Eles são criados sozinhos conforme você registra serviços.',
-            action: KaziPillButton(
+            action: KaziElevatedButton.label(
               onTap: () {},
-              child: const Text('Cadastrar cliente'),
+              label: 'Cadastrar cliente',
             ),
           ),
           const _Caption('Vazio · conta sem dados naquela coleção'),

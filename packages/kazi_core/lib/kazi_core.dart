@@ -40,7 +40,6 @@ export 'shared/components/buttons/kazi_circular_button.dart';
 export 'shared/components/buttons/kazi_close_button.dart';
 export 'shared/components/buttons/kazi_elevated_button.dart';
 export 'shared/components/buttons/kazi_overflow_menu.dart';
-export 'shared/components/buttons/kazi_pill_button.dart';
 export 'shared/components/buttons/kazi_text_button.dart';
 export 'shared/components/calendar/kazi_calendar.dart';
 export 'shared/components/calendar/models/calendar_models.dart';

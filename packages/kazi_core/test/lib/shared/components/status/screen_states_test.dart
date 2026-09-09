@@ -36,9 +36,9 @@ void main() {
         KaziEmpty(
           message: 'Sem clientes',
           description: 'Eles nascem conforme você registra serviços.',
-          action: KaziPillButton(
+          action: KaziElevatedButton.label(
             onTap: () {},
-            child: const Text('Cadastrar cliente'),
+            label: 'Cadastrar cliente',
           ),
         ),
       );
@@ -77,14 +77,14 @@ void main() {
 
     testWidgets('offers the retry only when there is one', (tester) async {
       await pump(tester, const KaziError(message: 'Não carregou'));
-      expect(find.byType(KaziPillButton), findsNothing);
+      expect(find.byType(KaziElevatedButton), findsNothing);
 
       var retried = 0;
       await pump(
         tester,
         KaziError(message: 'Não carregou', onRetry: () => retried++),
       );
-      await tester.tap(find.byType(KaziPillButton));
+      await tester.tap(find.byType(KaziElevatedButton));
 
       expect(retried, 1);
     });

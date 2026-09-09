@@ -255,12 +255,12 @@ class _FiltersBottomSheetState extends ConsumerState<FiltersBottomSheet> {
               ),
             ],
             KaziSpacings.verticalXLg,
-            KaziPillButton(
+            KaziElevatedButton.label(
               onTap: _onApply,
-              fillWidth: true,
-              child: Text(
-                count == null ? l10n.applyFilters : l10n.seeNServices(count),
-              ),
+              width: double.infinity,
+              label: count == null
+                  ? l10n.applyFilters
+                  : l10n.seeNServices(count),
             ),
           ],
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kazi_core/shared/components/buttons/kazi_pill_button.dart';
+import 'package:kazi_core/shared/components/buttons/kazi_elevated_button.dart';
 import 'package:kazi_core/shared/themes/themes.dart';
 
 class KaziBottomSheet extends StatelessWidget {
@@ -31,17 +31,18 @@ class KaziBottomSheet extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                KaziPillButton(
+                KaziElevatedButton.label(
                   onTap: onBack,
+                  label: backText,
                   width: 75,
-                  child: Text(backText),
                 ),
                 KaziSpacings.horizontalXLg,
-                KaziPillButton(
+                KaziElevatedButton.label(
                   onTap: onClose,
+                  label: exitText,
                   backgroundColor: context.colors.danger.fill,
+                  foregroundColor: context.colors.danger.onFill,
                   width: 75,
-                  child: Text(exitText),
                 ),
               ],
             ),
