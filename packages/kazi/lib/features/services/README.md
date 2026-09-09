@@ -217,22 +217,26 @@ Read top down: **what the user earns, then the facts that produced it.**
 
 - The earnings sit in a **graphite panel** — the same surface the home uses for
   the number it exists to report, because this screen exists to report this one.
-  Under it, `45% de R$ 180,00` in amber: the gross is context, not a peer.
-- Everything else is a plain label/value row. The **type carries the category
-  bar**, the same mark the list rows use; no other row has an identity to
-  carry.
+  Under it, `45% de R$ 180,00` in amber: the gross is context, not a peer, and
+  it is the only place the gross appears — a row of its own gave a figure the
+  reader did not come for the same weight as the one they did.
+- Everything else is a `DetailInfoRow` — the same bordered card the client and
+  the catalogue item are read in, so one screen teaches the next. The **type
+  carries the category edge**, the same mark the list rows use, and it is the
+  only row with an edge or a colour at all: no other one has an identity to
+  carry, so none takes an icon either.
 - `Situação` says **Pendente** or **Recebido em <data>**. A status that is a
   word, not a colour, is the rule the whole app follows.
 - The date shows a time **only when the service has one**. A date-only service
   sits at midnight, and printing "00:00" would invent precision the record does
   not have.
-- Two amounts, not three: `Seu ganho` and `Gerado`, the same two words the
-  header card and the home use. The withheld share was a third row named
-  `Retido` — a word outside the permitted vocabulary, and a number the reader
-  can get by subtracting the two that remain.
+- One amount, not three. `Gerado` was a row of its own and `Retido` another —
+  the second a word outside the permitted vocabulary, and both numbers the
+  panel already carries or the reader can reach by subtracting. The rows below
+  are facts, not figures.
 - When the service was registered in a currency other than the user's default,
-  **every** amount carries its converted twin underneath. A screen that converts
-  one figure invites the other to be read in the wrong currency.
+  the converted twin sits **directly under the amount it restates**, above the
+  gross line. Far from its figure it reads as a total of its own.
 
 ### The actions
 

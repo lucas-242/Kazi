@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kazi/core/currency/currency_providers.dart';
 import 'package:kazi/core/routes/app_pages.dart';
+import 'package:kazi/core/widgets/detail_info_row.dart';
 import 'package:kazi/features/onboarding/domain/models/onboarding_hint.dart';
 import 'package:kazi/features/onboarding/presenter/widgets/hint_anchor.dart';
 import 'package:kazi/features/services/domain/models/service.dart';
@@ -220,35 +221,28 @@ class _ServiceDetails extends StatelessWidget {
           currency: currency,
           converted: _inDefaultCurrency(service.commissionValue),
         ),
-        KaziSpacings.verticalMd,
-        _InfoRow(
+        KaziSpacings.verticalSm,
+        DetailInfoRow(
           label: KaziLocalizations.current.serviceType,
           value: service.catalogItem?.name ?? '',
-          color: service.catalogItem?.colorAs,
+          categoryColor: service.catalogItem?.colorAs,
         ),
         if (clientName.isNotEmpty)
-          _InfoRow(
+          DetailInfoRow(
             label: KaziLocalizations.current.client,
             value: clientName,
           ),
-        _InfoRow(label: KaziLocalizations.current.date, value: _date),
-        _InfoRow(
+        DetailInfoRow(label: KaziLocalizations.current.date, value: _date),
+        DetailInfoRow(
           label: KaziLocalizations.current.situation,
           value: _status,
-          valueColor: service.isReceived
-              ? context.colors.success.onSurface
-              : null,
-        ),
-        _InfoRow(
-          label: KaziLocalizations.current.generated,
-          value: NumberFormatUtils.formatCurrencyIn(service.value, currency),
-          secondary: _inDefaultCurrency(service.value),
         ),
         if (description.isNotEmpty)
-          _InfoRow(
+          DetailInfoRow(
             label: KaziLocalizations.current.observation,
             value: description,
           ),
+        KaziSpacings.verticalSm,
       ],
     );
   }
@@ -284,7 +278,7 @@ class _EarningsPanel extends StatelessWidget {
           Text(
             // Upper-cased at the call site: Flutter has no text-transform.
             KaziLocalizations.current.yourEarnings.toUpperCase(),
-            style: KaziTextStyles.tag.copyWith(color: colors.money.onSurface),
+            style: KaziTextStyles.tag.copyWith(color: colors.money.label),
           ),
           KaziSpacings.verticalXs,
           // Scaled rather than wrapped: a truncated amount is worse than a
@@ -302,6 +296,15 @@ class _EarningsPanel extends StatelessWidget {
               ),
             ),
           ),
+          if (converted case final String amount) ...[
+            KaziSpacings.verticalXxs,
+            Text(
+              amount,
+              style: KaziTextStyles.labelSmall.copyWith(
+                color: colors.money.onSurface.withValues(alpha: 0.7),
+              ),
+            ),
+          ],
           KaziSpacings.verticalXxs,
           Text(
             // Reads `effectiveCommissionPercent`, so a service registered
@@ -317,97 +320,7 @@ class _EarningsPanel extends StatelessWidget {
               color: colors.money.accent,
             ),
           ),
-          if (converted case final String amount) ...[
-            KaziSpacings.verticalXxs,
-            Text(
-              amount,
-              style: KaziTextStyles.labelSmall.copyWith(
-                color: colors.money.onSurface.withValues(alpha: 0.7),
-              ),
-            ),
-          ],
         ],
-      ),
-    );
-  }
-}
-
-/// One fact: its name on the left, its value on the right. The type carries
-/// the category bar, which is the same mark the list rows use.
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({
-    required this.label,
-    required this.value,
-    this.secondary,
-    this.valueColor,
-    this.color,
-  });
-
-  final String label;
-  final String value;
-
-  /// The same amount in the user's default currency, under the one the service
-  /// was actually registered in.
-  final String? secondary;
-
-  final Color? valueColor;
-
-  /// The category colour, on the one row that carries an identity.
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: KaziInsets.sm),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (color != null) ...[
-              KaziCategoryBar(color: color),
-              KaziSpacings.horizontalSm,
-            ],
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: KaziTextStyles.bodyMedium.copyWith(
-                      color: colors.textMuted,
-                    ),
-                  ),
-                  KaziSpacings.horizontalMd,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          value,
-                          textAlign: TextAlign.end,
-                          style: KaziTextStyles.labelLarge.copyWith(
-                            color: valueColor,
-                          ),
-                        ),
-                        if (secondary case final String converted) ...[
-                          KaziSpacings.verticalXxs,
-                          Text(
-                            converted,
-                            style: KaziTextStyles.labelSmall.copyWith(
-                              color: colors.textMuted,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
