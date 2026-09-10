@@ -56,7 +56,7 @@ label has to say so — and the label is **frozen until the row is back at rest*
 the stamp lands while the row is still open, and repainting then flashes the
 opposite action.
 
-A row under a banner swipes like any other: `AdBlock` wraps the swipeable row,
+A row above a banner swipes like any other: `AdBlock` wraps the swipeable row,
 never the bare card. Both are **keyed**; `Dismissible` throws without a stable
 key. The revealed background is clipped to the card's corners, or the colour
 pokes out square at both ends of the swipe.

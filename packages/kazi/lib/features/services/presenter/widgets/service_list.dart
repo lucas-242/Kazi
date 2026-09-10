@@ -10,12 +10,20 @@ class ServiceList extends StatelessWidget {
     this.canScroll = false,
     this.title,
     this.expandList = false,
+    this.firstPosition = 0,
+    this.total,
   });
 
   final List<Service> services;
   final bool canScroll;
   final String? title;
   final bool expandList;
+
+  /// See [ServiceListContent.firstPosition].
+  final int firstPosition;
+
+  /// See [ServiceListContent.total].
+  final int? total;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +51,16 @@ class ServiceList extends StatelessWidget {
                   child: ServiceListContent(
                     services: services,
                     canScroll: canScroll,
+                    firstPosition: firstPosition,
+                    total: total,
                   ),
                 )
-              : ServiceListContent(services: services, canScroll: canScroll),
+              : ServiceListContent(
+                  services: services,
+                  canScroll: canScroll,
+                  firstPosition: firstPosition,
+                  total: total,
+                ),
         ],
       ),
     );

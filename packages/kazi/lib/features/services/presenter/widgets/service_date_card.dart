@@ -17,9 +17,17 @@ class ServiceDateCard extends ConsumerWidget {
     super.key,
     required this.servicesByDate,
     required this.onTap,
+    required this.firstPosition,
+    required this.total,
   });
   final ServicesGroupByDate servicesByDate;
   final VoidCallback onTap;
+
+  /// See [ServiceListContent.firstPosition].
+  final int firstPosition;
+
+  /// See [ServiceListContent.total].
+  final int total;
 
   String getTextDate(DateTime date, DateTime today) {
     if (date == today) {
@@ -66,7 +74,11 @@ class ServiceDateCard extends ConsumerWidget {
         ),
         ExpandedSection(
           isExpanded: servicesByDate.isExpanded,
-          child: ServiceList(services: servicesByDate.services),
+          child: ServiceList(
+            services: servicesByDate.services,
+            firstPosition: firstPosition,
+            total: total,
+          ),
         ),
       ],
     );

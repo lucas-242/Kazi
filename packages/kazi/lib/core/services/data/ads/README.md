@@ -7,9 +7,9 @@ subscription service directly.
 | | Interstitial | Banner |
 |---|---|---|
 | Format | Full-screen, dismissible | `AdSize.largeBanner` (320×100) |
-| Trigger | After a successful creation | Inline in the service list |
+| Trigger | After a successful creation | Inline in the service list and the home's today list |
 | Rule object | [`CreationAdCoordinator`](creation_ad_coordinator.dart) | [`BannerAdPolicy`](banner_ad_policy.dart) |
-| Rate | Every **3** creation actions | Every **3** list items |
+| Rate | Every **3** creation actions | After every **3** list items; after the last one of a shorter list |
 | Remote Config key | `interstitial_ad_frequency` | `banner_ad_frequency` |
 | Ad unit (`.env.<flavor>`) | `SERVICE_CREATE_ANDROID` / `_IOS` | `SERVICE_LIST_ANDROID` / `_IOS` |
 
@@ -41,7 +41,8 @@ flowchart TD
     CAC --> IAS[AdMobInterstitialAdService]
     CAC -->|interstitial_shown /<br/>interstitial_load_failed| AN[AnalyticsService]
 
-    SLC[ServiceListContent] --> BAP[BannerAdPolicy.shouldShowAt]
+    SLC[ServiceListContent] --> BAP[BannerAdPolicy.shouldShowAfter]
+    HOME[FastDashboardPage<br/>today list] --> BAP
     BAP -->|true| AB[AdBlock]
     AB --> AH[AdHelper.getBannerAd]
 
@@ -51,7 +52,7 @@ flowchart TD
 | File | Role |
 |---|---|
 | [`creation_ad_coordinator.dart`](creation_ad_coordinator.dart) | Counts creation actions, decides when the interstitial shows |
-| [`banner_ad_policy.dart`](banner_ad_policy.dart) | Pure `shouldShowAt(index)` |
+| [`banner_ad_policy.dart`](banner_ad_policy.dart) | Pure `shouldShowAfter(position, total:)` |
 | [`admob_interstitial_ad_service.dart`](admob_interstitial_ad_service.dart) | Preload / show / re-preload lifecycle |
 | [`../../domain/interstitial_ad_service.dart`](../../domain/interstitial_ad_service.dart) | The interface both the app and the tests speak to |
 | [`core/widgets/ads/ad_block.dart`](../../../widgets/ads/ad_block.dart) | Owns one `BannerAd` per mounted list row |
@@ -67,7 +68,10 @@ service. Each one increments a counter persisted in local storage
 (`interstitialActionCount`); the ad shows once that counter reaches the
 frequency.
 
-Three details that are easy to get wrong when touching this:
+Four details that are easy to get wrong when touching this:
+
+- **A service form save is one action, whatever its quantity.** Saving the form
+  with quantity 3 writes three services but counts once.
 
 - **Quick-adds count but never interrupt.** The client and catalog-item sheets
   inside the service form call `onCreationAction(canShowNow: false)` — the user
@@ -80,9 +84,15 @@ Three details that are easy to get wrong when touching this:
   error, a Remote Config error, or an SDK error is logged and swallowed. The
   service the user just saved is already saved.
 
-`AdMobInterstitialAdService` preloads eagerly (at provider construction) and
-re-preloads on dismissal or show-failure. It detaches `_ad` before calling
-`show()`, so two concurrent calls cannot show the same ad twice.
+**Loading is started ahead of the save.** An interstitial takes seconds to load,
+and one that has not landed when the counter reaches the frequency shows
+nothing — which, with a lazily built provider, used to swallow the first
+eligible ad of every app launch. So the coordinator preloads at two moments,
+both skipped for premium users: `prepare()` when the service form opens to
+create, and after every action that stays below the frequency (which covers the
+client and catalog flows). `AdMobInterstitialAdService` itself never loads at
+construction; it re-preloads on dismissal or show-failure, and detaches `_ad`
+before calling `show()`, so two concurrent calls cannot show the same ad twice.
 
 Both outcomes are reported to analytics as `interstitial_shown` /
 `interstitial_load_failed` — deliberately from the coordinator rather than from
@@ -94,15 +104,34 @@ half of that answer.
 
 The counter is shared across all three creation types, so the interstitial is
 **not** "every 3 services" — it is every 3 creations of any kind. A user adding
-a client, a catalog item and then a service sees it on the service.
+a client, a catalog item and then a service sees it on the service. Quick-adds
+inside the form count too, so a form that quick-adds a client and saves one
+service reaches 2 on its own.
 
 ---
 
 ## Banner
 
-`shouldShowAt(index)` is `!isPremium && index != 0 && index % frequency == 0` —
-so at list positions 3, 6, 9, … Position 0 is excluded so the first thing on the
-screen is never an ad.
+`shouldShowAfter(position, total:)` places a banner **after** every
+`frequency`th item — positions 2, 5, 8, … with the default of 3 — and after the
+last item when the whole list is shorter than the frequency, so a free user with
+one or two services still sees one. An empty list carries none, and the first
+thing on the screen is never an ad.
+
+`position` and `total` describe the **whole list on screen**, not the slice a
+widget renders. The services tab groups rows by day, one `ServiceList` per day;
+`ServiceListByDate` hands each day the position its rows start at and the
+overall total. Counted per day instead, every day with fewer than three services
+would carry a banner of its own.
+
+| Where | Rows | Banner spacing | Corners |
+|---|---|---|---|
+| Services tab (`ServiceListContent`) | `ServiceCard`, `KaziRadii.sm` | `padding: top xs` — the list's separator spaces it below | `KaziRadii.smBorder` |
+| Home today list (`FastDashboardPage`) | `TodayServiceCard`, `KaziRadii.md` | `padding: bottom sm` — the card theme's bottom margin spaces it above | `KaziRadii.mdBorder` |
+
+In both, the banner sits as far from the row above as from the row below, and is
+clipped to the radius of the cards around it. Both placements use the
+`SERVICE_LIST_*` ad unit.
 
 `AdBlock` **owns the ad's lifecycle**: one `BannerAd` is created and loaded in
 `initState` and disposed in `dispose`. This is not incidental. Building the ad
@@ -110,17 +139,14 @@ inside `build()` — as an earlier version did — issues a fresh ad request eve
 time the row scrolls back into view and leaks every ad it replaces. AdMob reads
 that pattern as invalid traffic.
 
-The block renders **nothing** until `onAdLoaded` fires: an empty slot with a
-divider reads as a broken row, and reserving height for an ad that never arrives
-is dead space in the list. The `SizedBox` takes its dimensions from `ad.size`,
-never a hard-coded height — a container smaller than the creative makes the SDK
-refuse to render it.
+The block renders **nothing** until `onAdLoaded` fires: an empty slot reads as a
+broken row, and reserving height for an ad that never arrives is dead space in
+the list. The `SizedBox` takes its dimensions from `ad.size`, never a hard-coded
+height — a container smaller than the creative makes the SDK refuse to render
+it.
 
-### Side effect worth knowing
-
-A row that carries a banner is wrapped in `AdBlock` instead of `Dismissible`, so
-**that row loses swipe-to-toggle**. The action is still reachable by opening the
-service. Changing this means nesting the two, not swapping them.
+In the services tab `AdBlock` wraps the swipeable row, not the bare card, so the
+row above a banner keeps swipe-to-toggle like any other.
 
 ---
 

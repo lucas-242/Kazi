@@ -14,9 +14,10 @@ class _FakeInterstitialAdService implements InterstitialAdService {
 
   bool adReady;
   int showCalls = 0;
+  int preloadCalls = 0;
 
   @override
-  void preload() {}
+  void preload() => preloadCalls++;
 
   @override
   Future<bool> showIfAvailable() async {
@@ -97,6 +98,25 @@ void main() {
       expect(await storedCount(), 0, reason: 'counter resets after showing');
     },
   );
+
+  test(
+    'starts loading below the threshold, for the action that reaches it',
+    () async {
+      final coordinator = build();
+
+      await coordinator.onCreationAction();
+
+      expect(adService.preloadCalls, 1);
+    },
+  );
+
+  test('prepares the ad for free users only', () {
+    build().prepare();
+    expect(adService.preloadCalls, 1);
+
+    build(isPremium: true).prepare();
+    expect(adService.preloadCalls, 0);
+  });
 
   test('premium users never accrue count nor see the ad', () async {
     final coordinator = build(isPremium: true);

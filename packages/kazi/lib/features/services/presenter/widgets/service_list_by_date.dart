@@ -26,16 +26,29 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
 
   @override
   Widget build(BuildContext context) {
+    final groups = widget.servicesByDateList;
+
+    // Positions run across the days, or every day shorter than the banner
+    // frequency would carry a banner of its own.
+    final firstPositions = <int>[];
+    var total = 0;
+    for (final group in groups) {
+      firstPositions.add(total);
+      total += group.services.length;
+    }
+
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: widget.servicesByDateList.length,
+      itemCount: groups.length,
       itemBuilder: (context, index) {
-        final group = widget.servicesByDateList[index];
+        final group = groups[index];
 
         return ServiceDateCard(
           servicesByDate: group.copyWith(isExpanded: _isExpanded(group)),
           onTap: () => _onTap(group),
+          firstPosition: firstPositions[index],
+          total: total,
         );
       },
       separatorBuilder: (context, index) => KaziSpacings.verticalXs,

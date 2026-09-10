@@ -38,11 +38,19 @@ class CreationAdCoordinator {
   final bool Function() _isPremium;
   final AnalyticsService _analytics;
 
+  /// Starts loading the interstitial for a free user ahead of the creation that
+  /// may show it. The first load takes seconds, and a save that reaches the
+  /// frequency before it lands shows nothing.
+  void prepare() {
+    if (_isPremium()) return;
+    _adService.preload();
+  }
+
   /// Registers a creation action and shows the interstitial once the persisted
-  /// action counter reaches the configured frequency. Pass [canShowNow] = false
-  /// for actions that must never surface an ad inline (the service form's
-  /// quick-add sheets); those still increment the counter so they count toward
-  /// the next eligible show.
+  /// action counter reaches the configured frequency. A service form save is
+  /// one action whatever its quantity. Pass [canShowNow] = false for actions
+  /// that must never surface an ad inline (the service form's quick-add
+  /// sheets); those still count toward the next eligible show.
   Future<void> onCreationAction({bool canShowNow = true}) async {
     try {
       if (_isPremium()) return;
@@ -68,6 +76,7 @@ class CreationAdCoordinator {
         await _writeCount(shown ? 0 : nextCount);
       } else {
         await _writeCount(nextCount);
+        _adService.preload();
       }
     } catch (exception) {
       // Ad bookkeeping must never break an otherwise successful creation.

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kazi/core/routes/app_pages.dart';
 import 'package:kazi/core/utils/base_state.dart';
+import 'package:kazi/core/widgets/ads/ad_block.dart';
 import 'package:kazi/features/auth/domain/models/app_user.dart';
 import 'package:kazi/features/dashboard/presenter/controllers/dashboard_controller.dart';
 import 'package:kazi/features/dashboard/presenter/controllers/dashboard_state.dart';
@@ -12,6 +13,7 @@ import 'package:kazi/features/onboarding/domain/models/checklist_step.dart';
 import 'package:kazi/features/onboarding/presenter/controllers/checklist_controller.dart';
 import 'package:kazi/features/onboarding/presenter/widgets/active_user_nudges.dart';
 import 'package:kazi/features/onboarding/presenter/widgets/onboarding_checklist_card.dart';
+import 'package:kazi/features/services/domain/models/service.dart';
 import 'package:kazi/features/services/domain/models/service_view.dart';
 import 'package:kazi/features/services/presenter/controllers/service_landing_controller.dart';
 import 'package:kazi/features/services/presenter/widgets/partial_totals_note.dart';
@@ -108,10 +110,25 @@ class _DashboardContent extends ConsumerWidget {
         '${NumberFormatUtils.formatCurrencyIn(totals.commission, totals.currency)}';
   }
 
+  Widget _todayRow(Service service, {required bool isFollowedByBanner}) {
+    final card = TodayServiceCard(service: service);
+    if (!isFollowedByBanner) return card;
+
+    return AdBlock(
+      key: ValueKey('ad-${service.id}'),
+      // The card theme's bottom margin already spaces the banner from the card
+      // above; this mirrors it below.
+      padding: const EdgeInsets.only(bottom: KaziInsets.sm),
+      borderRadius: KaziRadii.mdBorder,
+      child: card,
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todayServices = state.todayServices;
     final hasNothing = state.services.isEmpty;
+    final bannerPolicy = ref.watch(bannerAdPolicyProvider);
 
     return ColoredBox(
       color: context.colors.background,
@@ -153,8 +170,14 @@ class _DashboardContent extends ConsumerWidget {
                       ),
                     )
                   else
-                    for (final service in todayServices)
-                      TodayServiceCard(service: service),
+                    for (final (position, service) in todayServices.indexed)
+                      _todayRow(
+                        service,
+                        isFollowedByBanner: bannerPolicy.shouldShowAfter(
+                          position,
+                          total: todayServices.length,
+                        ),
+                      ),
                   KaziSpacings.verticalMd,
                   _SeeSummaryRow(state: state),
                 ],

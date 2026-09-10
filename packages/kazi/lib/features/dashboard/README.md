@@ -61,6 +61,10 @@ share the user keeps is the headline, the gross the footnote it came out of.
 Two cards answering the same question with the numbers swapped is how the
 subtotal and the rows stopped agreeing in the first place.
 
+Free users get a banner in this list by the same rule as the services tab —
+after every third card, or after the last one of a shorter day. Placement and
+spacing are in the [ads README](../../core/services/data/ads/README.md).
+
 ## Slots above the list
 
 `OnboardingChecklistCard` and `ActiveUserNudges` both render nothing with their

@@ -39,6 +39,7 @@ void main() {
   late MockAuthService authService;
   late MockKaziInAppReviewManager inAppReviewManager;
   late FakeAnalyticsService analytics;
+  late FakeCreationAdCoordinator creationAds;
   late ProviderContainer container;
 
   TestHelper.loadAppLocalizations();
@@ -50,6 +51,7 @@ void main() {
     authService = MockAuthService();
     inAppReviewManager = MockKaziInAppReviewManager();
     analytics = FakeAnalyticsService();
+    creationAds = FakeCreationAdCoordinator();
 
     when(authService.user).thenReturn(userMock);
 
@@ -89,9 +91,7 @@ void main() {
         inAppReviewManagerProvider.overrideWith(
           (ref) => Future.value(inAppReviewManager),
         ),
-        creationAdCoordinatorProvider.overrideWith(
-          (ref) => FakeCreationAdCoordinator(),
-        ),
+        creationAdCoordinatorProvider.overrideWith((ref) => creationAds),
         // The form reports opening, abandonment and creation. Without this the
         // real composite is built, and its Firebase sink needs an initialised
         // Firebase app that a unit test does not have.
@@ -114,6 +114,19 @@ void main() {
       expect(state.catalogItems, catalogItemsMock);
       expect(state.status, BaseStateStatus.readyToUserInput);
     });
+
+    test(
+      'prepares the interstitial when opened to create, not to edit',
+      () async {
+        await container.read(serviceFormControllerProvider().future);
+        await container.read(
+          serviceFormControllerProvider(service: serviceMock).future,
+        );
+        await Future<void>.delayed(Duration.zero);
+
+        expect(creationAds.prepareCount, 1);
+      },
+    );
 
     test('uses passed service when building', () async {
       final provider = serviceFormControllerProvider(service: serviceMock);
@@ -203,6 +216,9 @@ void main() {
       expect(emitted.last.quantity, 1);
       expect(emitted.last.service.userId, authService.user!.uid);
       verify(servicesRepository.add(any, quantityServices)).called(1);
+      expect(creationAds.actions, [
+        true,
+      ], reason: 'a save counts once, whatever its quantity');
     });
   });
 
@@ -447,7 +463,9 @@ void main() {
         ),
         throwsA(isA<AppError>()),
       );
-      verifyNever(clientsRepository.add(any, any, observation: anyNamed('observation')));
+      verifyNever(
+        clientsRepository.add(any, any, observation: anyNamed('observation')),
+      );
     });
 
     test('finds a namesake, and ignores one with another document', () async {
@@ -487,45 +505,48 @@ void main() {
       );
     });
 
-    test('counts the namesake services only when the counters cannot', () async {
-      when(clientsRepository.searchByName(any, any)).thenAnswer(
-        (_) async => [
-          clientEntryMock(
-            id: 'existing',
-            name: 'Ana Maria',
-            counters: const RecordCounters(count: 7),
-          ),
-        ],
-      );
+    test(
+      'counts the namesake services only when the counters cannot',
+      () async {
+        when(clientsRepository.searchByName(any, any)).thenAnswer(
+          (_) async => [
+            clientEntryMock(
+              id: 'existing',
+              name: 'Ana Maria',
+              counters: const RecordCounters(count: 7),
+            ),
+          ],
+        );
 
-      final provider = serviceFormControllerProvider();
-      await container.read(provider.future);
-      final controller = container.read(provider.notifier);
+        final provider = serviceFormControllerProvider();
+        await container.read(provider.future);
+        final controller = container.read(provider.notifier);
 
-      var found = await controller.findClientNamesake(
-        name: 'Ana Maria',
-        identifier: '',
-      );
-      expect(found?.serviceCount, 7);
-      // The counter answered, so the aggregate is never spent.
-      verifyNever(servicesRepository.countByClient(any, any));
+        var found = await controller.findClientNamesake(
+          name: 'Ana Maria',
+          identifier: '',
+        );
+        expect(found?.serviceCount, 7);
+        // The counter answered, so the aggregate is never spent.
+        verifyNever(servicesRepository.countByClient(any, any));
 
-      when(clientsRepository.searchByName(any, any)).thenAnswer(
-        (_) async => [clientEntryMock(id: 'existing', name: 'Ana Maria')],
-      );
-      when(
-        servicesRepository.countByClient(any, any),
-      ).thenAnswer((_) async => 12);
+        when(clientsRepository.searchByName(any, any)).thenAnswer(
+          (_) async => [clientEntryMock(id: 'existing', name: 'Ana Maria')],
+        );
+        when(
+          servicesRepository.countByClient(any, any),
+        ).thenAnswer((_) async => 12);
 
-      found = await controller.findClientNamesake(
-        name: 'Ana Maria',
-        identifier: '',
-      );
-      // Counters absent — a client whose services predate them — so the count
-      // is worth one read rather than leaving the name unqualified.
-      expect(found?.serviceCount, 12);
-      verify(servicesRepository.countByClient(any, 'existing')).called(1);
-    });
+        found = await controller.findClientNamesake(
+          name: 'Ana Maria',
+          identifier: '',
+        );
+        // Counters absent — a client whose services predate them — so the count
+        // is worth one read rather than leaving the name unqualified.
+        expect(found?.serviceCount, 12);
+        verify(servicesRepository.countByClient(any, 'existing')).called(1);
+      },
+    );
 
     test('a count that cannot be taken is null, never zero', () async {
       when(clientsRepository.searchByName(any, any)).thenAnswer(
@@ -538,10 +559,9 @@ void main() {
       final provider = serviceFormControllerProvider();
       await container.read(provider.future);
 
-      final found = await container.read(provider.notifier).findClientNamesake(
-        name: 'Ana Maria',
-        identifier: '',
-      );
+      final found = await container
+          .read(provider.notifier)
+          .findClientNamesake(name: 'Ana Maria', identifier: '');
       expect(found, isNotNull);
       expect(found?.serviceCount, isNull);
     });
@@ -555,10 +575,9 @@ void main() {
       await container.read(provider.future);
 
       expect(
-        await container.read(provider.notifier).findClientNamesake(
-          name: 'Ana Maria',
-          identifier: '',
-        ),
+        await container
+            .read(provider.notifier)
+            .findClientNamesake(name: 'Ana Maria', identifier: ''),
         isNull,
       );
     });
@@ -576,7 +595,9 @@ void main() {
       // Appended, because the form loads only the first page of clients and a
       // namesake found by query is often not in it.
       expect(state.clients.single.id, 'existing');
-      verifyNever(clientsRepository.add(any, any, observation: anyNamed('observation')));
+      verifyNever(
+        clientsRepository.add(any, any, observation: anyNamed('observation')),
+      );
     });
 
     test('refuses a document already on file', () async {
@@ -590,16 +611,20 @@ void main() {
       await container.read(provider.future);
 
       await expectLater(
-        container.read(provider.notifier).quickAddClient(
-          identifier: '12345678900',
-          name: 'Ada',
-          phone: '123',
-        ),
+        container
+            .read(provider.notifier)
+            .quickAddClient(
+              identifier: '12345678900',
+              name: 'Ada',
+              phone: '123',
+            ),
         ErrorWithMessage<ClientError>(
           KaziLocalizations.current.clientSameDocument('Ana Maria'),
         ),
       );
-      verifyNever(clientsRepository.add(any, any, observation: anyNamed('observation')));
+      verifyNever(
+        clientsRepository.add(any, any, observation: anyNamed('observation')),
+      );
     });
 
     test('refuses when the document check cannot run', () async {
@@ -611,16 +636,20 @@ void main() {
       await container.read(provider.future);
 
       await expectLater(
-        container.read(provider.notifier).quickAddClient(
-          identifier: '12345678900',
-          name: 'Ada',
-          phone: '123',
-        ),
+        container
+            .read(provider.notifier)
+            .quickAddClient(
+              identifier: '12345678900',
+              name: 'Ada',
+              phone: '123',
+            ),
         ErrorWithMessage<ExternalError>(
           KaziLocalizations.current.errorToVerifyDocument,
         ),
       );
-      verifyNever(clientsRepository.add(any, any, observation: anyNamed('observation')));
+      verifyNever(
+        clientsRepository.add(any, any, observation: anyNamed('observation')),
+      );
     });
 
     test('creates without a document, which is optional', () async {
@@ -631,15 +660,19 @@ void main() {
       final provider = serviceFormControllerProvider();
       await container.read(provider.future);
 
-      await container.read(provider.notifier).quickAddClient(
-        identifier: '',
-        name: 'Ada Lovelace',
-        phone: '+551199999999',
-      );
+      await container
+          .read(provider.notifier)
+          .quickAddClient(
+            identifier: '',
+            name: 'Ada Lovelace',
+            phone: '+551199999999',
+          );
 
       final state = container.read(provider).asData?.value;
       expect(state!.service.clientId, 'new-client-id');
-      verify(clientsRepository.add(any, any, observation: anyNamed('observation'))).called(1);
+      verify(
+        clientsRepository.add(any, any, observation: anyNamed('observation')),
+      ).called(1);
     });
   });
 }

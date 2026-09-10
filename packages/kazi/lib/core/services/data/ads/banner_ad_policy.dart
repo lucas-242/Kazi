@@ -15,10 +15,16 @@ class BannerAdPolicy {
   /// Number of list items between two banners shown to free users.
   final int frequency;
 
-  /// Whether a banner should be inserted before the list item at [index].
-  /// Premium users never see one; index 0 never gets one.
-  bool shouldShowAt(int index) =>
-      !_isPremium && index != 0 && index % frequency == 0;
+  /// Whether a banner follows the item at [position] of a list of [total]
+  /// items: after every [frequency]th item, and after the last one of a list
+  /// shorter than that. Premium users never see one.
+  bool shouldShowAfter(int position, {required int total}) {
+    if (_isPremium || total <= 0) return false;
+
+    final closesAGroup = (position + 1) % frequency == 0;
+    final closesAShortList = total < frequency && position == total - 1;
+    return closesAGroup || closesAShortList;
+  }
 
   static int _resolveFrequency(FirebaseRemoteConfig remoteConfig) {
     final remote = remoteConfig.getInt(RemoteConfigKeys.bannerAdFrequency);

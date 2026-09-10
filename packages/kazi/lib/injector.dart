@@ -236,13 +236,8 @@ bool isPremium(Ref ref) =>
     ref.watch(entitlementProvider).asData?.value.isPremium ?? false;
 
 @Riverpod(keepAlive: true)
-InterstitialAdService interstitialAdService(Ref ref) {
-  final service = AdMobInterstitialAdService(
-    Environment.instance.adKeyServiceCreate,
-  );
-  service.preload();
-  return service;
-}
+InterstitialAdService interstitialAdService(Ref ref) =>
+    AdMobInterstitialAdService(Environment.instance.adKeyServiceCreate);
 
 @Riverpod(keepAlive: true)
 Future<CreationAdCoordinator> creationAdCoordinator(Ref ref) async =>

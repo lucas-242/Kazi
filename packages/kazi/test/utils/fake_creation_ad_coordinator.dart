@@ -5,7 +5,12 @@ class FakeCreationAdCoordinator implements CreationAdCoordinator {
   /// surface an ad right away — service-form quick-adds pass `false`.
   final List<bool> actions = [];
 
+  int prepareCount = 0;
+
   int get creationActions => actions.length;
+
+  @override
+  void prepare() => prepareCount++;
 
   @override
   Future<void> onCreationAction({bool canShowNow = true}) async =>

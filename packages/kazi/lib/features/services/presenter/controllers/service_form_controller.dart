@@ -128,6 +128,15 @@ class ServiceFormController extends _$ServiceFormController
   Future<ExchangeRateHistoryService> get _rateHistory =>
       ref.read(exchangeRateHistoryServiceProvider.future);
 
+  Future<void> _prepareInterstitial() async {
+    try {
+      final coordinator = await ref.read(creationAdCoordinatorProvider.future);
+      coordinator.prepare();
+    } catch (exception) {
+      Log.error('Failed to prepare creation ad: $exception');
+    }
+  }
+
   @override
   FutureOr<ServiceFormState> build({Service? service}) async {
     // Only a creation is measured: leaving an edit alone is normal, leaving a
@@ -139,6 +148,7 @@ class ServiceFormController extends _$ServiceFormController
       _openedAt = _capturedTime!.now;
       unawaited(_capturedAnalytics!.log(AnalyticsEvent.serviceFormOpened));
       ref.onDispose(_reportAbandonment);
+      unawaited(_prepareInterstitial());
     }
 
     try {

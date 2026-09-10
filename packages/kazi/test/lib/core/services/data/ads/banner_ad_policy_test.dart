@@ -23,37 +23,49 @@ void main() {
         remoteConfig: _FakeRemoteConfig(frequency),
       );
 
-  test('shows a banner every N items, never at index 0', () {
+  List<int> positionsFollowedByBanner(BannerAdPolicy policy, int total) => [
+    for (var position = 0; position < total; position++)
+      if (policy.shouldShowAfter(position, total: total)) position,
+  ];
+
+  test('follows every Nth item', () {
     final policy = build();
 
     expect(policy.frequency, 3);
-    expect(policy.shouldShowAt(0), isFalse);
-    expect(policy.shouldShowAt(1), isFalse);
-    expect(policy.shouldShowAt(2), isFalse);
-    expect(policy.shouldShowAt(3), isTrue);
-    expect(policy.shouldShowAt(6), isTrue);
+    expect(positionsFollowedByBanner(policy, 3), [2]);
+    expect(positionsFollowedByBanner(policy, 7), [2, 5]);
+    expect(positionsFollowedByBanner(policy, 9), [2, 5, 8]);
+  });
+
+  test('follows the last item of a list shorter than N', () {
+    final policy = build();
+
+    expect(positionsFollowedByBanner(policy, 1), [0]);
+    expect(positionsFollowedByBanner(policy, 2), [1]);
+  });
+
+  test('an empty list carries no banner', () {
+    expect(build().shouldShowAfter(0, total: 0), isFalse);
   });
 
   test('premium users never see a banner', () {
     final policy = build(isPremium: true);
 
-    expect(policy.shouldShowAt(3), isFalse);
-    expect(policy.shouldShowAt(6), isFalse);
+    expect(positionsFollowedByBanner(policy, 1), isEmpty);
+    expect(positionsFollowedByBanner(policy, 9), isEmpty);
   });
 
   test('falls back to the default frequency when remote config is unset', () {
-    // frequency 0 => getInt returns 0 => policy uses its default of 3.
     final policy = build(frequency: 0);
 
     expect(policy.frequency, 3);
-    expect(policy.shouldShowAt(3), isTrue);
+    expect(positionsFollowedByBanner(policy, 6), [2, 5]);
   });
 
   test('honors a remotely configured frequency', () {
     final policy = build(frequency: 5);
 
-    expect(policy.shouldShowAt(3), isFalse);
-    expect(policy.shouldShowAt(5), isTrue);
-    expect(policy.shouldShowAt(10), isTrue);
+    expect(positionsFollowedByBanner(policy, 4), [3]);
+    expect(positionsFollowedByBanner(policy, 10), [4, 9]);
   });
 }

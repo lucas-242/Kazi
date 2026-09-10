@@ -15,9 +15,18 @@ class ServiceListContent extends ConsumerWidget {
     super.key,
     required this.services,
     required this.canScroll,
+    this.firstPosition = 0,
+    this.total,
   });
   final List<Service> services;
   final bool canScroll;
+
+  /// Where [services] start in the whole list on screen, when they are one
+  /// day's slice of it. Banners are placed by that position.
+  final int firstPosition;
+
+  /// Length of the whole list on screen; null when [services] is all of it.
+  final int? total;
 
   void _onTap(BuildContext context, Service service) => KaziNavigator.push(
     AppPage.serviceDetails,
@@ -65,11 +74,19 @@ class ServiceListContent extends ConsumerWidget {
       ),
     );
 
-    if (!bannerPolicy.shouldShowAt(index)) return row;
+    final isFollowedByBanner = bannerPolicy.shouldShowAfter(
+      firstPosition + index,
+      total: total ?? services.length,
+    );
+    if (!isFollowedByBanner) return row;
 
-    // Wraps the swipeable row, not the bare card, or the service under a
+    // Wraps the swipeable row, not the bare card, or the service above a
     // banner is the one row that cannot be marked as received.
-    return AdBlock(key: ValueKey('ad-${service.id}'), child: row);
+    return AdBlock(
+      key: ValueKey('ad-${service.id}'),
+      padding: const EdgeInsets.only(top: KaziInsets.xs),
+      child: row,
+    );
   }
 
   @override
