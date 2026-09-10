@@ -103,12 +103,14 @@ class _Content extends StatelessWidget {
                 TextSpan(
                   text: subtitle,
                   children: [
-                    if (service.isReceived) receivedMarkSpan(context),
+                    if (service.isReceived)
+                      receivedMarkSpan(context, precededBy: subtitle),
                   ],
                 ),
                 style: KaziTextStyles.labelSmall.copyWith(
                   color: colors.textMuted,
                 ),
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
             ],

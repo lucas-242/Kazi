@@ -40,13 +40,20 @@ abstract class NumberFormatUtils {
     ).format((double.tryParse(valueWithoutZero) ?? 0) / 100);
   }
 
+  /// The app's language (`Intl.defaultLocale`, set when `KaziLocalizations`
+  /// loads), refined by the device's region only when both share a language —
+  /// a Portuguese app on an en_US device must still format `1.234,50`.
   static String getCurrentLocale() {
-    final locale = PlatformDispatcher.instance.locale;
-    final joined = '${locale.languageCode}_${locale.countryCode}';
-    if (numberFormatSymbols.keys.contains(joined)) {
-      return joined;
+    final device = PlatformDispatcher.instance.locale;
+    final language = Intl.shortLocale(
+      Intl.defaultLocale ?? device.languageCode,
+    );
+    final regional = '${language}_${device.countryCode}';
+    if (language == device.languageCode &&
+        numberFormatSymbols.keys.contains(regional)) {
+      return regional;
     }
-    return locale.languageCode;
+    return language;
   }
 
   static String getDecimalSeparator() {

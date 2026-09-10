@@ -31,7 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(name) => "${name} arquivado.";
 
   static String m5(count) =>
-      "${Intl.plural(count, one: 'Fecha em 1 dia', other: 'Fecha em ${count} dias')}";
+      "${Intl.plural(count, zero: 'Fecha em ${count} dias', one: 'Fecha em 1 dia', other: 'Fecha em ${count} dias')}";
 
   static String m6(day) => "Dia ${day}";
 
@@ -42,10 +42,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m9(start, end) => "${start} a ${end}";
 
   static String m10(count, amount) =>
-      "${Intl.plural(count, one: 'Ele nomeia 1 serviço já registrado. Excluir agora deixaria esse lançamento sem identificação.', other: 'Ele nomeia ${count} serviços já registrados. Excluir agora deixaria esses lançamentos sem identificação — e eles somam ${amount} no seu histórico.')}";
+      "${Intl.plural(count, zero: 'Ele nomeia ${count} serviços já registrados. Excluir agora deixaria esses lançamentos sem identificação — e eles somam ${amount} no seu histórico.', one: 'Ele nomeia 1 serviço já registrado. Excluir agora deixaria esse lançamento sem identificação.', other: 'Ele nomeia ${count} serviços já registrados. Excluir agora deixaria esses lançamentos sem identificação — e eles somam ${amount} no seu histórico.')}";
 
   static String m11(count) =>
-      "${Intl.plural(count, one: 'Não é possível excluir: 1 serviço usa este registro.', other: 'Não é possível excluir: ${count} serviços usam este registro.')}";
+      "${Intl.plural(count, zero: 'Não é possível excluir: ${count} serviços usam este registro.', one: 'Não é possível excluir: 1 serviço usa este registro.', other: 'Não é possível excluir: ${count} serviços usam este registro.')}";
 
   static String m12(name) => "${name} não pode ser excluído";
 
@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m14(done, total) => "${done}/${total}";
 
   static String m15(count, name) =>
-      "${Intl.plural(count, one: 'Já existe ${name} com 1 serviço. Se for a mesma pessoa, use a que já existe para não dividir o histórico.', other: 'Já existe ${name} com ${count} serviços. Se for a mesma pessoa, use a que já existe para não dividir o histórico.')}";
+      "${Intl.plural(count, zero: 'Já existe ${name} com ${count} serviços. Se for a mesma pessoa, use a que já existe para não dividir o histórico.', one: 'Já existe ${name} com 1 serviço. Se for a mesma pessoa, use a que já existe para não dividir o histórico.', other: 'Já existe ${name} com ${count} serviços. Se for a mesma pessoa, use a que já existe para não dividir o histórico.')}";
 
   static String m16(name, service, date) =>
       "Já existe ${name}, atendido pela última vez em ${date} para ${service}. Se for a mesma pessoa, use a que já existe para não dividir o histórico.";
@@ -72,7 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m20(month) => "cliente desde ${month}";
 
   static String m21(count) =>
-      "${Intl.plural(count, one: '1 serviço do catálogo está sem comissão', other: '${count} serviços do catálogo estão sem comissão')}";
+      "${Intl.plural(count, zero: '${count} serviços do catálogo estão sem comissão', one: '1 serviço do catálogo está sem comissão', other: '${count} serviços do catálogo estão sem comissão')}";
 
   static String m22(percent, amount) => "${percent} de ${amount}";
 
@@ -87,10 +87,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "${Intl.plural(days, zero: 'fecha hoje', one: 'fecha amanhã', other: 'fecha em ${days} dias')}";
 
   static String m27(count, amount) =>
-      "${Intl.plural(count, one: 'de ${amount} gerados em 1 serviço', other: 'de ${amount} gerados em ${count} serviços')}";
+      "${Intl.plural(count, zero: 'de ${amount} gerados em ${count} serviços', one: 'de ${amount} gerados em 1 serviço', other: 'de ${amount} gerados em ${count} serviços')}";
 
   static String m28(count) =>
-      "${Intl.plural(count, one: 'O serviço já realizado continua no histórico. Só os dados de contato são apagados. Esta ação não tem volta.', other: 'Os ${count} serviços já realizados continuam no histórico. Só os dados de contato são apagados. Esta ação não tem volta.')}";
+      "${Intl.plural(count, zero: 'Os ${count} serviços já realizados continuam no histórico. Só os dados de contato são apagados. Esta ação não tem volta.', one: 'O serviço já realizado continua no histórico. Só os dados de contato são apagados. Esta ação não tem volta.', other: 'Os ${count} serviços já realizados continuam no histórico. Só os dados de contato são apagados. Esta ação não tem volta.')}";
 
   static String m29(name) => "Excluir ${name} para sempre?";
 
@@ -122,23 +122,23 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m42(property) => "${property} está vazio";
 
   static String m43(count) =>
-      "${Intl.plural(count, one: '1 item', other: '${count} itens')}";
+      "${Intl.plural(count, zero: '${count} itens', one: '1 item', other: '${count} itens')}";
 
   static String m44(date) => "Último em ${date}";
 
   static String m45(privacy) => "Ao continuar, você aceita a ${privacy}.";
 
   static String m46(count) =>
-      "${Intl.plural(count, one: 'Marcar o 1 pendente como recebido', other: 'Marcar os ${count} pendentes como recebidos')}";
+      "${Intl.plural(count, zero: 'Marcar os ${count} pendentes como recebidos', one: 'Marcar o 1 pendente como recebido', other: 'Marcar os ${count} pendentes como recebidos')}";
 
   static String m47(amount) =>
       "São ${amount} no total. Isso não muda os valores nem as datas — só registra que o pagamento entrou.";
 
   static String m48(count) =>
-      "${Intl.plural(count, one: 'Marcar 1 serviço como recebido?', other: 'Marcar ${count} serviços como recebidos?')}";
+      "${Intl.plural(count, zero: 'Marcar ${count} serviços como recebidos?', one: 'Marcar 1 serviço como recebido?', other: 'Marcar ${count} serviços como recebidos?')}";
 
   static String m49(count) =>
-      "${Intl.plural(count, one: 'O 1 serviço que já estava recebido não é tocado.', other: 'Os ${count} serviços que já estavam recebidos não são tocados.')}";
+      "${Intl.plural(count, zero: 'Os ${count} serviços que já estavam recebidos não são tocados.', one: 'O 1 serviço que já estava recebido não é tocado.', other: 'Os ${count} serviços que já estavam recebidos não são tocados.')}";
 
   static String m50(term) => "Nada encontrado para “${term}”";
 
@@ -153,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m55(period) => "${period} · seu ganho";
 
   static String m56(count) =>
-      "${Intl.plural(count, one: 'Mudar o preço aqui vale para os próximos registros. O serviço já lançado continua com o valor da época.', other: 'Mudar o preço aqui vale para os próximos registros. Os ${count} serviços já lançados continuam com o valor da época.')}";
+      "${Intl.plural(count, zero: 'Mudar o preço aqui vale para os próximos registros. Os ${count} serviços já lançados continuam com o valor da época.', one: 'Mudar o preço aqui vale para os próximos registros. O serviço já lançado continua com o valor da época.', other: 'Mudar o preço aqui vale para os próximos registros. Os ${count} serviços já lançados continuam com o valor da época.')}";
 
   static String m57(date) => "Recebido em ${date}";
 
@@ -162,7 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m59(name) => "${name} restaurado.";
 
   static String m60(count, amount) =>
-      "${Intl.plural(count, one: '1 serviço', other: '${count} serviços')} · ${amount} para você";
+      "${Intl.plural(count, zero: '${count} serviços', one: '1 serviço', other: '${count} serviços')} · ${amount} para você";
 
   static String m61(count) =>
       "${Intl.plural(count, zero: 'Nenhum serviço', one: 'Ver 1 serviço', other: 'Ver ${count} serviços')}";
@@ -170,10 +170,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m62(month) => "Ver resumo de ${month}";
 
   static String m63(count) =>
-      "${Intl.plural(count, one: 'Ver o 1 serviço', other: 'Ver os ${count} serviços')}";
+      "${Intl.plural(count, zero: 'Ver os ${count} serviços', one: 'Ver o 1 serviço', other: 'Ver os ${count} serviços')}";
 
   static String m64(count) =>
-      "${Intl.plural(count, one: '1 serviço', other: '${count} serviços')}";
+      "${Intl.plural(count, zero: '${count} serviços', one: '1 serviço', other: '${count} serviços')}";
 
   static String m65(count) => "Continuar com ${count}";
 
@@ -184,15 +184,15 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m68(count) => "Ver todos (${count})";
 
   static String m69(count) =>
-      "${Intl.plural(count, one: 'Hoje · 1 serviço', other: 'Hoje · ${count} serviços')}";
+      "${Intl.plural(count, zero: 'Hoje · ${count} serviços', one: 'Hoje · 1 serviço', other: 'Hoje · ${count} serviços')}";
 
   static String m70(name) => "Usar ${name} que já existe";
 
   static String m71(count) =>
-      "${Intl.plural(count, one: 'usado em 1 serviço', other: 'usado em ${count} serviços')}";
+      "${Intl.plural(count, zero: 'usado em ${count} serviços', one: 'usado em 1 serviço', other: 'usado em ${count} serviços')}";
 
   static String m72(count) =>
-      "${Intl.plural(count, one: '1 uso', other: '${count} usos')}";
+      "${Intl.plural(count, zero: '${count} usos', one: '1 uso', other: '${count} usos')}";
 
   static String m73(count) => "Ver arquivados · ${count}";
 
@@ -231,7 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Catálogo arquivado",
     ),
     "archivedCatalogNote": MessageLookupByLibrary.simpleMessage(
-      "Item arquivado não aparece ao registrar um serviço, mas continua nomeando os serviços em que já foi usado.",
+      "Itens do catálogo arquivados não aparecem ao registrar um serviço, mas continuam nomeando os serviços em que já foram usados.",
     ),
     "archivedClients": MessageLookupByLibrary.simpleMessage(
       "Clientes arquivados",
@@ -867,18 +867,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Atualização disponível",
     ),
     "or": MessageLookupByLibrary.simpleMessage("ou"),
-    "orderAlphabetical": MessageLookupByLibrary.simpleMessage("Alfabétical"),
-    "orderBy": MessageLookupByLibrary.simpleMessage("Ordernar por"),
-    "orderDateAsc": MessageLookupByLibrary.simpleMessage(
-      "Menos atual para mais atual",
-    ),
-    "orderDateDesc": MessageLookupByLibrary.simpleMessage(
-      "Mais atual para menos atual",
-    ),
+    "orderAlphabetical": MessageLookupByLibrary.simpleMessage("A–Z"),
+    "orderBy": MessageLookupByLibrary.simpleMessage("Ordenar por"),
+    "orderDateAsc": MessageLookupByLibrary.simpleMessage("Mais antigos"),
+    "orderDateDesc": MessageLookupByLibrary.simpleMessage("Mais recentes"),
     "orderLastService": MessageLookupByLibrary.simpleMessage("Último serviço"),
     "orderTopEarning": MessageLookupByLibrary.simpleMessage("Mais renderam"),
-    "orderValueAsc": MessageLookupByLibrary.simpleMessage("Menor para maior"),
-    "orderValueDesc": MessageLookupByLibrary.simpleMessage("Maior para menor"),
+    "orderValueAsc": MessageLookupByLibrary.simpleMessage("Menor valor"),
+    "orderValueDesc": MessageLookupByLibrary.simpleMessage("Maior valor"),
     "password": MessageLookupByLibrary.simpleMessage("Senha"),
     "paywallPricePerMonth": m52,
     "paywallRenewInfo": MessageLookupByLibrary.simpleMessage(

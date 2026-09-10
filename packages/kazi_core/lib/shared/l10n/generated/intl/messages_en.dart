@@ -231,7 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Archived catalog",
     ),
     "archivedCatalogNote": MessageLookupByLibrary.simpleMessage(
-      "An archived item does not show up when you register a service, but it keeps naming the services it was already used in.",
+      "Archived catalog items do not show up when you register a service, but they keep naming the services they were already used in.",
     ),
     "archivedClients": MessageLookupByLibrary.simpleMessage("Archived clients"),
     "archivedClientsNote": MessageLookupByLibrary.simpleMessage(
@@ -848,18 +848,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Update available",
     ),
     "or": MessageLookupByLibrary.simpleMessage("or"),
-    "orderAlphabetical": MessageLookupByLibrary.simpleMessage("Alphabetical"),
-    "orderBy": MessageLookupByLibrary.simpleMessage("Order by"),
-    "orderDateAsc": MessageLookupByLibrary.simpleMessage(
-      "Least current to most current",
-    ),
-    "orderDateDesc": MessageLookupByLibrary.simpleMessage(
-      "Most current to least current",
-    ),
+    "orderAlphabetical": MessageLookupByLibrary.simpleMessage("A–Z"),
+    "orderBy": MessageLookupByLibrary.simpleMessage("Sort by"),
+    "orderDateAsc": MessageLookupByLibrary.simpleMessage("Oldest first"),
+    "orderDateDesc": MessageLookupByLibrary.simpleMessage("Newest first"),
     "orderLastService": MessageLookupByLibrary.simpleMessage("Last service"),
     "orderTopEarning": MessageLookupByLibrary.simpleMessage("Top earning"),
-    "orderValueAsc": MessageLookupByLibrary.simpleMessage("Lowest to highest"),
-    "orderValueDesc": MessageLookupByLibrary.simpleMessage("Highest to lowest"),
+    "orderValueAsc": MessageLookupByLibrary.simpleMessage("Lowest value"),
+    "orderValueDesc": MessageLookupByLibrary.simpleMessage("Highest value"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "paywallPricePerMonth": m52,
     "paywallRenewInfo": MessageLookupByLibrary.simpleMessage(

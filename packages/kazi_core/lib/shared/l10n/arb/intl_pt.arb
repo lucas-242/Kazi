@@ -16,7 +16,7 @@
   "appSubtitle": "Organize seus serviços",
   "back": "Voltar",
   "billingCycle": "Ciclo de pagamento",
-  "billingCycleClosesInDays": "{count, plural, one{Fecha em 1 dia} other{Fecha em {count} dias}}",
+  "billingCycleClosesInDays": "{count, plural, =0{Fecha em {count} dias} one{Fecha em 1 dia} other{Fecha em {count} dias}}",
   "@billingCycleClosesInDays": {
     "placeholders": {
       "count": {
@@ -111,7 +111,7 @@
       }
     }
   },
-  "cycleGeneratedIn": "{count, plural, one{de {amount} gerados em 1 serviço} other{de {amount} gerados em {count} serviços}}",
+  "cycleGeneratedIn": "{count, plural, =0{de {amount} gerados em {count} serviços} one{de {amount} gerados em 1 serviço} other{de {amount} gerados em {count} serviços}}",
   "@cycleGeneratedIn": {
     "placeholders": {
       "count": {
@@ -139,7 +139,7 @@
   },
   "errorToMarkReceived": "Erro ao marcar os serviços como recebidos",
   "markedAsReceived": "Marcados como recebidos",
-  "markListedReceived": "{count, plural, one{Marcar o 1 pendente como recebido} other{Marcar os {count} pendentes como recebidos}}",
+  "markListedReceived": "{count, plural, =0{Marcar os {count} pendentes como recebidos} one{Marcar o 1 pendente como recebido} other{Marcar os {count} pendentes como recebidos}}",
   "@markListedReceived": {
     "placeholders": {
       "count": {
@@ -147,7 +147,7 @@
       }
     }
   },
-  "markListedReceivedConfirm": "{count, plural, one{Marcar 1 serviço como recebido?} other{Marcar {count} serviços como recebidos?}}",
+  "markListedReceivedConfirm": "{count, plural, =0{Marcar {count} serviços como recebidos?} one{Marcar 1 serviço como recebido?} other{Marcar {count} serviços como recebidos?}}",
   "@markListedReceivedConfirm": {
     "placeholders": {
       "count": {
@@ -163,7 +163,7 @@
       }
     }
   },
-  "markListedReceivedUntouched": "{count, plural, one{O 1 serviço que já estava recebido não é tocado.} other{Os {count} serviços que já estavam recebidos não são tocados.}}",
+  "markListedReceivedUntouched": "{count, plural, =0{Os {count} serviços que já estavam recebidos não são tocados.} one{O 1 serviço que já estava recebido não é tocado.} other{Os {count} serviços que já estavam recebidos não são tocados.}}",
   "@markListedReceivedUntouched": {
     "placeholders": {
       "count": {
@@ -386,12 +386,11 @@
   "noServicesTodayDescription": "Registre um e ele aparece aqui.",
   "noCatalogItems": "Seu catálogo está vazio. Toque no botão acima para adicionar o primeiro serviço.",
   "or": "ou",
-  "orderAlphabetical": "Alfabétical",
-  "orderBy": "Ordernar por",
-  "orderDateAsc": "Menos atual para mais atual",
-  "orderDateDesc": "Mais atual para menos atual",
-  "orderValueAsc": "Menor para maior",
-  "orderValueDesc": "Maior para menor",
+  "orderBy": "Ordenar por",
+  "orderDateAsc": "Mais antigos",
+  "orderDateDesc": "Mais recentes",
+  "orderValueAsc": "Menor valor",
+  "orderValueDesc": "Maior valor",
   "password": "Senha",
   "period": "Período",
   "phone": "Telefone",
@@ -451,7 +450,7 @@
   "search": "Busca",
   "searchServicesHint": "Tipo, cliente ou observação",
   "searchIgnoresPeriod": "A busca ignora o período: ela procura em tudo que você já registrou.",
-  "searchServicesFound": "{count, plural, one{1 serviço} other{{count} serviços}} · {amount} para você",
+  "searchServicesFound": "{count, plural, =0{{count} serviços} one{1 serviço} other{{count} serviços}} · {amount} para você",
   "@searchServicesFound": {
     "placeholders": {
       "count": {
@@ -527,7 +526,7 @@
   "services": "Serviços",
   "catalogItem": "Serviço",
   "catalogItems": "Catálogo",
-  "itemsCount": "{count, plural, one{1 item} other{{count} itens}}",
+  "itemsCount": "{count, plural, =0{{count} itens} one{1 item} other{{count} itens}}",
   "@itemsCount": {
     "placeholders": {
       "count": {
@@ -539,7 +538,7 @@
   "catalogMostUsed": "Mais usados",
   "catalogWithoutCommission": "Sem comissão",
   "withoutCommission": "sem comissão",
-  "usesCount": "{count, plural, one{1 uso} other{{count} usos}}",
+  "usesCount": "{count, plural, =0{{count} usos} one{1 uso} other{{count} usos}}",
   "@usesCount": {
     "placeholders": {
       "count": {
@@ -550,7 +549,7 @@
   "usedIn": "Usado em",
   "generatedSoFar": "Gerou até hoje",
   "youKeep": "Fica com você",
-  "priceChangeNote": "{count, plural, one{Mudar o preço aqui vale para os próximos registros. O serviço já lançado continua com o valor da época.} other{Mudar o preço aqui vale para os próximos registros. Os {count} serviços já lançados continuam com o valor da época.}}",
+  "priceChangeNote": "{count, plural, =0{Mudar o preço aqui vale para os próximos registros. Os {count} serviços já lançados continuam com o valor da época.} one{Mudar o preço aqui vale para os próximos registros. O serviço já lançado continua com o valor da época.} other{Mudar o preço aqui vale para os próximos registros. Os {count} serviços já lançados continuam com o valor da época.}}",
   "@priceChangeNote": {
     "placeholders": {
       "count": {
@@ -566,7 +565,7 @@
       }
     }
   },
-  "cantDeleteBody": "{count, plural, one{Ele nomeia 1 serviço já registrado. Excluir agora deixaria esse lançamento sem identificação.} other{Ele nomeia {count} serviços já registrados. Excluir agora deixaria esses lançamentos sem identificação — e eles somam {amount} no seu histórico.}}",
+  "cantDeleteBody": "{count, plural, =0{Ele nomeia {count} serviços já registrados. Excluir agora deixaria esses lançamentos sem identificação — e eles somam {amount} no seu histórico.} one{Ele nomeia 1 serviço já registrado. Excluir agora deixaria esse lançamento sem identificação.} other{Ele nomeia {count} serviços já registrados. Excluir agora deixaria esses lançamentos sem identificação — e eles somam {amount} no seu histórico.}}",
   "@cantDeleteBody": {
     "placeholders": {
       "count": {
@@ -578,7 +577,7 @@
     }
   },
   "cantDeleteReassurance": "Arquivado já basta: o item não aparece mais quando você registra um serviço novo.",
-  "seeTheServices": "{count, plural, one{Ver o 1 serviço} other{Ver os {count} serviços}}",
+  "seeTheServices": "{count, plural, =0{Ver os {count} serviços} one{Ver o 1 serviço} other{Ver os {count} serviços}}",
   "@seeTheServices": {
     "placeholders": {
       "count": {
@@ -601,7 +600,7 @@
   "sucess": "Ação efetuada com sucesso",
   "thisService": "esse serviço",
   "today": "Hoje",
-  "todaySection": "{count, plural, one{Hoje · 1 serviço} other{Hoje · {count} serviços}}",
+  "todaySection": "{count, plural, =0{Hoje · {count} serviços} one{Hoje · 1 serviço} other{Hoje · {count} serviços}}",
   "@todaySection": {
     "placeholders": {
       "count": {
@@ -671,7 +670,7 @@
   "phoneHint": "Para chamar depois",
   "documentPrivacyHint": "Só para você identificar a pessoa e emitir recibo. O Kazi não valida nem envia esse número para lugar nenhum.",
   "documentHint": "CPF, CNPJ, RUC ou outro",
-    "clientNamesake": "{count, plural, one{Já existe {name} com 1 serviço. Se for a mesma pessoa, use a que já existe para não dividir o histórico.} other{Já existe {name} com {count} serviços. Se for a mesma pessoa, use a que já existe para não dividir o histórico.}}",
+    "clientNamesake": "{count, plural, =0{Já existe {name} com {count} serviços. Se for a mesma pessoa, use a que já existe para não dividir o histórico.} one{Já existe {name} com 1 serviço. Se for a mesma pessoa, use a que já existe para não dividir o histórico.} other{Já existe {name} com {count} serviços. Se for a mesma pessoa, use a que já existe para não dividir o histórico.}}",
   "@clientNamesake": {
     "placeholders": {
       "count": {
@@ -864,7 +863,7 @@
   },
   "byCatalogItem": "Por serviço",
   "topClients": "Clientes que mais renderam",
-  "servicesCount": "{count, plural, one{1 serviço} other{{count} serviços}}",
+  "servicesCount": "{count, plural, =0{{count} serviços} one{1 serviço} other{{count} serviços}}",
   "@servicesCount": {
     "placeholders": {
       "count": {
@@ -1044,7 +1043,7 @@
   "cycleConfirmBody": "Agora o Kazi agrupa seus ganhos pelo período em que você recebe. Estamos somando por mês, do dia 1 ao último. É assim mesmo?",
   "cycleConfirmYes": "É assim mesmo",
   "cycleConfirmNo": "Recebo de outro jeito",
-  "commissionGapsTitle": "{count, plural, one{1 serviço do catálogo está sem comissão} other{{count} serviços do catálogo estão sem comissão}}",
+  "commissionGapsTitle": "{count, plural, =0{{count} serviços do catálogo estão sem comissão} one{1 serviço do catálogo está sem comissão} other{{count} serviços do catálogo estão sem comissão}}",
   "@commissionGapsTitle": {
     "placeholders": {
       "count": {
@@ -1113,7 +1112,7 @@
     }
   },
   "deletePermanently": "Excluir definitivamente",
-  "cantDeleteLinkedServices": "{count, plural, one{Não é possível excluir: 1 serviço usa este registro.} other{Não é possível excluir: {count} serviços usam este registro.}}",
+  "cantDeleteLinkedServices": "{count, plural, =0{Não é possível excluir: {count} serviços usam este registro.} one{Não é possível excluir: 1 serviço usa este registro.} other{Não é possível excluir: {count} serviços usam este registro.}}",
   "@cantDeleteLinkedServices": {
     "placeholders": {
       "count": {
@@ -1152,7 +1151,7 @@
     }
   },
   "attention": "Atenção",
-  "deleteClientImpact": "{count, plural, one{O serviço já realizado continua no histórico. Só os dados de contato são apagados. Esta ação não tem volta.} other{Os {count} serviços já realizados continuam no histórico. Só os dados de contato são apagados. Esta ação não tem volta.}}",
+  "deleteClientImpact": "{count, plural, =0{Os {count} serviços já realizados continuam no histórico. Só os dados de contato são apagados. Esta ação não tem volta.} one{O serviço já realizado continua no histórico. Só os dados de contato são apagados. Esta ação não tem volta.} other{Os {count} serviços já realizados continuam no histórico. Só os dados de contato são apagados. Esta ação não tem volta.}}",
   "@deleteClientImpact": {
     "placeholders": {
       "count": {
@@ -1162,9 +1161,9 @@
   },
   "errorToVerifyDocument": "Não foi possível verificar se este documento já está cadastrado. Tente novamente.",
   "catalogItemDuplicateName": "Já existe um item com este nome. Use outro nome ou edite o que existe.",
-  "archivedCatalogNote": "Item arquivado não aparece ao registrar um serviço, mas continua nomeando os serviços em que já foi usado.",
+  "archivedCatalogNote": "Itens do catálogo arquivados não aparecem ao registrar um serviço, mas continuam nomeando os serviços em que já foram usados.",
   "archivedClientsNote": "Cliente arquivado some das buscas e do formulário, mas continua no histórico dos serviços que já foram registrados.",
-  "usedInServices": "{count, plural, one{usado em 1 serviço} other{usado em {count} serviços}}",
+  "usedInServices": "{count, plural, =0{usado em {count} serviços} one{usado em 1 serviço} other{usado em {count} serviços}}",
   "@usedInServices": {
     "placeholders": {
       "count": {

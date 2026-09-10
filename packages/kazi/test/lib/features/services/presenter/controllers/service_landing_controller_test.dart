@@ -79,7 +79,7 @@ void main() {
   });
 
   group('onInit', () {
-    test('loads services ordered alphabetical and status success', () async {
+    test('loads services newest first and status success', () async {
       await controller().onInit();
       await pump();
 
@@ -88,7 +88,7 @@ void main() {
         state().services,
         serviceOrganizer.orderServices(
           servicesWithTypesMock,
-          OrderBy.alphabetical,
+          OrderBy.dateDesc,
           currency: SupportedCurrency.usd,
           rateBook: const RateBook.empty(),
         ),
@@ -166,7 +166,7 @@ void main() {
         state().services,
         serviceOrganizer.orderServices(
           servicesWithTypesMock,
-          OrderBy.alphabetical,
+          OrderBy.dateDesc,
           currency: SupportedCurrency.usd,
           rateBook: const RateBook.empty(),
         ),

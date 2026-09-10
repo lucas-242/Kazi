@@ -34,27 +34,27 @@ class KaziThemeGalleryPage extends StatelessWidget {
           // still works on a phone.
           final isWide = constraints.maxWidth >= 720;
 
-          if (isWide) {
-            return const Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(child: _ThemePanel(label: 'light', isDark: false)),
-                Expanded(child: _ThemePanel(label: 'dark', isDark: true)),
-              ],
-            );
-          }
-
-          return ListView(
-            children: const <Widget>[
-              SizedBox(
-                height: 520,
-                child: _ThemePanel(label: 'light', isDark: false),
-              ),
-              SizedBox(
-                height: 520,
-                child: _ThemePanel(label: 'dark', isDark: true),
-              ),
-            ],
+          // One scroll for the whole page: the panels are plain columns.
+          return SingleChildScrollView(
+            child: isWide
+                ? const Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: _ThemePanel(label: 'light', isDark: false),
+                      ),
+                      Expanded(
+                        child: _ThemePanel(label: 'dark', isDark: true),
+                      ),
+                    ],
+                  )
+                : const Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      _ThemePanel(label: 'light', isDark: false),
+                      _ThemePanel(label: 'dark', isDark: true),
+                    ],
+                  ),
           );
         },
       ),
@@ -77,26 +77,29 @@ class _ThemePanel extends StatelessWidget {
       child: Builder(
         builder: (context) => ColoredBox(
           color: context.colors.background,
-          child: ListView(
+          child: Padding(
             padding: const EdgeInsets.all(KaziInsets.md),
-            children: <Widget>[
-              Text(
-                label.toUpperCase(),
-                style: KaziTextStyles.tag.copyWith(
-                  color: context.colors.textMuted,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Text(
+                  label.toUpperCase(),
+                  style: KaziTextStyles.tag.copyWith(
+                    color: context.colors.textMuted,
+                  ),
                 ),
-              ),
-              KaziSpacings.verticalMd,
-              const _SurfacesSection(),
-              const _InkSection(),
-              const _BrandSection(),
-              const _StatusSection(),
-              const _MoneySection(),
-              const _HeroSection(),
-              const _CategoriesSection(),
-              const _StatesSection(),
-              const _TypeSection(),
-            ],
+                KaziSpacings.verticalMd,
+                const _SurfacesSection(),
+                const _InkSection(),
+                const _BrandSection(),
+                const _StatusSection(),
+                const _MoneySection(),
+                const _HeroSection(),
+                const _CategoriesSection(),
+                const _StatesSection(),
+                const _TypeSection(),
+              ],
+            ),
           ),
         ),
       ),

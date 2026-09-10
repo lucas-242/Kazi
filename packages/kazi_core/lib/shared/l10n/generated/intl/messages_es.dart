@@ -231,7 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Catálogo archivado",
     ),
     "archivedCatalogNote": MessageLookupByLibrary.simpleMessage(
-      "Un elemento archivado no aparece al registrar un servicio, pero sigue nombrando los servicios en los que ya se usó.",
+      "Los elementos del catálogo archivados no aparecen al registrar un servicio, pero siguen nombrando los servicios en los que ya se usaron.",
     ),
     "archivedClients": MessageLookupByLibrary.simpleMessage(
       "Clientes archivados",
@@ -883,18 +883,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Actualización disponible",
     ),
     "or": MessageLookupByLibrary.simpleMessage("o"),
-    "orderAlphabetical": MessageLookupByLibrary.simpleMessage("Alfabético"),
+    "orderAlphabetical": MessageLookupByLibrary.simpleMessage("A–Z"),
     "orderBy": MessageLookupByLibrary.simpleMessage("Ordenar por"),
-    "orderDateAsc": MessageLookupByLibrary.simpleMessage(
-      "Más antiguo a más reciente",
-    ),
-    "orderDateDesc": MessageLookupByLibrary.simpleMessage(
-      "Más reciente a más antiguo",
-    ),
+    "orderDateAsc": MessageLookupByLibrary.simpleMessage("Más antiguos"),
+    "orderDateDesc": MessageLookupByLibrary.simpleMessage("Más recientes"),
     "orderLastService": MessageLookupByLibrary.simpleMessage("Último servicio"),
     "orderTopEarning": MessageLookupByLibrary.simpleMessage("Más rindieron"),
-    "orderValueAsc": MessageLookupByLibrary.simpleMessage("Menor a mayor"),
-    "orderValueDesc": MessageLookupByLibrary.simpleMessage("Mayor a menor"),
+    "orderValueAsc": MessageLookupByLibrary.simpleMessage("Menor valor"),
+    "orderValueDesc": MessageLookupByLibrary.simpleMessage("Mayor valor"),
     "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
     "paywallPricePerMonth": m52,
     "paywallRenewInfo": MessageLookupByLibrary.simpleMessage(

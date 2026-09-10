@@ -13,11 +13,11 @@ class OrderByBottomSheet extends StatelessWidget {
   final OrderBy selectedOption;
 
   Map<OrderBy, String> get orderOptions => {
-    OrderBy.alphabetical: KaziLocalizations.current.orderAlphabetical,
     OrderBy.dateDesc: KaziLocalizations.current.orderDateDesc,
     OrderBy.dateAsc: KaziLocalizations.current.orderDateAsc,
     OrderBy.valueDesc: KaziLocalizations.current.orderValueDesc,
     OrderBy.valueAsc: KaziLocalizations.current.orderValueAsc,
+    OrderBy.alphabetical: KaziLocalizations.current.orderAlphabetical,
   };
 
   @override

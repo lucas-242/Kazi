@@ -68,4 +68,26 @@ void main() {
       expect(result, equalsIgnoringWhitespace('\$0.00'));
     });
   });
+
+  group('getCurrentLocale', () {
+    tearDown(() => Intl.defaultLocale = null);
+
+    test('follows the app language over the device locale', () {
+      // The test device is en_US; the app is in Portuguese.
+      Intl.defaultLocale = 'pt';
+
+      final result = NumberFormatUtils.formatCurrencyIn(
+        1234.5,
+        SupportedCurrency.brl,
+      );
+
+      expect(result, equals('R\$\u{00A0}1.234,50'));
+    });
+
+    test('keeps the device region when it shares the app language', () {
+      Intl.defaultLocale = 'en';
+
+      expect(NumberFormatUtils.getCurrentLocale(), equals('en_US'));
+    });
+  });
 }

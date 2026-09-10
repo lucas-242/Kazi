@@ -311,14 +311,9 @@ class KaziLocalizations {
     );
   }
 
-  /// `Alphabetical`
+  /// `A–Z`
   String get orderAlphabetical {
-    return Intl.message(
-      'Alphabetical',
-      name: 'orderAlphabetical',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('A–Z', name: 'orderAlphabetical', desc: '', args: []);
   }
 
   /// `Top earning`
@@ -1997,45 +1992,45 @@ class KaziLocalizations {
     return Intl.message('or', name: 'or', desc: '', args: []);
   }
 
-  /// `Order by`
+  /// `Sort by`
   String get orderBy {
-    return Intl.message('Order by', name: 'orderBy', desc: '', args: []);
+    return Intl.message('Sort by', name: 'orderBy', desc: '', args: []);
   }
 
-  /// `Least current to most current`
+  /// `Oldest first`
   String get orderDateAsc {
     return Intl.message(
-      'Least current to most current',
+      'Oldest first',
       name: 'orderDateAsc',
       desc: '',
       args: [],
     );
   }
 
-  /// `Most current to least current`
+  /// `Newest first`
   String get orderDateDesc {
     return Intl.message(
-      'Most current to least current',
+      'Newest first',
       name: 'orderDateDesc',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lowest to highest`
+  /// `Lowest value`
   String get orderValueAsc {
     return Intl.message(
-      'Lowest to highest',
+      'Lowest value',
       name: 'orderValueAsc',
       desc: '',
       args: [],
     );
   }
 
-  /// `Highest to lowest`
+  /// `Highest value`
   String get orderValueDesc {
     return Intl.message(
-      'Highest to lowest',
+      'Highest value',
       name: 'orderValueDesc',
       desc: '',
       args: [],
@@ -6105,10 +6100,10 @@ class KaziLocalizations {
     );
   }
 
-  /// `An archived item does not show up when you register a service, but it keeps naming the services it was already used in.`
+  /// `Archived catalog items do not show up when you register a service, but they keep naming the services they were already used in.`
   String get archivedCatalogNote {
     return Intl.message(
-      'An archived item does not show up when you register a service, but it keeps naming the services it was already used in.',
+      'Archived catalog items do not show up when you register a service, but they keep naming the services they were already used in.',
       name: 'archivedCatalogNote',
       desc: '',
       args: [],

@@ -43,6 +43,13 @@ void main() {
 
     expect(tester.takeException(), isNull);
     expect(find.text('LIGHT'), findsOneWidget);
+    expect(find.text('DARK'), findsOneWidget);
+  });
+
+  testWidgets('scrolls as a single page', (tester) async {
+    await pumpGallery(tester, const Size(390, 844));
+
+    expect(find.byType(Scrollable), findsOneWidget);
   });
 
   testWidgets('names every token it draws', (tester) async {

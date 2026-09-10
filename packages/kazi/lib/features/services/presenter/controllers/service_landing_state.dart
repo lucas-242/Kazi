@@ -29,7 +29,7 @@ class ServiceLandingState extends BaseState with Equatable {
     required this.startDate,
     required this.endDate,
     this.fastSearch = _defaultFastSearch,
-    this.selectedOrderBy = OrderBy.alphabetical,
+    this.selectedOrderBy = OrderBy.dateDesc,
     this.defaultCurrency = SupportedCurrency.usd,
     this.rateBook = const RateBook.empty(),
     this.view = ServiceView.list,

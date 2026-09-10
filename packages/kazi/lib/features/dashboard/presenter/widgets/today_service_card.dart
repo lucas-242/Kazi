@@ -73,7 +73,8 @@ class TodayServiceCard extends ConsumerWidget {
                       TextSpan(
                         text: _subtitle,
                         children: [
-                          if (service.isReceived) receivedMarkSpan(context),
+                          if (service.isReceived)
+                            receivedMarkSpan(context, precededBy: _subtitle),
                         ],
                       ),
                       maxLines: 1,
