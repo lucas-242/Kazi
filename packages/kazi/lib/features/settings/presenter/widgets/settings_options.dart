@@ -6,7 +6,6 @@ import 'package:kazi/core/utils/base_state.dart';
 import 'package:kazi/features/app_update/app_update.dart';
 import 'package:kazi/features/auth/presenter/widgets/sign_out_dialog.dart';
 import 'package:kazi/features/onboarding/domain/models/onboarding_hint.dart';
-import 'package:kazi/features/onboarding/presenter/controllers/active_user_nudges_controller.dart';
 import 'package:kazi/features/onboarding/presenter/controllers/checklist_controller.dart';
 import 'package:kazi/features/onboarding/presenter/controllers/onboarding_controller.dart';
 import 'package:kazi/features/onboarding/presenter/pages/whats_new_page.dart';
@@ -182,8 +181,8 @@ class SettingsOptions extends ConsumerWidget {
                 icon: Icons.palette_outlined,
               ),
               SettingsOptionButton(
-                onTap: () => _resetGuidedSetup(context, ref),
-                text: 'Reset guided setup',
+                onTap: () => _resetOnboarding(ref),
+                text: 'Reset onboarding',
                 icon: Icons.restart_alt,
               ),
               SettingsOptionButton(
@@ -273,31 +272,17 @@ class SettingsOptions extends ConsumerWidget {
     }
   }
 
-  static Future<void> _resetGuidedSetup(
-    BuildContext context,
-    WidgetRef ref,
-  ) async {
-    final userId = ref.read(authServiceProvider).user?.uid;
-    if (userId == null) return;
-
-    await ref
-        .read(userSettingsRepositoryProvider)
-        .resetOnboardingForDebug(userId);
-
+  /// No restart needed: the router follows the replayed segment straight into
+  /// the setup, which disposes this widget — so the replay has to come last.
+  static Future<void> _resetOnboarding(WidgetRef ref) async {
     final storage = await ref.read(localStorageProvider.future);
     for (final hint in OnboardingHint.values) {
       await storage.remove(hint.storageKey);
     }
     await storage.remove(StorageKeys.whatsNewSeenVersion);
 
-    ref
-      ..invalidate(onboardingControllerProvider)
-      ..invalidate(checklistControllerProvider)
-      ..invalidate(activeUserNudgesControllerProvider);
-
-    if (context.mounted) {
-      KaziSnackbar.show(context, 'Guided setup reset. Restart the app.');
-    }
+    ref.invalidate(checklistControllerProvider);
+    await ref.read(onboardingControllerProvider.notifier).replayForDebug();
   }
 
   static String _languageLabel(String languageCode) => switch (languageCode) {

@@ -15,6 +15,11 @@ class ForcedUpdatePage extends ConsumerWidget {
     final l10n = KaziLocalizations.current;
     final color = context.colors.money;
     final info = ref.watch(appUpdateControllerProvider).info;
+    // The router owns the lock; unlocked, the page was pushed from the debug
+    // menu and has to be closable.
+    final canDismiss =
+        !ref.watch(kaziForcedUpdateRequiredProvider) &&
+        Navigator.canPop(context);
 
     Future<void> onUpdate() async {
       if (info.storeUrl.isEmpty) return;
@@ -24,7 +29,7 @@ class ForcedUpdatePage extends ConsumerWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: context.colors.overlayOn(color.surface),
       child: PopScope(
-        canPop: false,
+        canPop: canDismiss,
         child: Scaffold(
           backgroundColor: color.surface,
           body: SafeArea(
@@ -33,6 +38,16 @@ class ForcedUpdatePage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  if (canDismiss)
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: KaziCircularButton.plain(
+                        onTap: KaziNavigator.pop,
+                        foregroundColor: color.onSurface,
+                        semantics: l10n.close,
+                        child: const Icon(Icons.close),
+                      ),
+                    ),
                   const Spacer(),
                   Align(
                     alignment: Alignment.centerLeft,

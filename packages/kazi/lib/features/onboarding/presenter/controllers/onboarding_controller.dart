@@ -72,4 +72,16 @@ class OnboardingController extends _$OnboardingController {
     await _userSettings.markSetupSkipped(userId);
     state = const AsyncData(OnboardingSegment.done);
   }
+
+  /// Debug only: clears the stamps and sends the account through the setup
+  /// right away. The segment is forced rather than recomputed, because an
+  /// account with services would resolve to [OnboardingSegment.active] and
+  /// never see the setup again.
+  Future<void> replayForDebug() async {
+    final userId = _authService.user?.uid;
+    if (userId == null) return;
+
+    await _userSettings.resetOnboardingForDebug(userId);
+    state = const AsyncData(OnboardingSegment.stalled);
+  }
 }

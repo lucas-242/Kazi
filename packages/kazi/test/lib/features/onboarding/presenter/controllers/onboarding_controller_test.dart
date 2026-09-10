@@ -135,4 +135,23 @@ void main() {
       );
     });
   });
+
+  group('debug replay', () {
+    test('Should send even an active account back to the setup', () async {
+      when(servicesRepository.count(any)).thenAnswer((_) async => 2);
+      when(userSettings.resetOnboardingForDebug(any)).thenAnswer((_) async {});
+      build();
+      await segment();
+
+      await container
+          .read(onboardingControllerProvider.notifier)
+          .replayForDebug();
+
+      verify(userSettings.resetOnboardingForDebug(any)).called(1);
+      expect(
+        container.read(onboardingControllerProvider).value?.requiresSetup,
+        isTrue,
+      );
+    });
+  });
 }
