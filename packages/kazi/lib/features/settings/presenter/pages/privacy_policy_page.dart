@@ -1,107 +1,221 @@
 import 'package:flutter/material.dart';
+import 'package:kazi/core/constants/app_urls.dart';
 import 'package:kazi/core/widgets/sub_nav_bar.dart';
 import 'package:kazi_core/kazi_core.dart'
     hide Service, CatalogItem, CatalogItemRepository;
 
-/// The privacy policy, rendered in the app.
+/// A readable summary of the privacy policy, with the full text below it.
 ///
-/// The text has lived, translated, in the `privacyPolice*` ARB keys since 2023
-/// with nothing reading it — the policy existed only as a blog post nobody
-/// could reach from inside the app. Now that the app records sessions, "go and
-/// find it on the web" is not good enough: the document describing what is
-/// collected has to be one tap from the switches that turn it off.
-///
-/// Sections are ordered by what a worried person opens this looking for: what
-/// is collected, then the two new things (analytics, recording), then rights,
-/// then the boilerplate.
-class PrivacyPolicyPage extends ConsumerWidget {
+/// The full text stays in the app rather than only behind the web link: the
+/// web copy predates analytics and session recording.
+class PrivacyPolicyPage extends ConsumerStatefulWidget {
   const PrivacyPolicyPage({super.key});
 
+  /// When the `privacyPolice*` text last changed. Bump it with the text.
+  static final updatedAt = DateTime(2026, 8, 21);
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PrivacyPolicyPage> createState() => _PrivacyPolicyPageState();
+}
+
+class _PrivacyPolicyPageState extends ConsumerState<PrivacyPolicyPage> {
+  bool _isFullVersionShown = false;
+
+  Future<void> _open(String url) =>
+      ref.read(kaziUrlLauncherServiceProvider).launch(url);
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = KaziLocalizations.current;
+    final locale = Localizations.localeOf(context).toString();
+    final updatedAt = DateFormat.yMMMMd(
+      locale,
+    ).format(PrivacyPolicyPage.updatedAt);
 
     return Scaffold(
       body: KaziSafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SubNavBar(title: l10n.privacyPolicy),
+            SubNavBar(
+              title: l10n.privacy,
+              pills: [
+                KaziCircularButton.plain(
+                  onTap: () => _open(AppUrls.privacyPolicy),
+                  semantics: l10n.privacyOpenWebVersion,
+                  child: const Icon(Icons.language, size: 18),
+                ),
+              ],
+            ),
             Padding(
-              padding: const EdgeInsets.only(bottom: KaziInsets.xxLg),
+              padding: const EdgeInsets.only(
+                top: KaziInsets.md,
+                bottom: KaziInsets.xxLg,
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _Paragraph(l10n.privacyPoliceStart),
-                  _Section(
-                    title: l10n.privacyPoliceInformationTitle,
-                    body: l10n.privacyPoliceInformation,
+                  Text(
+                    l10n.privacyUpdatedOn(updatedAt),
+                    style: KaziTextStyles.bodySmall.copyWith(
+                      color: context.colors.textMuted,
+                    ),
                   ),
-                  _Providers(
-                    names: [
-                      l10n.privacyPoliceInformation1,
-                      l10n.privacyPoliceInformation2,
-                      l10n.privacyPoliceInformation3,
-                      l10n.privacyPoliceInformation4,
-                      l10n.privacyPoliceInformation5,
-                      l10n.privacyPoliceInformation6,
-                    ],
+                  KaziSpacings.verticalSm,
+                  _SummaryCard(
+                    title: l10n.privacySummaryStoredTitle,
+                    body: l10n.privacySummaryStored,
                   ),
-                  // The two sections this whole page exists for.
-                  _Section(
-                    title: l10n.privacyPoliceAnalyticsTitle,
-                    body: l10n.privacyPoliceAnalytics,
+                  _SummaryCard(
+                    title: l10n.privacySummaryNeverTitle,
+                    body: l10n.privacySummaryNever,
                   ),
-                  _Section(
-                    title: l10n.privacyPoliceReplayTitle,
-                    body: l10n.privacyPoliceReplay,
+                  _SummaryCard(
+                    title: l10n.privacySummaryControlTitle,
+                    body: l10n.privacySummaryControl,
                   ),
-                  _Section(
-                    title: l10n.privacyPoliceRightsTitle,
-                    body: l10n.privacyPoliceRights,
+                  _SummaryCard(
+                    title: l10n.privacySummaryDeleteTitle,
+                    body: l10n.privacySummaryDelete,
+                    onTap: () => _open('mailto:${l10n.contactEmail}'),
                   ),
-                  _Section(
-                    title: l10n.privacyPoliceRetentionTitle,
-                    body: l10n.privacyPoliceRetention,
-                  ),
-                  _Section(
-                    title: l10n.privacyPoliceLogDataTitle,
-                    body: l10n.privacyPoliceLogData,
-                  ),
-                  _Section(
-                    title: l10n.privacyPoliceCookiesTitle,
-                    body: l10n.privacyPoliceCookies,
-                  ),
-                  _Section(
-                    title: l10n.privacyPoliceServicesTitle,
-                    body: l10n.privacyPoliceServices,
-                  ),
-                  _Section(
-                    title: l10n.privacyPoliceSecurityTitle,
-                    body: l10n.privacyPoliceSecurity,
-                  ),
-                  _Section(
-                    title: l10n.pricayPoliceLinksTitle,
-                    body: l10n.pricayPoliceLinks,
-                  ),
-                  _Section(
-                    title: l10n.privacyPoliceChildrenTitle,
-                    body: l10n.privacyPoliceChildren,
-                  ),
-                  _Section(
-                    title: l10n.privacyPoliceChangesTitle,
-                    body: l10n.privacyPoliceChanges,
-                  ),
-                  _Section(
-                    title: l10n.privacyPoliceContactTitle,
-                    body: '${l10n.privacyPoliceContact}${l10n.contactEmail}',
-                  ),
+                  KaziSpacings.verticalXxs,
+                  if (_isFullVersionShown)
+                    const _FullVersion()
+                  else
+                    KaziElevatedButton.outlined(
+                      onTap: () => setState(() => _isFullVersionShown = true),
+                      label: l10n.privacyReadFullVersion,
+                    ),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _SummaryCard extends StatelessWidget {
+  const _SummaryCard({required this.title, required this.body, this.onTap});
+
+  final String title;
+  final String body;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: KaziInsets.xs),
+      child: Material(
+        color: colors.card,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: KaziRadii.mdBorder,
+          side: BorderSide(color: colors.border),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(KaziInsets.sm),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: KaziTextStyles.titleSmall),
+                KaziSpacings.verticalXxs,
+                Text(
+                  body,
+                  style: KaziTextStyles.bodySmall.copyWith(
+                    color: colors.textMuted,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FullVersion extends StatelessWidget {
+  const _FullVersion();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = KaziLocalizations.current;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        KaziSpacings.verticalSm,
+        _Paragraph(l10n.privacyPoliceStart),
+        _Section(
+          title: l10n.privacyPoliceInformationTitle,
+          body: l10n.privacyPoliceInformation,
+        ),
+        _Providers(
+          names: [
+            l10n.privacyPoliceInformation1,
+            l10n.privacyPoliceInformation2,
+            l10n.privacyPoliceInformation3,
+            l10n.privacyPoliceInformation4,
+            l10n.privacyPoliceInformation5,
+            l10n.privacyPoliceInformation6,
+          ],
+        ),
+        _Section(
+          title: l10n.privacyPoliceAnalyticsTitle,
+          body: l10n.privacyPoliceAnalytics,
+        ),
+        _Section(
+          title: l10n.privacyPoliceReplayTitle,
+          body: l10n.privacyPoliceReplay,
+        ),
+        _Section(
+          title: l10n.privacyPoliceRightsTitle,
+          body: l10n.privacyPoliceRights,
+        ),
+        _Section(
+          title: l10n.privacyPoliceRetentionTitle,
+          body: l10n.privacyPoliceRetention,
+        ),
+        _Section(
+          title: l10n.privacyPoliceLogDataTitle,
+          body: l10n.privacyPoliceLogData,
+        ),
+        _Section(
+          title: l10n.privacyPoliceCookiesTitle,
+          body: l10n.privacyPoliceCookies,
+        ),
+        _Section(
+          title: l10n.privacyPoliceServicesTitle,
+          body: l10n.privacyPoliceServices,
+        ),
+        _Section(
+          title: l10n.privacyPoliceSecurityTitle,
+          body: l10n.privacyPoliceSecurity,
+        ),
+        _Section(
+          title: l10n.pricayPoliceLinksTitle,
+          body: l10n.pricayPoliceLinks,
+        ),
+        _Section(
+          title: l10n.privacyPoliceChildrenTitle,
+          body: l10n.privacyPoliceChildren,
+        ),
+        _Section(
+          title: l10n.privacyPoliceChangesTitle,
+          body: l10n.privacyPoliceChanges,
+        ),
+        _Section(
+          title: l10n.privacyPoliceContactTitle,
+          body: '${l10n.privacyPoliceContact}${l10n.contactEmail}',
+        ),
+      ],
     );
   }
 }
@@ -146,8 +260,6 @@ class _Paragraph extends StatelessWidget {
   }
 }
 
-/// The third-party list, as a bulleted block rather than a run-on sentence —
-/// it is the part people actually scan for a name they do not recognise.
 class _Providers extends StatelessWidget {
   const _Providers({required this.names});
 

@@ -491,6 +491,24 @@
   "privacyUsageDataDescription": "Sends anonymous usage events so we can find what is not working. Never your amounts or your clients.",
   "privacySessionRecording": "Session recording",
   "privacySessionRecordingDescription": "Records a masked replay of some sessions. Every text and image is hidden.",
+  "privacyUpdatedOn": "Updated on {date}",
+  "@privacyUpdatedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "privacySummaryStoredTitle": "What we store",
+  "privacySummaryStored": "Your e-mail, the services and clients you record, and the app settings.",
+  "privacySummaryNeverTitle": "What we don't do",
+  "privacySummaryNever": "We don't sell your data. Usage data never carries your amounts, your clients' names or what you type.",
+  "privacySummaryControlTitle": "What you control",
+  "privacySummaryControl": "Usage data and session recording can be turned off at any time in Menu › Privacy.",
+  "privacySummaryDeleteTitle": "Deleting your account",
+  "privacySummaryDelete": "Tap here to write to us, and we delete your services, clients and settings.",
+  "privacyReadFullVersion": "Read the full version",
+  "privacyOpenWebVersion": "Open on the web",
   "replayConsentTitle": "Can we record how you use the app?",
   "replayConsentBody": "We record taps and screens to find where Kazi gets in your way. Amounts, client names and anything you type are hidden from the recording.\n\nYou can turn it off anytime, in Menu > Session recording.",
   "replayConsentAccept": "Allow recording",

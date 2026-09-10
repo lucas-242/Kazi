@@ -456,6 +456,24 @@
   "privacyUsageDataDescription": "Envia eventos de uso anônimos para descobrirmos o que não está funcionando. Nunca seus valores nem seus clientes.",
   "privacySessionRecording": "Gravação de sessão",
   "privacySessionRecordingDescription": "Grava um replay mascarado de algumas sessões. Todo texto e imagem ficam ocultos.",
+  "privacyUpdatedOn": "Atualizada em {date}",
+  "@privacyUpdatedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "privacySummaryStoredTitle": "O que guardamos",
+  "privacySummaryStored": "Seu e-mail, os serviços e clientes que você registra e as configurações do app.",
+  "privacySummaryNeverTitle": "O que não fazemos",
+  "privacySummaryNever": "Não vendemos seus dados. Os dados de uso nunca levam seus valores, o nome dos seus clientes nem o que você digita.",
+  "privacySummaryControlTitle": "O que você controla",
+  "privacySummaryControl": "Dados de uso e gravação de sessão podem ser desligados a qualquer momento em Menu › Privacidade.",
+  "privacySummaryDeleteTitle": "Apagar sua conta",
+  "privacySummaryDelete": "Toque aqui para nos escrever e apagamos seus serviços, clientes e configurações.",
+  "privacyReadFullVersion": "Ler a versão completa",
+  "privacyOpenWebVersion": "Abrir na web",
   "replayConsentTitle": "Podemos gravar como você usa o app?",
   "replayConsentBody": "Gravamos os toques e as telas para descobrir onde o Kazi atrapalha. Valores, nomes de clientes e qualquer texto digitado ficam ocultos na gravação.\n\nVocê pode desligar quando quiser, em Menu › Gravação de sessão.",
   "replayConsentAccept": "Pode gravar",

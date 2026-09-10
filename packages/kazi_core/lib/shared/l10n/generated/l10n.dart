@@ -2467,6 +2467,116 @@ class KaziLocalizations {
     );
   }
 
+  /// `Updated on {date}`
+  String privacyUpdatedOn(String date) {
+    return Intl.message(
+      'Updated on $date',
+      name: 'privacyUpdatedOn',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `What we store`
+  String get privacySummaryStoredTitle {
+    return Intl.message(
+      'What we store',
+      name: 'privacySummaryStoredTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your e-mail, the services and clients you record, and the app settings.`
+  String get privacySummaryStored {
+    return Intl.message(
+      'Your e-mail, the services and clients you record, and the app settings.',
+      name: 'privacySummaryStored',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What we don't do`
+  String get privacySummaryNeverTitle {
+    return Intl.message(
+      'What we don\'t do',
+      name: 'privacySummaryNeverTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We don't sell your data. Usage data never carries your amounts, your clients' names or what you type.`
+  String get privacySummaryNever {
+    return Intl.message(
+      'We don\'t sell your data. Usage data never carries your amounts, your clients\' names or what you type.',
+      name: 'privacySummaryNever',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What you control`
+  String get privacySummaryControlTitle {
+    return Intl.message(
+      'What you control',
+      name: 'privacySummaryControlTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Usage data and session recording can be turned off at any time in Menu › Privacy.`
+  String get privacySummaryControl {
+    return Intl.message(
+      'Usage data and session recording can be turned off at any time in Menu › Privacy.',
+      name: 'privacySummaryControl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleting your account`
+  String get privacySummaryDeleteTitle {
+    return Intl.message(
+      'Deleting your account',
+      name: 'privacySummaryDeleteTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap here to write to us, and we delete your services, clients and settings.`
+  String get privacySummaryDelete {
+    return Intl.message(
+      'Tap here to write to us, and we delete your services, clients and settings.',
+      name: 'privacySummaryDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Read the full version`
+  String get privacyReadFullVersion {
+    return Intl.message(
+      'Read the full version',
+      name: 'privacyReadFullVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open on the web`
+  String get privacyOpenWebVersion {
+    return Intl.message(
+      'Open on the web',
+      name: 'privacyOpenWebVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Can we record how you use the app?`
   String get replayConsentTitle {
     return Intl.message(
