@@ -45,13 +45,13 @@ class ServiceFilterChips extends ConsumerWidget {
     return selected?.name ?? KaziLocalizations.current.serviceType;
   }
 
-  void _openPeriodSheet(BuildContext context) => showModalBottomSheet(
-    context: context,
-    useRootNavigator: true,
-    isScrollControlled: true,
-    showDragHandle: true,
-    builder: (_) => const FiltersBottomSheet(),
-  );
+  void _openPeriodSheet(BuildContext context) =>
+      KaziNavigator.showBottomSheet<void>(
+        context: context,
+        useRootNavigator: true,
+        isScrollControlled: true,
+        builder: (_) => const FiltersBottomSheet(),
+      );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

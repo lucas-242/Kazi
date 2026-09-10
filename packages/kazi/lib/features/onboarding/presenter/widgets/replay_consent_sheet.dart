@@ -30,11 +30,10 @@ class ReplayConsentSheet extends ConsumerWidget {
     if (!context.mounted) return;
 
     _askedThisSession = true;
-    final consented = await showModalBottomSheet<bool>(
+    final consented = await KaziNavigator.showBottomSheet<bool>(
       context: context,
       useRootNavigator: true,
       isScrollControlled: true,
-      showDragHandle: true,
       builder: (_) => const ReplayConsentSheet(),
     );
 
@@ -48,45 +47,40 @@ class ReplayConsentSheet extends ConsumerWidget {
     final l10n = KaziLocalizations.current;
     final colors = context.colors;
 
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          KaziInsets.lg,
-          KaziInsets.zero,
-          KaziInsets.lg,
-          KaziInsets.lg,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(l10n.replayConsentTitle, style: KaziTextStyles.titleMedium),
-            KaziSpacings.verticalSm,
-            Text(
-              l10n.replayConsentBody,
-              style: KaziTextStyles.bodyMedium.copyWith(
-                color: colors.textMuted,
-              ),
-            ),
-            KaziSpacings.verticalLg,
-            KaziElevatedButton.label(
-              label: l10n.replayConsentAccept,
-              backgroundColor: colors.inverse,
-              foregroundColor: colors.onInverse,
-              onTap: () => Navigator.of(context).pop(true),
-            ),
-            KaziSpacings.verticalXs,
-            KaziElevatedButton.outlined(
-              label: l10n.replayConsentDecline,
-              onTap: () => Navigator.of(context).pop(false),
-            ),
-            KaziTextButton(
-              onTap: () => KaziNavigator.push(AppPage.privacyPolicy),
-              child: Text(l10n.replayConsentLearnMore),
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        KaziInsets.lg,
+        KaziInsets.zero,
+        KaziInsets.lg,
+        KaziInsets.lg,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(l10n.replayConsentTitle, style: KaziTextStyles.titleMedium),
+          KaziSpacings.verticalSm,
+          Text(
+            l10n.replayConsentBody,
+            style: KaziTextStyles.bodyMedium.copyWith(color: colors.textMuted),
+          ),
+          KaziSpacings.verticalLg,
+          KaziElevatedButton.label(
+            label: l10n.replayConsentAccept,
+            backgroundColor: colors.inverse,
+            foregroundColor: colors.onInverse,
+            onTap: () => Navigator.of(context).pop(true),
+          ),
+          KaziSpacings.verticalXs,
+          KaziElevatedButton.outlined(
+            label: l10n.replayConsentDecline,
+            onTap: () => Navigator.of(context).pop(false),
+          ),
+          KaziTextButton(
+            onTap: () => KaziNavigator.push(AppPage.privacyPolicy),
+            child: Text(l10n.replayConsentLearnMore),
+          ),
+        ],
       ),
     );
   }

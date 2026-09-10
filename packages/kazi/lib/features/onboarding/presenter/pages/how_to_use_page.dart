@@ -67,6 +67,7 @@ class HowToUsePage extends StatelessWidget {
               message: l10n.howToUseClientEarningsBody,
               destination: AppPage.clients,
             ),
+            KaziSpacings.verticalMd,
           ],
         ),
       ),
@@ -105,9 +106,7 @@ class _StartHereCard extends StatelessWidget {
             children: [
               Text(
                 l10n.howToUseStartHere.toUpperCase(),
-                style: KaziTextStyles.tag.copyWith(
-                  color: colors.inverseAccent,
-                ),
+                style: KaziTextStyles.tag.copyWith(color: colors.inverseAccent),
               ),
               KaziSpacings.verticalXxs,
               Text(

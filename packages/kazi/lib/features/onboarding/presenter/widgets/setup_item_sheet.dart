@@ -15,11 +15,10 @@ Future<void> openSetupItemSheet(
   WidgetRef ref, {
   required SupportedCurrency currency,
   SetupCatalogItem? item,
-}) => showModalBottomSheet<void>(
+}) => KaziNavigator.showBottomSheet<void>(
   context: context,
   isScrollControlled: true,
   backgroundColor: context.colors.card,
-  shape: const RoundedRectangleBorder(borderRadius: KaziRadii.xlTopBorder),
   builder: (_) => _SetupItemSheet(currency: currency, item: item),
 );
 
@@ -31,13 +30,6 @@ class _SetupItemSheet extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<_SetupItemSheet> createState() => _SetupItemSheetState();
-}
-
-double _bottomObstructionOf(BuildContext context) {
-  final mediaQuery = MediaQuery.of(context);
-  return mediaQuery.viewInsets.bottom > 0
-      ? mediaQuery.viewInsets.bottom
-      : mediaQuery.viewPadding.bottom;
 }
 
 class _SetupItemSheetState extends ConsumerState<_SetupItemSheet> {
@@ -92,10 +84,8 @@ class _SetupItemSheetState extends ConsumerState<_SetupItemSheet> {
       padding: EdgeInsets.only(
         left: KaziInsets.lg,
         right: KaziInsets.lg,
-        top: KaziInsets.lg,
-        // The keyboard when it is up, Android's gesture bar when it is not:
-        // the sheet is drawn edge to edge and the button sits at its foot.
-        bottom: KaziInsets.lg + _bottomObstructionOf(context),
+        // The keyboard, while up, covers the foot of the sheet and its button.
+        bottom: KaziInsets.lg + MediaQuery.viewInsetsOf(context).bottom,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

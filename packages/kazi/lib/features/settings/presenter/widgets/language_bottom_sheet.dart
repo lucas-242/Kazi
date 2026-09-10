@@ -29,7 +29,6 @@ class LanguageBottomSheet extends ConsumerWidget {
           padding: const EdgeInsets.only(
             left: KaziInsets.lg,
             right: KaziInsets.lg,
-            bottom: KaziInsets.xxxLg,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

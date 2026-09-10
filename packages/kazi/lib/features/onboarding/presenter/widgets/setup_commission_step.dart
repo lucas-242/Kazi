@@ -94,12 +94,16 @@ class SetupCommissionStep extends ConsumerWidget {
   ) async {
     final controller = ref.read(guidedSetupControllerProvider.notifier);
 
-    final picked = await showModalBottomSheet<double>(
+    final picked = await KaziNavigator.showBottomSheet<double>(
       context: context,
       backgroundColor: context.colors.card,
-      shape: const RoundedRectangleBorder(borderRadius: KaziRadii.xlTopBorder),
       builder: (sheetContext) => Padding(
-        padding: const EdgeInsets.all(KaziInsets.lg),
+        padding: const EdgeInsets.fromLTRB(
+          KaziInsets.lg,
+          KaziInsets.zero,
+          KaziInsets.lg,
+          KaziInsets.lg,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

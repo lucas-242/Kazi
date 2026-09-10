@@ -142,128 +142,121 @@ class _FiltersBottomSheetState extends ConsumerState<FiltersBottomSheet> {
     final l10n = KaziLocalizations.current;
     final count = _resultCount;
 
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          KaziInsets.xLg,
-          KaziInsets.zero,
-          KaziInsets.xLg,
-          KaziInsets.xLg,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(
+        KaziInsets.xLg,
+        KaziInsets.zero,
+        KaziInsets.xLg,
+        KaziInsets.xLg,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(l10n.filters.capitalize(), style: KaziTextStyles.titleLarge),
+              KaziTextButton(onTap: _onClearAll, child: Text(l10n.clearAll)),
+            ],
+          ),
+          KaziSpacings.verticalSm,
+          _Section(
+            title: l10n.period,
+            child: Wrap(
+              spacing: KaziInsets.xs,
+              runSpacing: KaziInsets.xs,
               children: [
-                Text(
-                  l10n.filters.capitalize(),
-                  style: KaziTextStyles.titleLarge,
+                for (final search in FastSearch.values)
+                  if (search != FastSearch.custom)
+                    KaziChip(
+                      onTap: () => _onChangeFastSearch(search),
+                      label: _fastSearchLabel(search),
+                      isSelected:
+                          !draft.isCurrentCycle && draft.fastSearch == search,
+                    ),
+                // After the calendar presets: it is the window the home
+                // reports on, and the one the bulk "mark as received" action
+                // is meant to operate on.
+                KaziChip(
+                  onTap: _onSelectCurrentCycle,
+                  label: l10n.currentCycle,
+                  isSelected: draft.isCurrentCycle,
                 ),
-                KaziTextButton(onTap: _onClearAll, child: Text(l10n.clearAll)),
+                // Says its dates once a range is picked: a chip reading
+                // "Escolher datas" while a hand-picked window is applied
+                // would be the only control on screen not showing its value.
+                KaziChip(
+                  onTap: _onPickDates,
+                  label: _isCustomRange(draft)
+                      ? fastSearchLabel(
+                          FastSearch.custom,
+                          draft.startDate,
+                          draft.endDate,
+                        )
+                      : l10n.pickDates,
+                  isSelected: _isCustomRange(draft),
+                ),
               ],
             ),
-            KaziSpacings.verticalSm,
-            _Section(
-              title: l10n.period,
-              child: Wrap(
-                spacing: KaziInsets.xs,
-                runSpacing: KaziInsets.xs,
-                children: [
-                  for (final search in FastSearch.values)
-                    if (search != FastSearch.custom)
-                      KaziChip(
-                        onTap: () => _onChangeFastSearch(search),
-                        label: _fastSearchLabel(search),
-                        isSelected:
-                            !draft.isCurrentCycle && draft.fastSearch == search,
-                      ),
-                  // After the calendar presets: it is the window the home
-                  // reports on, and the one the bulk "mark as received" action
-                  // is meant to operate on.
+          ),
+          KaziSpacings.verticalLg,
+          _Section(
+            title: l10n.situation,
+            child: Wrap(
+              spacing: KaziInsets.xs,
+              runSpacing: KaziInsets.xs,
+              children: [
+                for (final filter in ReceiptFilter.values)
                   KaziChip(
-                    onTap: _onSelectCurrentCycle,
-                    label: l10n.currentCycle,
-                    isSelected: draft.isCurrentCycle,
+                    onTap: () => setState(() => _receiptFilter = filter),
+                    label: _receiptLabel(filter),
+                    isSelected: _receiptFilter == filter,
                   ),
-                  // Says its dates once a range is picked: a chip reading
-                  // "Escolher datas" while a hand-picked window is applied
-                  // would be the only control on screen not showing its value.
-                  KaziChip(
-                    onTap: _onPickDates,
-                    label: _isCustomRange(draft)
-                        ? fastSearchLabel(
-                            FastSearch.custom,
-                            draft.startDate,
-                            draft.endDate,
-                          )
-                        : l10n.pickDates,
-                    isSelected: _isCustomRange(draft),
-                  ),
-                ],
-              ),
+              ],
             ),
+          ),
+          if (landing.filterableCatalogItems.isNotEmpty) ...[
             KaziSpacings.verticalLg,
             _Section(
-              title: l10n.situation,
-              child: Wrap(
-                spacing: KaziInsets.xs,
-                runSpacing: KaziInsets.xs,
-                children: [
-                  for (final filter in ReceiptFilter.values)
-                    KaziChip(
-                      onTap: () => setState(() => _receiptFilter = filter),
-                      label: _receiptLabel(filter),
-                      isSelected: _receiptFilter == filter,
-                    ),
-                ],
+              title: l10n.serviceType,
+              child: _CatalogItemFilter(
+                items: landing.filterableCatalogItems,
+                selectedIds: _catalogItemIds,
+                onToggle: (id) => setState(() {
+                  if (!_catalogItemIds.remove(id)) _catalogItemIds.add(id);
+                }),
               ),
-            ),
-            if (landing.filterableCatalogItems.isNotEmpty) ...[
-              KaziSpacings.verticalLg,
-              _Section(
-                title: l10n.serviceType,
-                child: _CatalogItemFilter(
-                  items: landing.filterableCatalogItems,
-                  selectedIds: _catalogItemIds,
-                  onToggle: (id) => setState(() {
-                    if (!_catalogItemIds.remove(id)) _catalogItemIds.add(id);
-                  }),
-                ),
-              ),
-            ],
-            if (landing.filterableClients.isNotEmpty) ...[
-              KaziSpacings.verticalLg,
-              // A field rather than a row of chips: a busy month has as many
-              // clients as it has services, and the picker searches them over
-              // the services already fetched. It carries its own caption, so
-              // it needs no _Section around it.
-              KaziFieldPicker(
-                label: l10n.client,
-                placeholder: l10n.allClients,
-                searchLabel: l10n.search,
-                noResultsLabel: l10n.noResults,
-                showSearch: true,
-                items: [
-                  for (final client in landing.filterableClients)
-                    DropdownItem(value: client.id, label: client.name),
-                ],
-                selectedItem: _selectedClientItem(landing),
-                onChanged: (item) => setState(() => _clientId = item?.value),
-                onClear: () => setState(() => _clientId = null),
-              ),
-            ],
-            KaziSpacings.verticalXLg,
-            KaziElevatedButton.label(
-              onTap: _onApply,
-              width: double.infinity,
-              label: count == null
-                  ? l10n.applyFilters
-                  : l10n.seeNServices(count),
             ),
           ],
-        ),
+          if (landing.filterableClients.isNotEmpty) ...[
+            KaziSpacings.verticalLg,
+            // A field rather than a row of chips: a busy month has as many
+            // clients as it has services, and the picker searches them over
+            // the services already fetched. It carries its own caption, so
+            // it needs no _Section around it.
+            KaziFieldPicker(
+              label: l10n.client,
+              placeholder: l10n.allClients,
+              searchLabel: l10n.search,
+              noResultsLabel: l10n.noResults,
+              showSearch: true,
+              items: [
+                for (final client in landing.filterableClients)
+                  DropdownItem(value: client.id, label: client.name),
+              ],
+              selectedItem: _selectedClientItem(landing),
+              onChanged: (item) => setState(() => _clientId = item?.value),
+              onClear: () => setState(() => _clientId = null),
+            ),
+          ],
+          KaziSpacings.verticalXLg,
+          KaziElevatedButton.label(
+            onTap: _onApply,
+            width: double.infinity,
+            label: count == null ? l10n.applyFilters : l10n.seeNServices(count),
+          ),
+        ],
       ),
     );
   }

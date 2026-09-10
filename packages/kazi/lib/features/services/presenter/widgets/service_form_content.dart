@@ -221,7 +221,6 @@ class _ServiceFormContentState extends ConsumerState<ServiceFormContent> {
       context: context,
       isScrollControlled: true,
       useRootNavigator: true,
-      showDragHandle: true,
       builder: (_) => AddCatalogItemSheet(service: widget.service),
     );
     if (!mounted) return;
@@ -242,7 +241,6 @@ class _ServiceFormContentState extends ConsumerState<ServiceFormContent> {
       context: context,
       isScrollControlled: true,
       useRootNavigator: true,
-      showDragHandle: true,
       builder: (_) => AddClientSheet(service: widget.service),
     );
   }

@@ -35,11 +35,10 @@ class SettingsOptions extends ConsumerWidget {
   final VoidCallback onRateApp;
 
   void _showSheet(BuildContext context, Widget sheet) {
-    showModalBottomSheet(
+    KaziNavigator.showBottomSheet<void>(
       context: context,
       useRootNavigator: true,
       isScrollControlled: true,
-      showDragHandle: true,
       builder: (_) => sheet,
     );
   }
@@ -206,11 +205,10 @@ class SettingsOptions extends ConsumerWidget {
                 icon: Icons.system_update_alt,
               ),
               SettingsOptionButton(
-                onTap: () => showModalBottomSheet<bool>(
+                onTap: () => KaziNavigator.showBottomSheet<bool>(
                   context: context,
                   useRootNavigator: true,
                   isScrollControlled: true,
-                  showDragHandle: true,
                   builder: (_) => const ReplayConsentSheet(),
                 ),
                 text: 'Replay consent sheet',

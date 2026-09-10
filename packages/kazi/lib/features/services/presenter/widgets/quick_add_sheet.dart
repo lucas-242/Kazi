@@ -32,16 +32,11 @@ class QuickAddSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final bottomObstruction = mediaQuery.viewInsets.bottom > 0
-        ? mediaQuery.viewInsets.bottom
-        : mediaQuery.viewPadding.bottom;
-
     return SingleChildScrollView(
       padding: EdgeInsets.only(
         left: KaziInsets.lg,
         right: KaziInsets.lg,
-        bottom: KaziInsets.lg + bottomObstruction,
+        bottom: KaziInsets.lg + MediaQuery.viewInsetsOf(context).bottom,
       ),
       child: Form(
         key: formKey,

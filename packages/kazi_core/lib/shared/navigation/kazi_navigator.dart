@@ -88,7 +88,11 @@ abstract class KaziNavigator {
     );
   }
 
-  /// Show a modal bottom sheet
+  /// Shows a modal bottom sheet — every sheet in the apps opens through here.
+  ///
+  /// Keeps the content clear of the system navigation bar, which Flutter's
+  /// sheet is drawn behind and never pads. A null [backgroundColor] takes the
+  /// theme's.
   static Future<T?> showBottomSheet<T>({
     required BuildContext context,
     required WidgetBuilder builder,
@@ -96,17 +100,20 @@ abstract class KaziNavigator {
     bool useRootNavigator = false,
     bool isDismissible = true,
     bool enableDrag = true,
-    bool showDragHandle = false,
+    bool showDragHandle = true,
+    Color? backgroundColor,
   }) {
     Log.navigation('Showing bottom sheet');
     return showModalBottomSheet<T>(
       context: context,
-      builder: builder,
+      builder: (sheetContext) =>
+          SafeArea(top: false, child: builder(sheetContext)),
       isScrollControlled: isScrollControlled,
       useRootNavigator: useRootNavigator,
       isDismissible: isDismissible,
       enableDrag: enableDrag,
       showDragHandle: showDragHandle,
+      backgroundColor: backgroundColor,
     );
   }
 

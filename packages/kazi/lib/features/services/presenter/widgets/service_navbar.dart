@@ -40,7 +40,7 @@ class ServiceNavbar extends ConsumerWidget {
           child: const Icon(Icons.search, size: 18),
         ),
         KaziCircularButton.plain(
-          onTap: () => showModalBottomSheet(
+          onTap: () => KaziNavigator.showBottomSheet<void>(
             context: context,
             useRootNavigator: true,
             isScrollControlled: true,
@@ -59,11 +59,10 @@ class ServiceNavbar extends ConsumerWidget {
           enabled: serviceState.services.length >= _hintMinimumServices,
           child: KaziCircularButton.plain(
             showCircularIndicator: serviceState.hasActiveFilters,
-            onTap: () => showModalBottomSheet(
+            onTap: () => KaziNavigator.showBottomSheet<void>(
               context: context,
               useRootNavigator: true,
               isScrollControlled: true,
-              showDragHandle: true,
               builder: (context) => const FiltersBottomSheet(),
             ),
             child: const Icon(Icons.filter_alt_outlined, size: 18),

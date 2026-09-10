@@ -80,7 +80,7 @@ class _CurrencyBottomSheetState extends ConsumerState<CurrencyBottomSheet> {
                 Flexible(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.only(bottom: KaziInsets.xxxLg),
+                    padding: const EdgeInsets.only(bottom: KaziInsets.md),
                     itemCount: currencies.length,
                     itemBuilder: (_, index) {
                       final currency = currencies[index];

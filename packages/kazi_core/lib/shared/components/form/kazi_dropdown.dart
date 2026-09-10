@@ -132,15 +132,6 @@ class _KaziDropdownState extends State<KaziDropdown> {
   }
 }
 
-/// How much of the bottom edge is covered — by the keyboard while it is up,
-/// and by the system navigation bar when it is not.
-double _bottomObstructionOf(BuildContext context) {
-  final mediaQuery = MediaQuery.of(context);
-  return mediaQuery.viewInsets.bottom > 0
-      ? mediaQuery.viewInsets.bottom
-      : mediaQuery.viewPadding.bottom;
-}
-
 /// Opens the shared selection sheet and resolves to the chosen item, or null
 /// when it is dismissed.
 ///
@@ -158,7 +149,7 @@ Future<DropdownItem?> showKaziDropdownPicker({
   String? searchHint,
   String? secondarySectionLabel,
 }) {
-  return showModalBottomSheet<DropdownItem>(
+  return KaziNavigator.showBottomSheet<DropdownItem>(
     context: context,
     isScrollControlled: true,
     useRootNavigator: true,
@@ -285,11 +276,7 @@ class _KaziDropdownPickerState extends State<_KaziDropdownPicker> {
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: context.height * 0.7),
       child: Padding(
-        padding: const EdgeInsets.only(
-          top: KaziInsets.xLg,
-          left: KaziInsets.xLg,
-          right: KaziInsets.xLg,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: KaziInsets.xLg),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -318,10 +305,9 @@ class _KaziDropdownPickerState extends State<_KaziDropdownPicker> {
                 child: ListView(
                   shrinkWrap: true,
                   padding: EdgeInsets.only(
-                    // The keyboard when it is up, Android's gesture bar when
-                    // it is not: the sheet is drawn edge to edge, so the last
-                    // row would otherwise sit under one of the two.
-                    bottom: KaziInsets.lg + _bottomObstructionOf(context),
+                    // The keyboard, while up, covers the last rows.
+                    bottom:
+                        KaziInsets.lg + MediaQuery.viewInsetsOf(context).bottom,
                   ),
                   children: [
                     ..._tilesFor(_primary),

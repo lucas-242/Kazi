@@ -78,23 +78,20 @@ class SetupCycleStep extends ConsumerWidget {
   Future<void> _pickCurrency(BuildContext context, WidgetRef ref) async {
     final controller = ref.read(guidedSetupControllerProvider.notifier);
 
-    final picked = await showModalBottomSheet<SupportedCurrency>(
+    final picked = await KaziNavigator.showBottomSheet<SupportedCurrency>(
       context: context,
       backgroundColor: context.colors.card,
-      shape: const RoundedRectangleBorder(borderRadius: KaziRadii.xlTopBorder),
-      builder: (sheetContext) => SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            for (final currency in SupportedCurrency.values)
-              ListTile(
-                title: Text(currency.localizedName),
-                trailing: Text(currency.symbol),
-                selected: currency == state.currency,
-                onTap: () => Navigator.of(sheetContext).pop(currency),
-              ),
-          ],
-        ),
+      builder: (sheetContext) => ListView(
+        shrinkWrap: true,
+        children: [
+          for (final currency in SupportedCurrency.values)
+            ListTile(
+              title: Text(currency.localizedName),
+              trailing: Text(currency.symbol),
+              selected: currency == state.currency,
+              onTap: () => Navigator.of(sheetContext).pop(currency),
+            ),
+        ],
       ),
     );
 

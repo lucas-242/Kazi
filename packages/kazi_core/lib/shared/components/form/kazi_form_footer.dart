@@ -48,14 +48,19 @@ class KaziFormFooter extends StatelessWidget {
         color: context.colors.background,
         border: Border(top: BorderSide(color: context.colors.border)),
       ),
+      // Padded inside the SafeArea, not through its `minimum`: a minimum yields
+      // to the gesture bar's inset instead of adding to it.
       child: SafeArea(
-        minimum: const EdgeInsets.fromLTRB(
-          KaziInsets.lg,
-          KaziInsets.sm,
-          KaziInsets.lg,
-          KaziInsets.md,
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(
+            KaziInsets.lg,
+            KaziInsets.sm,
+            KaziInsets.lg,
+            KaziInsets.md,
+          ),
+          child: child == null ? button : child!(button),
         ),
-        child: child == null ? button : child!(button),
       ),
     );
   }

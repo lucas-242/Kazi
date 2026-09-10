@@ -31,11 +31,10 @@ Future<void> openContactOptions(
   WidgetRef ref,
   String phone,
 ) {
-  return showModalBottomSheet<void>(
+  return KaziNavigator.showBottomSheet<void>(
     context: context,
     useRootNavigator: true,
     isScrollControlled: true,
-    showDragHandle: true,
     builder: (_) => _ContactOptionsSheet(phone: phone),
   );
 }
@@ -59,41 +58,38 @@ class _ContactOptionsSheet extends ConsumerWidget {
       await _launch(context, ref, url);
     }
 
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          KaziInsets.lg,
-          KaziInsets.zero,
-          KaziInsets.lg,
-          KaziInsets.lg,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.contactOptionsTitle, style: KaziTextStyles.titleMedium),
-            KaziSpacings.verticalMd,
-            OptionTile(
-              mark: OptionMark.none,
-              leading: const Icon(Icons.call_outlined),
-              label: l10n.call,
-              onTap: () => open('tel:$digits'),
-            ),
-            OptionTile(
-              mark: OptionMark.none,
-              leading: const Icon(KaziIcons.whatsapp, color: Color(0xFF25D366)),
-              label: l10n.whatsapp,
-              onTap: () => open('https://wa.me/$formatted'),
-            ),
-            OptionTile(
-              mark: OptionMark.none,
-              leading: const Icon(KaziIcons.telegram, color: Color(0xFF24A1DE)),
-              label: l10n.telegram,
-              onTap: () => open('https://t.me/+$formatted'),
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        KaziInsets.lg,
+        KaziInsets.zero,
+        KaziInsets.lg,
+        KaziInsets.lg,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.contactOptionsTitle, style: KaziTextStyles.titleMedium),
+          KaziSpacings.verticalMd,
+          OptionTile(
+            mark: OptionMark.none,
+            leading: const Icon(Icons.call_outlined),
+            label: l10n.call,
+            onTap: () => open('tel:$digits'),
+          ),
+          OptionTile(
+            mark: OptionMark.none,
+            leading: const Icon(KaziIcons.whatsapp, color: Color(0xFF25D366)),
+            label: l10n.whatsapp,
+            onTap: () => open('https://wa.me/$formatted'),
+          ),
+          OptionTile(
+            mark: OptionMark.none,
+            leading: const Icon(KaziIcons.telegram, color: Color(0xFF24A1DE)),
+            label: l10n.telegram,
+            onTap: () => open('https://t.me/+$formatted'),
+          ),
+        ],
       ),
     );
   }

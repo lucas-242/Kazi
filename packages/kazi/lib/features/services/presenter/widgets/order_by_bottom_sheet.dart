@@ -26,10 +26,8 @@ class OrderByBottomSheet extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            top: KaziInsets.xLg,
             left: KaziInsets.xLg,
             right: KaziInsets.xLg,
-            bottom: KaziInsets.xxxLg,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
