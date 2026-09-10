@@ -182,6 +182,56 @@ void main() {
 
       expect(state().status, BaseStateStatus.success);
     });
+
+    test('keeps a hand-picked range instead of snapping to today', () async {
+      final start = DateTime(2022, 1, 1);
+      final end = DateTime(2022, 1, 12);
+      await controller().onApplyFilters(null, start, end);
+      await pump();
+
+      await controller().onRefresh();
+      await pump();
+
+      expect(state().fastSearch, FastSearch.custom);
+      expect(state().startDate, start);
+      expect(state().endDate, end);
+    });
+  });
+
+  group('openCatalogItemHistory', () {
+    test('lists the item over the days its services span', () async {
+      final older = serviceMock.copyWith(
+        id: 'older',
+        catalogItemId: '1',
+        date: DateTime(2021, 3, 10, 14),
+      );
+      final newer = serviceMock.copyWith(
+        id: 'newer',
+        catalogItemId: '1',
+        date: DateTime(2021, 5, 2),
+      );
+      final otherItem = serviceMock.copyWith(
+        id: 'other',
+        catalogItemId: '2',
+        date: DateTime(2021, 4, 1),
+      );
+      when(
+        servicesRepository.get(any, any, any),
+      ).thenAnswer((_) async => [older, otherItem, newer]);
+
+      await controller().openCatalogItemHistory('1');
+      await pump();
+
+      expect(state().view, ServiceView.list);
+      expect(state().fastSearch, FastSearch.custom);
+      expect(state().catalogItemIds, {'1'});
+      expect(state().startDate, DateTime(2021, 3, 10));
+      expect(state().endDate.isBefore(DateTime(2021, 5, 2)), isFalse);
+      expect(
+        state().visibleServices.map((service) => service.id),
+        unorderedEquals(['older', 'newer']),
+      );
+    });
   });
 
   group('onApplyFilters', () {

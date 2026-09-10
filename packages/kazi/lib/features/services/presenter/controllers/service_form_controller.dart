@@ -249,6 +249,7 @@ class ServiceFormController extends _$ServiceFormController
     required String name,
     double? defaultValue,
     double? commissionPercent,
+    SupportedCurrency? currency,
     Color? color,
   }) async {
     final current = state.asData?.value;
@@ -290,7 +291,7 @@ class ServiceFormController extends _$ServiceFormController
         name: trimmedName,
         defaultValue: defaultValue,
         commissionPercent: commissionPercent,
-        currency: _defaultCurrency.isoCode,
+        currency: (currency ?? _defaultCurrency).isoCode,
         color: color == null ? '' : KaziHexColor.encode(color),
       ),
     );

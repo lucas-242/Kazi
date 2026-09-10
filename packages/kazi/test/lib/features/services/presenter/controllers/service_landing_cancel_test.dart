@@ -100,6 +100,38 @@ void main() {
       isNot(BaseStateStatus.loading),
     );
   });
+
+  test('Should ask again on the way back to the tab', () async {
+    final abandoned = controller().onInit();
+    controller().cancelPendingRead();
+    repository.answer([]);
+    await abandoned;
+
+    final resumed = controller().resumeAbandonedRead();
+    repository.answer([]);
+    await resumed;
+    await _settle();
+
+    expect(repository.requests, 2);
+    expect(
+      container.read(serviceLandingControllerProvider).status,
+      isNot(BaseStateStatus.loading),
+    );
+  });
+
+  // Leaving a tab that was not fetching drops nothing, so there is nothing to
+  // ask for again — and a refetch per tab switch would flash the skeleton.
+  test('Should not refetch on the way back when nothing was dropped', () async {
+    final pending = controller().onInit();
+    repository.answer([]);
+    await pending;
+    await _settle();
+
+    controller().cancelPendingRead();
+    await controller().resumeAbandonedRead();
+
+    expect(repository.requests, 1);
+  });
 }
 
 /// Lets the controller's fire-and-forget work settle before asserting.
@@ -111,6 +143,8 @@ Future<void> _settle() =>
 class _BlockingServicesRepository extends Fake implements ServicesRepository {
   final _pending = <Completer<List<Service>>>[];
 
+  int requests = 0;
+
   void answer(List<Service> services) => _pending.removeAt(0).complete(services);
 
   @override
@@ -119,6 +153,7 @@ class _BlockingServicesRepository extends Fake implements ServicesRepository {
     DateTime startDate, [
     DateTime? endDate,
   ]) {
+    requests++;
     final completer = Completer<List<Service>>();
     _pending.add(completer);
     return completer.future;

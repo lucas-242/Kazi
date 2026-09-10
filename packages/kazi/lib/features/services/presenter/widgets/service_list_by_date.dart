@@ -13,11 +13,16 @@ class ServiceListByDate extends StatefulWidget {
 }
 
 class _ServiceListByDateState extends State<ServiceListByDate> {
-  void onTap(ServicesGroupByDate servicesByDate, int index) => setState(() {
-    widget.servicesByDateList[index] = servicesByDate.copyWith(
-      isExpanded: !servicesByDate.isExpanded,
-    );
-  });
+  /// Days the person opened or closed. Held here, not on the groups: those are
+  /// rebuilt with only the first day open whenever the list changes, so a
+  /// swipe that stamps a payment would fold every other day shut.
+  final _toggled = <DateTime, bool>{};
+
+  bool _isExpanded(ServicesGroupByDate group) =>
+      _toggled[group.date] ?? group.isExpanded;
+
+  void _onTap(ServicesGroupByDate group) =>
+      setState(() => _toggled[group.date] = !_isExpanded(group));
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +31,11 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
       shrinkWrap: true,
       itemCount: widget.servicesByDateList.length,
       itemBuilder: (context, index) {
-        final servicesByDate = widget.servicesByDateList[index];
+        final group = widget.servicesByDateList[index];
 
         return ServiceDateCard(
-          servicesByDate: servicesByDate,
-          onTap: () => onTap(servicesByDate, index),
+          servicesByDate: group.copyWith(isExpanded: _isExpanded(group)),
+          onTap: () => _onTap(group),
         );
       },
       separatorBuilder: (context, index) => KaziSpacings.verticalXs,

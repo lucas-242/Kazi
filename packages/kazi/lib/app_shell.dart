@@ -43,6 +43,21 @@ class _AppShellState extends ConsumerState<AppShell> {
     });
   }
 
+  /// Watches the branch rather than the tap, so a tab reached through `go` or
+  /// the back button asks again too.
+  @override
+  void didUpdateWidget(AppShell oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final entered = widget.navigationShell.currentIndex;
+    if (entered == oldWidget.navigationShell.currentIndex) return;
+
+    // After the frame: a refetch writes to its provider, which Riverpod
+    // forbids while the tree is building.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _resumeAbandonedRead(entered);
+    });
+  }
+
   /// Strictly sequential: the update dialog, the release announcement and the
   /// contextual hints all want the root navigator, and two of them arriving
   /// together is how a person ends up dismissing something they never read.
@@ -175,6 +190,21 @@ class _AppShellState extends ConsumerState<AppShell> {
         ref.read(dashboardControllerProvider.notifier).cancelPendingRead();
       case _Tab.services:
         ref.read(serviceLandingControllerProvider.notifier).cancelPendingRead();
+    }
+  }
+
+  void _resumeAbandonedRead(int entered) {
+    switch (entered) {
+      case _Tab.home:
+        unawaited(
+          ref.read(dashboardControllerProvider.notifier).resumeAbandonedRead(),
+        );
+      case _Tab.services:
+        unawaited(
+          ref
+              .read(serviceLandingControllerProvider.notifier)
+              .resumeAbandonedRead(),
+        );
     }
   }
 }

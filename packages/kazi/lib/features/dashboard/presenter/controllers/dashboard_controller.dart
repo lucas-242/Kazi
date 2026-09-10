@@ -60,6 +60,7 @@ class DashboardController extends _$DashboardController
 
   Future<void> onInit() async {
     final generation = _readGeneration;
+    _readsInFlight++;
     try {
       final window = await _currentWindow();
       final result = await Future.wait<dynamic>([
@@ -73,6 +74,8 @@ class DashboardController extends _$DashboardController
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
+    } finally {
+      _readsInFlight--;
     }
   }
 
@@ -112,13 +115,30 @@ class DashboardController extends _$DashboardController
   /// away when they differ — the screen it was for is no longer on.
   int _readGeneration = 0;
 
-  /// Abandons whatever this tab was fetching, because the tab was left. The
-  /// next `onInit`/`onRefresh` asks again. See the loading-scope rules in
-  /// `themes/README.md`.
-  void cancelPendingRead() => _readGeneration++;
+  int _readsInFlight = 0;
+
+  /// Whether leaving the tab dropped a read, so coming back has to ask again.
+  bool _hasAbandonedRead = false;
+
+  /// Abandons whatever this tab was fetching, because the tab was left.
+  /// [resumeAbandonedRead] asks again on the way back. See the loading-scope
+  /// rules in `themes/README.md`.
+  void cancelPendingRead() {
+    _readGeneration++;
+    if (_readsInFlight > 0) _hasAbandonedRead = true;
+  }
+
+  /// Refetches when the last visit ended with a read dropped. Without it the
+  /// tab keeps what it held before that read — after an edit, the old service.
+  Future<void> resumeAbandonedRead() async {
+    if (!_hasAbandonedRead) return;
+    _hasAbandonedRead = false;
+    await onRefresh();
+  }
 
   Future<void> onRefresh() async {
     final generation = _readGeneration;
+    _readsInFlight++;
     try {
       state = state.copyWith(status: BaseStateStatus.loading);
       final window = await _currentWindow();
@@ -132,6 +152,8 @@ class DashboardController extends _$DashboardController
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
+    } finally {
+      _readsInFlight--;
     }
   }
 

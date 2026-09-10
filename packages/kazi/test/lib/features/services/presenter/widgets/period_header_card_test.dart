@@ -117,4 +117,13 @@ void main() {
 
     expect(find.textContaining('already received'), findsNothing);
   });
+
+  // 60 earned out of 150 generated.
+  testWidgets('Should say what share of the gross the earnings are', (
+    tester,
+  ) async {
+    await pump(tester, stateWith([paid, owed]));
+
+    expect(find.textContaining(r'40% of $150.00 generated'), findsOneWidget);
+  });
 }

@@ -243,7 +243,7 @@ class _SeeSummaryRow extends ConsumerWidget {
           ),
           child: Text(
             KaziLocalizations.current.seeSummaryOf(_month(context)),
-            style: KaziTextStyles.labelLarge.copyWith(color: colors.brand.text),
+            style: KaziTextStyles.labelLarge.copyWith(color: colors.text),
           ),
         ),
       ),

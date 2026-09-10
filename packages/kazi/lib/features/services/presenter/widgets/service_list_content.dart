@@ -54,30 +54,22 @@ class ServiceListContent extends ConsumerWidget {
     required BannerAdPolicy bannerPolicy,
   }) {
     final service = services[index];
-    // Both branches must be keyed; Dismissible throws without a stable key.
-    final key = Key('service-${service.id}');
 
-    final card = ServiceCard(
+    final row = _ReceiptSwipe(
+      key: ValueKey('service-${service.id}'),
       service: service,
-      onTap: () => _onTap(context, service),
-    );
-
-    if (bannerPolicy.shouldShowAt(index)) {
-      return AdBlock(key: key, child: card);
-    }
-
-    return ClipRRect(
-      // Clipped to the card's corners, or the colour pokes out square at both
-      // ends of the swipe.
-      borderRadius: KaziRadii.smBorder,
-      child: Dismissible(
-        key: key,
-        direction: DismissDirection.endToStart,
-        confirmDismiss: (_) => _onSwipe(context, ref, service),
-        background: _SwipeBackground(isReceived: service.isReceived),
-        child: card,
+      onSwipe: () => _onSwipe(context, ref, service),
+      child: ServiceCard(
+        service: service,
+        onTap: () => _onTap(context, service),
       ),
     );
+
+    if (!bannerPolicy.shouldShowAt(index)) return row;
+
+    // Wraps the swipeable row, not the bare card, or the service under a
+    // banner is the one row that cannot be marked as received.
+    return AdBlock(key: ValueKey('ad-${service.id}'), child: row);
   }
 
   @override
@@ -102,6 +94,57 @@ class ServiceListContent extends ConsumerWidget {
       itemBuilder: (context, index) =>
           _buildItem(context, ref, index, bannerPolicy: bannerPolicy),
       separatorBuilder: (context, index) => KaziSpacings.verticalXs,
+    );
+  }
+}
+
+/// A row that flips the payment stamp when swiped, and stays put.
+class _ReceiptSwipe extends StatefulWidget {
+  const _ReceiptSwipe({
+    super.key,
+    required this.service,
+    required this.onSwipe,
+    required this.child,
+  });
+
+  final Service service;
+  final Future<bool> Function() onSwipe;
+  final Widget child;
+
+  @override
+  State<_ReceiptSwipe> createState() => _ReceiptSwipeState();
+}
+
+class _ReceiptSwipeState extends State<_ReceiptSwipe> {
+  /// The label the swipe started with, held until the row is back at rest.
+  /// The stamp lands while the row is still open, and repainting the
+  /// background then flashes the opposite action.
+  bool? _labelledAsReceived;
+
+  void _onUpdate(DismissUpdateDetails details) {
+    if (details.progress > 0) {
+      _labelledAsReceived ??= widget.service.isReceived;
+    } else if (_labelledAsReceived != null) {
+      setState(() => _labelledAsReceived = null);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      // Clipped to the card's corners, or the colour pokes out square at both
+      // ends of the swipe.
+      borderRadius: KaziRadii.smBorder,
+      child: Dismissible(
+        key: ValueKey(widget.service.id),
+        direction: DismissDirection.endToStart,
+        onUpdate: _onUpdate,
+        confirmDismiss: (_) => widget.onSwipe(),
+        background: _SwipeBackground(
+          isReceived: _labelledAsReceived ?? widget.service.isReceived,
+        ),
+        child: widget.child,
+      ),
     );
   }
 }

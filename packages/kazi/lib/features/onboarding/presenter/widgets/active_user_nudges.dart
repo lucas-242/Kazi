@@ -45,6 +45,30 @@ class _NudgeCard extends StatelessWidget {
   );
 }
 
+/// Light on the graphite rather than brand yellow: on the home, yellow belongs
+/// to the button that registers a service.
+class _NudgeButton extends StatelessWidget {
+  const _NudgeButton({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+
+    return SizedBox(
+      width: double.infinity,
+      child: KaziElevatedButton.label(
+        label: label,
+        onTap: onTap,
+        backgroundColor: colors.money.onSurface,
+        foregroundColor: colors.money.surface,
+      ),
+    );
+  }
+}
+
 /// The one question worth asking an active user, phrased as a confirmation of
 /// what the app is already doing rather than as a blank form.
 class _CycleConfirmation extends ConsumerWidget {
@@ -72,16 +96,13 @@ class _CycleConfirmation extends ConsumerWidget {
           ),
         ),
         KaziSpacings.verticalSm,
-        SizedBox(
-          width: double.infinity,
-          child: KaziElevatedButton.label(
-            label: l10n.cycleConfirmYes,
-            onTap: controller.confirmCycle,
-          ),
+        _NudgeButton(
+          label: l10n.cycleConfirmYes,
+          onTap: controller.confirmCycle,
         ),
         Center(
           child: KaziTextButton(
-            color: colors.brand.fill,
+            color: colors.money.onSurface,
             onTap: () {
               // Dismissed first: the settings screen writes the cycle
               // explicitly, which is what stops the card coming back.
@@ -137,14 +158,11 @@ class _CommissionGaps extends ConsumerWidget {
           ),
         ),
         KaziSpacings.verticalSm,
-        SizedBox(
-          width: double.infinity,
-          child: KaziElevatedButton.label(
-            label: l10n.commissionGapsCta,
-            // The existing catalog screen is already the right form for this;
-            // a second one would be a second place to keep correct.
-            onTap: () => KaziNavigator.push(AppPage.serviceCatalog),
-          ),
+        _NudgeButton(
+          label: l10n.commissionGapsCta,
+          // The existing catalog screen is already the right form for this;
+          // a second one would be a second place to keep correct.
+          onTap: () => KaziNavigator.push(AppPage.serviceCatalog),
         ),
       ],
     );

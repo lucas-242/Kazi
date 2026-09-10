@@ -180,6 +180,28 @@
       }
     }
   },
+  "commissionShareOfGenerated": "{percent} de {amount} gerados",
+  "@commissionShareOfGenerated": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commissionShareOfCharged": "{percent} de {amount} cobrados dos clientes",
+  "@commissionShareOfCharged": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "generatedFromAmount": "de {amount} gerados",
   "generatedFromClients": "de {amount} cobrados dos clientes",
   "@generatedFromClients": {

@@ -64,12 +64,21 @@ class ServiceLandingController extends _$ServiceLandingController
     }
   }
 
+  /// The window a refetch asks for. A hand-picked range has no preset to
+  /// resolve, and resolving one anyway would snap the list back to today.
+  (DateTime, DateTime) _currentRange() {
+    if (state.fastSearch == FastSearch.custom) {
+      return (state.startDate, state.endDate);
+    }
+    final range = _serviceOrganizer.getRangeDateByFastSearch(state.fastSearch);
+    return (range['startDate']!, range['endDate']!);
+  }
+
   Future<void> onInit() async {
     final generation = _readGeneration;
+    _readsInFlight++;
     try {
-      final range = _serviceOrganizer.getRangeDateByFastSearch(state.fastSearch);
-      final startDate = range['startDate']!;
-      final endDate = range['endDate']!;
+      final (startDate, endDate) = _currentRange();
       final result = await _getServices(startDate, endDate);
       if (generation != _readGeneration) return;
       _handleGetServices(result, startDate, endDate);
@@ -77,6 +86,8 @@ class ServiceLandingController extends _$ServiceLandingController
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
+    } finally {
+      _readsInFlight--;
     }
   }
 
@@ -141,18 +152,33 @@ class ServiceLandingController extends _$ServiceLandingController
   /// away when they differ — the screen it was for is no longer on.
   int _readGeneration = 0;
 
-  /// Abandons whatever this tab was fetching, because the tab was left. The
-  /// next `onInit`/`onRefresh` asks again. See the loading-scope rules in
-  /// `themes/README.md`.
-  void cancelPendingRead() => _readGeneration++;
+  int _readsInFlight = 0;
+
+  /// Whether leaving the tab dropped a read, so coming back has to ask again.
+  bool _hasAbandonedRead = false;
+
+  /// Abandons whatever this tab was fetching, because the tab was left.
+  /// [resumeAbandonedRead] asks again on the way back. See the loading-scope
+  /// rules in `themes/README.md`.
+  void cancelPendingRead() {
+    _readGeneration++;
+    if (_readsInFlight > 0) _hasAbandonedRead = true;
+  }
+
+  /// Refetches when the last visit ended with a read dropped. Without it the
+  /// tab keeps what it held before that read — after an edit, the old service.
+  Future<void> resumeAbandonedRead() async {
+    if (!_hasAbandonedRead) return;
+    _hasAbandonedRead = false;
+    await onRefresh();
+  }
 
   Future<void> onRefresh() async {
     final generation = _readGeneration;
+    _readsInFlight++;
     try {
       state = state.copyWith(status: BaseStateStatus.loading);
-      final range = _serviceOrganizer.getRangeDateByFastSearch(state.fastSearch);
-      final startDate = range['startDate']!;
-      final endDate = range['endDate']!;
+      final (startDate, endDate) = _currentRange();
       final result = await _getServices(startDate, endDate);
       if (generation != _readGeneration) return;
       _handleGetServices(result, startDate, endDate);
@@ -160,6 +186,8 @@ class ServiceLandingController extends _$ServiceLandingController
       onAppError(exception);
     } catch (exception) {
       unexpectedError(exception);
+    } finally {
+      _readsInFlight--;
     }
   }
 
@@ -320,6 +348,61 @@ class ServiceLandingController extends _$ServiceLandingController
 
     if (period != null && period != state.fastSearch) {
       await _onChageSelectedFastSearch(period);
+    }
+  }
+
+  /// Opens the list on one catalog item's services, over the days they span.
+  ///
+  /// The item reports a lifetime count, so leaving the period on the current
+  /// month would list fewer rows than the count that was tapped. Costs the same
+  /// unbounded read search does.
+  Future<void> openCatalogItemHistory(String catalogItemId) async {
+    state = state.copyWith(
+      status: BaseStateStatus.loading,
+      view: ServiceView.list,
+      clientId: null,
+      catalogItemIds: {catalogItemId},
+      receiptFilter: ReceiptFilter.all,
+      isSearching: false,
+      searchTerm: '',
+    );
+
+    try {
+      final everything = await _serviceProvidedRepository.get(
+        _authService.user!.uid,
+        _searchFloor,
+      );
+      final dates = [
+        for (final service in everything)
+          if (service.catalogItemId == catalogItemId) service.date,
+      ];
+      final now = _serviceOrganizer.now;
+      final startDate = dates
+          .fold(now, (earliest, date) => date.isBefore(earliest) ? date : earliest)
+          .firstHourOfDay;
+      final endDate = dates
+          .fold(now, (latest, date) => date.isAfter(latest) ? date : latest)
+          .lastHourOfDay;
+
+      state = state.copyWith(
+        fastSearch: FastSearch.custom,
+        startDate: startDate,
+        endDate: endDate,
+      );
+      await _handleGetServices(
+        [
+          for (final service in everything)
+            if (!service.date.isBefore(startDate) &&
+                !service.date.isAfter(endDate))
+              service,
+        ],
+        startDate,
+        endDate,
+      );
+    } on AppError catch (exception) {
+      onAppError(exception);
+    } catch (exception) {
+      unexpectedError(exception);
     }
   }
 

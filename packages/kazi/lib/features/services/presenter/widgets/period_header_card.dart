@@ -80,8 +80,8 @@ class PeriodHeaderCard extends ConsumerWidget {
     );
   }
 
-  /// "de R$ 4.280 gerados · R$ 890 já recebidos · R$ 822 pendentes" — the three
-  /// words, in the one order that makes the arithmetic readable.
+  /// "45% de R$ 4.280 gerados · R$ 890 já recebidos · R$ 822 pendentes" — the
+  /// three words, in the one order that makes the arithmetic readable.
   ///
   /// The split is dropped twice over: when nothing has been paid, because a
   /// permanent "R$ 0 já recebidos" reads as a problem rather than as absence;
@@ -91,15 +91,31 @@ class PeriodHeaderCard extends ConsumerWidget {
     final l10n = KaziLocalizations.current;
     String money(double amount) =>
         NumberFormatUtils.formatCurrencyIn(amount, totals.currency);
+    final gross = money(totals.value);
+    final share = _shareOfGross(totals);
 
-    if (chart != null) return l10n.generatedFromClients(money(totals.value));
+    if (chart != null) {
+      return share == null
+          ? l10n.generatedFromClients(gross)
+          : l10n.commissionShareOfCharged(share, gross);
+    }
 
-    final generated = l10n.generatedFromAmount(money(totals.value));
+    final generated = share == null
+        ? l10n.generatedFromAmount(gross)
+        : l10n.commissionShareOfGenerated(share, gross);
     if (!totals.hasReceived) return generated;
 
     return '$generated · '
         '${l10n.alreadyReceived(money(totals.receivedCommission))} · '
         '${l10n.pendingAmount(money(totals.pendingCommission))}';
+  }
+
+  /// The headline as a percentage of the gross, to one decimal. Null when there
+  /// is no gross to take a share of.
+  static String? _shareOfGross(ServiceTotals totals) {
+    if (totals.value <= 0) return null;
+    final percent = (totals.commission / totals.value * 1000).round() / 10;
+    return NumberFormatUtils.formatPercent(percent);
   }
 }
 

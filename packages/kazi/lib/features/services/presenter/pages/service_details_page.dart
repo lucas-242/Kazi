@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kazi/core/currency/currency_providers.dart';
 import 'package:kazi/core/routes/app_pages.dart';
 import 'package:kazi/core/widgets/detail_info_row.dart';
+import 'package:kazi/features/dashboard/presenter/controllers/dashboard_controller.dart';
 import 'package:kazi/features/onboarding/domain/models/onboarding_hint.dart';
 import 'package:kazi/features/onboarding/presenter/widgets/hint_anchor.dart';
 import 'package:kazi/features/services/domain/models/service.dart';
@@ -39,7 +42,10 @@ class ServiceDetailsPage extends ConsumerWidget {
     Future<void> onDelete(Service service) async {
       KaziNavigator.pop();
       final controller = ref.read(serviceLandingControllerProvider.notifier);
+      final dashboard = ref.read(dashboardControllerProvider.notifier);
       await controller.deleteService(service).then((_) {
+        // The home lists the cycle too, and would keep showing the deleted one.
+        unawaited(dashboard.onRefresh());
         if (context.mounted) KaziNavigator.navigate(AppPage.services);
       });
     }

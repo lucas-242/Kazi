@@ -74,7 +74,13 @@ class ActiveUserNudgesController extends _$ActiveUserNudgesController {
         itemsMissingCommission: _gapsDismissed
             ? const []
             : items
-                  .where((item) => item.effectiveCommissionPercent == null)
+                  // Archived types take no new services, and the catalog the
+                  // card opens does not list them: there is nothing to fix.
+                  .where(
+                    (item) =>
+                        !item.isArchived &&
+                        item.effectiveCommissionPercent == null,
+                  )
                   .toList(),
       );
     } catch (exception) {

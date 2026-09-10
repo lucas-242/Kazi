@@ -363,6 +363,29 @@ void main() {
       verify(catalogItemRepository.get(any)).called(1);
     });
 
+    test('saves the type in the currency picked in the sheet', () async {
+      when(catalogItemRepository.add(any)).thenAnswer(
+        (_) async => catalogItemMock.copyWith(
+          id: 'new-type-id',
+          name: 'Barber',
+          currency: 'EUR',
+        ),
+      );
+
+      final provider = serviceFormControllerProvider();
+      await container.read(provider.future);
+
+      await container
+          .read(provider.notifier)
+          .quickAddCatalogItem(name: 'Barber', currency: SupportedCurrency.eur);
+
+      final saved = verify(
+        catalogItemRepository.add(captureAny),
+      ).captured.single;
+      expect(saved.currency, 'EUR');
+      expect(container.read(provider).asData?.value.service.currency, 'EUR');
+    });
+
     test('throws when the name duplicates an existing type', () async {
       final provider = serviceFormControllerProvider();
       await container.read(provider.future);

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kazi/core/currency/currency_providers.dart';
 import 'package:kazi/core/routes/app_pages.dart';
@@ -6,6 +8,7 @@ import 'package:kazi/core/widgets/detail_info_row.dart';
 import 'package:kazi/features/services/domain/models/catalog_item.dart';
 import 'package:kazi/features/services/presenter/controllers/catalog_controller.dart';
 import 'package:kazi/features/services/presenter/controllers/catalog_state.dart';
+import 'package:kazi/features/services/presenter/controllers/service_landing_controller.dart';
 import 'package:kazi_core/kazi_core.dart'
     hide Service, CatalogItem, CatalogItemRepository;
 
@@ -133,6 +136,16 @@ class _CatalogItemDetails extends ConsumerWidget {
             icon: Icons.format_list_bulleted,
             label: KaziLocalizations.current.usedIn,
             value: KaziLocalizations.current.servicesCount(counters.count),
+            onTap: counters.count == 0
+                ? null
+                : () {
+                    unawaited(
+                      ref
+                          .read(serviceLandingControllerProvider.notifier)
+                          .openCatalogItemHistory(catalogItem.id),
+                    );
+                    KaziNavigator.navigate(AppPage.services);
+                  },
           ),
           DetailInfoRow(
             icon: Icons.trending_up,

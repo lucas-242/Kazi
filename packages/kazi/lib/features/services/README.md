@@ -52,11 +52,18 @@ switch belongs to the content it governs rather than to the title bar.
 The swipe flips the payment stamp and the row **stays put** — `confirmDismiss`
 always returns false, since the row still belongs to the list and animating it
 out would be a lie. Swiping a paid service undoes the stamp, so the background
-label has to say so.
+label has to say so — and the label is **frozen until the row is back at rest**:
+the stamp lands while the row is still open, and repainting then flashes the
+opposite action.
 
-Both branches of the row (ad-wrapped and plain) must be **keyed**; `Dismissible`
-throws without a stable key. The revealed background is clipped to the card's
-corners, or the colour pokes out square at both ends of the swipe.
+A row under a banner swipes like any other: `AdBlock` wraps the swipeable row,
+never the bare card. Both are **keyed**; `Dismissible` throws without a stable
+key. The revealed background is clipped to the card's corners, or the colour
+pokes out square at both ends of the swipe.
+
+The grouped list remembers which days were opened or closed **by date**, apart
+from the groups: those are rebuilt on every change to the list, and a swipe
+would otherwise fold every day but the first.
 
 ## Three controls, three different jobs
 
@@ -137,8 +144,11 @@ it: change the period chip and the whole card is rewritten; filter by client and
 the figures shrink with the rows.
 
 - The headline is **`totals.commission`** — the earnings, not the gross. The
-  gross follows in the subtitle, where "de X gerados · Y já recebidos · Z
-  pendentes" spells out the arithmetic in the three permitted words.
+  gross follows in the subtitle, where "45% de X gerados · Y já recebidos · Z
+  pendentes" spells out the arithmetic in the three permitted words. The
+  percentage is the headline's share of the gross, and is dropped when there is
+  no gross to take a share of. The home's panel deliberately has no such
+  figure (see `dashboard/README.md`); this card is where it is read.
 - The split is **dropped until something has been paid**. A permanent "R$ 0 já
   recebidos" reads as a problem rather than as absence — the same rule the home
   panel follows.

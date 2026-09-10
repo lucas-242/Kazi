@@ -587,6 +587,26 @@ class KaziLocalizations {
     );
   }
 
+  /// `{percent} of {amount} generated`
+  String commissionShareOfGenerated(String percent, String amount) {
+    return Intl.message(
+      '$percent of $amount generated',
+      name: 'commissionShareOfGenerated',
+      desc: '',
+      args: [percent, amount],
+    );
+  }
+
+  /// `{percent} of {amount} charged to clients`
+  String commissionShareOfCharged(String percent, String amount) {
+    return Intl.message(
+      '$percent of $amount charged to clients',
+      name: 'commissionShareOfCharged',
+      desc: '',
+      args: [percent, amount],
+    );
+  }
+
   /// `of {amount} generated`
   String generatedFromAmount(String amount) {
     return Intl.message(

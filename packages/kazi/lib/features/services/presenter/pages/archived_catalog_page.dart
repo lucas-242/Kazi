@@ -188,7 +188,7 @@ class _DeleteRow extends ConsumerWidget {
           unawaited(
             ref
                 .read(serviceLandingControllerProvider.notifier)
-                .openServices(catalogItemId: catalogItem.id),
+                .openCatalogItemHistory(catalogItem.id),
           );
           KaziNavigator.navigate(AppPage.services);
         },

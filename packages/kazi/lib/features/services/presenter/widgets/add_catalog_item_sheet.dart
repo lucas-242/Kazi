@@ -10,9 +10,9 @@ import 'package:kazi_core/kazi_core.dart'
 /// On success the new item is appended to the form's dropdown (no refetch) and
 /// auto-selected; validation/creation errors are shown as a snackbar.
 ///
-/// Three fields, because the sheet exists to unblock a registration rather
-/// than to be the catalog screen: anything else about the item is edited
-/// there, later.
+/// Only what a registration needs — name, currency, price and commission —
+/// because the sheet exists to unblock one rather than to be the catalog
+/// screen: anything else about the item is edited there, later.
 class AddCatalogItemSheet extends ConsumerStatefulWidget {
   const AddCatalogItemSheet({super.key, required this.service});
 
@@ -30,24 +30,17 @@ class _AddCatalogItemSheetState extends ConsumerState<AddCatalogItemSheet> {
   final _valueKey = GlobalKey<FormFieldState>();
   final _commissionKey = GlobalKey<FormFieldState>();
   final _nameController = TextEditingController();
-  late final MoneyMaskedTextController _valueController;
+  late MoneyMaskedTextController _valueController;
   late final MoneyMaskedTextController _commissionController;
+  late SupportedCurrency _currency;
   Color? _color;
   bool _saving = false;
 
   @override
   void initState() {
     super.initState();
-    // The item is saved with the user's default currency, so the mask has to
-    // show that currency: a device-locale symbol would label the amount with a
-    // currency it is not stored in.
-    final currency = ref.read(kaziDefaultCurrencyProvider);
-    _valueController = MoneyMaskedTextController(
-      leftSymbol: '${currency.symbol} ',
-      decimalSeparator: NumberFormatUtils.getDecimalSeparator(),
-      thousandSeparator: NumberFormatUtils.getThousandSeparator(),
-      precision: currency.decimalDigits,
-    );
+    _currency = ref.read(kaziDefaultCurrencyProvider);
+    _valueController = _buildValueController(_currency, 0);
     _commissionController = MoneyMaskedTextController(
       // Full commission until told otherwise: an item left untouched must be
       // worth all of its value, which is what "no commission" means in money.
@@ -57,6 +50,45 @@ class _AddCatalogItemSheetState extends ConsumerState<AddCatalogItemSheet> {
       rightSymbol: '%',
       precision: 1,
     );
+  }
+
+  /// The mask shows the currency the item is saved in: any other symbol would
+  /// label the amount with a currency it is not stored in.
+  MoneyMaskedTextController _buildValueController(
+    SupportedCurrency currency,
+    double initialValue,
+  ) {
+    return MoneyMaskedTextController(
+      initialValue: initialValue,
+      leftSymbol: '${currency.symbol} ',
+      decimalSeparator: NumberFormatUtils.getDecimalSeparator(),
+      thousandSeparator: NumberFormatUtils.getThousandSeparator(),
+      precision: currency.decimalDigits,
+    );
+  }
+
+  List<DropdownItem> get _currencyItems => SupportedCurrency.values
+      .map(
+        (c) => DropdownItem(
+          value: c.isoCode,
+          label: '${c.isoCode} (${c.symbol})',
+          searchTerms: c.localizedName,
+        ),
+      )
+      .toList();
+
+  void _onChangeCurrency(DropdownItem? item) {
+    if (item == null) return;
+    final currency = SupportedCurrency.fromCode(item.value);
+    if (currency == _currency) return;
+
+    final previous = _valueController;
+    setState(() {
+      _currency = currency;
+      _valueController = _buildValueController(currency, previous.numberValue);
+    });
+    // After the frame: the field keeps the old controller until it rebuilds.
+    WidgetsBinding.instance.addPostFrameCallback((_) => previous.dispose());
   }
 
   @override
@@ -78,6 +110,7 @@ class _AddCatalogItemSheetState extends ConsumerState<AddCatalogItemSheet> {
             name: _nameController.text,
             defaultValue: _valueController.numberValue,
             commissionPercent: _commissionController.numberValue,
+            currency: _currency,
             color: _color,
           );
       if (mounted) KaziNavigator.pop();
@@ -111,6 +144,20 @@ class _AddCatalogItemSheetState extends ConsumerState<AddCatalogItemSheet> {
           autofocus: true,
           validator: (value) =>
               FormValidator.validateTextField(value, l10n.name),
+        ),
+        KaziSpacings.verticalXs,
+        KaziFieldPicker(
+          label: l10n.currency,
+          placeholder: l10n.selectCurrency,
+          searchLabel: l10n.search,
+          noResultsLabel: l10n.noResults,
+          showSearch: true,
+          items: _currencyItems,
+          selectedItem: DropdownItem(
+            value: _currency.isoCode,
+            label: '${_currency.isoCode} (${_currency.symbol})',
+          ),
+          onChanged: _onChangeCurrency,
         ),
         KaziSpacings.verticalXs,
         Row(
