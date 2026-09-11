@@ -1,0 +1,95 @@
+{
+  "parameters": {
+    "whats_new_content": {
+      "defaultValue": {
+        "value": "{   \"version\": \"2.0.0\",   \"items\": {     \"pt\": [       {         \"title\": \"Ciclo de pagamento\",         \"description\": \"O total do topo agora segue o dia em que você recebe, não o calendário.\"       },       {         \"title\": \"Resumo dentro de Serviços\",         \"description\": \"A mesma lista, vista por tipo e por cliente. Chave no topo da aba.\"       },       {         \"title\": \"Catálogo pronto por profissão\",         \"description\": \"Quem começa agora já entra com os serviços da área cadastrados.\"       }     ],     \"en\": [       {         \"title\": \"Pay cycle\",         \"description\": \"The top total now follows the day you get paid, not the calendar.\"       },       {         \"title\": \"Summary inside Services\",         \"description\": \"The same list, seen by type and by client. Toggle at the top of the tab.\"       },       {         \"title\": \"Ready-made catalog by profession\",         \"description\": \"Anyone starting now comes in with their field's services already registered.\"       }     ],     \"es\": [       {         \"title\": \"Ciclo de pago\",         \"description\": \"El total de arriba ahora sigue el día en que cobras, no el calendario.\"       },       {         \"title\": \"Resumen dentro de Servicios\",         \"description\": \"La misma lista, vista por tipo y por cliente. Interruptor arriba de la pestaña.\"       },       {         \"title\": \"Catálogo listo por profesión\",         \"description\": \"Quien empieza ahora ya entra con los servicios de su área registrados.\"       }     ]   } }"
+      },
+      "description": "Conteúdo da tela de What's New",
+      "valueType": "JSON"
+    },
+    "payments_enabled": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "description": "Ativa ou desativa a feature de premium do app",
+      "valueType": "BOOLEAN"
+    },
+    "replay_on_friction": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "description": "Liga o Replay para Fricções no app (momentos onde usuários ficam travados)",
+      "valueType": "BOOLEAN"
+    },
+    "analytics_enabled": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "replay_enabled": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "replay_sample_returning": {
+      "defaultValue": {
+        "value": "20"
+      },
+      "description": "Porcentagem (0-100) de sessões salvar para os usuários que não são novos",
+      "valueType": "NUMBER"
+    },
+    "latest_version": {
+      "defaultValue": {
+        "value": "2.0.0"
+      },
+      "description": "Última versão lançada do app",
+      "valueType": "STRING"
+    },
+    "replay_new_user_days": {
+      "defaultValue": {
+        "value": "7"
+      },
+      "description": "Número de dias que um usuário é considerado novo para o Replay",
+      "valueType": "NUMBER"
+    },
+    "banner_ad_frequency": {
+      "defaultValue": {
+        "value": "3"
+      },
+      "description": "Frequência que um banner de propaganda será mostrado em uma lista",
+      "valueType": "STRING"
+    },
+    "min_required_version": {
+      "defaultValue": {
+        "value": "2.0.0"
+      },
+      "description": "Versão mínima requerida para acessar o app. Caso o usuário tenha uma versão menor que este valor, o usuário terá seu acesso bloqueado.",
+      "valueType": "STRING"
+    },
+    "interstitial_ad_frequency": {
+      "defaultValue": {
+        "value": "5"
+      },
+      "description": "Frequência que uma propaganda de tela cheia será mostrado a cada X ações",
+      "valueType": "NUMBER"
+    },
+    "replay_sample_new_users": {
+      "defaultValue": {
+        "value": "100"
+      },
+      "description": "Porcentagem (0–100) de sessões salvas por conta mais novas que [replay_new_user_days]",
+      "valueType": "NUMBER"
+    }
+  },
+  "version": {
+    "versionNumber": "4",
+    "updateTime": "2026-09-02T12:10:18.693515Z",
+    "updateUser": {
+      "email": "guimaraeslucas242@gmail.com"
+    },
+    "updateOrigin": "CONSOLE",
+    "updateType": "INCREMENTAL_UPDATE"
+  }
+}
