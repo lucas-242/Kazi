@@ -139,6 +139,27 @@ inside `build()` — as an earlier version did — issues a fresh ad request eve
 time the row scrolls back into view and leaks every ad it replaces. AdMob reads
 that pattern as invalid traffic.
 
+For the same reason the block **keeps itself alive**
+(`AutomaticKeepAliveClientMixin`). The services tab builds its rows lazily, and
+a lazy list disposes a row that scrolls out of view — without the keep-alive,
+scrolling back would dispose and request the ad all over again. In a plain
+`Column`, like the home's today list, the keep-alive is inert.
+
+The block **requests and reveals the ad only while the list is at rest**. Both
+steps run on the platform's main thread — creating the native banner, and
+inserting its platform view — and on Android that thread also delivers touches,
+so doing either mid-scroll stalls the gesture; a banner appearing mid-scroll
+also jolts the rows under the finger. `AdBlock` listens to the enclosing
+`Scrollable`'s `isScrollingNotifier`: it requests the ad the first moment the
+list is idle, and appends the banner at the first idle moment after it loads.
+The block is a `Column` from the start, so the row above the banner is never
+remounted when it arrives.
+
+The banner's `ClipRRect` is a per-frame cost while it is on screen: a platform
+view clipped to rounded corners is composited with a mask on every frame. If
+profiling shows banners costing frames, the corners are the first thing to give
+up.
+
 The block renders **nothing** until `onAdLoaded` fires: an empty slot reads as a
 broken row, and reserving height for an ad that never arrives is dead space in
 the list. The `SizedBox` takes its dimensions from `ad.size`, never a hard-coded

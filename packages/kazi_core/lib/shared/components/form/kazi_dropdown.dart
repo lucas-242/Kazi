@@ -195,6 +195,27 @@ class _KaziDropdownPicker extends StatefulWidget {
   State<_KaziDropdownPicker> createState() => _KaziDropdownPickerState();
 }
 
+/// The picker's list, padded clear of the keyboard. A widget of its own so
+/// that each frame of the keyboard animation rebuilds only this, and not every
+/// tile the picker builds.
+class _KeyboardInsetList extends StatelessWidget {
+  const _KeyboardInsetList({required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      padding: EdgeInsets.only(
+        // The keyboard, while up, covers the last rows.
+        bottom: KaziInsets.lg + MediaQuery.viewInsetsOf(context).bottom,
+      ),
+      children: children,
+    );
+  }
+}
+
 class _KaziDropdownPickerState extends State<_KaziDropdownPicker> {
   late List<DropdownItem> _filtered;
   final _searchController = TextEditingController();
@@ -302,13 +323,7 @@ class _KaziDropdownPickerState extends State<_KaziDropdownPicker> {
               )
             else
               Flexible(
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(
-                    // The keyboard, while up, covers the last rows.
-                    bottom:
-                        KaziInsets.lg + MediaQuery.viewInsetsOf(context).bottom,
-                  ),
+                child: _KeyboardInsetList(
                   children: [
                     ..._tilesFor(_primary),
                     if (_secondary.isNotEmpty) ...[

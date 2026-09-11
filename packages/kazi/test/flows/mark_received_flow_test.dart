@@ -164,6 +164,29 @@ void main() {
     expect(stored.docs.single.data()['receivedAt'], isNull);
   });
 
+  // Stamping the last pending row removes the bulk action from the header, so
+  // the snackbar's undo must not depend on that widget still being mounted.
+  testWidgets('the bulk mark is undone from its snackbar', (tester) async {
+    final app = await appWithOneService(tester);
+    await openTheServicesTab(tester);
+
+    await tester.tap(
+      find.textContaining(KaziLocalizations.current.markListedReceived(1)),
+    );
+    await settle(tester);
+    await tester.tap(find.text(KaziLocalizations.current.markReceived).last);
+    await settle(tester);
+    expect(landingService(app).isReceived, isTrue);
+
+    await tester.tap(find.text(KaziLocalizations.current.undo));
+    await settle(tester);
+
+    expect(tester.takeException(), isNull);
+    expect(landingService(app).isReceived, isFalse);
+    final stored = await app.firestore.collection('services').get();
+    expect(stored.docs.single.data()['receivedAt'], isNull);
+  });
+
   testWidgets('an already-received service opens showing it', (tester) async {
     final app = await appWithOneService(tester, receivedAt: today);
     await openTheDetails(tester, app);

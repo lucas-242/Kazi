@@ -32,32 +32,51 @@ class QuickAddSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _ClearOfKeyboard(
+      // The padding changes on every frame of the keyboard animation; the
+      // boundary keeps the fields from being repainted along with it.
+      child: RepaintBoundary(
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(title, style: KaziTextStyles.titleMedium),
+              KaziSpacings.verticalMd,
+              ...children,
+              KaziSpacings.verticalLg,
+              KaziElevatedButton.label(
+                onTap: isSaving ? null : onConfirm,
+                width: double.infinity,
+                label: isSaving
+                    ? KaziLocalizations.current.saving
+                    : confirmLabel ?? KaziLocalizations.current.createAndUse,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Scrolls [child] with room for the keyboard. A widget of its own so that a
+/// keyboard frame rebuilds only this, and never the form it was handed.
+class _ClearOfKeyboard extends StatelessWidget {
+  const _ClearOfKeyboard({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.only(
         left: KaziInsets.lg,
         right: KaziInsets.lg,
         bottom: KaziInsets.lg + MediaQuery.viewInsetsOf(context).bottom,
       ),
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(title, style: KaziTextStyles.titleMedium),
-            KaziSpacings.verticalMd,
-            ...children,
-            KaziSpacings.verticalLg,
-            KaziElevatedButton.label(
-              onTap: isSaving ? null : onConfirm,
-              width: double.infinity,
-              label: isSaving
-                  ? KaziLocalizations.current.saving
-                  : confirmLabel ?? KaziLocalizations.current.createAndUse,
-            ),
-          ],
-        ),
-      ),
+      child: child,
     );
   }
 }

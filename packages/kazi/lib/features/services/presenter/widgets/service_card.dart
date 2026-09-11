@@ -40,15 +40,19 @@ class ServiceCard extends ConsumerWidget {
     final defaultCurrency = ref.watch(kaziDefaultCurrencyProvider);
     final serviceCurrency = service.currencyOr(defaultCurrency);
 
+    final shape = KaziCategoryBorder(
+      color: colors.border,
+      categoryColor: service.catalogItem?.colorAs ?? colors.surfaceStrong,
+    );
+
+    // No clip: `customBorder` holds the ink to the shape, and a clip on every
+    // row is rasterized again on every frame of a scroll.
     return Material(
       color: colors.card,
-      clipBehavior: Clip.antiAlias,
-      shape: KaziCategoryBorder(
-        color: colors.border,
-        categoryColor: service.catalogItem?.colorAs ?? colors.surfaceStrong,
-      ),
+      shape: shape,
       child: InkWell(
         onTap: onTap,
+        customBorder: shape,
         child: Container(
           constraints: const BoxConstraints(
             minHeight: KaziSizings.minTouchTarget,

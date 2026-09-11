@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kazi/core/routes/app_pages.dart';
+import 'package:kazi/core/widgets/keyboard_while_on_top.dart';
 import 'package:kazi/core/widgets/tap_probe.dart';
 import 'package:kazi/features/app_update/app_update.dart';
 import 'package:kazi/features/dashboard/presenter/controllers/dashboard_controller.dart';
@@ -142,7 +143,7 @@ class _AppShellState extends ConsumerState<AppShell> {
     });
 
     return Scaffold(
-      body: widget.navigationShell,
+      body: KeyboardWhileOnTop(child: widget.navigationShell),
       resizeToAvoidBottomInset: false,
       floatingActionButton: _ShellFab(
         tabIndex: widget.navigationShell.currentIndex,

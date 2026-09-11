@@ -6,6 +6,10 @@ import 'package:kazi_core/shared/currency/supported_currency.dart';
 import 'package:kazi_core/shared/extensions/double_extensions.dart';
 
 abstract class NumberFormatUtils {
+  // Building a NumberFormat parses its pattern, and every list row formats two
+  // amounts as it scrolls in.
+  static final _currencyFormats = <(String, String, int), NumberFormat>{};
+
   /// Formats [value] in an explicit [currency] (symbol + decimal digits), while
   /// separators/grouping still follow the user's [locale] (or device locale).
   static String formatCurrencyIn(
@@ -16,11 +20,15 @@ abstract class NumberFormatUtils {
     final stringLocale = locale != null
         ? '${locale.languageCode}_${locale.countryCode}'
         : getCurrentLocale();
-    return NumberFormat.currency(
-      locale: stringLocale,
-      symbol: currency.symbol,
-      decimalDigits: currency.decimalDigits,
-    ).format(value ?? 0);
+    final format = _currencyFormats.putIfAbsent(
+      (stringLocale, currency.symbol, currency.decimalDigits),
+      () => NumberFormat.currency(
+        locale: stringLocale,
+        symbol: currency.symbol,
+        decimalDigits: currency.decimalDigits,
+      ),
+    );
+    return format.format(value ?? 0);
   }
 
   static String formatPercent([double? value, Locale? locale]) {

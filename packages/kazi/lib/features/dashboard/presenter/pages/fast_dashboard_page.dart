@@ -48,9 +48,7 @@ class _SimpleDashboardPageState extends ConsumerState<FastDashboardPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: context.colors.overlayOn(context.colors.money.surface),
       child: Scaffold(
-        body: MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
+        body: _WithoutTopPadding(
           child: _OverscrollGround(
             child: KaziSafeArea(
               isLoading: state.status == BaseStateStatus.loading,
@@ -62,6 +60,23 @@ class _SimpleDashboardPageState extends ConsumerState<FastDashboardPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Removing padding depends on the whole MediaQuery. Done in the page's own
+/// build, it rebuilt the entire home on every frame of any keyboard animation.
+class _WithoutTopPadding extends StatelessWidget {
+  const _WithoutTopPadding({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: child,
     );
   }
 }

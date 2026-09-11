@@ -2,6 +2,32 @@ import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
 import 'package:kazi_core/kazi_core.dart';
 
+/// Calls the sheet's builder once per change to what the builder itself reads,
+/// not once per rebuild of the route: the modal route rebuilds its page on
+/// every frame the keyboard animates, which rebuilt every field in the sheet.
+class _SheetContent extends StatefulWidget {
+  const _SheetContent({required this.builder});
+
+  final WidgetBuilder builder;
+
+  @override
+  State<_SheetContent> createState() => _SheetContentState();
+}
+
+class _SheetContentState extends State<_SheetContent> {
+  Widget? _content;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _content = null;
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      _content ??= SafeArea(top: false, child: widget.builder(context));
+}
+
 /// Abstract base class for app navigation.
 /// Each app should extend this and implement the abstract methods.
 abstract class KaziNavigator {
@@ -106,8 +132,7 @@ abstract class KaziNavigator {
     Log.navigation('Showing bottom sheet');
     return showModalBottomSheet<T>(
       context: context,
-      builder: (sheetContext) =>
-          SafeArea(top: false, child: builder(sheetContext)),
+      builder: (_) => _SheetContent(builder: builder),
       isScrollControlled: isScrollControlled,
       useRootNavigator: useRootNavigator,
       isDismissible: isDismissible,

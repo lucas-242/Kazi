@@ -17,6 +17,8 @@ import 'package:kazi_core/kazi_core.dart'
     hide Service, CatalogItem, CatalogItemRepository;
 import 'package:kazi_core/kazi_core.dart';
 
+/// The tab as slivers: everything above the rows is one box, and the rows are
+/// built as they scroll in. See README.md.
 class ServiceLandingContent extends ConsumerWidget {
   const ServiceLandingContent({super.key, required this.state});
 
@@ -31,41 +33,61 @@ class ServiceLandingContent extends ConsumerWidget {
     // period is ignored while searching, so leaving its chip on screen would
     // claim a narrowing that is not happening.
     if (state.isSearching) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const ServiceNavbar(),
-          KaziSpacings.verticalMd,
+      return SliverMainAxisGroup(
+        slivers: [
+          const SliverToBoxAdapter(
+            child: RepaintBoundary(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [ServiceNavbar(), KaziSpacings.verticalMd],
+              ),
+            ),
+          ),
           ServiceSearchContent(state: state),
         ],
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const ServiceNavbar(),
-        const ServiceViewSwitch(),
-        KaziSpacings.verticalSm,
-        const ServiceFilterChips(),
-        KaziSpacings.verticalSm,
-        // The chips stay above whatever this resolves to, so a filter that
-        // empties the screen can always be undone from where it was set.
-        if (state.hasNothingToShow)
-          _NothingToShow(state: state)
-        else if (state.view == ServiceView.summary)
-          ServiceSummaryContent(state: state)
-        else ...[
-          PeriodHeaderCard(state: state),
-          KaziSpacings.verticalSm,
+    final showsRows =
+        !state.hasNothingToShow && state.view != ServiceView.summary;
+
+    return SliverMainAxisGroup(
+      slivers: [
+        SliverToBoxAdapter(
+          // A layer of its own: a box in a sliver gets no repaint boundary,
+          // and the whole header would repaint on every frame of a scroll.
+          child: RepaintBoundary(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const ServiceNavbar(),
+                const ServiceViewSwitch(),
+                KaziSpacings.verticalSm,
+                const ServiceFilterChips(),
+                KaziSpacings.verticalSm,
+                // The chips stay above whatever this resolves to, so a filter
+                // that empties the screen can always be undone from where it
+                // was set.
+                if (state.hasNothingToShow)
+                  _NothingToShow(state: state)
+                else if (state.view == ServiceView.summary)
+                  ServiceSummaryContent(state: state)
+                else ...[
+                  PeriodHeaderCard(state: state),
+                  KaziSpacings.verticalSm,
+                ],
+              ],
+            ),
+          ),
+        ),
+        if (showsRows)
           _ServiceList(
             state: state,
             serviceOrganizer: serviceOrganizer,
             timeService: timeService,
           ),
-        ],
       ],
     );
   }
@@ -98,6 +120,7 @@ class _NothingToShow extends ConsumerWidget {
   }
 }
 
+/// The rows, as a sliver.
 class _ServiceList extends StatelessWidget {
   const _ServiceList({
     required this.state,
@@ -116,13 +139,13 @@ class _ServiceList extends StatelessWidget {
     final services = state.visibleServices;
 
     if (_showLastMonthServices(timeService)) {
-      return ServiceList(
+      return ServiceList.sliver(
         title: KaziLocalizations.current.filteringLastMonth,
         services: services,
       );
     }
     if (_showServicesAreNotInCurrentMonth(timeService)) {
-      return ServiceList(
+      return ServiceList.sliver(
         title: KaziLocalizations.current.fromTo(
           DateFormat.yMd().format(state.startDate).normalizeDate(),
           DateFormat.yMd().format(state.endDate).normalizeDate(),

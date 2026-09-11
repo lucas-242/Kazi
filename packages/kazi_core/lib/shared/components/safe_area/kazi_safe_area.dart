@@ -9,16 +9,27 @@ class KaziSafeArea extends StatelessWidget {
     super.key,
     this.onRefresh,
     this.child,
+    this.slivers,
     this.isScrollView = true,
     this.padding,
     this.physics = const BouncingScrollPhysics(),
     this.scrollController,
     this.isLoading = false,
     this.loadingColor,
-  });
+  }) : assert(
+         child == null || slivers == null,
+         'Pass either a child or slivers, not both.',
+       );
 
   final Future<void> Function()? onRefresh;
   final Widget? child;
+
+  /// Lays the page out as a [CustomScrollView] of these, padded the way
+  /// [child] would be, instead of scrolling one box. A list inside [child] is
+  /// built, laid out and painted whole; as a sliver, only the rows on screen
+  /// are. Ignores [isScrollView].
+  final List<Widget>? slivers;
+
   final EdgeInsets? padding;
   final bool isScrollView;
   final ScrollPhysics physics;
@@ -30,25 +41,45 @@ class KaziSafeArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isRefreshable = onRefresh != null;
+    // A screen with nothing on it — an empty list, an error — is the one a
+    // refresh is most wanted on, and it is also too short to overscroll:
+    // without the always-scrollable physics (and, for a single box, filling
+    // the viewport) the gesture never reaches the indicator.
+    final scrollPhysics = isRefreshable
+        ? AlwaysScrollableScrollPhysics(parent: physics)
+        : physics;
+    final slivers = this.slivers;
 
-    final content = _ScrollDecider(
-      isScrollView: isScrollView,
-      // A screen with nothing on it — an empty list, an error — is the one a
-      // refresh is most wanted on, and it is also too short to overscroll:
-      // without these two the gesture never reaches the indicator.
-      physics: isRefreshable
-          ? AlwaysScrollableScrollPhysics(parent: physics)
-          : physics,
-      fillsViewport: isRefreshable,
-      scrollController: scrollController,
-      child: KaziPaddingWrap(
-        paddingLeft: padding?.left,
-        paddingRight: padding?.right,
-        paddingTop: padding?.top,
-        paddingBottom: padding?.bottom,
-        child: child,
-      ),
-    );
+    final content = slivers == null
+        ? _ScrollDecider(
+            isScrollView: isScrollView,
+            physics: scrollPhysics,
+            fillsViewport: isRefreshable,
+            scrollController: scrollController,
+            child: KaziPaddingWrap(
+              paddingLeft: padding?.left,
+              paddingRight: padding?.right,
+              paddingTop: padding?.top,
+              paddingBottom: padding?.bottom,
+              child: child,
+            ),
+          )
+        : CustomScrollView(
+            physics: scrollPhysics,
+            controller: scrollController,
+            slivers: [
+              SliverPadding(
+                padding: KaziPaddingWrap.paddingOf(
+                  context,
+                  left: padding?.left,
+                  right: padding?.right,
+                  top: padding?.top,
+                  bottom: padding?.bottom,
+                ),
+                sliver: SliverMainAxisGroup(slivers: slivers),
+              ),
+            ],
+          );
 
     return KaziBlockingLoading(
       isLoading: isLoading,
@@ -91,11 +122,13 @@ class _ScrollDecider extends StatelessWidget {
       return child;
     }
 
+    // A layer of its own: a scroll, or the keyboard resizing the viewport,
+    // then moves the content instead of repainting every widget in it.
     if (!fillsViewport) {
       return SingleChildScrollView(
         physics: physics,
         controller: scrollController,
-        child: child,
+        child: RepaintBoundary(child: child),
       );
     }
 
@@ -103,12 +136,14 @@ class _ScrollDecider extends StatelessWidget {
       builder: (context, constraints) => SingleChildScrollView(
         physics: physics,
         controller: scrollController,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight:
-                constraints.maxHeight.isFinite ? constraints.maxHeight : 0,
+        child: RepaintBoundary(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight:
+                  constraints.maxHeight.isFinite ? constraints.maxHeight : 0,
+            ),
+            child: child,
           ),
-          child: child,
         ),
       ),
     );

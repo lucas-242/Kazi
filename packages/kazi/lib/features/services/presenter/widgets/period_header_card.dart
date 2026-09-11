@@ -168,12 +168,13 @@ class _MarkPendingReceivedState extends ConsumerState<_MarkPendingReceived> {
   /// The exact ids that were written, never re-derived from a list that may
   /// have moved on: one mistaken tap would rewrite dozens of payment dates.
   void _showUndo(List<String> ids) {
+    // Read now, not on tap: stamping the last pending row removes this widget,
+    // and its `ref` is unusable by the time Undo is pressed.
+    final receipt = ref.read(serviceReceiptControllerProvider.notifier);
     KaziUndoSnackbar.show(
       context,
       message: KaziLocalizations.current.markedAsReceived,
-      onUndo: () => ref
-          .read(serviceReceiptControllerProvider.notifier)
-          .setReceivedByIds(ids, received: false),
+      onUndo: () => receipt.setReceivedByIds(ids, received: false),
     );
   }
 

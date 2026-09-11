@@ -37,14 +37,15 @@ class _ServiceListByDateState extends State<ServiceListByDate> {
       total += group.services.length;
     }
 
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
+    // A sliver: each day is built as it scrolls in, and a closed day builds no
+    // rows at all.
+    return SliverList.separated(
       itemCount: groups.length,
       itemBuilder: (context, index) {
         final group = groups[index];
 
         return ServiceDateCard(
+          key: ValueKey(group.date),
           servicesByDate: group.copyWith(isExpanded: _isExpanded(group)),
           onTap: () => _onTap(group),
           firstPosition: firstPositions[index],

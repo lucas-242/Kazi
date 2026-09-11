@@ -7,17 +7,20 @@ class ServiceList extends StatelessWidget {
   const ServiceList({
     super.key,
     required this.services,
-    this.canScroll = false,
     this.title,
-    this.expandList = false,
     this.firstPosition = 0,
     this.total,
-  });
+  }) : isSliver = false;
+
+  /// The whole list on screen as a lazy sliver, for when it is the page's
+  /// scroll body: rows are built as they scroll in, not all at once.
+  const ServiceList.sliver({super.key, required this.services, this.title})
+    : isSliver = true,
+      firstPosition = 0,
+      total = null;
 
   final List<Service> services;
-  final bool canScroll;
   final String? title;
-  final bool expandList;
 
   /// See [ServiceListContent.firstPosition].
   final int firstPosition;
@@ -25,44 +28,63 @@ class ServiceList extends StatelessWidget {
   /// See [ServiceListContent.total].
   final int? total;
 
+  final bool isSliver;
+
   @override
   Widget build(BuildContext context) {
+    final title = this.title;
     // Vertical rhythm only: the page's horizontal gutter comes from
     // `KaziSafeArea`, and the rows carry their own card padding.
+    final padding = EdgeInsets.only(
+      top: title == null ? KaziInsets.xs : KaziInsets.md,
+      bottom: KaziInsets.sm,
+    );
+
+    if (isSliver) {
+      return SliverPadding(
+        padding: padding,
+        sliver: SliverMainAxisGroup(
+          slivers: [
+            if (title != null) SliverToBoxAdapter(child: _Title(title)),
+            ServiceListContent.sliver(services: services),
+          ],
+        ),
+      );
+    }
+
     return Padding(
-      padding: EdgeInsets.only(
-        top: title == null ? KaziInsets.xs : KaziInsets.md,
-        bottom: KaziInsets.sm,
-      ),
+      padding: padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (title != null) ...[
-            Text(
-              title!.toUpperCase(),
-              style: KaziTextStyles.tag.copyWith(
-                color: context.colors.textMuted,
-              ),
-            ),
-            KaziSpacings.verticalSm,
-          ],
-          expandList
-              ? Expanded(
-                  child: ServiceListContent(
-                    services: services,
-                    canScroll: canScroll,
-                    firstPosition: firstPosition,
-                    total: total,
-                  ),
-                )
-              : ServiceListContent(
-                  services: services,
-                  canScroll: canScroll,
-                  firstPosition: firstPosition,
-                  total: total,
-                ),
+          if (title != null) _Title(title),
+          ServiceListContent(
+            services: services,
+            firstPosition: firstPosition,
+            total: total,
+          ),
         ],
       ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title.toUpperCase(),
+          style: KaziTextStyles.tag.copyWith(color: context.colors.textMuted),
+        ),
+        KaziSpacings.verticalSm,
+      ],
     );
   }
 }

@@ -14,12 +14,19 @@ class ServiceListContent extends ConsumerWidget {
   const ServiceListContent({
     super.key,
     required this.services,
-    required this.canScroll,
     this.firstPosition = 0,
     this.total,
-  });
+  }) : isSliver = false;
+
+  /// The same rows as a lazy [SliverList], for a list that is the whole list
+  /// on screen and the page's scroll body.
+  const ServiceListContent.sliver({super.key, required this.services})
+    : isSliver = true,
+      firstPosition = 0,
+      total = null;
+
   final List<Service> services;
-  final bool canScroll;
+  final bool isSliver;
 
   /// Where [services] start in the whole list on screen, when they are one
   /// day's slice of it. Banners are placed by that position.
@@ -94,23 +101,23 @@ class ServiceListContent extends ConsumerWidget {
     final bannerPolicy = ref.watch(bannerAdPolicyProvider);
 
     // A gap, not a rule: a divider between two bordered cards reads as a third.
-    if (!canScroll) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (var index = 0; index < services.length; index++) ...[
-            if (index != 0) KaziSpacings.verticalXs,
+    if (isSliver) {
+      return SliverList.separated(
+        itemCount: services.length,
+        itemBuilder: (context, index) =>
             _buildItem(context, ref, index, bannerPolicy: bannerPolicy),
-          ],
-        ],
+        separatorBuilder: (context, index) => KaziSpacings.verticalXs,
       );
     }
 
-    return ListView.separated(
-      itemCount: services.length,
-      itemBuilder: (context, index) =>
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var index = 0; index < services.length; index++) ...[
+          if (index != 0) KaziSpacings.verticalXs,
           _buildItem(context, ref, index, bannerPolicy: bannerPolicy),
-      separatorBuilder: (context, index) => KaziSpacings.verticalXs,
+        ],
+      ],
     );
   }
 }
@@ -135,12 +142,14 @@ class _ReceiptSwipe extends StatefulWidget {
 class _ReceiptSwipeState extends State<_ReceiptSwipe> {
   /// The label the swipe started with, held until the row is back at rest.
   /// The stamp lands while the row is still open, and repainting the
-  /// background then flashes the opposite action.
+  /// background then flashes the opposite action. Null while at rest.
   bool? _labelledAsReceived;
 
   void _onUpdate(DismissUpdateDetails details) {
     if (details.progress > 0) {
-      _labelledAsReceived ??= widget.service.isReceived;
+      if (_labelledAsReceived == null) {
+        setState(() => _labelledAsReceived = widget.service.isReceived);
+      }
     } else if (_labelledAsReceived != null) {
       setState(() => _labelledAsReceived = null);
     }
@@ -149,9 +158,11 @@ class _ReceiptSwipeState extends State<_ReceiptSwipe> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      // Clipped to the card's corners, or the colour pokes out square at both
-      // ends of the swipe.
+      // Clipped to the card's corners while swiped, or the colour pokes out
+      // square at both ends. At rest there is nothing to clip, and a clip on
+      // every row is rasterized again on every frame of a scroll.
       borderRadius: KaziRadii.smBorder,
+      clipBehavior: _labelledAsReceived == null ? Clip.none : Clip.antiAlias,
       child: Dismissible(
         key: ValueKey(widget.service.id),
         direction: DismissDirection.endToStart,

@@ -23,49 +23,68 @@ class ServiceSearchContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final term = state.searchTerm.trim();
-    if (term.isEmpty) return const _SearchHint();
+    if (term.isEmpty) return const SliverToBoxAdapter(child: _SearchHint());
 
     final services = state.searchedServices;
     final clients = state.searchClients;
 
     if (services.isEmpty && clients.isEmpty) {
-      return KaziNoResults(
-        icon: Icons.search,
-        message: KaziLocalizations.current.nothingFoundFor(term),
-        description: KaziLocalizations.current.nothingFoundForDescription,
-        actionLabel: KaziLocalizations.current.createInCatalog(term),
-        onAction: () => KaziNavigator.push(AppPage.addCatalogItem),
+      return SliverToBoxAdapter(
+        child: KaziNoResults(
+          icon: Icons.search,
+          message: KaziLocalizations.current.nothingFoundFor(term),
+          description: KaziLocalizations.current.nothingFoundForDescription,
+          actionLabel: KaziLocalizations.current.createInCatalog(term),
+          onAction: () => KaziNavigator.push(AppPage.addCatalogItem),
+        ),
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    // A sliver, because a short term matches most of the history.
+    return SliverMainAxisGroup(
+      slivers: [
         if (services.isNotEmpty) ...[
-          _ServicesHeading(state: state),
-          KaziSpacings.verticalSm,
-          for (final service in services) ...[
-            if (service != services.first) KaziSpacings.verticalXs,
-            ServiceCard(
-              service: service,
-              onTap: () => KaziNavigator.push(
-                AppPage.serviceDetails,
-                extra: ServiceArguments(service: service),
-              ),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _ServicesHeading(state: state),
+                KaziSpacings.verticalSm,
+              ],
             ),
-          ],
+          ),
+          SliverList.separated(
+            itemCount: services.length,
+            itemBuilder: (context, index) {
+              final service = services[index];
+
+              return ServiceCard(
+                service: service,
+                onTap: () => KaziNavigator.push(
+                  AppPage.serviceDetails,
+                  extra: ServiceArguments(service: service),
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => KaziSpacings.verticalXs,
+          ),
         ],
-        if (clients.isNotEmpty) ...[
-          KaziSpacings.verticalLg,
-          _Heading(title: KaziLocalizations.current.clients),
-          KaziSpacings.verticalSm,
-          for (final client in clients) ...[
-            if (client != clients.first) KaziSpacings.verticalXs,
-            _ClientRow(client: client),
-          ],
-        ],
-        KaziSpacings.verticalLg,
+        if (clients.isNotEmpty)
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                KaziSpacings.verticalLg,
+                _Heading(title: KaziLocalizations.current.clients),
+                KaziSpacings.verticalSm,
+                for (final client in clients) ...[
+                  if (client != clients.first) KaziSpacings.verticalXs,
+                  _ClientRow(client: client),
+                ],
+              ],
+            ),
+          ),
+        const SliverToBoxAdapter(child: KaziSpacings.verticalLg),
       ],
     );
   }

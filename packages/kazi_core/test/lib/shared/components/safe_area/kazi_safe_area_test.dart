@@ -85,4 +85,46 @@ void main() {
       expect(bodyTaps, 1);
     });
   });
+
+  group('KaziSafeArea slivers', () {
+    Widget app(Widget body) => MaterialApp(home: Scaffold(body: body));
+
+    testWidgets('Should build only the rows that reach the screen', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        app(
+          KaziSafeArea(
+            slivers: [
+              SliverList.builder(
+                itemCount: 1000,
+                itemBuilder: (_, index) =>
+                    SizedBox(height: 50, child: Text('row $index')),
+              ),
+            ],
+          ),
+        ),
+      );
+
+      expect(find.text('row 0'), findsOneWidget);
+      expect(find.text('row 999'), findsNothing);
+    });
+
+    testWidgets('Should pad the slivers exactly as it pads a child', (
+      tester,
+    ) async {
+      await tester.pumpWidget(app(const KaziSafeArea(child: Text('first'))));
+      final asChild = tester.getTopLeft(find.text('first'));
+
+      await tester.pumpWidget(
+        app(
+          const KaziSafeArea(
+            slivers: [SliverToBoxAdapter(child: Text('first'))],
+          ),
+        ),
+      );
+
+      expect(tester.getTopLeft(find.text('first')), asChild);
+    });
+  });
 }

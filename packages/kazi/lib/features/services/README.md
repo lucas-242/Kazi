@@ -65,6 +65,25 @@ The grouped list remembers which days were opened or closed **by date**, apart
 from the groups: those are rebuilt on every change to the list, and a swipe
 would otherwise fold every day but the first.
 
+### Scrolling
+
+The tab is a `CustomScrollView` (`KaziSafeArea(slivers:)`) and the rows are
+slivers, so a row is built, laid out and painted only once it scrolls near the
+screen. Everything above the rows — bar, switch, chips, header card — is one
+`SliverToBoxAdapter`.
+
+- **A period outside the current month is one `SliverList`**, row by row. It
+  can hold hundreds of services, which as a `Column` inside a scroll view were
+  all built up front and repainted on every frame of a scroll.
+- **The grouped month is lazy by day**, and a day nobody opened builds no rows:
+  `ExpandedSection` holds its child back until the first expansion.
+- **Search results are a `SliverList` too** — a short term matches most of the
+  history.
+
+Anything added between the header and the rows has to be a sliver. A `Column`
+of rows or a `ListView(shrinkWrap: true)` there brings back exactly the cost
+this layout removes.
+
 ## Three controls, three different jobs
 
 The tab is governed by exactly three things, and confusing them is what

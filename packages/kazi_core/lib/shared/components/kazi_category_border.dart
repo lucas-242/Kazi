@@ -93,10 +93,18 @@ class KaziCategoryBorder extends ShapeBorder {
       ..close();
   }
 
-  @override
-  void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {
-    if (rect.isEmpty) return;
+  /// The hairline and leading regions per geometry, at the origin. Rows in a
+  /// list share a handful of sizes, and the boolean path operations would
+  /// otherwise run again on every frame a swipe or a splash repaints the row.
+  static final _regions = <(Size, Radius, double, double), (Path, Path)>{};
+  static const _maxCachedRegions = 32;
 
+  (Path, Path) _regionsFor(Size size) {
+    final key = (size, radius, width, categoryWidth);
+    final cached = _regions[key];
+    if (cached != null) return cached;
+
+    final rect = Offset.zero & size;
     final ring = Path.combine(
       PathOperation.difference,
       getOuterPath(rect),
@@ -112,14 +120,26 @@ class KaziCategoryBorder extends ShapeBorder {
       _mitre(rect.bottomLeft, Offset(-categoryWidth, width), rect),
     );
 
-    canvas.drawPath(
+    if (_regions.length >= _maxCachedRegions) {
+      _regions.remove(_regions.keys.first);
+    }
+    return _regions[key] = (
       Path.combine(PathOperation.difference, ring, leading),
-      Paint()..color = color,
-    );
-    canvas.drawPath(
       Path.combine(PathOperation.intersect, ring, leading),
-      Paint()..color = categoryColor ?? color,
     );
+  }
+
+  @override
+  void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {
+    if (rect.isEmpty) return;
+
+    final (hairline, leading) = _regionsFor(rect.size);
+    canvas
+      ..save()
+      ..translate(rect.left, rect.top)
+      ..drawPath(hairline, Paint()..color = color)
+      ..drawPath(leading, Paint()..color = categoryColor ?? color)
+      ..restore();
   }
 
   @override

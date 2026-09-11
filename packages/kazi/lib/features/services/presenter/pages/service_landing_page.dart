@@ -32,23 +32,25 @@ class _ServiceLandingPageState extends ConsumerState<ServiceLandingPage> {
     return Scaffold(
       body: KaziSafeArea(
         onRefresh: controller.onRefresh,
-        child: switch (state.status) {
-          // The bar, the switch and the chips stay live above every one of
-          // these: loading is per surface, and a filter that emptied the
-          // screen has to be undoable from where it was set.
-          BaseStateStatus.loading when state.services.isEmpty =>
-            const _Surface(child: KaziSkeletonList()),
-          BaseStateStatus.error => _Surface(
-            child: KaziError(
-              message: KaziLocalizations.current.errorToGetServices,
-              onRetry: controller.onRefresh,
+        slivers: [
+          switch (state.status) {
+            // The bar, the switch and the chips stay live above every one of
+            // these: loading is per surface, and a filter that emptied the
+            // screen has to be undoable from where it was set.
+            BaseStateStatus.loading when state.services.isEmpty =>
+              const _Surface(child: KaziSkeletonList()),
+            BaseStateStatus.error => _Surface(
+              child: KaziError(
+                message: KaziLocalizations.current.errorToGetServices,
+                onRetry: controller.onRefresh,
+              ),
             ),
-          ),
-          // `noData` falls through with everything else: a period that came
-          // back empty is a cut, not an account, and `ServiceLandingContent`
-          // says so without taking the chips away.
-          _ => ServiceLandingContent(state: state),
-        },
+            // `noData` falls through with everything else: a period that came
+            // back empty is a cut, not an account, and `ServiceLandingContent`
+            // says so without taking the chips away.
+            _ => ServiceLandingContent(state: state),
+          },
+        ],
       ),
     );
   }
@@ -64,17 +66,19 @@ class _Surface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const ServiceNavbar(),
-        const ServiceViewSwitch(),
-        KaziSpacings.verticalSm,
-        const ServiceFilterChips(),
-        KaziSpacings.verticalMd,
-        child,
-      ],
+    return SliverToBoxAdapter(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const ServiceNavbar(),
+          const ServiceViewSwitch(),
+          KaziSpacings.verticalSm,
+          const ServiceFilterChips(),
+          KaziSpacings.verticalMd,
+          child,
+        ],
+      ),
     );
   }
 }

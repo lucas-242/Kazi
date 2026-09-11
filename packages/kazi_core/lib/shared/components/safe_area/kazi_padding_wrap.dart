@@ -20,22 +20,40 @@ class KaziPaddingWrap extends StatelessWidget {
   final double? paddingTop;
   final double? paddingBottom;
 
+  /// The padding this widget applies, for a scroll view that has to carry it
+  /// inside itself — as a `SliverPadding` — rather than be wrapped in it.
+  static EdgeInsets paddingOf(
+    BuildContext context, {
+    double? left,
+    double? right,
+    double? top,
+    double? bottom,
+  }) {
+    return context.whenScreenSize(
+      xs: EdgeInsets.only(
+        left: left ?? KaziInsets.lg,
+        right: right ?? KaziInsets.lg,
+        top: top ?? KaziInsets.lg,
+        bottom: bottom ?? 0,
+      ),
+      xxLg: EdgeInsets.only(
+        left: context.width * .06,
+        right: context.width * .06,
+        top: top ?? 0,
+        bottom: bottom ?? 0,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: context.whenScreenSize(
-        xs: EdgeInsets.only(
-          left: paddingLeft ?? KaziInsets.lg,
-          right: paddingRight ?? KaziInsets.lg,
-          top: paddingTop ?? KaziInsets.lg,
-          bottom: paddingBottom ?? 0,
-        ),
-        xxLg: EdgeInsets.only(
-          left: context.width * .06,
-          right: context.width * .06,
-          top: paddingTop ?? 0,
-          bottom: paddingBottom ?? 0,
-        ),
+      padding: paddingOf(
+        context,
+        left: paddingLeft,
+        right: paddingRight,
+        top: paddingTop,
+        bottom: paddingBottom,
       ),
       child: child,
     );
