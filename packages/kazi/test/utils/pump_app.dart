@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kazi/core/constants/storage_keys.dart';
 import 'package:kazi/core/routes/app_router.dart';
 import 'package:kazi/core/services/data/analytics/analytics_route_reporter.dart';
+import 'package:kazi/core/widgets/tap_heatmap_listener.dart';
 import 'package:kazi/features/auth/data/services/kazi_firebase_auth_service.dart';
 import 'package:kazi/features/auth/domain/models/app_user.dart';
 import 'package:kazi/features/clients/data/repositories/models/firebase_client_model.dart';
@@ -308,6 +309,7 @@ class _TestApp extends ConsumerWidget {
       supportedLocales: KaziLocalizations.delegate.supportedLocales,
       locale: const Locale('en'),
       routerConfig: ref.watch(kaziRouterProvider),
+      builder: (context, child) => TapHeatmapListener(child: child!),
     );
   }
 }

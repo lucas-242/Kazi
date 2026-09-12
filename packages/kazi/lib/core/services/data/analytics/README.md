@@ -5,12 +5,15 @@ user's bottleneck**, and **why do people leave**.
 
 | | Firebase Analytics | PostHog (EU Cloud) |
 |---|---|---|
-| Receives | Key events only (4) | The whole taxonomy (45) |
+| Receives | Key events only (7) | The whole taxonomy (48) |
 | Exists for | Play Console, Google Ads, Firebase audiences | Funnels, retention, cohorts, session replay |
-| Why limited | 500 event names / 25 params per project, and diagnostics dilute the Ads audiences | No such caps |
+| Why limited | It feeds Play Console, Ads and Audiences — not analysis. Every parameter worth slicing spends one of 50 event-scoped custom dimensions, and those never backfill | No such caps |
 
 Both get the **Firebase Auth uid** as `distinctId`, so a PostHog funnel and a
 Firebase audience describe the same person.
+
+`isKey` filters `log()` and nothing else. Screen views, `identify` and user
+properties reach both sinks unfiltered.
 
 ---
 
@@ -44,6 +47,10 @@ flowchart TD
     FD -->|promote| AB[AnalyticsBootstrap]
     AB -->|start / stop replay| PH
     SRP[SessionReplayPolicy<br/><i>Remote Config</i>] --> AB
+    TP --> THR[TapHeatmapRecorder]
+    THL[TapHeatmapListener<br/>every pointer-down] --> THR
+    THP[TapHeatmapPolicy<br/><i>Remote Config</i>] --> THR
+    THR -->|element_tapped| FACADE
     PC[PrivacyController] --> GATE
     PC --> AB
 ```
@@ -57,7 +64,7 @@ flowchart TD
 | File | Role |
 |---|---|
 | `analytics_service.dart` | The facade every caller depends on. Five methods: `log`, `screen`, `identify`, `setUserProperties`, `reset`. |
-| `analytics_event.dart` | The taxonomy — 45 events with their parameters. `isKey` routes an event to Firebase as well. |
+| `analytics_event.dart` | The taxonomy — 48 events with their parameters. `isKey` routes an event to Firebase as well. |
 | `friction_kind.dart` | The four shapes of "this person is struggling". |
 
 ### `lib/core/services/data/analytics/`
@@ -70,6 +77,8 @@ flowchart TD
 | `analytics_scrubber.dart` | Removes personal data from properties on the way out. Pure. |
 | `analytics_bootstrap.dart` | Decides per launch whether the session is measured and recorded. |
 | `session_replay_policy.dart` | The sampling rule, read from Remote Config. Pure. |
+| `tap_heatmap_policy.dart` | Whether this session contributes taps, and how many. Pure. |
+| `tap_heatmap_recorder.dart` | Turns pointer-downs into `element_tapped`, pairing a position with the control it hit. Pure. |
 | `friction_detector.dart` | Recognises a struggling user and promotes the session to being recorded. Pure, clock-injected. |
 | `analytics_identity_controller.dart` | Keeps identity and cohort attributes in sync. Riverpod, `keepAlive`. |
 | `analytics_route_reporter.dart` | One screen view per navigation. Riverpod, `keepAlive`. |
@@ -78,7 +87,9 @@ flowchart TD
 
 | File | Role |
 |---|---|
-| `core/widgets/tap_probe.dart` | Wraps a CTA and feeds the rage-tap signal. |
+| `core/widgets/tap_probe.dart` | Wraps a CTA; feeds the rage-tap signal and names the tap for the heatmap. |
+| `core/widgets/tap_heatmap_listener.dart` | Mounts the recorder over the whole app, from `MaterialApp.builder`. |
+| `features/settings/.../tap_heatmap_page.dart` | Debug-only view of this device's own captured taps. |
 | `core/routes/current_screen.dart` | Resolves the current `AppPage` name for event attribution. |
 | `core/utils/base_notifier.dart` | Emits `error_shown` — every controller funnels its failures through here. |
 | `features/settings/domain/models/privacy_settings.dart` | The two consent answers. |
@@ -133,6 +144,46 @@ The splash is therefore never recorded. That is a feature.
 
 ---
 
+## Tap heatmap
+
+PostHog has no heatmap on Flutter. Theirs is built on `posthog-js` autocapture
+over the DOM, and [posthog-flutter#68](https://github.com/PostHog/posthog-flutter/issues/68)
+has been open since 2024. So `element_tapped` is ours: **one** event carrying
+both the semantic target and the position, which lets PostHog rank controls by
+`target` with no tooling at all, while the coordinates ride along for a map.
+
+**A coordinate knows what it hit because of hit-test order.** Flutter dispatches
+`handleEvent` along the hit-test path innermost first, so a `TapProbe` deep in
+the tree records its target *before* `TapHeatmapListener` at the root sees the
+same pointer, and the recorder pairs them by pointer id. A tap that reached no
+probe is reported as `none`, deliberately: a tap on something the person
+believed was a control is the finding, not the noise. The pairing is proved in
+`test/flows/analytics_flow_test.dart` — if that ordering ever changes, every
+coordinate arrives anonymous, and that test is what says so.
+
+**The listener is mounted from `MaterialApp.builder`, not above the app.** The
+size a position is normalized against comes from `MediaQuery`, which
+`WidgetsApp` inserts below itself; wrapping from outside leaves nothing to
+measure. The test harness mirrors this, and must: a `_TestApp` without the
+builder measures nothing, and every flow test would quietly agree that nothing
+was captured.
+
+**Two ceilings, because a tap is not a considered action.** The session is
+sampled in once by `TapHeatmapPolicy`, and capture stops at
+`heatmap_max_events_session` — without it one person scrolling a long list is
+worth hundreds of events. Unlike the replay switches, an unresolved
+`heatmap_enabled` reads as **off**: those are operational switches for something
+already running, this one has never been on, and a failed fetch must not be what
+turns it on for the first time.
+
+**The debug page shows this device, never your users.** Aggregating across
+people needs a PostHog personal API key with read scope, which cannot ship in a
+client — the `POSTHOG_API_KEY` in `.env.*` only writes. Menu → Debug → Tap
+heatmap draws the session's own points, to prove capture works at all; the
+analysis itself is a HogQL query on `screen` + `target`.
+
+---
+
 ## Adding an event
 
 1. Add a value to `AnalyticsEvent` with its parameters in the doc comment. Set
@@ -175,10 +226,22 @@ Until these are done the funnels stay empty:
   Use **two separate PostHog projects**, staging and production — test data in a
   production project contaminates funnels, retention and the replay quota
   irreversibly.
-- The six Remote Config keys: `analytics_enabled`, `replay_enabled`,
-  `replay_sample_new_users`, `replay_sample_returning`, `replay_on_friction`,
-  `replay_new_user_days`.
-- Mark `login_completed`, `setup_completed`, `first_service_created` and
-  `subscription_started` as conversion events in Firebase.
+- The eight Remote Config keys: `replay_enabled`, `replay_sample_new_users`,
+  `replay_sample_returning`, `replay_on_friction`, `replay_new_user_days`,
+  `heatmap_enabled`, `heatmap_sample_percent`, `heatmap_max_events_session`.
+  `heatmap_enabled` ships defaulting to **off** — no tap is captured until it
+  is created and switched on in the console.
+
+  There is deliberately no remote switch for events themselves: the two halves
+  that can cost money or privacy carry their own, and the rest stops at the
+  user's opt-out.
+- The seven `isKey` events reach Firebase: `login_completed`, `setup_completed`,
+  `first_service_created`, `currency_migration_confirmed`,
+  `subscription_started`, `paywall_shown` and `subscribe_tapped`. Mark the
+  purchase ones as conversions; `paywall_shown` counts everyone who merely saw
+  the screen, so it builds an audience but would inflate a conversion.
+- Register `source`, `limit_type`, `tier` and `is_trial_eligible` as custom
+  dimensions, or the two paywall events arrive unsliceable. Dimensions do not
+  backfill, so anything collected before the registration stays invisible to it.
 - Enable **Record user sessions** in the PostHog project settings. Without it
   every replay API in this folder is inert.

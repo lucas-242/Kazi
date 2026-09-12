@@ -11,8 +11,8 @@ part of 'hint_controller.dart';
 /// Decides whether a contextual hint may appear, and remembers that it did.
 ///
 /// Three rules, all from experience with hints that outstay their welcome:
-/// they wait for the opening's interruptions to be over, **at most one per
-/// session** is shown, and "Got it" means never again.
+/// they wait for the opening's interruptions to be over, **only one is up at a
+/// time**, and "Got it" means never again.
 
 @ProviderFor(HintController)
 const hintControllerProvider = HintControllerProvider._();
@@ -20,15 +20,15 @@ const hintControllerProvider = HintControllerProvider._();
 /// Decides whether a contextual hint may appear, and remembers that it did.
 ///
 /// Three rules, all from experience with hints that outstay their welcome:
-/// they wait for the opening's interruptions to be over, **at most one per
-/// session** is shown, and "Got it" means never again.
+/// they wait for the opening's interruptions to be over, **only one is up at a
+/// time**, and "Got it" means never again.
 final class HintControllerProvider
     extends $NotifierProvider<HintController, void> {
   /// Decides whether a contextual hint may appear, and remembers that it did.
   ///
   /// Three rules, all from experience with hints that outstay their welcome:
-  /// they wait for the opening's interruptions to be over, **at most one per
-  /// session** is shown, and "Got it" means never again.
+  /// they wait for the opening's interruptions to be over, **only one is up at a
+  /// time**, and "Got it" means never again.
   const HintControllerProvider._()
     : super(
         from: null,
@@ -56,13 +56,13 @@ final class HintControllerProvider
   }
 }
 
-String _$hintControllerHash() => r'3568cfddf815479e24aa5f4cddd897a569e458c4';
+String _$hintControllerHash() => r'23dfbd36a550ad6e868e689819f1f2e8335099e8';
 
 /// Decides whether a contextual hint may appear, and remembers that it did.
 ///
 /// Three rules, all from experience with hints that outstay their welcome:
-/// they wait for the opening's interruptions to be over, **at most one per
-/// session** is shown, and "Got it" means never again.
+/// they wait for the opening's interruptions to be over, **only one is up at a
+/// time**, and "Got it" means never again.
 
 abstract class _$HintController extends $Notifier<void> {
   void build();

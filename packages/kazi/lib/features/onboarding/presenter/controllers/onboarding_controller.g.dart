@@ -58,7 +58,7 @@ final class OnboardingControllerProvider
 }
 
 String _$onboardingControllerHash() =>
-    r'084b0a50d11a1e6142f78dfe2f77a8484b2784ce';
+    r'29afeb0566bb32e226e7c28d103f546082a01448';
 
 /// Decides which onboarding treatment the signed-in account gets.
 ///

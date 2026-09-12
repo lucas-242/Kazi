@@ -181,6 +181,11 @@ class SettingsOptions extends ConsumerWidget {
                 icon: Icons.palette_outlined,
               ),
               SettingsOptionButton(
+                onTap: () => KaziNavigator.push(AppPage.tapHeatmap),
+                text: 'Tap heatmap',
+                icon: Icons.blur_on,
+              ),
+              SettingsOptionButton(
                 onTap: () => _resetOnboarding(ref),
                 text: 'Reset onboarding',
                 icon: Icons.restart_alt,

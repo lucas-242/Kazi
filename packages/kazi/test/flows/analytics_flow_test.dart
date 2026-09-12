@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kazi/core/routes/app_pages.dart';
+import 'package:kazi/core/services/data/analytics/tap_heatmap_policy.dart';
 import 'package:kazi/core/services/domain/analytics_event.dart';
+import 'package:kazi/injector.dart';
 import 'package:kazi/features/services/presenter/controllers/service_form_controller.dart';
 import 'package:kazi_core/kazi_core.dart'
     hide Service, CatalogItem, CatalogItemRepository;
@@ -228,6 +230,62 @@ void main() {
       app.fakes.analytics.events,
       isNot(contains(AnalyticsEvent.serviceCreated)),
       reason: 'a blocked creation is not a creation',
+    );
+  });
+
+  testWidgets('a tap on a probed control carries its target and position', (
+    tester,
+  ) async {
+    final app = TestAppHarness();
+    await app.seedCatalogItem(name: 'Haircut');
+    await app.pump(tester);
+
+    // The bootstrap that would roll the session in is stubbed out under test.
+    app.container
+        .read(tapHeatmapRecorderProvider)
+        .applySampling(
+          const TapHeatmapPolicy.raw(
+            isEnabled: true,
+            samplePercent: 100,
+            maxEventsPerSession: 300,
+          ),
+        );
+
+    await openTheForm(tester, app);
+
+    await tester.tap(
+      find.descendant(
+        of: find.byType(KaziFormFooter),
+        matching: find.text(KaziLocalizations.current.registerService),
+      ),
+    );
+    await settle(tester);
+
+    final taps = app.fakes.analytics.logged
+        .where((entry) => entry.event == AnalyticsEvent.elementTapped)
+        .map((entry) => entry.parameters)
+        .toList();
+
+    expect(
+      taps.map((parameters) => parameters['target']),
+      contains('save_service'),
+      reason: 'the probe has to reach the recorder before the root listener '
+          'does, or every coordinate arrives anonymous and the map can only '
+          'ever show where people touched, never what they touched',
+    );
+
+    final save = taps.firstWhere(
+      (parameters) => parameters['target'] == 'save_service',
+    );
+    expect(save['screen'], AppPage.addServices.name);
+    expect(save['x'], isA<double>());
+    expect(save['y'], isA<double>());
+
+    // Opening the form took taps of its own, and those hit no probe.
+    expect(
+      taps.map((parameters) => parameters['target']),
+      contains('none'),
+      reason: 'a tap that reached no control is the interesting half',
     );
   });
 }

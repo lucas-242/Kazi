@@ -81,9 +81,8 @@ final class RemoteConfigAppUpdateService implements AppUpdateService {
     return AppUpdateStatus.upToDate;
   }
 
-  String _storeUrl() => Platform.isIOS
-      ? _remoteConfig.getString(Environment.iosStoreUrl)
-      : _remoteConfig.getString(Environment.androidStoreUrl);
+  String _storeUrl() =>
+      Platform.isIOS ? Environment.iosStoreUrl : Environment.androidStoreUrl;
 
   List<WhatsNewEntry> _parseWhatsNew({required String currentVersion}) {
     try {

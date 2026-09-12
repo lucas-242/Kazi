@@ -5,6 +5,7 @@ import 'package:kazi/features/settings/presenter/pages/billing_cycle_page.dart';
 import 'package:kazi/features/settings/presenter/pages/currency_migration_page.dart';
 import 'package:kazi/features/settings/presenter/pages/privacy_policy_page.dart';
 import 'package:kazi/features/settings/presenter/pages/settings_page.dart';
+import 'package:kazi/features/settings/presenter/pages/tap_heatmap_page.dart';
 import 'package:kazi/core/routes/app_pages.dart';
 import 'package:kazi_core/kazi_core.dart';
 
@@ -22,11 +23,16 @@ abstract final class SettingsRoutes {
       // Debug only: the token gallery is a development tool, not a feature.
       // Registering it conditionally keeps it out of release builds entirely
       // rather than merely hiding its entry point.
-      if (kDebugMode)
+      if (kDebugMode) ...[
         GoRoute(
           path: 'design-tokens',
           builder: (_, _) => const KaziThemeGalleryPage(),
         ),
+        GoRoute(
+          path: 'tap-heatmap',
+          builder: (_, _) => const TapHeatmapPage(),
+        ),
+      ],
     ],
   );
 

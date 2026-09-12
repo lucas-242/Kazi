@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kazi/core/services/data/analytics/analytics_route_reporter.dart';
+import 'package:kazi/core/widgets/tap_heatmap_listener.dart';
 import 'package:kazi/features/settings/settings.dart';
 import 'package:kazi/injector.dart';
 import 'package:kazi_core/kazi_core.dart'
@@ -84,7 +85,7 @@ class App extends ConsumerWidget {
         routerConfig: router,
         builder: (context, child) => AnnotatedRegion<SystemUiOverlayStyle>(
           value: context.colors.overlayOn(context.colors.background),
-          child: child!,
+          child: TapHeatmapListener(child: child!),
         ),
       ),
     );

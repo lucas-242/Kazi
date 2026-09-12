@@ -49,8 +49,6 @@ Future<void> appBootstrap(Ref ref) async {
     ref,
   );
 
-  // After the fetch: the sampling percentages and both kill switches live in
-  // Remote Config. That ordering is why this is not in `main()`.
   await _guard('AnalyticsBootstrap', () => _startAnalytics(ref), ref);
 
   await ads;
@@ -74,23 +72,28 @@ Future<void> _initializeAds() async {
   await MobileAds.instance.initialize();
 }
 
-/// Opens the telemetry tap, once the two things it depends on are known: what
-/// the user consented to, and what the console currently allows.
+/// Opens the telemetry tap, once the thing it depends on is known: what the
+/// user consented to.
 Future<void> _startAnalytics(Ref ref) async {
   final bootstrap = ref.read(analyticsBootstrapProvider);
   final privacy = await ref.read(privacyControllerProvider.future);
-  final remotelyEnabled = ref.read(isAnalyticsRemotelyEnabledProvider);
 
   await bootstrap.applyConsent(
-    analyticsAllowed: privacy.isAnalyticsAllowed && remotelyEnabled,
+    analyticsAllowed: privacy.isAnalyticsAllowed,
     replayAllowed: privacy.isReplayAllowed,
   );
 
   await bootstrap.applySampling(
     policy: ref.read(sessionReplayPolicyProvider),
-    replayAllowed: privacy.isReplayAllowed && remotelyEnabled,
+    replayAllowed: privacy.isReplayAllowed,
     accountAgeDays: _accountAgeDays(ref),
   );
+
+  if (privacy.isAnalyticsAllowed) {
+    ref
+        .read(tapHeatmapRecorderProvider)
+        .applySampling(ref.read(tapHeatmapPolicyProvider));
+  }
 
   // Reading them is what starts them: keepAlive listeners with no other
   // subscriber. `analyticsRouteReporterProvider` is deliberately absent — it
@@ -108,9 +111,7 @@ void analyticsConsentSync(Ref ref) {
     final settings = next.asData?.value;
     if (settings == null) return;
 
-    final allowed =
-        settings.isAnalyticsAllowed &&
-        ref.read(isAnalyticsRemotelyEnabledProvider);
+    final allowed = settings.isAnalyticsAllowed;
 
     unawaited(
       ref

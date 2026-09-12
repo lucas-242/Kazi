@@ -21,12 +21,6 @@
       "description": "Liga o Replay para Fricções no app (momentos onde usuários ficam travados)",
       "valueType": "BOOLEAN"
     },
-    "analytics_enabled": {
-      "defaultValue": {
-        "value": "true"
-      },
-      "valueType": "BOOLEAN"
-    },
     "replay_enabled": {
       "defaultValue": {
         "value": "true"
@@ -35,7 +29,7 @@
     },
     "replay_sample_returning": {
       "defaultValue": {
-        "value": "20"
+        "value": "10"
       },
       "description": "Porcentagem (0-100) de sessões salvar para os usuários que não são novos",
       "valueType": "NUMBER"
@@ -59,7 +53,7 @@
         "value": "3"
       },
       "description": "Frequência que um banner de propaganda será mostrado em uma lista",
-      "valueType": "STRING"
+      "valueType": "NUMBER"
     },
     "min_required_version": {
       "defaultValue": {
@@ -81,11 +75,32 @@
       },
       "description": "Porcentagem (0–100) de sessões salvas por conta mais novas que [replay_new_user_days]",
       "valueType": "NUMBER"
+    },
+    "heatmap_enabled": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "description": "Ativa ou desativa o heatmap de cliques",
+      "valueType": "BOOLEAN"
+    },
+    "heatmap_sample_percent": {
+      "defaultValue": {
+        "value": "5"
+      },
+      "description": "Porcentagem (0-100) de eventos de clique que serão coletados para o heatmap",
+      "valueType": "NUMBER"
+    },
+    "heatmap_max_events_session": {
+      "defaultValue": {
+        "value": "150"
+      },
+      "description": "Número máximo de eventos de clique que serão coletados por sessão para o heatmap",
+      "valueType": "NUMBER"
     }
   },
   "version": {
-    "versionNumber": "4",
-    "updateTime": "2026-09-02T12:10:18.693515Z",
+    "versionNumber": "5",
+    "updateTime": "2026-11-09T12:10:18.693515Z",
     "updateUser": {
       "email": "guimaraeslucas242@gmail.com"
     },

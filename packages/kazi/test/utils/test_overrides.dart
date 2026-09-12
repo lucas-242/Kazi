@@ -1,5 +1,6 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:kazi/core/services/data/analytics/session_replay_policy.dart';
+import 'package:kazi/core/services/data/analytics/tap_heatmap_policy.dart';
 import 'package:kazi/core/services/data/ads/banner_ad_policy.dart';
 import 'package:kazi/features/settings/domain/models/privacy_settings.dart';
 import 'package:kazi/features/settings/presenter/controllers/privacy_controller.dart';
@@ -103,6 +104,16 @@ class TestFakes {
         newUserSamplePercent: 0,
         returningSamplePercent: 0,
         newUserDays: 7,
+      ),
+    ),
+    // The recorder only captures once something rolls it in, and the bootstrap
+    // that would is stubbed out under test. This keeps that true even if the
+    // policy is ever read directly: `stubRemoteConfig` answers nothing useful.
+    tapHeatmapPolicyProvider.overrideWithValue(
+      const TapHeatmapPolicy.raw(
+        isEnabled: false,
+        samplePercent: 0,
+        maxEventsPerSession: 0,
       ),
     ),
     privacyControllerProvider.overrideWith(

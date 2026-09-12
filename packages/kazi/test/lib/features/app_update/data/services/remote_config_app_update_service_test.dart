@@ -28,12 +28,6 @@ void main() {
     when(
       remoteConfig.getString(RemoteConfigKeys.latestVersion),
     ).thenReturn(latest);
-    when(
-      remoteConfig.getString(Environment.androidStoreUrl),
-    ).thenReturn('https://store/android');
-    when(
-      remoteConfig.getString(Environment.iosStoreUrl),
-    ).thenReturn('https://store/ios');
   }
 
   setUp(() {
@@ -82,6 +76,20 @@ void main() {
     final info = await service.checkForUpdate();
 
     expect(info.status, AppUpdateStatus.mandatory);
+  });
+
+  test('carries the store url the mandatory screen sends people to', () async {
+    stubVersions(minRequired: '1.3.0', latest: '1.4.0');
+
+    final info = await service.checkForUpdate();
+
+    expect(
+      info.storeUrl,
+      anyOf(Environment.androidStoreUrl, Environment.iosStoreUrl),
+      reason: 'the url is a constant in the app, not a Remote Config key. '
+          'Reading it as one answers with an empty string, and the screen '
+          'nobody can leave gets a button that goes nowhere',
+    );
   });
 
   test('fail-open: returns upToDate and logs when fetch throws', () async {

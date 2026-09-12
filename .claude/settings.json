@@ -95,7 +95,8 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(xargs -n1 basename)",
-      "Bash(git diff *)"
+      "Bash(git diff *)",
+      "Bash(python3 -c \"import json;d=json.load\\(open\\('firebase_remote_config.json'\\)\\);print\\('ok —', len\\(d['parameters']\\), 'parametros:', ', '.join\\(sorted\\(d['parameters']\\)\\)\\)\")"
     ],
     "additionalDirectories": [
       "/tmp",

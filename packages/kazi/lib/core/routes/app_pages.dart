@@ -22,7 +22,8 @@ enum AppPage implements KaziPage {
   billingCycle('/settings/billing-cycle', 3),
   howToUse('/settings/how-to-use', 3),
   privacyPolicy('/settings/privacy-policy', 3),
-  themeGallery('/settings/design-tokens', 3);
+  themeGallery('/settings/design-tokens', 3),
+  tapHeatmap('/settings/tap-heatmap', 3);
 
   const AppPage(this.route, this.pageIndex);
 

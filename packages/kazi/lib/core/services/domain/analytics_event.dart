@@ -133,13 +133,13 @@ enum AnalyticsEvent {
   limitReached('limit_reached'),
 
   /// `source` — limit / menu — plus `limit_type`, `tier`, `is_trial_eligible`
-  paywallShown('paywall_shown'),
+  paywallShown('paywall_shown', isKey: true),
 
   /// `seconds`, `source`
   paywallDismissed('paywall_dismissed'),
 
   /// `is_trial_eligible`
-  subscribeTapped('subscribe_tapped'),
+  subscribeTapped('subscribe_tapped', isKey: true),
 
   /// `is_trial`
   subscriptionStarted('subscription_started', isKey: true),
@@ -155,6 +155,13 @@ enum AnalyticsEvent {
   interstitialShown('interstitial_shown'),
 
   interstitialLoadFailed('interstitial_load_failed'),
+
+  // Interaction shape
+
+  /// `screen`, `target` — `none` when the tap reached no [TapProbe] — plus `x`
+  /// and `y` normalized to the surface, and `w_bucket`. Sampled per session and
+  /// capped; see `data/analytics/README.md`.
+  elementTapped('element_tapped'),
 
   // Errors and friction
 
